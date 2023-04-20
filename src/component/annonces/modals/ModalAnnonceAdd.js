@@ -2,7 +2,7 @@ import React from 'react'
 import { typeProfile, typeStatut } from '../../../config/ListApi'
 import { useState } from 'react';
 
-const ModalOffreAdd = () => {
+const ModalAnnonceAdd = () => {
     const [nameoffre, setnameoffre] = useState("");
 
 
@@ -15,10 +15,9 @@ const ModalOffreAdd = () => {
                         <div class="card p-3 p-lg-5">
                             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h4"> Proposer une offre </h1>
+                                <h1 class="mb-0 h4"> Lancer une annonce </h1>
                             </div>
                             <form action="#" class="mt-4">
-
                                 <div class="form-group">
                                     <div class="form-group mb-4">
                                         <label for="username">Titre de l{"'"}offre</label>
@@ -126,7 +125,7 @@ const ModalOffreAdd = () => {
 
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-gray-800">Ajouter cet membre</button>
+                                    <button type="submit" class="btn btn-gray-800"> Poster</button>
                                 </div>
                             </form>
                         </div>
@@ -137,4 +136,4 @@ const ModalOffreAdd = () => {
     )
 }
 
-export default ModalOffreAdd;
+export default ModalAnnonceAdd;

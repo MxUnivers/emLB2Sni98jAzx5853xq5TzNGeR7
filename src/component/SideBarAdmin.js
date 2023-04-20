@@ -100,6 +100,13 @@ const SideBarAdmin = () => {
                                         <span class="sidebar-text">{itemsSidebar.managerOffres}</span>
                                     </a>
                                 </li>
+                                {/* Gestion des annonces */}
+                                <li class="nav-item">
+                                    <a class="nav-link" 
+                                        href={`/${routing.annoncelist.path}`}>
+                                        <span class="sidebar-text">{itemsSidebar.managerAnnonces}</span>
+                                    </a>
+                                </li>
 
                             </ul>
                         </div>

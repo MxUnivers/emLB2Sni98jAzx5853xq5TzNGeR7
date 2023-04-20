@@ -6,6 +6,7 @@ import { routing } from './config/routing';
 import UserListPage from './pages/users/UserListPage';
 import MemberListPage from './pages/membres/MemberListPage';
 import OffreListPage from './pages/offres/OffreListPage';
+import AnnonceListPage from './pages/annonces/AnnonceListPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route  path={`${routing.userslist.path}`} element={<UserListPage/>} />
             <Route  path={`${routing.memberlist.path}`} element={<MemberListPage/>} />
             <Route  path={`${routing.offrelist.path}`} element={<OffreListPage/>} />
+            <Route  path={`${routing.annoncelist.path}`} element={<AnnonceListPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>
