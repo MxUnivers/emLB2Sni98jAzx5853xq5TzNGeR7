@@ -1,12 +1,12 @@
 import React from 'react'
 
-const ModalMemberAnnonces = () => {
+const ModalOffreMembers = () => {
   return (
     <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="h6 modal-title">Listes des annonces</h2>
+            <h2 class="h6 modal-title">Listes personnes qui ont postuler</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -15,7 +15,7 @@ const ModalMemberAnnonces = () => {
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Annonces <span class="bg-danger rounded p-1">3</span>
+                    Nom des personnes <span class="bg-danger rounded p-1">3</span>
                   </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -37,4 +37,4 @@ const ModalMemberAnnonces = () => {
   )
 }
 
-export default ModalMemberAnnonces;
+export default ModalOffreMembers;

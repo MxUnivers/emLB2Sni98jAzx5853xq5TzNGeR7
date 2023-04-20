@@ -7,5 +7,9 @@ export const routing = {
     memberlist:
     {
         path:"listes-des-membres-de-la-plateforme"
+    },
+    offrelist:
+    {
+        path:"lists-des-offres-de-la-plateforme"
     }
 };

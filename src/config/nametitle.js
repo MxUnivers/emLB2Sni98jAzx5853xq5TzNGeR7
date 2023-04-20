@@ -3,5 +3,7 @@ export const itemsSidebar = {
     message:"Message recus",
     managerUser:"Utilisateurs",
     managerProfile:"Profiles",
+    managerOffres:"Offres",
     managerMembers:"Membres"
 }
+

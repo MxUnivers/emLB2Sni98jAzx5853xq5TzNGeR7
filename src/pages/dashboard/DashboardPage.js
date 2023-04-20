@@ -152,7 +152,7 @@ const DashboardPage = () => {
             <div class="row">
                 <div class="col-12 col-xl-8">
                     <div class="row">
-                        <div class="col-12 mb-4">
+                        <div class="c   ol-12 mb-4">
                             <div class="card border-0 shadow">
                                 <div class="card-header">
                                     <div class="row align-items-center">

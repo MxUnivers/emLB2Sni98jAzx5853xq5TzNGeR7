@@ -78,18 +78,29 @@ const SideBarAdmin = () => {
                         <div class="multi-level collapse " role="list"
                             id="submenu-components" aria-expanded="false">
                             <ul class="flex-column nav">
+
+                                {/* Gestion des utlisateurs */}
                                 <li class="nav-item">
                                     <a class="nav-link" 
                                         href={`/${routing.userslist.path}`}>
                                         <span class="sidebar-text">{itemsSidebar.managerUser}</span>
                                     </a>
                                 </li>
+                                {/* Gestion des membres */}
                                 <li class="nav-item">
                                     <a class="nav-link" 
                                         href={`/${routing.memberlist.path}`}>
                                         <span class="sidebar-text">{itemsSidebar.managerMembers}</span>
                                     </a>
                                 </li>
+                                {/* Gestion des offres */}
+                                <li class="nav-item">
+                                    <a class="nav-link" 
+                                        href={`/${routing.offrelist.path}`}>
+                                        <span class="sidebar-text">{itemsSidebar.managerOffres}</span>
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </li>

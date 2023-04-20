@@ -10,9 +10,9 @@ Interface de gestion de l'application : Cette fonctionnalité permettra à l'adm
       
 
    Etape 1- Les taches à faire
-// gestion des utilisateur de l'application
-// gestion des profils des ulisateurs de la plateforme
-// gestion des offres d'emplois
+// gestion des utilisateur de l'application ok
+// gestion des profils des ulisateurs de la plateforme ok
+// gestion des offres d'emplois 
 // gestion des entreprise, gestions des annonces ,
 // gestion des factures de 
 // gestion de gestion des emplois 
