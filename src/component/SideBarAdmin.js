@@ -108,6 +108,13 @@ const SideBarAdmin = () => {
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a class="nav-link" 
+                                        href={`/${routing.companylist.path}`}>
+                                        <span class="sidebar-text">{itemsSidebar.managerCompany}</span>
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </li>

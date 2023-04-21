@@ -7,6 +7,7 @@ import UserListPage from './pages/users/UserListPage';
 import MemberListPage from './pages/membres/MemberListPage';
 import OffreListPage from './pages/offres/OffreListPage';
 import AnnonceListPage from './pages/annonces/AnnonceListPage';
+import CompanyListPage from './pages/company/CompanyListPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route  path={`${routing.memberlist.path}`} element={<MemberListPage/>} />
             <Route  path={`${routing.offrelist.path}`} element={<OffreListPage/>} />
             <Route  path={`${routing.annoncelist.path}`} element={<AnnonceListPage/>} />
+            <Route  path={`${routing.companylist.path}`} element={<CompanyListPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>

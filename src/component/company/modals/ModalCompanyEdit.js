@@ -2,7 +2,7 @@ import React from 'react'
 
 const ModalCompanyEdit = () => {
     return (
-        <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
+        <div class="modal fade" id="modal-form-signup-edit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">

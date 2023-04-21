@@ -5,6 +5,7 @@ export const itemsSidebar = {
     managerProfile:"Profiles",
     managerOffres:"Offres",
     managerMembers:"Membres",
-    managerAnnonces:"Annonces"
+    managerAnnonces:"Annonces",
+    managerCompany:"Entrerpises",
 }
 
