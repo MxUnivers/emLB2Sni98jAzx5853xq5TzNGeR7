@@ -1,6 +1,10 @@
 import React from 'react'
+import { useState } from 'react';
 
-const ModalCompanyAccess = () => {
+const ModalCompanyAccess = ({id}) => {
+    const handle = ()=>{
+        console.log(id)
+    }
     return (
         <div class="modal fade" id="modal-form-signup-access" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

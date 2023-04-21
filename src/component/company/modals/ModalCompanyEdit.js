@@ -63,7 +63,7 @@ const ModalCompanyEdit = () => {
                                             <textarea type="text" placeholder="Décrivers votre entreprise ....." class="form-control" id="description" required />
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-gray-800">modifier </button>
