@@ -5,7 +5,7 @@ const AdminSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
     password: {
         type: String,
@@ -14,17 +14,17 @@ const AdminSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
     email: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
-    telephone:{
+    telephone: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
     full_name: {
         type: String,
@@ -32,7 +32,7 @@ const AdminSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['super_admin', 'admin',"operateur"],
+        enum: ['super_admin', 'admin', "operateur"],
         required: true
     },
     last_login: {
@@ -43,15 +43,19 @@ const AdminSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    blocked:{
+    blocked: {
         type: Boolean,
         default: false
     },
-    deleted:{
+    deleted: {
         type: Boolean,
         default: false
     }
-});
+},
+    {
+        timestamps: true
+    }
+);
 
 // Créer un modèle pour les administrateurs basé sur le schéma défini
 const AdminModel = mongoose.model('Administrator', AdminSchema);
