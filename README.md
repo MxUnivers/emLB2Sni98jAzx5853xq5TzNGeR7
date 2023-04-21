@@ -13,7 +13,7 @@ Interface de gestion de l'application : Cette fonctionnalité permettra à l'adm
 // gestion des utilisateur de l'application ok
 // gestion des profils des ulisateurs de la plateforme ok
 // gestion des offres d'emplois ok
-// gestion des entreprise, gestions des annonces // Demarage ......
+// gestion des entreprise, gestions des annonces // Demarage ................
 // gestion des factures de 
 // gestion de gestion des emplois 
  

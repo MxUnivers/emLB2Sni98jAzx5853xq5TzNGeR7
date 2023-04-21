@@ -15,5 +15,9 @@ export const routing = {
     annoncelist:
     {
         path:"lists-des-annonces-de-la-plateforme"
+    },
+    companylist:
+    {
+        path:"lists-des-entreprise-de-la-plateforme"
     }
 };
