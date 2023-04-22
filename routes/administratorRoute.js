@@ -1,4 +1,6 @@
-const AdminModel = required("../models/AdminitratorModel.js");
+
+
+const AdminModel = require("../models/AdministratorModel");
 const router = require("express").Router();
 
 const bcrypt = require('bcryptjs');

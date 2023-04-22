@@ -43,6 +43,9 @@ const CandidatSchema = new mongoose.Schema({
     lettre_motivation: {
         type: String
     },
+    token:{
+        type:String,required:false
+    },
     blocked: {
         type: Boolean,
         default: false
