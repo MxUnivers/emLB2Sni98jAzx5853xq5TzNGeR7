@@ -1,25 +1,34 @@
 
-const express =  require("express");
-const  dotenv = require("dotenv");
-const  morgan = require("morgan");
-const  helmet = require("helmet");
-const  cors  =  require("cors");
+const express = require("express");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const helmet = require("helmet");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 dotenv.config();
 
 
 
-const UploadFile = require("./utils/FileUpload");
+// Les Fontion des routes de mpn application 
+const administratorRoute = require("./routes/administratorRoute");
+const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");
+// Cadidat
+const  candidatRoute = require("./routes/candidatRoute");
 
+
+
+
+const UploadFile = require("./utils/FileUpload");
 // connect Mongoose
 const LanchMogoDb = require("./utils/ConnectMongoDb");
+const { AuthorizationMiddleware } = require("./middlewares/Authtoken");
 LanchMogoDb();
 
 
-const app =  express();
+const app = express();
 
 // middlwares de l'application 
-app.use(cors({origin:"*"}));
+app.use(cors({ origin: "*" }));
 app.use(morgan('common'));
 app.use(express.json({ limit: "500mb" }));
 //app.use(express.urlencoded({ limit: "500mb" }));
@@ -34,7 +43,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST ');
-  res.setHeader('Authorization','Bearer Sb5xnq9Gwe4mIlyucQJpi0lCoyn+faar5SRVzAFGDAqZbr6kRROW/');
+  res.setHeader('Authorization', 'Bearer Sb5xnq9Gwe4mIlyucQJpi0lCoyn+faar5SRVzAFGDAqZbr6kRROW/');
   next();
 });
 
@@ -46,15 +55,21 @@ app.post("/uploadImage", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-app.get("/", (req, res) => {
+app.get("/", AuthorizationMiddleware, (req, res) => {
   res.send({
-    article:"Api Portfolio en marche",
+    article: "",
   });
   console.log("api vu ...")
 });
 
-const apiV1 =`/api/v1`;
+const apiV1 = `/api/v1`;
+app.use(`${apiV1}/admimistrator`, administratorRoute);
+app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);
+app.use(`${apiV1}/candidat`,candidatRoute);
 
-app.listen(process.env.PORT, ()=>{
-  console.log("serveur demaré "+process.env.PORT);
+
+
+
+app.listen(process.env.PORT, () => {
+  console.log("serveur demaré " + process.env.PORT);
 })

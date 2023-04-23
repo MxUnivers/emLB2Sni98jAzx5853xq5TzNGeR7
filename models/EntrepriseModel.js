@@ -24,9 +24,12 @@ const EntrepriseSchema = new mongoose.Schema({
   logo: {
     type: String
   },
-  password:{
-    type:String,
-    required:false
+  password: {
+    type: String,
+    required: false
+  },
+  token: {
+    type: String, required: false
   },
   annonces: [{
     annonceID: {
@@ -51,11 +54,14 @@ const EntrepriseSchema = new mongoose.Schema({
       type: String
     }
   },
-  blocked:{
-    type:Boolean,
-    required:false,
-    default:false,
-  }
+  is_active: {
+    type: Boolean,
+    default: false
+  },
+  blocked: {
+    type: Boolean,
+    default: false
+  },
 });
 
 const EntrepriseModel = mongoose.model("Entreprise", EntrepriseSchema);

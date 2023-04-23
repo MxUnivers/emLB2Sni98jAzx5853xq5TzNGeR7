@@ -52,6 +52,7 @@ router.post("/:id", async (req, res) => {
         if (!annonce) { // Si l'annonce n'existe pas, on renvoie une erreur
             return res.status(404).json({ message: "Annonce non trouvée" });
         }
+        annonce.save();
 
         res.json({ message: "Annonce modifiée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce modifiée
     } catch (error) {

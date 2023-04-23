@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
+const dotenv=  require("dotenv");
 const bcrypt = require('bcryptjs');
-const AdminModel = required("../models/AdminitratorModel.js");
+const AdminModel = require("../../models/AdministratorModel");
 const router = require("express").Router();
-
+dotenv.config();
 
 
 
@@ -23,6 +24,8 @@ router.post("/auth_adminstrator", async (req, res) => {
         }
         // Générer un jeton d'authentification
         const token = jwt.sign({ _id: admin._id }, process.env.JWT_SECRET);
+        admin.token =  token;
+        await admin.save();
         // Stocker le jeton dans un cookie HTTP-only sécurisé
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 3600000 });
         // Renvoyer une réponse JSON avec le jeton
@@ -33,3 +36,6 @@ router.post("/auth_adminstrator", async (req, res) => {
     }
 }
 );
+
+
+module.exports = router;

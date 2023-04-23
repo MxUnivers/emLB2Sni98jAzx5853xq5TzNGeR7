@@ -3,18 +3,25 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
+// Authorisation header 
+const AuthorizationMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    return res.status(401).json({ message: "Authorization header missing" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  //"YOUR_FIXED_AUTH_TOKEN"
+  if (token !== process.env.ACCESS_TOKEN_SECRET ) {
+    return res.status(401).json({ message: "Invalid authorization token" });
+  }
+
+  next();
+};
 
 
 
-module.exports = { authenticateToken };
+module.exports = { AuthorizationMiddleware  };

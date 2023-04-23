@@ -9,12 +9,7 @@ const AdminSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
+        required: false
     },
     email: {
         type: String,
@@ -28,7 +23,7 @@ const AdminSchema = new mongoose.Schema({
     },
     full_name: {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,
@@ -46,6 +41,10 @@ const AdminSchema = new mongoose.Schema({
     blocked: {
         type: Boolean,
         default: false
+    },
+    token:{
+        type:String,
+        required:false
     },
     deleted: {
         type: Boolean,
