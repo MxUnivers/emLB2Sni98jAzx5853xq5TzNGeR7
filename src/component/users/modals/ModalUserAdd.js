@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ModalUserAdd = () => {
+    // administrateur de mon application
+    const [user_name, setuser_name] = useState("");
+    const [full_name, setfull_name] = useState("");
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState("");
+    const [role, setrole] = useState("");
+
+
+
+
     return (
         <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

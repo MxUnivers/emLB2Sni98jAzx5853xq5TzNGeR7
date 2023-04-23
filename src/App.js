@@ -8,12 +8,16 @@ import MemberListPage from './pages/membres/MemberListPage';
 import OffreListPage from './pages/offres/OffreListPage';
 import AnnonceListPage from './pages/annonces/AnnonceListPage';
 import CompanyListPage from './pages/company/CompanyListPage';
+import SignUpPage from './pages/sign/SignUpPage';
+import LoginPage from './pages/sign/LoginPage';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+           <Route path={`/${routing.connexion.path}`} element={<LoginPage/>} ></Route>
+           <Route path={`/${routing.signup.path}`} element={<SignUpPage/>} ></Route>
           {/* administrations de mon applications */}
           <Route path={``} element={<LayoutAdmin/>} >
             <Route index path={``} element={<DashboardPage/>} />

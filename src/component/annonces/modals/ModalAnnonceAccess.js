@@ -2,7 +2,7 @@ import React from 'react'
 
 const ModalAnnonceAccess = ({id}) => {
     const handle = ()=>{
-        console.log(id)
+        console.log(id);
     }
     return (
         <div class="modal fade" id="modal-form-signup-access" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
