@@ -27,9 +27,17 @@ const annonceSchema = new Schema({
         type: Number,
         required: true
     },
+    dateDebut:{
+        type:Date,
+        default:Date.now,
+    },
+    dateFin:{
+        type:Date,
+        default:Date.now,
+    },
     candidats: [{
         type: Schema.Types.ObjectId,
-        ref: 'Candidat'
+        ref: 'Candidat',
     }],
     blocked:{
         type:Boolean,

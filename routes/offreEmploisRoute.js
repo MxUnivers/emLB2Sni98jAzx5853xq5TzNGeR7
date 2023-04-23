@@ -1,3 +1,6 @@
+
+
+const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const CandidatModel = require("../models/CandidatModel");
 const OffreEmploiModel = require("../models/OffreEmploiModel")
 const router = require("express").Router();
@@ -8,20 +11,9 @@ const router = require("express").Router();
 
 
 // Ajouter une offre d'emplois
-router.post('/', async (req, res) => {
+router.post('/',AuthorizationMiddleware, async (req, res) => {
     try {
-        const { titre, entreprise, description, lieu, dateDebut, dateFin, salaire } = req.body;
-
-        const nouvelleOffre = new OffreEmploiModel({
-            titre,
-            entreprise,
-            description,
-            lieu,
-            dateDebut,
-            dateFin,
-            salaire,
-            candidats: []
-        });
+        const nouvelleOffre = new OffreEmploiModel(req.body);
 
         const offre = await nouvelleOffre.save();
         res.json({ message: 'Offre d\'emploi créée avec succès', offre });
@@ -34,21 +26,34 @@ router.post('/', async (req, res) => {
 
 
 
-// Fontion pour modifier une offre d'emplois
-router.put('/:id', async (req, res) => {
-    try {
-        const { titre, entreprise, description, lieu, dateDebut, dateFin, salaire } = req.body;
-        const offre = await OffreEmploi.findByIdAndUpdate(req.params.id, {
-            titre,
-            entreprise,
-            description,
-            lieu,
-            dateDebut,
-            dateFin,
-            salaire
-        }, { new: true });
 
+
+// Fontion pour modifier une offre d'emplois
+router.put('/edit/:id',AuthorizationMiddleware, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const offreExist = await OffreEmploiModel.findById({ _id: id });
+        if (!offreExist) {
+            return await res.json({ message: "Offre indisponible" });
+        }
+        const offre = await OffreEmploiModel.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+        await offre.save();
         res.json({ message: 'Offre d\'emploi mise à jour avec succès', offre });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });
+    }
+});
+
+
+
+
+
+// Fontion Recupérer la liste de l'offre d'emplois
+router.get('/get_offres',AuthorizationMiddleware, async (req, res) => {
+    try {
+        const offre = await OffreEmploiModel.find({});
+        await res.json({ message: "Offre d'emplois recupérer", offre });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });
@@ -62,7 +67,7 @@ router.put('/:id', async (req, res) => {
 
 
 // Fonction pour ajouter un candidats à une offre d'emplois
-router.post("/:offreId/candidats", async (req, res) => {
+router.post("/:offreId/candidats",AuthorizationMiddleware, async (req, res) => {
     try {
         const { nom, email, cv } = req.body;
         const candidat = new CandidatModel({
@@ -87,14 +92,53 @@ router.post("/:offreId/candidats", async (req, res) => {
 
 
 
+
+
 // Fonction pour bloquer une offre d'emplois
-router.delete('/:id', async (req, res) => {
+router.put('/blocked/:id',AuthorizationMiddleware, async (req, res) => {
     try {
-      await OffreEmploiModel.findByIdAndDelete(req.params.id);
-      res.json({ message: 'Offre d\'emploi supprimée avec succès' });
+        const id = req.params.id;
+        const offreEmploiExist = await OffreEmploiModel.findById({_id:id});
+        if (!offreEmploiExist) {
+            res.json({ message: "Offre d'emplois indisponnible" });
+        }
+        const offreEmploi = await OffreEmploiModel.findById({_id:id});
+        offreEmploi.blocked =  true;
+        res.json({ message: "Offre d'emplois Bloquer",offreEmploi });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Une erreur s\'est produite lors de la suppression de l\'offre d\'emploi' });
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur s\'est produite lors de la suppression de l\'offre d\'emploi' });
     }
-  });
-  
+});
+
+
+
+
+
+
+// Fonction pour Débloquer une offre d'emplois
+router.put('/unblocked/:id',AuthorizationMiddleware, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const offreEmploiExist = await OffreEmploiModel.findById({_id:id});
+        if (!offreEmploiExist) {
+            res.json({ message: "Offre d'emplois indisponnible" });
+        }
+        const offreEmploi = await OffreEmploiModel.findById({_id:id});
+        offreEmploi.blocked =  false;
+        res.json({ message: "Offre d'emplois Débloquer ",offreEmploi });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur s\'est produite lors de la suppression de l\'offre d\'emploi' });
+    }
+});
+
+
+
+
+
+
+module.exports =  router;
+
+
+

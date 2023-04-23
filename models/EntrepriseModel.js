@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const EntrepriseSchema = new mongoose.Schema({
-  nom: {
+  full_name: {
     type: String,
     required: true
   },
@@ -23,6 +23,9 @@ const EntrepriseSchema = new mongoose.Schema({
   },
   logo: {
     type: String
+  },
+  pays:{
+    type:String,
   },
   password: {
     type: String,

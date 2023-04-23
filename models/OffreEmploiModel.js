@@ -16,11 +16,12 @@ const offreEmploiSchema = new mongoose.Schema(
     entreprise: { type: String, required: true },
     description: { type: String, required: true },
     lieu: { type: String, required: true },
-    dateDebut: { type: Date, required: true },
-    dateFin: { type: Date, required: true },
+    dateDebut: { type: Date,default:Date.now, required: true },
+    dateFin: { type: Date,default:Date.now, required: true },
     salaire: { type: Number },
     candidats: [candidatSchema],
-    bloked: { type: Boolean, default: false }
+    competences:[String],
+    blocked: { type: Boolean, default: false }
   },
   { timestamps: true }
 )

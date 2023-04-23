@@ -14,6 +14,13 @@ const administratorRoute = require("./routes/administratorRoute");
 const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");
 // Cadidat
 const  candidatRoute = require("./routes/candidatRoute");
+// Entreprises
+const  entrepriseRoute = require("./routes/entrerpriseRoute");
+// Annonces
+const  annonceRoute =  require("./routes/AnnonceRoute");
+// Offres d"emplois
+const  offreEmploisRoute =  require("./routes/offreEmploisRoute");
+
 
 
 
@@ -66,6 +73,9 @@ const apiV1 = `/api/v1`;
 app.use(`${apiV1}/admimistrator`, administratorRoute);
 app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);
 app.use(`${apiV1}/candidat`,candidatRoute);
+app.use(`${apiV1}/entreprise`,entrepriseRoute);
+app.use(`${apiV1}/annonce`,annonceRoute);
+app.use(`${apiV1}/offre`,offreEmploisRoute);
 
 
 

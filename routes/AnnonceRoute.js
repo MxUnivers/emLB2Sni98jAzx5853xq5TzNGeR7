@@ -1,24 +1,13 @@
 const router = require("express").Router();
+const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const CandidatModel = require("../models/CandidatModel");
 
 
 
-router.post("/", async (req, res) => {
+router.post("/", AuthorizationMiddleware, async (req, res) => {
     try {
-        const { titre, entreprise, description, lieu, dateDebut, dateFin, salaire } = req.body; // Récupération des données de l'annonce depuis le corps de la requête
-
-        const nouvelleAnnonce = new AnnonceModel({ // Création d'une nouvelle instance du modèle Annonce avec les données récupérées
-            titre,
-            entreprise,
-            description,
-            lieu,
-            dateDebut,
-            dateFin,
-            salaire,
-            candidats: [] // Initialisation de la liste des candidats à vide
-        });
-
+        const nouvelleAnnonce = new AnnonceModel(req.body);
         const annonce = await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base de données
 
         res.json({ message: "Annonce créée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce créée
@@ -35,26 +24,17 @@ router.post("/", async (req, res) => {
 
 
 // Fonction pour modifier l'annonce 
-router.post("/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
     try {
-        const { titre, entreprise, description, lieu, dateDebut, dateFin, salaire } = req.body; // Récupération des données de l'annonce depuis le corps de la requête
-
-        const annonce = await AnnonceModel.findByIdAndUpdate(req.params.id, { // Recherche de l'annonce à modifier en utilisant son ID et mise à jour des données
-            titre,
-            entreprise,
-            description,
-            lieu,
-            dateDebut,
-            dateFin,
-            salaire
-        }, { new: true }); // Utilisation de l'option { new: true } pour renvoyer la version modifiée de l'annonce
-
-        if (!annonce) { // Si l'annonce n'existe pas, on renvoie une erreur
+        const  id  = req.params.id;
+        // Récupération des données de l'annonce depuis le corps de la requête
+        const annonceExist = await AnnonceModel.findById({ _id: id })
+        if (!annonceExist) { // Si l'annonce n'existe pas, on renvoie une erreur
             return res.status(404).json({ message: "Annonce non trouvée" });
         }
-        annonce.save();
-
-        res.json({ message: "Annonce modifiée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce modifiée
+        const annonce = await AnnonceModel.findByIdAndUpdate({ _id: id }, req.body, { new: true }); // Utilisation de l'option { new: true } pour renvoyer la version modifiée de l'annonce
+        await annonce.save();
+        await res.json({ message: "Annonce modifiée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce modifiée
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Une erreur s'est produite lors de la modification de l'annonce" }); // Réponse avec un message d'erreur en cas d'échec de la modification de l'annonce
@@ -64,12 +44,30 @@ router.post("/:id", async (req, res) => {
 
 
 
+// Fonction Pour recupérer toutes les annoces
+// Fonction pour récuprer les informations sur l'annonce par son Id
+router.get("/get_annonces", async (req, res) => {
+    try {
+        const annonce = await AnnonceModel.find({});
+        res.json(
+            {
+                message: "Annonce récupérer", data: annonce
+            }
+        )
+    } catch (error) {
+        res.status(404).json({ message: error })
+    }
+})
+
+
+
 
 
 // Fonction pour récuprer les informations sur l'annonce par son Id
-router.get("/:id", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
     try {
-        const annonce = await AnnonceModel.findById({ _id: req.params.id });
+        const  id  =  req.params.id;
+        const annonce = await AnnonceModel.findOne({ _id: id });
         res.json(
             {
                 message: "Annonce récupérer", data: annonce
@@ -85,8 +83,9 @@ router.get("/:id", async (req, res) => {
 
 
 
+
 // fonction pour ajouter un canddidat à une annonce
-router.post('/:id/candidat/:candidatId', async (req, res) => {
+router.patch('/get/:id/candidat/:candidatId', async (req, res) => {
     const { id, candidatId } = req.params;
 
     try {
@@ -115,7 +114,7 @@ router.post('/:id/candidat/:candidatId', async (req, res) => {
 
 
 // Supprimer un candidat d'une annonce
-router.patch('/annonce/:id/retirer-candidat/:candidatId', async (req, res) => {
+router.patch('/get/:id/retirer-candidat/:candidatId', async (req, res) => {
     try {
         const annonceId = req.params.id;
         const candidatId = req.params.candidatId;
@@ -143,12 +142,14 @@ router.patch('/annonce/:id/retirer-candidat/:candidatId', async (req, res) => {
 
 
 // Fonction pour bloquer une annonce
-router.put("/:id/blocked", async (req, res) => {
+router.put("/blocked/:id", async (req, res) => {
     try {
-        const annonce = await AnnonceModel.findByIdAndUpdate(req.params.id, { blocked: true });
+        const  id  =  req.params.id
+        const annonce = await AnnonceModel.findByIdAndUpdate({_id:id});
         if (!annonce) {
             return res.status(404).json({ message: "Annonce introuvable" });
         }
+        annonce.blocked =  true;
         await annonce.save();
         res.json({ message: "Annonce bloquée avec succès", annonce });
     } catch (error) {
@@ -162,12 +163,14 @@ router.put("/:id/blocked", async (req, res) => {
 
 
 // Fonction pour Débloquer une annonce
-router.put("/:id/unblocked", async (req, res) => {
+router.put("/unblocked/:id", async (req, res) => {
     try {
-        const annonce = await AnnonceModel.findByIdAndUpdate(req.params.id, { blocked: false });
+        const  id  = req.params.id;
+        const annonce = await AnnonceModel.findByIdAndUpdate({_id:id});
         if (!annonce) {
             return res.status(404).json({ message: "Annonce introuvable" });
         }
+        annonce.blocked = false;
         await annonce.save();
         res.json({ message: "Annonce bloquée avec succès", annonce });
     } catch (error) {
