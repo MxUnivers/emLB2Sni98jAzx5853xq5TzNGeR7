@@ -100,7 +100,7 @@ export const AdministratorBlockedRequest = (id) => {
               await axios.request(config)
               .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-
+                window.location.reload();
               })
               .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -124,7 +124,7 @@ export const AdministratorUnBlockedRequest = (id) => {
               await axios.request(config)
               .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-
+                window.location.reload();
               })
               .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

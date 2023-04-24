@@ -6,7 +6,7 @@ import ModalUserStop from '../../component/users/modals/ModalUserStop';
 import ModalUserAccess from '../../component/users/modals/ModalUserAccess';
 import ModalUserPassword from '../../component/users/modals/ModalUserPassword';
 import { AdministratorListRequest } from '../../actions/others/AdministratorAction';
-import LoaderSpiner from '../../component/bootstrap/LoaderSpiner';
+import LoaderSpiner from '../../component/LoaderPage/LoaderSpiner';
 
 
 const UserListPage = () => {
@@ -73,9 +73,9 @@ const UserListPage = () => {
                 <tr>
                   <th class="border-0 rounded-start">username</th>
                   <th class="border-0">nom complet</th>
-                  <th class="border-0">email</th>
                   <th class="border-0">telephone</th>
-                  <th class="border-0">Accès</th>
+                  <th class="border-0">Action Moidification</th>
+                  <th class="border-0">Action Accès</th>
                   <th class="border-0">nombre de connexion</th>
                   <th class="border-0 rounded-end">Actif</th>
                 </tr>
@@ -93,10 +93,10 @@ const UserListPage = () => {
                                 {item.username}
                               </td>
                               <td>
-                                Referral
+                                {item.full_name.substring(0,10)+"..."}
                               </td>
                               <td>
-                                Direct
+                                {item.telephone}
                               </td>
                               <td>
                                 <button type="button"
@@ -139,17 +139,18 @@ const UserListPage = () => {
                                   </div>
                                 </div>
                               </td>
+                              
                               <td class="text-success">
                                 {
                                   item.blocked ?
                                   <div class="d-flex align-items-center">
                                   <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-                                  <span class="fw-bold">actif</span>
+                                  <span class="fw-bold">en service</span>
                                 </div>
                                 :
                                 <div class="d-flex align-items-center">
                                   <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-                                  <span class="fw-bold text-danger">actif</span>
+                                  <span class="fw-bold text-danger">bloqué</span>
                                 </div>
                              
                                 }
