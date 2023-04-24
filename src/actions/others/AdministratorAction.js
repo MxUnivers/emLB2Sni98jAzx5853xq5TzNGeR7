@@ -12,9 +12,9 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 // Fonction pour ajouter des administrateurs à l'application
 export const AdministratorAddRequest = (data) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        axios
+        await axios
             .post(`${baseurl.url}/api/v1/admimistrator/`, data, {
                 headers:
                 {
@@ -37,9 +37,9 @@ export const AdministratorAddRequest = (data) => {
 
 // Fonction pour Modifier des administrateurs à l'application
 export const AdministratorEditRequest = (id,data) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        axios
+        await axios
             .put(`${baseurl.url}/api/v1/admimistrator/edit/${id}`, data, {
                 headers:
                 {
@@ -60,10 +60,10 @@ export const AdministratorEditRequest = (id,data) => {
 
 // Fonction pour Modifier les mot de passe de l"admindmaintrateur
 export const AdministratorPasswordRequest = (id,data) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        axios
-            .put(`${baseurl.url}/api/v1/admimistrator/edit/${id}`, data, {
+        await axios
+            .put(`${baseurl.url}/api/v1/admimistrator/password/edit/${id}`, data, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -80,6 +80,51 @@ export const AdministratorPasswordRequest = (id,data) => {
     };
 }
 
+
+
+// Fonction pour Bloquer un admindmaintrateur
+export const AdministratorBlockedRequest = (id) => {
+    return (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+         axios
+            .put(`${baseurl.url}/api/v1/admimistrator/blocked/${id}`, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+// Fonction pour Bloquer un admindmaintrateur
+export const AdministratorUnBlockedRequest = (id) => {
+    return (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+         axios
+            .put(`${baseurl.url}/api/v1/admimistrator/unblocked/${id}`,  {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
 
 
 // recupérer les données des administrateurs

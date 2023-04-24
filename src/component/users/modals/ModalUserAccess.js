@@ -1,9 +1,16 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { AdministratorUnBlockedRequest } from '../../../actions/others/AdministratorAction';
 
-const ModalUserAccess = ({id}) => {
-    const handle = ()=>{
-        console.log(id)
-    }
+const ModalUserAccess = ({data}) => {
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+   
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(AdministratorUnBlockedRequest(data._id));
+    };
     return (
         <div class="modal fade" id="modal-form-signup-access" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -14,10 +21,14 @@ const ModalUserAccess = ({id}) => {
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h4">Débloquer cet utilistateur </h1>
                             </div>
-                            <form action="#" class="mt-4">
+                            <form action="#" class="mt-4" onSubmit={handleSubmit}>
+                            {error && <p class="text-danger">Une erreur est survenue : {error}</p>}
+                            {loading ?
+                                <p>Envoi de la requête en cours...</p> :
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-success">Débloquer</button>
                                 </div>
+                            }
                             </form>
                         </div>
                     </div>

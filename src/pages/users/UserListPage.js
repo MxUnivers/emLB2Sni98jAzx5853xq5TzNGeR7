@@ -58,10 +58,10 @@ const UserListPage = () => {
       {/* Modal de mofication modal-form-signup-edit */}
 
       {/* Modal de Pour bloquer utilisateurs */}
-      <ModalUserStop />
+      <ModalUserStop data={userdata} />
       {/* Modal de Pour bloquer utilisateurs */}
-      <ModalUserAccess />
-      <ModalUserPassword />
+      <ModalUserAccess data={userdata} />
+      <ModalUserPassword data={userdata} />
 
 
 
@@ -106,17 +106,23 @@ const UserListPage = () => {
                                   Modifier
                                 </button>
   
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-password" class="btn btn-sm btn-gray-300 d-inline-flex align-items-center">
+                                <button
+                                onClick={()=>{handleUser(item)}}
+                                type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-password" class="btn btn-sm btn-gray-300 d-inline-flex align-items-center">
                                   <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
                                   mot de passe
                                 </button>
                               </td>
                               <td>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-access" class="btn btn-sm btn-success d-inline-flex align-items-center">
+                                <button 
+                                onClick={()=>{handleUser(item)}}
+                                type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-access" class="btn btn-sm btn-success d-inline-flex align-items-center">
                                   <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
                                   Débloquer
                                 </button>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-stop" class="btn btn-sm btn-danger d-inline-flex align-items-center">
+                                <button
+                                onClick={()=>{handleUser(item)}}
+                                type="button" data-bs-toggle="modal" data-bs-target="#modal-form-signup-stop" class="btn btn-sm btn-danger d-inline-flex align-items-center">
                                   <svg class="icon icon-xxs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
                                   Bloquer
                                 </button>
@@ -134,11 +140,20 @@ const UserListPage = () => {
                                 </div>
                               </td>
                               <td class="text-success">
-                                <div class="d-flex align-items-center">
+                                {
+                                  item.blocked ?
+                                  <div class="d-flex align-items-center">
                                   <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
                                   <span class="fw-bold">actif</span>
                                 </div>
-                              </td>
+                                :
+                                <div class="d-flex align-items-center">
+                                  <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                                  <span class="fw-bold text-danger">actif</span>
+                                </div>
+                             
+                                }
+                                </td>
                             </tr>
                           )
                         })
