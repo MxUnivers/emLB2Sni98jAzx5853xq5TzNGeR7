@@ -77,52 +77,58 @@ export const AdministratorPasswordRequest = (id,data) => {
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
             });
-    };
+
+            const axios = require('axios');
+    }
 }
 
 
 
 // Fonction pour Bloquer un admindmaintrateur
 export const AdministratorBlockedRequest = (id) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-         axios
-            .put(`${baseurl.url}/api/v1/admimistrator/blocked/${id}`, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
-                }
-            })
-            .then((response) => {
+            let config = {
+                method: 'put',
+                maxBodyLength: Infinity,
+                url: `${baseurl.url}/api/v1/admimistrator/blocked/${id}`,
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
+                },
+              };
+              await axios.request(config)
+              .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
-            })
-            .catch((error) => {
+
+              })
+              .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-            });
+              });
     };
 }
 
 // Fonction pour Bloquer un admindmaintrateur
 export const AdministratorUnBlockedRequest = (id) => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-         axios
-            .put(`${baseurl.url}/api/v1/admimistrator/unblocked/${id}`,  {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
-                }
-            })
-            .then((response) => {
+            let config = {
+                method: 'put',
+                maxBodyLength: Infinity,
+                url: `${baseurl.url}/api/v1/admimistrator/unblocked/${id}`,
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
+                },
+              };
+              await axios.request(config)
+              .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
-            })
-            .catch((error) => {
+
+              })
+              .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-            });
+              });
     };
 }
 
