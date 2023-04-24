@@ -50,13 +50,36 @@ router.put("/edit/:id",AuthorizationMiddleware, async (req, res) => {
 });
 
 
+// Fonction pour modifier le mot de passe de entreprise 
+router.put("/password/edit/:id",AuthorizationMiddleware, async (req, res) => {
+  try {
+    
+    const id = req.params.id;
+    const updates = req.body.password;
+    const hashedPassword = await bcrypt.hash(updates, 10);
+
+    
+    const result = await EntrepriseModel.findById({ _id: id });
+    if (!result) {
+      return res.status(404).json({ message: "Candidat mon trouvé" });
+    }
+    result.password=hashedPassword;
+    await result.save();
+    return res.json({message:"Mot de passe modifier",entreprise});// Réponse avec un message de succès et les détails de l'entreprise créée
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
+  }
+});
+
+
 
 
 // Fonction pour reucupéere les comptes entreprise
-router.put('/get_entreprises',AuthorizationMiddleware, async (req, res) => {
+router.get('/get_entreprises',AuthorizationMiddleware, async (req, res) => {
   try {
     const entreprises = await EntrepriseModel.find({});
-    await res.json({ entreprises: entreprises });
+    await res.json({ data: entreprises });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');
@@ -69,7 +92,8 @@ router.put('/get_entreprises',AuthorizationMiddleware, async (req, res) => {
 // Fonction pour Bloquer les comptes des entreprise
 router.put('/blocked/:id',AuthorizationMiddleware, async (req, res) => {
   try {
-    const entreprises = await EntrepriseModel.findById({_id:req.params.id});
+    const id  = req.params.id;
+    const entreprises = await EntrepriseModel.findById({_id:id});
     if(!entreprises){
       await res.status(401).json({message:"Cette entreprise n,'existe pas "})
     }
@@ -88,7 +112,8 @@ router.put('/blocked/:id',AuthorizationMiddleware, async (req, res) => {
 // Fonction pour Débloquer le compte d'une entreprise
 router.put('/unblocked/:id',AuthorizationMiddleware, async (req, res) => {
   try {
-    const entreprises = await EntrepriseModel.findById({_id:req.params.id});
+    const id  = req.params.id;
+    const entreprises = await EntrepriseModel.findById({_id:id});
     if(!entreprises){
       await res.status(401).json({message:"Cette entreprise n,'existe pas "})
     }

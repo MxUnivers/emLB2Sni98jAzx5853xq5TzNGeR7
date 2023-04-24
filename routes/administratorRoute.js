@@ -115,7 +115,7 @@ router.get("/get_admininstrator", AuthorizationMiddleware, async (req, res) => {
 
 // Fonction pour bloquer un administrateur
 router.put("/blocked/:id", AuthorizationMiddleware, async (req, res) => {
-    const { id } = req.params;
+    const id  = req.params.id;
 
     try {
         const admin = await AdminModel.findById({ _id: id });
@@ -134,7 +134,7 @@ router.put("/blocked/:id", AuthorizationMiddleware, async (req, res) => {
 
 // Débloquer pour bloquer un administrateur
 router.put("/unblocked/:id", AuthorizationMiddleware, async (req, res) => {
-    const { id } = req.params;
+    const id  = req.params.id;
     try {
         const admin = await AdminModel.findById({ _id: id });
         if (!admin) {
