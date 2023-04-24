@@ -42,3 +42,16 @@ export  const  ListAnnoncesMemberId = [
         ]
     }
 ]
+
+
+export const addresslist = [
+    {name:"Abidjan",value:"Abidjan"},
+    {name:"Abidjan , Yopougon",value:"Abidjan , Yopougon"},
+    {name:"Yamoussoukro",value:"Yamoussoukro"}
+];
+
+export const payslist = [
+    {name:"Côte d'Ivoire",value:"Abidjan"},
+    {name:"France",value:"France"},
+    {name:"Angleterre",value:"Angleterre"}
+];

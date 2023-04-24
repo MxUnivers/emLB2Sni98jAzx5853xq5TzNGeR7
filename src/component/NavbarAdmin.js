@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { localvalue } from '../config/localvalue';
 
 const NavbarAdmin = () => {
+  var username=  localStorage.getItem(localvalue.usernameAdmin);
   return (
     <nav class="navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2 pb-0">
     <div class="container-fluid px-0">
@@ -113,7 +115,7 @@ const NavbarAdmin = () => {
                       <div class="col ps-0 ms-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                              <h4 class="h6 mb-0 text-small">Bonnie Green</h4>
+                              <h4 class="h6 mb-0 text-small">{username}</h4>
                             </div>
                             <div class="text-end">
                               <small>2 hrs ago</small>
@@ -135,7 +137,7 @@ const NavbarAdmin = () => {
               <div class="media d-flex align-items-center">
                 <img class="avatar rounded-circle" alt="Image placeholder" src="../../assets/img/team/profile-picture-3.jpg"/>
                 <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-                  <span class="mb-0 font-small fw-bold text-gray-900">Bonnie Green</span>
+                  <span class="mb-0 font-small fw-bold text-gray-900">{username}</span>
                 </div>
               </div>
             </a>

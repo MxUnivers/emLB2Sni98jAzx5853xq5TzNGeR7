@@ -1,10 +1,22 @@
 import React from 'react';
+import { localvalue } from '../../config/localvalue';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdministratorBlockedRequest } from '../../actions/others/AdministratorAction';
 
 
 
 
 
 const SignUpPage = () => {
+    var id  =localStorage.getItem(localvalue.idAdmin);
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+   
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(AdministratorBlockedRequest(id));
+    };
     return (
         <main>
             <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">

@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdministratorLoginRequest } from '../../actions/auth/authAdministraorAction';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 const LoginPage = () => {
+    const navigation  =  useNavigate();
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    const [formData, setFormData] = useState({});
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(AdministratorLoginRequest(formData,navigation));
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    };
     return (
         <main>
             <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
@@ -20,7 +39,7 @@ const LoginPage = () => {
                                 <div class="text-center text-md-center mb-4 mt-md-0">
                                     <h1 class="mb-0 h3">Connexion à la plateforme</h1>
                                 </div>
-                                <form action="#" class="mt-4">
+                                <form action="#" class="mt-4" onSubmit={handleSubmit}>
 
                                     <div class="form-group mb-4">
                                         <label for="email">Email</label>
@@ -28,7 +47,7 @@ const LoginPage = () => {
                                             <span class="input-group-text" id="basic-addon1">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                             </span>
-                                            <input type="email" class="form-control" placeholder="example@company.com" id="email" autofocus required />
+                                            <input type="email" name="email" onChange={handleChange} class="form-control" placeholder="example@company.com" id="email" autofocus required />
                                         </div>
                                     </div>
 
@@ -40,7 +59,7 @@ const LoginPage = () => {
                                                 <span class="input-group-text" id="basic-addon2">
                                                     <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                                 </span>
-                                                <input type="password" placeholder="Password" class="form-control" id="password" required />
+                                                <input type="password" name="password" onChange={handleChange} placeholder="Password" class="form-control" id="password" required />
                                             </div>
                                         </div>
 
@@ -54,8 +73,10 @@ const LoginPage = () => {
                                             <div><a href="./forgot-password.html" class="small text-right">Lost password?</a></div>
                                         </div>
                                     </div>
+                                    {loading && <p>Connexion en cours ...</p>}
+                                    {error && <p>entrer les information correctes : {error}</p>}
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-gray-800">Connexion à l{"'"}administration</button>
+                                        <button type="submit" class="btn btn-gray-800">{"Connexion".toUpperCase()}</button>
                                     </div>
                                 </form>
                                 <div class="mt-3 mb-4 text-center">
