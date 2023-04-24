@@ -9,10 +9,11 @@ dotenv.config();
 
 
 
-// Les Fontion des routes de mpn application 
+// Module de d'application .
 const administratorRoute = require("./routes/administratorRoute");
 const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");
-// Cadidat
+// Candidat
+const authCandidatRoute = require("./routes/authenticate/authcandidatRoute");
 const  candidatRoute = require("./routes/candidatRoute");
 // Entreprises
 const  entrepriseRoute = require("./routes/entrerpriseRoute");
@@ -73,6 +74,7 @@ const apiV1 = `/api/v1`;
 app.use(`${apiV1}/admimistrator`, administratorRoute);
 app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);
 app.use(`${apiV1}/candidat`,candidatRoute);
+app.use(`${apiV1}/auth/candidat`,authCandidatRoute);
 app.use(`${apiV1}/entreprise`,entrepriseRoute);
 app.use(`${apiV1}/annonce`,annonceRoute);
 app.use(`${apiV1}/offre`,offreEmploisRoute);

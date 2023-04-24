@@ -5,6 +5,7 @@ const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 const  dotenv =  require("dotenv");
 const jwt=  require("jsonwebtoken");
+const { AuthorizationMiddleware } = require('../../middlewares/Authtoken');
 dotenv.config();
 
 
@@ -12,7 +13,7 @@ dotenv.config();
 
 
 // Route pour la connexion d'un candidat
-router.post('/login', async (req, res) => {
+router.post('/login/',AuthorizationMiddleware, async (req, res) => {
     try {
       // Vérifier si le candidat existe dans la base de données
       const candidat = await CandidatModel.findOne({ email: req.body.email });
@@ -27,7 +28,8 @@ router.post('/login', async (req, res) => {
   
       // Générer un token JWT pour la session de connexion
       const token = jwt.sign({ id: candidat._id }, process.env.JWT_SECRET);
-  
+      candidat.token = token; 
+      await candidat.save();
       // Envoyer une réponse avec le token JWT
       return res.status(200).json({ token: token });
     } catch (error) {
@@ -36,3 +38,7 @@ router.post('/login', async (req, res) => {
     }
   });
   
+
+
+
+  module.exports =  router ;

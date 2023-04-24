@@ -68,6 +68,37 @@ router.put("/edit/:id", async (req, res) => {
 
 
 
+//Fonction pour modifier les informations de l'adminstrateur
+router.put("/password/edit/:id", async (req, res) => {
+    try {
+        const adminId = req.params.id;
+        const updatedAdminPassword = req.body.password;
+        const hashedPassword = await bcrypt.hash(updatedAdminPassword, 10);
+
+        // Supprimer la propriété de mot de passe avant de mettre à jour l'administrateur
+        // Mettre à jour les informations de l'administrateur dans la base de données
+        AdminModel.updateOne({ _id: adminId }, {password:hashedPassword},  async(err, result)=> {
+            if (err) {
+                // Erreur lors de la mise à jour de l'administrateur
+                console.error(err);
+                return res.status(500).json({ message: 'Erreur lors de la mise à jour de l\'administrateur' });
+            }
+            // Vérifier si l'administrateur a été mis à jour avec succès
+            if (result.nModified === 0) {
+                return res.status(404).json({ message: 'Administrateur non trouvé' });
+            }
+
+            // Renvoyer une réponse indiquant que l'administrateur a été mis à jour avec succès
+            await res.json({ message: 'Mot de passe admonistrateur modifier avec succès' });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Une erreur s\'est produite lors de la suppression de l\'administrateur' });
+    }
+})
+
+
+
 // Fonction pour récupérer tous les administrateurs sans
 
 router.get("/get_admininstrator", AuthorizationMiddleware, async (req, res) => {

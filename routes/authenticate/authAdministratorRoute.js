@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const dotenv=  require("dotenv");
 const bcrypt = require('bcryptjs');
 const AdminModel = require("../../models/AdministratorModel");
+const { AuthorizationMiddleware } = require('../../middlewares/Authtoken');
 const router = require("express").Router();
 dotenv.config();
 
@@ -9,7 +10,7 @@ dotenv.config();
 
 
 // Fonction pour connecter un administrateur
-router.post("/auth_adminstrator", async (req, res) => {
+router.post("/auth_adminstrator",AuthorizationMiddleware, async (req, res) => {
     try {
         const { email, password } = req.body;
         // Vérifier si l'email existe
