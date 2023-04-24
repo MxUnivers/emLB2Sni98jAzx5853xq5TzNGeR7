@@ -7,6 +7,12 @@ export const typeStatut= [
     {type:false,name:"Entreprise"},
 ];
 
+export const  typeAdministrator =  [
+    {name:"Supper admministrateur",value:"super_admin"},
+    {name:"Administrateur",value:"admin"},
+    {name:"Operateur de saisie",value:"operateur"},
+];
+
 
 export  const  ListAnnoncesMemberId = [
     {
