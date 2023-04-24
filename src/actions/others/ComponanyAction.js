@@ -134,7 +134,7 @@ export const ComponanyActionUnBlockedRequest = (id) => {
 
 
 // recupérer les données des administrateurs
-export const ComponanyActionListRequest = async(setState) => {
+export const ComponanyActionListRequest = async(setState,setState2) => {
         await axios
             .get(`${baseurl.url}/api/v1/entreprise/get_entreprises`,{
                 headers:
@@ -145,10 +145,10 @@ export const ComponanyActionListRequest = async(setState) => {
             })
             .then((response) => {
                 setState(response.data.data);
-                console.log(response.data);
+                setState2(response.data.data);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
             });
 
 }

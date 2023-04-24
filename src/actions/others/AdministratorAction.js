@@ -134,7 +134,7 @@ export const AdministratorUnBlockedRequest = (id) => {
 
 
 // recupérer les données des administrateurs
-export const AdministratorListRequest = async(setState) => {
+export const AdministratorListRequest = async(setState,setState2) => {
     
         await axios
             .get(`${baseurl.url}/api/v1/admimistrator/get_admininstrator`,{
@@ -146,7 +146,7 @@ export const AdministratorListRequest = async(setState) => {
             })
             .then((response) => {
                 setState(response.data);
-                console.log(response.data);
+                setState2(response.data);
             })
             .catch((error) => {
                 console.log(error)

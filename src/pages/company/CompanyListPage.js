@@ -13,8 +13,10 @@ import LoaderSpiner from '../../component/LoaderPage/LoaderSpiner';
 
 const CompanyListPage = () => {
     const [data, setdata] = useState([]);
+    const [dataSearch, setdataSearch] = useState([]);
+    const [search, setsearch] = useState("");
     useEffect(() => {
-        ComponanyActionListRequest(setdata);
+        ComponanyActionListRequest(setdata,setdataSearch);
     }, []);
 
     const [companydata, setcompanydata] = useState({});
@@ -22,6 +24,28 @@ const CompanyListPage = () => {
     const handleCompany = (item) => {
         setcompanydata(item);
     }
+
+
+    // Fonction pour rechercher une compagie
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setsearch(e.target.value); //name.includes('J')
+        console.log(e.target.value);
+        let _full_name = dataSearch.filter((item) =>
+        item.full_name.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        let _description = dataSearch.filter((item) =>
+        item.description.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        let _email = dataSearch.filter((item) =>
+        item.email.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        let _telephone = dataSearch.filter((item) =>
+        item.telephone.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        setdata(_full_name && _email && _telephone && _description );
+    };
+
 
     return (
         <div>
@@ -43,7 +67,7 @@ const CompanyListPage = () => {
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                                     </svg>
                                 </span>
-                                <input type="text" class="form-control" id="topbarInputIconLeft" placeholder="Search" aria-label="Search" aria-describedby="topbar-addon" />
+                                <input type="text" value={search} onChange={(e)=>{handleSearch(e)}} class="form-control" id="topbarInputIconLeft" placeholder="Search"  />
                             </div>
                         </form>
                         <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-form-signup">
