@@ -1,11 +1,26 @@
 import React from 'react'
 import { typeProfile, typeStatut } from '../../../config/ListApi'
 import { useState } from 'react';
+import { AnnonceActionEditRequest } from '../../../actions/others/AnnonceAction';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ModalAnnonceEdit = () => {
-    const [nameoffre, setnameoffre] = useState("");
+const ModalAnnonceEdit = ({data}) => {
+    
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
 
+    const [formData, setFormData] = useState({});
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(AnnonceActionEditRequest(data._id,formData));
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    };
 
     return (
         <div class="modal fade" id="modal-form-signup-edit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">

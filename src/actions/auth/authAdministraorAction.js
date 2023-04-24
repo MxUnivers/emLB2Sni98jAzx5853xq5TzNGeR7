@@ -44,14 +44,16 @@ export const AdministratorLoginRequest = (data,redirect) => {
 export const AdministratorDisconnectRequest = (id) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/auth/admimistrator/disconnect_adminstrator/${id}`, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
-                }
-            })
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `${baseurl.url}/api/v1/auth/admimistrator/disconnect_adminstrator/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
+            },
+        };
+        await axios()
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 window.location.reload();
