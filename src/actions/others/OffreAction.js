@@ -10,12 +10,12 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 
 
-// Fonction pour ajouter des candidats à l'application
-export const MemberAddRequest = (data) => {
+// Fonction pour ajouter des administrateurs à l'application
+export const OffreActionAddRequest = (data) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidat/`, data, {
+            .post(`${baseurl.url}/api/v1/offre/`, data, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -35,12 +35,12 @@ export const MemberAddRequest = (data) => {
 
 
 
-// Fonction pour Modifier des candidats à l'application
-export const MemberEditRequest = (id,data) => {
+// Fonction pour Modifier des administrateurs à l'application
+export const OffreActionEditRequest = (id,data) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`, data, {
+            .put(`${baseurl.url}/api/v1/offre/edit/${id}`, data, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -59,11 +59,11 @@ export const MemberEditRequest = (id,data) => {
 
 
 // Fonction pour Modifier les mot de passe de l"admindmaintrateur
-export const MemberPasswordRequest = (id,data) => {
+export const OffreActionPasswordRequest = (id,data) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .get(`${baseurl.url}/api/v1/candidat//edit/${id}`, data, {
+            .put(`${baseurl.url}/api/v1/offre/password/edit/${id}`, data, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -85,13 +85,13 @@ export const MemberPasswordRequest = (id,data) => {
 
 
 // Fonction pour Bloquer un admindmaintrateur
-export const MemberBlockedRequest = (id) => {
+export const OffreActionBlockedRequest = (id) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `${baseurl.url}/api/v1/candidat/blocked/${id}`,
+                url: `${baseurl.url}/api/v1/offre/blocked/${id}`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
@@ -109,13 +109,13 @@ export const MemberBlockedRequest = (id) => {
 }
 
 // Fonction pour Bloquer un admindmaintrateur
-export const MemberUnBlockedRequest = (id) => {
+export const OffreActionUnBlockedRequest = (id) => {
     return async(dispatch) => {
         dispatch({ type: SEND_REQUEST });
             let config = {
                 method: 'put',
                 maxBodyLength: Infinity,
-                url: `${baseurl.url}/api/v1/candidat/unblocked/${id}`,
+                url: `${baseurl.url}/api/v1/offre/unblocked/${id}`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `${baseurl.typeToken} ${baseurl.Token}`
@@ -133,11 +133,10 @@ export const MemberUnBlockedRequest = (id) => {
 }
 
 
-// recupérer les données des candidats
-export const MemberListRequest = async(setState,setState2) => {
-    
+// recupérer les données des administrateurs
+export const OffreActionListRequest = async(setState,setState2) => {
         await axios
-            .get(`${baseurl.url}/api/v1/candidat/get_candidats`,{
+            .get(`${baseurl.url}/api/v1/offre/get_offres`,{
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -145,12 +144,12 @@ export const MemberListRequest = async(setState,setState2) => {
                 }
             })
             .then((response) => {
-                setState(response.data.data);
-                setState2(response.data.data);
-                console.log(response.data.data);
+                setState(response.data);
+                setState2(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
             });
 
 }

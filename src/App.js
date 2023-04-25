@@ -5,11 +5,11 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import { routing } from './config/routing';
 import UserListPage from './pages/users/UserListPage';
 import MemberListPage from './pages/membres/MemberListPage';
-import OffreListPage from './pages/offres/OffreListPage';
 import AnnonceListPage from './pages/annonces/AnnonceListPage';
 import CompanyListPage from './pages/company/CompanyListPage';
 import SignUpPage from './pages/sign/SignUpPage';
 import LoginPage from './pages/sign/LoginPage';
+import OffreListPage from './pages/offres/OffreListPage';
 
 function App() {
   return (

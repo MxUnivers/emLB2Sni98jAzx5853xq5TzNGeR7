@@ -1,89 +1,146 @@
-import React from 'react'
-const ModalOffreAdd = () => {
-    
+import React, { useState } from 'react'
+import { ComponanyActionListRequest } from '../../../actions/others/ComponanyAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { OffreActionAddRequest } from '../../../actions/others/OffreAction';
+import { useEffect } from 'react';
+import { competenceslist, typeContrat } from '../../../config/ListApi';
 
+
+
+const ModalOffreAdd = () => {
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+
+    const [formData, setFormData] = useState({});
+    const [dataEntreprise, setdataEntreprise] = useState([])
+    useEffect(() => {
+        ComponanyActionListRequest(setdataEntreprise);
+    }, [])
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(OffreActionAddRequest(formData));
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    };
 
     return (
-        <div class="modal fade" id="modal-form-signup-edit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
+        <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">
-                        <div class="card p-3 p-lg-5">
+                        <div class="card p-3 p-lg-4">
                             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h4"> Proposer une offre </h1>
+                                <h1 class="mb-0 h4"> Ajouter une  Offre </h1>
                             </div>
-                            <form action="#" class="mt-4">
+                            <form action="#" class="mt-4" onSubmit={handleSubmit}>
+                                <div class="form-group mb-4">
+                                    <label for="titre">Titre de l{"'"}offre</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                                        </span>
+                                        <input type="text" name="titre" onChange={handleChange} class="form-control" placeholder="nom de l'offre de l'offre..........." id="username" autofocus required />
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
-                                    <div class="form-group mb-4">
-                                        <label for="username">Titre de l{"'"}offre</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="nom de l'offre de l'offre..........." id="username" autofocus required />
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label for="username">Description de l{"'"} offre</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1">
-                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                                            </span>
-                                            <textarea type="text" class="form-control" placeholder="nom de l'offre de l'offre..........." id="username" autofocus required />
-                                        </div>
-                                    </div>
 
                                     <div class="form-group mb-4">
-                                        <label for="telephone">Nom complet (personne / entreprise )</label>
+                                        <label for="entreprise">Entrerpise</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="email" placeholder="+(225)XXXXXXXXX....." class="form-control" id="telephone" required />
+                                            <select class="form-select" onChange={handleChange} name="entreprise" aria-label="Default select example">
+
+                                                {
+                                                    dataEntreprise.map((item) => {
+                                                        return (<option value={item.full_name}>{item.full_name.toUpperCase()}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
 
+
                                     <div class="form-group mb-4">
-                                        <label for="name">Durée de l{"'"}offre (debut - fin)</label>
+                                        <label for="competences">Compétences  </label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="date" placeholder="nom complet .............." class="form-control" id="name" required />
-                                            <input type="date" placeholder="nom complet .............." class="form-control" id="name" required />
+                                            <select class="form-select" onChange={handleChange} name="competences" aria-label="Default select example">
+
+                                            <option>........</option>
+                                                {competenceslist.map((item) => {
+                                                    return (<option selected={item.competences == item.comptetences ? true : false } value={item.name}>{item.name.toUpperCase()}</option>)
+                                                })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group mb-4">
-                                        <label for="telephone">Photo de profile</label>
+                                        <label >Durée de l{"'"}date (debut - fin)</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="file" class="form-control" id="telephone" />
-                                            <img scr="" style={{ height: "50px", width: "50px", borderRadius: "5px" }} />
+                                            <input type="date" name="dateDebut" onChange={handleChange} placeholder="nom complet .............." class="form-control" id="name" required />
+                                            <input type="date" name="dateFin" onChange={handleChange} placeholder="nom complet .............." class="form-control" id="name" required />
                                         </div>
                                     </div>
-
-
+                                    {
+                                        /*
+                                         <div class="form-group mb-4">
+                                            <label for="telephone">Photo de profile</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2">
+                                                    <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                                </span>
+                                                <input type="file" class="form-control" id="telephone" />
+                                                <img scr="" style={{ height: "50px", width: "50px", borderRadius: "5px" }} />
+                                            </div>
+                                        </div>
+                                        */
+                                    }
 
                                     <div class="form-group mb-4">
-                                        <label for="email">Email et téléphone</label>
+                                        <label for="typeContrat">Type de contrat </label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="email" placeholder="email@gmail.com....." class="form-control" id="email" required />
-                                            <input type="number" placeholder="+(225)XXXXXXXXX....." class="form-control" id="telephone" required />
+                                            <select class="form-select" onChange={handleChange} name="typeContrat" aria-label="Default select example">
+
+                                                {typeContrat.map((item) => {
+                                                    return (<option value={item.type}>{item.name.toUpperCase()}</option>)
+                                                })
+                                                }
+                                            </select>
                                         </div>
                                     </div>
-
-
-
 
                                     
+
+
+                                    <div class="form-group mb-4">
+                                        <label for="description">Description de l{"'"} offre</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon2">
+                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                                            </span>
+                                            <textarea name="description" onChange={handleChange} placeholder="nom complet .............." class="form-control" id="name" required />
+                                        </div>
+                                    </div>
 
                                     {
                                         /*
@@ -101,9 +158,13 @@ const ModalOffreAdd = () => {
 
 
                                 </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-gray-800">Ajouter cet membre</button>
-                                </div>
+                                {error && <p class="text-danger">Une erreur est survenue : {error}</p>}
+                                {loading ?
+                                    <p>Envoi de la requête en cours...</p> :
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-gray-800">Ajouter une offre</button>
+                                    </div>
+                                }
                             </form>
                         </div>
                     </div>

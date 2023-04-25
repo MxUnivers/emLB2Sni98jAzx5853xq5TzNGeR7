@@ -1,10 +1,21 @@
+
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { OffreActionBlockedRequest } from '../../../actions/others/OffreAction';
 
+const ModalOffreStop = ({ data }) => {
 
-const ModalOffreStop = ({id}) => {
-    const handle = ()=>{
-        console.log(id)
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(OffreActionBlockedRequest(data._id));
     }
+
+
+
     return (
         <div class="modal fade" id="modal-form-signup-stop" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -13,12 +24,18 @@ const ModalOffreStop = ({id}) => {
                         <div class="card p-3 p-lg-4">
                             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h4">Bloquer cette Offre </h1>
+                                <h1 class="mb-0 h4">Bloquer cette offre </h1>
                             </div>
-                            <form action="#" class="mt-4">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-danger">Bloquer</button>
-                                </div>
+                            <form action="#" class="mt-4" onSubmit={handleSubmit}>
+                                {error && <p class="text-danger">Une erreur est survenue : {error}</p>}
+                                {
+                                    loading ?
+                                        <p>Envoi de la requête en cours...</p>
+                                        :
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-danger">Bloquer</button>
+                                        </div>
+                                }
                             </form>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ export const  typeAdministrator =  [
 ];
 
 
+
 export  const  ListAnnoncesMemberId = [
     {
         _id:"id",
@@ -56,4 +57,14 @@ export const payslist = [
     {name:"Côte d'Ivoire",value:"Abidjan"},
     {name:"France",value:"France"},
     {name:"Angleterre",value:"Angleterre"}
+];
+
+
+export const  competenceslist = [
+    {id:0,name:"Informatique"},
+    {id:1,name:"Developpeur"},
+    {id:2,name:"Comptabilté"},
+    {id:3,name:"Consultant"},
+    {id:4,name:"Marketing"},
+    {id:5,name:"Pharmacie"},
 ];
