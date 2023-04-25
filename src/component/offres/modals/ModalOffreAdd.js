@@ -8,7 +8,7 @@ const ModalOffreAdd = () => {
 
 
     return (
-        <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
+        <div class="modal fade" id="modal-form-signup-edit" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">
@@ -87,27 +87,7 @@ const ModalOffreAdd = () => {
 
 
 
-                                    <div class="form-group mb-4">
-                                        <label for="country">Type ( profile et Statut) </label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon2">
-                                                <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                                            </span>
-                                            <select class="form-select" id="country" aria-label="Default select example">
-                                                {typeProfile.map((item) => {
-                                                    return (<option value={item.type}>{item.name.toUpperCase()}</option>)
-                                                })
-                                                }
-                                            </select>
-                                            <select class="form-select" id="country" aria-label="Default select example">
-
-                                                {typeStatut.map((item) => {
-                                                    return (<option value={item.type}>{item.name.toUpperCase()}</option>)
-                                                })
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
 
                                     {
                                         /*

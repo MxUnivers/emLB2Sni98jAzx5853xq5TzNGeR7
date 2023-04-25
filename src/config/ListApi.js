@@ -2,9 +2,11 @@ export const typeProfile = [
     {type:true,name:"candidat"},
     {type:false,name:"employeur"}
 ];
-export const typeStatut= [
-    {type:true,name:"particulier"},
-    {type:false,name:"Entreprise"},
+export const typeContrat= [
+    {type:"CDD",name:"CDD"},
+    {type:"CDI",name:"CDI"},
+    {type:"Stage",name:"Stage"},
+    {type:"Pernament",name:"Permanent"},
 ];
 
 export const  typeAdministrator =  [

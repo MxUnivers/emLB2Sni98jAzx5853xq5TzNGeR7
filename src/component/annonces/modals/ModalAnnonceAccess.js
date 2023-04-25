@@ -23,9 +23,13 @@ const ModalAnnonceAccess = ({data}) => {
                                 <h1 class="mb-0 h4">Débloquer cette annonce </h1>
                             </div>
                             <form action="#" class="mt-4" onSubmit={handleSubmit}>
+                            {error && <p class="text-danger">Une erreur est survenue : {error}</p>}
+                            {loading ?
+                                <p>Envoi de la requête en cours...</p> :
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-success">Débloquer</button>
                                 </div>
+                            }
                             </form>
                         </div>
                     </div>

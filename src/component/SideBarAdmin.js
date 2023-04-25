@@ -8,7 +8,7 @@ import { AdministratorDisconnectRequest } from '../actions/auth/authAdministraor
 
 const SideBarAdmin = () => {
     
-    var id = localStorage.getItem(localvalue.idAdmin);
+    var id = sessionStorage.getItem(localvalue.idAdmin);
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);

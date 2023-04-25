@@ -36,3 +36,11 @@ Interface de gestion de l'application : Cette fonctionnalité permettra à l'adm
 
 
 # emplois-plateforme
+
+
+//25-01-2023
+Gestion des annonces
+Gestion des Offres
+
+25-01-2023
+Création du site web pour la gestion des emplois

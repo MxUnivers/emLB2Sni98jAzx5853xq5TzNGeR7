@@ -18,29 +18,12 @@ const MemberListPage = () => {
     useEffect(() => {
         AnnonceActionnGetListRequest(setdataAnnonce, setdataAnnonceSearch);
     })
-    // const handleAnnonce = (item)=>{
-    //     setannonceData(item);
-    // }
+    const handleAnnonce = (item) => {
+        setannonceData(item)
+    }
 
 
-    // const handleSearch = (e) => {
-    //     e.preventDefault();
-    //     setsearch(e.target.value); //name.includes('J')
-    //     console.log(e.target.value);
-    //     let _titre = dataAnnonceSearch.filter((item) =>
-    //     item.titre.toLowerCase().includes(e.target.value.toLowerCase())
-    //     );
-    //     // let _description = dataAnnonceSearch.filter((item) =>
-    //     // item.description.toLowerCase().includes(e.target.value.toLowerCase())
-    //     // );
-    //     // let _entreprise = dataAnnonceSearch.filter((item) =>
-    //     // item.entreprise.toLowerCase().includes(e.target.value.toLowerCase())
-    //     // );
-    //     // let _pays = dataAnnonceSearch.filter((item) =>
-    //     // item.pays.toLowerCase().includes(e.target.value.toLowerCase())
-    //     // );
-    //     setdataAnnonce(_titre );
-    // };
+
     return (
         <div>
             {/*Modal de l'application */}
@@ -87,12 +70,19 @@ const MemberListPage = () => {
                                                             </div>
                                                             <div class="col-auto ms--2">
                                                                 <h4 class="h6 mb-0">
-                                                                    <a href="#">Chris Wood</a>
+                                                                    <a href="#">{item.titre}</a>
                                                                 </h4>
+                                                                {
+                                                                    item.blocked ?
+                                                                    <div class="d-flex align-items-center">
+                                                                    <div class="bg-danger dot rounded-circle me-1"></div>
+                                                                    <small>indisponible</small>
+                                                                </div>:
                                                                 <div class="d-flex align-items-center">
                                                                     <div class="bg-success dot rounded-circle me-1"></div>
-                                                                    <small>Online</small>
+                                                                    <small>disponible</small>
                                                                 </div>
+                                                                }
                                                             </div>
                                                             <div class="col text-end">
 
@@ -103,16 +93,16 @@ const MemberListPage = () => {
                                                                     </button>
                                                                     <ul class="dropdown-menu py-0 " aria-labelledby="dropdownMenuOffset">
                                                                         <li>
-                                                                            <a  class="dropdown-item rounded-top" data-bs-toggle="modal" data-bs-target="#modal-form-signup-edit" href="#">Modifier</a>
+                                                                            <a onClick={() => { handleAnnonce(item) }} class="dropdown-item rounded-top" data-bs-toggle="modal" data-bs-target="#modal-form-signup-edit" href="#">Modifier</a>
                                                                         </li>
                                                                         <li>
-                                                                            <a  class="dropdown-item rounded-top" data-bs-toggle="modal" data-bs-target="#modal-default" href="#">annonces</a>
+                                                                            <a onClick={() => { handleAnnonce(item) }} class="dropdown-item rounded-top" data-bs-toggle="modal" data-bs-target="#modal-default" href="#">annonces</a>
                                                                         </li>
                                                                         <li>
-                                                                            <a  class="dropdown-item rounded-top text-danger" data-bs-toggle="modal" data-bs-target="#modal-form-signup-stop" href="#">Bloquer</a>
+                                                                            <a onClick={() => { handleAnnonce(item) }} class="dropdown-item rounded-top text-danger" data-bs-toggle="modal" data-bs-target="#modal-form-signup-stop" href="#">Bloquer</a>
                                                                         </li>
                                                                         <li>
-                                                                            <a  class="dropdown-item rounded-top text-success" data-bs-toggle="modal" data-bs-target="#modal-form-signup-access" href="#">Débloquer</a>
+                                                                            <a onClick={() => { handleAnnonce(item) }} class="dropdown-item rounded-top text-success" data-bs-toggle="modal" data-bs-target="#modal-form-signup-access" href="#">Débloquer</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
