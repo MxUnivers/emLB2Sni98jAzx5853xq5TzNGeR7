@@ -8,9 +8,8 @@ const CandidatModel = require("../models/CandidatModel");
 router.post("/", AuthorizationMiddleware, async (req, res) => {
     try {
         const nouvelleAnnonce = new AnnonceModel(req.body);
-        const annonce = await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base de données
-
-        res.json({ message: "Annonce créée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce créée
+        await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base données
+        res.json({ message: "Annonce créée avec succès", nouvelleAnnonce }); // Réponse avec un message de succès et les détails de l'annonce créée
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'annonce" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'annonce
@@ -44,39 +43,23 @@ router.put("/edit/:id", async (req, res) => {
 
 
 
-// Fonction Pour recupérer toutes les annoces
-// Fonction pour récuprer les informations sur l'annonce par son Id
-router.get("/get_annonces", async (req, res) => {
+
+// Fonction pour reucupéere les Annonces
+router.get('/get_annonces',AuthorizationMiddleware, async (req, res) => {
     try {
-        const annonce = await AnnonceModel.find({});
-        res.json(
-            {
-                message: "Annonce récupérer", data: annonce
-            }
-        )
-    } catch (error) {
-        res.status(404).json({ message: error })
+      const entreprises = await AnnonceModel.find({});
+      await res.json({ data: entreprises });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json('Server Error');
     }
-})
+  });
+  
+  
 
 
 
 
-
-// Fonction pour récuprer les informations sur l'annonce par son Id
-router.get("/get/:id", async (req, res) => {
-    try {
-        const  id  =  req.params.id;
-        const annonce = await AnnonceModel.findOne({ _id: id });
-        res.json(
-            {
-                message: "Annonce récupérer", data: annonce
-            }
-        )
-    } catch (error) {
-        res.status(404).json({ message: error })
-    }
-})
 
 
 

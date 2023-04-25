@@ -4,28 +4,31 @@ const Schema = mongoose.Schema;
 const annonceSchema = new Schema({
     titre: {
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     entreprise: {
         type: String,
-        required: true
+        required: false
     },
     typeContrat: {
         type: String,
         enum: ['CDI', 'CDD', 'Stage', 'Alternance'],
-        required: true
+        required: false,
+        default:"CDD"
     },
     lieu: {
         type: String,
-        required: true
+        required: false,
+        default:"Abidjan"
     },
     salaire: {
         type: Number,
-        required: true
+        required: false,
+        default:0
     },
     dateDebut:{
         type:Date,

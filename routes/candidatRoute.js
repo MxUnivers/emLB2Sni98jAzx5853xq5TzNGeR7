@@ -1,14 +1,13 @@
+const { response } = require('express');
 const { AuthorizationMiddleware } = require('../middlewares/Authtoken');
 const CandidatModel = require('../models/CandidatModel');
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 
 // Fonction pour créer un candidat
-router.post("/",AuthorizationMiddleware, async (req, res) => {
+router.post("/", AuthorizationMiddleware, async (req, res) => {
 
   // Vérifier si l'email existe déjà dans la base de données
-
-
   try {
     const { email, password } = req.body;
     // Vérifier si l'email existe déjà
@@ -33,12 +32,12 @@ router.post("/",AuthorizationMiddleware, async (req, res) => {
 
 
 // Fonction pour modifier une candidat
-router.put('/edit/:id',AuthorizationMiddleware, async (req, res) => {
+router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
     const updates = req.body;
     delete updates.password;
-    
+
     const result = await CandidatModel.findOneAndUpdate({ _id: id }, updates);
     if (!result) {
       return res.status(404).json({ message: "Candidat mon trouvé" });
@@ -52,18 +51,39 @@ router.put('/edit/:id',AuthorizationMiddleware, async (req, res) => {
 });
 
 
+//Fonction pour modifier le met de passe du membre
+router.put("/password/edit/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const  password=req.body.password;
+    const candidat = await CandidatModel.findById({ _id: id })
+    if (!candidat) {
+      res.json({ message: "Aucun candidat indisponible" })
+    }
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    candidat.password = hashedPassword;
+    await candidat.save();
+    await res.json({ message: "Mot de passe modifier avec succès" })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Une erreur s\'est produite lors de la suppression de l\'administrateur' });
+  }
+})
+
+
 
 
 
 // Fonction pour Bloquer un candidat
-router.put('/:id/blocked',AuthorizationMiddleware, async (req, res) => {
+router.put('/blocked/:id', AuthorizationMiddleware, async (req, res) => {
   try {
-    const candidat = await CandidatModel.findById({_id:req.params.id});
+    const candidat = await CandidatModel.findById({ _id: req.params.id });
 
     if (!candidat) {
       return res.status(404).json({ message: "Candidat introuvable" });
     }
-    candidat.blocked=true;
+    candidat.blocked = true;
 
     res.json({ message: "Candidat bloqué avec succès", candidat: candidat });
   } catch (error) {
@@ -77,14 +97,14 @@ router.put('/:id/blocked',AuthorizationMiddleware, async (req, res) => {
 
 
 // Fonction pour débloquer un candidat
-router.put('/:id/unblocked',AuthorizationMiddleware, async (req, res) => {
+router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
   try {
-    const candidat = await CandidatModel.findByIdAndUpdate({_id:req.params.id} );
+    const candidat = await CandidatModel.findByIdAndUpdate({ _id: req.params.id });
 
     if (!candidat) {
       return res.status(404).json({ message: "Candidat introuvable" });
     }
-    candidat.blocked = false; 
+    candidat.blocked = false;
 
     res.json({ message: "Candidat bloqué avec succès", candidat: candidat });
   } catch (error) {
@@ -97,7 +117,7 @@ router.put('/:id/unblocked',AuthorizationMiddleware, async (req, res) => {
 
 
 // fonction pour reucupéere les candidats
-router.get('/get_candidats',AuthorizationMiddleware, async (req, res) => {
+router.get('/get_candidats', AuthorizationMiddleware, async (req, res) => {
   try {
     const candidates = await CandidatModel.find();
     res.json({ data: candidates });
