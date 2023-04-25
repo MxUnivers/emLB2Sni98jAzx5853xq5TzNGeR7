@@ -1,10 +1,6 @@
 import React from 'react'
-import { typeProfile, typeStatut } from '../../../config/ListApi'
-import { useState } from 'react';
-
 const ModalOffreAdd = () => {
-    const [nameoffre, setnameoffre] = useState("");
-
+    
 
 
     return (
