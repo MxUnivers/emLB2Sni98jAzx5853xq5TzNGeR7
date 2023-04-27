@@ -1,4 +1,5 @@
 import React from 'react'
+import { routing } from '../../utlis/routing';
 
 const HeaderWeb = () => {
     return (
@@ -66,7 +67,7 @@ const HeaderWeb = () => {
                     <div class="container">
                         <div class="main-responsive-menu">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="/">
                                     <img src="assets/images/logo-2.png" class="white-logo" alt="logo" />
                                     <img src="assets/images/logo.png" class="black-logo" alt="logo" />
                                 </a>
@@ -78,7 +79,7 @@ const HeaderWeb = () => {
                 <div class="main-navbar">
                     <div class="container-fluid">
                         <nav class="navbar navbar-expand-md navbar-light">
-                            <a class="navbar-brand" href="index.html">
+                            <a  class="navbar-brand" href={"/"}>
                                 <img src="assets/images/logo-2.png" class="white-logo" alt="logo" />
                                 <img src="assets/images/logo.png" class="black-logo" alt="logo" />
                             </a>
@@ -326,8 +327,8 @@ const HeaderWeb = () => {
                                         </ul>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <a href="contact.html" class="nav-link">Contact</a>
+                                    <li class="nav-item visible">
+                                        <a href={`/${routing.contact.path}`} class="nav-link">Contact</a>
                                     </li>
                                 </ul>
 

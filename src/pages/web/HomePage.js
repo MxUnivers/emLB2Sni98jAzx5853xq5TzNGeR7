@@ -7,18 +7,21 @@ import PlayVideoHome from '../../components/web/home/PlayVideoHome';
 import JobListHome from '../../components/web/home/JobListHome';
 import FeatureCandidatHome from '../../components/web/home/FeatureCandidatHome';
 import OverViewHome from '../../components/web/home/OverViewHome';
+import FooterWeb from '../../components/web/FooterWeb';
 
 const HomePage = () => {
     return (
         <div>
-        <BarnerHome/>
-        <AboutHome/>
-        <PartnerHome/>
-        <SeekerHome/>
-        <PlayVideoHome/>
-        <JobListHome/>
-        <FeatureCandidatHome/>
-        <OverViewHome/>
+            <BarnerHome />
+            <AboutHome />
+            <PartnerHome />
+            <SeekerHome />
+            <PlayVideoHome />
+            <JobListHome />
+            <FeatureCandidatHome />
+            <OverViewHome />
+        // Footer
+            <FooterWeb />
         </div>
     )
 }

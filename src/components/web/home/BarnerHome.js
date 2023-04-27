@@ -6,7 +6,9 @@ const BarnerHome = () => {
         <div class="main-banner-area-with-bg-image visible" style={{backgroundImage:`url('${bgImg}')`}}>
             <div class="container-fluid">
                 <div class="main-banner-content-with-search visible" data-speed="0.06" data-revert="true">
-                    <h1  class="visible" data-aos-delay="50" data-aos-duration="500">HAVE TALENT? <br/> MEET OPPORTUNITY</h1>
+                    <h1  class="visible" data-aos-delay="50" data-aos-duration="500">
+                    VOUS AVEZ DU TALENT ?
+                    <br/> RENCONTREZ L{"'"}OPPORTUNITÉ</h1>
 
                     <form class="banner-search-form">
                         <div class="row justify-content-center">
