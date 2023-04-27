@@ -253,10 +253,10 @@ const HeaderWeb = () => {
                                 <div class="others-options d-flex align-items-center visible">
                                     <div class="flex flex-col space-y-2">
                                         <div class="option-item">
-                                            <a href={`/${routing.inscriptionCandidat.path}`} class="default-btn">S{"'"}inscription Candidat <i class="flaticon-plus"></i></a>
+                                            <a href={`/${routing.inscriptionCandidat.path}`} class="default-btn">Inscription Candidat <i class="flaticon-plus"></i></a>
                                         </div>
                                         <div class="option-item">
-                                            <a href={`/${routing.inscriptionEmployer.path}`} class="default-btn">S{"'"}inscription Employeur <i class="flaticon-plus"></i></a>
+                                            <a href={`/${routing.inscriptionEmployer.path}`} class="default-btn">Inscription Employeur <i class="flaticon-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>
