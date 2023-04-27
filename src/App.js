@@ -9,6 +9,8 @@ import AnnoncesListPage from "./pages/web/AnnoncesListPage";
 import AnnonceDetail from "./pages/web/AnnonceDetail";
 import SignupCandidatPage from "./pages/web/inscription/SignupCandidatPage";
 import SignupEmployer from "./pages/web/inscription/SignupEmployer";
+import LayoutAdmin from "./layout/admin/LayoutAdmin";
+import DashbordCandidatPage from "./pages/admin/candidat/DashbordCandidatPage";
 
 
 
@@ -19,17 +21,40 @@ function App() {
         <Routes>
 
 
+
+
+        
+
+
         // web de la l'application
           <Route path='' element={<LayoutWeb />} >
             <Route path={`${routing.home.path}`} element={<HomePage />} />
             <Route path={`${routing.contact.path}`} element={<ContactPage />} />
-            // les annoncessur le site web 
+            // les annoncessur le site web
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
             <Route path={`${routing.inscriptionCandidat.path}`} element={<SignupCandidatPage />} />
             <Route path={`${routing.inscriptionEmployer.path}`} element={<SignupEmployer />} />
-
           </Route>
+
+
+
+
+
+
+          // Administration  de la appplication
+          <Route path='' element={<LayoutAdmin />}>
+             <Route path={`${routing.candidatDashboard.path}`} element={<DashbordCandidatPage/>} />
+          </Route>
+
+
+
+
+
+
+
+
+
 
 
         </Routes>
