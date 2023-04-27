@@ -32,6 +32,7 @@ const SignupEmployer = () => {
 
             <div class="main p-10 d-flex flex-column">
                 <BarnerEmployer />
+
                 <div class="submit-resumes-box ">
                     <form>
                         <div class="h-[200px] pt-20">
@@ -81,7 +82,7 @@ const SignupEmployer = () => {
                                     <label>Dites en plus sur votre entreprise</label>
 
                                     <Editor
-                                    class="form-control"
+                                        class="form-control"
                                         apiKey={`${ApiKey.tiny.path}`}
                                         initialValue="<p>Décriver en plus sur votre entrprise sur votre acticté / les succès de votre entrpise</p>"
                                         init={{
