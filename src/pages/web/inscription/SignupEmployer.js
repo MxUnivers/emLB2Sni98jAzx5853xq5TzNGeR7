@@ -34,11 +34,11 @@ const SignupEmployer = () => {
                 <BarnerEmployer />
                 <div class="submit-resumes-box ">
                     <form>
-                        <div class="h-[300px] pt-20">
+                        <div class="h-[200px] pt-20">
 
                         </div>
                         <div class="row">
-                            <h3>Information sur votre entreprise</h3>
+                            <h3 class="text-3xl">Information sur votre entreprise</h3>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
