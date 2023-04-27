@@ -20,9 +20,12 @@ const SignupCandidatPage = () => {
     const handlePhotoUpdate = (files) => {
         if (files[0].getFileEncodeDataURL !== undefined) {
             setPhoto(files[0].getFileEncodeDataURL());
-        } else {
+        } else if(files[0].getFileEncodeDataURL == undefined){
             // Fichier non défini ou non chargé
+            setPhoto();
             console.error("Une erreur s'est produite lors de la récupération de l'URL encodée en base64 de l'image");
+        }else{
+            console.log("Erreur inconue")
         }
     };
 
@@ -63,12 +66,13 @@ const SignupCandidatPage = () => {
 
     return (
         <div>
-            <div class='main p-10 d-flex flex-column'>
-                <BarnerCandidat />
+        <BarnerCandidat />
 
-                <div class='submit-resumes-box '>
+            <div class='main p-10 d-flex flex-column bg-gray-200'>
+
+                <div class='submit-resumes-box  '>
                     <form>
-                        <div class=' pt-20'>
+                        <div class=' pt-20 bg-white'>
                             <div>
                                 <FilePond
                                     allowMultiple={false}
@@ -178,8 +182,8 @@ const SignupCandidatPage = () => {
                                     <div>
                                         <Select
                                             options={options}
-                                            isMulti
                                             onChange={handleChange}
+
                                             value={selectedOptions}
                                         />
                                         <p>Options sélectionnées:</p>

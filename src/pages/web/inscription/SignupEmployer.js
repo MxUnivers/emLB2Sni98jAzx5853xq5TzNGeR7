@@ -28,14 +28,14 @@ const SignupEmployer = () => {
 
     return (
         <div>
-
+        <BarnerEmployer />
 
             <div class="main p-10 d-flex flex-column">
-                <BarnerEmployer />
+                
 
                 <div class="submit-resumes-box ">
                     <form>
-                        <div class="h-[200px] pt-20">
+                        <div class="h-[200px] ">
 
                         </div>
                         <div class="row">
