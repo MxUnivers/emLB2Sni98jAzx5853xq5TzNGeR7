@@ -15,6 +15,7 @@ import DashboardProfileCandidatPgage from "./pages/admin/candidat/DashboardProfi
 import DashboardOffreListCandidatPage from "./pages/admin/candidat/DashboardOffreListCandidatPage";
 import DashboardOffrePostulerCandidatPage from "./pages/admin/candidat/DashboardOffrePostulerCandidatPage";
 import DashboardCvCandidatPage from "./pages/admin/candidat/DashboardCvCandidatPage";
+import DasboardChatCandidatPage from "./pages/admin/candidat/DasboardChatCandidatPage";
 
 
 
@@ -53,6 +54,7 @@ function App() {
              <Route path={`${routing.candidatOffres.path}`} element={<DashboardOffreListCandidatPage/>} />
              <Route path={`${routing.candidatOffresPostuler.path}`} element={<DashboardOffrePostulerCandidatPage/>} />
              <Route path={`${routing.candidatCv.path}`} element={<DashboardCvCandidatPage/>} />
+             <Route path={`${routing.candidatChat.path}`} element={<DasboardChatCandidatPage/>} />
           </Route>
 
 

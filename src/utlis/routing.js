@@ -43,10 +43,15 @@ export const routing = {
         path:"information-sur-le-cv-du-cadidat"
     },
     candidatChat:{
-        path:"forum-de-disscution-entre-les-candidats"
+        path:"forum-de-discution-entre-les-candidats"
     },
     candidatAlertlist:{
         path:"liste-des-alertes-pour-le-candidat"
     },
+    candidatChangePassord:{
+        path:"modification-du-mot-passe-du-candidat"
+    }
+    
+
 
 }
