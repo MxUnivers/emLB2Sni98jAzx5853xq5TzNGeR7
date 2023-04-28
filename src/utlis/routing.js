@@ -27,6 +27,9 @@ export const routing = {
     candidatDashboard:{
         path:"tableau-de-board-candidat"
     },
+    candidatAllParticipant:{
+        path:"Tous-les-candidats-de-plateforme"
+    },
     candidatProfile:{
         path:"profile-candidat"
     },
