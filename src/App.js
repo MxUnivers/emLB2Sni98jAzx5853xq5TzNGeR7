@@ -11,6 +11,7 @@ import SignupCandidatPage from "./pages/web/inscription/SignupCandidatPage";
 import SignupEmployer from "./pages/web/inscription/SignupEmployer";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import DashbordCandidatPage from "./pages/admin/candidat/DashbordCandidatPage";
+import DashboardProfileCandidatPgage from "./pages/admin/candidat/DashboardProfileCandidatPage";
 
 
 
@@ -45,6 +46,7 @@ function App() {
           // Administration  de la appplication
           <Route path='' element={<LayoutAdmin />}>
              <Route path={`${routing.candidatDashboard.path}`} element={<DashbordCandidatPage/>} />
+             <Route path={`${routing.candidatProfile.path}`} element={<DashboardProfileCandidatPgage/>} />
           </Route>
 
 

@@ -1,6 +1,7 @@
 import React from 'react'
+import { routing } from '../../utlis/routing';
 
-const SideBarAdmin = () => {
+const SideMenuBarAdmin = () => {
     return (
         <div class="sidemenu-area">
             <div class="sidemenu-header">
@@ -15,17 +16,20 @@ const SideBarAdmin = () => {
                 </div>
             </div>
 
+
+            
+            {/* Side bar pour le  Candidat */}
             <div class="sidemenu-body">
                 <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
                     <li class="nav-item active">
-                        <a href="candidates-dashboard.html" class="nav-link">
+                        <a href={`/${routing.candidatDashboard.path}`} class="nav-link">
                             <span class="icon"><i class="ri-home-line"></i></span>
                             <span class="menu-title">Tableau de bord</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="candidates-dashboard-my-profile.html" class="nav-link">
+                        <a href={`/${routing.candidatProfile.path}`} class="nav-link">
                             <span class="icon"><i class="ri-user-line"></i></span>
                             <span class="menu-title">My Profile</span>
                         </a>
@@ -120,4 +124,4 @@ const SideBarAdmin = () => {
     )
 }
 
-export default SideBarAdmin;
+export default SideMenuBarAdmin;

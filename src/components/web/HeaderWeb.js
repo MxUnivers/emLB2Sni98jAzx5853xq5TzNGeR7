@@ -107,44 +107,27 @@ const HeaderWeb = () => {
 
                                     <li class="nav-item visible">
                                         <a href="#" class="nav-link">
-                                            Job Listing
+                                            Annonces
                                             <i class="ri-arrow-down-s-line"></i>
                                         </a>
 
                                         <ul class="dropdown-menu">
                                             <li class="nav-item">
-                                                <a href="job-listing-1.html" class="nav-link">Job Listing - One</a>
+                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">Annonces</a>
                                             </li>
-
                                             <li class="nav-item">
-                                                <a href="job-listing-2.html" class="nav-link">Job Listing - Two</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="job-listing-3.html" class="nav-link">Job Listing - Three</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="add-listing.html" class="nav-link">Add Listing</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="my-listing.html" class="nav-link">My Listing</a>
+                                                <a href={`/${routing.detailAnnonce.path}`} class="nav-link">detail annonce</a>
                                             </li>
 
                                             <li class="nav-item">
                                                 <a href="#" class="nav-link">
-                                                    Job Details
+                                                    Job dteails
                                                     <i class="ri-arrow-right-s-line"></i>
                                                 </a>
 
                                                 <ul class="dropdown-menu">
                                                     <li class="nav-item">
-                                                        <a href="job-details-1.html" class="nav-link">Job Details - One</a>
-                                                    </li>
-
-                                                    <li class="nav-item">
-                                                        <a href="job-details-2.html" class="nav-link">Job Details - Two</a>
+                                                        <a href={`/${routing.detailAnnonce.path}`} class="nav-link">Details de l{"'"}annonce</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -158,24 +141,9 @@ const HeaderWeb = () => {
                                         </a>
 
                                         <ul class="dropdown-menu">
+                                            
                                             <li class="nav-item">
-                                                <a href="candidates-1.html" class="nav-link">Candidates - One</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="candidates-2.html" class="nav-link">Candidates - Two</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="dashboard-submit-resume.html" class="nav-link">Submit Resume</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="add-resume.html" class="nav-link">Add Resume</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="my-resume.html" class="nav-link">My Resume</a>
+                                                <a href={`/${routing.candidatDashboard.path}`} class="nav-link">tableau de bord</a>
                                             </li>
 
                                             <li class="nav-item">
@@ -195,9 +163,6 @@ const HeaderWeb = () => {
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item">
-                                                <a href="candidates-dashboard.html" class="nav-link">Candidates Dashboard</a>
-                                            </li>
                                         </ul>
                                     </li>
 

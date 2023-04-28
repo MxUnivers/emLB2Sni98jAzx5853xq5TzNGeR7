@@ -2,6 +2,7 @@ import React from 'react'
 
 const DashbordCandidatPage = () => {
     return (
+        
         <div>
             <div class="breadcrumb-area">
                 <h1>Howdy, Semas!</h1>

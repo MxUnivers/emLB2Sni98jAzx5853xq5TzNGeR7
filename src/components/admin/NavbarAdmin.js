@@ -2,12 +2,12 @@ import React from 'react'
 
 const NavbarAdmin = () => {
     return (
-        <div class="main-dashboard-content d-flex flex-column">
+        
 
             <div class="navbar-area">
                 <div class="main-responsive-nav">
                     <div class="main-responsive-menu">
-                        <div class="responsive-burger-menu d-lg-none d-block">
+                        <div class="responsive-burger-menu d-lg-none d-blocvk">
                             <span class="top-bar"></span>
                             <span class="middle-bar"></span>
                             <span class="bottom-bar"></span>
@@ -141,7 +141,6 @@ const NavbarAdmin = () => {
                     </nav>
                 </div>
             </div>
-        </div>
     )
 }
 
