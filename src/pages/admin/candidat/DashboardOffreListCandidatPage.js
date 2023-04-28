@@ -1,5 +1,5 @@
 import React from 'react';
-
+import  {HiSearchCircle} from  "react-icons/hi";
 
 
 const DashboardOffreListCandidatPage = () => {
@@ -18,6 +18,16 @@ const DashboardOffreListCandidatPage = () => {
 
             <div class="dashboard-jobs-box">
                 <h2>Mes offres d{"'"}emplois</h2>
+                <div class=" bg-white ">
+                    <div class=" p-2 bg-gray-100 flex flex-row bg-white shadow-md rounded-lg py-3 px-2 border-b">
+                        <div class="bg-gray-200 p-1 rounded-2xl">
+                        <span>
+                          <HiSearchCircle class="h-7 w-7 text-gray-300"/>
+                        </span>
+                        </div>
+                        <div><input type='text' class="form-control" placeholder="rechercher ..."/></div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
