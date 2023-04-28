@@ -49,10 +49,12 @@ const NavbarAdmin = () => {
                             </li>
                         </ul>
 
-                        {/* Profile candidat */}
+                        {
+                            /* Profile candidat */
+                        }
                         <NavbarItemCandidat/>
 
-                        
+
                     </div>
                 </nav>
             </div>
