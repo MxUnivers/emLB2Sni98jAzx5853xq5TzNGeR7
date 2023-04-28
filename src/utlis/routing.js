@@ -30,13 +30,13 @@ export const routing = {
     candidatProfile:{
         path:"profile-candidat"
     },
-    cadndidatResume:{
+    candidatResume:{
         path:"information-vu-par-les-employeur"
     },
     candidatOffres:{
         path:"Listes-des-offres-pour-le-candidat"
     },
-    candidatOffresPotuler:{
+    candidatOffresPostuler:{
         path:"offres-postuler-chez-le-candidat"
     },
     candidatCv:{

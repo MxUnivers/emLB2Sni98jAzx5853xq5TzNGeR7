@@ -35,24 +35,26 @@ const SideMenuBarAdmin = () => {
                         </a>
                     </li>
 
+
                     <li class="nav-item">
-                        <a href="candidates-dashboard-my-resume.html" class="nav-link">
+                        <a href={``} class="nav-link">
                             <span class="icon"><i class="ri-file-list-line"></i></span>
                             <span class="menu-title">My Resume</span>
                         </a>
                     </li>
 
+
                     <li class="nav-item">
-                        <a href="candidates-dashboard-applied-job.html" class="nav-link">
+                        <a href={`/${routing.candidatOffres.path}`} class="nav-link">
                             <span class="icon"><i class="ri-briefcase-line"></i></span>
-                            <span class="menu-title">Applied Jobs</span>
+                            <span class="menu-title">Offres postuler</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="candidates-dashboard-job-alerts.html" class="nav-link">
+                        <a href={`/${routing.candidatOffresPostuler.path}`} class="nav-link">
                             <span class="icon"><i class="ri-notification-3-line"></i></span>
-                            <span class="menu-title">Job Alerts</span>
+                            <span class="menu-title">Tous vos offres </span>
                         </a>
                     </li>
 
@@ -64,9 +66,9 @@ const SideMenuBarAdmin = () => {
                     </li>
 
                     <li class="nav-item">
-                        <a href="candidates-dashboard-cv-manager.html" class="nav-link">
+                        <a href={`/${routing.candidatCv.path}`} class="nav-link">
                             <span class="icon"><i class="ri-book-line"></i></span>
-                            <span class="menu-title">CV Manager</span>
+                            <span class="menu-title"> Gestion cv</span>
                         </a>
                     </li>
 

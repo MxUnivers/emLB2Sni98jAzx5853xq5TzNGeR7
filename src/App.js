@@ -12,6 +12,9 @@ import SignupEmployer from "./pages/web/inscription/SignupEmployer";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import DashbordCandidatPage from "./pages/admin/candidat/DashbordCandidatPage";
 import DashboardProfileCandidatPgage from "./pages/admin/candidat/DashboardProfileCandidatPage";
+import DashboardOffreListCandidatPage from "./pages/admin/candidat/DashboardOffreListCandidatPage";
+import DashboardOffrePostulerCandidatPage from "./pages/admin/candidat/DashboardOffrePostulerCandidatPage";
+import DashboardCvCandidatPage from "./pages/admin/candidat/DashboardCvCandidatPage";
 
 
 
@@ -47,6 +50,9 @@ function App() {
           <Route path='' element={<LayoutAdmin />}>
              <Route path={`${routing.candidatDashboard.path}`} element={<DashbordCandidatPage/>} />
              <Route path={`${routing.candidatProfile.path}`} element={<DashboardProfileCandidatPgage/>} />
+             <Route path={`${routing.candidatOffres.path}`} element={<DashboardOffreListCandidatPage/>} />
+             <Route path={`${routing.candidatOffresPostuler.path}`} element={<DashboardOffrePostulerCandidatPage/>} />
+             <Route path={`${routing.candidatCv.path}`} element={<DashboardCvCandidatPage/>} />
           </Route>
 
 

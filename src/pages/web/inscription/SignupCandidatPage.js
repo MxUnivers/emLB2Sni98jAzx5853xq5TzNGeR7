@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
-import { Editor } from '@tinymce/tinymce-react'
 //File pond
 import { FilePond, registerPlugin } from 'react-filepond'
 import 'filepond/dist/filepond.min.css'
@@ -10,6 +9,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 
 import { ApiKey } from '../../../utlis/config'
 import BarnerCandidat from '../../../components/web/candidat/BarnerCandidat'
+import { Editor } from '@tinymce/tinymce-react'
 
 registerPlugin(FilePondPluginImagePreview)
 
