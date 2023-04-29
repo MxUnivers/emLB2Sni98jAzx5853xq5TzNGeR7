@@ -13,6 +13,8 @@ import { Editor } from '@tinymce/tinymce-react'
 import { routing } from '../../../utlis/routing'
 import { optionPays } from '../../../utlis/options/optionDivers'
 import { localites } from '../../../utlis/options/annonceOptions'
+import { competences, languages, level_School } from '../../../utlis/options/candidatOption'
+import { lang } from 'moment/moment'
 
 registerPlugin(FilePondPluginImagePreview)
 
@@ -42,12 +44,7 @@ const SignupCandidatPage = () => {
         console.log('Content was updated:', content)
     }
 
-    const options = [
-        { value: 'informatique', label: 'Informatique' },
-        { value: 'comptabilité', label: 'Comptabilité' },
-        { value: 'marketing', label: 'Marketing' },
-        { value: 'ventes', label: 'Ventes' }
-    ]
+
 
     const levels = [
         { value: 'doctorat', label: 'Doctorat' },
@@ -56,15 +53,16 @@ const SignupCandidatPage = () => {
         { value: 'bts', label: 'Bts' }
     ]
 
-    const [selectedOptions, setSelectedOptions] = useState([])
+    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [selectedCompetences, setSelectedCompetences] = useState([]);
     const [selectedLevels, setSelectedLevels] = useState([])
 
-    const handleChange = selected => {
-        setSelectedOptions(selected)
+    
+    const handleChangeLanguages = selected => {
+        setSelectedLanguages(selected)
     }
-
-    const handleChangelevel = selected => {
-        setSelectedLevels(selected)
+    const handleChangeComptences = (selected) => {
+        setSelectedCompetences(selected)
     }
 
     return (
@@ -163,14 +161,14 @@ const SignupCandidatPage = () => {
                                 </div>
                             </div>
 
-                            
+
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>ville</label>
                                     <select class="form-control">
                                         <option> Choisissez votre ville</option>
                                         {
-                                            localites.map((item)=>{
+                                            localites.map((item) => {
                                                 return (
                                                     <option value={item.value}>{item.label}</option>
                                                 )
@@ -183,13 +181,15 @@ const SignupCandidatPage = () => {
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>adresse *</label>
-                                   <input type="text" class="form-control" name="adresse" placeholder="Côte d'Ivoire , Abidjan,Yopougon"/>
+                                    <input type="text" class="form-control" name="adresse" placeholder="Côte d'Ivoire , Abidjan,Yopougon" />
                                 </div>
                             </div>
 
+
+
                             <div class='col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Dites en plus sur vous (votre parcour)</label>
+                                    <label>Dites en plus sur vous (Cela peut s{"'"})averé utile pour les recommandations</label>
 
                                     <Editor
                                         class='form-control'
@@ -220,14 +220,14 @@ const SignupCandidatPage = () => {
                                     <label>Choisir domaine de compétences</label>
                                     <div>
                                         <Select
-                                            options={options}
-                                            onChange={handleChange}
-
-                                            value={selectedOptions}
+                                            options={competences}
+                                            onChange={handleChangeComptences}
+                                            isMulti
+                                            value={selectedCompetences}
                                         />
                                         <p>Options sélectionnées:</p>
                                         <ul>
-                                            {selectedOptions.map(option => (
+                                            {selectedCompetences.map(option => (
                                                 <li key={option.value}>{option.label}</li>
                                             ))}
                                         </ul>
@@ -239,20 +239,15 @@ const SignupCandidatPage = () => {
                                 <div class='form-group'>
                                     <label>Niveau d{"'"}études</label>
                                     <div>
-                                        <Select
-                                            options={levels}
-                                            isMulti
-                                            ise
-                                            onChange={handleChangelevel}
-                                            value={selectedLevels}
-                                        />
-                                        <p>Options sélectionnées:</p>
-                                        <ul>
-                                            <li>
-                                                Selected Option:{' '}
-                                                {selectedLevels ? selectedLevels.label : ''}
-                                            </li>
-                                        </ul>
+                                        <select class="form-control" name="level_school">
+                                            {
+                                                level_School.map((item) => {
+                                                    return (
+                                                        <option value={item.value} >{item.label}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -261,13 +256,34 @@ const SignupCandidatPage = () => {
                                 <div class='form-group'>
                                     <label>Année Experience</label>
                                     <input
-                                        type='text'
+                                        type='number'
+                                        name="years_experience"
                                         class='form-control'
                                         placeholder='Experience'
                                     />
                                 </div>
                             </div>
 
+                            <div class='col-xl-6 col-lg-12 col-md-12'>
+                                <div class='form-group'>
+                                    <label>Langues</label>
+                                    <div>
+                                        <Select
+                                            options={languages}
+                                            onChange={handleChangeLanguages}
+                                            isMulti
+
+                                            value={selectedLanguages}
+                                        />
+                                        <p>Langues sélectionnées:</p>
+                                        <ul>
+                                            {selectedLanguages.map(option => (
+                                                <li key={option.value}>{option.label}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <h3>Résaux sociaux</h3>
 
                             <div class='col-xl-6 col-lg-12 col-md-12'>
