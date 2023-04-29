@@ -86,7 +86,6 @@ const AnnonceResultSearch = () => {
                         </div>
 
                         <div class="row ">
-
                             {
                                 dataAnnonce.slice(start, perPage).map((item) => {
                                     return (

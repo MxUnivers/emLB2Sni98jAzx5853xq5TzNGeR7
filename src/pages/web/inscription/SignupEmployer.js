@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import BarnerEmployer from '../../../components/web/employer/BarnerEmployer';
 import { ApiKey } from '../../../utlis/config';
+import { routing } from '../../../utlis/routing';
 
 
 
@@ -28,12 +29,16 @@ const SignupEmployer = () => {
 
     return (
         <div>
-        <BarnerEmployer />
+            <BarnerEmployer />
 
             <div class="main p-10 d-flex flex-column">
-                
+
 
                 <div class="submit-resumes-box ">
+                    <div class=" flex space-x-3 items-center ">
+                        <p>si vous avez une compte</p>
+                        <a href={`/${routing.connexionEmployeur.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
+                    </div>
                     <form>
                         <div class="h-[200px] ">
 

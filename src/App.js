@@ -18,6 +18,8 @@ import DashboardCvCandidatPage from "./pages/admin/candidat/DashboardCvCandidatP
 import DasboardChatCandidatPage from "./pages/admin/candidat/DasboardChatCandidatPage";
 import DashboardPasswordEditCandidatPage from "./pages/admin/candidat/DashboardPasswordEditCandidatPage";
 import DashBoardMemberCandidatPage from "./pages/admin/candidat/DashBoardMemberCandidatPage";
+import LoginCandidatPage from "./pages/web/connexion/LoginCandidatPage";
+import LoginEmployeurPage from "./pages/web/connexion/LoginEmployeurPage";
 
 
 
@@ -40,14 +42,13 @@ function App() {
             // les annoncessur le site web
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
+            //inscription du candidat
             <Route path={`${routing.inscriptionCandidat.path}`} element={<SignupCandidatPage />} />
             <Route path={`${routing.inscriptionEmployer.path}`} element={<SignupEmployer />} />
+            // connexion du candidat
+            <Route path={`${routing.connexionCandidat.path}`} element={<LoginCandidatPage />} />
+            <Route path={`${routing.connexionEmployeur.path}`} element={<LoginEmployeurPage />} />
           </Route>
-
-
-
-
-
 
           // Administration  de la appplication
           <Route path='' element={<LayoutAdmin />}>

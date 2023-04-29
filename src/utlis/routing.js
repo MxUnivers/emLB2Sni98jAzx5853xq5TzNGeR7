@@ -18,6 +18,12 @@ export const routing = {
     inscriptionEmployer: {
         path: "inscription-pour-employeur"
     },
+    connexionCandidat:{
+        path:"connexion-candidat"
+    },
+    connexionEmployeur:{
+        path:"connexion-employeur"
+    },
 
     // Pour les administrateur de l'application telque les candidats et emloyeur
 

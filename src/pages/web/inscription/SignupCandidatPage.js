@@ -10,6 +10,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import { ApiKey } from '../../../utlis/config'
 import BarnerCandidat from '../../../components/web/candidat/BarnerCandidat'
 import { Editor } from '@tinymce/tinymce-react'
+import { routing } from '../../../utlis/routing'
 
 registerPlugin(FilePondPluginImagePreview)
 
@@ -71,6 +72,10 @@ const SignupCandidatPage = () => {
             <div class='main p-10 d-flex flex-column bg-gray-200'>
 
                 <div class='submit-resumes-box  '>
+                  <div class=" flex space-x-3 items-center ">
+                   <p>si vous avez une compte</p>
+                  <a href={`/${routing.connexionCandidat.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
+                  </div>
                     <form>
                         <div class=' pt-20 bg-white'>
                             <div>
