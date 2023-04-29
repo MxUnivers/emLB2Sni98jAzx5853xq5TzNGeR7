@@ -69,13 +69,16 @@ const CandidatSchema = new mongoose.Schema({
     date_mise_a_jour: {
         type: Date, default: Date.now
     },
-    facebook: {
+    facebookUrl: {
         type: String
     },
-    youtube: {
+    linkedinUrl: {
         type: String
     },
-    instagram: {
+    twitterUrl: {
+        type: String
+    },
+    instagramUrl: {
         type: String
     },
     
