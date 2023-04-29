@@ -10,8 +10,14 @@ const CandidatSchema = new mongoose.Schema({
     lastname: {
         type: String, required: false
     },
+    description: {
+        type: String, required: false
+    },
     coverPicture:{
         type:String, default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzH6TfTtq91hzmeIvm_4JOdb5y1UWjTlYZdA&usqp=CAU"
+    },
+    dateNaissance:{
+        type:String,
     },
     email: {
         type: String, required: false, unique: true
@@ -56,9 +62,23 @@ const CandidatSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    is_active:{
+        type:Boolean,
+        default:false
+    },
     date_mise_a_jour: {
         type: Date, default: Date.now
-    }
+    },
+    facebook: {
+        type: String
+    },
+    youtube: {
+        type: String
+    },
+    instagram: {
+        type: String
+    },
+    
 
 
 }, {
