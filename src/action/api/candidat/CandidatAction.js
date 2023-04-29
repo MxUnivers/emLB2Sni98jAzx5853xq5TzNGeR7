@@ -1,5 +1,7 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
+import { routing } from "../../../utlis/routing";
+import { localvalue } from "../../../utlis/storage/localvalue";
 
 
 export const SEND_REQUEST = "SEND_REQUEST";
@@ -23,6 +25,33 @@ export const CandidatSignUp = (data) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+
+// Authenfication du candidate
+
+export const CandidatConnexion = (data, redirect) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/auth/candidat/login`, data, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                localStorage.setItem(localvalue.candidat.tokenCandidat,response.data.data.token);
+                localStorage.setItem(localvalue.candidat.idCandidat,response.data.data._id);
+                localStorage.setItem(localvalue.candidat.emailCandidat,response.data.data.email);
+                redirect(`/${routing.candidatDashboard.path}`);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

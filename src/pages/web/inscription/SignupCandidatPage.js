@@ -75,7 +75,7 @@ const SignupCandidatPage = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        
+
         if (formData.email == "") {
             alert("champ email !");
             return;
@@ -282,6 +282,7 @@ const SignupCandidatPage = () => {
                                     <div>
                                         <Select
                                             options={competences}
+                                            name='comptetences'
                                             onChange={handleChangeComptences}
                                             isMulti
                                             value={selectedCompetences}
@@ -332,6 +333,7 @@ const SignupCandidatPage = () => {
                                     <div>
                                         <Select
                                             options={languages}
+                                            name='langues'
                                             onChange={handleChangeLanguages}
                                             isMulti
                                             value={selectedLanguages}
