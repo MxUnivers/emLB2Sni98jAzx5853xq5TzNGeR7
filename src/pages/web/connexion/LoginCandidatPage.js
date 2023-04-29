@@ -26,9 +26,9 @@ const LoginCandidatPage = () => {
               </div>
               <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-md transition duration-200">Se connecter</button>
               <div class=" mt-1 px-3 flex flex-col items-center justify-center">
-              <div class="p-2 flex  ">
-                <p>ou</p>
-              </div>
+                <div class="p-2 flex  ">
+                  <p>ou</p>
+                </div>
                 <div class="w-full flex justify-center items-center">
                   <a href={`/${routing.inscriptionCandidat.path}`} className="flex justify-center items-center w-full text-blue-500 underline font-bold py-2 rounded-md transition duration-200">s{"'"}inscire</a>
                 </div>

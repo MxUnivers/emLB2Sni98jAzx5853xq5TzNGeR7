@@ -11,6 +11,8 @@ import { ApiKey } from '../../../utlis/config'
 import BarnerCandidat from '../../../components/web/candidat/BarnerCandidat'
 import { Editor } from '@tinymce/tinymce-react'
 import { routing } from '../../../utlis/routing'
+import { optionPays } from '../../../utlis/options/optionDivers'
+import { localites } from '../../../utlis/options/annonceOptions'
 
 registerPlugin(FilePondPluginImagePreview)
 
@@ -21,11 +23,11 @@ const SignupCandidatPage = () => {
     const handlePhotoUpdate = (files) => {
         if (files[0].getFileEncodeDataURL !== undefined) {
             setPhoto(files[0].getFileEncodeDataURL());
-        } else if(files[0].getFileEncodeDataURL == undefined){
+        } else if (files[0].getFileEncodeDataURL == undefined) {
             // Fichier non défini ou non chargé
             setPhoto();
             console.error("Une erreur s'est produite lors de la récupération de l'URL encodée en base64 de l'image");
-        }else{
+        } else {
             console.log("Erreur inconue")
         }
     };
@@ -67,15 +69,15 @@ const SignupCandidatPage = () => {
 
     return (
         <div>
-        <BarnerCandidat />
+            <BarnerCandidat />
 
             <div class='main p-10 d-flex flex-column bg-gray-200'>
 
                 <div class='submit-resumes-box  '>
-                  <div class=" flex space-x-3 items-center ">
-                   <p>si vous avez une compte</p>
-                  <a href={`/${routing.connexionCandidat.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
-                  </div>
+                    <div class=" flex space-x-3 items-center ">
+                        <p>si vous avez une compte</p>
+                        <a href={`/${routing.connexionCandidat.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
+                    </div>
                     <form>
                         <div class=' pt-20 bg-white'>
                             <div>
@@ -90,19 +92,26 @@ const SignupCandidatPage = () => {
                             </div>
                         </div>
                         <div class='row'>
-                            <h3 class='text-3xl'>Information sur vous</h3>
+                            <h3 class='text-3xl'>Information sur candidat</h3>
 
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Votre nom</label>
-                                    <input type='text' class='form-control' placeholder='Nom' />
+                                    <label>Nom d{"'"}utilisateur *</label>
+                                    <input type='text' name="username" class='form-control' placeholder="nom d'utlisateur" />
                                 </div>
                             </div>
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Votre prénoms</label>
+                                    <label>Votre nom *</label>
+                                    <input type='text' name="firstname" class='form-control' placeholder='Nom' />
+                                </div>
+                            </div>
+                            <div class='col-xl-6 col-lg-12 col-md-12'>
+                                <div class='form-group'>
+                                    <label>Votre prénoms *</label>
                                     <input
                                         type='text'
+                                        name="lastname"
                                         class='form-control'
                                         placeholder='prénoms'
                                     />
@@ -111,9 +120,21 @@ const SignupCandidatPage = () => {
 
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Email</label>
+                                    <label>Email *</label>
                                     <input
                                         type='text'
+                                        name="email"
+                                        class='form-control'
+                                        placeholder='Your Email'
+                                    />
+                                </div>
+                            </div>
+                            <div class='col-xl-6 col-lg-12 col-md-12'>
+                                <div class='form-group'>
+                                    <label>mot de passe *</label>
+                                    <input
+                                        type='text'
+                                        name="email"
                                         class='form-control'
                                         placeholder='Your Email'
                                     />
@@ -122,7 +143,7 @@ const SignupCandidatPage = () => {
 
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Date de naissance </label>
+                                    <label>Date de naissance *</label>
                                     <input
                                         type='date'
                                         class='form-control'
@@ -137,19 +158,32 @@ const SignupCandidatPage = () => {
                                     <input
                                         type='number'
                                         class='form-control'
-                                        placeholder='Your Phone'
+                                        placeholder='+XXXXXXXXXX'
                                     />
+                                </div>
+                            </div>
+
+                            
+                            <div class='col-xl-6 col-lg-12 col-md-12'>
+                                <div class='form-group'>
+                                    <label>ville</label>
+                                    <select class="form-control">
+                                        <option> Choisissez votre ville</option>
+                                        {
+                                            localites.map((item)=>{
+                                                return (
+                                                    <option value={item.value}>{item.label}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                 </div>
                             </div>
 
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
-                                    <label>Adrrese de votre entreprise</label>
-                                    <input
-                                        type='text'
-                                        class='form-control'
-                                        placeholder="Côte d'ivoire , Abidjan ,  Yopougon"
-                                    />
+                                    <label>adresse *</label>
+                                   <input type="text" class="form-control" name="adresse" placeholder="Côte d'Ivoire , Abidjan,Yopougon"/>
                                 </div>
                             </div>
 
