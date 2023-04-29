@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { routing } from '../../../utlis/routing';
+import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
+import AnnonceCard from './card/AnnonceCard';
+import { localites } from '../../../utlis/options/annonceOptions';
+import { secteursActivites } from '../../../utlis/options/employeurOption';
 
 const AnnonceResultSearch = () => {
+    const [dataAnnonce, setdataAnnonce] = useState([]);
+    //Pagindation data annonces
+    const pageSize = 1
+    const [start, setStart] = useState(0);
+    const [perPage, setPerPage] = useState();
+    const total = dataAnnonce.length;
+
+    const handleLoadMore = () => {
+        setPerPage(perPage + pageSize);
+    };
+    useEffect(() => {
+        AnnonceGetAll(setdataAnnonce);
+    }, [])
+
     return (
 
         <div class="w-full job-list-area pb-100" >
@@ -36,16 +54,12 @@ const AnnonceResultSearch = () => {
                                         <div class="form-group">
                                             <label><i class="flaticon-placeholder"></i></label>
                                             <select class="selectize-filter form-control" >
-                                                <option value="1">Location</option>
-                                                <option value="2">Canada</option>
-                                                <option value="3">Japan</option>
-                                                <option value="4">Germany</option>
-                                                <option value="5">Switzerland</option>
-                                                <option value="6">Australia</option>
-                                                <option value="7">United States</option>
-                                                <option value="8">New Zealand</option>
-                                                <option value="9">United Kingdom</option>
-                                                <option value="10">Sweden</option>
+                                                <option >Location</option>
+                                                {localites.map((localite) => (
+                                                    <option key={localite.value} value={localite.value}>
+                                                        {localite.label}
+                                                    </option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
@@ -55,15 +69,11 @@ const AnnonceResultSearch = () => {
                                             <label><i class="flaticon-list"></i></label>
                                             <select class="selectize-filter form-control">
                                                 <option value="1">Catégorie</option>
-                                                <option value="2">Assurance</option>
-                                                <option value="3">Banking</option>
-                                                <option value="4">Copyright</option>
-                                                <option value="5">Design</option>
-                                                <option value="6">Finance</option>
-                                                <option value="7">IT Sector</option>
-                                                <option value="8">Management</option>
-                                                <option value="9">Photography</option>
-                                                <option value="10">Software</option>
+                                                {secteursActivites.map((item) => (
+                                                    <option key={item.value} value={item.value}>
+                                                        {item.label}
+                                                    </option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
@@ -77,626 +87,21 @@ const AnnonceResultSearch = () => {
 
                         <div class="row ">
 
-                            <div class="col-lg-4 col-md-6   visible">
-                                <div class="single-job-list-card  visible">
-                                    <div class="job-information  visible">
-                                        <div class="company-logo visible">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 3 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href={`/${routing.detailAnnonce.path}`} class="default-btn">Detail annonce <i class="flaticon-list-1"></i></a>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-2.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Director</a>
-                                        </h3>
-                                        <span>Constik Corporation</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 7 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> West Africa, Jordan</li>
-                                        <li><i class="ri-time-line"></i> Full Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-3.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 5 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> New York City, 25321</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-4.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Advisor</a>
-                                        </h3>
-                                        <span>INVA Business Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 1 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-5.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Sales Executive</a>
-                                        </h3>
-                                        <span>Pufo Corporation</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 7 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> West Africa, Jordan</li>
-                                        <li><i class="ri-time-line"></i> Full Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-6.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Content Writter</a>
-                                        </h3>
-                                        <span>Abaz News Magazine</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 5 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> New York City, 25321</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 3 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-2.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Director</a>
-                                        </h3>
-                                        <span>Constik Corporation</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 7 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> West Africa, Jordan</li>
-                                        <li><i class="ri-time-line"></i> Full Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-3.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 5 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> New York City, 25321</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-4.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Advisor</a>
-                                        </h3>
-                                        <span>INVA Business Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 1 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-5.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Sales Executive</a>
-                                        </h3>
-                                        <span>Pufo Corporation</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 7 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> West Africa, Jordan</li>
-                                        <li><i class="ri-time-line"></i> Full Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-6.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Content Writter</a>
-                                        </h3>
-                                        <span>Abaz News Magazine</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 5 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> New York City, 25321</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 3 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-2.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Director</a>
-                                        </h3>
-                                        <span>Constik Corporation</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 7 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> West Africa, Jordan</li>
-                                        <li><i class="ri-time-line"></i> Full Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-3.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Assistant Editor</a>
-                                        </h3>
-                                        <span>Solit IT Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 5 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> New York City, 25321</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6 ">
-                                <div class="single-job-list-card">
-                                    <div class="job-information">
-                                        <div class="company-logo">
-                                            <a href="job-details-1.html"><img src="assets/images/job/job-4.png" alt="image" /></a>
-                                        </div>
-                                        <h3>
-                                            <a href="job-details-1.html">Marketing Advisor</a>
-                                        </h3>
-                                        <span>INVA Business Solution</span>
-
-                                        <div class="bookmark-btn">
-                                            <i class="ri-bookmark-line"></i>
-                                        </div>
-
-                                        <div class="hover-bookmark-btn">
-                                            <i class="ri-bookmark-fill"></i>
-                                        </div>
-                                    </div>
-
-                                    <ul class="job-tag-list">
-                                        <li>Featured</li>
-                                        <li class="urgent">Urgent</li>
-                                        <li class="private">Private</li>
-                                        <li>Part Time</li>
-                                    </ul>
-
-                                    <ul class="location-information">
-                                        <li><i class="ri-time-line"></i> 1 Days Left</li>
-                                        <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                        <li><i class="ri-time-line"></i> Part Time</li>
-                                    </ul>
-
-                                    <div class="job-btn">
-                                        <a href="job-details-1.html" class="default-btn">Apply Jobs <i class="flaticon-list-1"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                dataAnnonce.slice(start, perPage).map((item) => {
+                                    return (
+                                        <AnnonceCard data={item} />
+                                    )
+                                })
+                            }
                         </div>
+                        {perPage < total && (
+                            <div class="browse-jobs-btn" onClick={handleLoadMore}>
+                                <a href="job-listing-1.html" class="default-btn">charger plus <i class="flaticon-list-1"></i></a>
+                            </div>
 
-                        <div class="load-more-btn">
-                            <a href="#" id="loadmore" class="default-btn">Load More <i class="flaticon-loading"></i></a>
-                        </div>
+                        )}
+
                     </div>
                 </div>
             </div>

@@ -1,15 +1,21 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useState } from 'react';
+import { CandidatGetAll } from '../../../action/api/candidat/CandidatAction';
+import CandidatCard from '../candidat/CandidatCard';
 
 const FeatureCandidatHome = () => {
+    const [dataCandidat, setdataCandidat] = useState([]);
     useEffect(() => {
         AOS.init({
             duration: 1000,
             easing: 'ease-in-out-back',
             once: true
         });
+        CandidatGetAll(setdataCandidat);
     }, []);
+
     return (
         <div class="featured-candidates-area pb-100" >
             <div class="container">
@@ -63,134 +69,16 @@ const FeatureCandidatHome = () => {
                                 <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
                             </div>
 
-                            <div class="featured-candidates-box">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-8 col-sm-6">
-                                        <div class="candidates-box-content">
-                                            <div class="image">
-                                                <a href="candidates-details-1.html"><img src="assets/images/featured-candidates/image-8.jpg" alt="image" /></a>
-                                            </div>
+                            {
+                                dataCandidat.map((item) => {
+                                    return (
+                                        <CandidatCard data={item}/>
+                                    )
+                                })
+                            }
 
-                                            <div class="content">
-                                                <h3>
-                                                    <a href="candidates-details-1.html">Jonathon Ronan</a>
-                                                </h3>
-                                                <span>IT Specialist</span>
 
-                                                <div class="rating">
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <span>4.5 Rating</span>
-                                                </div>
 
-                                                <ul class="job-info">
-                                                    <li><i class="ri-map-pin-line"></i> USA</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i> 45 USD/Hr</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="featured-candidates-hire">
-                                            <ul class="job-other-info">
-                                                <li>Top Rated</li>
-                                                <li class="featured">Featured</li>
-                                            </ul>
-                                            <a href="contact.html" class="default-btn">Hire Me <i class="flaticon-list-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="featured-candidates-box">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-8 col-sm-6">
-                                        <div class="candidates-box-content">
-                                            <div class="image">
-                                                <a href="candidates-details-1.html"><img src="assets/images/featured-candidates/image-2.jpg" alt="image" /></a>
-                                            </div>
-
-                                            <div class="content">
-                                                <h3>
-                                                    <a href="candidates-details-1.html">John Carter</a>
-                                                </h3>
-                                                <span>Ui/Ux Designer</span>
-
-                                                <div class="rating">
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <span>4.5 Rating</span>
-                                                </div>
-
-                                                <ul class="job-info">
-                                                    <li><i class="ri-map-pin-line"></i> USA</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i> 45 USD/Hr</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="featured-candidates-hire">
-                                            <ul class="job-other-info">
-                                                <li>Top Rated</li>
-                                                <li class="featured">Featured</li>
-                                            </ul>
-                                            <a href="contact.html" class="default-btn">Hire Me <i class="flaticon-list-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="featured-candidates-box">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-8 col-sm-6">
-                                        <div class="candidates-box-content">
-                                            <div class="image">
-                                                <a href="candidates-details-1.html"><img src="assets/images/featured-candidates/image-3.jpg" alt="image" /></a>
-                                            </div>
-
-                                            <div class="content">
-                                                <h3>
-                                                    <a href="candidates-details-1.html">Jennifer Rose</a>
-                                                </h3>
-                                                <span>Digital Marketer</span>
-
-                                                <div class="rating">
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <i class="flaticon-star"></i>
-                                                    <span>4.5 Rating</span>
-                                                </div>
-
-                                                <ul class="job-info">
-                                                    <li><i class="ri-map-pin-line"></i> USA</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i> 45 USD/Hr</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="featured-candidates-hire">
-                                            <ul class="job-other-info">
-                                                <li>Top Rated</li>
-                                                <li class="featured">Featured</li>
-                                            </ul>
-                                            <a href="contact.html" class="default-btn">Hire Me <i class="flaticon-list-1"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="featured-candidates-btn">
                                 <a href="candidates-2.html">View All Candidates <i class="flaticon-right-arrow"></i></a>

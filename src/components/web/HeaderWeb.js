@@ -1,5 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { routing } from '../../utlis/routing';
+
+
 
 const HeaderWeb = () => {
     return (
@@ -136,53 +138,28 @@ const HeaderWeb = () => {
 
                                     <li class="nav-item visible">
                                         <a href="#" class="nav-link">
-                                            Candidates
+                                            espace candidat
                                             <i class="ri-arrow-down-s-line"></i>
                                         </a>
 
                                         <ul class="dropdown-menu">
-                                            
+
                                             <li class="nav-item">
                                                 <a href={`/${routing.candidatDashboard.path}`} class="nav-link">tableau de bord</a>
                                             </li>
-
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link">
-                                                    Candidates Details
-                                                    <i class="ri-arrow-right-s-line"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu">
-                                                    <li class="nav-item">
-                                                        <a href="candidates-details-1.html" class="nav-link">Candidates Details - One</a>
-                                                    </li>
-
-                                                    <li class="nav-item">
-                                                        <a href="candidates-details-2.html" class="nav-link">Candidates Details - Two</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-
                                         </ul>
                                     </li>
 
                                     <li class="nav-item visible">
                                         <a href="#" class="nav-link">
-                                            Employers
+                                            espace employeur
                                             <i class="ri-arrow-down-s-line"></i>
                                         </a>
 
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="employers.html" class="nav-link">Employers</a>
-                                            </li>
 
                                             <li class="nav-item">
-                                                <a href="employers-details.html" class="nav-link">Employers Details</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="dashboard.html" class="nav-link">Employers Dashboard</a>
+                                                <a href={`/${routing.candidatDashboard.path}`} class="nav-link">tableau de bord</a>
                                             </li>
                                         </ul>
                                     </li>
