@@ -20,7 +20,7 @@ const HomePage = () => {
             <JobListHome />
             <FeatureCandidatHome />
             <OverViewHome />
-        // Footer
+        {/* Footer*/}
             <FooterWeb />
         </div>
     )

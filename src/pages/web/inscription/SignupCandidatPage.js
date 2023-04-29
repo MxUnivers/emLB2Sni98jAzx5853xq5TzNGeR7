@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
-import Select from 'react-select'
+import React, { useState } from 'react';
+import Select from 'react-select';
 //File pond
-import { FilePond, registerPlugin } from 'react-filepond'
-import 'filepond/dist/filepond.min.css'
+import { FilePond, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
 // Importer le plugin de prévisualisation d'image
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
-import { ApiKey } from '../../../utlis/config'
-import BarnerCandidat from '../../../components/web/candidat/BarnerCandidat'
-import { Editor } from '@tinymce/tinymce-react'
-import { routing } from '../../../utlis/routing'
-import { optionPays } from '../../../utlis/options/optionDivers'
-import { localites } from '../../../utlis/options/annonceOptions'
-import { competences, languages, level_School } from '../../../utlis/options/candidatOption'
-import { lang } from 'moment/moment'
+import { ApiKey } from '../../../utlis/config';
+import BarnerCandidat from '../../../components/web/candidat/BarnerCandidat';
+import { Editor } from '@tinymce/tinymce-react';
+import { routing } from '../../../utlis/routing';
+import { localites } from '../../../utlis/options/annonceOptions';
+import { competences, languages, level_School } from '../../../utlis/options/candidatOption';
+import { useDispatch, useSelector } from 'react-redux';
+import { CandidatSignUp } from '../../../action/api/candidat/CandidatAction';
+
+
+
+
 
 registerPlugin(FilePondPluginImagePreview)
 
@@ -22,6 +26,8 @@ const SignupCandidatPage = () => {
     // Uploader images
     const [photo, setPhoto] = useState(null);
 
+
+    // Photo de profile
     const handlePhotoUpdate = (files) => {
         if (files[0].getFileEncodeDataURL !== undefined) {
             setPhoto(files[0].getFileEncodeDataURL());
@@ -39,25 +45,15 @@ const SignupCandidatPage = () => {
     };
 
 
+
     // Edtiteur tiny
     const handleEditorChange = (content, editor) => {
         console.log('Content was updated:', content)
     }
 
-
-
-    const levels = [
-        { value: 'doctorat', label: 'Doctorat' },
-        { value: 'master1', label: 'Master 2' },
-        { value: 'master2', label: 'Master2' },
-        { value: 'bts', label: 'Bts' }
-    ]
-
+    // muti select pour les langues et les compétences
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [selectedCompetences, setSelectedCompetences] = useState([]);
-    const [selectedLevels, setSelectedLevels] = useState([])
-
-    
     const handleChangeLanguages = selected => {
         setSelectedLanguages(selected)
     }
@@ -65,6 +61,56 @@ const SignupCandidatPage = () => {
         setSelectedCompetences(selected)
     }
 
+
+    // redux
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    // Recupration des données de mon formualire
+    const [formData, setFormData] = useState({ name: '', email: '' });
+    const handleChangeForm = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        if (formData.email == "") {
+            alert("champ email !");
+            return;
+        }
+        if (formData.username == "") {
+            alert("Champ nom d'utlisateur vide ");
+            return;
+        }
+        if (formData.password == "") {
+            alert("Champ mot de passe vide ");
+            return;
+        }
+        if (formData.dateNaissance == "") {
+            alert("Date de naissance requis ");
+            return;
+        }
+        if (formData.addresse == "") {
+            alert("Champ nom d'utlisateur vide ");
+            return;
+        }
+        if (formData.telephone == "") {
+            alert("Champ nom d'utlisateur vide ");
+            return;
+        }
+        if (formData.ville == "") {
+            alert("Champ nom d'utlisateur vide ");
+            return;
+        }
+        dispatch(CandidatSignUp(formData));
+    };
+
+
+
+
+    // 
     return (
         <div>
             <BarnerCandidat />
@@ -76,7 +122,7 @@ const SignupCandidatPage = () => {
                         <p>si vous avez une compte</p>
                         <a href={`/${routing.connexionCandidat.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div class=' pt-20 bg-white'>
                             <div>
                                 <FilePond
@@ -95,21 +141,24 @@ const SignupCandidatPage = () => {
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>Nom d{"'"}utilisateur *</label>
-                                    <input type='text' name="username" class='form-control' placeholder="nom d'utlisateur" />
+                                    <input type='text' name="username" onChange={handleChangeForm} class='form-control' placeholder="nom d'utlisateur" />
                                 </div>
                             </div>
+
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>Votre nom *</label>
-                                    <input type='text' name="firstname" class='form-control' placeholder='Nom' />
+                                    <input type='text' name="firstname" onChange={handleChangeForm} class='form-control' placeholder='Nom' />
                                 </div>
                             </div>
+
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>Votre prénoms *</label>
                                     <input
                                         type='text'
                                         name="lastname"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='prénoms'
                                     />
@@ -122,17 +171,20 @@ const SignupCandidatPage = () => {
                                     <input
                                         type='text'
                                         name="email"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='Your Email'
                                     />
                                 </div>
                             </div>
+
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>mot de passe *</label>
                                     <input
-                                        type='text'
-                                        name="email"
+                                        type='password'
+                                        name="password"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='Your Email'
                                     />
@@ -144,8 +196,10 @@ const SignupCandidatPage = () => {
                                     <label>Date de naissance *</label>
                                     <input
                                         type='date'
-                                        class='form-control'
-                                        placeholder='Date of Birth'
+                                        name="dateNaissance"
+                                        onChange={handleChangeForm}
+                                        class="form-control"
+                                        placeholder='DD-MM-YYYYY'
                                     />
                                 </div>
                             </div>
@@ -155,6 +209,8 @@ const SignupCandidatPage = () => {
                                     <label>Télephone</label>
                                     <input
                                         type='number'
+                                        name="telephone"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='+XXXXXXXXXX'
                                     />
@@ -165,7 +221,7 @@ const SignupCandidatPage = () => {
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>ville</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="ville" onChange={handleChangeForm}>
                                         <option> Choisissez votre ville</option>
                                         {
                                             localites.map((item) => {
@@ -181,7 +237,12 @@ const SignupCandidatPage = () => {
                             <div class='col-xl-6 col-lg-12 col-md-12'>
                                 <div class='form-group'>
                                     <label>adresse *</label>
-                                    <input type="text" class="form-control" name="adresse" placeholder="Côte d'Ivoire , Abidjan,Yopougon" />
+                                    <input type="text"
+                                        class="form-control"
+                                        name="adresse"
+                                        onChange={handleChangeForm}
+                                        placeholder="Pays , Ville , Commune / Quartier"
+                                    />
                                 </div>
                             </div>
 
@@ -239,7 +300,7 @@ const SignupCandidatPage = () => {
                                 <div class='form-group'>
                                     <label>Niveau d{"'"}études</label>
                                     <div>
-                                        <select class="form-control" name="level_school">
+                                        <select class="form-control" name="level_school" onChange={handleChangeForm} >
                                             {
                                                 level_School.map((item) => {
                                                     return (
@@ -258,6 +319,7 @@ const SignupCandidatPage = () => {
                                     <input
                                         type='number'
                                         name="years_experience"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='Experience'
                                     />
@@ -272,7 +334,6 @@ const SignupCandidatPage = () => {
                                             options={languages}
                                             onChange={handleChangeLanguages}
                                             isMulti
-
                                             value={selectedLanguages}
                                         />
                                         <p>Langues sélectionnées:</p>
@@ -291,6 +352,8 @@ const SignupCandidatPage = () => {
                                     <label>Facebook URL</label>
                                     <input
                                         type='text'
+                                        name="facebook_url"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='https://www.facebook.com/'
                                     />
@@ -302,6 +365,8 @@ const SignupCandidatPage = () => {
                                     <label>Twitter URL</label>
                                     <input
                                         type='text'
+                                        name="twitter_url"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='https://twitter.com/'
                                     />
@@ -313,6 +378,8 @@ const SignupCandidatPage = () => {
                                     <label>Linkedin URL</label>
                                     <input
                                         type='text'
+                                        name="linkedin_url"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='https://www.linkedin.com/'
                                     />
@@ -324,6 +391,8 @@ const SignupCandidatPage = () => {
                                     <label>Instagram URL</label>
                                     <input
                                         type='text'
+                                        name="instagram_url"
+                                        onChange={handleChangeForm}
                                         class='form-control'
                                         placeholder='https://instagram.com/'
                                     />
@@ -331,12 +400,14 @@ const SignupCandidatPage = () => {
                             </div>
 
                             <div class='col-lg-12 col-md-12'>
-                                <button
-                                    type='submit'
-                                    class=' btn btn-info default-btn bg-blue-600'
-                                >
-                                    Confimer votre inscription <i class='flaticon-send'></i>
-                                </button>
+                                {error && <p class="text-danger">Une erreur est survenue lors de l{"'"}inscription : {error}</p>}
+                                {loading ?
+                                    <p>Votre insciption est en cours ...</p> :
+                                    <button type='submit' class=' btn btn-info default-btn bg-blue-600' >
+                                        Confirmer inscription <i class='flaticon-send'></i>
+                                    </button>
+                                }
+
                             </div>
                         </div>
                     </form>

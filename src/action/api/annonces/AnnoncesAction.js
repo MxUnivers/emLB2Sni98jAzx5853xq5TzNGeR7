@@ -2,6 +2,14 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 
 
+export const SEND_REQUEST = "SEND_REQUEST";
+export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
+export const REQUEST_FAILURE = "REQUEST_FAILURE";
+
+
+
+
+
 
 export const AnnonceGetAll = async (setState, setState2) => {
 
