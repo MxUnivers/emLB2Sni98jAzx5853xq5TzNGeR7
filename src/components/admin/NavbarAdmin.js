@@ -1,7 +1,10 @@
 import React from 'react'
 import NavbarItemCandidat from './candidat/NavbarItemCandidat';
+import { typeadmin } from '../../utlis/storage/account';
+import NavbarItemEmployeur from './employer/NavbarItemEmployeur';
 
-const NavbarAdmin = () => {
+const NavbarAdmin = ({data}) => {
+    
     return (
 
 
@@ -50,9 +53,18 @@ const NavbarAdmin = () => {
                         </ul>
 
                         {
+                            data.typeAdmin  == typeadmin.candidat ?
+                             <NavbarItemCandidat/>
+                             :
+                             null
                             /* Profile candidat */
                         }
-                        <NavbarItemCandidat/>
+                        {
+                            data.typeAdmin == typeadmin.employeur ?
+                             <NavbarItemEmployeur/>
+                             : null
+                            /* Profile Employeur */
+                        }
 
 
                     </div>

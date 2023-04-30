@@ -33,6 +33,30 @@ export const CandidatSignUp = (data) => {
 }
 
 
+export const CandidatEditProfile = (id,data) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`, data, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+
+
+
 // Authenfication du candidate
 
 export const CandidatConnexion = (data, redirect) => {
@@ -51,6 +75,7 @@ export const CandidatConnexion = (data, redirect) => {
                 localStorage.setItem(localvalue.candidat.tokenCandidat,response.data.data.token);
                 localStorage.setItem(localvalue.candidat.idCandidat,response.data.data._id);
                 localStorage.setItem(localvalue.candidat.emailCandidat,response.data.data.email);
+                localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
                 redirect(`/${routing.candidatDashboard.path}`);
             })
             .catch((error) => {
@@ -75,6 +100,25 @@ export const CandidatGetAll = async (setState, setState2) => {
             console.log(JSON.stringify(response.data));
             setState(response.data.data);
             setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+export const CandidatGetById = async (id,setState) => {
+
+    await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            console.log(JSON.stringify(response.data));
+            setState(response.data.data);
         })
         .catch((error) => {
             console.log(error);

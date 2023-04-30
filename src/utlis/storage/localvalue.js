@@ -3,8 +3,9 @@ export const localvalue = {
     candidat: {
         idCandidat: "idCandidat",
         tokenCandidat: "tokenCandidat",
-        emailCandidat: "emailCandidat"
-    }
+        emailCandidat: "emailCandidat",
+    },
+    typeAdmin:"typeAdmin",
 
 
 }
