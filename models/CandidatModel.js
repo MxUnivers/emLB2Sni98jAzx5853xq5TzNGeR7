@@ -13,11 +13,11 @@ const CandidatSchema = new mongoose.Schema({
     description: {
         type: String, required: false
     },
-    coverPicture:{
-        type:String, default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzH6TfTtq91hzmeIvm_4JOdb5y1UWjTlYZdA&usqp=CAU"
+    coverPicture: {
+        type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzH6TfTtq91hzmeIvm_4JOdb5y1UWjTlYZdA&usqp=CAU"
     },
-    dateNaissance:{
-        type:String,
+    dateNaissance: {
+        type: String,
     },
     email: {
         type: String, required: false, unique: true
@@ -55,6 +55,9 @@ const CandidatSchema = new mongoose.Schema({
     lettre_motivation: {
         type: String
     },
+    type: {
+        type: String, default: "candidat"
+    },
     token: {
         type: String, required: false
     },
@@ -62,26 +65,29 @@ const CandidatSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    is_active:{
-        type:Boolean,
-        default:false
+    is_active: {
+        type: Boolean,
+        default: false
     },
     date_mise_a_jour: {
         type: Date, default: Date.now
     },
-    facebookUrl: {
+    facebook_url: {
         type: String
     },
-    linkedinUrl: {
+    linkedin_url: {
         type: String
     },
-    twitterUrl: {
+    twitter_url: {
         type: String
     },
-    instagramUrl: {
+    instagram_url: {
         type: String
     },
-    
+    offresPostulees: [
+        {type:Object}
+    ]
+
 
 
 }, {

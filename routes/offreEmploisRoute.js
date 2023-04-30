@@ -53,7 +53,7 @@ router.put('/edit/:id',AuthorizationMiddleware, async (req, res) => {
 router.get('/get_offres',AuthorizationMiddleware, async (req, res) => {
     try {
         const offre = await OffreEmploiModel.find({});
-         res.json(offre);
+         res.json({data:offre});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });

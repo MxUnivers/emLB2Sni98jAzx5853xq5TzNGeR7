@@ -21,7 +21,10 @@ const offreEmploiSchema = new mongoose.Schema(
     salaire: { type: Number },
     candidats: [candidatSchema],
     competences:[String],
-    blocked: { type: Boolean, default: false }
+    blocked: { type: Boolean, default: false },
+    candidatPostulees:[
+      {type:Object}
+    ]
   },
   { timestamps: true }
 )

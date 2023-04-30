@@ -29,9 +29,10 @@ router.post('/login/',AuthorizationMiddleware, async (req, res) => {
       // Générer un token JWT pour la session de connexion
       const token = jwt.sign({ id: candidat._id }, process.env.JWT_SECRET);
       candidat.token = token; 
+      candidat.is_active=true
       await candidat.save();
       // Envoyer une réponse avec le token JWT
-      return res.status(200).json({ token: token });
+      return res.status(200).json({ token: token ,data:candidat});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Une erreur est survenue lors de la connexion.' });
