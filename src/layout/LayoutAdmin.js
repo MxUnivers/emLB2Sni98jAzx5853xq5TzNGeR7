@@ -7,11 +7,11 @@ import { routing } from '../config/routing'
 
 const LayoutAdmin = () => {
 
-    var accesstoken = localStorage.getItem(localvalue.tokenAdmin);
-    if (accesstoken == null) {
-        return (<Navigate to={`/${routing.connexion.path}`} />)
-    }
-    else {
+    // var accesstoken = localStorage.getItem(localvalue.tokenAdmin);
+    // if (accesstoken == null) {
+    //     return (<Navigate to={`/${routing.connexion.path}`} />)
+    // }
+    // else {
         return (
             <div>
                 <main class="content">
@@ -22,7 +22,7 @@ const LayoutAdmin = () => {
             </div>
 
         )
-    }
+    
 }
 
 export default LayoutAdmin;

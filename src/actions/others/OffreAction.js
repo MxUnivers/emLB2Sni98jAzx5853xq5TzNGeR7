@@ -144,8 +144,8 @@ export const OffreActionListRequest = async(setState,setState2) => {
                 }
             })
             .then((response) => {
-                setState(response.data);
-                setState2(response.data);
+                setState(response.data.data);
+                setState2(response.data.data);
                 console.log(response.data);
             })
             .catch((error) => {
