@@ -54,7 +54,7 @@ const NavbarAdmin = ({data}) => {
 
                         {
                             data.typeAdmin  == typeadmin.candidat ?
-                             <NavbarItemCandidat/>
+                             <NavbarItemCandidat data={data}/>
                              :
                              null
                             /* Profile candidat */

@@ -76,6 +76,7 @@ export const CandidatConnexion = (data, redirect) => {
                 localStorage.setItem(localvalue.candidat.idCandidat,response.data.data._id);
                 localStorage.setItem(localvalue.candidat.emailCandidat,response.data.data.email);
                 localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
+                localStorage.setItem(localvalue.candidat.coverPictureCandidat,response.data.data.coverPicture);
                 redirect(`/${routing.candidatDashboard.path}`);
             })
             .catch((error) => {

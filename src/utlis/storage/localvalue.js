@@ -4,6 +4,7 @@ export const localvalue = {
         idCandidat: "idCandidat",
         tokenCandidat: "tokenCandidat",
         emailCandidat: "emailCandidat",
+        coverPictureCandidat:"photoCandidat"
     },
     typeAdmin:"typeAdmin",
 

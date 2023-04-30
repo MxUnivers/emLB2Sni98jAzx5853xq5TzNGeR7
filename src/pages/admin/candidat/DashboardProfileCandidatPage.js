@@ -47,7 +47,7 @@ const DashboardProfileCandidatPgage = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(CandidatEditProfile(idAdmin, formData));
+        dispatch(CandidatEditProfile(idAdmin, formDataEdit));
     };
 
     return (
@@ -85,48 +85,48 @@ const DashboardProfileCandidatPgage = () => {
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Nom </label>
-                                <input defaultValue={formData.firstname} onChange={handleChangeForm} type="text" class="form-control" placeholder="Andy Smith" />
+                                <input defaultValue={formData.firstname} name="firstname" onChange={handleChangeForm} type="text" class="form-control" placeholder="Andy Smith" />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Prénoms </label>
-                                <input defaultValue={formData.lastname} onChange={handleChangeForm} type="text" class="form-control" placeholder="Andy Smith" />
+                                <input defaultValue={formData.lastname} name="lastname" onChange={handleChangeForm} type="text" class="form-control" placeholder="Andy Smith" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input defaultValue={formData.email} onChange={handleChangeForm} type="email" class="form-control" placeholder="hello@andysmith.com" />
+                                <input defaultValue={formData.email} name="email" onChange={handleChangeForm} type="email" class="form-control" placeholder="hello@andysmith.com" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>téléphone</label>
-                                <input defaultValue={formData.telephone} onChange={handleChangeForm} type="phone" class="form-control" placeholder="+88 (123) 123456" />
+                                <input defaultValue={formData.telephone} name="telephone" onChange={handleChangeForm} type="phone" class="form-control" placeholder="+88 (123) 123456" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Experience</label>
-                                <input defaultValue={formData.years_experience} onChange={handleChangeForm} type="text" class="form-control" placeholder="4-8 Years" />
+                                <input defaultValue={formData.years_experience} name="years_experience" onChange={handleChangeForm} type="text" class="form-control" placeholder="4-8 Years" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Naissance</label>
-                                <input defaultValue={formData.dateNaissance} onChange={handleChangeForm} type="date" class="form-control" placeholder="4-8 Years" />
+                                <input defaultValue={formData.dateNaissance} name="dateNaissance" onChange={handleChangeForm} type="date" class="form-control" placeholder="4-8 Years" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Niveau d{"'"} éducation</label>
-                                <select class="form-control" onChange={handleChangeForm}>
+                                <select class="form-control" onChange={handleChangeForm} name="level_school">
                                     {
                                         level_School.map((item) => {
                                             return (
@@ -170,7 +170,7 @@ const DashboardProfileCandidatPgage = () => {
                             <div class="form-group">
                                 <label>Pays</label>
 
-                                <select class="selectize-filter form-control" onChange={handleChangeForm}>
+                                <select class="selectize-filter form-control" onChange={handleChangeForm} name="pays">
                                     {
                                         optionPays.map((item) => {
                                             return (
@@ -186,7 +186,7 @@ const DashboardProfileCandidatPgage = () => {
                             <div class="form-group">
                                 <label>Ville</label>
 
-                                <select class="selectize-filter form-control" onChange={handleChangeForm}>
+                                <select class="selectize-filter form-control" onChange={handleChangeForm} name="ville">
                                     <option >----- Choisissez une ville -----</option>
                                     {
                                         localites.map((item) => {
@@ -202,7 +202,7 @@ const DashboardProfileCandidatPgage = () => {
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Adresse</label>
-                                <input defaultValue={formData.adresse} onChange={handleChangeForm} type="text" class="form-control" placeholder="Complete Address" />
+                                <input defaultValue={formData.adresse} onChange={handleChangeForm} name="adresse" type="text" class="form-control" placeholder="Complete Address" />
                             </div>
                         </div>
 
@@ -219,28 +219,28 @@ const DashboardProfileCandidatPgage = () => {
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>lien Facebook </label>
-                                <input defaultValue={formData.facebook_url} onChange={handleChangeForm} type="text" class="form-control" placeholder="https://twitter.com/" />
+                                <input defaultValue={formData.facebook_url} name="facebook_url" onChange={handleChangeForm} type="text" class="form-control" placeholder="https://twitter.com/" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>lien Twitter </label>
-                                <input defaultValue={formData.twitter_url} onChange={handleChangeForm} type="text" class="form-control" placeholder="https://twitter.com/" />
+                                <input defaultValue={formData.twitter_url} name="twitter_url" onChange={handleChangeForm} type="text" class="form-control" placeholder="https://twitter.com/" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>lien Linkedin </label>
-                                <input defaultValue={formData.linkedin_url} onChange={handleChangeForm} type="text" class="form-control" placeholder="https://www.linkedin.com/" />
+                                <input defaultValue={formData.linkedin_url} name="linkedin_url" onChange={handleChangeForm} type="text" class="form-control" placeholder="https://www.linkedin.com/" />
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>lien Instagram </label>
-                                <input defaultValue={formData.instagram_url} onChange={handleChangeForm} type="text" class="form-control" placeholder="https://instagram.com/" />
+                                <input defaultValue={formData.instagram_url} name="instagram_url" onChange={handleChangeForm} type="text" class="form-control" placeholder="https://instagram.com/" />
                             </div>
                         </div>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NavbarItemCandidat = () => {
+const NavbarItemCandidat = ({data}) => {
     return (
         <div class="others-options d-flex align-items-center visible">
             <div class="option-item visible">
@@ -8,7 +8,7 @@ const NavbarItemCandidat = () => {
                     <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="menu-profile">
                             <img src="assets/images/dashboard/user1.jpg" class="rounded-circle" alt="image" />
-                            <span class="name">My Account</span>
+                            <span class="name">{data.emailAdmin}</span>
                         </div>
                     </a>
 
