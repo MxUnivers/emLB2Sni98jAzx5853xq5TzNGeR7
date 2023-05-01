@@ -21,6 +21,7 @@ import DashBoardMemberCandidatPage from "./pages/admin/candidat/DashBoardMemberC
 import LoginCandidatPage from "./pages/web/connexion/LoginCandidatPage";
 import LoginEmployeurPage from "./pages/web/connexion/LoginEmployeurPage";
 import DashboardOffreDetailCandidatPage from "./pages/admin/candidat/DashboardOffreDetailCandidatPage";
+import DashboardDetailCandidatPage from "./pages/admin/candidat/DashboardDetailCandidatPage";
 
 
 
@@ -62,6 +63,7 @@ function App() {
              <Route path={`${routing.candidatChangePassord.path}`} element={<DashboardPasswordEditCandidatPage/>} />
              <Route path={`${routing.candidatAllParticipant.path}`} element={<DashBoardMemberCandidatPage/>} />
              <Route path={`${routing.candidatDetailOffreEmplois.path}`} element={<DashboardOffreDetailCandidatPage/>} />
+             <Route path={`${routing.candidatDetailProfileView.path}`} element={<DashboardDetailCandidatPage/>} />
           </Route>
 
 

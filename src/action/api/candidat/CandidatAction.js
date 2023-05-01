@@ -79,6 +79,29 @@ export const CandidatEditCv = (id,data) => {
 
 
 
+export const CandidatPostuleOneOffre = (idcandidat,idOffre) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/candidat/get_candidat/${idcandidat}/postuler/${idOffre}/offres`, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+
+
 
 export const CandidatEditPassword = (id,data) => {
     return async (dispatch) => {
@@ -174,6 +197,8 @@ export const CandidatGetCvById = async (id ,setState) => {
         });
 
 }
+
+
 
 
 

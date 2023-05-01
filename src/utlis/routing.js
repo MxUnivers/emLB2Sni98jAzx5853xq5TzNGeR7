@@ -1,3 +1,5 @@
+import { localvalue } from "./storage/localvalue";
+
 export const routing = {
     // Application web
     home: {
@@ -62,6 +64,9 @@ export const routing = {
     },
     candidatDetailOffreEmplois:{
         path:"details-du-l-offre"
+    },
+    candidatDetailProfileView:{
+        path:`candidat-n°${localStorage.getItem(localvalue.candidat.idCandidatDetail)}`
     }
     
 

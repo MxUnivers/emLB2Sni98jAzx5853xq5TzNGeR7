@@ -4,15 +4,17 @@ export const localvalue = {
         idCandidat: "idCandidat",
         tokenCandidat: "tokenCandidat",
         emailCandidat: "emailCandidat",
-        coverPictureCandidat:"photoCandidat"
+        coverPictureCandidat:"photoCandidat",
+        idCandidatDetail:"idCandidatDetailProfile"
     },
+    // Administration des candidat et epmployeur
     typeAdmin:"typeAdmin",
     offreAdmin:{
         id:"idOffreAdmin",
         coverPicture:"coverPictureOffreAdmin",
         titre:"titreOffreAdmin"
-    }
-
+    },
+    
 
 }
 

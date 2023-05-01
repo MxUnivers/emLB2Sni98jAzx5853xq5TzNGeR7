@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { routing } from '../../../utlis/routing';
 import { useDispatch, useSelector } from 'react-redux';
-import { localvalueGetCandidat } from '../../../utlis/storage/localvalue';
+import { localvalue, localvalueGetCandidat } from '../../../utlis/storage/localvalue';
 import axios from 'axios';
 import { baseurl } from '../../../utlis/url/baseurl';
 import moment from 'moment';
-import { CandidatGetCandidatpostulesByOffre } from '../../../action/api/candidat/CandidatAction';
+import { CandidatGetCandidatpostulesByOffre, CandidatPostuleOneOffre } from '../../../action/api/candidat/CandidatAction';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardOffreDetailCandidatPage = () => {
 
+    var idAdmin = localStorage.getItem(localvalue.candidat.idCandidat);
 
+    const navigation = useNavigate();
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
@@ -32,6 +35,17 @@ const DashboardOffreDetailCandidatPage = () => {
             .catch((error) => { console.log(error); });
 
     }
+
+    // potuler à une offre 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (idAdmin == null | "") {
+            alert("Requete non pris en compte");
+            return;
+        }
+        dispatch(CandidatPostuleOneOffre(idAdmin, dataOffre._id));
+    };
+
 
 
 
@@ -74,6 +88,19 @@ const DashboardOffreDetailCandidatPage = () => {
                                         : null
                                 }
                             </div>
+                            <div class=" py-2 ">
+                                <div>
+                                    <form onSubmit={handleSubmit}>
+                                        {error && <p class="text-danger">Demande non prise en compte</p>}
+                                        {
+                                            loading ?
+                                                <p>Votre de demande est cours ...</p> :
+                                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                                    Postuler à l{"'"}offre</button>
+                                        }
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="md:w-1/3 mx-4">
@@ -105,7 +132,12 @@ const DashboardOffreDetailCandidatPage = () => {
                                             <p class="text-gray-600 text-sm">expérience : {item.years_experience} ans</p>
                                         </div>
                                     </div>
-                                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                    <button
+                                        onClick={() => {
+                                            localStorage.setItem(localvalue.candidat.idCandidatDetail, item._id)
+                                            navigation(`/${routing.candidatDetailProfileView.path}`);
+                                        }}
+                                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                                         Contacter
                                     </button>
                                 </li>
