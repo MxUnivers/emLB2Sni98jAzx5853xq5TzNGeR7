@@ -7,6 +7,11 @@ export const localvalue = {
         coverPictureCandidat:"photoCandidat"
     },
     typeAdmin:"typeAdmin",
+    offreAdmin:{
+        id:"idOffreAdmin",
+        coverPicture:"coverPictureOffreAdmin",
+        titre:"titreOffreAdmin"
+    }
 
 
 }
@@ -25,4 +30,6 @@ export var localvalueGetCandidat = {
     tokenCandidat: localStorage.getItem(localvalue.candidat.tokenCandidat),
     emailCandidat: localStorage.getItem(localvalue.candidat.emailCandidat),
     coverPictureCandidat: localStorage.getItem(localvalue.candidat.coverPictureCandidat),
+    // offre du candidat
+    offreId:localStorage.getItem(localvalue.offreAdmin.id)
 }

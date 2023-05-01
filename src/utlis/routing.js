@@ -59,6 +59,9 @@ export const routing = {
     },
     candidatChangePassord:{
         path:"modification-du-mot-passe-du-candidat"
+    },
+    candidatDetailOffreEmplois:{
+        path:"details-du-l-offre"
     }
     
 

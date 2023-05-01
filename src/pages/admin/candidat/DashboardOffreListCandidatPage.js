@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { HiSearchCircle } from "react-icons/hi";
 import { OffreGetAll } from '../../../action/api/offres/OffresAction';
+import { routing } from '../../../utlis/routing';
+import { LocaleState } from '../../../utlis/storage/localvalueFunction';
+import { localvalue } from '../../../utlis/storage/localvalue';
 
 
 const DashboardOffreListCandidatPage = () => {
@@ -9,7 +12,7 @@ const DashboardOffreListCandidatPage = () => {
     const [dataOffre2, setdataOffre2] = useState([]);
     useEffect(() => {
         OffreGetAll(setdataOffre, setdataOffre2);
-    }, [dataOffre])
+    }, [])
 
     return (
         <div>
@@ -49,7 +52,9 @@ const DashboardOffreListCandidatPage = () => {
                                                 <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
                                             </div>
                                             <h3>
-                                                <a href="job-details-1.html">{item.titre}</a>
+                                                <a href={`/${routing.candidatDetailOffreEmplois.path}`}
+                                                onClick={LocaleState(localvalue.offreAdmin.id,item._id)}
+                                                >{item.titre}</a>
                                             </h3>
                                             <div class="bookmark-btn">
                                                 <i class="ri-bookmark-line"></i>

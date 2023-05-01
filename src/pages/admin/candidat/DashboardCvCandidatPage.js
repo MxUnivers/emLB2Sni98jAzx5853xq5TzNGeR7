@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { routing } from '../../../utlis/routing';
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
@@ -6,7 +6,7 @@ import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import { useDispatch, useSelector } from 'react-redux';
 import { localvalueGetCandidat } from '../../../utlis/storage/localvalue';
-import { CandidatEditCv, CandidatEditProfile } from '../../../action/api/candidat/CandidatAction';
+import { CandidatEditCv, CandidatEditProfile, CandidatGetCvById } from '../../../action/api/candidat/CandidatAction';
 
 registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateType);
 
@@ -15,6 +15,9 @@ const DashboardCvCandidatPage = () => {
 
     const [cv, setCv] = useState(null);
 
+    useEffect(()=>{
+        CandidatGetCvById(localvalueGetCandidat.idCandidat,setCv);
+    },[]);
     const handleCvUpdate = (files) => {
         const pdfFile = files.find((file) => file.file.type === 'application/pdf');
         if (pdfFile) {
@@ -30,18 +33,15 @@ const DashboardCvCandidatPage = () => {
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
-    const [formDataEdit, setformDataEdit] = useState({
-        "cv": cv
-    });
-
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (cv == "") {
+        if (cv == null) {
             alert("Veillez mettre à jour votre cv svp")
             return;
         }
-        dispatch(CandidatEditCv(localvalueGetCandidat.idCandidat, formDataEdit));
+        dispatch(CandidatEditCv(localvalueGetCandidat.idCandidat, {"cv":cv}));
     };
 
 

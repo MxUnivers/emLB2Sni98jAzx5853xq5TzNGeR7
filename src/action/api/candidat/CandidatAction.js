@@ -2,11 +2,11 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { routing } from "../../../utlis/routing";
 import { localvalue } from "../../../utlis/storage/localvalue";
+import { SEND_REQUEST } from "../annonces/AnnoncesAction";
+import { REQUEST_SUCCESS } from "../annonces/AnnoncesAction";
+import { REQUEST_FAILURE } from "../annonces/AnnoncesAction";
 
 
-export const SEND_REQUEST = "SEND_REQUEST";
-export const REQUEST_SUCCESS = "REQUEST_SUCCESS";
-export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 
 // Créer un Candidat
@@ -152,6 +152,42 @@ export const CandidatGetAll = async (setState, setState2) => {
             console.log(error);
         });
 
+}
+
+
+
+
+// Recupérer mes information du cv
+export const CandidatGetCvById = async (id ,setState) => {
+
+    await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data.cv);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+
+
+// Recupérer tout les candiats qui ont postulés à l'offre
+export const CandidatGetCandidatpostulesByOffre = async (id ,setState) => {
+    await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+    .then((response) => { setState(response.data.data.candidatPostulees); })
+    .catch((error) => { console.log(error); });
 }
 
 
