@@ -61,6 +61,18 @@ router.get('/get_offres',AuthorizationMiddleware, async (req, res) => {
 });
 
 
+// Fontion Recupérer la liste de l'offre d'emplois
+router.get('/get_offre/:id',AuthorizationMiddleware, async (req, res) => {
+    try {
+        const offreId =  req.params.id;
+        const offre = await OffreEmploiModel.findById({_id:offreId});
+         res.json({data:offre});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });
+    }
+});
+
 
 
 

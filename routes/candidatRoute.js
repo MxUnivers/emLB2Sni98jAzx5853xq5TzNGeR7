@@ -198,27 +198,6 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
 });
 
 
-// Route pour ajouter une offre à un candidat
-router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, res) => {
-
-  const candidatId = req.params.candidatId;
-  try {
-
-    const candidatExit = await CandidatModel.findById({ _id: candidatId });
-
-    if (!candidatExit) {
-      return res.status(404).json({ message: "Candidat non trouvé" });
-    }
-
-    const candidat = await CandidatModel.findOne({ _id: candidatId });
-
-    await candidat.save();
-    await res.json({ data: candidat });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Une erreur est suvenue" });
-  }
-});
 
 
 
