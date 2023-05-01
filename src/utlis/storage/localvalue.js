@@ -10,3 +10,19 @@ export const localvalue = {
 
 
 }
+
+
+
+export var localvalueGet = {
+    typeAdmin: localStorage.getItem(localvalue.typeAdmin)
+}
+
+
+
+
+export var localvalueGetCandidat = {
+    idCandidat: localStorage.getItem(localvalue.candidat.idCandidat),
+    tokenCandidat: localStorage.getItem(localvalue.candidat.tokenCandidat),
+    emailCandidat: localStorage.getItem(localvalue.candidat.emailCandidat),
+    coverPictureCandidat: localStorage.getItem(localvalue.candidat.coverPictureCandidat),
+}

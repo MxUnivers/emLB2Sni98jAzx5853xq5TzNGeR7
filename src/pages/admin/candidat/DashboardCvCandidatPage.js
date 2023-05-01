@@ -1,34 +1,50 @@
 import React, { useState } from 'react'
 import { routing } from '../../../utlis/routing';
 import { FilePond, registerPlugin } from 'react-filepond';
-import 'filepond/dist/filepond.min.css'
-// Importer le plugin de prévisualisation d'image
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import { useDispatch, useSelector } from 'react-redux';
+import { localvalueGetCandidat } from '../../../utlis/storage/localvalue';
+import { CandidatEditCv, CandidatEditProfile } from '../../../action/api/candidat/CandidatAction';
 
-
-
-
-registerPlugin(FilePondPluginImagePreview)
+registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateType);
 
 const DashboardCvCandidatPage = () => {
 
-    const [photo, setPhoto] = useState(null);
-    const handlePhotoUpdate = (files) => {
-        if (files[0].getFileEncodeDataURL !== undefined) {
-            setPhoto(files[0].getFileEncodeDataURL());
-        } else if(files[0].getFileEncodeDataURL == undefined){
-            // Fichier non défini ou non chargé
-            setPhoto();
-            console.error("Une erreur s'est produite lors de la récupération de l'URL encodée en base64 de l'image");
-        }else{
-            console.log("Erreur inconue")
+
+    const [cv, setCv] = useState(null);
+
+    const handleCvUpdate = (files) => {
+        const pdfFile = files.find((file) => file.file.type === 'application/pdf');
+        if (pdfFile) {
+            const url = URL.createObjectURL(pdfFile.file);
+            setCv(url);
+            console.log(url + cv);
+        } else {
+            setCv(null);
+            console.error("Une erreur s'est produite lors de la récupération de l'URL encodée en base64 du fichier PDF");
         }
     };
 
-    const handleRemovePhoto = () => {
-        setPhoto(null);
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+    const [formDataEdit, setformDataEdit] = useState({
+        "cv": cv
+    });
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (cv == "") {
+            alert("Veillez mettre à jour votre cv svp")
+            return;
+        }
+        dispatch(CandidatEditCv(localvalueGetCandidat.idCandidat, formDataEdit));
     };
+
+
     return (
         <div>
             <div class="breadcrumb-area">
@@ -46,15 +62,34 @@ const DashboardCvCandidatPage = () => {
                 <h2>Cv du candidat</h2>
 
                 <div class="file-upload-box">
-                    <form action="/file-upload" class="dropzone">
+                    <form class="dropzone" onSubmit={handleSubmit}>
+
                         <FilePond
                             allowMultiple={false}
-                            acceptedFileTypes={['pdf/*']}
-                            labelIdle="Déposez votre photo de profil ici ou <span class='filepond--label-action'>téléchargez un fichier</span>"
-                            onupdatefiles={handlePhotoUpdate}
-                            onremovefile={handleRemovePhoto}
+                            acceptedFileTypes={['application/pdf']}
+                            labelIdle="Déposez votre CV ici ou <span class='filepond--label-action'>téléchargez un fichier</span>"
+                            onupdatefiles={handleCvUpdate}
                         />
-                        {photo && <img class="h-[50px] w-[50px] rounded-lg" src={photo} alt='Ma photo de profil' />}
+                        {cv && (
+                            <div>
+                                <object data={cv} type="application/pdf" width="100%" height="600px">
+                                    <p>Votre navigateur ne supporte pas les PDF intégrés. Vous pouvez télécharger le fichier <a href={cv}>ici</a>.</p>
+                                </object>
+                            </div>
+                        )}
+
+                        {error && <p class="text-danger">une erreur est sur venue lors de la modification de votre cv : {error}</p>}
+
+
+                        {
+                            loading ?
+                                <p class="animate-pulse text-gray-500  font-bold">Mise à jour en cours .... </p>
+                                :
+                                <div class="mt-5">
+                                    <button type="submit" class=" btn bg-blue-600 text-white rounded-lg px-2 py-1 hover:bg-blue-700 active:bg-blue-800">Enregister changement</button>
+                                </div>
+                        }
+
                     </form>
                 </div>
                 <div class="text">
