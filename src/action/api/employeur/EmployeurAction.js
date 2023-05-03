@@ -92,7 +92,7 @@ export const EntreprisePostAnnonce = (id,data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/entreprise/edit/${id}`, data, {
+            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/annonces`, data, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -203,9 +203,9 @@ export const EntrepriseGetById = async(id, setState) => {
 
 
 // Listes de tous les annonces l'entreprise
-export const EntrepriseGetAllAnnonces = async(id,setState) => {
+export const EntrepriseGetAllAnnonces = async(id,setState,setState2) => {
     await axios
-        .get(`${baseurl.url}/api/v1/entreprise/get_entrepris/${id}/annonces`, {
+        .get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${id}/annonces`, {
             headers:
             {
                 'Content-Type': 'application/json',
@@ -213,7 +213,8 @@ export const EntrepriseGetAllAnnonces = async(id,setState) => {
             }
         })
         .then((response) => {
-            setState(response.data.data.annonces);
+            setState(response.data.data);
+            setState2(response.data.data);
         })
         .catch((error) => {
             console.log(error);

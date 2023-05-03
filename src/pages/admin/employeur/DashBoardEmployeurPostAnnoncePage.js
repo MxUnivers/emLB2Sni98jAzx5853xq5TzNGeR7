@@ -1,33 +1,40 @@
 import React, { useState } from 'react'
 import { typeContrat } from '../../../utlis/options/optionDivers'
 import { useDispatch, useSelector } from 'react-redux';
+import { EntreprisePostAnnonce } from '../../../action/api/employeur/EmployeurAction';
+import { localvalue } from '../../../utlis/storage/localvalue';
 
 const DashBoardEmployeurPostAnnoncePage = () => {
 
+    var idAdmin =  localStorage.getItem(localvalue.emloyeur.idEmployeur);
 
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
 
-    const [formData, setFormData] = useState({ name: '', email: '' });
+    const [formData, setFormData] = useState(
+        {
+            name: '',
+            email: '',
+            titre: '',
+            telephone: "",
+            description: ""
+        });
     const handleChangeForm = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
 
     const handleSubmit = (event) => {
+        if (formData.titre) {
+            alert("Titre requis")
+        }
+        if (formData.email) {
+            alert("email requis")
+        }
         event.preventDefault();
-
-        if (formData.email == "") {
-            alert("champ email !");
-            return;
-        }
-        if (formData.password == "") {
-            alert("Cmap mot de passe vide");
-            return;
-        }
-       
+        dispatch(EntreprisePostAnnonce(idAdmin,formData))
     };
 
 
@@ -43,7 +50,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
             <div class="post-a-new-job-box">
                 <h3>Poster votre annonce ici</h3>
 
-                <form>
+                <form  onSubmit={handleSubmit}>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
@@ -112,10 +119,17 @@ const DashBoardEmployeurPostAnnoncePage = () => {
 
 
 
-                        
-                        <div class="col-lg-12 col-md-12">
-                            <button type="submit" class="default-btn bg-blue-600 ">Poster annonce <i class="flaticon-send"></i></button>
-                        </div>
+
+
+                        {error && <p class="text-danger">Une erreur est survenue lors de l{"'"}inscription : {error}</p>}
+
+                        {
+                            loading ?
+                                <p>envois en cours ....</p> :
+                                <div class="col-lg-12 col-md-12">
+                                    <button type="submit" class="default-btn bg-blue-600 ">Poster annonce <i class="flaticon-send"></i></button>
+                                </div>
+                        }
                     </div>
                 </form>
             </div>

@@ -36,9 +36,9 @@ const SideMenuBarEmployeurAdmin = () => {
                 </li>
 
                 <li class="nav-item">
-                    <a href={`/${routing.candidatOffres.path}`} class="nav-link">
+                    <a href={`/${routing.employeurAnnonces.path}`} class="nav-link">
                         <span class="icon"><i class="ri-notification-3-line"></i></span>
-                        <span class="menu-title">Annonces </span>
+                        <span class="menu-title">Annonces  </span>
                     </a>
                 </li>
 

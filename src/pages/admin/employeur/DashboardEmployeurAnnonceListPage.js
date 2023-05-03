@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { localvalue } from '../../../utlis/storage/localvalue';
+import { EntrepriseGetAllAnnonces } from '../../../action/api/employeur/EmployeurAction';
+import { HiSearchCircle } from 'react-icons/hi';
 
 const DashboardEmployeurAnnonceListPage = () => {
 
@@ -8,7 +10,7 @@ const DashboardEmployeurAnnonceListPage = () => {
     const [dataAnnonce, setdataAnnonce] = useState([]);
     const [dataAnnonce2, setdataAnnonce2] = useState([]);
     useEffect(() => {
-        OffreGetAll(setdataOffre, setdataOffre2);
+        EntrepriseGetAllAnnonces(idAdmin,setdataAnnonce, setdataAnnonce2);
     }, []);
 
     return (
@@ -16,16 +18,16 @@ const DashboardEmployeurAnnonceListPage = () => {
             <div class="breadcrumb-area">
                 <h1>Listes des annonces</h1>
                 <ol class="breadcrumb">
-                    <li class="item"><a href="candidates-dashboard.html">Home</a></li>
+                    <li class="item"><a href="candidates-dashboard.html">Accueil</a></li>
                     <li class="item"><a href="candidates-dashboard.html">Dashboard</a></li>
-                    <li class="item">Shortlisted Jobs</li>
+                    <li class="item">annonces </li>
                 </ol>
             </div>
 
 
 
             <div class="dashboard-jobs-box">
-                <h2>Mes offres d{"'"}emplois</h2>
+                <h2>mes annonces</h2>
                 <div class=" bg-white ">
                     <div class=" p-2 bg-gray-100 flex flex-row bg-white shadow-md rounded-lg py-3 px-2 border-b">
                         <div class="bg-gray-200 p-1 rounded-2xl">
@@ -40,7 +42,7 @@ const DashboardEmployeurAnnonceListPage = () => {
                 <div class="row">
 
                     {
-                        dataOffre.map((item) => {
+                        dataAnnonce.map((item) => {
                             return (
                                 <div class="col-lg-6 col-md-12">
                                     <div class="dashboard-job-card">
@@ -49,8 +51,7 @@ const DashboardEmployeurAnnonceListPage = () => {
                                                 <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
                                             </div>
                                             <h3>
-                                                <a href={`/${routing.candidatDetailOffreEmplois.path}`}
-                                                onClick={LocaleState(localvalue.offreAdmin.id,item._id)}
+                                                <a 
                                                 >{item.titre}</a>
                                             </h3>
                                             <div class="bookmark-btn">

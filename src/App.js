@@ -25,6 +25,7 @@ import DashboardDetailCandidatPage from "./pages/admin/candidat/DashboardDetailC
 import DashbordEmployeurPage from "./pages/admin/employeur/DashbordEmployeurPage";
 import DashboardEmployeurPofilePage from "./pages/admin/employeur/DashboardEmployeurPofilePage";
 import DashBoardEmployeurPostAnnoncePage from "./pages/admin/employeur/DashBoardEmployeurPostAnnoncePage";
+import DashboardEmployeurAnnonceListPage from "./pages/admin/employeur/DashboardEmployeurAnnonceListPage";
 
 
 
@@ -75,6 +76,7 @@ function App() {
             <Route path={`${routing.employeurDashboard.path}`} element={<DashbordEmployeurPage/>}   />
             <Route path={`${routing.employeurProfile.path}`} element={<DashboardEmployeurPofilePage/>}   />
             <Route path={`${routing.employeurPostAnnonce.path}`} element={<DashBoardEmployeurPostAnnoncePage/>}   />
+            <Route path={`${routing.employeurAnnonces.path}`} element={<DashboardEmployeurAnnonceListPage/>}   />
 
           </Route>
 
