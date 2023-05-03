@@ -8,12 +8,12 @@ const SideMenuBarEmployeurAdmin = () => {
                 <li class="nav-item active">
                     <a href={`/${routing.candidatDashboard.path}`} class="nav-link">
                         <span class="icon"><i class="ri-home-line"></i></span>
-                        <span class="menu-title">Tableau de bord</span>
+                        <span class="menu-title">Tableau de bord E</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href={`/${routing.candidatProfile.path}`} class="nav-link">
+                    <a href={`/${routing.employeurProfile.path}`} class="nav-link">
                         <span class="icon"><i class="ri-user-line"></i></span>
                         <span class="menu-title">Profile</span>
                     </a>
@@ -29,16 +29,16 @@ const SideMenuBarEmployeurAdmin = () => {
                     */
                 }
                 <li class="nav-item">
-                    <a href={`/${routing.candidatOffresPostuler.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-briefcase-line"></i></span>
-                        <span class="menu-title">Offres postuler</span>
+                    <a href={`/${routing.employeurPostAnnonce.path}`} class="nav-link">
+                        <span class="icon"><i class="ri-send-plane-fill"></i></span>
+                        <span class="menu-title">Poster Annonce</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href={`/${routing.candidatOffres.path}`} class="nav-link">
                         <span class="icon"><i class="ri-notification-3-line"></i></span>
-                        <span class="menu-title">Tous vos offres </span>
+                        <span class="menu-title">Annonces </span>
                     </a>
                 </li>
 
@@ -55,13 +55,18 @@ const SideMenuBarEmployeurAdmin = () => {
                     </a>
                 </li>
 
-               
-                <li class="nav-item">
+
+                {
+                    /*
+                    <li class="nav-item">
                     <a href={`/${routing.candidatCv.path}`} class="nav-link">
                         <span class="icon"><i class="ri-book-line"></i></span>
                         <span class="menu-title"> Gestion cv</span>
                     </a>
-                </li>
+                    </li>
+                    
+                    */
+                }
 
 
                 <li class="nav-item">
@@ -94,4 +99,4 @@ const SideMenuBarEmployeurAdmin = () => {
     )
 }
 
-export default SideMenuBarEmployeurAdmin ;
+export default SideMenuBarEmployeurAdmin;

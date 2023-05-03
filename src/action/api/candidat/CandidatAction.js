@@ -33,7 +33,7 @@ export const CandidatSignUp = (data) => {
 }
 
 
-export const CandidatEditProfile = (id,data) => {
+export const CandidatEditProfile = (id, data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -56,7 +56,7 @@ export const CandidatEditProfile = (id,data) => {
 
 
 
-export const CandidatEditCv = (id,data) => {
+export const CandidatEditCv = (id, data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -79,7 +79,7 @@ export const CandidatEditCv = (id,data) => {
 
 
 
-export const CandidatPostuleOneOffre = (idcandidat,idOffre) => {
+export const CandidatPostuleOneOffre = (idcandidat, idOffre) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -103,7 +103,7 @@ export const CandidatPostuleOneOffre = (idcandidat,idOffre) => {
 
 
 
-export const CandidatEditPassword = (id,data) => {
+export const CandidatEditPassword = (id, data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -142,17 +142,43 @@ export const CandidatConnexion = (data, redirect) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                localStorage.setItem(localvalue.candidat.tokenCandidat,response.data.data.token);
-                localStorage.setItem(localvalue.candidat.idCandidat,response.data.data._id);
-                localStorage.setItem(localvalue.candidat.emailCandidat,response.data.data.email);
-                localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
-                localStorage.setItem(localvalue.candidat.coverPictureCandidat,response.data.data.coverPicture);
+                localStorage.setItem(localvalue.candidat.tokenCandidat, response.data.data.token);
+                localStorage.setItem(localvalue.candidat.idCandidat, response.data.data._id);
+                localStorage.setItem(localvalue.candidat.emailCandidat, response.data.data.email);
+                localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
+                localStorage.setItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
                 redirect(`/${routing.candidatDashboard.path}`);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
             });
     };
+}
+export const CandidatDeconnexion = async (id) => {
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${baseurl.url}/api/v1/auth/candidat/disconnect_candidat/${id}`,
+        headers: {
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    };
+
+    await axios(config)
+        .then((response) => {
+            localStorage.removeItem(localvalue.candidat.tokenCandidat, response.data.data.token);
+            localStorage.removeItem(localvalue.candidat.idCandidat, response.data.data._id);
+            localStorage.removeItem(localvalue.candidat.emailCandidat, response.data.data.email);
+            localStorage.removeItem(localvalue.typeAdmin, response.data.data.type);
+            localStorage.removeItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+
 }
 
 
@@ -181,7 +207,7 @@ export const CandidatGetAll = async (setState, setState2) => {
 
 
 // Recupérer mes information du cv
-export const CandidatGetCvById = async (id ,setState) => {
+export const CandidatGetCvById = async (id, setState) => {
 
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${id}`, {
         headers: {
@@ -204,19 +230,19 @@ export const CandidatGetCvById = async (id ,setState) => {
 
 
 // Recupérer tout les candiats qui ont postulés à l'offre
-export const CandidatGetCandidatpostulesByOffre = async (id ,setState) => {
+export const CandidatGetCandidatpostulesByOffre = async (id, setState) => {
     await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
         }
     })
-    .then((response) => { setState(response.data.data.candidatPostulees); })
-    .catch((error) => { console.log(error); });
+        .then((response) => { setState(response.data.data.candidatPostulees); })
+        .catch((error) => { console.log(error); });
 }
 
 
-export const CandidatGetById = async (id,setState) => {
+export const CandidatGetById = async (id, setState) => {
 
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${id}`, {
         headers: {
@@ -236,7 +262,7 @@ export const CandidatGetById = async (id,setState) => {
 
 
 // Offres postuler par le candidat
-export const CandidatGetAllOffrePostulees = async (candidatId,setState, setState2) => {
+export const CandidatGetAllOffrePostulees = async (candidatId, setState, setState2) => {
 
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${candidatId}/offres`, {
         headers: {

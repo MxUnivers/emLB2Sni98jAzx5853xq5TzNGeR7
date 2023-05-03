@@ -67,7 +67,37 @@ export const routing = {
     },
     candidatDetailProfileView:{
         path:`candidat-n°${localStorage.getItem(localvalue.candidat.idCandidatDetail)}`
+    },
+
+
+
+    // Employeur
+    employeurDashboard:{
+        path:"tableau-de-bord-employeur"
+    },
+    employeurProfile:{
+        path:"profile-employeur"
+    },
+    employeurPostAnnonce:{
+        path:"poster-une-annonce"
+    },
+    employeurAnnonces:{
+        path:"vos-annonces"
+    },
+    employeurDetailOffre:{
+        path:"details-offre"
+    },
+    employeurDetailAnnonce:{
+        path:"details-offre"
+    },
+    employeurListCandidatsAnnonce:{
+        path:"candidats-ayant-postuler-a-vos-annonces"
+    },
+    employeurListCandidatsOffre:{
+        path:"candidats-ayant-postuler-a-vos-offres"
     }
+
+
     
 
 

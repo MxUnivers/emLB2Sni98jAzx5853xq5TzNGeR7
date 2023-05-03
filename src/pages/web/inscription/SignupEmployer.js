@@ -5,6 +5,9 @@ import { Editor } from '@tinymce/tinymce-react';
 import BarnerEmployer from '../../../components/web/employer/BarnerEmployer';
 import { ApiKey } from '../../../utlis/config';
 import { routing } from '../../../utlis/routing';
+import { EntrepriseSignUp } from '../../../action/api/employeur/EmployeurAction';
+import { optionPays } from '../../../utlis/options/optionDivers';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -27,6 +30,21 @@ const SignupEmployer = () => {
         setSelectedOptions(selected);
     };
 
+    // redux
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    const [formData, setFormData] = useState({ name: '', email: '' });
+    const handleChangeForm = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(EntrepriseSignUp(formData))
+    }
+
     return (
         <div>
             <BarnerEmployer />
@@ -39,7 +57,7 @@ const SignupEmployer = () => {
                         <p>si vous avez une compte</p>
                         <a href={`/${routing.connexionEmployeur.path}`} class=" btn bg-blue-500 text-white underline" >Se connecter</a>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div class="h-[200px] ">
 
                         </div>
@@ -49,35 +67,40 @@ const SignupEmployer = () => {
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Nom de votre entreprise</label>
-                                    <input type="text" class="form-control" placeholder="Your Name" />
+                                    <input type="text" name="full_name" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>Nom d{"'"}utlisateur</label>
+                                    <input type="text" name="username" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" class="form-control" placeholder="Your Email" />
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>Date de création votre entreprise</label>
-                                    <input type="date" class="form-control" placeholder="Date of Birth" />
+                                    <input type="email" name="email" onChange={handleChangeForm} class="form-control" placeholder="Your Email" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Télephone</label>
-                                    <input type="number" class="form-control" placeholder="Your Phone" />
+                                    <input type="number" name="telephone" onChange={handleChangeForm} class="form-control" placeholder="Your Phone" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Adrrese de votre entreprise</label>
-                                    <input type="text" class="form-control" placeholder="Côte d'ivoire , Abidjan ,  Yopougon" />
+                                    <input type="text" name="adresse" onChange={handleChangeForm} class="form-control" placeholder="Côte d'ivoire , Abidjan ,  Yopougon" />
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>Mot de passe</label>
+                                    <input type="password" name="password" onChange={handleChangeForm} class="form-control" placeholder="" />
                                 </div>
                             </div>
 
@@ -113,7 +136,7 @@ const SignupEmployer = () => {
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Selectionné votre secteur</label>
+                                    <label>Selectionné votre secteur d{"'"}activité</label>
                                     <div>
                                         <Select
                                             options={options}
@@ -133,8 +156,16 @@ const SignupEmployer = () => {
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Experience</label>
-                                    <input type="text" class="form-control" placeholder="Experience" />
+                                    <label>Pays</label>
+                                    <select class="form-control" name="pays" onChange={handleChangeForm}>
+                                        {
+                                            optionPays.map((item) => {
+                                                return (
+                                                    <option value={item.value} >{item.label}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                 </div>
                             </div>
 
@@ -143,34 +174,40 @@ const SignupEmployer = () => {
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Facebook URL</label>
-                                    <input type="text" class="form-control" placeholder="https://www.facebook.com/" />
+                                    <input type="url" name="facebook_url" onChange={handleChangeForm} class="form-control" placeholder="https://www.facebook.com/" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Twitter URL</label>
-                                    <input type="text" class="form-control" placeholder="https://twitter.com/" />
+                                    <input type="url" name="twitter_url" onChange={handleChangeForm} class="form-control" placeholder="https://twitter.com/" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Linkedin URL</label>
-                                    <input type="text" class="form-control" placeholder="https://www.linkedin.com/" />
+                                    <input type="url" name="linkedin_url" onChange={handleChangeForm} class="form-control" placeholder="https://www.linkedin.com/" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>Instagram URL</label>
-                                    <input type="text" class="form-control" placeholder="https://instagram.com/" />
+                                    <input type="url" name="instsgram_url" onChange={handleChangeForm} class="form-control" placeholder="https://instagram.com/" />
                                 </div>
                             </div>
 
-                            <div class="col-lg-12 col-md-12">
-                                <button type="submit" class=" btn btn-info default-btn bg-blue-600">Confimer votre inscription <i class="flaticon-send"></i></button>
-                            </div>
+                            {error && <p class="text-danger">Une erreur est survenue lors de l{"'"}inscription : {error}</p>}
+                            {
+                                loading ?
+                                    <p>Votre inscription est en cours ....</p>
+                                    :
+                                    <div class="col-lg-12 col-md-12">
+                                        <button type="submit" class=" btn btn-info default-btn bg-blue-600">Confimer votre inscription <i class="flaticon-send"></i></button>
+                                    </div>
+                            }
                         </div>
                     </form>
                 </div>

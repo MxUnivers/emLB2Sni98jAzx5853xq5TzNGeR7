@@ -14,6 +14,13 @@ export const localvalue = {
         coverPicture:"coverPictureOffreAdmin",
         titre:"titreOffreAdmin"
     },
+    emloyeur:{
+        idEmployeur: "idEmployeur",
+        tokenEmployeur: "tokenEmployeur",
+        emailEmployeur: "emailEmployeur",
+        coverPictureEmployeur:"photoEmployeur",
+        idEmployeurDetail:"idEmployeurDetailProfile"
+    }
     
 
 }
@@ -32,6 +39,16 @@ export var localvalueGetCandidat = {
     tokenCandidat: localStorage.getItem(localvalue.candidat.tokenCandidat),
     emailCandidat: localStorage.getItem(localvalue.candidat.emailCandidat),
     coverPictureCandidat: localStorage.getItem(localvalue.candidat.coverPictureCandidat),
+    // offre du candidat
+    offreId:localStorage.getItem(localvalue.offreAdmin.id)
+}
+
+
+export var localvalueGetEmployeur = {
+    idEmployeur: localStorage.getItem(localvalue.emloyeur.idEmployeur),
+    tokenEmployeur: localStorage.getItem(localvalue.emloyeur.tokenEmployeur),
+    emailEmployeur: localStorage.getItem(localvalue.emloyeur.emailEmployeur),
+    coverPictureEmployeur: localStorage.getItem(localvalue.emloyeur.coverPictureEmployeur),
     // offre du candidat
     offreId:localStorage.getItem(localvalue.offreAdmin.id)
 }

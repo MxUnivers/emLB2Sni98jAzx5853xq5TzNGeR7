@@ -88,10 +88,6 @@ const SignupCandidatPage = () => {
             alert("Champ mot de passe vide ");
             return;
         }
-        if (formData.dateNaissance == "") {
-            alert("Date de naissance requis ");
-            return;
-        }
         if (formData.addresse == "") {
             alert("Champ nom d'utlisateur vide ");
             return;

@@ -45,3 +45,9 @@ export const optionPays = [
   
 
 
+export const typeContrat = [
+    {value:"CDD",label:"CDD"},
+    {value:"CDI",label:"CDI"},
+    {value:"STAGE",label:"STAGE"},
+    {value:"ALTERNANCE",label:"ALTERNANCE"},
+]

@@ -1,7 +1,18 @@
 import React from 'react'
 import { routing } from '../../../utlis/routing'
+import { CandidatDeconnexion } from '../../../action/api/candidat/CandidatAction';
+import { localvalue } from '../../../utlis/storage/localvalue';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SideMenuBarCandidatAdmin = () => {
+    var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat)
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+    const handleSubmitDisconnect = (event) => {
+        event.preventDefault();
+        CandidatDeconnexion(idCandidat);
+    };
     return (
         <div class="sidemenu-body">
             <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
@@ -59,7 +70,7 @@ const SideMenuBarCandidatAdmin = () => {
                     </a>
                 </li>
 
-               
+
                 <li class="nav-item">
                     <a href={`/${routing.candidatCv.path}`} class="nav-link">
                         <span class="icon"><i class="ri-book-line"></i></span>
@@ -77,10 +88,12 @@ const SideMenuBarCandidatAdmin = () => {
 
 
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">
-                        <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
-                        <span class="menu-title">Déconnexion</span>
-                    </a>
+                    <form onSubmit={handleSubmitDisconnect}>
+                        <button type='submit' class="btn btn bg-red-600 text-white rounded-lg py-1 px-2 hover::bg-red-700 active:bg-red-800">
+                            <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
+                            <span class="menu-title">Déconnexion</span>
+                        </button>
+                    </form>
                 </li>
 
                 {

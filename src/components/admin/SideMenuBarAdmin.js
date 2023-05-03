@@ -5,7 +5,8 @@ import SideMenuBarEmployeurAdmin from './employer/SideMenuBarEmployeurAdmin';
 import { localvalue } from '../../utlis/storage/localvalue';
 
 const SideMenuBarAdmin = () => {
-    var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+    // var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+    var typeAdmin = "employeur";
     return (
         <div class="sidemenu-area">
             <div class="sidemenu-header">
@@ -24,9 +25,11 @@ const SideMenuBarAdmin = () => {
 
             {/* Side bar pour le  Candidat */}
             {
+                /*
                 typeAdmin == "candidat" ?
                     <SideMenuBarCandidatAdmin /> :
                     null
+                */
             }
             {
                 typeAdmin == "employeur" ?
