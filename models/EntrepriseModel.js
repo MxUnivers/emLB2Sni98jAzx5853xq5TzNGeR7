@@ -56,6 +56,9 @@ const EntrepriseSchema = new mongoose.Schema({
   annonces: [
     {type:Object}
   ],
+  offres: [
+    {type:Object}
+  ],
   facebook_url:{
     type:String,default:"#"
   },

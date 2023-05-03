@@ -144,6 +144,24 @@ router.get('/get_entreprise/:id/annonces', AuthorizationMiddleware, async (req, 
 
 
 
+// recupérer toute lesannonces d'une entreprise
+router.get('/get_entreprise/:id/offres', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const  id  =  req.params.id;
+    const entrepriseExit = await EntrepriseModel.findById({_id:id});
+    if(!entrepriseExit){
+      res.status(407).json({message:"entreprise non trouvé"});
+    }
+    const entreprise = await EntrepriseModel.findById({_id:id})
+    await res.json({ data: entreprise.offres });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
+
+
+
 
 
 
