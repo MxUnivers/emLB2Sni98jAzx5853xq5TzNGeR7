@@ -22,7 +22,7 @@ const  annonceRoute =  require("./routes/AnnonceRoute");
 // Offres d"emplois
 const  offreEmploisRoute =  require("./routes/offreEmploisRoute");
 
-
+const authEntrepriseRoute =  require("./routes/authenticate/authEntrepriseRoute");
 
 
 
@@ -76,6 +76,7 @@ app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);
 app.use(`${apiV1}/candidat`,candidatRoute);
 app.use(`${apiV1}/auth/candidat`,authCandidatRoute);
 app.use(`${apiV1}/entreprise`,entrepriseRoute);
+app.use(`${apiV1}/auth/entreprise`,authEntrepriseRoute);
 app.use(`${apiV1}/annonce`,annonceRoute);
 app.use(`${apiV1}/offre`,offreEmploisRoute);
 

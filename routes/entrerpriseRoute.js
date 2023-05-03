@@ -2,24 +2,23 @@ const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const EntrepriseModel = require("../models/EntrepriseModel");
 const router = require("express").Router();
+const bcrypt = require("bcryptjs")
 
 
 
 // Fonction pour Ajouter une entreprise à l'appliction
-router.post("/",AuthorizationMiddleware, async (req, res) => {
+router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
-    const { email } = req.body; // Récupération des données de l'entreprise depuis le corps de la requête
-
-    const entrepriseExist = await EntrepriseModel.findOne({ email })
-    if (entrepriseExist) {
-      res.json({ message: "Cet Email est déja utliser", entreprise }); // Réponse avec un message de succès et les détails de l'entreprise créée
+    const { email, password } = req.body;
+    const entreprise = await EntrepriseModel.findOne({ email });
+    if (entreprise) {
+      res.status(400).json({ message: "Cet email à déja étéuliser" });
     }
-
-    const nouvelleEntreprise = new EntrepriseModel(req.body);
-
-    const entreprise = await nouvelleEntreprise.save(); // Sauvegarde de l'entreprise dans la base de données
-
-    res.json({ message: "Compte Entreprise crée avec succès", entreprise }); // Réponse avec un message de succès et les détails de l'entreprise créée
+    const hashPassword = await bcrypt.hash(password, 10);
+    const newEntreprise = new EntrepriseModel(req.body);
+    newEntreprise.password= hashPassword;
+    await newEntreprise.save();
+    return res.json({ message: "Compte entreprise créer avec succès ", data: newEntreprise });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
@@ -28,44 +27,49 @@ router.post("/",AuthorizationMiddleware, async (req, res) => {
 
 
 
-
-// Fonction pour modifier entreprise 
-router.put("/edit/:id",AuthorizationMiddleware, async (req, res) => {
+// Fonction pour modifier une candidat
+router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
   try {
-    
     const id = req.params.id;
     const updates = req.body;
     delete updates.password;
-    
-    const result = await EntrepriseModel.findOneAndUpdate({ _id: id }, updates);
-    if (!result) {
-      return res.status(404).json({ message: "Candidat mon trouvé" });
+
+    const entrepriseExist = await EntrepriseModel.findById({ _id: id });
+    if (!entrepriseExist) {
+      return res.status(404).json({ message: "Entreprise non trouvé mon trouvé" });
     }
+    const result = await EntrepriseModel.findByIdAndUpdate({ _id: id }, updates);
+
     await result.save();
-    return res.json(result);// Réponse avec un message de succès et les détails de l'entreprise créée
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
+    return res.json({ message: "Entreprise modifier", data: result });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 
 
-// Fonction pour modifier le mot de passe de entreprise 
-router.put("/password/edit/:id",AuthorizationMiddleware, async (req, res) => {
-  try {
-    
-    const id = req.params.id;
-    const updates = req.body.password;
-    const hashedPassword = await bcrypt.hash(updates, 10);
 
-    
-    const result = await EntrepriseModel.findById({ _id: id });
-    if (!result) {
-      return res.status(404).json({ message: "Candidat mon trouvé" });
+
+
+
+// Fonction pour modifier le mot de passe de entreprise 
+router.put("/password/edit/:id", AuthorizationMiddleware, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const password =req.body.password;
+
+    const entrepriseExist = await EntrepriseModel.findById({ _id: id });
+    if (!entrepriseExist) {
+      return res.status(404).json({ message: "Entreprise non trouvé mon trouvé" });
     }
-    result.password=hashedPassword;
+    const result = await EntrepriseModel.findById({ _id: id });
+    const hashPassword = await bcrypt.hash(password, 10);
+    result.password= hashPassword
+
     await result.save();
-    return res.json({message:"Mot de passe modifier",entreprise});// Réponse avec un message de succès et les détails de l'entreprise créée
+    return res.json({ message: "Mot de passe mis à jour", data: result });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
@@ -76,7 +80,7 @@ router.put("/password/edit/:id",AuthorizationMiddleware, async (req, res) => {
 
 
 // Fonction pour reucupéere les comptes entreprise
-router.get('/get_entreprises',AuthorizationMiddleware, async (req, res) => {
+router.get('/get_entreprises', AuthorizationMiddleware, async (req, res) => {
   try {
     const entreprises = await EntrepriseModel.find({});
     await res.json({ data: entreprises });
@@ -87,17 +91,72 @@ router.get('/get_entreprises',AuthorizationMiddleware, async (req, res) => {
 });
 
 
+router.get('/get_entreprise/:id', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const  id  =  req.params.id;
+    const entreprises = await EntrepriseModel.findById({_id:id});
+    await res.json({ data: entreprises });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
+
+
+// poster l'annonces d'une entreprise
+router.post('/post_entreprise/:id/annonces', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const  id  =  req.params.id;
+    const entrepriseExit = await EntrepriseModel.findById({_id:id});
+    if(!entrepriseExit){
+      res.status(407).json({message:"entreprise non trouvé"});
+    }
+    const newAnnonce = new AnnonceModel(req.body);
+    const entreprise = await EntrepriseModel.findByIdAndUpdate({_id:id},{$push:{annonces:newAnnonce}})
+    await newAnnonce.save();
+    await entreprise.save();
+
+    await res.json({ data: entreprise });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
+
+
+
+
+// recupérer toute lesannonces d'une entreprise
+router.get('/get_entreprise/:id/annonces', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const  id  =  req.params.id;
+    const entrepriseExit = await EntrepriseModel.findById({_id:id});
+    if(!entrepriseExit){
+      res.status(407).json({message:"entreprise non trouvé"});
+    }
+    const entreprise = await EntrepriseModel.findById({_id:id})
+    await res.json({ data: entreprise.annonces });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
+
+
+
+
+
 
 
 // Fonction pour Bloquer les comptes des entreprise
-router.put('/blocked/:id',AuthorizationMiddleware, async (req, res) => {
+router.put('/blocked/:id', AuthorizationMiddleware, async (req, res) => {
   try {
-    const id  = req.params.id;
-    const entreprises = await EntrepriseModel.findById({_id:id});
-    if(!entreprises){
-      await res.status(401).json({message:"Cette entreprise n,'existe pas "})
+    const id = req.params.id;
+    const entreprises = await EntrepriseModel.findById({ _id: id });
+    if (!entreprises) {
+      await res.status(401).json({ message: "Cette entreprise n,'existe pas " })
     }
-    entreprises.blocked =  true;
+    entreprises.blocked = true;
     await entreprises.save();
     await res.json({ data: entreprises });
   } catch (err) {
@@ -110,14 +169,14 @@ router.put('/blocked/:id',AuthorizationMiddleware, async (req, res) => {
 
 
 // Fonction pour Débloquer le compte d'une entreprise
-router.put('/unblocked/:id',AuthorizationMiddleware, async (req, res) => {
+router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
   try {
-    const id  = req.params.id;
-    const entreprises = await EntrepriseModel.findById({_id:id});
-    if(!entreprises){
-      await res.status(401).json({message:"Cette entreprise n,'existe pas "})
+    const id = req.params.id;
+    const entreprises = await EntrepriseModel.findById({ _id: id });
+    if (!entreprises) {
+      await res.status(401).json({ message: "Cette entreprise n,'existe pas " })
     }
-    entreprises.blocked =  false;
+    entreprises.blocked = false;
     await entreprises.save();
     await res.json({ data: entreprises });
   } catch (err) {
@@ -132,79 +191,9 @@ router.put('/unblocked/:id',AuthorizationMiddleware, async (req, res) => {
 
 // GESTION DES ANNONCES 
 // Fonction pour qu'une entreprise poste une annonce
-router.post('/:id/annonces',AuthorizationMiddleware, async (req, res) => {
-  try {
-    const { titre, description, lieu, dateDebut, dateFin, salaire } = req.body;
-    const entrepriseId = req.params.id; // Récupère l'ID de l'entreprise à partir de l'objet utilisateur de la requête
-
-    const entreprise = await EntrepriseModel.findById(entrepriseId); // Recherche l'entreprise dans la base de données
-
-    const nouvelleAnnonce = new AnnonceModel({
-      titre,
-      description,
-      lieu,
-      dateDebut,
-      dateFin,
-      salaire,
-      entreprise: entreprise._id // Enregistre l'ID de l'entreprise dans l'annonce créée
-    });
-
-    entreprise.annonces.push({
-      annonceID: nouvelleAnnonce._id, // Enregistre l'ID de l'annonce créée dans la liste d'annonces de l'entreprise
-      status: "active" // Initialise le statut de l'annonce comme active
-    });
-
-    await nouvelleAnnonce.save(); // Enregistre l'annonce crée dans la base de données
-    await entreprise.save(); // Met à jour l'entreprise dans la base de données
-
-    res.status(201).json({ message: "Annonce créée avec succès" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'annonce" });
-  }
-});
 
 
 
 
 
-
-
-
-//Foncation pour modifier l"annonces de l'entrerpise
-router.put('/annonces/:id',AuthorizationMiddleware, async (req, res) => {
-  try {
-    const annonce = await AnnonceModel.findById(req.params.id); // Trouver l'annonce à modifier
-
-    if (!annonce) { // Vérifier si l'annonce existe
-      return res.status(404).json({ message: "L'annonce n'existe pas" });
-    }
-
-    if (annonce.entreprise.toString() !== req.user.id) { // Vérifier si l'utilisateur est le propriétaire de l'annonce
-      return res.status(401).json({ message: "Vous n'êtes pas autorisé à modifier cette annonce" });
-    }
-
-    annonce.titre = req.body.titre || annonce.titre;
-    annonce.description = req.body.description || annonce.description;
-    annonce.lieu = req.body.lieu || annonce.lieu;
-    annonce.dateDebut = req.body.dateDebut || annonce.dateDebut;
-    annonce.dateFin = req.body.dateFin || annonce.dateFin;
-    annonce.salaire = req.body.salaire || annonce.salaire;
-
-    const annonceModifiee = await annonce.save(); // Enregistrer les modifications de l'annonce
-
-    res.json({ message: "Annonce modifiée avec succès", annonce: annonceModifiee });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Une erreur s'est produite lors de la modification de l'annonce" });
-  }
-});
-
-
-
-
-
-
-
-
-module.exports =  router;
+module.exports = router;

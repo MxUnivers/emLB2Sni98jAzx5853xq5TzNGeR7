@@ -42,7 +42,7 @@ router.post("/auth_adminstrator", AuthorizationMiddleware, async (req, res) => {
 
 
 //disconnect_administrator
-router.post("/disconnect_administrator", AuthorizationMiddleware, async (req, res) => {
+router.post("/disconnect_administrator/id", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.id;
         // Vérifier si l'email existe

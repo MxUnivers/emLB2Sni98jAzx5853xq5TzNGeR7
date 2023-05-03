@@ -14,9 +14,15 @@ const annonceSchema = new Schema({
         type: String,
         required: false
     },
+    email:{
+        type:String,required:false
+    },
+    telephone:{
+        type:String,required:false
+    },
     typeContrat: {
         type: String,
-        enum: ['CDI', 'CDD', 'Stage', 'Alternance'],
+        enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
         required: false,
         default:"CDD"
     },

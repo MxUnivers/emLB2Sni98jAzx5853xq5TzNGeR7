@@ -1,22 +1,17 @@
-
-
-const CandidatModel = require('../../models/CandidatModel');
+const EntrepriseModel = require("../../models/EntrepriseModel");
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
-const  dotenv =  require("dotenv");
-const jwt=  require("jsonwebtoken");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const { AuthorizationMiddleware } = require('../../middlewares/Authtoken');
 dotenv.config();
 
 
 
-
-
-// Route pour la connexion d'un candidat
 router.post('/login/',AuthorizationMiddleware, async (req, res) => {
     try {
       // Vérifier si le candidat existe dans la base de données
-      const candidat = await CandidatModel.findOne({ email: req.body.email });
+      const candidat = await EntrepriseModel.findOne({ email: req.body.email });
       if (!candidat) {
         return res.status(402).json({ message: 'Adresse e-mail ou mot de passe incorrect.' });
       }
@@ -37,7 +32,7 @@ router.post('/login/',AuthorizationMiddleware, async (req, res) => {
       candidat.is_active=true
       await candidat.save();
       // Envoyer une réponse avec le token JWT
-      return res.status(200).json({ token: token ,data:candidat, message :"Candidat Connecté"});
+      return res.status(200).json({ token: token ,data:candidat, message :"Entreprise Connecté"});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Une erreur est survenue lors de la connexion.' });
@@ -47,26 +42,5 @@ router.post('/login/',AuthorizationMiddleware, async (req, res) => {
 
 
 
-  // Route pour la connexion d'un candidat
-router.post('/disconnect_candidat/:id/',AuthorizationMiddleware, async (req, res) => {
-  try {
-    const  candidatId =  req.params.id;
-    // Vérifier si le candidat existe dans la base de données
-    const candidat = await CandidatModel.findById({ _id: candidatId });
-    if (!candidat) {
-      return res.status(400).json({ message: 'Déconnexion impossible ....' });
-    }
-    candidat.is_active=false
-    await candidat.save();
-    // Envoyer une réponse avec le token JWT
-    return res.status(200).json({message:"Candidat déconnecté", data:candidat});
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Une erreur est survenue lors de la connexion.' });
-  }
-});
 
-
-
-
-  module.exports =  router ;
+module.exports = router;

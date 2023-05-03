@@ -39,16 +39,7 @@ const EntrepriseSchema = new mongoose.Schema({
   token: {
     type: String, required: false
   },
-  annonces: [{
-    annonceID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Annonce"
-    },
-    status: {
-      type: String,
-      default: "actif"
-    }
-  }],
+  type:{type:String,default:"employeur"},
   comptePaiement: {
     solde: {
       type: Number,
@@ -61,6 +52,21 @@ const EntrepriseSchema = new mongoose.Schema({
     moyenPaiement: {
       type: String
     }
+  },
+  annonces: [
+    {type:Object}
+  ],
+  facebook_url:{
+    type:String,default:"#"
+  },
+  twitter_url:{
+    type:String,default:"#"
+  },
+  linkedin_url:{
+    type:String,default:"#"
+  },
+  instagram_url:{
+    type:String,default:"#"
   },
   is_active: {
     type: Boolean,
