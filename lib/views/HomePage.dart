@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import "dart:convert";
+import "package:get/get.dart";
+import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
+import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
+import "package:get/get.dart";
 
 class HomePage extends StatefulWidget {
   @override
@@ -78,12 +82,16 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 16),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: GestureDetector(
-                    onTap: () {},
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchEmploisPage()),
+                      );
+                    },
                     child: TextField(
                       enabled: false,
-                      onTap: (){
-                      },
+                      onTap: () {},
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Rechercher un emploi',
@@ -105,7 +113,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ListEmploisPage()),
+                        );
+                      },
                       child: Text('Voir plus'),
                     ),
                   ],

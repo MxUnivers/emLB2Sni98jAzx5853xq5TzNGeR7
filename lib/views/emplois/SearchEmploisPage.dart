@@ -9,8 +9,10 @@ class SearchEmploisPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           leading: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.backspace_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text("recherche offre"),
 

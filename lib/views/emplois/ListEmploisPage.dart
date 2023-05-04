@@ -43,8 +43,10 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           leading: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
           ),
           title: Text("Listes des offres d'emplois"),
           centerTitle: true,
