@@ -77,15 +77,20 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 16),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Rechercher un emploi',
-                    suffixIcon: Icon(Icons.search),
-                  ),
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: TextField(
+                      enabled: false,
+                      onTap: (){
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Rechercher un emploi',
+                        suffixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  )),
               SizedBox(height: 16),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
