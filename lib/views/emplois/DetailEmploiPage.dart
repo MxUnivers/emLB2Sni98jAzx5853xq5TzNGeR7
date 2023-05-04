@@ -1,155 +1,235 @@
 import "package:flutter/material.dart";
+import "package:iconly/iconly.dart";
+import "dart:ui";
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:iconly/iconly.dart';
 
 class DetailEmploiPage extends StatelessWidget {
   const DetailEmploiPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: Text("titre de l'offre"),
-        centerTitle: true,
-        leading:
-            IconButton(onPressed: () {}, icon: Icon(Icons.backspace_outlined)),
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child:
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                  width: double.infinity,
-                  height: 250,
-                  child: Image.asset("assets/images/job1.jpg")),
-              Container(
-                margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                child: Text(
-                  "Titre de l'offre",
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(20, 50, 20, 30),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.shade200, blurRadius: 3)
-                            ]),
-                        child: Column(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.fromLTRB(3, 10, 3, 5),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 10),
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Text("Salaire  : ",style: TextStyle(fontWeight: FontWeight.bold)),
-                                              Text("   19992 Francs cfa",textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20 )),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 5, horizontal: 10),
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Text("Lieu  : ",style: TextStyle(fontWeight: FontWeight.bold)),
-                                              Text("   Abidjan , Cocody ",textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20 )),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                            ),
-
-
-                            Container(
-                              color: Colors.grey.shade200,
-
-                              child: Column(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      "Le Digital Marketing Manager v"
-                                          "ise à mettre en place une stratégie pour optimiser "
-                                          "la visibilité du site web de son entreprise sur d'autres "
-                                          "supports digitaux. Pour y parvenir, il utilise des techniques"
-                                          " comme l'achat de mots-clés, le référencement naturel, "
-                                          "le développemen"
-                                          "t de partenariats ou de bandeaux publicitaires.",
-                                      style: TextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.w400),
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-
-                                ],
-                              ),
-                            ),
-
-                            GestureDetector(
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          Color(0xFF8A2387),
-                                          Color(0xFFE94057),
-                                          Color(0xFFE27121)
-                                        ])),
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Text(
-                                    "postuler maintenant",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
+    return SafeArea(
+        child: Scaffold(
+      body: Stack(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Image.asset("assets/images/job1.jpg"),
           ),
-        )
-      )
+          buttonArrow(context),
+          scroll(),
+        ],
+      ),
+    ));
+  }
+
+  buttonArrow(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          height: 55,
+          width: 55,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              height: 55,
+              width: 55,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 20,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
+
+  scroll() {
+    return DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        maxChildSize: 1.0,
+        minChildSize: 0.6,
+        builder: (context, scrollController) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(20),
+                  topRight: const Radius.circular(20)),
+            ),
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 5,
+                          width: 35,
+                          color: Colors.black12,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    "Cacao Maca Walnut Milk",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "publié le :  10/06/23 ",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.grey.shade800),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Elena Shelby",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: Colors.blue.shade900),
+                      ),
+                      const Spacer(),
+                      const CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.blue,
+                        child: Icon(
+                          IconlyLight.heart,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "273 Likes",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: Colors.grey.shade500),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Divider(
+                      height: 4,
+                    ),
+                  ),
+                  Text(
+                    "Description",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Nous recherchons un développeur Web Full "
+                    "Stack talentueux pour rejoindre notre équipe dynamique."
+                    " Le candidat retenu sera responsable de la conception et"
+                    " de la mise en œuvre de sites Web interactifs pour nos clients."
+                    " Le développeur Web sera également chargé de la gestion de projets,"
+                    " de l'élaboration "
+                    "de plans de travail et de la coordination avec les membres de l'équipe.",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: Colors.grey.shade700),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Divider(
+                      height: 4,
+                    ),
+                  ),
+                  Text(
+                    "Autres infos",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    itemBuilder: (context, index) => ingredients(context),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Divider(
+                      height: 4,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  ingredients(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 10,
+            backgroundColor: Color(0xFFE3FFF8),
+            child: Icon(
+              Icons.done,
+              size: 15,
+              color: Colors.black12,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            "Salaire : 166266 francs cfa",
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        ],
+      ),
+    );
+  }
+
+
 }

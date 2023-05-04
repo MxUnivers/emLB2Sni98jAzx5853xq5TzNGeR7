@@ -36,3 +36,12 @@ En général, il est important de se concentrer sur une conception de l'applicat
 
 # page d'accueil
 
+
+
+- pages d'accueil en vedette
+- Lister les offres d'emplois dans l'application
+- detail des offres
+- Connexion
+- inscription
+- recherche
+
