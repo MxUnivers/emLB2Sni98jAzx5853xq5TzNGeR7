@@ -36,83 +36,82 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: Text('Offres d\'emploi'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/banner.jpg'),
-                  fit: BoxFit.cover,
+        appBar: AppBar(
+          backgroundColor: Colors.blue.shade900,
+          title: Text('Offres d\'emploi'),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/banner.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Bienvenue sur',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Offres d\'emploi',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Bienvenue sur',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
+              SizedBox(height: 16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Rechercher un emploi',
+                    suffixIcon: Icon(Icons.search),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Offres d\'emploi',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Rechercher un emploi',
-                  suffixIcon: Icon(Icons.search),
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Offres d\'emploi populaires',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              SizedBox(height: 16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Offres d\'emploi populaires',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('Voir plus'),
-                  ),
-                ],
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('Voir plus'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Container(
-                child:
-                emploisList.length > 0
-                    ? Container(
+              SizedBox(height: 16),
+              emploisList.length > 0
+                  ? SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
+                          child: Container(
                         child: Row(
                             children: emploisList
                                 .map((e) => JobCard(
@@ -122,20 +121,15 @@ class _HomePageState extends State<HomePage> {
                                       imageUrl: 'assets/images/job1.jpg',
                                     ))
                                 .toList()),
-                      )
-                    : Container(
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
+                      )))
+                  : Container(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
                         ),
                       ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                    ),
+            ])));
   }
 }
 
