@@ -197,6 +197,30 @@ class DetailEmploiPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
+                  // Botton pour poster à l'offre
+                  Container(
+                    width: double.infinity,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.0),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF0072ff), Color(0xFF00c6ff)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Postuler à l'offre ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+
 
                 ],
               ),
