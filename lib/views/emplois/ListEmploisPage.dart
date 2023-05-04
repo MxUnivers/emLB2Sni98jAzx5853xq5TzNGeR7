@@ -1,7 +1,41 @@
 import "package:flutter/material.dart";
+import "package:http/http.dart" as http;
+import 'dart:ui';
+import 'dart:convert';
 
-class ListEmploisPage extends StatelessWidget {
-  const ListEmploisPage({Key? key}) : super(key: key);
+import 'package:mobileoffreemploi/config/baseurl.dart';
+
+class ListEmploisPage extends StatefulWidget {
+  @override
+  _ListEmploisPageState createState() => _ListEmploisPageState();
+}
+
+class _ListEmploisPageState extends State<ListEmploisPage> {
+  @override
+  void initState() {
+    super.initState();
+    _getDataFromApi();
+  }
+
+
+  List<dynamic> emploisList = [];
+
+  Future<void> _getDataFromApi() async {
+    final response = await http.get(
+        //baseurl['url'].toString()
+        Uri.parse(
+            "https://tasty-dog-trousers.cyclic.app/api/v1/temoignages/get/all"));
+    if (response.statusCode == 200 || response.statusCode == 300) {
+      setState(() {
+        Map<String, dynamic> _data = jsonDecode(response.body);
+        print(emploisList);
+        emploisList = _data["data"];
+      });
+    } else {
+      print("erreur lors du chargement ..");
+      throw Exception('Failed to load data from API');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +44,7 @@ class ListEmploisPage extends StatelessWidget {
           backgroundColor: Colors.blue.shade900,
           leading: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.backspace_outlined),
+            icon: Icon(Icons.arrow_back),
           ),
           title: Text("Listes des offres d'emplois"),
           centerTitle: true,
@@ -21,30 +55,31 @@ class ListEmploisPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        JobCard(
-                          title: 'Développeur web',
-                          location: 'Montréal, QC',
-                          company: 'Google',
-                          imageUrl: 'assets/images/job1.jpg',
-                        ),
-                        JobCard(
-                          title: 'Designer graphique',
-                          location: 'Toronto, ON',
-                          company: 'Facebook',
-                          imageUrl: 'assets/images/job2.jpg',
-                        ),
-                        JobCard(
-                          title: 'Développeur mobile',
-                          location: 'Vancouver, BC',
-                          company: 'Amazon',
-                          imageUrl: 'assets/images/job3.jpg',
-                        ),
-                      ],
-                    ),
-                  )
+                      scrollDirection: Axis.vertical,
+                      child: Column(children: [
+                        emploisList.length > 0
+                            ? Container(
+                                child: Column(
+                                    children: emploisList
+                                        .map((data) => JobCard(
+                                              title: data["title"].toString(),
+                                              location:
+                                                  data["title"].toString(),
+                                              company: data["title"].toString(),
+                                              imageUrl: data["coverPicture"]
+                                                  .toString(),
+                                            ))
+                                        .toList()))
+                            : Container(
+                                color: Colors.grey.shade100,
+                                padding: EdgeInsets.all(10),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                ))
+                      ]))
                 ])));
   }
 }
@@ -74,7 +109,7 @@ class JobCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: Image.asset(
+              child: Image.network(
                 imageUrl,
                 height: 150,
                 width: double.infinity,

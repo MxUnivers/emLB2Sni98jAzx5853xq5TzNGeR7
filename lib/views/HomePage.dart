@@ -1,6 +1,37 @@
 import 'package:flutter/material.dart';
+import "package:http/http.dart" as http;
+import "dart:convert";
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    _getDataFromApi();
+  }
+
+  List<dynamic> emploisList = [];
+
+  Future<void> _getDataFromApi() async {
+    final response = await http.get(
+        //baseurl['url'].toString()
+        Uri.parse(
+            "https://tasty-dog-trousers.cyclic.app/api/v1/temoignages/get/all"));
+    if (response.statusCode == 200 || response.statusCode == 300) {
+      setState(() {
+        Map<String, dynamic> _data = jsonDecode(response.body);
+        print(emploisList);
+        emploisList = _data["data"];
+      });
+    } else {
+      print("erreur lors du chargement ..");
+      throw Exception('Failed to load data from API');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,27 +109,27 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 16),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  JobCard(
-                    title: 'Développeur web',
-                    location: 'Montréal, QC',
-                    company: 'Google',
-                    imageUrl: 'assets/images/job1.jpg',
-                  ),
-                  JobCard(
-                    title: 'Designer graphique',
-                    location: 'Toronto, ON',
-                    company: 'Facebook',
-                    imageUrl: 'assets/images/job2.jpg',
-                  ),
-                  JobCard(
-                    title: 'Développeur mobile',
-                    location: 'Vancouver, BC',
-                    company: 'Amazon',
-                    imageUrl: 'assets/images/job3.jpg',
-                  ),
-                ],
+              child: Container(
+                child:
+                emploisList.length > 0
+                    ? Container(
+                        child: Row(
+                            children: emploisList
+                                .map((e) => JobCard(
+                                      title: 'Développeur web',
+                                      location: 'Montréal, QC',
+                                      company: 'Google',
+                                      imageUrl: 'assets/images/job1.jpg',
+                                    ))
+                                .toList()),
+                      )
+                    : Container(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
               ),
             ),
           ],

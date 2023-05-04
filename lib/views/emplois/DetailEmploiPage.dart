@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:iconly/iconly.dart";
 import "dart:ui";
-import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconly/iconly.dart';
@@ -127,7 +126,7 @@ class DetailEmploiPage extends StatelessWidget {
                         radius: 25,
                         backgroundColor: Colors.blue,
                         child: Icon(
-                          IconlyLight.heart,
+                          Icons.favorite_outline,
                           color: Colors.white,
                         ),
                       ),
@@ -220,8 +219,6 @@ class DetailEmploiPage extends StatelessWidget {
                       ),
                     ),
                   )
-
-
                 ],
               ),
             ),
@@ -254,6 +251,4 @@ class DetailEmploiPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
