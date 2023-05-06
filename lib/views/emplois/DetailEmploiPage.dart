@@ -4,6 +4,7 @@ import "dart:ui";
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconly/iconly.dart';
+import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 
 class DetailEmploiPage extends StatelessWidget {
   const DetailEmploiPage({Key? key}) : super(key: key);
@@ -197,7 +198,15 @@ class DetailEmploiPage extends StatelessWidget {
                     height: 10,
                   ),
                   // Botton pour poster à l'offre
-                  Container(
+                  GestureDetector(
+                    onTap:(){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PostCandidaturePage()),
+                      );
+                    },
+                    child:
+                    Container(
                     width: double.infinity,
                     height: 50.0,
                     decoration: BoxDecoration(
@@ -218,6 +227,7 @@ class DetailEmploiPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                  )
                   )
                 ],
               ),

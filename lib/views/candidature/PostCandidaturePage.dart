@@ -9,8 +9,10 @@ class PostCandidaturePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
         leading: IconButton(
-          onPressed: (){},
-          icon: Icon(Icons.backspace_outlined),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text("Poster votre candidature "),
         centerTitle: true,
@@ -33,8 +35,9 @@ class PostCandidaturePage extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Image.asset(
-                  "assets/images/logo.png",
-                  height: 50,
+                  "assets/images/job1.jpg",
+                  height: 100,
+                  width: double.infinity,
                 ),
                 SizedBox(height: 5),
                 Text(

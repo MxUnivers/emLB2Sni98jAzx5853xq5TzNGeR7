@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import "dart:convert";
 import "package:get/get.dart";
+import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
+import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
 import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
 import "package:get/get.dart";
@@ -15,27 +18,39 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getDataFromApi();
+    _getOffres();
   }
 
-  List<dynamic> emploisList = [];
+  List<dynamic> offres = [];
+  List<dynamic> _data= [];
 
-  Future<void> _getDataFromApi() async {
-    final response = await http.get(
-        //baseurl['url'].toString()
-        Uri.parse(
-            "https://tasty-dog-trousers.cyclic.app/api/v1/temoignages/get/all"));
+  Future<List<dynamic>> _getOffres() async {
+    final String apiUrl = '${baseurl["url"].toString()}/api/v1/offre/get_offres';
+
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
+    });
+
     if (response.statusCode == 200 || response.statusCode == 300) {
+
       setState(() {
         Map<String, dynamic> _data = jsonDecode(response.body);
-        print(emploisList);
-        emploisList = _data["data"];
+        print(offres);
+        offres = _data["data"];
       });
+      return offres;
     } else {
-      print("erreur lors du chargement ..");
-      throw Exception('Failed to load data from API');
+      throw Exception('Failed to load offres');
     }
   }
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +101,8 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SearchEmploisPage()),
+                        MaterialPageRoute(
+                            builder: (context) => SearchEmploisPage()),
                       );
                     },
                     child: TextField(
@@ -116,7 +132,8 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ListEmploisPage()),
+                          MaterialPageRoute(
+                              builder: (context) => ListEmploisPage()),
                         );
                       },
                       child: Text('Voir plus'),
@@ -125,15 +142,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 16),
-              emploisList.length > 0
+              offres.length > 0
                   ? SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Container(
                           child: Container(
                         child: Row(
-                            children: emploisList
-                                .map((e) => JobCard(
-                                      title: 'Développeur web',
+                            children: offres
+                                .map((data) => JobCard(
+                                      title: data["titre"].toString(),
                                       location: 'Montréal, QC',
                                       company: 'Google',
                                       imageUrl: 'assets/images/job1.jpg',
@@ -167,62 +184,75 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      width: 250,
-      child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Image.asset(
-                imageUrl,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(height: 8),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        width: 250,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailEmploiPage()),
+            );
+          },
+          child: Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Image.asset(
+                    imageUrl,
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    company,
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        company,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        location,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    location,
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PostCandidaturePage()),
+                      );
+                    },
+                    child: Text('Postuler'),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 8),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text('Postuler'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
