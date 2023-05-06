@@ -1,75 +1,127 @@
 import "package:flutter/material.dart";
+import "package:http/http.dart" as http;
+import "dart:convert";
+import "dart:core";
+import "dart:ui";
 
-class SearchEmploisPage extends StatelessWidget {
+import 'package:mobileoffreemploi/config/baseurl.dart';
+
+class SearchEmploisPage extends StatefulWidget {
   const SearchEmploisPage({Key? key}) : super(key: key);
+  @override
+  State<SearchEmploisPage> createState() => _SearchEmploisPageState();
+}
+
+class _SearchEmploisPageState extends State<SearchEmploisPage> {
+  TextEditingController _searchController = TextEditingController();
+  bool _isInit = true;
+
+  @override
+  void initState() {
+    if (_isInit) {
+      super.initState();
+      _getOffres();
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+
+  List<dynamic> offres = [];
+  List<dynamic> _data = [];
+
+  Future<List<dynamic>> _getOffres() async {
+    final String apiUrl =
+        '${baseurl["url"].toString()}/api/v1/offre/get_offres';
+
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+          "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
+    });
+
+    if (response.statusCode == 200 || response.statusCode == 300) {
+      setState(() {
+        Map<String, dynamic> _data = jsonDecode(response.body);
+        print(offres);
+        offres = _data["data"];
+      });
+      return offres;
+    } else {
+      throw Exception('Failed to load offres');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+          ],
+          title: Text("Recherche ..."),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(48.0),
+            child: Padding(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Recherche',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () => _searchController.clear(),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
           ),
-          title: Text("recherche offre"),
-
           centerTitle: true,
         ),
+        backgroundColor: Colors.blue.shade100,
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  SizedBox(height: 10,),
                   Container(
-
-                    margin: EdgeInsets.fromLTRB(0, 15, 0, 2),
-                    decoration: BoxDecoration(
-                      color: Colors.white
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Rechercher un emploi 'motclé'" ,
-                          suffixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade700
-                    ),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          JobCard(
-                            title: 'Développeur web',
-                            location: 'Montréal, QC',
-                            company: 'Google',
-                            imageUrl: 'assets/images/job1.jpg',
-                          ),
-                          JobCard(
-                            title: 'Designer graphique',
-                            location: 'Toronto, ON',
-                            company: 'Facebook',
-                            imageUrl: 'assets/images/job2.jpg',
-                          ),
-                          JobCard(
-                            title: 'Développeur mobile',
-                            location: 'Vancouver, BC',
-                            company: 'Amazon',
-                            imageUrl: 'assets/images/job3.jpg',
-                          ),
-                        ],
+                      child:
+                          offres.length > 0 ?
+                          Container(
+                            child:
+                            Column(
+                              children:
+                            offres.map((e) =>
+                                JobCard(
+                                  title: 'Développeur web',
+                                  location: 'Montréal, QC',
+                                  company: 'Google',
+                                  imageUrl: 'assets/images/job1.jpg',
+                                )
+                            ).toList()
+
+                          )
+                    ):
+
+                              Container(
+                                child:Text("Rien trouvé dans la recherche ..")
+                              )
+
                       ),
                     ),
-                  )
                 ])));
   }
 }
