@@ -237,8 +237,12 @@ class _InscriptionPageState extends State<InscriptionPage> {
                     height: 40,
                   ),
                   _isLoading
-                      ? ElevatedButton(
-                          onPressed: () {}, child: CircularProgressIndicator())
+                      ? MaterialButton(
+                          color: Colors.blueGrey,
+                          onPressed: () {},
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ))
                       : MaterialButton(
                           onPressed: _sendData,
                           child: Container(

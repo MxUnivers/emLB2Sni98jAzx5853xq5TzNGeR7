@@ -13,8 +13,12 @@ class SearchEmploisPage extends StatefulWidget {
 }
 
 class _SearchEmploisPageState extends State<SearchEmploisPage> {
-  TextEditingController _searchController = TextEditingController();
+
   bool _isInit = true;
+
+  TextEditingController searchController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> filteredList = [];
 
   @override
   void initState() {
@@ -29,7 +33,7 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
   List<dynamic> offres = [];
   List<dynamic> _data = [];
 
-  Future<List<dynamic>> _getOffres() async {
+  Future<void> _getOffres() async {
     final String apiUrl =
         '${baseurl["url"].toString()}/api/v1/offre/get_offres';
 
@@ -46,11 +50,37 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
         print(offres);
         offres = _data["data"];
       });
-      return offres;
+      offres;
     } else {
       throw Exception('Failed to load offres');
     }
   }
+
+
+  void filterSearchResults(String query) {
+    List<dynamic> searchList = [];
+    searchList.addAll(offres);
+    if (query.isNotEmpty) {
+      List<Map<String, dynamic>> tempList = [];
+      searchList.forEach((item) {
+        if (item['titre'].toLowerCase().contains(query.toLowerCase())) {
+          tempList.add(item);
+        }
+      });
+      setState(() {
+        filteredList = tempList;
+      });
+      return;
+    } else {
+      List<Map<String,dynamic>> offres = [];
+      setState(() {
+        filteredList = offres;
+      });
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +100,9 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
               padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
               child: TextField(
                 controller: _searchController,
+                onSubmitted: (value) {
+                  filterSearchResults(value);
+                },
                 decoration: InputDecoration(
                   hintText: 'Recherche',
                   suffixIcon: IconButton(
