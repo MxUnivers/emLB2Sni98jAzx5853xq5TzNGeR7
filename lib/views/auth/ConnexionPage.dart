@@ -5,6 +5,7 @@ import "dart:convert";
 import "dart:core";
 import "dart:ui";
 import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/views/HomePage.dart';
 import 'package:mobileoffreemploi/views/auth/InscriptionPage.dart';
 
 class ConnexionPage extends StatefulWidget {
@@ -46,12 +47,17 @@ class _ConnexionPageState extends State<ConnexionPage> {
       }),
     );
 
-    if (response.statusCode == 200 || response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 300) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.greenAccent,
           content: Text('Connexion réussi'),
         ),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -90,7 +96,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
             ),
             SizedBox(height: 30),
             Container(
-              height: 430,
+              height: 490,
               width: 325,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -145,8 +151,8 @@ class _ConnexionPageState extends State<ConnexionPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    onTap: _sendData,
+                  MaterialButton(
+                    onPressed: _sendData,
                     child: Container(
                       alignment: Alignment.center,
                       width: 250,
@@ -171,8 +177,8 @@ class _ConnexionPageState extends State<ConnexionPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  MaterialButton(
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
