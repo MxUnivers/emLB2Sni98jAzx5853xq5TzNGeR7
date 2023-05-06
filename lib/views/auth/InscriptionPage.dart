@@ -1,7 +1,107 @@
 import "package:flutter/material.dart";
+import 'package:mobileoffreemploi/config/baseurl.dart';
+import "package:http/http.dart" as http;
+import "dart:ui";
+import "dart:convert";
 
-class InscriptionPage extends StatelessWidget {
+import 'package:mobileoffreemploi/views/auth/ConnexionPage.dart';
+
+class InscriptionPage extends StatefulWidget {
   const InscriptionPage({Key? key}) : super(key: key);
+
+  @override
+  State<InscriptionPage> createState() => _InscriptionPageState();
+}
+
+class _InscriptionPageState extends State<InscriptionPage> {
+  // Controlleur des textes
+  final TextEditingController firstnameController = TextEditingController();
+  final TextEditingController lastnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController telephoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirm_passwordController = TextEditingController();
+
+  void _sendData() async {
+    String firstname = firstnameController.text;
+    String lastname = lastnameController.text;
+    String telephone = telephoneController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirm_password = passwordController.text;
+
+    if (firstname.isEmpty ||
+        lastname.isEmpty ||
+        telephone.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty || confirm_password.isEmpty ) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Veiller remplier tous les champ'),
+        ),
+      );
+      if(password != password.isEmpty ){
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("mot de passe et la confirmation doivent être identiques"),
+              content: Text(""),
+              actions: [
+                TextButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+      return;
+    }
+
+    final url =
+        Uri.parse("${baseurl["url"].toString()}/api/v1/candidat/");
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': "Bearer ${baseurl["token"].toString()}",
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        "firstname": firstname,
+        "lastname": lastname,
+        "telephone": telephone,
+        "email": email,
+        "password": password,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.greenAccent,
+          content: Text('Inscription réussi avec succès'),
+        ),
+      );
+
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Une erreur est survenue lors de l\'envoi des données'),
+        ),
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConnexionPage()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

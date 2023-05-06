@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileoffreemploi/views/auth/ConnexionPage.dart';
 import 'views/HomePage.dart';
 import "./views/notifcations/NotificationPage.dart";
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: ConnexionPage(),
     );
   }
 }

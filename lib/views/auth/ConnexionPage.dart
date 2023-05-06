@@ -1,8 +1,67 @@
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
+import "package:http/http.dart" as http;
+import "dart:convert";
+import "dart:core";
+import "dart:ui";
+import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/views/auth/InscriptionPage.dart';
 
-class ConnexionPage extends StatelessWidget {
+class ConnexionPage extends StatefulWidget {
   const ConnexionPage({Key? key}) : super(key: key);
+  @override
+  State<ConnexionPage> createState() => _ConnexionPageState();
+}
+
+class _ConnexionPageState extends State<ConnexionPage> {
+  // Controller de text
+  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _otherTextEditingController =
+      TextEditingController();
+
+  void _sendData() async {
+    String value = _textEditingController.text;
+    String otherValue = _otherTextEditingController.text;
+    if (value.isEmpty || otherValue.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Veuillez remplir tous les champs'),
+        ),
+      );
+      return;
+    }
+
+    final url =
+        Uri.parse("${baseurl["url"].toString()}/api/v1/auth/candidat/login/");
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': "Bearer ${baseurl["token"].toString()}",
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'email': value,
+        'password': otherValue,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.greenAccent,
+          content: Text('Connexion réussi'),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Une erreur est survenue lors de l\'envoi des données'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +72,8 @@ class ConnexionPage extends StatelessWidget {
         width: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color(0xFF5883DB),
-              Color(0xFF023293),
+          Color(0xFF5883DB),
+          Color(0xFF023293),
         ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,6 +109,7 @@ class ConnexionPage extends StatelessWidget {
                   Container(
                     width: 250,
                     child: TextField(
+                      controller: _textEditingController,
                       decoration: InputDecoration(
                           labelText: "addresse email ...",
                           suffixIcon: Icon(
@@ -61,6 +121,7 @@ class ConnexionPage extends StatelessWidget {
                   Container(
                     width: 250,
                     child: TextField(
+                      controller: _otherTextEditingController,
                       decoration: InputDecoration(
                           labelText: "mot de passe ...",
                           suffixIcon: Icon(
@@ -85,6 +146,7 @@ class ConnexionPage extends StatelessWidget {
                     height: 20,
                   ),
                   GestureDetector(
+                    onTap: _sendData,
                     child: Container(
                       alignment: Alignment.center,
                       width: 250,
@@ -93,11 +155,7 @@ class ConnexionPage extends StatelessWidget {
                           gradient: LinearGradient(
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
-                              colors: [
-                                Color(0xFF8A2387),
-                                Color(0xFFE94057),
-                                Color(0xFFE27121)
-                              ])),
+                              colors: [Color(0xFF0042ff), Color(0xFF00c6ff)])),
                       child: Padding(
                         padding: EdgeInsets.all(12.0),
                         child: Text(
@@ -114,7 +172,13 @@ class ConnexionPage extends StatelessWidget {
                     height: 30,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => InscriptionPage()),
+                      );
+                    },
                     child: Text(
                       "Or créer votre compte",
                       style: TextStyle(fontWeight: FontWeight.bold),

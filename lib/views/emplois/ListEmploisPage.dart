@@ -11,29 +11,42 @@ class ListEmploisPage extends StatefulWidget {
 }
 
 class _ListEmploisPageState extends State<ListEmploisPage> {
+
+  bool _isInit = true;
+
   @override
   void initState() {
+    if (_isInit) {
     super.initState();
-    _getDataFromApi();
+    _getOffres();
+    _isInit = false;
+    }
+    super.didChangeDependencies();
   }
 
+  List<dynamic> offres = [];
+  List<dynamic> _data = [];
 
-  List<dynamic> emploisList = [];
+  Future<List<dynamic>> _getOffres() async {
+    final String apiUrl =
+        '${baseurl["url"].toString()}/api/v1/offre/get_offres';
 
-  Future<void> _getDataFromApi() async {
-    final response = await http.get(
-        //baseurl['url'].toString()
-        Uri.parse(
-            "https://tasty-dog-trousers.cyclic.app/api/v1/temoignages/get/all"));
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+          "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
+    });
+
     if (response.statusCode == 200 || response.statusCode == 300) {
       setState(() {
         Map<String, dynamic> _data = jsonDecode(response.body);
-        print(emploisList);
-        emploisList = _data["data"];
+        print(offres);
+        offres = _data["data"];
       });
+      return offres;
     } else {
-      print("erreur lors du chargement ..");
-      throw Exception('Failed to load data from API');
+      throw Exception('Failed to load offres');
     }
   }
 
@@ -59,10 +72,10 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                   SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(children: [
-                        emploisList.length > 0
+                        offres.length > 0
                             ? Container(
                                 child: Column(
-                                    children: emploisList
+                                    children: offres
                                         .map((data) => JobCard(
                                               title: data["title"].toString(),
                                               location:
