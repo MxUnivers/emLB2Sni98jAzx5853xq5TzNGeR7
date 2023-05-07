@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'dart:convert';
 
 import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 
 class ListEmploisPage extends StatefulWidget {
   @override
@@ -118,6 +119,7 @@ class JobCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 8),
       width: double.infinity,
       child: Card(
+
         margin: EdgeInsets.fromLTRB(3, 5, 3, 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +167,13 @@ class JobCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailEmploiPage()),
+                  );
+                },
                 child: Text('Postuler'),
               ),
             ),

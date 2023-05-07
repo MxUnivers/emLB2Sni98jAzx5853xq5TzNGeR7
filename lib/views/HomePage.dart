@@ -8,6 +8,8 @@ import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
 import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
 import "package:get/get.dart";
+import 'package:mobileoffreemploi/views/notifcations/NotificationPage.dart';
+import 'package:mobileoffreemploi/views/profile/ProfilePage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,19 +24,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<dynamic> offres = [];
-  List<dynamic> _data= [];
+  List<dynamic> _data = [];
 
   Future<List<dynamic>> _getOffres() async {
-    final String apiUrl = '${baseurl["url"].toString()}/api/v1/offre/get_offres';
+    final String apiUrl =
+        '${baseurl["url"].toString()}/api/v1/offre/get_offres';
 
     final response = await http.get(Uri.parse(apiUrl), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
+      'Authorization':
+          "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
     });
 
     if (response.statusCode == 200 || response.statusCode == 300) {
-
       setState(() {
         Map<String, dynamic> _data = jsonDecode(response.body);
         print(offres);
@@ -46,12 +49,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +56,50 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blue.shade900,
           title: Text('Offres d\'emploi'),
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: Icon(Icons.menu_rounded),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade700
+                ),
+                accountName: Text("John Doe"),
+                accountEmail: Text("john.doe@example.com"),
+                currentAccountPicture: CircleAvatar(
+                  child: Text("JD"),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.notifications_outlined),
+                title: Text('Alertes'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationPage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person_outline),
+                title: Text('Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfilePage()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
         body: SingleChildScrollView(
             child: Column(

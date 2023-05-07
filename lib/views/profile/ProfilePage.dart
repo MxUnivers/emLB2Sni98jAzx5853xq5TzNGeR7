@@ -8,8 +8,10 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.backspace_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text('Mon profil'),
         centerTitle: true,

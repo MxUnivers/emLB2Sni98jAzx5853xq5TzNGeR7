@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -18,19 +19,19 @@ class NotificationPage extends StatelessWidget {
       body: ListView(
         children: [
           NotificationCard(
-            title: 'Nouvelle offre d\'emploi'.substring(0,15)+" ...",
-            description: 'Un nouveau poste de Développeur web est disponible.'.substring(0,35)+"...",
-            date: 'Hier',
+            title: "Developpeur web ...",
+            description: "Un nouveau poste de Développeur web est disponible....",
+            date: '04/05/2023',
           ),
           NotificationCard(
-            title: 'Candidature reçue'.substring(0,15)+" ...",
-            description: 'Vous avez reçu une nouvelle candidature pour le poste de Designer graphique.'.substring(0,35)+"...",
-            date: 'Avant-hier',
+            title: "Marking digitale ...",
+            description: "Vous avez reçu une nouvelle candidature pour le poste de Designer graphique ...",
+            date: '04/05/2023',
           ),
           NotificationCard(
-            title: 'Mise à jour de l\'offre d\'emploi'.substring(0,15)+" ...",
-            description: 'L\'offre de Développeur mobile a été mise à jour.'.substring(0,35)+"...",
-            date: '2 jours auparavant',
+            title: "Architecte...",
+            description: "L\'offre de Développeur mobile a été mise à jour ...",
+            date: "05/05/2023",
           ),
         ],
       ),
@@ -72,7 +73,13 @@ class NotificationCard extends StatelessWidget {
             ],
           ),
           trailing: Icon(Icons.arrow_forward_ios),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailEmploiPage()),
+            );
+          },
         ),
       ),
     );

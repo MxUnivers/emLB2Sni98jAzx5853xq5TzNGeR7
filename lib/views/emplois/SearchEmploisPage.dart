@@ -5,6 +5,7 @@ import "dart:core";
 import "dart:ui";
 
 import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 
 class SearchEmploisPage extends StatefulWidget {
   const SearchEmploisPage({Key? key}) : super(key: key);
@@ -225,12 +226,19 @@ class JobCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailEmploiPage()),
+                  );
+                },
                 child: Text('Postuler'),
               ),
             ),
           ],
         ),
+
       ),
     );
   }
