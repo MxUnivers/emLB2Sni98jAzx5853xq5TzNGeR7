@@ -7,9 +7,10 @@ import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
 import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
-import "package:get/get.dart";
 import 'package:mobileoffreemploi/views/notifcations/NotificationPage.dart';
 import 'package:mobileoffreemploi/views/profile/ProfilePage.dart';
+import "package:shared_preferences/shared_preferences.dart";
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,7 +21,28 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    getDataProfileConnexion();
     _getOffres();
+    // Charger les donnés de l'utlisateur ici
+
+  }
+
+  late  String id;
+  late  String firstname;
+  late  String lastname;
+  late  String email;
+  late  String telephone;
+  late  String coverPicture;
+  // Récupérer une valeur Profile du candidat
+  Future<void> getDataProfileConnexion(
+      ) async {
+    final prefs = await SharedPreferences.getInstance();
+    id= prefs.getString("idProfileConnexion")??"";
+    firstname = prefs.getString('firstnameConnexion' )??"";
+    lastname = prefs.getString('lastnameConnexion' )??"";
+    email = prefs.getString('emailConnexion' )??"";
+    telephone = prefs.getString('telephoneConnexion' )??"";
+    coverPicture = prefs.getString('coverPictureConnexion' )??"";
   }
 
   List<dynamic> offres = [];
@@ -70,10 +92,10 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   color: Colors.blue.shade700
                 ),
-                accountName: Text("John Doe"),
-                accountEmail: Text("john.doe@example.com"),
+                accountName: Text("${firstname.toString()} ${lastname.toString()}"),
+                accountEmail: Text(email.toString()),
                 currentAccountPicture: CircleAvatar(
-                  child: Text("JD"),
+                  child: Text("${id.toString()}"),
                 ),
               ),
               ListTile(

@@ -40,9 +40,42 @@ En général, il est important de se concentrer sur une conception de l'applicat
 ##    Coté Api
 
 - pages d'accueil en vedette
+     # Lister tous les offres d'emplois
+     # les offres les plus recomandés
+     # barre de recherche 
+     # voire plus le drawer de la page
+
 - Lister les offres d'emplois dans l'application
+     # Par catégories
+        -- informatiques
+        -- Marketing
+        -- Pharmaceutique
+
 - detail des offres
+  --Reupérer le Id du candidat
+  -- Poster le Id du candidat vers sa page
+
 - Connexion
+   - Recupérer la photo , nom , email , id ,nom , prénoms , email , lieu d'habitation , 
+   
 - inscription
+    redirige vers la connexion
+
 - recherche
+   lancer une rechercher vers vers la listes récupérer ou l'apis
+ 
+- Voire la listes des notification et les rediriger vers leur pages
+
+- Ajouter un espace administration des offres offres enregistrer par le candidats candidats
+
+- Modifier le profile
+   Lancer une mofication des informations réuperer
+   Changer la photo de profile une apis spéciale
+
+- Deconnexion du candidat
+  Effecer tout les information gérer les redirections
+
+
+
+
 

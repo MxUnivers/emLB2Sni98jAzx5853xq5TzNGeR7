@@ -5,6 +5,8 @@ import 'dart:convert';
 
 import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
+import  "package:carousel_slider/carousel_slider.dart";
+import  "package:mobileoffreemploi/config/options/optionSuggestions.dart";
 
 class ListEmploisPage extends StatefulWidget {
   @override
@@ -70,6 +72,38 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  // Suggestion de recherche
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 50.0,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                    ),
+                    items: suggestions.map((suggestion) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color:Colors.grey,
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            margin: EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                            child: Center(
+                              child: MaterialButton(
+                                onPressed: (){},
+                                child: Text(
+                                  "${suggestion}",
+                                  style: TextStyle(fontSize: 16.0,color: Colors.white),
+                                ),
+                              )
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  )
+                  ,
                   SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(children: [
@@ -78,12 +112,16 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                                 child: Column(
                                     children: offres
                                         .map((data) => JobCard(
-                                              title: data["title"].toString(),
+                                              title: data["titre"].toString(),
                                               location:
-                                                  data["title"].toString(),
-                                              company: data["title"].toString(),
-                                              imageUrl: data["coverPicture"]
-                                                  .toString(),
+                                                  data["lieu"].toString(),
+                                              company: data["entreprise"].toString().substring(0,20)+"...",
+                                              imageUrl:
+                                              data["logo"].toString() == null ?
+                                              data["logo"].toString()
+                                                  :
+                                              "https://icon-library.com/images/icon-job/icon-job-3.jpg"
+                                              ,
                                             ))
                                         .toList()))
                             : Container(
@@ -126,13 +164,16 @@ class JobCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: Image.network(
-                imageUrl,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
+              child: Container(
+                color: Colors.blueGrey,
+                child: Image.network(
+                  imageUrl,
+                  height: 150,
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
+              ),
             SizedBox(height: 8),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
@@ -148,18 +189,24 @@ class JobCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    company,
+                    company== null ? "Aucune" : company ,
                     style: TextStyle(
                       color: Colors.grey,
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text(
-                    location,
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.maps_home_work),
+                      SizedBox(width: 10,),
+                      Text(
+                        location,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

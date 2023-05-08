@@ -7,6 +7,9 @@ import "dart:ui";
 import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/views/HomePage.dart';
 import 'package:mobileoffreemploi/views/auth/InscriptionPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import  "package:mobileoffreemploi/storage/profileStorage.dart";
+
 
 class ConnexionPage extends StatefulWidget {
   const ConnexionPage({Key? key}) : super(key: key);
@@ -35,6 +38,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
 
 
 
+  var imageprofile = "https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg";
   void _sendData() async {
     String email = _emailController.text;
     String password = _passwordController.text;
@@ -47,7 +51,6 @@ class _ConnexionPageState extends State<ConnexionPage> {
       );
       return;
     }
-
     final url = Uri.parse("${baseurl["url"].toString()}/api/v1/auth/candidat/login/");
     setState(() {
       _isLoading = true;
@@ -65,15 +68,27 @@ class _ConnexionPageState extends State<ConnexionPage> {
     );
 
     if (response.statusCode == 200 || response.statusCode == 300) {
+      // Stopper le chargement de mon bouton
       setState(() {
         _isLoading = false;
       });
+      // recupération des valeur de mon api tel que le photo de profile  , id , le nom complet , le type de profile de mon application
+      final data = jsonDecode(response.body);
+      // Accéder aux valeurs de données que vous avez récupérées
+      saveDataProfileConnexion(
+          data['data']["_id"].toString()
+          , data['data']["firstname"].toString(), data['data']["lastname"].toString(),
+          data['data']["email"].toString(), data['data']["telephone"].toString(),
+          data['data']["coverPicture"].toString()
+      );
+      // message du post de mon application
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.greenAccent,
           content: Text('Connexion réussi'),
         ),
       );
+      // Redirection vers la page d'accueil de mon application
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -90,7 +105,6 @@ class _ConnexionPageState extends State<ConnexionPage> {
         ),
       );
     }
-
   }
 
   @override
