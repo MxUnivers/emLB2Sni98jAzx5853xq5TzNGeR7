@@ -52,8 +52,11 @@ En général, il est important de se concentrer sur une conception de l'applicat
         -- Pharmaceutique
 
 - detail des offres
-  --Reupérer le Id du candidat
+  -- Reupérer le Id du candidat
   -- Poster le Id du candidat vers sa page
+  home --> Detail
+  list --> Detail
+  search --> Detail
 
 - Connexion
    - Recupérer la photo , nom , email , id ,nom , prénoms , email , lieu d'habitation , 

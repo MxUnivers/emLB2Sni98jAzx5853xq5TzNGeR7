@@ -76,11 +76,14 @@ class _ConnexionPageState extends State<ConnexionPage> {
       final data = jsonDecode(response.body);
       // Accéder aux valeurs de données que vous avez récupérées
       saveDataProfileConnexion(
-          data['data']["_id"].toString()
-          , data['data']["firstname"].toString(), data['data']["lastname"].toString(),
-          data['data']["email"].toString(), data['data']["telephone"].toString(),
+          data['data']["_id"].toString(),
+          data['data']["firstname"].toString(),
+          data['data']["lastname"].toString(),
+          data['data']["email"].toString(),
+          data['data']["telephone"].toString(),
           data['data']["coverPicture"].toString()
       );
+
       // message du post de mon application
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

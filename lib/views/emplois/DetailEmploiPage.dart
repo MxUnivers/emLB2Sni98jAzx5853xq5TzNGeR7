@@ -4,10 +4,45 @@ import "dart:ui";
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconly/iconly.dart';
+import 'package:mobileoffreemploi/storage/profileStorage.dart';
 import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
-class DetailEmploiPage extends StatelessWidget {
-  const DetailEmploiPage({Key? key}) : super(key: key);
+
+class DetailEmploiPage extends StatefulWidget {
+  final String  id ;
+  final String  titre ;
+  final String  entreprise ;
+  final String  logo ;
+  final String  description ;
+  final String  lieu ;
+
+  const DetailEmploiPage({Key? key,
+    required this.id ,
+    required this.titre ,
+    required this.entreprise,
+    required this.logo ,
+    required this.description ,
+    required this.lieu
+  }) : super(key: key);
+
+  @override
+  State<DetailEmploiPage> createState() => _DetailEmploiPageState();
+}
+
+class _DetailEmploiPageState extends State<DetailEmploiPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    getDataProfileConnexion();
+  }
+  late String idConnexion;
+  // Récupérer une valeur Profile du candidat
+  Future<void> getDataProfileConnexion() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +52,10 @@ class DetailEmploiPage extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            child: Image.asset("assets/images/job1.jpg"),
+            child: Image.network("${widget.logo == null ?
+            "644598cf98348dba517c689d":
+                widget.logo
+         }"),
           ),
           buttonArrow(context),
           scroll(),
@@ -94,7 +132,7 @@ class DetailEmploiPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Cacao Maca Walnut Milk",
+                    "${widget.titre}",
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   const SizedBox(
@@ -116,7 +154,7 @@ class DetailEmploiPage extends StatelessWidget {
                         width: 5,
                       ),
                       Text(
-                        "Elena Shelby",
+                        "${widget.entreprise}",
                         style: Theme.of(context)
                             .textTheme
                             .headline6!
@@ -157,13 +195,7 @@ class DetailEmploiPage extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Nous recherchons un développeur Web Full "
-                    "Stack talentueux pour rejoindre notre équipe dynamique."
-                    " Le candidat retenu sera responsable de la conception et"
-                    " de la mise en œuvre de sites Web interactifs pour nos clients."
-                    " Le développeur Web sera également chargé de la gestion de projets,"
-                    " de l'élaboration "
-                    "de plans de travail et de la coordination avec les membres de l'équipe.",
+                    "${widget.description}",
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
@@ -182,11 +214,28 @@ class DetailEmploiPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 3,
-                    itemBuilder: (context, index) => ingredients(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 10,
+                          backgroundColor: Color(0xFFE3FFF8),
+                          child: Icon(
+                            Icons.done,
+                            size: 15,
+                            color: Colors.black12,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Lieu : ${widget.lieu}",
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      ],
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
@@ -198,11 +247,11 @@ class DetailEmploiPage extends StatelessWidget {
                     height: 10,
                   ),
                   // Botton pour poster à l'offre
-                  GestureDetector(
-                    onTap:(){
+                  MaterialButton(
+                    onPressed:(){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PostCandidaturePage()),
+                        MaterialPageRoute(builder: (context) => PostCandidaturePage(id: widget.id.toString(),)),
                       );
                     },
                     child:
@@ -236,29 +285,5 @@ class DetailEmploiPage extends StatelessWidget {
         });
   }
 
-  ingredients(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 10,
-            backgroundColor: Color(0xFFE3FFF8),
-            child: Icon(
-              Icons.done,
-              size: 15,
-              color: Colors.black12,
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "Salaire : 166266 francs cfa",
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-        ],
-      ),
-    );
-  }
+
 }

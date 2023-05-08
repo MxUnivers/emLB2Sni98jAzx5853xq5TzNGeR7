@@ -138,12 +138,22 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
                             child:
                             Column(
                               children:
-                            offres.map((e) =>
+                            offres.map((data) =>
                                 JobCard(
-                                  title: 'Développeur web',
-                                  location: 'Montréal, QC',
-                                  company: 'Google',
-                                  imageUrl: 'assets/images/job1.jpg',
+                                  id: data["_id"].toString(),
+                                  title: data["titre"].toString(),
+                                  description: data["description"]
+                                      .toString(),
+                                  location: data["lieu"].toString(),
+                                  company: data["entreprise"]
+                                      .toString()
+                                      .substring(0, 20) +
+                                      "...",
+                                  imageUrl: data["logo"]
+                                      .toString() ==
+                                      null
+                                      ? data["logo"].toString()
+                                      : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
                                 )
                             ).toList()
 
@@ -161,14 +171,18 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
 }
 
 class JobCard extends StatelessWidget {
+  final String id;
   final String title;
   final String location;
+  final String description;
   final String company;
   final String imageUrl;
 
   JobCard({
+    required this.id,
     required this.title,
     required this.location,
+    required this.description,
     required this.company,
     required this.imageUrl,
   });
@@ -185,7 +199,7 @@ class JobCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: Image.asset(
+              child: Image.network(
                 imageUrl,
                 height: 150,
                 width: double.infinity,
@@ -230,7 +244,7 @@ class JobCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailEmploiPage()),
+                        builder: (context) => DetailEmploiPage(id: id, titre: title, entreprise: company, logo: imageUrl, description: description, lieu: location)),
                   );
                 },
                 child: Text('Postuler'),

@@ -3,6 +3,7 @@ import "package:http/http.dart" as http;
 import "dart:convert";
 import "package:get/get.dart";
 import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/storage/profileStorage.dart';
 import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
@@ -10,7 +11,6 @@ import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
 import 'package:mobileoffreemploi/views/notifcations/NotificationPage.dart';
 import 'package:mobileoffreemploi/views/profile/ProfilePage.dart';
 import "package:shared_preferences/shared_preferences.dart";
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,25 +24,23 @@ class _HomePageState extends State<HomePage> {
     getDataProfileConnexion();
     _getOffres();
     // Charger les donnés de l'utlisateur ici
-
   }
 
-  late  String id;
-  late  String firstname;
-  late  String lastname;
-  late  String email;
-  late  String telephone;
-  late  String coverPicture;
+  late String id;
+  late String firstname;
+  late String lastname;
+  late String email;
+  late String telephone;
+  late String coverPicture;
   // Récupérer une valeur Profile du candidat
-  Future<void> getDataProfileConnexion(
-      ) async {
-    final prefs = await SharedPreferences.getInstance();
-    id= prefs.getString("idProfileConnexion")??"";
-    firstname = prefs.getString('firstnameConnexion' )??"";
-    lastname = prefs.getString('lastnameConnexion' )??"";
-    email = prefs.getString('emailConnexion' )??"";
-    telephone = prefs.getString('telephoneConnexion' )??"";
-    coverPicture = prefs.getString('coverPictureConnexion' )??"";
+  Future<void> getDataProfileConnexion() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    id = prefs.getString(storageProfile["_id"].toString()) ?? "";
+    firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
+    lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
+    email = prefs.getString(storageProfile["email"].toString()) ?? "";
+    telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+    coverPicture = prefs.getString(storageProfile["coverPicture"].toString()) ?? "";
   }
 
   List<dynamic> offres = [];
@@ -89,10 +87,9 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade700
-                ),
-                accountName: Text("${firstname.toString()} ${lastname.toString()}"),
+                decoration: BoxDecoration(color: Colors.blue.shade700),
+                accountName:
+                    Text("${firstname.toString()} ${lastname.toString()}"),
                 accountEmail: Text(email.toString()),
                 currentAccountPicture: CircleAvatar(
                   child: Text("${id.toString()}"),
@@ -104,8 +101,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => NotificationPage()),
+                    MaterialPageRoute(builder: (context) => NotificationPage()),
                   );
                 },
               ),
@@ -115,8 +111,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfilePage()),
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
                   );
                 },
               ),
@@ -213,11 +208,21 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                             children: offres
                                 .map((data) => JobCard(
-                                      title: data["titre"].toString(),
-                                      location: 'Montréal, QC',
-                                      company: 'Google',
-                                      imageUrl: 'assets/images/job1.jpg',
-                                    ))
+                              id: data["_id"].toString(),
+                              title: data["titre"].toString(),
+                              description: data["description"]
+                                  .toString(),
+                              location: data["lieu"].toString(),
+                              company: data["entreprise"]
+                                  .toString()
+                                  .substring(0, 20) +
+                                  "...",
+                              imageUrl: data["logo"]
+                                  .toString() ==
+                                  null
+                                  ? data["logo"].toString()
+                                  : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
+                            ))
                                 .toList()),
                       )))
                   : Container(
@@ -232,14 +237,18 @@ class _HomePageState extends State<HomePage> {
 }
 
 class JobCard extends StatelessWidget {
+  final String id;
   final String title;
   final String location;
+  final String description;
   final String company;
   final String imageUrl;
 
   JobCard({
+    required this.id,
     required this.title,
     required this.location,
+    required this.description,
     required this.company,
     required this.imageUrl,
   });
@@ -253,7 +262,7 @@ class JobCard extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailEmploiPage()),
+              MaterialPageRoute(builder: (context) => DetailEmploiPage(id: id, titre: title, entreprise: company, logo: imageUrl, description: description, lieu: location)),
             );
           },
           child: Card(
@@ -262,7 +271,7 @@ class JobCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Image.asset(
+                  child: Image.network(
                     imageUrl,
                     height: 150,
                     width: double.infinity,
@@ -304,11 +313,6 @@ class JobCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PostCandidaturePage()),
-                      );
                     },
                     child: Text('Postuler'),
                   ),

@@ -5,8 +5,9 @@ import 'dart:convert';
 
 import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
-import  "package:carousel_slider/carousel_slider.dart";
-import  "package:mobileoffreemploi/config/options/optionSuggestions.dart";
+import "package:carousel_slider/carousel_slider.dart";
+import "package:mobileoffreemploi/config/options/optionSuggestions.dart";
+import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
 
 class ListEmploisPage extends StatefulWidget {
   @override
@@ -14,15 +15,14 @@ class ListEmploisPage extends StatefulWidget {
 }
 
 class _ListEmploisPageState extends State<ListEmploisPage> {
-
   bool _isInit = true;
 
   @override
   void initState() {
     if (_isInit) {
-    super.initState();
-    _getOffres();
-    _isInit = false;
+      super.initState();
+      _getOffres();
+      _isInit = false;
     }
     super.didChangeDependencies();
   }
@@ -66,6 +66,17 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
           ),
           title: Text("Listes des offres d'emplois"),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchEmploisPage()),
+                  );
+                },
+                icon: Icon(Icons.search))
+          ],
         ),
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -84,26 +95,25 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                         builder: (BuildContext context) {
                           return Container(
                             decoration: BoxDecoration(
-                              color:Colors.grey,
-                              borderRadius: BorderRadius.circular(5)
-                            ),
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(5)),
                             padding: EdgeInsets.symmetric(horizontal: 20),
-                            margin: EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 5),
                             child: Center(
-                              child: MaterialButton(
-                                onPressed: (){},
-                                child: Text(
-                                  "${suggestion}",
-                                  style: TextStyle(fontSize: 16.0,color: Colors.white),
-                                ),
-                              )
-                            ),
+                                child: MaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                "${suggestion}",
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.white),
+                              ),
+                            )),
                           );
                         },
                       );
                     }).toList(),
-                  )
-                  ,
+                  ),
                   SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(children: [
@@ -112,16 +122,20 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                                 child: Column(
                                     children: offres
                                         .map((data) => JobCard(
+                                              id: data["_id"].toString(),
                                               title: data["titre"].toString(),
-                                              location:
-                                                  data["lieu"].toString(),
-                                              company: data["entreprise"].toString().substring(0,20)+"...",
-                                              imageUrl:
-                                              data["logo"].toString() == null ?
-                                              data["logo"].toString()
-                                                  :
-                                              "https://icon-library.com/images/icon-job/icon-job-3.jpg"
-                                              ,
+                                              description: data["description"]
+                                                  .toString(),
+                                              location: data["lieu"].toString(),
+                                              company: data["entreprise"]
+                                                      .toString()
+                                                      .substring(0, 20) +
+                                                  "...",
+                                              imageUrl: data["logo"]
+                                                          .toString() ==
+                                                      null
+                                                  ? data["logo"].toString()
+                                                  : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
                                             ))
                                         .toList()))
                             : Container(
@@ -139,92 +153,106 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
 }
 
 class JobCard extends StatelessWidget {
+  final String id;
   final String title;
   final String location;
+  final String description;
   final String company;
   final String imageUrl;
 
   JobCard({
+    required this.id,
     required this.title,
     required this.location,
+    required this.description,
     required this.company,
     required this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      width: double.infinity,
-      child: Card(
-
-        margin: EdgeInsets.fromLTRB(3, 5, 3, 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Container(
-                color: Colors.blueGrey,
-                child: Image.network(
-                  imageUrl,
-                  height: 150,
-                  width: double.infinity,
-                  fit: BoxFit.contain,
+    return MaterialButton(
+      onPressed: () {},
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        width: double.infinity,
+        child: Card(
+          margin: EdgeInsets.fromLTRB(3, 5, 3, 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Container(
+                  color: Colors.blueGrey,
+                  child: Image.network(
+                    imageUrl,
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-              ),
-            SizedBox(height: 8),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    company== null ? "Aucune" : company ,
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(Icons.maps_home_work),
-                      SizedBox(width: 10,),
-                      Text(
-                        location,
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+              SizedBox(height: 8),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      company == null ? "Aucune" : company,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(Icons.maps_home_work),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          location,
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailEmploiPage()),
-                  );
-                },
-                child: Text('Postuler'),
+              SizedBox(height: 8),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailEmploiPage(
+                              id: id,
+                              titre: title,
+                              entreprise: company,
+                              logo: imageUrl,
+                              description: description,
+                              lieu: location)),
+                    );
+                  },
+                  child: Text('Postuler'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

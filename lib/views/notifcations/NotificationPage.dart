@@ -19,20 +19,12 @@ class NotificationPage extends StatelessWidget {
       body: ListView(
         children: [
           NotificationCard(
-            title: "Developpeur web ...",
-            description: "Un nouveau poste de Développeur web est disponible....",
-            date: '04/05/2023',
-          ),
-          NotificationCard(
-            title: "Marking digitale ...",
-            description: "Vous avez reçu une nouvelle candidature pour le poste de Designer graphique ...",
-            date: '04/05/2023',
-          ),
-          NotificationCard(
-            title: "Architecte...",
-            description: "L\'offre de Développeur mobile a été mise à jour ...",
-            date: "05/05/2023",
-          ),
+              id: "",
+              titre: "Developpeur web",
+              entreprise: "Entreprise SGBCI",
+              lieu: "ABidjan",
+              logo: "Logo",
+              description: "Nous recherchons un developpeur web fullstack"),
         ],
       ),
     );
@@ -40,14 +32,20 @@ class NotificationPage extends StatelessWidget {
 }
 
 class NotificationCard extends StatelessWidget {
-  final String title;
+  final String id;
+  final String titre;
+  final String entreprise;
   final String description;
-  final String date;
+  final String lieu;
+  final String logo;
 
   NotificationCard({
-    required this.title,
-    required this.description,
-    required this.date,
+    required this.id,
+    required this.titre,
+    required this.entreprise,
+    required this.lieu,
+    required this.logo,
+    required this.description
   });
 
   @override
@@ -57,7 +55,7 @@ class NotificationCard extends StatelessWidget {
       child: Card(
         child: ListTile(
           title: Text(
-            title,
+            titre,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Column(
@@ -67,7 +65,7 @@ class NotificationCard extends StatelessWidget {
               Text(description),
               SizedBox(height: 4),
               Text(
-                date,
+                "10/06/2023",
                 style: TextStyle(color: Colors.grey),
               ),
             ],
@@ -77,7 +75,14 @@ class NotificationCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DetailEmploiPage()),
+                  builder: (context) => DetailEmploiPage(
+                      id:  id,
+                      titre: titre,
+                      entreprise: entreprise,
+                      logo: logo,
+                      description: description,
+                      lieu: lieu
+                  )),
             );
           },
         ),

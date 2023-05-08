@@ -1,7 +1,47 @@
 import "package:flutter/material.dart";
+import 'package:mobileoffreemploi/storage/profileStorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PostCandidaturePage extends StatelessWidget {
-  const PostCandidaturePage({Key? key}) : super(key: key);
+class PostCandidaturePage extends StatefulWidget {
+  final String id;
+  const PostCandidaturePage({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<PostCandidaturePage> createState() => _PostCandidaturePageState();
+}
+
+class _PostCandidaturePageState extends State<PostCandidaturePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    getDataProfileConnexion();
+  }
+
+  // Récupérer une valeur Profile du candidat
+  Future<void> getDataProfileConnexion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
+    firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
+    lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
+    email = prefs.getString(storageProfile["email"].toString()) ?? "";
+    telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+  }
+  late String idConnexion;
+  late String firstname;
+  late String lastname;
+  late String email;
+  late String telephone;
+
+  late TextEditingController _firstname = TextEditingController(text: firstname.toString());
+  late TextEditingController _lastname = TextEditingController(text: lastname.toString());
+  late TextEditingController _email = TextEditingController(text: email.toString());
+  late TextEditingController _telephone = TextEditingController(text: telephone.toString());
+  late TextEditingController _description= TextEditingController(text: "...");
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +105,7 @@ class PostCandidaturePage extends StatelessWidget {
                       Container(
                         width: 250,
                         child: TextField(
+                          controller: _firstname,
                           decoration: InputDecoration(
                               labelText: "Votre Nom ...",
                               suffixIcon: Icon(
@@ -76,6 +117,7 @@ class PostCandidaturePage extends StatelessWidget {
                       Container(
                         width: 250,
                         child: TextField(
+                          controller: _lastname,
                           decoration: InputDecoration(
                               labelText: "Votre Prénoms ...",
                               suffixIcon: Icon(
@@ -87,6 +129,7 @@ class PostCandidaturePage extends StatelessWidget {
                       Container(
                         width: 250,
                         child: TextField(
+                          controller: _email,
                           decoration: InputDecoration(
                               labelText: "Votre addresse email ...",
                               suffixIcon: Icon(
@@ -98,6 +141,7 @@ class PostCandidaturePage extends StatelessWidget {
                       Container(
                         width: 250,
                         child: TextField(
+                          controller: _telephone,
                           decoration: InputDecoration(
                               labelText: "Votre téléphone ...",
                               suffixIcon: Icon(
@@ -110,6 +154,7 @@ class PostCandidaturePage extends StatelessWidget {
                         width: 250,
                         child: TextField(
                           maxLines: 3,
+                          controller: _description,
                           decoration: InputDecoration(
                               labelText: "Description sur vous / motivation / metier  ...",
                               hintMaxLines: 10,
