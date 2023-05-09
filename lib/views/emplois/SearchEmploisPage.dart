@@ -147,7 +147,7 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
                                   location: data["lieu"].toString(),
                                   company: data["entreprise"]
                                       .toString()
-                                      .substring(0, 20) +
+                                      .substring(0, 10) +
                                       "...",
                                   imageUrl: data["logo"]
                                       .toString() ==

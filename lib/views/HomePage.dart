@@ -41,10 +41,9 @@ class _HomePageState extends State<HomePage> {
       lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
       email = prefs.getString(storageProfile["email"].toString()) ?? "";
       telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
-      coverPicture = prefs.getString(storageProfile["coverPicture"].toString()) ?? "";
+      coverPicture =
+          prefs.getString(storageProfile["coverPicture"].toString()) ?? "";
     });
-
-
   }
 
   List<dynamic> offres = [];
@@ -96,7 +95,8 @@ class _HomePageState extends State<HomePage> {
                     Text("${firstname.toString()} ${lastname.toString()}"),
                 accountEmail: Text(email.toString()),
                 currentAccountPicture: CircleAvatar(
-                  child: Text("${id.toString()}"),
+                  child: Image.network("${coverPicture.toString()}",
+                      fit: BoxFit.contain),
                 ),
               ),
               ListTile(
@@ -212,21 +212,19 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                             children: offres
                                 .map((data) => JobCard(
-                              id: data["_id"].toString(),
-                              title: data["titre"].toString(),
-                              description: data["description"]
-                                  .toString(),
-                              location: data["lieu"].toString(),
-                              company: data["entreprise"]
-                                  .toString()
-                                  .substring(0, 20) +
-                                  "...",
-                              imageUrl: data["logo"]
-                                  .toString() ==
-                                  null
-                                  ? data["logo"].toString()
-                                  : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
-                            ))
+                                      id: data["_id"].toString(),
+                                      title: data["titre"].toString(),
+                                      description:
+                                          data["description"].toString(),
+                                      location: data["lieu"].toString(),
+                                      company: data["entreprise"]
+                                              .toString()
+                                              .substring(0, 14) +
+                                          "...",
+                                      imageUrl: data["logo"].toString() == null
+                                          ? data["logo"].toString()
+                                          : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
+                                    ))
                                 .toList()),
                       )))
                   : Container(
@@ -266,7 +264,14 @@ class JobCard extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailEmploiPage(id: id, titre: title, entreprise: company, logo: imageUrl, description: description, lieu: location)),
+              MaterialPageRoute(
+                  builder: (context) => DetailEmploiPage(
+                      id: id,
+                      titre: title,
+                      entreprise: company,
+                      logo: imageUrl,
+                      description: description,
+                      lieu: location)),
             );
           },
           child: Card(
@@ -289,7 +294,7 @@ class JobCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        "${title}",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -297,14 +302,14 @@ class JobCard extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        company,
+                        company + "...",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),
                       SizedBox(height: 4),
                       Text(
-                        location,
+                        location + "...",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
@@ -316,8 +321,7 @@ class JobCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: ElevatedButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: Text('Postuler'),
                   ),
                 ),

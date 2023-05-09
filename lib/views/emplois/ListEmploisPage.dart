@@ -99,7 +99,7 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                                 borderRadius: BorderRadius.circular(5)),
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             margin: EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 5),
+                                horizontal: 4.0, vertical: 5),
                             child: Center(
                                 child: MaterialButton(
                               onPressed: () {},
@@ -129,7 +129,7 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                                               location: data["lieu"].toString(),
                                               company: data["entreprise"]
                                                       .toString()
-                                                      .substring(0, 20) +
+                                                      .substring(0, 10) +
                                                   "...",
                                               imageUrl: data["logo"]
                                                           .toString() ==

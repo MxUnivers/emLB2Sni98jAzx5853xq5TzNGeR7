@@ -7,6 +7,7 @@ import 'package:iconly/iconly.dart';
 import 'package:mobileoffreemploi/storage/profileStorage.dart';
 import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 import "package:shared_preferences/shared_preferences.dart";
+import  "package:google_fonts/google_fonts.dart";
 
 
 class DetailEmploiPage extends StatefulWidget {
@@ -164,7 +165,7 @@ class _DetailEmploiPageState extends State<DetailEmploiPage> {
                       ),
                       const Spacer(),
                       const CircleAvatar(
-                        radius: 25,
+                        radius: 20,
                         backgroundColor: Colors.blue,
                         child: Icon(
                           Icons.favorite_outline,
@@ -176,10 +177,7 @@ class _DetailEmploiPageState extends State<DetailEmploiPage> {
                       ),
                       Text(
                         "273 Likes",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(color: Colors.grey.shade500),
+                        style: GoogleFonts.nunito(color: Colors.blueGrey,fontSize: 12),
                       ),
                     ],
                   ),
