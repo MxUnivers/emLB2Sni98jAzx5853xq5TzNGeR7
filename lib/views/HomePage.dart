@@ -4,6 +4,7 @@ import "dart:convert";
 import "package:get/get.dart";
 import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/storage/profileStorage.dart';
+import 'package:mobileoffreemploi/views/auth/ConnexionPage.dart';
 import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
@@ -18,12 +19,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DateTime? _lastPressedAt; // variable pour enregistrer l'heure de la dernière pression du bouton retour
+
+
+
   @override
   void initState() {
     super.initState();
     getDataProfileConnexion();
     _getOffres();
-    // Charger les donnés de l'utlisateur ici
+    // Charger les données de l'utilisateur ici
   }
 
   late String id;
@@ -236,7 +241,37 @@ class _HomePageState extends State<HomePage> {
                     ),
             ])));
   }
+  Future<bool> _onWillPop() async {
+    if (_lastPressedAt == null ||
+        DateTime.now().difference(_lastPressedAt!) > Duration(seconds: 2)) {
+      // Si l'utilisateur appuie sur le bouton retour pour la première fois ou s'il a attendu plus de 2 secondes depuis la dernière pression du bouton retour, on affiche un message pour lui demander de confirmer la sortie de l'application
+      _lastPressedAt = DateTime.now();
+      return false;
+    }
+    return true; // Si l'utilisateur appuie sur le bouton retour deux fois en moins de 2 secondes, on autorise la sortie de l'application
+  }
+  //Redirection page
+  void redirectToPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConnexionPage()),
+    );
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class JobCard extends StatelessWidget {
   final String id;
@@ -330,4 +365,5 @@ class JobCard extends StatelessWidget {
           ),
         ));
   }
+
 }
