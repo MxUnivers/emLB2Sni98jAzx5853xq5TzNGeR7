@@ -14,9 +14,15 @@ const offreEmploiSchema = new mongoose.Schema(
   {
     titre: { type: String, required: false },
     entreprise: { type: String, required: false },
+<<<<<<< HEAD
     description: { type: String, required: false },
     lieu: { type: String, required: false },
     logo: { type: String, required: false },
+=======
+     logo: { type: String, required: false },
+    description: { type: String, required: false },
+    lieu: { type: String, required: false },
+>>>>>>> 81cdd14ee05580cafcd69377f2e34ac1a2dfaa3e
     dateDebut: { type: Date,default:Date.now, required: false },
     dateFin: { type: Date,default:Date.now, required: false },
     salaire: { type: Number },
