@@ -184,6 +184,9 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
     if (!offre) {
       return res.status(407).json({ message: "Offre non trouvée" });
     }
+    if (offre.candidatPostulees.find(candidat => candidat._id.toString() === candidatId)) {
+      return res.status(409).json({ message: "Le candidat a déjà postulé à cette offre" });
+    }    
     const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
     const offrePostule = await OffreEmploi.findOneAndUpdate({ _id: offreId }, { $push: { candidatPostulees: candidat } }, { new: true });
     
