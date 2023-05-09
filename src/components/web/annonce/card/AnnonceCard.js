@@ -1,4 +1,5 @@
 import React from 'react'
+import { routing } from '../../../../utlis/routing'
 
 const AnnonceCard = ({ data }) => {
     return (
@@ -36,7 +37,11 @@ const AnnonceCard = ({ data }) => {
                 </ul>
 
                 <div class="job-btn">
-                    <a href="job-details-1.html" class="default-btn">Postuler maintenant <i class="flaticon-list-1"></i></a>
+                    <a href={`/${routing.detailAnnonce.path}`}
+                    onClick={()=>{
+                        
+                    }}
+                    class="default-btn">Postuler maintenant <i class="flaticon-list-1"></i></a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,17 @@
 export const localvalue = {
+
+    // Annonces du sites web 
+    annonceDetail :{
+        id:"AnnonceIdWeb",
+        coverPicture:"coverPictureAnnonceWeb",
+        entreprise:"coverPictureAnnonceWeb",
+        description:"descriptionAnnonceWeb",
+        salaire:"salaireAnnonceWeb",
+        lieu:"salaireAnnonceWeb",
+    },
+
+
+
     //information sur les candidat
     candidat: {
         idCandidat: "idCandidat",

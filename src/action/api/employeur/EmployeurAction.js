@@ -88,6 +88,7 @@ export const EntrepriseEditProfile = (id,data) => {
 
 
 
+// Une entreprise qui poste une annonce
 export const EntreprisePostAnnonce = (id,data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -109,6 +110,30 @@ export const EntreprisePostAnnonce = (id,data) => {
     };
 }
 
+// Une entreprise qui poste une anonnce
+export const EntreprisePostOffre = (id,data) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/offres`, data, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+
+
 export const EntrepriseEditAnnonce = (id,data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -129,6 +154,12 @@ export const EntrepriseEditAnnonce = (id,data) => {
             });
     };
 }
+
+
+
+
+
+
 
 
 

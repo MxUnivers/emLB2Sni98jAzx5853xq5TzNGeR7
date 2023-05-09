@@ -178,7 +178,6 @@ export const CandidatDeconnexion = async (id) => {
             console.log(error);
         });
 
-
 }
 
 
