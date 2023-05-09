@@ -178,11 +178,11 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
     const offre = await OffreEmploi.findOne({ _id: offreId });
 
     if (!candidatExit) {
-      return res.status(404).json({ message: "Candidat non trouvé" });
+      return res.status(406).json({ message: "Candidat non trouvé" });
     }
 
     if (!offre) {
-      return res.status(404).json({ message: "Offre non trouvée" });
+      return res.status(407).json({ message: "Offre non trouvée" });
     }
     const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
     const offrePostule = await OffreEmploi.findOneAndUpdate({ _id: offreId }, { $push: { candidatPostulees: candidat } }, { new: true });
@@ -196,12 +196,6 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
     res.status(500).send({ message: "Une erreur est suvenue" });
   }
 });
-
-
-
-
-
-
 
 
 
