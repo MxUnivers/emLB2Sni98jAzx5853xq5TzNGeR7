@@ -12,12 +12,13 @@ const candidatSchema = new mongoose.Schema({
 // Schéma pour les offres d'emploi
 const offreEmploiSchema = new mongoose.Schema(
   {
-    titre: { type: String, required: true },
-    entreprise: { type: String, required: true },
-    description: { type: String, required: true },
-    lieu: { type: String, required: true },
-    dateDebut: { type: Date,default:Date.now, required: true },
-    dateFin: { type: Date,default:Date.now, required: true },
+    titre: { type: String, required: false },
+    entreprise: { type: String, required: false },
+    description: { type: String, required: false },
+    lieu: { type: String, required: false },
+    logo: { type: String, required: false },
+    dateDebut: { type: Date,default:Date.now, required: false },
+    dateFin: { type: Date,default:Date.now, required: false },
     salaire: { type: Number },
     candidats: [candidatSchema],
     competences:[String],
