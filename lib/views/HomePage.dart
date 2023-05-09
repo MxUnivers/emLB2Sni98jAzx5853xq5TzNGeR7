@@ -35,12 +35,16 @@ class _HomePageState extends State<HomePage> {
   // Récupérer une valeur Profile du candidat
   Future<void> getDataProfileConnexion() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    id = prefs.getString(storageProfile["_id"].toString()) ?? "";
-    firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
-    lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
-    email = prefs.getString(storageProfile["email"].toString()) ?? "";
-    telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
-    coverPicture = prefs.getString(storageProfile["coverPicture"].toString()) ?? "";
+    setState(() {
+      id = prefs.getString(storageProfile["_id"].toString()) ?? "";
+      firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
+      lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
+      email = prefs.getString(storageProfile["email"].toString()) ?? "";
+      telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+      coverPicture = prefs.getString(storageProfile["coverPicture"].toString()) ?? "";
+    });
+
+
   }
 
   List<dynamic> offres = [];

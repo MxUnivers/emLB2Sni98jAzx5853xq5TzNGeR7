@@ -21,11 +21,13 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
   // Récupérer une valeur Profile du candidat
   Future<void> getDataProfileConnexion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
-    firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
-    lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
-    email = prefs.getString(storageProfile["email"].toString()) ?? "";
-    telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+    setState(() {
+      idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
+      firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
+      lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
+      email = prefs.getString(storageProfile["email"].toString()) ?? "";
+      telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+    });
   }
   late String idConnexion;
   late String firstname;

@@ -41,7 +41,9 @@ class _DetailEmploiPageState extends State<DetailEmploiPage> {
   // Récupérer une valeur Profile du candidat
   Future<void> getDataProfileConnexion() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
+    setState(() {
+      idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
+    });
   }
 
   @override

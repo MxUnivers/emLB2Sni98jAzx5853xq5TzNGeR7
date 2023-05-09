@@ -47,12 +47,12 @@ En général, il est important de se concentrer sur une conception de l'applicat
 
 - Lister les offres d'emplois dans l'application
      # Par catégories
-        -- informatiques
-        -- Marketing
-        -- Pharmaceutique
+        -- informatiques ok
+        -- Marketing ok
+        -- Pharmaceutique ok
 
 - detail des offres
-  -- Reupérer le Id du candidat
+  -- Reupérer le Id du candidat ok
   -- Poster le Id du candidat vers sa page
   home --> Detail
   list --> Detail
