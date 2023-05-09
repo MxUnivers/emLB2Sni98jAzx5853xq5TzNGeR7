@@ -55,7 +55,7 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
 
   //Poster candidature au poste de ....
   void _sendData() async {
-    if (widget.id.toString() == null ) {
+    if (widget.id.toString() == null && idConnexion == null ) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.redAccent,
@@ -64,7 +64,7 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
       );
       return;
     }
-    final url = Uri.parse("${baseurl["url"].toString()}//get_candidat/${idConnexion.toString()}/postuler/${widget.id.toString()}/offres");
+    final url = Uri.parse("${baseurl["url"].toString()}/api/v1/candidat/get_candidat/${idConnexion.toString()}/postuler/${widget.id.toString()}/offres");
     setState(() {
       _isLoading = true;
     });
