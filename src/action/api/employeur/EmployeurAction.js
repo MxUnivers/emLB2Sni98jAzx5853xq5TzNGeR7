@@ -253,3 +253,23 @@ export const EntrepriseGetAllAnnonces = async(id,setState,setState2) => {
 
 }
 
+
+export const EntrepriseGetAllOffres = async(id,setState,setState2) => {
+    await axios
+        .get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${id}/offres`, {
+            headers:
+            {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        })
+        .then((response) => {
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { typeContrat } from '../../../utlis/options/optionDivers'
 import { useDispatch, useSelector } from 'react-redux';
-import { EntreprisePostAnnonce } from '../../../action/api/employeur/EmployeurAction';
+import { EntreprisePostAnnonce, EntreprisePostOffre } from '../../../action/api/employeur/EmployeurAction';
 import { localvalue } from '../../../utlis/storage/localvalue';
 
 
@@ -43,7 +43,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmitAnnonce = (event) => {
         if (formData.titre) {
             alert("Titre requis")
         }
@@ -54,12 +54,24 @@ const DashBoardEmployeurPostAnnoncePage = () => {
         dispatch(EntreprisePostAnnonce(idAdmin, formData))
     };
 
+    // Poster une offre
+    const handleSubmitOffre = (event) => {
+        if (formData.titre) {
+            alert("Titre requis")
+        }
+        if (formData.email) {
+            alert("email requis")
+        }
+        event.preventDefault();
+        dispatch(EntreprisePostOffre(idAdmin, formData))
+    };
+
 
 
     return (
         <div>
             <div class="breadcrumb-area">
-                <h1>Poster </h1>
+                <h1>{"Faire un Poste ".toUpperCase()}</h1>
                 <ol class="breadcrumb">
                     <li class="">
                         <button onClick={handleShowComponentA} class=" btn bg-blue-600 hover:bg-blue-600 active:bg-blue-600">Annonce</button>
@@ -75,7 +87,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                 <div class="post-a-new-job-box">
                     <h3>Poster une annonce</h3>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmitAnnonce}>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
@@ -167,7 +179,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                 <div class="post-a-new-job-box">
                     <h3>Poster une offre d{"'"}emplois</h3>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmitOffre}>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
