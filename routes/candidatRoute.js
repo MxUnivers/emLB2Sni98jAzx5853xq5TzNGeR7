@@ -121,7 +121,7 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
 router.get('/get_candidats', AuthorizationMiddleware, async (req, res) => {
   try {
     const candidates = await CandidatModel.find();
-    res.json({ data: candidates });
+    res.json({ data: candidates.reverse() });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');
