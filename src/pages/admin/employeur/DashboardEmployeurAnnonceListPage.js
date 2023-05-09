@@ -37,12 +37,12 @@ const DashboardEmployeurAnnonceListPage = () => {
     return (
         <div>
             <div class="breadcrumb-area">
-                <h1>Listes des annonces</h1>
+                <h1>VOS POSTES</h1>
                 <ol class="breadcrumb">
                     <li class="">
                         <button onClick={handleShowComponentA} class=" btn bg-blue-600 hover:bg-blue-600 active:bg-blue-600">ANNONCES</button>
                     </li>
-                    <li class="mx-3 justify-center items-center">ou</li>
+                    <li class="mx-3 justify-center items-center btn">{"|".toUpperCase()}</li>
                     <li class="item">
                         <button onClick={handleShowComponentB} class=" btn bg-blue-600 hover:bg-blue-600 active:bg-blue-600">OFFRES</button>
                     </li>
@@ -133,7 +133,7 @@ const DashboardEmployeurAnnonceListPage = () => {
                     </div>
                     <div class="row">
                         {
-                            dataAnnonce.map((item) => {
+                            dataOffre.map((item) => {
                                 return (
                                     <div class="col-lg-6 col-md-12">
                                         <div class="dashboard-job-card">

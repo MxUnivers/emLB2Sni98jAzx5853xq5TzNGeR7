@@ -266,6 +266,7 @@ export const EntrepriseGetAllOffres = async(id,setState,setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            console.log(JSON.stringify(response.data.data));
         })
         .catch((error) => {
             console.log(error);
