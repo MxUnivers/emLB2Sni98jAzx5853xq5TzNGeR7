@@ -1,6 +1,13 @@
 import "package:flutter/material.dart";
+import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/storage/profileStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import "package:http/http.dart" as http;
+import  "dart:convert";
+import  "dart:ui";
+
+
+
 
 class PostCandidaturePage extends StatefulWidget {
   final String id;
@@ -12,6 +19,7 @@ class PostCandidaturePage extends StatefulWidget {
 
 class _PostCandidaturePageState extends State<PostCandidaturePage> {
 
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -29,6 +37,8 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
       telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
     });
   }
+
+
   late String idConnexion;
   late String firstname;
   late String lastname;
@@ -41,6 +51,55 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
   late TextEditingController _telephone = TextEditingController(text: telephone.toString());
   late TextEditingController _description= TextEditingController(text: "...");
 
+
+
+  //Poster candidature au poste de ....
+  void _sendData() async {
+    if (widget.id.toString() == null ) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text('Aucune disponible ...'),
+        ),
+      );
+      return;
+    }
+    final url = Uri.parse("${baseurl["url"].toString()}//get_candidat/${idConnexion.toString()}/postuler/${widget.id.toString()}/offres");
+    setState(() {
+      _isLoading = true;
+    });
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': "Bearer ${baseurl["token"].toString()}",
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200 || response.statusCode == 300) {
+      // Stopper le chargement de mon bouton
+      setState(() {
+        _isLoading = false;
+      });
+      // message du post de mon application
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Votre demande a été accepter avec succès '),
+        ),
+      );
+      // Redirection vers la page d'accueil de mon application
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("Votre canditure n'a pas pu être poster ! "),
+        ),
+      );
+    }
+  }
 
 
 
@@ -173,7 +232,18 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      GestureDetector(
+                      _isLoading ?
+                      MaterialButton(
+                        onPressed: (){},
+                        color: Colors.blueGrey,
+                        child: Center(
+                          child: CircularProgressIndicator(
+
+                          ),
+                        ),
+                      ) :
+                      MaterialButton(
+                        onPressed: _sendData,
                         child: Container(
                           alignment: Alignment.center,
                           width: 250,
@@ -202,28 +272,9 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
                       SizedBox(
                         height: 30,
                       ),
-                      /*
-                      * GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          "se connecter à votre compte",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      * */
                       SizedBox(
                         height: 20,
                       ),
-                      /*
-                  * Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.facebook,color:Colors.blue[700]),
-                      Icon(Icons.facebook,color:Colors.blue[700]),
-                      Icon(Icons.facebook,color:Colors.blue[700]),
-                    ],
-                  )
-                  * */
                     ],
                   ),
                 )
