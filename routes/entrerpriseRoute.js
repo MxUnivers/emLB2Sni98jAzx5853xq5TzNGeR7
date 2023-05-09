@@ -2,7 +2,8 @@ const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const EntrepriseModel = require("../models/EntrepriseModel");
 const router = require("express").Router();
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const OffreEmploi = require("../models/OffreEmploiModel");
 
 
 
@@ -123,6 +124,26 @@ router.post('/post_entreprise/:id/annonces', AuthorizationMiddleware, async (req
   }
 });
 
+
+// poster l'offre d'une entreprise
+router.post('/post_entreprise/:id/offres', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const  id  =  req.params.id;
+    const entrepriseExit = await EntrepriseModel.findById({_id:id});
+    if(!entrepriseExit){
+      res.status(407).json({message:"entreprise non trouvé"});
+    }
+    const newAnnonce = new OffreEmploi(req.body);
+    const entreprise = await EntrepriseModel.findByIdAndUpdate({_id:id},{$push:{offres:newAnnonce}})
+    await newAnnonce.save();
+    await entreprise.save();
+
+    await res.json({ data: entreprise });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
 
 
 
