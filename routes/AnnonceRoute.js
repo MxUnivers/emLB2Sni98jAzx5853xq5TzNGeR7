@@ -47,8 +47,8 @@ router.put("/edit/:id", async (req, res) => {
 // Fonction pour reucupéere les Annonces
 router.get('/get_annonces',AuthorizationMiddleware, async (req, res) => {
     try {
-      const entreprises = await AnnonceModel.find({});
-      await res.json({ data: entreprises });
+      const annonces = await AnnonceModel.find({});
+      await res.json({ data: annonces });
     } catch (err) {
       console.error(err.message);
       res.status(500).json('Server Error');

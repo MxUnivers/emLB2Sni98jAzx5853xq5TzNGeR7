@@ -1,13 +1,5 @@
 const mongoose = require('mongoose')
 
-// Schéma pour les candidats
-const candidatSchema = new mongoose.Schema({
-  nom: { type: String, required: true },
-  prenom: { type: String, required: true },
-  email: { type: String, required: true },
-  telephone: { type: String },
-  cv: { type: String }
-})
 
 // Schéma pour les offres d'emploi
 const offreEmploiSchema = new mongoose.Schema(
@@ -19,14 +11,22 @@ const offreEmploiSchema = new mongoose.Schema(
     logo: { type: String, required: false },
     description: { type: String, required: false },
     lieu: { type: String, required: false },
-    dateDebut: { type: Date,default:Date.now, required: false },
-    dateFin: { type: Date,default:Date.now, required: false },
+    dateDebut: { type: Date, default: Date.now, required: false },
+    dateFin: { type: Date, default: Date.now, required: false },
+    typeContrat: {
+      type: String,
+      enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
+      required: false,
+      default: "CDD"
+    },
     salaire: { type: Number },
-    candidats: [candidatSchema],
-    competences:[String],
+    competences: [String],
     blocked: { type: Boolean, default: false },
-    candidatPostulees:[
-      {type:Object}
+    candidatPostulees: [
+      { type: Object }
+    ],
+    noticationsEnvoyes: [
+      { type: Object }
     ]
   },
   { timestamps: true }

@@ -20,12 +20,6 @@ const annonceSchema = new Schema({
     telephone:{
         type:String,required:false
     },
-    typeContrat: {
-        type: String,
-        enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
-        required: false,
-        default:"CDD"
-    },
     lieu: {
         type: String,
         required: false,

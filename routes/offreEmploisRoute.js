@@ -2,10 +2,9 @@
 
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const CandidatModel = require("../models/CandidatModel");
-const OffreEmploiModel = require("../models/OffreEmploiModel")
+const OffreEmploiModel = require("../models/OffreEmploiModel");
+const Envoyer_Notification = require("../utils/NotificationSend");
 const router = require("express").Router();
-
-
 
 
 
@@ -16,6 +15,7 @@ router.post('/',AuthorizationMiddleware, async (req, res) => {
         const nouvelleOffre = new OffreEmploiModel(req.body);
 
         const offre = await nouvelleOffre.save();
+        await Envoyer_Notification(nouvelleOffre.titre,nouvelleOffre.description,nouvelleOffre.dateDebut)
         res.json({ message: 'Offre d\'emploi créée avec succès', offre });
     } catch (error) {
         console.error(error);
