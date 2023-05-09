@@ -84,7 +84,7 @@ router.put("/password/edit/:id", AuthorizationMiddleware, async (req, res) => {
 router.get('/get_entreprises', AuthorizationMiddleware, async (req, res) => {
   try {
     const entreprises = await EntrepriseModel.find({});
-    await res.json({ data: entreprises });
+    await res.json({ data: entreprises.reverse() });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');
@@ -156,7 +156,7 @@ router.get('/get_entreprise/:id/annonces', AuthorizationMiddleware, async (req, 
       res.status(407).json({message:"entreprise non trouvé"});
     }
     const entreprise = await EntrepriseModel.findById({_id:id})
-    await res.json({ data: entreprise.annonces });
+    await res.json({ data: entreprise.annonces.reverse() });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');
@@ -174,7 +174,7 @@ router.get('/get_entreprise/:id/offres', AuthorizationMiddleware, async (req, re
       res.status(407).json({message:"entreprise non trouvé"});
     }
     const entreprise = await EntrepriseModel.findById({_id:id})
-    await res.json({ data: entreprise.offres });
+    await res.json({ data: entreprise.offres.reverse() });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');

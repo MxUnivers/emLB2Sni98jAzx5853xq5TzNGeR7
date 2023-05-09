@@ -53,8 +53,8 @@ router.put('/edit/:id',AuthorizationMiddleware, async (req, res) => {
 // Fontion Recupérer la liste de l'notication d'emplois
 router.get('/get_notications',AuthorizationMiddleware, async (req, res) => {
     try {
-        const notication = await NotificationModel.find({});
-         res.json({data:notication});
+        const notications = await NotificationModel.find({});
+         res.json({data:notications.reverse()});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'notication d\'emploi' });
@@ -77,20 +77,7 @@ router.get('/get_notication/:id',AuthorizationMiddleware, async (req, res) => {
 
 
 
-//Fonction pour envoyer la notification
-const  Envoyer_Notification = async()=>{
-    router.post('/',AuthorizationMiddleware, async (req, res) => {
-        try {
-            const nouvellenotication = new NotificationModel(req.body);
-    
-            const notication = await nouvellenotication.save();
-            res.json({ message: 'notication d\'emploi créée avec succès', notication });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Une erreur s\'est produite lors de la création de l\'notication d\'emploi' });
-        }
-    });
-}
+
 
 
 

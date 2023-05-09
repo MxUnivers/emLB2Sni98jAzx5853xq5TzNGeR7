@@ -104,7 +104,7 @@ router.put("/password/edit/:id", async (req, res) => {
 router.get("/get_admininstrator", AuthorizationMiddleware, async (req, res) => {
     try {
         const admins = await AdminModel.find({});
-        res.json(admins);
+        res.json(admins.reverse());
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Une erreur s\'est produite lors de la récupération des administrateurs' });

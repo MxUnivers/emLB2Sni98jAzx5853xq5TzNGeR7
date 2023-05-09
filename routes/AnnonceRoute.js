@@ -48,7 +48,7 @@ router.put("/edit/:id", async (req, res) => {
 router.get('/get_annonces',AuthorizationMiddleware, async (req, res) => {
     try {
       const annonces = await AnnonceModel.find({});
-      await res.json({ data: annonces });
+      await res.json({ data: annonces.reverse() });
     } catch (err) {
       console.error(err.message);
       res.status(500).json('Server Error');
