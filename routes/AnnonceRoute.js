@@ -54,6 +54,18 @@ router.get('/get_annonces',AuthorizationMiddleware, async (req, res) => {
       res.status(500).json('Server Error');
     }
   });
+
+// Fonction pour récupérer L'annonce
+router.get('/get_annonce/:id',AuthorizationMiddleware, async (req, res) => {
+    try {
+        const annonceId =  req.params.id
+      const annonces = await AnnonceModel.findById({_id:annonceId});
+      await res.json({ data: annonces });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json('Server Error');
+    }
+  });
   
   
 
