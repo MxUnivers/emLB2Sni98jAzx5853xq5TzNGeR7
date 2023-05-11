@@ -71,7 +71,7 @@ const AnnonceDetail = () => {
 
                                 <div class="job-details-content">
                                     <h3>Experience:</h3>
-
+²
                                     <ul class="list">
                                         <li>Lorem decore nullam te eum id evertitur reformidans sea id possit principes.</li>
                                         <li>Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.</li>

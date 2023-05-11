@@ -94,8 +94,8 @@ const DashboardEmployeurAnnonceListPage = () => {
                                                 </div>
                                                 <ul class="location-information">
                                                     <li><i class="ri-briefcase-line"></i> Segment</li>
-                                                    <li><i class="ri-map-pin-line"></i> United Kingdom</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i>  $25k - $35k</li>
+                                                    <li><i class="ri-map-pin-line"></i> {item.lieu}</li>
+                                                    <li><i class="ri-money-dollar-circle-line"></i>  ${item.salaire}</li>
                                                 </ul>
                                                 <ul class="job-tag-list">
                                                     <li>Full Time</li>

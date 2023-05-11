@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { routing } from '../../../utlis/routing';
 import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from './card/AnnonceCard';
 import { localites } from '../../../utlis/options/annonceOptions';
@@ -87,7 +86,8 @@ const AnnonceResultSearch = () => {
 
                         <div class="row ">
                             {
-                                dataAnnonce.slice(start, perPage).map((item) => {
+                                /*slice(start, perPage) */
+                                dataAnnonce.map((item) => {
                                     return (
                                         <AnnonceCard data={item} />
                                     )
