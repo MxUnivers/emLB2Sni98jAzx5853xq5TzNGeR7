@@ -90,14 +90,16 @@ const HeaderWeb = () => {
                             <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                                 <ul class="navbar-nav m-auto">
                                     <li class="nav-item visible">
-                                        <a href="#" class="nav-link active ">
-                                            Home
-                                            <i class="ri-arrow-down-s-line"></i>
+                                        <a href={`/`} class="nav-link text-xl">
+                                            ACCUEIL
+                                            {
+                                                /*<i class="ri-arrow-down-s-line"></i> */
+                                            }
                                         </a>
 
-                                        <ul class="dropdown-menu">
+                                        {/*<ul class="dropdown-menu">
                                             <li class="nav-item">
-                                                <a href={`/${routing.home.path}`} class="nav-link active">Accueil</a>
+                                                <a href={`/${routing.home.path}`} class="nav-link ">Accueil</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a href={`/${routing.searchAnnonce.path}`} class="nav-link active">recherche annonce</a>
@@ -105,22 +107,26 @@ const HeaderWeb = () => {
                                             <li class="nav-item">
                                                 <a href={`/${routing.detailAnnonce.path}`} class="nav-link active">Détail annonce</a>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </li>
 
                                     <li class="nav-item visible">
-                                        <a href="#" class="nav-link">
-                                            Annonces
-                                            <i class="ri-arrow-down-s-line"></i>
+                                        <a href={`/${routing.searchAnnonce.path}`} class="nav-link">
+                                            ANNONCES
+                                            {
+                                                /*<i class="ri-arrow-down-s-line"></i> */
+                                            }
                                         </a>
 
                                         <ul class="dropdown-menu">
                                             <li class="nav-item">
-                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">Annonces</a>
+                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">RECHERCHER VOTRE ANNONCE</a>
                                             </li>
-                                            <li class="nav-item">
+                                            {
+                                                /*<li class="nav-item">
                                                 <a href={`/${routing.detailAnnonce.path}`} class="nav-link">detail annonce</a>
-                                            </li>
+                                            </li> */
+                                            }
 
                                             <li class="nav-item">
                                                 <a href="#" class="nav-link">
@@ -137,7 +143,9 @@ const HeaderWeb = () => {
                                         </ul>
                                     </li>
 
-                                    <li class="nav-item visible">
+                                    {
+                                        /*
+                                        <li class="nav-item visible">
                                         <a href="#" class="nav-link">
                                             espace candidat
                                             <i class="ri-arrow-down-s-line"></i>
@@ -150,8 +158,12 @@ const HeaderWeb = () => {
                                             </li>
                                         </ul>
                                     </li>
+                                        */
+                                    }
 
-                                    <li class="nav-item visible">
+                                    {
+                                        /*
+                                        <li class="nav-item visible">
                                         <a href="#" class="nav-link">
                                             espace employeur
                                             <i class="ri-arrow-down-s-line"></i>
@@ -164,16 +176,20 @@ const HeaderWeb = () => {
                                             </li>
                                         </ul>
                                     </li>
+                                        */
+                                    }
 
 
 
                                     <li class="nav-item visible">
                                         <a href="#" class="nav-link">
-                                            Blog
-                                            <i class="ri-arrow-down-s-line"></i>
+                                            BLOG ET ACTUALITES
+                                           {/* <i class="ri-arrow-down-s-line"></i> */}
                                         </a>
 
-                                        <ul class="dropdown-menu">
+                                        {
+                                            /*
+                                            <ul class="dropdown-menu">
                                             <li class="nav-item">
                                                 <a href="blog.html" class="nav-link">Blog</a>
                                             </li>
@@ -186,20 +202,22 @@ const HeaderWeb = () => {
                                                 <a href="blog-details.html" class="nav-link">Blog Details</a>
                                             </li>
                                         </ul>
+                                            */
+                                        }
                                     </li>
 
                                     <li class="nav-item visible">
-                                        <a href={`/${routing.contact.path}`} class="nav-link">Contact</a>
+                                        <a href={`/${routing.contact.path}`} class="nav-link">CONTACT</a>
                                     </li>
                                 </ul>
 
                                 <div class="others-options d-flex align-items-center visible">
                                     <div class="flex flex-col space-y-2">
                                         <div class="option-item">
-                                            <a href={`/${routing.inscriptionCandidat.path}`} class="default-btn">Inscription Candidat <i class="flaticon-plus"></i></a>
+                                            <a href={`/${routing.candidatDashboard.path}`}  class="default-btn">ESPACE<i class="flaticon-plus"></i></a>
                                         </div>
                                         <div class="option-item">
-                                            <a href={`/${routing.inscriptionEmployer.path}`} class="default-btn">Inscription Employeur <i class="flaticon-plus"></i></a>
+                                            <a href={`/${routing.employeurDashboard.path}`} class="default-btn">ESPACE <i class="flaticon-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>
