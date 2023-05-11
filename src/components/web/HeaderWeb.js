@@ -130,7 +130,7 @@ const HeaderWeb = () => {
 
                                             <li class="nav-item">
                                                 <a href="#" class="nav-link">
-                                                    Job dteails
+                                                    Details sur le JOB
                                                     <i class="ri-arrow-right-s-line"></i>
                                                 </a>
 

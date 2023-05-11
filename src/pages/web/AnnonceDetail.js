@@ -7,6 +7,7 @@ import axios from 'axios';
 import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import moment from 'moment';
 import AnnonceCard from '../../components/web/annonce/card/AnnonceCard';
+import BarnerDetailAnnonce from '../../components/web/annonce/details/BarnerDetailAnnonce';
 
 const AnnonceDetail = () => {
     var idPost = sessionStorage.getItem(localvalue.annonceDetail.id);
@@ -34,6 +35,7 @@ const AnnonceDetail = () => {
 
     return (
         <div>
+        <BarnerDetailAnnonce data={post && post.titre} />
 
             <div class="job-details-area ptb-100">
                 <div class="container">
@@ -122,15 +124,15 @@ const AnnonceDetail = () => {
                                             <img src="assets/images/job/job-1.png" alt="image" />
                                         </div>
 
-                                        <h3>Solit IT Solution</h3>
-                                        <span>Graduate Programme – IT Software Test Analyst Engineer</span>
+                                        {post && <h3>{post.titre}</h3>}
+                                        <span>{post && post.entreprise}</span>
                                     </div>
 
                                     <ul class="information-list-box">
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span><i class="flaticon-calendar"></i> Date Posted</span>
-                                                28th June
+                                                <span><i class="flaticon-calendar"></i> poster le : </span>
+                                                {post && moment(post.dateDebut).format('DD/MM/YYYY')}
                                             </div>
                                         </li>
 
@@ -143,12 +145,14 @@ const AnnonceDetail = () => {
 
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span><i class="flaticon-location"></i> Location</span>
-                                                Remote
+                                                <span><i class="flaticon-location"></i> lieu</span>
+                                                {post && post.lieu}
                                             </div>
                                         </li>
 
-                                        <li>
+                                        {
+                                            /*
+                                            <li>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span><i class="flaticon-volume"></i> Career Level</span>
                                                 Director
@@ -175,11 +179,13 @@ const AnnonceDetail = () => {
                                                 $40 - $60 / Hr
                                             </div>
                                         </li>
+                                            */
+                                        }
 
                                         <li>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span><i class="flaticon-resume"></i> Job Applicants</span>
-                                                30 Applicants
+                                                <span><i class="flaticon-resume"></i> Nombres candidat</span>
+                                                {post && post.candidats.length} volotaires
                                             </div>
                                         </li>
                                     </ul>
