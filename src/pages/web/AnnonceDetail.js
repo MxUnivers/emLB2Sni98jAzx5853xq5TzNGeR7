@@ -100,11 +100,61 @@ const AnnonceDetail = () => {
                             </div>
                             }
 
+
+
+                            <div class="  overflow-visible sm:visible md:visible lg:hidden  job-details-sticky">
+                                <div class="job-details-information">
+                                    <div class="information-box">
+                                        <div class="company-logo">
+                                            <img src="assets/images/job/job-1.png" alt="image" />
+                                        </div>
+
+                                        {post && <h3>{post.titre}</h3>}
+                                        <span>{post && post.entreprise}</span>
+                                    </div>
+
+                                    <ul class="information-list-box">
+                                        <li>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="flaticon-calendar"></i> poster le : </span>
+                                                {post && moment(post.dateDebut).format('DD/MM/YYYY')}
+                                            </div>
+                                        </li>
+                                        {
+                                            // date d'expiration
+                                            /*
+                                            <li>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="flaticon-reload"></i> Expiration Date</span>
+                                                30th September
+                                            </div>
+                                        </li>
+                                            */
+                                        }
+                                        <li>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="flaticon-location"></i> lieu</span>
+                                                {post && post.lieu}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="flaticon-resume"></i> Nombres candidat</span>
+                                                {post && post.candidats.length} volotaires
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="job-details-btn-box">
+                                        <a href="#" class="default-btn">Postuler maintenant<i class="flaticon-list-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="related-jobs-box">
                                 <h3 class="py-3 pt-3">RECENTES PUBLICATIONS</h3>
-
                                 <div class="row">
-
                                     {
                                         dataAnnonceRecents.map((item) => {
                                             return (
@@ -114,6 +164,13 @@ const AnnonceDetail = () => {
                                     }
                                 </div>
                             </div>
+
+
+
+                            
+
+
+
                         </div>
 
                         <div class="col-lg-4 col-md-12">
