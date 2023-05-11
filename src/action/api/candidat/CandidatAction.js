@@ -148,6 +148,13 @@ export const CandidatConnexion = (data, redirect) => {
                 localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
                 localStorage.setItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
                 redirect(`/${routing.candidatDashboard.path}`);
+
+                // Effacer tout les données les données de l'employeur
+                localStorage.removeItem(localvalue.emloyeur);
+                localStorage.removeItem(localvalue.emloyeur);
+                localStorage.removeItem(localvalue.emloyeur);
+                localStorage.removeItem(localvalue.typeAdmin);
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

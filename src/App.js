@@ -29,6 +29,8 @@ import DashboardEmployeurAnnonceListPage from "./pages/admin/employeur/Dashboard
 import { localvalue } from "./utlis/storage/localvalue";
 import { typeadmin } from "./utlis/storage/account";
 import DashboardAnnonceDetailPage from "./pages/admin/candidat/DashboardAnnonceDetailPage";
+import LoginPage from "./pages/web/connexion/LoginPage";
+import SignUpPage from "./pages/web/inscription/SignUpPage";
 
 
 
@@ -56,9 +58,11 @@ function App() {
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
             //inscription du candidat
+            <Route path={`${routing.inscription.path}`} element={<SignUpPage />} />
             <Route path={`${routing.inscriptionCandidat.path}`} element={<SignupCandidatPage />} />
             <Route path={`${routing.inscriptionEmployer.path}`} element={<SignupEmployer />} />
             // connexion du candidat
+            <Route path={`${routing.connexion.path}`} element={<LoginPage />} />
             <Route path={`${routing.connexionCandidat.path}`} element={<LoginCandidatPage />} />
             <Route path={`${routing.connexionEmployeur.path}`} element={<LoginEmployeurPage />} />
           </Route>

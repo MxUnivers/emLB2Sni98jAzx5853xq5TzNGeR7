@@ -6,6 +6,7 @@ import { routing } from '../../utlis/routing';
 const HeaderWeb = () => {
     return (
         <header class="main-header-area">
+
             <div class="topbar-area">
                 <div class="container-fluid">
                     <div class="row align-items-center">
@@ -29,11 +30,11 @@ const HeaderWeb = () => {
                         <div class="col-lg-7 col-md-6">
                             <ul class="topbar-action">
                                 <li>
-                                    <a href="profile-authentication.html"><i class="flaticon-padlock"></i> Log In</a>
+                                    <a href={`/${routing.connexion.path}`}><i class="flaticon-padlock"></i> CONNEXION</a>
                                 </li>
 
                                 <li>
-                                    <a href="profile-authentication.html"><i class="flaticon-user"></i> Register</a>
+                                    <a href={`/${routing.inscription.path}`}><i class="flaticon-user"></i> INSCRIPTION</a>
                                 </li>
 
                                 <li class="dropdown language-option">

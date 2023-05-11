@@ -14,11 +14,19 @@ export const routing = {
     detailAnnonce: {
         path: "details-sur-post"
     },
+     //Inscription
+    inscription:{
+        path:"option-inscription"
+    },
     inscriptionCandidat: {
         path: "inscription-candidat"
     },
     inscriptionEmployer: {
         path: "inscription-pour-employeur"
+    },
+    //Connexion
+    connexion:{
+        path:"option-de-connexion"
     },
     connexionCandidat:{
         path:"connexion-candidat"
@@ -26,6 +34,12 @@ export const routing = {
     connexionEmployeur:{
         path:"connexion-employeur"
     },
+
+
+
+
+
+
 
     // Pour les administrateur de l'application telque les candidats et emloyeur
 
