@@ -43,63 +43,30 @@ const AnnonceDetail = () => {
                                 post &&
                                 <div class="job-details-desc">
                                 <h2>{post.titre}</h2>
-                                <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki mata sanctus est Lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur.</p>
-
+                                
                                 <div class="job-details-content">
-                                    <h3>Job Responsibilities:</h3>
-
-                                    <ul class="list">
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit principes.</li>
-                                        <li>Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.</li>
-                                        <li>Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit.</li>
-                                    </ul>
-                                </div>
-
-                                <div class="job-details-content">
-                                    <h3>Education:</h3>
-
-                                    <ul class="list">
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit principes.</li>
-                                        <li>Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.</li>
-                                        <li>Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit.</li>
-                                    </ul>
-                                </div>
-
-                                <div class="job-details-content">
-                                    <h3>Experience:</h3>
-²
-                                    <ul class="list">
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit principes.</li>
-                                        <li>Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.</li>
-                                        <li>Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
-                                        <li>Lorem decore nullam te eum id evertitur reformidans sea id possit.</li>
-                                    </ul>
-                                </div>
-
-                                <div class="job-details-content">
-                                    <h3>About Company</h3>
-                                    <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki mata sanctus est Lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur.</p>
+                                    <h3>Description</h3>
+                                    <p class="p-3 bg-gray-100 rounded-lg">
+                                    {
+                                        post.description
+                                    }
+                                    </p>
                                 </div>
 
                                 <div class="row job-article-footer">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="article-tags">
-                                            <span>Required Skill:</span>
-                                            <a href="index.html">IT</a>
-                                            <a href="index.html">Engineer</a>
-                                            <a href="index.html">Software</a>
+                                            <span>Information supplémentaire</span>
+                                            <a href="index.html">SALAIRE  : {post.salaire}</a>
+                                            <a href="index.html">Lieu : {post.lieu}</a>
+                                            <a href="index.html"> posté le : {moment(post.dateDebut).format('DD/MM/YYYY')}</a>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6">
                                         <div class="article-share">
                                             <ul class="social">
-                                                <li><span>Share:</span></li>
+                                                <li><span>Réseaux sociaux</span></li>
 
                                                 <li>
                                                     <a href="https://www.facebook.com/" target="_blank">
@@ -132,7 +99,7 @@ const AnnonceDetail = () => {
                             }
 
                             <div class="related-jobs-box">
-                                <h3>Related Jobs</h3>
+                                <h3 class="py-3 pt-3">RECENTES PUBLICATIONS</h3>
 
                                 <div class="row">
 
