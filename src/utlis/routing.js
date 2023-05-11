@@ -12,7 +12,7 @@ export const routing = {
         path: "rechercher-des-annonces"
     },
     detailAnnonce: {
-        path: "details-sur-annonce"
+        path: "details-sur-post"
     },
     inscriptionCandidat: {
         path: "inscription-candidat"
@@ -62,8 +62,11 @@ export const routing = {
     candidatChangePassord:{
         path:"modification-du-mot-passe-du-candidat"
     },
-    candidatDetailOffreEmplois:{
-        path:"details-du-l-offre"
+    dashbordDetailOffreEmplois:{
+        path:"details-de-l'-offre"
+    },
+    dashbordDetailAnnonce:{
+        path:"details-de-l'annonce"
     },
     candidatDetailProfileView:{
         path:`candidat-n°${localStorage.getItem(localvalue.candidat.idCandidatDetail)}`

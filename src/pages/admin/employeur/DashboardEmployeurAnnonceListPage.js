@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { EntrepriseGetAllAnnonces, EntrepriseGetAllOffres } from '../../../action/api/employeur/EmployeurAction';
 import { HiSearchCircle } from 'react-icons/hi';
+import { routing } from '../../../utlis/routing';
+import { LocaleState } from '../../../utlis/storage/localvalueFunction';
 
 const DashboardEmployeurAnnonceListPage = () => {
 
@@ -80,6 +82,8 @@ const DashboardEmployeurAnnonceListPage = () => {
                                                 </div>
                                                 <h3>
                                                     <a
+                                                    href={`/${routing.dashbordDetailAnnonce.path}`}
+                                                    onClick={LocaleState(localvalue.annonceAdmin.id,item._id)}
                                                     >{item.titre}</a>
                                                 </h3>
                                                 <div class="bookmark-btn">
@@ -137,7 +141,8 @@ const DashboardEmployeurAnnonceListPage = () => {
                                 return (
                                     <div class="col-lg-6 col-md-12">
                                         <div class="dashboard-job-card">
-                                            <div class="job-content">
+                                            <a href={`/${routing.dashbordDetailOffreEmplois.path}`}
+                                            onClick={LocaleState(localvalue.offreAdmin.id,item._id)} class="job-content">
                                                 <div class="company-logo">
                                                     <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
                                                 </div>
@@ -167,7 +172,7 @@ const DashboardEmployeurAnnonceListPage = () => {
                                                     <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject Aplication" type="button"><i class="ri-close-line"></i></button></li>
                                                     <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Aplication" type="button"><i class="ri-delete-bin-line"></i></button></li>
                                                 </ul>
-                                            </div>
+                                            </a>
                                         </div>
                                     </div>
                                 )

@@ -1,6 +1,6 @@
 
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LayoutWeb from "./layout/web/LayoutWeb";
 import HomePage from "./pages/web/HomePage";
 import { routing } from "./utlis/routing";
@@ -26,10 +26,17 @@ import DashbordEmployeurPage from "./pages/admin/employeur/DashbordEmployeurPage
 import DashboardEmployeurPofilePage from "./pages/admin/employeur/DashboardEmployeurPofilePage";
 import DashBoardEmployeurPostAnnoncePage from "./pages/admin/employeur/DashBoardEmployeurPostAnnoncePage";
 import DashboardEmployeurAnnonceListPage from "./pages/admin/employeur/DashboardEmployeurAnnonceListPage";
+import { localvalue } from "./utlis/storage/localvalue";
+import { typeadmin } from "./utlis/storage/account";
+import DashboardAnnonceDetailPage from "./pages/admin/candidat/DashboardAnnonceDetailPage";
 
 
 
 function App() {
+
+  var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+
+
   return (
     <div >
       <BrowserRouter>
@@ -60,23 +67,28 @@ function App() {
           <Route path='' element={<LayoutAdmin />}>
 
           //Candidat
-            <Route path={`${routing.candidatDashboard.path}`} element={<DashbordCandidatPage />} />
-            <Route path={`${routing.candidatProfile.path}`} element={<DashboardProfileCandidatPgage />} />
+            <Route path={`${routing.candidatDashboard.path}`} element={typeAdmin == typeadmin.candidat ?<DashbordCandidatPage/> : <Navigate to ="/"/>  } />
+            <Route path={`${routing.candidatProfile.path}`} element={typeAdmin == typeadmin.candidat ?<DashboardProfileCandidatPgage /> : <Navigate to="/"/>} />
             <Route path={`${routing.candidatOffres.path}`} element={<DashboardOffreListCandidatPage />} />
             <Route path={`${routing.candidatOffresPostuler.path}`} element={<DashboardOffrePostulerCandidatPage />} />
             <Route path={`${routing.candidatCv.path}`} element={<DashboardCvCandidatPage />} />
             <Route path={`${routing.candidatChat.path}`} element={<DasboardChatCandidatPage />} />
-            <Route path={`${routing.candidatChangePassord.path}`} element={<DashboardPasswordEditCandidatPage />} />
+            <Route path={`${routing.candidatChangePassord.path}`} element={typeAdmin == typeadmin.candidat ?<DashboardPasswordEditCandidatPage /> : <Navigate to="/"/>} />
             <Route path={`${routing.candidatAllParticipant.path}`} element={<DashBoardMemberCandidatPage />} />
-            <Route path={`${routing.candidatDetailOffreEmplois.path}`} element={<DashboardOffreDetailCandidatPage />} />
             <Route path={`${routing.candidatDetailProfileView.path}`} element={<DashboardDetailCandidatPage />} />
+
+            // Fichier en commun employeur et candidat
+            <Route path={`${routing.dashbordDetailOffreEmplois.path}`} element={<DashboardOffreDetailCandidatPage />} />
+            <Route path={`${routing.dashbordDetailAnnonce.path}`} element={<DashboardAnnonceDetailPage />} />
+            
+
 
 
             // Employeur 
-            <Route path={`${routing.employeurDashboard.path}`} element={<DashbordEmployeurPage/>}   />
-            <Route path={`${routing.employeurProfile.path}`} element={<DashboardEmployeurPofilePage/>}   />
-            <Route path={`${routing.employeurPostAnnonce.path}`} element={<DashBoardEmployeurPostAnnoncePage/>}   />
-            <Route path={`${routing.employeurAnnonces.path}`} element={<DashboardEmployeurAnnonceListPage/>}   />
+            <Route path={`${routing.employeurDashboard.path}`} element={typeAdmin == typeadmin.employeur ? <DashbordEmployeurPage/>  : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurProfile.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurPofilePage/>  : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurPostAnnonce.path}`}  element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurPostAnnoncePage/>  : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurAnnonces.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurAnnonceListPage/>  : <Navigate to="/" />}   />
 
           </Route>
 

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SideMenuBarCandidatAdmin = () => {
     var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat)
+    
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);

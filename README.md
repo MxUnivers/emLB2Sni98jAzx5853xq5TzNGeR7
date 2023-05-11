@@ -24,3 +24,11 @@ Palier 2
 
 
 
+
+
+
+// Detail des poste dans la partie admin 
+// Detail Des annonces dans le web
+// Detail des offres dans la partie administration
+// Modifier ses Annonces Et offres d'emplois
+

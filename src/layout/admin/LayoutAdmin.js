@@ -14,24 +14,27 @@ const LayoutAdmin = () => {
   var tokenAdmin;
 
   // candidat
-  useEffect(() => {
-    if (typeAdmin == typeadmin.candidat) {
-      emailAdmin = localStorage.getItem(localvalue.candidat.emailCandidat);
-      tokenAdmin = localStorage.getItem(localvalue.candidat.tokenCandidat);
-    } else {
-      emailAdmin = localStorage.getItem(localvalue.emloyeur.emailEmployeur);
-      tokenAdmin = localStorage.getItem(localvalue.emloyeur.tokenEmployeur);
-    }
-  })
-
-
+  if (typeAdmin == typeadmin.candidat) {
+    emailAdmin = localStorage.getItem(localvalue.candidat.emailCandidat);
+    tokenAdmin = localStorage.getItem(localvalue.candidat.tokenCandidat);
+  } else if (typeAdmin == typeadmin.employeur) {
+    emailAdmin = localStorage.getItem(localvalue.emloyeur.emailEmployeur);
+    tokenAdmin = localStorage.getItem(localvalue.emloyeur.tokenEmployeur);
+  }
+  else {
+    return;
+  }
   var dataItem = {
     emailAdmin,
     typeAdmin,
     tokenAdmin
   }
 
-
+  if (tokenAdmin == null || "") {
+    return (
+      <Navigate to={'/'} />
+    )
+  }
   return (
     <div>
       <SideMenuBarAdmin />

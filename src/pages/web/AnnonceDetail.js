@@ -1,10 +1,37 @@
-import React from 'react'
+
+import React, { useEffect, useState } from 'react'
 import FooterWeb from '../../components/web/FooterWeb';
+import { localvalue } from '../../utlis/storage/localvalue';
+import { baseurl } from '../../utlis/url/baseurl';
+import axios from 'axios';
+import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
+import moment from 'moment';
+import AnnonceCard from '../../components/web/annonce/card/AnnonceCard';
 
 const AnnonceDetail = () => {
-    var dataAnnonceRecents = [
-        1, 2, 3
-    ]
+    var idPost = sessionStorage.getItem(localvalue.annonceDetail.id);
+    var [dataAnnonceRecents ,setdataAnnonceRecents] = useState([]); 
+    const [post, setpost] = useState();
+    useEffect(() => {
+        PostById(idPost, setpost);
+        AnnonceGetAll(setdataAnnonceRecents);
+        
+    }, [])
+
+
+    const PostById = async (id, setState) => {
+        await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        })
+            .then((response) => {
+                console.log(JSON.stringify(response.data)); setState(response.data.data);
+            })
+            .catch((error) => { console.log(error); });
+    }
+
     return (
         <div>
 
@@ -12,8 +39,10 @@ const AnnonceDetail = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-md-12">
-                            <div class="job-details-desc">
-                                <h2>Graduate Programme – IT Software Test Analyst Engineer</h2>
+                            {
+                                post &&
+                                <div class="job-details-desc">
+                                <h2>{post.titre}</h2>
                                 <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki mata sanctus est Lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur.</p>
 
                                 <div class="job-details-content">
@@ -100,6 +129,7 @@ const AnnonceDetail = () => {
                                     </div>
                                 </div>
                             </div>
+                            }
 
                             <div class="related-jobs-box">
                                 <h3>Related Jobs</h3>
@@ -109,45 +139,10 @@ const AnnonceDetail = () => {
                                     {
                                         dataAnnonceRecents.map((item) => {
                                             return (
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="single-job-list-box">
-                                                        <div class="job-information">
-                                                            <div class="company-logo">
-                                                                <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                                            </div>
-                                                            <h3>
-                                                                <a href="job-details-1.html">Assistant Editor</a>
-                                                            </h3>
-                                                            <span>Solit IT Solution</span>
-
-                                                            <div class="bookmark-btn">
-                                                                <i class="ri-bookmark-line"></i>
-                                                            </div>
-
-                                                            <div class="hover-bookmark-btn">
-                                                                <i class="ri-bookmark-fill"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <ul class="job-tag-list">
-                                                            <li>Featured</li>
-                                                            <li class="urgent">Urgent</li>
-                                                            <li class="private">Private</li>
-                                                            <li>Part Time</li>
-                                                        </ul>
-
-                                                        <ul class="location-information">
-                                                            <li><i class="ri-time-line"></i> 3 Days Left</li>
-                                                            <li><i class="ri-map-pin-line"></i> 32, Walsh Street, USA</li>
-                                                            <li><i class="ri-time-line"></i> Part Time</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                <AnnonceCard data={item}/>
                                             )
                                         })
                                     }
-
-
                                 </div>
                             </div>
                         </div>

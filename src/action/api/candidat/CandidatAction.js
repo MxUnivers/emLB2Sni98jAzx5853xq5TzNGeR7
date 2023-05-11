@@ -241,6 +241,20 @@ export const CandidatGetCandidatpostulesByOffre = async (id, setState) => {
 }
 
 
+// Recupérer tout les candiats qui ont postulés à l'offre
+export const CandidatGetCandidatpostulesByAnnonce = async (id, setState) => {
+    await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => { setState(response.data.data.candidats); })
+        .catch((error) => { console.log(error); });
+}
+
+
+
 export const CandidatGetById = async (id, setState) => {
 
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${id}`, {

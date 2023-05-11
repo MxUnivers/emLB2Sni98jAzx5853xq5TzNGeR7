@@ -39,7 +39,7 @@ const AnnonceCard = ({ data }) => {
                 <div class="job-btn">
                     <a href={`/${routing.detailAnnonce.path}`}
                     onClick={()=>{
-                        
+                        localStorage.setItem()
                     }}
                     class="default-btn">Postuler maintenant <i class="flaticon-list-1"></i></a>
                 </div>

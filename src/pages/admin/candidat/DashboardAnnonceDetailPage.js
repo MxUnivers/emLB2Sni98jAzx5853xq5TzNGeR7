@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { routing } from '../../../utlis/routing';
 import { useDispatch, useSelector } from 'react-redux';
-import { localvalue, localvalueGetCandidat } from '../../../utlis/storage/localvalue';
+import { localvalue, localvalueGet, localvalueGetCandidat } from '../../../utlis/storage/localvalue';
 import axios from 'axios';
 import { baseurl } from '../../../utlis/url/baseurl';
 import moment from 'moment';
-import { CandidatGetCandidatpostulesByOffre, CandidatPostuleOneOffre } from '../../../action/api/candidat/CandidatAction';
+import { CandidatGetCandidatpostulesByAnnonce, CandidatGetCandidatpostulesByOffre, CandidatPostuleOneOffre } from '../../../action/api/candidat/CandidatAction';
 import { useNavigate } from 'react-router-dom';
-import { typeadmin } from '../../../utlis/storage/account';
 
-const DashboardOffreDetailCandidatPage = () => {
+const DashboardAnnonceDetailPage = () => {
 
     var idAdmin = localStorage.getItem(localvalue.candidat.idCandidat);
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+    var IdAnnonce = localStorage.getItem(localvalue.annonceAdmin.id);
 
     const navigation = useNavigate();
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
-    const [dataOffre, setdataOffre] = useState();
+    const [dataAnnonce, setdataAnnonce] = useState();
     const [dataCandidat, setdataCandidat] = useState([])
 
     useEffect(() => {
-        OffreById(localvalueGetCandidat.offreId, setdataOffre);
-        CandidatGetCandidatpostulesByOffre(localvalueGetCandidat.offreId, setdataCandidat);
+        AnnonceById(IdAnnonce, setdataAnnonce);
+        CandidatGetCandidatpostulesByAnnonce(IdAnnonce, setdataCandidat);
     }, [])
-    const OffreById = async (id, setState) => {
-        await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`, {
+    const AnnonceById = async (id, setState) => {
+        await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -45,23 +45,19 @@ const DashboardOffreDetailCandidatPage = () => {
             alert("Requete non pris en compte");
             return;
         }
-        dispatch(CandidatPostuleOneOffre(idAdmin, dataOffre._id));
+        dispatch(CandidatPostuleOneOffre(idAdmin, dataAnnonce._id));
     };
 
-
-
-    // Voir plus le text
-    
 
 
 
     return (
         <div>
             <div class="breadcrumb-area">
-                <h1>Detail sur l{"'"}offre</h1>
+                <h1>Detail l{"'"}annonce</h1>
                 <ol class="breadcrumb">
-                    <li class="item"><a href={`/${routing.candidatDashboard.path}`}>Tableau de board</a></li>
-                    <li class="item">offre d{"'"}emplois</li>
+                    <li class="item"><a href={`#`}>Tableau de board</a></li>
+                    <li class="item">Annonce</li>
                 </ol>
             </div>
 
@@ -78,18 +74,18 @@ const DashboardOffreDetailCandidatPage = () => {
                             {/*<!-- Description de l'offre --> */}
                             <div class="py-4">
                                 <h2 class="text-2xl font-semibold">Description de l{"'"}offre</h2>
-                                <p class="text-gray-700">{dataOffre ? dataOffre.description : null}</p>
+                                <p class="text-gray-700">{dataAnnonce ? dataAnnonce.description : null}</p>
                             </div>
                             {/*<!-- Informations de l'offre --> */}
                             <div class="py-4">
                                 <h2 class="text-2xl font-semibold">Informations de l{"'"}offre</h2>
                                 {
-                                    dataOffre ?
+                                    dataAnnonce ?
                                         <ul class="text-gray-700">
-                                            <li>Type de contrat : {dataOffre.typeContrat}</li>
-                                            <li>Localisation : {dataOffre.lieu}</li>
-                                            <li>Rémunération : {dataOffre.salaire} FRANCS CFA</li>
-                                            <li>Poster le : {moment(dataOffre.dateDebut).format('DD/MM/YYYY')}</li>
+                                            <li>Type de contrat : {dataAnnonce.typeContrat}</li>
+                                            <li>Localisation : {dataAnnonce.lieu}</li>
+                                            <li>Rémunération : {dataAnnonce.salaire} FRANCS CFA</li>
+                                            <li>Poster le : {moment(dataAnnonce.dateDebut).format('DD/MM/YYYY')}</li>
                                         </ul>
                                         : null
                                 }
@@ -121,8 +117,8 @@ const DashboardOffreDetailCandidatPage = () => {
                                 </div>
                                 {/*Informations de l'entreprise  */}
                                 {
-                                    dataOffre ?
-                                <h2 class="text-2xl font-semibold py-3 px-2 underline">{dataOffre.entreprise}</h2>
+                                    dataAnnonce ?
+                                <h2 class="text-2xl font-semibold py-3 px-2 underline">{dataAnnonce.entreprise}</h2>
                                 :
                                 null
 
@@ -135,7 +131,7 @@ const DashboardOffreDetailCandidatPage = () => {
                 </main>
             </div >
             {
-                typeAdmin == typeadmin.employeur?
+                typeAdmin == "employeur"?
                 <div class="p-4">
                 <h2 class="text-xl font-bold mb-4">Liste des candidats ayant postulé</h2>
                 <ul class="border rounded-md overflow-hidden">
@@ -145,7 +141,7 @@ const DashboardOffreDetailCandidatPage = () => {
                                 <li class="border-b bg-white px-4 py-3 flex items-center justify-between">
                                     <div class="flex items-center">
                                     {/*https://randomuser.me/api/portraits/men/32.jpg */}
-                                        <img class="h-10 w-10 rounded-full mr-4" src={"https://randomuser.me/api/portraits/men/32.jpg" } alt="Photo de profil du candidat" />
+                                        <img class="h-10 w-10 rounded-full mr-4" src={dataAnnonce.coverPicture ? dataAnnonce.coverPicture : "https://randomuser.me/api/portraits/men/32.jpg" } alt="Photo de profil du candidat" />
                                         <div>
                                             <h3 class="font-bold">{item.firstname} {item.lastname}</h3>
                                             <p class="text-gray-600 text-sm">expérience : {item.years_experience ? item.years_experience : "..." } ans</p>
@@ -162,7 +158,10 @@ const DashboardOffreDetailCandidatPage = () => {
                                 </li>
                             )
                         })
+
                     }
+
+
                 </ul>
             </div>
             : null
@@ -172,4 +171,4 @@ const DashboardOffreDetailCandidatPage = () => {
     )
 }
 
-export default DashboardOffreDetailCandidatPage;
+export default DashboardAnnonceDetailPage;
