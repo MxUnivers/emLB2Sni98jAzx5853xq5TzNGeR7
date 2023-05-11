@@ -174,7 +174,7 @@ const AnnonceDetail = () => {
                         </div>
 
                         <div class="col-lg-4 col-md-12">
-                            <div class="job-details-sticky">
+                            <div class=" snap-x:hidden sm:visible md:visible lg:visible job-details-sticky">
                                 <div class="job-details-information">
                                     <div class="information-box">
                                         <div class="company-logo">
