@@ -7,8 +7,8 @@ const NavbarItemEmployeur = () => {
                 <div class="dropdown profile-nav-item">
                     <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="menu-profile">
-                            <img src="assets/images/dashboard/user1.jpg" class="rounded-circle" alt="image" />
-                            <span class="name">My Account Employeur</span>
+                            <img src="assets/images/dashboard/user1.jpg" class="rounded-circle h-10" alt="image" />
+                            <span class="name"></span>
                         </div>
                     </a>
 

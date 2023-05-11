@@ -99,7 +99,7 @@ export const routing = {
         path:"poster-une-annonce"
     },
     employeurAnnonces:{
-        path:"vos-annonces"
+        path:"vos-publications-sur-la-plateforme"
     },
     employeurDetailOffre:{
         path:"details-offre"

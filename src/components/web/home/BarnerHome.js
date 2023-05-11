@@ -1,9 +1,10 @@
 import React from 'react';
 
 const BarnerHome = () => {
-    var  bgImg = "home.jpg";
+    // var  bgImg = "home.jpg";
+    var  bgImg = "https://images.pexels.com/photos/4559515/pexels-photo-4559515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
     return (
-        <div class="main-banner-area-with-bg-image visible" style={{backgroundImage:`url('${bgImg}')`}}>
+        <div class="main-banner-area-with-bg-image visible  bg-gradient-to-tr from-transparent to-black" style={{backgroundImage:`url('${bgImg}')`}}>
             <div class="container-fluid">
                 <div class="main-banner-content-with-search visible" data-speed="0.06" data-revert="true">
                     <h1  class="visible" data-aos-delay="50" data-aos-duration="500">

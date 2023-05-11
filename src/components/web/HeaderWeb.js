@@ -1,9 +1,21 @@
 import React from 'react';
 import { routing } from '../../utlis/routing';
+import NavbarItemCandidat from '../admin/candidat/NavbarItemCandidat';
+import NavbarItemEmployeur from '../admin/employer/NavbarItemEmployeur';
+import { Navbar } from 'react-bootstrap';
+import NavbarAdmin from '../admin/NavbarAdmin';
+import { localvalue } from '../../utlis/storage/localvalue';
+import { typeadmin } from '../../utlis/storage/account';
+import ItemProfileCandidat from './navigation/ItemProfileCandidat';
+import ItemProfileEmployeur from './navigation/ItemProfileEmployeur';
 
 
 
 const HeaderWeb = () => {
+
+    var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+
+
     return (
         <header class="main-header-area">
 
@@ -143,48 +155,12 @@ const HeaderWeb = () => {
                                         </ul>
                                     </li>
 
-                                    {
-                                        /*
-                                        <li class="nav-item visible">
-                                        <a href="#" class="nav-link">
-                                            espace candidat
-                                            <i class="ri-arrow-down-s-line"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu">
-
-                                            <li class="nav-item">
-                                                <a href={`/${routing.candidatDashboard.path}`} class="nav-link">tableau de bord</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                        */
-                                    }
-
-                                    {
-                                        /*
-                                        <li class="nav-item visible">
-                                        <a href="#" class="nav-link">
-                                            espace employeur
-                                            <i class="ri-arrow-down-s-line"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu">
-
-                                            <li class="nav-item">
-                                                <a href={`/${routing.candidatDashboard.path}`} class="nav-link">tableau de bord</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                        */
-                                    }
-
 
 
                                     <li class="nav-item visible">
                                         <a href="#" class="nav-link">
                                             BLOG ET ACTUALITES
-                                           {/* <i class="ri-arrow-down-s-line"></i> */}
+                                            {/* <i class="ri-arrow-down-s-line"></i> */}
                                         </a>
 
                                         {
@@ -211,20 +187,28 @@ const HeaderWeb = () => {
                                     </li>
                                 </ul>
 
-                                <div class="others-options d-flex align-items-center visible">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="option-item">
-                                            <a href={`/${routing.candidatDashboard.path}`}  class="default-btn">ESPACE<i class="flaticon-plus"></i></a>
-                                        </div>
-                                        <div class="option-item">
-                                            <a href={`/${routing.employeurDashboard.path}`} class="default-btn">ESPACE <i class="flaticon-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {
+                                    typeAdmin == typeadmin.candidat ?
+                                    <ItemProfileCandidat/>:
+                                    null
+                                }
+
+                                {
+                                    typeAdmin == typeadmin.employeur  ?
+                                    <ItemProfileEmployeur/>:
+                                    null
+                                }
+
+
+
                             </div>
                         </nav>
+
+
                     </div>
+
                 </div>
+
             </div>
         </header>
     )
