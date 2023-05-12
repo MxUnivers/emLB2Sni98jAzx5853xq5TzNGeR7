@@ -14,6 +14,9 @@ export const routing = {
     detailAnnonce: {
         path: "details-sur-post"
     },
+    historique:{
+        path:"historique-des-postes"
+    },
      //Inscription
     inscription:{
         path:"option-inscription"
