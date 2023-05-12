@@ -41,7 +41,6 @@ const DashboardOffreListCandidatPage = () => {
                 </div>
 
                 <div class="row">
-
                     {
                         dataOffre.map((item) => {
                             return (
@@ -52,7 +51,7 @@ const DashboardOffreListCandidatPage = () => {
                                                 <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
                                             </div>
                                             <h3>
-                                                <a href={`/${routing.candidatDetailOffreEmplois.path}`}
+                                                <a href={`/${routing.employeurDetailOffre.path}`}
                                                 onClick={LocaleState(localvalue.offreAdmin.id,item._id)}
                                                 >{item.titre}</a>
                                             </h3>

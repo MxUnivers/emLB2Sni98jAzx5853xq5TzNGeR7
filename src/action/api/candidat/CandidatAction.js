@@ -148,11 +148,13 @@ export const CandidatConnexion = (data, redirect) => {
                 localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
                 localStorage.setItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
 
-                // Effacer tout les données les données de l'employeur
-                // localStorage.removeItem(localvalue.emloyeur);
-                // localStorage.removeItem(localvalue.emloyeur);
-                // localStorage.removeItem(localvalue.emloyeur);
-                // localStorage.removeItem(localvalue.typeAdmin);
+                //Effacer tout les données les données de l'employeur
+                localStorage.removeItem(localvalue.emloyeur.idEmployeur);
+                localStorage.removeItem(localvalue.emloyeur.tokenEmployeur);
+                localStorage.removeItem(localvalue.emloyeur.emailEmployeur);
+                alert(response.data.data.type);
+                alert(response.data.data._id);
+
                 redirect(`/${routing.candidatDashboard.path}`);
 
 
@@ -180,6 +182,11 @@ export const CandidatDeconnexion = async (id) => {
             localStorage.removeItem(localvalue.candidat.emailCandidat, response.data.data.email);
             localStorage.removeItem(localvalue.typeAdmin, response.data.data.type);
             localStorage.removeItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
+
+            localStorage.removeItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
+            localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
+            localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
+
             window.location.reload();
         })
         .catch((error) => {

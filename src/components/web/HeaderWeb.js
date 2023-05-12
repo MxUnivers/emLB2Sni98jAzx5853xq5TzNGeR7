@@ -4,12 +4,18 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
 import ItemProfileCandidat from './navigation/ItemProfileCandidat';
 import ItemProfileEmployeur from './navigation/ItemProfileEmployeur';
+import { type } from '@testing-library/user-event/dist/type';
 
 
 
 const HeaderWeb = () => {
 
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+
+    var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat)
+    var idEmployeur = localStorage.getItem(localvalue.emloyeur.idEmployeur);
+
+
 
 
     return (
@@ -37,13 +43,23 @@ const HeaderWeb = () => {
 
                         <div class="col-lg-7 col-md-6">
                             <ul class="topbar-action">
-                                <li>
-                                    <a href={`/${routing.connexion.path}`}><i class="flaticon-padlock"></i> CONNEXION</a>
-                                </li>
+                                {
+                                    typeAdmin && typeAdmin == typeadmin.candidat | typeadmin.employeur ?
+                                        null :
+                                        <li>
+                                            <a href={`/${routing.connexion.path}`}><i class="flaticon-padlock"></i> CONNEXION</a>
+                                        </li>
+                                }
 
-                                <li>
-                                    <a href={`/${routing.inscription.path}`}><i class="flaticon-user"></i> INSCRIPTION</a>
-                                </li>
+
+                                {
+                                    typeAdmin && typeAdmin == typeadmin.candidat | typeadmin.employeur ?
+                                        null :
+                                        <li>
+                                            <a href={`/${routing.inscription.path}`}><i class="flaticon-user"></i> INSCRIPTION</a>
+                                        </li>
+                                }
+
 
                                 <li class="dropdown language-option">
                                     <button class="dropdown-toggle" type="button" id="language1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -184,15 +200,15 @@ const HeaderWeb = () => {
                                 </ul>
 
                                 {
-                                    typeAdmin == typeadmin.candidat ?
-                                    <ItemProfileCandidat/>:
-                                    null
+                                    typeAdmin && typeAdmin == typeadmin.candidat ?
+                                        <ItemProfileCandidat /> :
+                                        null
                                 }
 
                                 {
-                                    typeAdmin == typeadmin.employeur  ?
-                                    <ItemProfileEmployeur/>:
-                                    null
+                                    typeAdmin && typeAdmin == typeadmin.employeur ?
+                                        <ItemProfileEmployeur /> :
+                                        null
                                 }
 
 

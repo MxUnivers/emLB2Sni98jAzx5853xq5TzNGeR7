@@ -1,7 +1,18 @@
 import React from 'react'
 import { routing } from '../../../utlis/routing'
+import { localvalue } from '../../../utlis/storage/localvalue'
+import { CandidatDeconnexion } from '../../../action/api/candidat/CandidatAction';
+import { useState } from 'react';
 
 const ItemProfileCandidat = () => {
+    var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat);
+
+    const [loading, setloading] = useState(false);
+    const handleSumit = (e) => {
+        e.preventDefault();
+        CandidatDeconnexion(idCandidat);
+
+    }
     return (
         <div class="row align-items-center visible">
             <div class="col-lg-5 col-md-6 ">
@@ -21,8 +32,18 @@ const ItemProfileCandidat = () => {
                             <a class="dropdown-item" href={`/${routing.candidatProfile.path}`} >
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="#">
-                                Deconnexion
+
+                            <a class="dropdown-item" href="#" >
+
+                                <form onSubmit={handleSumit}>
+                                    <button type='submit' >
+                                        {
+                                            loading ?
+                                            "Deconnexion en cours ...":
+                                            "Deconnexion"
+                                        }
+                                    </button>
+                                </form>
                             </a>
                         </div>
                     </li>
