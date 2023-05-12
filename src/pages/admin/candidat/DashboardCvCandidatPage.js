@@ -73,7 +73,7 @@ const DashboardCvCandidatPage = () => {
                         {cv && (
                             <div>
                                 <object data={cv} type="application/pdf" width="100%" height="600px">
-                                    <p>Votre navigateur ne supporte pas les PDF intégrés. Vous pouvez télécharger le fichier <a href={cv}>ici</a>.</p>
+                                    <p>Votre navigateur ne supporte pas les PDF intégrés. Vous pouvez télécharger le fichier <a target='_blank' href={cv}>ici</a>.</p>
                                 </object>
                             </div>
                         )}
