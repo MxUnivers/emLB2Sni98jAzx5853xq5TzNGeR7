@@ -1,9 +1,5 @@
 import React from 'react';
 import { routing } from '../../utlis/routing';
-import NavbarItemCandidat from '../admin/candidat/NavbarItemCandidat';
-import NavbarItemEmployeur from '../admin/employer/NavbarItemEmployeur';
-import { Navbar } from 'react-bootstrap';
-import NavbarAdmin from '../admin/NavbarAdmin';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
 import ItemProfileCandidat from './navigation/ItemProfileCandidat';

@@ -51,15 +51,7 @@ export const EntrepriseConnexion = (data,redirect) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                localStorage.removeItem(localvalue.emloyeur.idEmployeur,response.data.data._id);
-                localStorage.removeItem(localvalue.emloyeur.coverPictureEmployeur,response.data.data.logo);
-                localStorage.removeItem(localvalue.emloyeur.tokenEmployeur,response.data.data.token);
-                localStorage.removeItem(localvalue.typeAdmin,response.data.data.type);
-                // Decconnecttion du candidat
-                localStorage.removeItem(localvalue.candidat.tokenCandidat);
-                localStorage.removeItem(localvalue.candidat.idCandidat);
-                localStorage.removeItem(localvalue.candidat.emailCandidat);
-                localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
+                
 
 
                 // ReRecupérer les données de connexion 
@@ -67,6 +59,12 @@ export const EntrepriseConnexion = (data,redirect) => {
                 localStorage.setItem(localvalue.emloyeur.coverPictureEmployeur,response.data.data.logo);
                 localStorage.setItem(localvalue.emloyeur.tokenEmployeur,response.data.data.token);
                 localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
+
+                // Decconnecttion du candidat
+                localStorage.removeItem(localvalue.candidat.tokenCandidat);
+                localStorage.removeItem(localvalue.candidat.idCandidat);
+                localStorage.removeItem(localvalue.candidat.emailCandidat);
+                localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
 
         
                 redirect(`/${routing.employeurDashboard.path}`);

@@ -1,8 +1,11 @@
 import React from 'react'
+import { localvalue } from '../../../utlis/storage/localvalue';
 
 const DashbordCandidatPage = () => {
+    var typeAdmin  = localStorage.getItem(localvalue.typeAdmin);
+    alert(typeAdmin);
     return (
-        
+
         <div>
             <div class="breadcrumb-area">
                 <h1>Howdy, Semas!</h1>
@@ -11,18 +14,18 @@ const DashbordCandidatPage = () => {
                     <li class="item">Dashboard</li>
                 </ol>
             </div>
-            
 
-            
+
+
             <div class="notification-alert alert alert-success alert-dismissible fade show" role="alert">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
 
-            
+
+
             <div class="dashboard-fun-fact-area">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -64,11 +67,13 @@ const DashbordCandidatPage = () => {
                             <h3>57</h3>
                         </div>
                     </div>
+
+
                 </div>
             </div>
-            
 
-            
+
+
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="recent-notifications-box">
@@ -174,6 +179,7 @@ const DashbordCandidatPage = () => {
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -277,7 +283,7 @@ const DashbordCandidatPage = () => {
                     </div>
                 </div>
             </div>
-            
+
 
 
 
@@ -289,7 +295,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Assistant Editor</a>
@@ -324,7 +330,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-2.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-2.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Marketing Director</a>
@@ -359,7 +365,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-3.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-3.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Android Developer</a>
@@ -394,7 +400,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-4.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-4.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Senior Manager</a>
@@ -429,7 +435,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-5.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-5.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Digital Marketer</a>
@@ -464,7 +470,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-6.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-6.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Shopify Developer</a>
@@ -499,7 +505,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-7.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-7.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">Senior Data Engineer</a>
@@ -534,7 +540,7 @@ const DashbordCandidatPage = () => {
                         <div class="dashboard-job-card">
                             <div class="job-content">
                                 <div class="company-logo">
-                                    <a href="job-details-1.html"><img src="assets/images/job/job-8.png" alt="image"/></a>
+                                    <a href="job-details-1.html"><img src="assets/images/job/job-8.png" alt="image" /></a>
                                 </div>
                                 <h3>
                                     <a href="job-details-1.html">UI/UX Designerr</a>

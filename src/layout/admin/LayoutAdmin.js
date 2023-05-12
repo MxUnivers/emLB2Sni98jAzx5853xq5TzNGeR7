@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+
 import NavbarAdmin from '../../components/admin/NavbarAdmin';
 import SideMenuBarAdmin from '../../components/admin/SideMenuBarAdmin';
 import { Navigate, Outlet } from 'react-router-dom';
 import FooterAdmin from '../../components/admin/FooterAdmin';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
-import { routing } from '../../utlis/routing';
 
 const LayoutAdmin = () => {
 

@@ -71,7 +71,7 @@ function App() {
           <Route path='' element={<LayoutAdmin />}>
 
           //Candidat
-            <Route path={`${routing.candidatDashboard.path}`} element={typeAdmin == typeadmin.candidat ?<DashbordCandidatPage/> : <Navigate to ="/"/>  } />
+            <Route path={`${routing.candidatDashboard.path}`} element={<DashbordCandidatPage/> } />
             <Route path={`${routing.candidatProfile.path}`} element={typeAdmin == typeadmin.candidat ?<DashboardProfileCandidatPgage /> : <Navigate to="/"/>} />
             <Route path={`${routing.candidatOffres.path}`} element={<DashboardOffreListCandidatPage />} />
             <Route path={`${routing.candidatOffresPostuler.path}`} element={<DashboardOffrePostulerCandidatPage />} />

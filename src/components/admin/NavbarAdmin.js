@@ -53,14 +53,14 @@ const NavbarAdmin = ({data}) => {
                         </ul>
 
                         {
-                            data.typeAdmin  == typeadmin.candidat ?
+                            data.type  == typeadmin.candidat ?
                              <NavbarItemCandidat data={data}/>
                              :
                              null
                             /* Profile candidat */
                         }
                         {
-                            data.typeAdmin == typeadmin.employeur ?
+                            data.type == typeadmin.employeur ?
                              <NavbarItemEmployeur/>
                              : null
                             /* Profile Employeur */
