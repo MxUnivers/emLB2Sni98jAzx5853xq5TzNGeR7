@@ -45,6 +45,7 @@ const DashboardDetailCandidatPage = () => {
                         </div>
                     </div>
                     <div className="flex mt-4">
+                    
                         <div className="mr-8">
                             <p className="font-medium text-gray-600">Compétences</p>
                             <ul>

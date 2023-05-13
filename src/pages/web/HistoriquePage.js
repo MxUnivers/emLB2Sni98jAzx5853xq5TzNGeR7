@@ -7,6 +7,7 @@ import { SiGooglemaps } from "react-icons/si";
 import { routing } from '../../utlis/routing';
 import { AiTwotoneEdit } from "react-icons/ai";
 import { typeadmin } from '../../utlis/storage/account';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 
 
@@ -107,33 +108,92 @@ const HistoriquePage = () => {
 
 
 
-
-
-
-                {
-                    typeAdmin == typeadmin.candidat ?
-                        <div class="shadow-md p-3 rounded-lg border">
-                            <h1 className="text-2xl font-bold mb-4">Vos offres d{"'"}emplois </h1>
-                            {offres.map((offre) => (
-                                <div key={offre.id} className="flex items-center mb-8">
-                                    <img
-                                        src={`${offre.logo}`.length > 15 || `${offre.logo}`.length == "" | null ? offre.logo :
-                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU"
-                                        }
-                                        alt={offre.titre}
-                                        className="w-16 h-16 object-cover rounded-full mr-4"
-                                    />
-                                    <div>
-                                        <h2 className="text-lg font-bold">{offre.titre}</h2>
-                                        <p className="text-gray-600">{offre.entreprise}</p>
-                                        <p className="text-gray-600">{offre.date}</p>
-                                    </div>
+                {/*     *********************************        Candidat          $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */}
+                <Tabs>
+                    <TabList class="flex flex-row my-2 border-b">
+                        <Tab><button
+                            class="bg-blue-500 hover:bg-blue-700 flex space-x-1 text-white font-bold py-1 px-3 rounded m-1"
+                        >Offres d{"'"}emplois</button></Tab>
+                        <Tab><button
+                            class="bg-blue-500 hover:bg-blue-700 flex space-x-1 text-white font-bold py-1 px-3 rounded m-1"
+                        >
+                            {
+                                typeAdmin == typeadmin.candidat && user ?
+                                    `Postulés (${user.offresPostulees.length})` :
+                                    null
+                            }
+                        </button></Tab>
+                        {
+                            /*
+                        <Tab><button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Offres d{"'"}emplois</button></Tab>
+                            */
+                        }
+                    </TabList>
+                    {
+                        typeAdmin == typeadmin.candidat ?
+                            <TabPanel>
+                                <h1 className="text-2xl font-bold mb-4">Vos offres d{"'"}emplois </h1>
+                                <div class="shadow-md p-3 rounded-lg border">
+                                    {offres.map((offre) => (
+                                        <div key={offre.id} className="flex items-center mb-8 hover:bg-gray-50">
+                                            <img
+                                                src={`${offre.logo}`.length > 15 || `${offre.logo}`.length == "" | null ? offre.logo :
+                                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU"
+                                                }
+                                                alt={offre.titre}
+                                                className="w-16 h-16 object-cover rounded-full mr-4"
+                                            />
+                                            <div>
+                                                <h2 className="text-lg font-bold">{offre.titre}</h2>
+                                                <p className="text-gray-600">{offre.entreprise}</p>
+                                                <p className="text-gray-600">{offre.date}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                        : null
-
-                }
+                            </TabPanel>
+                            : null
+                    }
+                    {
+                        typeAdmin == typeadmin.candidat ?
+                            <TabPanel>
+                                <h1 className="text-2xl font-bold mb-4"> Listes vos postes aux candidatures </h1>
+                                <div class="shadow-md p-3 rounded-lg border">
+                                    {
+                                        user &&
+                                        user.offresPostulees.map((offre) => (
+                                            <div key={offre.id} className="flex items-center mb-8 hover:bg-gray-50">
+                                                <img
+                                                    src={`${offre.logo}`.length > 15 || `${offre.logo}`.length == "" | null ? offre.logo :
+                                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU"
+                                                    }
+                                                    alt={offre.titre}
+                                                    className="w-16 h-16 object-cover rounded-full mr-4"
+                                                />
+                                                <div>
+                                                    <h2 className="text-lg font-bold">
+                                                        <a href={`/${routing.detailOffre.path}`}
+                                                        
+                                                        onClick={()=>{
+                                                            localStorage.setItem(localvalue.offreAdmin.id,user._id)
+                                                        }}
+                                                        >{offre.titre}</a>
+                                                    </h2>
+                                                    <p className="text-gray-600">{offre.entreprise}</p>
+                                                    <p className="text-gray-600">{offre.date}</p>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </TabPanel>
+                            : null
+                    }
+                    <TabPanel>
+                        <h2>Contenu de l'onglet 3</h2>
+                        <p>Ceci est le contenu de l'onglet 3.</p>
+                    </TabPanel>
+                </Tabs>
             </div>
 
 

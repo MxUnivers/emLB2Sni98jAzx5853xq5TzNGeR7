@@ -197,7 +197,7 @@ const HeaderWeb = () => {
                                     {
                                         typeAdmin == typeadmin.candidat && idCandidat !== null ?
                                             <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
+                                                <a href={`/${routing.historique.path}`} class="nav-link">PROFILE</a>
                                             </li>
                                             : null
                                     }
@@ -205,7 +205,7 @@ const HeaderWeb = () => {
                                     {
                                         typeAdmin == typeadmin.employeur && idEmployeur !== null ?
                                             <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
+                                                <a href={`/${routing.historique.path}`} class="nav-link">PROFILE</a>
                                             </li>
                                             : null
                                     }

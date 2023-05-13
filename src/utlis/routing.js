@@ -17,6 +17,9 @@ export const routing = {
     historique:{
         path:"historique-des-postes"
     },
+    detailOffre:{
+        path:"detail-offre"
+    },
      //Inscription
     inscription:{
         path:"option-inscription"

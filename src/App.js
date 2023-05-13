@@ -32,6 +32,7 @@ import DashboardAnnonceDetailPage from "./pages/admin/candidat/DashboardAnnonceD
 import LoginPage from "./pages/web/connexion/LoginPage";
 import SignUpPage from "./pages/web/inscription/SignUpPage";
 import HistoriquePage from "./pages/web/HistoriquePage";
+import OffreDetailPage from "./pages/web/OffreDetailPage";
 
 
 
@@ -57,6 +58,7 @@ function App() {
             <Route path={`${routing.contact.path}`} element={<ContactPage />} />
             // les annoncessur le site web
             <Route path={`${routing.historique.path}`} element={<HistoriquePage />} />
+            <Route path={`${routing.detailOffre.path}`} element={<OffreDetailPage />} />
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
             //inscription du candidat
