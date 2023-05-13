@@ -5,6 +5,7 @@ import { localvalue } from "../../../utlis/storage/localvalue";
 import { SEND_REQUEST } from "../annonces/AnnoncesAction";
 import { REQUEST_SUCCESS } from "../annonces/AnnoncesAction";
 import { REQUEST_FAILURE } from "../annonces/AnnoncesAction";
+import { redirect } from "react-router-dom";
 
 
 
@@ -164,7 +165,7 @@ export const CandidatConnexion = (data, redirect) => {
             });
     };
 }
-export const CandidatDeconnexion = async (id) => {
+export const CandidatDeconnexion = async (id,redirect) => {
 
     let config = {
         method: 'post',
@@ -186,7 +187,8 @@ export const CandidatDeconnexion = async (id) => {
             localStorage.removeItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
             localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
             localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
-
+            
+            redirect(`${routing.historique.path}`);
             window.location.reload();
         })
         .catch((error) => {
