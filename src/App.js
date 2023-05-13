@@ -31,6 +31,7 @@ import { typeadmin } from "./utlis/storage/account";
 import DashboardAnnonceDetailPage from "./pages/admin/candidat/DashboardAnnonceDetailPage";
 import LoginPage from "./pages/web/connexion/LoginPage";
 import SignUpPage from "./pages/web/inscription/SignUpPage";
+import HistoriquePage from "./pages/web/HistoriquePage";
 
 
 
@@ -55,6 +56,7 @@ function App() {
             <Route path={`${routing.home.path}`} element={<HomePage />} />
             <Route path={`${routing.contact.path}`} element={<ContactPage />} />
             // les annoncessur le site web
+            <Route path={`${routing.historique.path}`} element={<HistoriquePage />} />
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
             //inscription du candidat
