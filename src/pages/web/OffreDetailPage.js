@@ -13,7 +13,7 @@ const OffreDetailPage = () => {
     var idOffre = localStorage.getItem(localvalue.offreAdmin.id);
     const [offre, setoffre] = useState();
     useEffect(()=>{
-        OffreById(idOffre, setoffre)
+        OffreById(idOffre, setoffre);
     })
 
     const OffreById = async (id, setState) => {
