@@ -17,6 +17,9 @@ export const routing = {
     historique:{
         path:"historique-des-postes"
     },
+    stephistoriqueInscription:{
+        path:"etapes-d'inscription-sur-la-plateforme"
+    },
     detailOffre:{
         path:"detail-offre"
     },

@@ -3,7 +3,6 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { localvalue } from "../../../utlis/storage/localvalue";
-import { redirect } from "react-router-dom";
 import { routing } from "../../../utlis/routing";
 
 

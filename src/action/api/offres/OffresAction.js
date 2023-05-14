@@ -17,7 +17,6 @@ export const OffreGetAll = async (setState, setState2) => {
         }
     })
         .then((response) => {
-            console.log(JSON.stringify(response.data));
             setState(response.data.data);
             setState2(response.data.data);
         })

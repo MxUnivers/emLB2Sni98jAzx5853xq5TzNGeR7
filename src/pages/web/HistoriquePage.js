@@ -144,7 +144,13 @@ const HistoriquePage = () => {
                                                 className="w-16 h-16 object-cover rounded-full mr-4"
                                             />
                                             <div>
-                                                <h2 className="text-lg font-bold">{offre.titre}</h2>
+
+                                                <a className="text-lg font-bold" href={`/${routing.detailOffre.path}`}
+
+                                                    onClick={() => {
+                                                        localStorage.setItem(localvalue.offreAdmin.id, user._id)
+                                                    }}
+                                                >{offre.titre}</a>
                                                 <p className="text-gray-600">{offre.entreprise}</p>
                                                 <p className="text-gray-600">{offre.date}</p>
                                             </div>
@@ -173,10 +179,10 @@ const HistoriquePage = () => {
                                                 <div>
                                                     <h2 className="text-lg font-bold">
                                                         <a href={`/${routing.detailOffre.path}`}
-                                                        
-                                                        onClick={()=>{
-                                                            localStorage.setItem(localvalue.offreAdmin.id,user._id)
-                                                        }}
+
+                                                            onClick={() => {
+                                                                localStorage.setItem(localvalue.offreAdmin.id, user._id)
+                                                            }}
                                                         >{offre.titre}</a>
                                                     </h2>
                                                     <p className="text-gray-600">{offre.entreprise}</p>
