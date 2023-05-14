@@ -170,10 +170,15 @@ const HeaderWeb = () => {
 
 
                                     <li class="nav-item visible">
-                                        <a href="#" class="nav-link">
+                                        {
+                                            /*
+                                            <a href="#" class="nav-link">
                                             BLOG ET ACTUALITES
-                                            {/* <i class="ri-arrow-down-s-line"></i> */}
+                                            
                                         </a>
+                                            */
+                                        }
+                                        {/* <i class="ri-arrow-down-s-line"></i> */}
 
                                         {
                                             /*
@@ -212,6 +217,9 @@ const HeaderWeb = () => {
 
                                     <li class="nav-item visible">
                                         <a href={`/${routing.contact.path}`} class="nav-link">CONTACT</a>
+                                    </li>
+                                    <li class="nav-item visible">
+                                        <a href={`/${routing.stephistoriqueInscription.path}`} class="nav-link">AIDE</a>
                                     </li>
                                 </ul>
 

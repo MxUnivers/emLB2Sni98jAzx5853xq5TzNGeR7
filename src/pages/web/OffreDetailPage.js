@@ -50,11 +50,11 @@ const OffreDetailPage = () => {
 
 
             <div className="bg-gray-100 py-12 ">
-                {
+                {/*{
                     offre
-                    &&
+                    && */}
                     <div className="max-w-3xl mx-auto px-4">
-                        <h1 className="text-3xl font-bold mb-4">Titre de l'offre d'emploi</h1>
+                        <h1 className="text-3xl font-bold mb-4">Titre de votre offre</h1>
                         <p className="text-gray-600 mb-4">Lieu | Date postée | Date d{"'"}expiration</p>
                         <div className="bg-white p-6 rounded shadow mb-4">
                             <h2 className="text-xl font-bold mb-2">Détails du poste</h2>
@@ -69,18 +69,27 @@ const OffreDetailPage = () => {
                         <div className="bg-white p-6 rounded shadow mb-4">
                             <h2 className="text-xl font-bold mb-2">Candidats disponibles</h2>
                             {
+                                /*
+                                {
                                 offre &&
                                 <p className="text-gray-700 mb-4">Nombre de candidats disponibles : {offre.candidatPostulees.length}</p>
 
                             }
+                                */
+                            }
                             <ul className="list-disc list-inside">
-                                {
+                            {
+                                /*
+                                 {
                                     offre.candidatPostulees.map((item) => {
                                         return (
                                             <li>Nom du candidat 1 {item}</li>
                                         )
                                     })
                                 }
+                                */
+                            }
+
                             </ul>
                         </div>
                         <div className="bg-white p-6 rounded shadow mb-4">
@@ -92,6 +101,8 @@ const OffreDetailPage = () => {
                             <p className="text-gray-700 mb-4">Informations supplémentaires sur l'offre d'emploi...</p>
                         </div>
                     </div>
+                {
+                    /*} */
                 }
             </div>
 
