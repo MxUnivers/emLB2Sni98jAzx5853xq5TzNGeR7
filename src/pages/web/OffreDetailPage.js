@@ -23,7 +23,10 @@ const OffreDetailPage = () => {
                 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
             }
         })
-            .then((response) => { console.log(JSON.stringify(response.data.data)); setState(response.data.data); alert(response.data.data._id) })
+            .then((response) => {
+                /*console.log(JSON.stringify(response.data.data)); */
+                setState(response.data.data);
+            })
             .catch((error) => { console.log(error); });
 
     }
