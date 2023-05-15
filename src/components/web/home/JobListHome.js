@@ -13,33 +13,27 @@ const JobListHome = () => {
     // data annonces
     const [dataAnnonce, setdataAnnonce] = useState([]);
     //Pagindation data annonces
-    const pageSize =  1
+    const pageSize = 1
     const [start, setStart] = useState(0);
     const [perPage, setPerPage] = useState();
     const total = dataAnnonce.length;
-  
+
     const handleLoadMore = () => {
-      setPerPage(perPage + pageSize);
+        setPerPage(perPage + pageSize);
     };
-    
+
     useEffect(() => {
         Aos.init({
             duration: 10000,
             easing: 'ease-in-out-back',
             once: true
         });
-        AnnonceGetAll(setdataAnnonce);
 
 
     }, []);
 
-    const { data: annonces, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll());
-    if (isLoading) {
-        return <LoaderComponent/>;
-    }
+    const { data, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll(setdataAnnonce));
 
-    
-    
     return (
         <div class="job-list-area pb-100">
             <div class="container">
@@ -53,25 +47,30 @@ const JobListHome = () => {
                     </p>
                 </div>
 
-                <div class="row" data-aos="fade-up">
-                    {
-                        dataAnnonce.slice(start, perPage).map((item) => {
-                            return (
-                                <AnnonceCard data={item}/>
-                            )
-                        })
-                    }
-                    
-                </div>
+                {isLoading ?
+                    <LoaderComponent />
+                    :
+                    (
+                        <div class="row" data-aos="fade-up">
+                            {
+                                dataAnnonce.slice(start, perPage).map((item) => {
+                                    return (
+                                        <AnnonceCard data={item} />
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                }
 
                 {perPage < total && (
                     <div class="browse-jobs-btn" onClick={handleLoadMore}>
-                    <a href="job-listing-1.html" class="default-btn">charger plus <i class="flaticon-list-1"></i></a>
-                </div>
-                    
-                  )}
+                        <a href="job-listing-1.html" class="default-btn">charger plus <i class="flaticon-list-1"></i></a>
+                    </div>
+
+                )}
                 <div class="browse-jobs-btn">
-                    <a href="job-listing-1.html" class="default-btn">voir plus d{"'"}annonces <i class="flaticon-list-1"></i></a>
+                    <a href="#" class="default-btn">voir plus d{"'"}annonces <i class="flaticon-list-1"></i></a>
                 </div>
             </div>
         </div>

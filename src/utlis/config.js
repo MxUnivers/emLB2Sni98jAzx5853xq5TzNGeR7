@@ -9,6 +9,8 @@ export  const ApiKey = {
 
 export const  queryCahe ={
     annonces:"annonces",
+    annonceDetail:"annonces",
+    offreDetail:"annonces",
     offre:"offres",
     profile:{
         candidat:{

@@ -24,7 +24,7 @@ const AnnonceResultSearch = () => {
     useEffect(() => {
         AnnonceGetAll(setdataAnnonce);
     }, [])
-    const { data: annonces, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
+    const { data, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
     if (isLoading) {
         return <LoaderComponent/>;
     }

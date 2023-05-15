@@ -36,7 +36,7 @@ const AnnonceDetail = () => {
             .catch((error) => { console.log(error); });
     }
 
-    const { data: annonces, isLoading, isError } = useQuery(queryCahe.profile.commun, PostById(idPost));
+    const { data, isLoading, isError } = useQuery(queryCahe.offreDetail, PostById(idPost));
    
     return (
         <div>
@@ -46,6 +46,7 @@ const AnnonceDetail = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-md-12">
+                        
                             {
                                 isLoading ?
                                 <LoaderComponent/>
