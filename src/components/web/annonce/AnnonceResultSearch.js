@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from './card/AnnonceCard';
 import { localites } from '../../../utlis/options/annonceOptions';
 import { secteursActivites } from '../../../utlis/options/employeurOption';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import LoaderComponent from '../../chargement/LoaderComponent';
+
+const queryClient = new QueryClient();
 
 const AnnonceResultSearch = () => {
+
+    const { data: annonces, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
+
     const [dataAnnonce, setdataAnnonce] = useState([]);
     //Pagindation data annonces
     const pageSize = 1
@@ -19,8 +26,17 @@ const AnnonceResultSearch = () => {
         AnnonceGetAll(setdataAnnonce);
     }, [])
 
+    if (isLoading) {
+        return <LoaderComponent/>;
+    }
+
+    if (isError) {
+        return <div>Error fetching annonces</div>;
+    }
     return (
 
+
+        <Suspense fallback={<LoaderComponent/>}>
         <div class="w-full job-list-area pb-100" >
             <div class="w-full container-fluid flex justify-center">
                 <div class="w-full container flex justify-center">
@@ -84,7 +100,9 @@ const AnnonceResultSearch = () => {
                             </form>
                         </div>
 
+
                         <div class="row ">
+
                             {
                                 /*slice(start, perPage) */
                                 dataAnnonce.map((item) => {
@@ -94,6 +112,7 @@ const AnnonceResultSearch = () => {
                                 })
                             }
                         </div>
+
                         {perPage < total && (
                             <div class="browse-jobs-btn" onClick={handleLoadMore}>
                                 <a href="job-listing-1.html" class="default-btn">charger plus <i class="flaticon-list-1"></i></a>
@@ -105,6 +124,8 @@ const AnnonceResultSearch = () => {
                 </div>
             </div>
         </div>
+        
+        </Suspense>
     )
 }
 
