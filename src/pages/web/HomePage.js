@@ -10,6 +10,7 @@ import OverViewHome from '../../components/web/home/OverViewHome';
 import FooterWeb from '../../components/web/FooterWeb';
 
 const HomePage = () => {
+    
     return (
         <div>
             <BarnerHome />

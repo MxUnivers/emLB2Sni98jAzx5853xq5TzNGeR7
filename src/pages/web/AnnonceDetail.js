@@ -8,6 +8,9 @@ import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import moment from 'moment';
 import AnnonceCard from '../../components/web/annonce/card/AnnonceCard';
 import BarnerDetailAnnonce from '../../components/web/annonce/details/BarnerDetailAnnonce';
+import LoaderComponent from '../../components/chargement/LoaderComponent';
+import { useQuery } from 'react-query';
+import { queryCahe } from '../../utlis/config';
 
 const AnnonceDetail = () => {
     var idPost = sessionStorage.getItem(localvalue.annonceDetail.id);
@@ -33,6 +36,8 @@ const AnnonceDetail = () => {
             .catch((error) => { console.log(error); });
     }
 
+    const { data: annonces, isLoading, isError } = useQuery(queryCahe.profile.commun, PostById(idPost));
+   
     return (
         <div>
         <BarnerDetailAnnonce data={post && post.titre} />
@@ -42,62 +47,67 @@ const AnnonceDetail = () => {
                     <div class="row">
                         <div class="col-lg-8 col-md-12">
                             {
-                                post &&
-                                <div class="job-details-desc">
-                                <h2>{post.titre}</h2>
-                                
-                                <div class="job-details-content">
-                                    <h3>Description</h3>
-                                    <p class="p-3 bg-gray-100 rounded-lg">
-                                    {
-                                        post.description
-                                    }
-                                    </p>
-                                </div>
-
-                                <div class="row job-article-footer">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="article-tags">
-                                            <span>Information supplémentaire</span>
-                                            <a href="index.html">SALAIRE  : {post.salaire}</a>
-                                            <a href="index.html">Lieu : {post.lieu}</a>
-                                            <a href="index.html"> posté le : {moment(post.dateDebut).format('DD/MM/YYYY')}</a>
+                                isLoading ?
+                                <LoaderComponent/>
+                                :
+                                (
+                                    post &&
+                                    <div class="job-details-desc">
+                                    <h2>{post.titre}</h2>
+                                    
+                                    <div class="job-details-content">
+                                        <h3>Description</h3>
+                                        <p class="p-3 bg-gray-100 rounded-lg">
+                                        {
+                                            post.description
+                                        }
+                                        </p>
+                                    </div>
+    
+                                    <div class="row job-article-footer">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="article-tags">
+                                                <span>Information supplémentaire</span>
+                                                <a href="index.html">SALAIRE  : {post.salaire}</a>
+                                                <a href="index.html">Lieu : {post.lieu}</a>
+                                                <a href="index.html"> posté le : {moment(post.dateDebut).format('DD/MM/YYYY')}</a>
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="article-share">
+                                                <ul class="social">
+                                                    <li><span>Réseaux sociaux</span></li>
+    
+                                                    <li>
+                                                        <a href="https://www.facebook.com/" target="_blank">
+                                                            <i class="flaticon-facebook"></i>
+                                                        </a>
+                                                    </li>
+    
+                                                    <li>
+                                                        <a href="https://twitter.com/" target="_blank">
+                                                            <i class="flaticon-twitter"></i>
+                                                        </a>
+                                                    </li>
+    
+                                                    <li>
+                                                        <a href="https://www.instagram.com/" target="_blank">
+                                                            <i class="flaticon-instagram"></i>
+                                                        </a>
+                                                    </li>
+    
+                                                    <li>
+                                                        <a href="https://www.linkedin.com/" target="_blank">
+                                                            <i class="flaticon-linkedin"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="article-share">
-                                            <ul class="social">
-                                                <li><span>Réseaux sociaux</span></li>
-
-                                                <li>
-                                                    <a href="https://www.facebook.com/" target="_blank">
-                                                        <i class="flaticon-facebook"></i>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="https://twitter.com/" target="_blank">
-                                                        <i class="flaticon-twitter"></i>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="https://www.instagram.com/" target="_blank">
-                                                        <i class="flaticon-instagram"></i>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="https://www.linkedin.com/" target="_blank">
-                                                        <i class="flaticon-linkedin"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
+                                )
                             }
 
 

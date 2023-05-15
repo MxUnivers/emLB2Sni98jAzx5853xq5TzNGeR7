@@ -4,6 +4,10 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from '../annonce/card/AnnonceCard';
+import ErrorComponent from '../../chargement/ErrorComponent';
+import { useQuery } from 'react-query';
+import LoaderComponent from '../../chargement/LoaderComponent';
+import { queryCahe } from '../../../utlis/config';
 
 const JobListHome = () => {
     // data annonces
@@ -28,6 +32,14 @@ const JobListHome = () => {
 
 
     }, []);
+
+    const { data: annonces, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll());
+    if (isLoading) {
+        return <LoaderComponent/>;
+    }
+
+    
+    
     return (
         <div class="job-list-area pb-100">
             <div class="container">
@@ -35,8 +47,8 @@ const JobListHome = () => {
                     <h2>Annonces Recentes</h2>
                     <p>
                         Découvrez les offres
-                        d'emploi les plus récentes sur notre plateforme de gestion
-                        d'emplois. Nous avons des opportunités passionnantes dans différents domaines, des postes à temps plein, à temps partiel et des stages. Nous travaillons avec des entreprises de premier plan pour vous aider à trouver votre prochaine opportunité professionnelle. Parcourez
+                        d{"'"}emploi les plus récentes sur notre plateforme de gestion
+                        d{"'"}emplois. Nous avons des opportunités passionnantes dans différents domaines, des postes à temps plein, à temps partiel et des stages. Nous travaillons avec des entreprises de premier plan pour vous aider à trouver votre prochaine opportunité professionnelle. Parcourez
                         nos annonces récentes et postulez dès maintenant pour commencer votre carrière.
                     </p>
                 </div>

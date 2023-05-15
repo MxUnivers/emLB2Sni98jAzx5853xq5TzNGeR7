@@ -10,8 +10,7 @@ const queryClient = new QueryClient();
 
 const AnnonceResultSearch = () => {
 
-    const { data: annonces, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
-
+   
     const [dataAnnonce, setdataAnnonce] = useState([]);
     //Pagindation data annonces
     const pageSize = 1
@@ -25,7 +24,7 @@ const AnnonceResultSearch = () => {
     useEffect(() => {
         AnnonceGetAll(setdataAnnonce);
     }, [])
-
+    const { data: annonces, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
     if (isLoading) {
         return <LoaderComponent/>;
     }

@@ -7,4 +7,21 @@ export  const ApiKey = {
     }
 }
 
+export const  queryCahe ={
+    annonces:"annonces",
+    offre:"offres",
+    profile:{
+        candidat:{
+            offres:"offreCandidat",
+            annonces:"annoncesCandidat",
+            profile:"candidatProfile"
+        },
+        employeur:{
+            offres:"employeurOffres",
+            annonces:"employeurAnnounces",
+            profile:"employeurProfile"
+        },
+        commun:"commnun"
+    },
 
+} 
