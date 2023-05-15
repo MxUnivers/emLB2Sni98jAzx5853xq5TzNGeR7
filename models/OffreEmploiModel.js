@@ -18,7 +18,6 @@ const offreEmploiSchema = new mongoose.Schema(
       type: String,
       enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
       required: false,
-      default: "CDD"
     },
     secteur_activites: {
       type: String,
