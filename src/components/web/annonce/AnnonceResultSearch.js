@@ -3,12 +3,14 @@ import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from './card/AnnonceCard';
 import { localites } from '../../../utlis/options/annonceOptions';
 import { secteursActivites } from '../../../utlis/options/employeurOption';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import LoaderComponent from '../../chargement/LoaderComponent';
+import { localvalue } from '../../../utlis/storage/localvalue';
+import ErrorComponent from '../../chargement/ErrorComponent';
 
-const queryClient = new QueryClient();
 
 const AnnonceResultSearch = () => {
+    
 
    
     const [dataAnnonce, setdataAnnonce] = useState([]);
@@ -21,21 +23,16 @@ const AnnonceResultSearch = () => {
     const handleLoadMore = () => {
         setPerPage(perPage + pageSize);
     };
-    useEffect(() => {
-        AnnonceGetAll(setdataAnnonce);
-    }, [])
-    const { data, isLoading, isError } = useQuery('annonces', AnnonceGetAll);
+    
+    const { data, isLoading, isError } = useQuery('annonces', AnnonceGetAll(setdataAnnonce));
     if (isLoading) {
         return <LoaderComponent/>;
     }
 
-    if (isError) {
-        return <div>Error fetching annonces</div>;
-    }
+    
     return (
 
 
-        <Suspense fallback={<LoaderComponent/>}>
         <div class="w-full job-list-area pb-100" >
             <div class="w-full container-fluid flex justify-center">
                 <div class="w-full container flex justify-center">
@@ -101,10 +98,9 @@ const AnnonceResultSearch = () => {
 
 
                         <div class="row ">
-
                             {
                                 /*slice(start, perPage) */
-                                dataAnnonce.map((item) => {
+                                dataAnnonce?.map((item) => {
                                     return (
                                         <AnnonceCard data={item} />
                                     )
@@ -124,7 +120,6 @@ const AnnonceResultSearch = () => {
             </div>
         </div>
         
-        </Suspense>
     )
 }
 

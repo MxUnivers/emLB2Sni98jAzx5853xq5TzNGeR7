@@ -24,12 +24,9 @@ const JobListHome = () => {
 
     useEffect(() => {
         Aos.init({
-            duration: 10000,
-            easing: 'ease-in-out-back',
-            once: true
+            duration: 10000, easing: 'ease-in-out-back' , once: true
         });
-
-
+        AnnonceGetAll(setdataAnnonce);
     }, []);
 
     const { data, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll(setdataAnnonce));
