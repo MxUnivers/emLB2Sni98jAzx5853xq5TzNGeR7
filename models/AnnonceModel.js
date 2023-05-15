@@ -20,6 +20,10 @@ const annonceSchema = new Schema({
     telephone:{
         type:String,required:false
     },
+    secteur_activites :{
+        type:String,
+        
+    },
     lieu: {
         type: String,
         required: false,

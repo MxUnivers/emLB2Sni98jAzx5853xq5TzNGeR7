@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { secteursActivites } = require('../utils/FormatApi')
 
 
 // Schéma pour les offres d'emploi
@@ -16,6 +17,12 @@ const offreEmploiSchema = new mongoose.Schema(
     typeContrat: {
       type: String,
       enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
+      required: false,
+      default: "CDD"
+    },
+    secteur_activites: {
+      type: String,
+      enum: secteursActivites,
       required: false,
       default: "CDD"
     },
