@@ -8,6 +8,9 @@ export const routing = {
     contact: {
         path: "contact"
     },
+    categoriesAnnonces:{
+        path:`categories-annonces`
+    },
     searchAnnonce: {
         path: "rechercher-des-annonces"
     },

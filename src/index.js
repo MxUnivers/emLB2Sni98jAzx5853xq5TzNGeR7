@@ -4,17 +4,27 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './app/store';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(
+  {
+    defaultOptions: {
+      queries: {
+        cacheTime: 1000 * 60 * 1, // 5 minutes
+        staleTime: 1000 * 60 * 1, // 1 minute
+      },
+    },
+  }
+);
 
 
+const queryCache = new QueryCache();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient} queryCache={queryCache} >
         <App />
       </QueryClientProvider>
     </Provider>

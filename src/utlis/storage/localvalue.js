@@ -8,6 +8,7 @@ export const localvalue = {
         description:"descriptionAnnonceWeb",
         salaire:"salaireAnnonceWeb",
         lieu:"salaireAnnonceWeb",
+        secteur_activites:"secteur_activites-annonces"
     },
 
 

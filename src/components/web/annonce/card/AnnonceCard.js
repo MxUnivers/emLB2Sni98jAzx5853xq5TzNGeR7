@@ -1,6 +1,5 @@
 import React from 'react'
 import { routing } from '../../../../utlis/routing'
-import { LocaleState } from '../../../../utlis/storage/localvalueFunction'
 import { localvalue } from '../../../../utlis/storage/localvalue'
 import moment from 'moment';
 

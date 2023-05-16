@@ -24,12 +24,12 @@ const JobListHome = () => {
 
     useEffect(() => {
         Aos.init({
-            duration: 10000, easing: 'ease-in-out-back' , once: true
+            duration: 10000, easing: 'ease-in-out-back', once: true
         });
         AnnonceGetAll(setdataAnnonce);
     }, []);
 
-    const { data, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll(setdataAnnonce));
+    // const { data, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll(setdataAnnonce));
 
     return (
         <div class="job-list-area pb-100">
@@ -44,20 +44,21 @@ const JobListHome = () => {
                     </p>
                 </div>
 
-                {isLoading ?
-                    <LoaderComponent />
-                    :
-                    (
-                        <div class="row" data-aos="fade-up">
-                            {
-                                dataAnnonce.slice(start, perPage).map((item) => {
-                                    return (
-                                        <AnnonceCard data={item} />
-                                    )
-                                })
-                            }
-                        </div>
-                    )
+
+                {
+                    dataAnnonce && dataAnnonce.length > 0 ?
+                        (
+                            <div class="row" data-aos="fade-up">
+                                {
+                                    dataAnnonce.slice(start, perPage).map((item) => {
+                                        return (
+                                            <AnnonceCard data={item} />
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                        : <LoaderComponent />
                 }
 
                 {perPage < total && (
