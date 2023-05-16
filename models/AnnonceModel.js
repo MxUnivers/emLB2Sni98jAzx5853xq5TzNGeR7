@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { secteursActivites } = require('../utils/FormatApi');
 const Schema = mongoose.Schema;
 
 const annonceSchema = new Schema({
@@ -14,42 +15,44 @@ const annonceSchema = new Schema({
         type: String,
         required: false
     },
-    email:{
-        type:String,required:false
+    email: {
+        type: String, required: false
     },
-    telephone:{
-        type:String,required:false
+    telephone: {
+        type: String, required: false
     },
-    secteur_activites :{
-        type:String,
-        
-    },
+    
     lieu: {
         type: String,
         required: false,
-        default:"Abidjan"
+        default: "Abidjan"
     },
     salaire: {
         type: Number,
         required: false,
-        default:0
+        default: 0
     },
-    dateDebut:{
-        type:Date,
-        default:Date.now,
+    dateDebut: {
+        type: Date,
+        default: Date.now,
     },
-    dateFin:{
-        type:Date,
-        default:Date.now,
+    dateFin: {
+        type: Date,
+        default: Date.now,
     },
     candidats: [{
         type: Schema.Types.ObjectId,
         ref: 'Candidat',
     }],
-    blocked:{
-        type:Boolean,
-        required:false,
-        default:false
+    secteur_activites: {
+        type: String,
+        enum: secteursActivites,
+        required: false,
+      },
+    blocked: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 

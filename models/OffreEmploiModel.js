@@ -23,7 +23,6 @@ const offreEmploiSchema = new mongoose.Schema(
       type: String,
       enum: secteursActivites,
       required: false,
-      default: "CDD"
     },
     salaire: { type: Number },
     competences: [String],
