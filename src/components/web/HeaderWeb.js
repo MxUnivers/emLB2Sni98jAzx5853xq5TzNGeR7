@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { routing } from '../../utlis/routing';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
 import ItemProfileCandidat from './navigation/ItemProfileCandidat';
 import ItemProfileEmployeur from './navigation/ItemProfileEmployeur';
-import { type } from '@testing-library/user-event/dist/type';
+import { CategorieGetAllAnnonces } from '../../action/api/annonces/AnnoncesAction';
+import { keyboard } from '@testing-library/user-event/dist/keyboard';
 
 
 
@@ -15,6 +16,11 @@ const HeaderWeb = () => {
     var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat)
     var idEmployeur = localStorage.getItem(localvalue.emloyeur.idEmployeur);
 
+
+    const [keywords, setkeywords] = useState([]);
+    useEffect(() => {
+        CategorieGetAllAnnonces(setkeywords);
+    }, []);
 
 
 
@@ -115,7 +121,7 @@ const HeaderWeb = () => {
                                 <ul class="navbar-nav m-auto">
                                     <li class="nav-item visible">
                                         <a href={`/`} class="nav-link text-xl">
-                                            ACCUEIL
+                                            Accueil
                                             {
                                                 /*<i class="ri-arrow-down-s-line"></i> */
                                             }
@@ -136,7 +142,7 @@ const HeaderWeb = () => {
 
                                     <li class="nav-item visible">
                                         <a href={`/${routing.searchAnnonce.path}`} class="nav-link">
-                                            ANNONCES
+                                            Annonces
                                             {
                                                 /*<i class="ri-arrow-down-s-line"></i> */
                                             }
@@ -144,7 +150,7 @@ const HeaderWeb = () => {
 
                                         <ul class="dropdown-menu">
                                             <li class="nav-item">
-                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">RECHERCHER VOTRE ANNONCE</a>
+                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">Recherche Annonce</a>
                                             </li>
                                             {
                                                 /*<li class="nav-item">
@@ -154,15 +160,41 @@ const HeaderWeb = () => {
 
                                             <li class="nav-item">
                                                 <a href="#" class="nav-link">
-                                                    Details sur le JOB
+                                                    Recherche Catégorie
                                                     <i class="ri-arrow-right-s-line"></i>
                                                 </a>
 
-                                                <ul class="dropdown-menu">
-                                                    <li class="nav-item">
-                                                        <a href={`/${routing.detailAnnonce.path}`} class="nav-link">Details de l{"'"}annonce</a>
-                                                    </li>
-                                                </ul>
+
+                                                {
+                                                    keywords && keywords.length > 0 ?
+                                                        (
+                                                            <ul class="dropdown-menu">
+
+                                                                {
+                                                                    keywords.map((category) => {
+                                                                        return (
+                                                                            <li class="nav-item">
+                                                                                <a href={`/${routing.categoriesAnnonces.path}`}
+                                                                                    onClick={() => {
+                                                                                        localStorage.setItem(localvalue.annonceDetail.secteur_activites, `${category}`)
+                                                                                    }}
+                                                                                    class="nav-link"> {category}</a>
+                                                                            </li>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </ul>
+                                                        )
+                                                        :
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <div className="flex items-center justify-center">
+                                                                    <span className="text-3xl font-semibold animate-pulse">Chargement...</span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+
+                                                }
                                             </li>
                                         </ul>
                                     </li>
@@ -202,7 +234,7 @@ const HeaderWeb = () => {
                                     {
                                         typeAdmin == typeadmin.candidat && idCandidat !== null ?
                                             <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">PROFILE</a>
+                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
                                             </li>
                                             : null
                                     }
@@ -210,16 +242,16 @@ const HeaderWeb = () => {
                                     {
                                         typeAdmin == typeadmin.employeur && idEmployeur !== null ?
                                             <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">PROFILE</a>
+                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
                                             </li>
                                             : null
                                     }
 
                                     <li class="nav-item visible">
-                                        <a href={`/${routing.contact.path}`} class="nav-link">CONTACT</a>
+                                        <a href={`/${routing.contact.path}`} class="nav-link">Contact</a>
                                     </li>
                                     <li class="nav-item visible">
-                                        <a href={`/${routing.stephistoriqueInscription.path}`} class="nav-link">AIDE</a>
+                                        <a href={`/${routing.stephistoriqueInscription.path}`} class="nav-link">Aide</a>
                                     </li>
                                 </ul>
 
