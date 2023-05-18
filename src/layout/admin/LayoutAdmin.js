@@ -5,6 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import FooterAdmin from '../../components/admin/FooterAdmin';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
+import HeaderWeb from '../../components/web/HeaderWeb';
 
 const LayoutAdmin = () => {
 
@@ -36,9 +37,17 @@ const LayoutAdmin = () => {
   }
   return (
     <div>
+    
+    
+
       <SideMenuBarAdmin />
       <div class="main-dashboard-content d-flex flex-column">
-        <NavbarAdmin data={dataItem} />
+        {
+          /*
+          <NavbarAdmin data={dataItem} />
+          */
+        }
+        <HeaderWeb/>
         <Outlet />
         <FooterAdmin />
       </div>
