@@ -241,6 +241,10 @@ class _HomePageState extends State<HomePage> {
                     ),
             ])));
   }
+  
+  
+
+  // Candidat
   Future<bool> _onWillPop() async {
     if (_lastPressedAt == null ||
         DateTime.now().difference(_lastPressedAt!) > Duration(seconds: 2)) {
@@ -250,13 +254,18 @@ class _HomePageState extends State<HomePage> {
     }
     return true; // Si l'utilisateur appuie sur le bouton retour deux fois en moins de 2 secondes, on autorise la sortie de l'application
   }
+
   //Redirection page
   void redirectToPage(BuildContext context) {
+    if(id== null){
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ConnexionPage()),
-    );
+    );}
+    return;
   }
+
+
 }
 
 
