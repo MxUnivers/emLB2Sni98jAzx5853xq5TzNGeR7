@@ -101,8 +101,13 @@ const HeaderWeb = () => {
                         <div class="main-responsive-menu">
                             <div class="logo">
                                 <a href="/">
-                                    <img src="assets/images/logo-2.png" class="white-logo" alt="logo" />
-                                    <img src="assets/images/logo.png" class="black-logo" alt="logo" />
+                                <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
+                                <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="black-logo w-14 h-14" alt="logo" />
+                                    {
+                                        /*
+                                        <img src="assets/images/logo.png" class="black-logo" alt="logo" />
+                                        */
+                                    }
                                 </a>
                             </div>
                         </div>
@@ -113,8 +118,14 @@ const HeaderWeb = () => {
                     <div class="container-fluid">
                         <nav class="navbar navbar-expand-md navbar-light">
                             <a class="navbar-brand" href={"/"}>
-                                <img src="assets/images/logo-2.png" class="white-logo" alt="logo" />
+                            {
+                                /*
                                 <img src="assets/images/logo.png" class="black-logo" alt="logo" />
+                                */
+                            }
+                            <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
+                                <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="black-logo w-14 h-14" alt="logo" />
+                                
                             </a>
 
                             <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
