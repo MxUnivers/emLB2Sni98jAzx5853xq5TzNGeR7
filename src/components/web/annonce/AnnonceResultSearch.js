@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import { AnnonceGetAll, CategorieGetAllAnnonces } from '../../../action/api/annonces/AnnoncesAction';
+import { AnnonceGetAll, CategorieGetAllAnnonces, LocationGetAllAnnonces } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from './card/AnnonceCard';
 import { localites } from '../../../utlis/options/annonceOptions';
 import { secteursActivites } from '../../../utlis/options/employeurOption';
@@ -14,11 +14,30 @@ import { localvalue } from '../../../utlis/storage/localvalue';
 
 const AnnonceResultSearch = () => {
 
+    // listes des secteurs d'ectivités et lieu de l'application
     const [keywords, setkeywords] = useState(['Mot-clé 1', 'Mot-clé 2', 'Mot-clé 3', 'Mot-clé 4', 'Mot-clé 5']);
+    const [localites_list, setlocalites_list] = useState([]);
+
+    // State des mot clés / secteurs / lieur de localisation
+    const [keyword, setKeyword] = useState('');
+    const [location, setLocation] = useState('');
+    const [category, setCategory] = useState('');
+    const handleSearch = () => {
+        const filteredData = dataAnnonce.filter((annonce) => {
+            const matchesKeyword = annonce.titre.toLowerCase().includes(keyword.toLowerCase());
+            const matchesLocation = location === '' || annonce.lieu === location;
+            const matchesCategory = category === '' || annonce.secteur_activites === category;
+            return matchesKeyword && matchesLocation && matchesCategory;
+        });
+
+        setdataAnnonce(filteredData);
+    };
+
 
 
 
     const [dataAnnonce, setdataAnnonce] = useState([]);
+    const [dataAnnonce2, setdataAnnonce2] = useState([]);
     //Pagindation data annonces
     const pageSize = 1
     const [start, setStart] = useState(0);
@@ -31,6 +50,7 @@ const AnnonceResultSearch = () => {
     useEffect(() => {
         AnnonceGetAll(setdataAnnonce);
         CategorieGetAllAnnonces(setkeywords);
+        LocationGetAllAnnonces(setlocalites_list);
     }, [])
 
 
@@ -63,35 +83,37 @@ const AnnonceResultSearch = () => {
                             <Carousel showThumbs={false} showArrows={true} showStatus={false} showIndicators={false} dynamicHeight={false}>
                                 {keywords.map((keyword, index) => (
                                     <div key={index}>
-                                        <a  href={`/${routing.categoriesAnnonces.path}`}
-                                        onClick={()=>{
-                                            localStorage.setItem(localvalue.annonceDetail.secteur_activites,`${keyword.toString()}`);
-                                        }}
-                                        
-                                        className="bg-blue-500 text-white rounded-full px-4 py-2">
+                                        <a href={`/${routing.categoriesAnnonces.path}`}
+                                            onClick={() => {
+                                                localStorage.setItem(localvalue.annonceDetail.secteur_activites, `${keyword.toString()}`);
+                                            }}
+
+                                            className="bg-blue-500 text-white rounded-full px-4 py-2">
                                             {keyword}
                                         </a>
                                     </div>
                                 ))}
                             </Carousel>
 
-                            <form class="job-list-search-form">
+                            <div class="job-list-search-form">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label><i class="flaticon-edit"></i></label>
-                                            <input class="form-control" type="text" placeholder="mot clé" />
+                                            <input class="form-control" type="text" placeholder="mot clé"
+                                                onChange={(e) => setKeyword(e.target.value)}
+                                            />
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label><i class="flaticon-placeholder"></i></label>
-                                            <select class="selectize-filter form-control" >
-                                                <option >Location</option>
-                                                {localites.map((localite) => (
-                                                    <option key={localite.value} value={localite.value}>
-                                                        {localite.label}
+                                            <select class="selectize-filter form-control" onChange={(e) => setLocation(e.target.value)} >
+                                                <option >-----Lieu -----</option>
+                                                {localites_list.map((localite) => (
+                                                    <option key={localite} value={localite}>
+                                                        {localite}
                                                     </option>
                                                 ))}
                                             </select>
@@ -101,11 +123,11 @@ const AnnonceResultSearch = () => {
                                     <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label><i class="flaticon-list"></i></label>
-                                            <select class="selectize-filter form-control">
-                                                <option value="1">Catégorie</option>
-                                                {secteursActivites.map((item) => (
-                                                    <option key={item.value} value={item.value}>
-                                                        {item.label}
+                                            <select class="selectize-filter form-control" onChange={(e) => setCategory(e.target.value)} >
+                                                <option value="1">-----Catégorie -----</option>
+                                                {keywords.map((item) => (
+                                                    <option key={item} value={item}>
+                                                        {item}
                                                     </option>
                                                 ))}
                                             </select>
@@ -113,10 +135,12 @@ const AnnonceResultSearch = () => {
                                     </div>
 
                                     <div class="search-btn">
-                                        <button type="submit"><i class="ri-search-line"></i></button>
+                                        <button
+                                            onClick={handleSearch}
+                                        ><i class="ri-search-line"></i></button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
 

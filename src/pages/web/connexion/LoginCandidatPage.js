@@ -32,7 +32,7 @@ const LoginCandidatPage = () => {
       alert("Champ mot de passe vide ");
       return;
     }
-    dispatch(CandidatConnexion(formData,navigation));
+    dispatch(CandidatConnexion(formData));
   };
 
 

@@ -60,7 +60,7 @@ export const AnnonceGetAllByCategories = async (id, setState) => {
 
 
 
-// recupérer les catagerorie des annonces uniquement
+// recupérer les secteur d'activites des annonces
 export const CategorieGetAllAnnonces = async (setState) => {
     try {
         const response = await axios.get(`${baseurl.url}/api/v1/annonce/get_annonces`, {
@@ -94,6 +94,48 @@ export const CategorieGetAllAnnonces = async (setState) => {
         console.log(error);
     }
 };
+
+
+
+
+
+// recuprer tous les lieux des annonces dans l'application 
+export const LocationGetAllAnnonces = async (setState) => {
+    try {
+        const response = await axios.get(`${baseurl.url}/api/v1/annonce/get_annonces`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        });
+
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+            console.log(response.data.data)
+            // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
+            let liste = response.data.data;
+            let obj = {};
+            let result = [];
+            for (let i = 0; i < liste.length; i++) {
+                let element = liste[i];
+                let key = element.lieu;
+                if (!obj[key]) {
+                    obj[key] = true;
+                    result.push(key);
+                }
+            }
+            console.log(result); // Output: ["ok", "Supr"]
+            setState(result);
+        } else {
+            console.log('La structure de la réponse est incorrecte');
+            alert("la Structure des données est incorrecte")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
 
 
 

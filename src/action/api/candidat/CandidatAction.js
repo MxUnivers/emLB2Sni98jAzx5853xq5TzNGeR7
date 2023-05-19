@@ -129,7 +129,7 @@ export const CandidatEditPassword = (id, data) => {
 
 // Authenfication du candidate
 
-export const CandidatConnexion = (data, redirect) => {
+export const CandidatConnexion = (data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -152,10 +152,9 @@ export const CandidatConnexion = (data, redirect) => {
                 localStorage.removeItem(localvalue.emloyeur.idEmployeur);
                 localStorage.removeItem(localvalue.emloyeur.tokenEmployeur);
                 localStorage.removeItem(localvalue.emloyeur.emailEmployeur);
-                alert(response.data.data.type);
-                alert(response.data.data._id);
 
-                redirect(`/${routing.candidatDashboard.path}`);
+                // redirect(`/${routing.candidatDashboard.path}`);
+                window.location.reload();
 
 
             })
@@ -164,7 +163,7 @@ export const CandidatConnexion = (data, redirect) => {
             });
     };
 }
-export const CandidatDeconnexion = async (id,redirect) => {
+export const CandidatDeconnexion = async (id) => {
 
     let config = {
         method: 'post',
@@ -187,7 +186,7 @@ export const CandidatDeconnexion = async (id,redirect) => {
             localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
             localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
             
-            redirect(`${routing.historique.path}`);
+            // redirect(`${routing.historique.path}`);
             window.location.reload();
         })
         .catch((error) => {

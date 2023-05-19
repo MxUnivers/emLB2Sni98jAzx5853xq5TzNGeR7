@@ -3,16 +3,25 @@ import { routing } from '../../../utlis/routing'
 import { localvalue } from '../../../utlis/storage/localvalue'
 import { CandidatDeconnexion } from '../../../action/api/candidat/CandidatAction';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ItemProfileCandidat = () => {
     var idCandidat = localStorage.getItem(localvalue.candidat.idCandidat);
 
+
+    const dispatch = useDispatch();
+    const error = useSelector((state) => state.error);
     const [loading, setloading] = useState(false);
     const handleSumit = (e) => {
-        e.preventDefault();
-        CandidatDeconnexion(idCandidat);
-
+        if (idCandidat == null) {
+            alert("Déconnexion impossible")
+        }
+        else {
+            e.preventDefault();
+            CandidatDeconnexion(idCandidat);
+        }
     }
+
     return (
         <div class="row align-items-center visible">
             <div class="col-lg-5 col-md-6 ">
@@ -36,13 +45,13 @@ const ItemProfileCandidat = () => {
                             <a class="dropdown-item" href="#" >
 
                                 <form onSubmit={handleSumit}>
-                                    <button type='submit' >
-                                        {
-                                            loading ?
-                                            "Deconnexion en cours ...":
-                                            "Deconnexion"
-                                        }
-                                    </button>
+                                    <a class="dropdown-item" href={`#`} >
+                                        <button type='submit' >
+                                            {
+                                                loading ? "Deconnexion en cours ..." :"Deconnexion"
+                                            }
+                                        </button>
+                                    </a>
                                 </form>
                             </a>
                         </div>
