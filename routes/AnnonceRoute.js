@@ -5,7 +5,7 @@ const CandidatModel = require("../models/CandidatModel");
 
 const admin = require('firebase-admin');
 
-const serviceAccount = require('/utils/google-services.json');
+const serviceAccount = require('./../utils/google-services.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
