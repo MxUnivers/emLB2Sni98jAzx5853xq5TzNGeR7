@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { CandidatGetAll } from '../../../action/api/candidat/CandidatAction';
+import Fuse from 'fuse.js';
+import CandidatCardAdmin from '../../../components/admin/CandidatCardAdmin';
+import { HiRefresh } from 'react-icons/hi';
 
 const DashBoardMemberCandidatPage = () => {
     const [dataCandidat, setdataCandidat] = useState([]);
     useEffect(() => {
         CandidatGetAll(setdataCandidat);
     }, [])
+
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [SearchResults, setSearchResults] = useState([]);
+    const [loadingSearch, setloadingSearch] = useState(false)
+
+    const options = {
+        keys: ['secteurs_activites', 'titre', 'lieu', 'dateDebut'],
+        threshold: 0.3, // Ajustez le seuil selon vos besoins
+    };
+
+    // Fonction de recherche
+    const performSearch = () => {
+        const fuse = new Fuse(dataCandidat, options);
+        const results = fuse.search(searchTerm);
+        setSearchResults(results.map((result) => result.item));
+        setloadingSearch(true);
+    };
+
+
 
     return (
         <div>
@@ -25,41 +48,36 @@ const DashBoardMemberCandidatPage = () => {
             <div class="all-applicants-box">
                 <h2>Candidat</h2>
 
+                <div className="flex items-center">
+                    <input
+                        className="border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Rechercher..."
+                        value={searchTerm}
+                        onChange={(e) => { setSearchTerm(e.target.value); performSearch(); }}
+                    />
+                    {
+                        loadingSearch ?
+                            <span class="btn bg-blue-700 hover:bg-blue-800 active:bg-blue-900 rounded-lg "
+                                onClick={() => { setloadingSearch(false) }}
+                            >
+                                <HiRefresh class="h-7 w-7 text-gray-300" />
+                            </span>
+                            : null
+                    }
+                </div>
                 <div class="row">
                     {
-                        dataCandidat.map((item) => {
-                            return (
-
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="single-applicants-card">
-                                        <div class="image">
-                                            <a href="#"><img src={item.coverPicture} alt={item.username} /></a>
-                                        </div>
-
-                                        <div class="content">
-                                            <h3>
-                                                <a href="candidates-details-1.html">{item.firstname} {item.lastname}</a>
-                                            </h3>
-                                            <span>UI/UX Designer</span>
-
-                                            <ul class="job-info">
-                                                <li><i class="ri-map-pin-line"></i> {item.ville}</li>
-                                                <li><i class="ri-time-line"></i> {item.is_active? "Connecté":"Déconnecté"}</li>
-                                            </ul>
-
-                                            <div class="applicants-footer">
-                                                <ul class="option-list">
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-eye-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-check-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject Aplication" type="button"><i class="ri-close-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Aplication" type="button"><i class="ri-delete-bin-line"></i></button></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
+                        loadingSearch ?
+                            SearchResults.map((item) => {
+                                return (
+                                    <CandidatCardAdmin item={item} />
+                                )
+                            }) :
+                            dataCandidat.map((item) => {
+                                return (
+                                    <CandidatCardAdmin item={item} />
+                                )
+                            })
                     }
                 </div>
             </div>

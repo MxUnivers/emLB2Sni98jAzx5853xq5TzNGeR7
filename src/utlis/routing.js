@@ -95,7 +95,7 @@ export const routing = {
         path:"details-de-l'annonce"
     },
     candidatDetailProfileView:{
-        path:`candidat-n°${localStorage.getItem(localvalue.candidat.idCandidatDetail)}`
+        path:`candidat-profile-detail`
     },
 
 

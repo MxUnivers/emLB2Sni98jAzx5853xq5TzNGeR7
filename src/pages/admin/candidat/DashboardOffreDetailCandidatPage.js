@@ -8,6 +8,7 @@ import moment from 'moment';
 import { CandidatGetCandidatpostulesByOffre, CandidatPostuleOneOffre } from '../../../action/api/candidat/CandidatAction';
 import { useNavigate } from 'react-router-dom';
 import { typeadmin } from '../../../utlis/storage/account';
+import JobOfferLoader from '../../../components/chargement/job/JobOffreLoader';
 
 const DashboardOffreDetailCandidatPage = () => {
 
@@ -51,7 +52,7 @@ const DashboardOffreDetailCandidatPage = () => {
 
 
     // Voir plus le text
-    
+
 
 
 
@@ -70,7 +71,10 @@ const DashboardOffreDetailCandidatPage = () => {
                 <main class="container mx-auto my-6 px-4">
                     <div class="flex flex-col md:flex-row -mx-4">
                         {/*<!-- Colonne de gauche : informations de l'offre --> */}
-                        <div class="md:w-2/3 mx-4">
+                        {
+                            dataOffre ?
+
+                            <div class="md:w-2/3 mx-4">
                             {/*<!-- Image de l'offre --> */}
                             <div class="w-full h-64 bg-gray-300 rounded-lg overflow-hidden">
                                 <img class="w-full h-full object-cover" src="https://img.freepik.com/vecteurs-libre/minuscule-responsable-ressources-humaines-recherche-candidat-pour-emploi-interview-loupe-illustration-vectorielle-plane-ecran-ordinateur-carriere-emploi_74855-8619.jpg" alt="Offre d'emploi" />
@@ -95,23 +99,26 @@ const DashboardOffreDetailCandidatPage = () => {
                                 }
                             </div>
                             {
-                                typeAdmin == "candidat"?
-                                <div class=" py-2 ">
-                                <div>
-                                    <form onSubmit={handleSubmit}>
-                                        {error && <p class="text-danger">Demande non prise en compte</p>}
-                                        {
-                                            loading ?
-                                                <p>Votre de demande est cours ...</p> :
-                                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                                                    Postuler à l{"'"}offre</button>
-                                        }
-                                    </form>
-                                </div>
-                            </div>
-                            : null
+                                typeAdmin == "candidat" ?
+                                    <div class=" py-2 ">
+                                        <div>
+                                            <form onSubmit={handleSubmit}>
+                                                {error && <p class="text-danger">Demande non prise en compte</p>}
+                                                {
+                                                    loading ?
+                                                        <p>Votre de demande est cours ...</p> :
+                                                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                                            Postuler à l{"'"}offre</button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                    : null
                             }
                         </div>
+                        :
+                        <JobOfferLoader/>
+                        }
 
                         <div class="md:w-1/3 mx-4">
                             <div class="bg-white rounded-lg overflow-hidden shadow-lg">
@@ -122,50 +129,50 @@ const DashboardOffreDetailCandidatPage = () => {
                                 {/*Informations de l'entreprise  */}
                                 {
                                     dataOffre ?
-                                <h2 class="text-2xl font-semibold py-3 px-2 underline">{dataOffre.entreprise}</h2>
-                                :
-                                null
+                                        <h2 class="text-2xl font-semibold py-3 px-2 underline">{dataOffre.entreprise}</h2>
+                                        :
+                                        null
 
                                 }
 
-                                
+
                             </div>
                         </div>
                     </div>
                 </main>
             </div >
             {
-                typeAdmin == typeadmin.employeur?
-                <div class="p-4">
-                <h2 class="text-xl font-bold mb-4">Liste des candidats ayant postulé</h2>
-                <ul class="border rounded-md overflow-hidden">
-                    {
-                        dataCandidat.map((item) => {
-                            return (
-                                <li class="border-b bg-white px-4 py-3 flex items-center justify-between">
-                                    <div class="flex items-center">
-                                    {/*https://randomuser.me/api/portraits/men/32.jpg */}
-                                        <img class="h-10 w-10 rounded-full mr-4" src={"https://randomuser.me/api/portraits/men/32.jpg" } alt="Photo de profil du candidat" />
-                                        <div>
-                                            <h3 class="font-bold">{item.firstname} {item.lastname}</h3>
-                                            <p class="text-gray-600 text-sm">expérience : {item.years_experience ? item.years_experience : "..." } ans</p>
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => {
-                                            localStorage.setItem(localvalue.candidat.idCandidatDetail, item._id)
-                                            navigation(`/${routing.candidatDetailProfileView.path}`);
-                                        }}
-                                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                                        Contacter
-                                    </button>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-            : null
+                typeAdmin == typeadmin.employeur ?
+                    <div class="p-4">
+                        <h2 class="text-xl font-bold mb-4">Liste des candidats ayant postulé</h2>
+                        <ul class="border rounded-md overflow-hidden">
+                            {
+                                dataCandidat.map((item) => {
+                                    return (
+                                        <li class="border-b bg-white px-4 py-3 flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                {/*https://randomuser.me/api/portraits/men/32.jpg */}
+                                                <img class="h-10 w-10 rounded-full mr-4" src={"https://randomuser.me/api/portraits/men/32.jpg"} alt="Photo de profil du candidat" />
+                                                <div>
+                                                    <h3 class="font-bold">{item.firstname} {item.lastname}</h3>
+                                                    <p class="text-gray-600 text-sm">expérience : {item.years_experience ? item.years_experience : "..."} ans</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => {
+                                                    localStorage.setItem(localvalue.candidat.idCandidatDetail, item._id)
+                                                    navigation(`/${routing.candidatDetailProfileView.path}`);
+                                                }}
+                                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                                Contacter
+                                            </button>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                    : null
 
             }
         </div>
