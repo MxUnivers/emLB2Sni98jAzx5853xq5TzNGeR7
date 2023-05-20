@@ -5,6 +5,14 @@ import { useEffect } from 'react';
 import { AnnonceGetAllByCategories, CategorieGetAllAnnonces } from '../../action/api/annonces/AnnoncesAction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { routing } from '../../utlis/routing';
+import { RiLoader2Fill, RiSearchLine } from "react-icons/ri";
+import Fuse from 'fuse.js';
+
+
+
+
+
+
 
 const CategoriesAnnoncesPage = () => {
 
@@ -17,9 +25,30 @@ const CategoriesAnnoncesPage = () => {
     useEffect(() => {
         AnnonceGetAllByCategories(secteurAnnonce, setdataAnnonce);
         CategorieGetAllAnnonces(setkeywords);
+        setSearchResults(dataAnnonce);
     }, []);
 
-    
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    // Configuration de Fuse.js
+    const options = {
+        keys: ['secteur_activites', 'titre', 'lieu', 'dateDebut'],
+        threshold: 0.3, // Ajustez le seuil selon vos besoins
+    };
+    // Fonction de recherche
+    const performSearch = () => {
+        const fuse = new Fuse(dataAnnonce, options);
+        const results = fuse.search(searchTerm);
+        setSearchResults(results.map((result) => result.item));
+        setloadingSearch(true)
+
+    };
+    const [loadingSearch, setloadingSearch] = useState(false);
+
+
+
+
     return (
         <div>
 
@@ -56,16 +85,51 @@ const CategoriesAnnoncesPage = () => {
                             </a>
                         ))}
                     </div>
-
-                    {/* listes des items teléchargés */}
-
+                    <div className="container w-full flex items-center my-2 mt-5">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Rechercher..."
+                            className="border w-full border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                        <button
+                            onClick={performSearch}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 ml-2"
+                        >
+                            <RiSearchLine size={20} />
+                            Rechercher
+                        </button>
+                        {
+                            loadingSearch ?
+                                <button
+                                    onClick={() => {
+                                        setloadingSearch(false);
+                                    }}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 ml-2"
+                                >
+                                    <RiLoader2Fill size={20} />
+                                    recharger
+                                </button>
+                                :
+                                null
+                        }
+                    </div>
                     {
-                        dataAnnonce.map((item) => {
-                            return (
-                                <AnnonceCard2 item={item} />
-                            )
-                        })
+                        loadingSearch ?
+                            
+                            searchResults.map((item) => {
+                                return (
+                                    <AnnonceCard2 item={item} />
+                                )
+                            }):
+                            dataAnnonce.map((item) => {
+                                return (
+                                    <AnnonceCard2 item={item} />
+                                )
+                            })
                     }
+                    {/* listes des items teléchargés */}
                 </div>
             </div>
         </div>

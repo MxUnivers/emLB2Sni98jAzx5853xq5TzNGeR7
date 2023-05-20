@@ -1,18 +1,17 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { AnnonceGetAll, CategorieGetAllAnnonces, LocationGetAllAnnonces } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from './card/AnnonceCard';
-import { localites } from '../../../utlis/options/annonceOptions';
-import { secteursActivites } from '../../../utlis/options/employeurOption';
 import LoaderComponent from '../../chargement/LoaderComponent';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { routing } from '../../../utlis/routing';
 import { localvalue } from '../../../utlis/storage/localvalue';
-
+import { AiOutlineReload } from 'react-icons/ai';
 
 
 
 const AnnonceResultSearch = () => {
+    const [disable_refresh, setdisable_refresh] = useState(false);
 
     // listes des secteurs d'ectivités et lieu de l'application
     const [keywords, setkeywords] = useState(['Mot-clé 1', 'Mot-clé 2', 'Mot-clé 3', 'Mot-clé 4', 'Mot-clé 5']);
@@ -30,8 +29,15 @@ const AnnonceResultSearch = () => {
             return matchesKeyword && matchesLocation && matchesCategory;
         });
 
+        if (dataAnnonce.length == 0) {
+            setdisable_refresh(false);
+        }
+        setdisable_refresh(true);
         setdataAnnonce(filteredData);
     };
+    const handleRefresh = () => {
+        setdataAnnonce(dataAnnonce2);
+    }
 
 
 
@@ -48,7 +54,7 @@ const AnnonceResultSearch = () => {
         setPerPage(perPage + pageSize);
     };
     useEffect(() => {
-        AnnonceGetAll(setdataAnnonce);
+        AnnonceGetAll(setdataAnnonce, setdataAnnonce2);
         CategorieGetAllAnnonces(setkeywords);
         LocationGetAllAnnonces(setlocalites_list);
     }, [])
@@ -143,6 +149,19 @@ const AnnonceResultSearch = () => {
                             </div>
                         </div>
 
+                        {
+                            disable_refresh ?
+                                <div class="bg-gray-100 py-2 mx-1">
+                                    <button
+                                        className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                        onClick={handleRefresh}
+                                    >
+                                        <AiOutlineReload className="mr-2" />
+                                        Rafraîchir
+                                    </button>
+                                </div> :
+                                null
+                        }
 
                         <div class="row ">
                             {

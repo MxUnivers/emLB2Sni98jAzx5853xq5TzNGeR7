@@ -10,7 +10,11 @@ const AnnonceCard2 = ({ item }) => {
             <div class="row align-items-center">
                 <div class="col-lg-2 col-sm-2">
                     <div class="company-box-logo">
-                        <a href="job-details-1.html">
+                        <a href={`/${routing.detailAnnonce.path}`}
+                            onClick={() => {
+                                sessionStorage.setItem(localvalue.annonceDetail.id, `${item._id}`);
+                            }}
+                        >
                             <img src={item.logo ?
                                 imageIcons.annonce.logo
                                 :

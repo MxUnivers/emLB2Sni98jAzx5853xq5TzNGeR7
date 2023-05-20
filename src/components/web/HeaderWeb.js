@@ -119,13 +119,10 @@ const HeaderWeb = () => {
                         <nav class="navbar navbar-expand-md navbar-light">
                             <a class="navbar-brand" href={"/"}>
                                 {
-                                    /*
-                                    <img src="assets/images/logo.png" class="black-logo" alt="logo" />
-                                    */
+                                    /* <img src="assets/images/logo.png" class="black-logo" alt="logo" /> */
                                 }
                                 <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
                                 <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="black-logo w-14 h-14" alt="logo" />
-
                             </a>
 
                             <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -138,17 +135,6 @@ const HeaderWeb = () => {
                                             }
                                         </a>
 
-                                        {/*<ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href={`/${routing.home.path}`} class="nav-link ">Accueil</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link active">recherche annonce</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href={`/${routing.detailAnnonce.path}`} class="nav-link active">Détail annonce</a>
-                                            </li>
-                                        </ul> */}
                                     </li>
 
                                     <li class="nav-item visible">
@@ -174,13 +160,10 @@ const HeaderWeb = () => {
                                                     Recherche Catégorie
                                                     <i class="ri-arrow-right-s-line"></i>
                                                 </a>
-
-
                                                 {
                                                     keywords && keywords.length > 0 ?
                                                         (
                                                             <ul class="dropdown-menu">
-
                                                                 {
                                                                     keywords.map((category) => {
                                                                         return (
@@ -204,7 +187,6 @@ const HeaderWeb = () => {
                                                                 </div>
                                                             </li>
                                                         </ul>
-
                                                 }
                                             </li>
                                         </ul>
