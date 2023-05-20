@@ -9,6 +9,7 @@ dotenv.config();
 
 
 
+
 // Module de d'application .
 const administratorRoute = require("./routes/administratorRoute");
 const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");

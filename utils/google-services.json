@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12138344618",
+    "project_id": "plateforme-offres-emplois",
+    "storage_bucket": "plateforme-offres-emplois.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12138344618:android:e68931a42bfc33c04620d3",
+        "android_client_info": {
+          "package_name": "com.emploisPlateforme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12138344618-7c2d2072o4pi744j4d76i285jhv9ngav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_ejr1tUGjdHgBu1-F2rLhLvFqymDCalk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12138344618-7c2d2072o4pi744j4d76i285jhv9ngav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

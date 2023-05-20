@@ -3,6 +3,17 @@ const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const CandidatModel = require("../models/CandidatModel");
 
+const admin = require('firebase-admin');
+
+const serviceAccount = require('/chemin/vers/votre/cle-api-web.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: 'votre-id-projet-firebase'
+});
+
+
+
 
 
 router.post("/", AuthorizationMiddleware, async (req, res) => {
@@ -25,7 +36,7 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
 // Fonction pour modifier l'annonce 
 router.put("/edit/:id", async (req, res) => {
     try {
-        const  id  = req.params.id;
+        const id = req.params.id;
         // Récupération des données de l'annonce depuis le corps de la requête
         const annonceExist = await AnnonceModel.findById({ _id: id })
         if (!annonceExist) { // Si l'annonce n'existe pas, on renvoie une erreur
@@ -45,43 +56,59 @@ router.put("/edit/:id", async (req, res) => {
 
 
 // Fonction pour reucupéere les Annonces
-router.get('/get_annonces',AuthorizationMiddleware, async (req, res) => {
+router.get('/get_annonces', AuthorizationMiddleware, async (req, res) => {
     try {
-      const annonces = await AnnonceModel.find({});
-      await res.json({ data: annonces.reverse() });
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json('Server Error');
-    }
-  });
+        const annonces = await AnnonceModel.find({});
+        const message = {
+            data: {
+                phoneNumber: '+2250595387052',
+                message: 'Bonjour, ceci est un exemple de SMS envoyé depuis Firebase !'
+            }
+        };
 
-// Fonction pour récupérer L'annonce
-router.get('/get_annonce/:id',AuthorizationMiddleware, async (req, res) => {
-    try {
-        const annonceId =  req.params.id
-      const annonces = await AnnonceModel.findById({_id:annonceId});
-      await res.json({ data: annonces });
+        admin.messaging().send(message)
+            .then((response) => {
+                console.log('SMS envoyé avec succès :', response);
+            })
+            .catch((error) => {
+                console.error('Erreur lors de l\'envoi du SMS :', error);
+            });
+        await res.json({ data: annonces.reverse() });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).json('Server Error');
-    }
-});
-  
-
-
-// Fonction pour récupérer L'annonce
-router.get('/get_categories/:id',AuthorizationMiddleware, async (req, res) => {
-    try {
-        const annonceId =  req.params.id
-      const annonces = await AnnonceModel.find({secteur_activites:annonceId});
-      await res.json({ data: annonces });
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json('Server Error');
+        console.error(err.message);
+        res.status(500).json('Server Error');
     }
 });
-  
-  
+
+// Fonction pour récupérer L'annonce
+router.get('/get_annonce/:id', AuthorizationMiddleware, async (req, res) => {
+    try {
+        const annonceId = req.params.id
+        const annonces = await AnnonceModel.findById({ _id: annonceId });
+        await res.json({ data: annonces });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('Server Error');
+    }
+});
+
+
+
+// Fonction pour récupérer L'annonce
+router.get('/get_categories/:id', AuthorizationMiddleware, async (req, res) => {
+    try {
+        const annonceId = req.params.id
+        const annonces = await AnnonceModel.find({ secteur_activites: annonceId });
+        await res.json({ data: annonces });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('Server Error');
+    }
+});
+
+
+
+
 
 
 
@@ -153,12 +180,12 @@ router.patch('/get/:id/retirer-candidat/:candidatId', async (req, res) => {
 // Fonction pour bloquer une annonce
 router.put("/blocked/:id", async (req, res) => {
     try {
-        const  id  =  req.params.id
-        const annonce = await AnnonceModel.findByIdAndUpdate({_id:id});
+        const id = req.params.id
+        const annonce = await AnnonceModel.findByIdAndUpdate({ _id: id });
         if (!annonce) {
             return res.status(404).json({ message: "Annonce introuvable" });
         }
-        annonce.blocked =  true;
+        annonce.blocked = true;
         await annonce.save();
         res.json({ message: "Annonce bloquée avec succès", annonce });
     } catch (error) {
@@ -174,8 +201,8 @@ router.put("/blocked/:id", async (req, res) => {
 // Fonction pour Débloquer une annonce
 router.put("/unblocked/:id", async (req, res) => {
     try {
-        const  id  = req.params.id;
-        const annonce = await AnnonceModel.findByIdAndUpdate({_id:id});
+        const id = req.params.id;
+        const annonce = await AnnonceModel.findByIdAndUpdate({ _id: id });
         if (!annonce) {
             return res.status(404).json({ message: "Annonce introuvable" });
         }
