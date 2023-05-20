@@ -41,7 +41,7 @@ const CategoriesAnnoncesPage = () => {
         const fuse = new Fuse(dataAnnonce, options);
         const results = fuse.search(searchTerm);
         setSearchResults(results.map((result) => result.item));
-        setloadingSearch(true)
+        setloadingSearch(true);
 
     };
     const [loadingSearch, setloadingSearch] = useState(false);

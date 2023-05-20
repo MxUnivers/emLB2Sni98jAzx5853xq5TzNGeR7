@@ -27,6 +27,9 @@ const HeaderWeb = () => {
     return (
         <header class="main-header-area">
 
+        {
+            typeAdmin && typeAdmin == typeadmin.candidat || typeadmin.employeur ?
+            null:
             <div class="topbar-area">
                 <div class="container-fluid">
                     <div class="row align-items-center">
@@ -49,23 +52,17 @@ const HeaderWeb = () => {
 
                         <div class="col-lg-7 col-md-6">
                             <ul class="topbar-action">
-                                {
-                                    typeAdmin && typeAdmin == typeadmin.candidat | typeadmin.employeur ?
-                                        null :
+                                
                                         <li>
                                             <a href={`/${routing.connexion.path}`}><i class="flaticon-padlock"></i> CONNEXION</a>
                                         </li>
-                                }
+                               
 
-
-                                {
-                                    typeAdmin && typeAdmin == typeadmin.candidat | typeadmin.employeur ?
-                                        null :
+                               
                                         <li>
                                             <a href={`/${routing.inscription.path}`}><i class="flaticon-user"></i> INSCRIPTION</a>
                                         </li>
-                                }
-
+                                
 
                                 <li class="dropdown language-option">
                                     <button class="dropdown-toggle" type="button" id="language1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,7 +91,8 @@ const HeaderWeb = () => {
             </div>
 
 
-
+        }
+            
             <div class="navbar-area">
                 <div class="main-responsive-nav">
                     <div class="container">

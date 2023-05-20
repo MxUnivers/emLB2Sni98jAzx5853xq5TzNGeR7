@@ -79,13 +79,13 @@ function App() {
           <Route path='' element={<LayoutAdmin />}>
 
           //Candidat
-            <Route path={`${routing.candidatDashboard.path}`} element={typeAdmin == typeadmin.candidat ? <DashbordCandidatPage /> : <Navigate to="" />} />
-            <Route path={`${routing.candidatProfile.path}`} element={typeAdmin == typeadmin.candidat ? <DashboardProfileCandidatPgage /> : <Navigate to="" />} />
+            <Route path={`${routing.candidatDashboard.path}`} element={ <DashbordCandidatPage /> } />
+            <Route path={`${routing.candidatProfile.path}`} element={ <DashboardProfileCandidatPgage/> } />
             <Route path={`${routing.candidatOffres.path}`} element={<DashboardOffreListCandidatPage />} />
             <Route path={`${routing.candidatOffresPostuler.path}`} element={<DashboardOffrePostulerCandidatPage />} />
             <Route path={`${routing.candidatCv.path}`} element={<DashboardCvCandidatPage />} />
             <Route path={`${routing.candidatChat.path}`} element={<DasboardChatCandidatPage />} />
-            <Route path={`${routing.candidatChangePassord.path}`} element={typeAdmin == typeadmin.candidat ? <DashboardPasswordEditCandidatPage /> : <Navigate to="" />} />
+            <Route path={`${routing.candidatChangePassord.path}`} element={ <DashboardPasswordEditCandidatPage />} /> 
             <Route path={`${routing.candidatAllParticipant.path}`} element={<DashBoardMemberCandidatPage />} />
             <Route path={`${routing.candidatDetailProfileView.path}`} element={<DashboardDetailCandidatPage />} />
 
@@ -97,10 +97,10 @@ function App() {
 
 
             // Employeur
-            <Route path={`${routing.employeurDashboard.path}`} element={typeAdmin == typeadmin.employeur ? <DashbordEmployeurPage /> : <Navigate to=" />}   />
-            <Route path={`${routing.employeurProfile.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurPofilePage/>  : <Navigate to=" />} />
-            <Route path={`${routing.employeurPostAnnonce.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurPostAnnoncePage /> : <Navigate to=" />}   />
-            <Route path={`${routing.employeurAnnonces.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurAnnonceListPage/>  : <Navigate to=" />} />
+            <Route path={`${routing.employeurDashboard.path}`} element={typeAdmin == typeadmin.employeur ? <DashbordEmployeurPage /> : <Navigate to="" />}   />
+            <Route path={`${routing.employeurProfile.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurPofilePage/>  : <Navigate to="" />} />
+            <Route path={`${routing.employeurPostAnnonce.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurPostAnnoncePage /> : <Navigate to="" />}   />
+            <Route path={`${routing.employeurAnnonces.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurAnnonceListPage/>  : <Navigate to="" />} />
 
           </Route>
 

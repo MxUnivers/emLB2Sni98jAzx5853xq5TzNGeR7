@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { EntrepriseGetAllAnnonces, EntrepriseGetAllOffres } from '../../../action/api/employeur/EmployeurAction';
-import { HiSearchCircle } from 'react-icons/hi';
+import { HiRefresh, HiSearchCircle } from 'react-icons/hi';
 import { routing } from '../../../utlis/routing';
 import { LocaleState } from '../../../utlis/storage/localvalueFunction';
+import Fuse from 'fuse.js';
+import { AnnonceCardAdmin } from '../../../components/admin/annonces/AnnonceCardAdmin';
+import OffreCardAdmin from '../../../components/admin/offres/OffreCardAdmin';
+
+
 
 const DashboardEmployeurAnnonceListPage = () => {
 
@@ -35,6 +40,34 @@ const DashboardEmployeurAnnonceListPage = () => {
         setshowComponentB(true);
     };
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [loadingSearch, setloadingSearch] = useState(false)
+    // recherche employeur et candidat
+    const options = {
+        keys: ['secteurs_activites', 'titre', 'lieu', 'dateDebut', 'salaire'],
+        threshold: 0.3, // Ajustez le seuil selon vos besoins
+    };
+    // Fonction de recherche
+    const performSearch = () => {
+        setloadingSearch(false);
+        if (showComponentA) {
+            const fuse = new Fuse(dataAnnonce, options);
+            const results = fuse.search(searchTerm);
+            setSearchResults(results.map((result) => result.item));
+            setloadingSearch(true);
+        } else if (showComponentB) {
+            const fuse = new Fuse(dataOffre, options);
+            const results = fuse.search(searchTerm);
+            setSearchResults(results.map((result) => result.item));
+            setloadingSearch(true);
+        }
+        else {
+            return;
+        }
+    };
+    // appele de la fonction de recherche
+    
 
     return (
         <div>
@@ -60,59 +93,40 @@ const DashboardEmployeurAnnonceListPage = () => {
                     <h2>MES ANNONCES</h2>
                     <div class=" bg-white ">
                         <div class=" p-2 bg-gray-100 flex flex-row bg-white shadow-md rounded-lg py-3 px-2 border-b">
-                            <div class="bg-gray-200 p-1 rounded-2xl">
-                                <span>
-                                    <HiSearchCircle class="h-7 w-7 text-gray-300" />
-                                </span>
+                            
+                            <div>
+                                <input type='text' value={searchTerm}
+                                    onChange={(e) => {setSearchTerm(e.target.value) ; performSearch(); }}
+                                    class="form-control" placeholder="rechercher ..."
+                                />
                             </div>
-                            <div><input type='text' class="form-control" placeholder="rechercher ..." /></div>
+                            {
+                                loadingSearch ?
+                                    <div class="bg-gray-200 p-1 rounded-2xl">
+                                        <span class="btn bg-blue-700 hover:bg-blue-800 active:bg-blue-900 rounded-lg "
+                                            onClick={() => { setloadingSearch(false) }}
+                                        >
+                                            <HiRefresh class="h-7 w-7 text-gray-300" />
+                                        </span>
+                                    </div> : null
+                            }
                         </div>
                     </div>
 
                     <div class="row">
 
                         {
-                            dataAnnonce.map((item) => {
-                                return (
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="dashboard-job-card">
-                                            <div class="job-content">
-                                                <div class="company-logo">
-                                                    <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                                </div>
-                                                <h3>
-                                                    <a
-                                                    href={`/${routing.dashbordDetailAnnonce.path}`}
-                                                    onClick={LocaleState(localvalue.annonceAdmin.id,item._id)}
-                                                    >{item.titre}</a>
-                                                </h3>
-                                                <div class="bookmark-btn">
-                                                    <i class="ri-bookmark-line"></i>
-                                                </div>
-                                                <div class="hover-bookmark-btn">
-                                                    <i class="ri-bookmark-fill"></i>
-                                                </div>
-                                                <ul class="location-information">
-                                                    <li><i class="ri-briefcase-line"></i> Segment</li>
-                                                    <li><i class="ri-map-pin-line"></i> {item.lieu}</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i>  ${item.salaire}</li>
-                                                </ul>
-                                                <ul class="job-tag-list">
-                                                    <li>Full Time</li>
-                                                    <li class="urgent">Urgent</li>
-                                                    <li class="private">Private</li>
-                                                </ul>
-                                                <ul class="option-list">
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-eye-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-check-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject Aplication" type="button"><i class="ri-close-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Aplication" type="button"><i class="ri-delete-bin-line"></i></button></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
+                            loadingSearch ?
+                                searchResults.map((item) => {
+                                    return (
+                                        <AnnonceCardAdmin item={item} />
+                                    )
+                                }) :
+                                dataAnnonce.map((item) => {
+                                    return (
+                                        <AnnonceCardAdmin item={item} />
+                                    )
+                                })
                         }
                     </div>
                 </div>
@@ -127,56 +141,47 @@ const DashboardEmployeurAnnonceListPage = () => {
                     <h2>MES OFFRES</h2>
                     <div class=" bg-white ">
                         <div class=" p-2 bg-gray-100 flex flex-row bg-white shadow-md rounded-lg py-3 px-2 border-b">
-                            <div class="bg-gray-200 p-1 rounded-2xl">
+                            {
+                                /*
+                                <div class="bg-gray-200 p-1 rounded-2xl">
                                 <span>
                                     <HiSearchCircle class="h-7 w-7 text-gray-300" />
                                 </span>
                             </div>
-                            <div><input type='text' class="form-control" placeholder="rechercher ..." /></div>
+                                */
+                            }
+                            <div>
+                                <input type='text' value={searchTerm}
+                                    onChange={(e) =>{setSearchTerm(e.target.value) ; performSearch(); }}
+                                    class="form-control" placeholder="rechercher ..."
+                                />
+                            </div>
+                            {
+                                loadingSearch ?
+                                    <div class="bg-gray-200 p-1 rounded-2xl">
+                                        <span class="btn bg-blue-700 hover:bg-blue-800 active:bg-blue-900 rounded-lg "
+                                            onClick={() => { setloadingSearch(false) }}
+                                        >
+                                            <HiRefresh class="h-7 w-7 text-gray-300" />
+                                        </span>
+                                    </div> :
+                                    null
+                            }
                         </div>
                     </div>
                     <div class="row">
                         {
-                            dataOffre.map((item) => {
-                                return (
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="dashboard-job-card">
-                                            <a href={`/${routing.dashbordDetailOffreEmplois.path}`}
-                                            onClick={LocaleState(localvalue.offreAdmin.id,item._id)} class="job-content">
-                                                <div class="company-logo">
-                                                    <a href="job-details-1.html"><img src="assets/images/job/job-1.png" alt="image" /></a>
-                                                </div>
-                                                <h3>
-                                                    <a
-                                                    >{item.titre}</a>
-                                                </h3>
-                                                <div class="bookmark-btn">
-                                                    <i class="ri-bookmark-line"></i>
-                                                </div>
-                                                <div class="hover-bookmark-btn">
-                                                    <i class="ri-bookmark-fill"></i>
-                                                </div>
-                                                <ul class="location-information">
-                                                    <li><i class="ri-briefcase-line"></i> Segment</li>
-                                                    <li><i class="ri-map-pin-line"></i> United Kingdom</li>
-                                                    <li><i class="ri-money-dollar-circle-line"></i>  $25k - $35k</li>
-                                                </ul>
-                                                <ul class="job-tag-list">
-                                                    <li>Full Time</li>
-                                                    <li class="urgent">Urgent</li>
-                                                    <li class="private">Private</li>
-                                                </ul>
-                                                <ul class="option-list">
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-eye-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-check-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject Aplication" type="button"><i class="ri-close-line"></i></button></li>
-                                                    <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Aplication" type="button"><i class="ri-delete-bin-line"></i></button></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                    </div>
-                                )
-                            })
+                            loadingSearch ?
+                                searchResults.map((item) => {
+                                    return (
+                                        <OffreCardAdmin item={item} />
+                                    )
+                                }) :
+                                dataOffre.map((item) => {
+                                    return (
+                                        <OffreCardAdmin item={item} />
+                                    )
+                                })
                         }
                     </div>
                 </div>
