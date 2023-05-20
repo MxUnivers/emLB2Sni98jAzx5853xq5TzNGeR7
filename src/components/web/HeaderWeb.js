@@ -28,7 +28,7 @@ const HeaderWeb = () => {
         <header class="main-header-area">
 
             {
-                typeAdmin == typeadmin.candidat || typeAdmin == typeadmin.employeur ?
+                typeAdmin == typeadmin.candidat ||  typeadmin.employeur ?
                     null :
                     <div class="topbar-area">
                         <div class="container-fluid">
