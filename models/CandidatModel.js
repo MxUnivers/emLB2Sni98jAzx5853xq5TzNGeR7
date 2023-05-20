@@ -86,8 +86,23 @@ const CandidatSchema = new mongoose.Schema({
     },
     offresPostulees: [
         {type:Object}
-    ]
-
+    ],
+    AnnoncesPostuless: [
+        {type:Object}
+    ],
+    bookmarks:{
+        offres:[
+            {type:Object},
+        ],
+        annonces:[
+            {type:Object},
+        ]
+    },
+    likes:{
+        type:Number ,
+        required:false,
+        default:5,
+    }
 
 
 }, {
