@@ -53,7 +53,10 @@ const annonceSchema = new Schema({
         type: Boolean,
         required: false,
         default: false
-    }
+    },
+    candidatAdmis:[
+        { type: Object }
+      ]
 });
 
 const AnnonceModel = mongoose.model('Annonce', annonceSchema);

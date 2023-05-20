@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const  dotenv = require("dotenv");
+dotenv.config()
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const CandidatModel = require("../models/CandidatModel");

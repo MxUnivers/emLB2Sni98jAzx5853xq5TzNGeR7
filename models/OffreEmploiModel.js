@@ -32,6 +32,9 @@ const offreEmploiSchema = new mongoose.Schema(
     ],
     noticationsEnvoyes: [
       { type: Object }
+    ],
+    candidatAdmis:[
+      { type: Object }
     ]
   },
   { timestamps: true }
