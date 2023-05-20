@@ -5,11 +5,11 @@ const CandidatModel = require("../models/CandidatModel");
 
 const admin = require('firebase-admin');
 
-const serviceAccount = require('/chemin/vers/votre/cle-api-web.json');
+const serviceAccount = require('/utils/google-services.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    projectId: 'votre-id-projet-firebase'
+    projectId: 'plateforme-offres-emplois'
 });
 
 
