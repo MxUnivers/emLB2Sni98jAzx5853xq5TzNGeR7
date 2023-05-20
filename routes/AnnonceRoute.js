@@ -1,16 +1,26 @@
 const router = require("express").Router();
+const  dotenv = require("dotenv");
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const CandidatModel = require("../models/CandidatModel");
 
-const admin = require('firebase-admin');
 
-const serviceAccount = require('./../utils/google-services.json');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    projectId: 'plateforme-offres-emplois'
-});
+// Download the helper library from https://www.twilio.com/docs/node/install
+// Set environment variables for your credentials
+// // Read more at http://twil.io/secure
+// const accountSid = "AC0ac2e1c72b9b25dcdae2e346f59326c2";
+// const authToken = "aa3657a62060817b4765df4372758656";
+
+
+
+const accountSid = process.env.accoussID_Twillio;
+const authToken = process.env.tokenID_Twillio;
+
+
+
+const client = require("twilio")(accountSid, authToken);
+
 
 
 
@@ -20,6 +30,20 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     try {
         const nouvelleAnnonce = new AnnonceModel(req.body);
         await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base données
+        client.messages
+        .create({
+            subject: 'Plateforme',
+            body:
+             `une nouvelle offre vient d'être posté : 
+              ${nouvelleAnnonce.titre} ,
+             lieu : ${nouvelleAnnonce.liue} ,
+             email : ${nouvelleAnnonce.email} 
+
+             - connecter vous a votre espace maintent en cliquant ici 🙏
+             https://plenitude-ci.com/ .
+            `, 
+            from: "+12545365609", to: "+2250748641040" })
+        .then(message => console.log(message.sid));
         res.json({ message: "Annonce créée avec succès", nouvelleAnnonce }); // Réponse avec un message de succès et les détails de l'annonce créée
     } catch (error) {
         console.error(error);
@@ -58,21 +82,8 @@ router.put("/edit/:id", async (req, res) => {
 // Fonction pour reucupéere les Annonces
 router.get('/get_annonces', AuthorizationMiddleware, async (req, res) => {
     try {
-        const annonces = await AnnonceModel.find({});
-        const message = {
-            data: {
-                phoneNumber: '+2250595387052',
-                message: 'Bonjour, ceci est un exemple de SMS envoyé depuis Firebase !'
-            }
-        };
-
-        admin.messaging().send(message)
-            .then((response) => {
-                console.log('SMS envoyé avec succès :', response);
-            })
-            .catch((error) => {
-                console.error('Erreur lors de l\'envoi du SMS :', error);
-            });
+        const annonces = await AnnonceModel.find();
+        
         await res.json({ data: annonces.reverse() });
     } catch (err) {
         console.error(err.message);
