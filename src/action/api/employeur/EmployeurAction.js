@@ -4,6 +4,7 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { localvalue } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
+import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
 
 
 
@@ -50,20 +51,12 @@ export const EntrepriseConnexion = (data,redirect) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                
-
-
+                handleClearLocalStorage();
                 // ReRecupérer les données de connexion 
                 localStorage.setItem(localvalue.emloyeur.idEmployeur,response.data.data._id);
                 localStorage.setItem(localvalue.emloyeur.coverPictureEmployeur,response.data.data.logo);
                 localStorage.setItem(localvalue.emloyeur.tokenEmployeur,response.data.data.token);
                 localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
-
-                // Decconnecttion du candidat
-                localStorage.removeItem(localvalue.candidat.tokenCandidat);
-                localStorage.removeItem(localvalue.candidat.idCandidat);
-                localStorage.removeItem(localvalue.candidat.emailCandidat);
-                localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
 
         
                 redirect(`/${routing.employeurDashboard.path}`);
@@ -73,6 +66,53 @@ export const EntrepriseConnexion = (data,redirect) => {
             });
     };
 }
+
+
+
+
+
+
+export const EntrepriseDisConnect = (id) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/auth/entreprise/disconnect_entreprise/${id}`, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+
+                // // ReRecupérer les données de connexion 
+                // localStorage.removeItem(localvalue.emloyeur.idEmployeur);
+                // localStorage.removeItem(localvalue.emloyeur.coverPictureEmployeur);
+                // localStorage.removeItem(localvalue.emloyeur.tokenEmployeur);
+                // localStorage.removeItem(localvalue.typeAdmin);
+
+                // // Deconnexion du candidat
+                // localStorage.removeItem(localvalue.candidat.tokenCandidat);
+                // localStorage.removeItem(localvalue.candidat.idCandidat);
+                // localStorage.removeItem(localvalue.candidat.emailCandidat);
+                // localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
+                handleClearLocalStorage();
+
+
+                
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            });
+    };
+}
+
+
+
+
+
 
 
 

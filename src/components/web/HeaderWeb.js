@@ -6,10 +6,19 @@ import ItemProfileCandidat from './navigation/ItemProfileCandidat';
 import ItemProfileEmployeur from './navigation/ItemProfileEmployeur';
 import { CategorieGetAllAnnonces } from '../../action/api/annonces/AnnoncesAction';
 import { keyboard } from '@testing-library/user-event/dist/keyboard';
+import { Button, Form, Image, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { HiLogin, HiOutlineLockClosed, HiOutlineLogout, HiOutlineUserAdd } from 'react-icons/hi';
+import { useDispatch, useSelector } from 'react-redux';
+import { CandidatDeconnexion } from '../../action/api/candidat/CandidatAction';
+import { EntrepriseDisConnect } from '../../action/api/employeur/EmployeurAction';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 
 const HeaderWeb = () => {
+    const navigation = useNavigate();
+
+    var avatarImage = "https://images.pexels.com/photos/7275385/pexels-photo-7275385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
 
@@ -22,249 +31,172 @@ const HeaderWeb = () => {
         CategorieGetAllAnnonces(setkeywords);
     }, []);
 
+    
+
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
 
 
+
+    const handleSumitCandidat = (e) => {
+        if (idCandidat == null) {
+            alert("Déconnexion impossible")
+        }
+        else {
+            e.preventDefault();
+            dispatch(CandidatDeconnexion(idCandidat));
+        }
+    }
+
+
+    const handleSubmitEntreprise = (e) => {
+
+    }
     return (
         <header class="main-header-area">
 
+
             {
-                typeAdmin == typeadmin.candidat ||  typeadmin.employeur ?
-                    null :
-                    <div class="topbar-area">
-                        <div class="container-fluid">
-                            <div class="row align-items-center">
-                                <div class="col-lg-5 col-md-6">
-                                    <ul class="topbar-social-list">
-                                        <li>
-                                            <a class="visible" href="https://www.facebook.com/" target="_blank"><i class="flaticon-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://twitter.com/" target="_blank"><i class="flaticon-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.instagram.com/" target="_blank"><i class="flaticon-instagram"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="https://linkedin.com/" target="_blank"><i class="flaticon-linkedin"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-7 col-md-6">
-                                    <ul class="topbar-action">
-
-                                        <li>
-                                            <a href={`/${routing.connexion.path}`}><i class="flaticon-padlock"></i> CONNEXION</a>
-                                        </li>
-                                        <li>
-                                            <a href={`/${routing.inscription.path}`}><i class="flaticon-user"></i> INSCRIPTION</a>
-                                        </li>
-
-                                        <li class="dropdown language-option">
-                                            <button class="dropdown-toggle" type="button" id="language1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="flaticon-worldwide"></i>
-                                                <span class="lang-name"></span>
-                                            </button>
-                                            <div class="dropdown-menu language-dropdown-menu" aria-labelledby="language1">
-                                                <a class="dropdown-item" href="#">
-                                                    <img src="assets/images/uk.png" alt="flag" />
-                                                    English
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    <img src="assets/images/china.png" alt="flag" />
-                                                    简体中文
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    <img src="assets/images/uae.png" alt="flag" />
-                                                    العربيّة
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
+                /*
+                <div class="logo">
+                                    <a href="/">
+                                   
+                                        <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
+                
+                */
             }
 
-            <div class="navbar-area">
-                <div class="main-responsive-nav">
-                    <div class="container">
-                        <div class="main-responsive-menu">
-                            <div class="logo">
-                                <a href="/">
-                                    <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
-                                    <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="black-logo w-14 h-14" alt="logo" />
-                                    {
-                                        /*
-                                        <img src="assets/images/logo.png" class="black-logo" alt="logo" />
-                                        */
+
+            <Navbar bg="light" expand="lg" className="fixed bg-white top-0 w-full visible">
+                <Navbar.Brand href="/">
+                    <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
+
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbar-nav" />
+                <Navbar.Collapse id="navbar-nav">
+                    <Nav className="mr-auto visible">
+                        <Nav.Link to="/" as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                           Accueil
+                        </Nav.Link>
+                        <Nav.Link to={`/${routing.searchAnnonce.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Annonces</Nav.Link>
+                        <Nav.Link to={`/${routing.historique.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Statistiques</Nav.Link>
+                        <Nav.Link to="/contact" as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Contact</Nav.Link>
+                        <Nav.Link to={`/${routing.stephistoriqueInscription.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Aide</Nav.Link>
+                    </Nav>
+                    <Nav class="visible mx-5">
+
+                        {
+                            typeAdmin == typeadmin.candidat ?
+                                <NavDropdown className='mx-5'
+                                    title={
+                                        <Image src={avatarImage} roundedCircle className='h-10 w-10' />
                                     }
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    id="profile-dropdown">
+                                    <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
+                                        votre espace C
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
+                                        Statistiques
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
 
-                <div class="main-navbar">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-expand-md navbar-light">
-                            <a class="navbar-brand" href={"/"}>
-                                {
-                                    /* <img src="assets/images/logo.png" class="black-logo" alt="logo" /> */
-                                }
-                                <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
-                                <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="black-logo w-14 h-14" alt="logo" />
-                            </a>
-
-                            <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                                <ul class="navbar-nav m-auto">
-                                    <li class="nav-item visible">
-                                        <a href={`/`} class="nav-link text-xl">
-                                            Accueil
-                                            {
-                                                /*<i class="ri-arrow-down-s-line"></i> */
+                                    <form
+                                        onSubmit={(e) => {
+                                            e.preventDefault()
+                                            if (idCandidat == null) {
+                                                alert("Déconnexion impossible")
                                             }
-                                        </a>
-
-                                    </li>
-
-                                    <li class="nav-item visible">
-                                        <a href={`/${routing.searchAnnonce.path}`} class="nav-link">
-                                            Annonces
-                                            {
-                                                /*<i class="ri-arrow-down-s-line"></i> */
+                                            else {
+                                                e.preventDefault();
+                                                dispatch(CandidatDeconnexion(idCandidat));
                                             }
-                                        </a>
-
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href={`/${routing.searchAnnonce.path}`} class="nav-link">Recherche Annonce</a>
-                                            </li>
-                                            {
-                                                /*<li class="nav-item">
-                                                <a href={`/${routing.detailAnnonce.path}`} class="nav-link">detail annonce</a>
-                                            </li> */
-                                            }
-
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link">
-                                                    Recherche Catégorie
-                                                    <i class="ri-arrow-right-s-line"></i>
-                                                </a>
-                                                {
-                                                    keywords && keywords.length > 0 ?
-                                                        (
-                                                            <ul class="dropdown-menu">
-                                                                {
-                                                                    keywords.map((category) => {
-                                                                        return (
-                                                                            <li class="nav-item">
-                                                                                <a href={`/${routing.categoriesAnnonces.path}`}
-                                                                                    onClick={() => {
-                                                                                        localStorage.setItem(localvalue.annonceDetail.secteur_activites, `${category}`)
-                                                                                    }}
-                                                                                    class="nav-link"> {category}</a>
-                                                                            </li>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </ul>
-                                                        )
-                                                        :
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <div className="flex items-center justify-center">
-                                                                    <span className="text-3xl font-semibold animate-pulse">Chargement...</span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                }
-                                            </li>
-                                        </ul>
-                                    </li>
-
-
-
-                                    <li class="nav-item visible">
+                                        }} >
                                         {
-                                            /*
-                                            <a href="#" class="nav-link">
-                                            BLOG ET ACTUALITES
-                                            
-                                        </a>
-                                            */
+                                            loading ?
+                                                <p>Déconnexion en cours ... </p> :
+                                                <button className="btn btn-danger flex dropdown-item">
+                                                    <HiOutlineLogout className="mr-1 flex" />
+                                                    <span>Deconnexion</span>
+                                                </button>
                                         }
-                                        {/* <i class="ri-arrow-down-s-line"></i> */}
+                                    </form>
+                                </NavDropdown> :
+                                null
+                        }
 
+
+                        {
+                            typeAdmin == typeadmin.employeur ?
+                                <NavDropdown className="mx-5"
+                                    title={
+                                        <Image src={avatarImage} roundedCircle className='h-10 w-10' />
+                                    }
+                                    id="profile-dropdown">
+                                    <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
+                                        Tableau de bord E
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
+                                        Statistiques
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+
+                                    <form
+                                        onSubmit={(e) => {
+                                            e.preventDefault()
+                                            if (idEmployeur == null) {
+                                                alert("Déconnexion impossible")
+                                            }
+                                            else {
+                                                e.preventDefault();
+                                                dispatch(EntrepriseDisConnect(idEmployeur));
+                                            }
+                                        }} >
                                         {
-                                            /*
-                                            <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="blog.html" class="nav-link">Blog</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="blog-right-sidebar.html" class="nav-link">Blog Right Sidebar</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="blog-details.html" class="nav-link">Blog Details</a>
-                                            </li>
-                                        </ul>
-                                            */
+                                            loading ?
+                                                <p>Déconnexion en cours ... </p> :
+                                                <button className="btn btn-danger flex dropdown-item">
+                                                    <HiOutlineLogout className="mr-1 flex" />
+                                                    <span>Deconnexion</span>
+                                                </button>
                                         }
-                                    </li>
+                                    </form>
 
-                                    {
-                                        typeAdmin == typeadmin.candidat && idCandidat !== null ?
-                                            <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
-                                            </li>
-                                            : null
-                                    }
-                                    {/* employeur */}
-                                    {
-                                        typeAdmin == typeadmin.employeur && idEmployeur !== null ?
-                                            <li class="nav-item visible">
-                                                <a href={`/${routing.historique.path}`} class="nav-link">Profile</a>
-                                            </li>
-                                            : null
-                                    }
+                                </NavDropdown> :
+                                null
+                        }
 
-                                    <li class="nav-item visible">
-                                        <a href={`/${routing.contact.path}`} class="nav-link">Contact</a>
-                                    </li>
-                                    <li class="nav-item visible">
-                                        <a href={`/${routing.stephistoriqueInscription.path}`} class="nav-link">Aide</a>
-                                    </li>
-                                </ul>
-
-                                {
-                                    typeAdmin && typeAdmin == typeadmin.candidat ?
-                                        <ItemProfileCandidat /> :
-                                        null
-                                }
-
-                                {
-                                    typeAdmin && typeAdmin == typeadmin.employeur ?
-                                        <ItemProfileEmployeur /> :
-                                        null
-                                }
+                        
+                        {
+                            typeAdmin == typeadmin.candidat || typeAdmin == typeadmin.employeur ?
+                                null :
+                                <div class="flex space-x-2" >
+                                    <Button variant="outline-primary"
+                                        onClick={() => {
+                                            navigation(`/${routing.connexion.path}`)
+                                        }}
+                                        className="mr-2 flex">
+                                        <HiLogin className="mr-1 flex" />
+                                        Connexion
+                                    </Button>
+                                    <Button variant="outline-info"
+                                        onClick={() => {
+                                            navigation(`/${routing.inscription.path}`)
+                                        }}
+                                        className="flex">
+                                        <HiOutlineUserAdd className="mr-1 flex" />
+                                        <span>Inscription</span>
+                                    </Button>
+                                </div>
+                        }
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
 
 
 
-                            </div>
-                        </nav>
 
 
-                    </div>
-
-                </div>
-
-            </div>
         </header>
     )
 }

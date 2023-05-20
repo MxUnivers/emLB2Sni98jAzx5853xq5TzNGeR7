@@ -16,7 +16,7 @@ const DashBoardMemberCandidatPage = () => {
     const [loadingSearch, setloadingSearch] = useState(false)
 
     const options = {
-        keys: ['secteurs_activites', 'titre', 'lieu', 'dateDebut'],
+        keys: ['firstname', 'lastname', 'ville', 'email'],
         threshold: 0.3, // Ajustez le seuil selon vos besoins
     };
 

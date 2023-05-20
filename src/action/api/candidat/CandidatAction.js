@@ -5,6 +5,7 @@ import { localvalue } from "../../../utlis/storage/localvalue";
 import { SEND_REQUEST } from "../annonces/AnnoncesAction";
 import { REQUEST_SUCCESS } from "../annonces/AnnoncesAction";
 import { REQUEST_FAILURE } from "../annonces/AnnoncesAction";
+import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
 
 
 
@@ -142,6 +143,8 @@ export const CandidatConnexion = (data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                handleClearLocalStorage();
+
                 localStorage.setItem(localvalue.candidat.tokenCandidat, response.data.data.token);
                 localStorage.setItem(localvalue.candidat.idCandidat, response.data.data._id);
                 localStorage.setItem(localvalue.candidat.emailCandidat, response.data.data.email);
