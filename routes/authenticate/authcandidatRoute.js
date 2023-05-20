@@ -56,6 +56,7 @@ router.post('/disconnect_candidat/:id/',AuthorizationMiddleware, async (req, res
     if (!candidat) {
       return res.status(400).json({ message: 'Déconnexion impossible ....' });
     }
+    candidat.token="";
     candidat.is_active=false
     await candidat.save();
     // Envoyer une réponse avec le token JWT

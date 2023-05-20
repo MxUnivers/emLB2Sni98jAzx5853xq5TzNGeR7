@@ -103,8 +103,6 @@ const CandidatSchema = new mongoose.Schema({
         required:false,
         default:5,
     }
-
-
 }, {
     timestamps: true
 })
