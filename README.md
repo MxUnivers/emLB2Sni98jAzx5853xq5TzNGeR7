@@ -1,7 +1,7 @@
 # Palier 2
 
 -  système de recherche des annonces 
-- intégrer un système de notification
+- intégrer un système de notification ;
 -  mettre en place un suivi des candidatures pour les employeurs leur permetant d'evaluer
 -  developper une interface de messagerie pour faciliter les communications entre employeur et candidats
 - Ajouter des fonctionnalités supplémentaires aux profils des employeurs, tels que la possibilité de décrire l'entreprise et de mettre en valeur les avantages offerts. 

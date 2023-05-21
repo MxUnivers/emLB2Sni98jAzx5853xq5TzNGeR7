@@ -66,9 +66,9 @@ const HeaderWeb = () => {
                 
                 */
             }
+            
 
-
-            <Navbar bg="light" expand="lg" className="fixed bg-white top-0 w-full visible">
+            <Navbar bg="light" expand="lg" className="fixed bg-white top-0 w-full visible border-b">
                 <Navbar.Brand href="/">
                     <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
 

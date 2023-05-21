@@ -188,7 +188,7 @@ export const CandidatDeconnexion = async (id) => {
             localStorage.removeItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
             localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
             localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
-            
+            handleClearLocalStorage();
             // redirect(`${routing.historique.path}`);
             window.location.reload();
         })

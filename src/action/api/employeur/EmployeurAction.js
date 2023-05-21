@@ -98,9 +98,6 @@ export const EntrepriseDisConnect = (id) => {
                 // localStorage.removeItem(localvalue.candidat.emailCandidat);
                 // localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
                 handleClearLocalStorage();
-
-
-                
                 window.location.reload();
             })
             .catch((error) => {
