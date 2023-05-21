@@ -145,7 +145,7 @@ router.get('/get_candidat/:id/offres', AuthorizationMiddleware, async (req, res)
   try {
     const candidatId = req.params.id;
 
-    await CandidatModel.findById({_id:candidatId})
+    await CandidatModel.findById({ _id: candidatId })
       .populate('offresPostulees')
       .exec(async (err, candidat) => {
         if (err) {
@@ -153,7 +153,7 @@ router.get('/get_candidat/:id/offres', AuthorizationMiddleware, async (req, res)
         }
         if (candidat) {
           const offresPostulees = candidat.offresPostulees;
-          await res.json({data:offresPostulees})
+          await res.json({ data: offresPostulees })
           // Utiliser le tableau des offres postulées
         }
       });
@@ -189,7 +189,7 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
     }
     const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
     const offrePostule = await OffreEmploi.findOneAndUpdate({ _id: offreId }, { $push: { candidatPostulees: candidat } }, { new: true });
-    
+
 
     await candidat.save();
     await offrePostule.save();

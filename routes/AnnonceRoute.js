@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const  dotenv = require("dotenv");
+const dotenv = require("dotenv");
 dotenv.config()
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
@@ -29,22 +29,25 @@ const client = require("twilio")(accountSid, authToken);
 
 router.post("/", AuthorizationMiddleware, async (req, res) => {
     try {
+        const candidates = await CandidatModel.find();
         const nouvelleAnnonce = new AnnonceModel(req.body);
-        await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base données
-        client.messages
-        .create({
-            subject: 'Plateforme',
-            body:
-             `une nouvelle offre vient d'être posté : 
-              ${nouvelleAnnonce.titre} ,
-             lieu : ${nouvelleAnnonce.liue} ,
-             email : ${nouvelleAnnonce.email} 
 
-             - connecter vous a votre espace maintent en cliquant ici 🙏
-             https://plenitude-ci.com/ .
-            `, 
-            from: "+12545365609", to: "+2250748641040" })
-        .then(message => console.log(message.sid));
+        candidates.forEach((candidate) => {
+            const message = `Bonjour ${candidate.firstname}, une nouvelle annonce "${nouvelleAnnonce.titre}" a été créée. Veuillez consulter notre application pour plus de détails.`;
+
+            client.messages
+                .create({
+                    body: message,
+                    from: '+12545365609',
+                    to: `${candidate.telephone}`, // Supposons que le numéro de téléphone du candidat est stocké dans la propriété "phoneNumber"
+                })
+                .then((message) => {
+                    console.log(`SMS envoyé à ${candidate.telephone}: ${message.sid}`)
+                })
+                .catch((error) => { console.error(`Erreur lors de l'envoi du SMS à ${candidate.firstname}:`, error) });
+        });
+
+        await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base données
         res.json({ message: "Annonce créée avec succès", nouvelleAnnonce }); // Réponse avec un message de succès et les détails de l'annonce créée
     } catch (error) {
         console.error(error);
@@ -84,7 +87,7 @@ router.put("/edit/:id", async (req, res) => {
 router.get('/get_annonces', AuthorizationMiddleware, async (req, res) => {
     try {
         const annonces = await AnnonceModel.find();
-        
+
         await res.json({ data: annonces.reverse() });
     } catch (err) {
         console.error(err.message);
