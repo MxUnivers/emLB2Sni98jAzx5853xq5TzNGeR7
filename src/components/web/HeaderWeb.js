@@ -16,7 +16,7 @@ import { handleClearLocalStorage } from '../../utlis/storage/localvalueFunction'
 import { MdOutlineHome, MdPhoneCallback } from "react-icons/md";
 import { FcStatistics } from "react-icons/fc";
 import { ImProfile } from "react-icons/im";
-import {BiHelpCircle} from  "react-icons/bi";
+import { BiHelpCircle } from "react-icons/bi";
 
 
 
@@ -80,31 +80,59 @@ const HeaderWeb = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
-                    <Nav className="mr-auto visible">
-                        <Nav.Link to="/" as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                    <Nav className='mr-auto visible'>
+                        <Nav.Link
+                            to='/'
+                            as={NavLink}
+                            className='nav-link flex space-x-2'
+                            activeClassName='text-lg text-gray-100 bg-blue-500 '
+                        >
                             <MdOutlineHome size={20} /> <span>Accueil</span>
                         </Nav.Link>
-                        <Nav.Link to={`/${routing.searchAnnonce.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                        <Nav.Link
+                            to={`/${routing.searchAnnonce.path}`}
+                            as={NavLink}
+                            className='nav-link flex space-x-2'
+                            activeClassName='text-lg text-gray-100 bg-blue-500 '
+                        >
                             <HiOutlineSpeakerphone size={20} /> <span>Annonces</span>
                         </Nav.Link>
-                        <Nav.Link to={`/${routing.historique.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                        <Nav.Link
+                            to={`/${routing.historique.path}`}
+                            as={NavLink}
+                            className='nav-link flex space-x-2'
+                            activeClassName='text-lg text-gray-100 bg-blue-500 '
+                        >
                             <ImProfile size={20} /> <span>apercu profile </span>
                         </Nav.Link>
-                        {
-                            typeAdmin == typeadmin.employeur ?
-                                <Nav.Link to={`/${routing.followStatistique.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
-                                    <FcStatistics size={20} /> <span>vue d{"'"}encsemble </span>
-                                </Nav.Link>
-                                :
-                                null
-                        }
-                        <Nav.Link to="/contact" as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
-                        <MdPhoneCallback size={20} /> <span>Contact </span>
+                        {typeAdmin == typeadmin.employeur ? (
+                            <Nav.Link
+                                to={`/${routing.followStatistique.path}`}
+                                as={NavLink}
+                                className='nav-link flex space-x-2'
+                                activeClassName='text-lg text-gray-100 bg-blue-500 '
+                            >
+                                <FcStatistics size={20} /> <span>vue d{"'"}encsemble </span>
+                            </Nav.Link>
+                        ) : null}
+                        <Nav.Link
+                            to='/contact'
+                            as={NavLink}
+                            className='nav-link flex space-x-2'
+                            activeClassName='text-lg text-gray-100 bg-blue-500 '
+                        >
+                            <MdPhoneCallback size={20} /> <span>Contact </span>
                         </Nav.Link>
-                        <Nav.Link to={`/${routing.stephistoriqueInscription.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
-                        <BiHelpCircle size={20} /> <span>Aide </span>
+                        <Nav.Link
+                            to={`/${routing.stephistoriqueInscription.path}`}
+                            as={NavLink}
+                            className='nav-link flex space-x-2'
+                            activeClassName='text-lg text-gray-100 bg-blue-500 '
+                        >
+                            <BiHelpCircle size={20} /> <span>Aide </span>
                         </Nav.Link>
                     </Nav>
+
                     <Nav class="visible mx-5">
 
                         {
