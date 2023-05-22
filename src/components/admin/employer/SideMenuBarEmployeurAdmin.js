@@ -1,99 +1,60 @@
 import React from 'react'
 import { routing } from '../../../utlis/routing'
+import {Nav, Navbar, Container } from 'react-bootstrap';
+import { FiUser, FiLogOut, FiList, FiBriefcase } from "react-icons/fi";
 
 const SideMenuBarEmployeurAdmin = () => {
     return (
+
+
+
+
         <div class="sidemenu-body">
-            <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
-                <li class="nav-item active">
-                    <a href={`/${routing.candidatDashboard.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-home-line"></i></span>
-                        <span class="menu-title">Tableau de bord E</span>
-                    </a>
-                </li>
+            <ul class="sidemenu-nav metisMenu " id="sidemenu-nav" data-simplebar>
 
-                <li class="nav-item">
-                    <a href={`/${routing.employeurProfile.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-user-line"></i></span>
-                        <span class="menu-title">Profile</span>
-                    </a>
-                </li>
-                {
-                    /*
-                    <li class="nav-item">
-                    <a href={``} class="nav-link">
-                        <span class="icon"><i class="ri-file-list-line"></i></span>
-                        <span class="menu-title">My Resume</span>
-                    </a>
-                </li>
-                    */
-                }
-                <li class="nav-item">
-                    <a href={`/${routing.employeurPostAnnonce.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-send-plane-fill"></i></span>
-                        <span class="menu-title">Poster Annonce</span>
-                    </a>
-                </li>
+                <Navbar bg="light" variant="light" expand="lg" className="lg:w-30 min-h-screen fixed left-0 top-0 z-50 overflow-y-auto visible">
+                    <Container className='visible'>
+                        <Navbar.Toggle aria-controls="sidebar-nav" />
+                        <Navbar.Collapse id="sidebar-nav" className='visible'>
+                            <Nav className="flex-column">
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.candidatDashboard.path}`} >
+                                    <FiUser className="mr-2" />
+                                    <span class="menu-title">Tableau de bord E</span>
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.employeurProfile.path}`}>
+                                    <FiLogOut className="mr-2" />
+                                    Profile
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.employeurPostAnnonce.path}`}>
+                                    <FiList className="mr-2" />
+                                    Poster
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.employeurAnnonces.path}`} >
+                                    <FiList className="mr-2" />
+                                    Publications
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.candidatAllParticipant.path}`}>
+                                    <FiBriefcase className="mr-2" />
+                                    Candidats
+                                </Nav.Link>
 
-                <li class="nav-item">
-                    <a href={`/${routing.employeurAnnonces.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-notification-3-line"></i></span>
-                        <span class="menu-title">Annonces  </span>
-                    </a>
-                </li>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.candidatChat.path}`}>
+                                    <FiBriefcase className="mr-2" />
+                                    Forum
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.candidatChangePassord.path}`}>
+                                    <FiBriefcase className="mr-2" />
+                                    Mot de passe
+                                </Nav.Link>
+                                <Nav.Link className="text-gray-700 flex space-x-2" href={`/${routing.candidatChat.path}`}>
+                                    <FiBriefcase className="mr-2" />
+                                    Forum
+                                </Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
 
-                <li class="nav-item">
-                    <a href={`/${routing.candidatAllParticipant.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-file-list-line"></i></span>
-                        <span class="menu-title">Tous candidats</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href={`/${routing.candidatChat.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-chat-1-line"></i></span>
-                        <span class="menu-title">Chat Forum</span>
-                    </a>
-                </li>
-
-
-                {
-                    /*
-                    <li class="nav-item">
-                    <a href={`/${routing.candidatCv.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-book-line"></i></span>
-                        <span class="menu-title"> Gestion cv</span>
-                    </a>
-                    </li>
-                    
-                    */
-                }
-
-
-                <li class="nav-item">
-                    <a href={`/${routing.candidatChangePassord.path}`} class="nav-link">
-                        <span class="icon"><i class="ri-lock-line"></i></span>
-                        <span class="menu-title">Mot de passe</span>
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">
-                        <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
-                        <span class="menu-title">Déconnexion</span>
-                    </a>
-                </li>
-
-                {
-                    /*
-                      <li class="nav-item">
-                       <a href="index.html" class="nav-link">
-                         <span class="icon"><i class="ri-delete-bin-line"></i></span>
-                         <span class="menu-title">Delete Profile</span>
-                       </a>
-                      </li>
-                    */
-                }
             </ul>
         </div>
     )

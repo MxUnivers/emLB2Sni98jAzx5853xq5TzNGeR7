@@ -8,7 +8,8 @@ const SideMenuBarAdmin = () => {
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
     return (
         <div class="sidemenu-area">
-            <div class="sidemenu-header ">
+            
+                <div class="sidemenu-header ">
                 <a href="#" class="navbar-brand d-flex align-items-center">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNwGntabEwwI6ZrY1pvYkWd318utiN_q6hbVp0sii0_NUR1mSxEybHdFNSaKvjylBWMU&usqp=CAU" class="img-circle h-16 w-16 rounded-[50px] " alt="image" />
                 </a>
@@ -19,16 +20,16 @@ const SideMenuBarAdmin = () => {
                     <span class="bottom-bar"></span>
                 </div>
             </div>
-
+            
 
 
             {/* Side bar pour le  Candidat */}
             {
-                
+
                 typeAdmin == "candidat" ?
                     <SideMenuBarCandidatAdmin /> :
                     null
-                
+
             }
             {
                 typeAdmin == "employeur" ?
