@@ -179,15 +179,15 @@ export const CandidatDeconnexion = async (id) => {
 
     await axios(config)
         .then((response) => {
-            localStorage.removeItem(localvalue.candidat.tokenCandidat, response.data.data.token);
-            localStorage.removeItem(localvalue.candidat.idCandidat, response.data.data._id);
-            localStorage.removeItem(localvalue.candidat.emailCandidat, response.data.data.email);
-            localStorage.removeItem(localvalue.typeAdmin, response.data.data.type);
-            localStorage.removeItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
+            // localStorage.removeItem(localvalue.candidat.tokenCandidat, response.data.data.token);
+            // localStorage.removeItem(localvalue.candidat.idCandidat, response.data.data._id);
+            // localStorage.removeItem(localvalue.candidat.emailCandidat, response.data.data.email);
+            // localStorage.removeItem(localvalue.typeAdmin, response.data.data.type);
+            // localStorage.removeItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
 
-            localStorage.removeItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
-            localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
-            localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
+            // localStorage.removeItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
+            // localStorage.removeItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
+            // localStorage.removeItem(localvalue.emloyeur.emailEmployeur, response.data.data.email);
             handleClearLocalStorage();
             // redirect(`${routing.historique.path}`);
             window.location.reload();

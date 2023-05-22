@@ -23,6 +23,9 @@ export const routing = {
     stephistoriqueInscription:{
         path:"etapes-d'inscription-sur-la-plateforme"
     },
+    followStatistique:{
+        path: "vue-d'ensemble-postes-et-canditures"
+    },
     detailOffre:{
         path:"detail-offre"
     },

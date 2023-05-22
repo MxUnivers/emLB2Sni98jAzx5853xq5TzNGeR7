@@ -7,11 +7,16 @@ import ItemProfileEmployeur from './navigation/ItemProfileEmployeur';
 import { CategorieGetAllAnnonces } from '../../action/api/annonces/AnnoncesAction';
 import { keyboard } from '@testing-library/user-event/dist/keyboard';
 import { Button, Form, Image, Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import { HiLogin, HiOutlineLockClosed, HiOutlineLogout, HiOutlineUserAdd } from 'react-icons/hi';
+import { HiLogin, HiOutlineLockClosed, HiOutlineLogout, HiOutlineSpeakerphone, HiOutlineUserAdd } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
 import { CandidatDeconnexion } from '../../action/api/candidat/CandidatAction';
 import { EntrepriseDisConnect } from '../../action/api/employeur/EmployeurAction';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { handleClearLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { MdOutlineHome, MdPhoneCallback } from "react-icons/md";
+import { FcStatistics } from "react-icons/fc";
+import { ImProfile } from "react-icons/im";
+import {BiHelpCircle} from  "react-icons/bi";
 
 
 
@@ -31,7 +36,7 @@ const HeaderWeb = () => {
         CategorieGetAllAnnonces(setkeywords);
     }, []);
 
-    
+
 
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
@@ -66,7 +71,7 @@ const HeaderWeb = () => {
                 
                 */
             }
-            
+
 
             <Navbar bg="light" expand="lg" className="fixed bg-white top-0 w-full visible border-b">
                 <Navbar.Brand href="/">
@@ -76,13 +81,29 @@ const HeaderWeb = () => {
                 <Navbar.Toggle aria-controls="navbar-nav" />
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className="mr-auto visible">
-                        <Nav.Link to="/" as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">
-                           Accueil
+                        <Nav.Link to="/" as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                            <MdOutlineHome size={20} /> <span>Accueil</span>
                         </Nav.Link>
-                        <Nav.Link to={`/${routing.searchAnnonce.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Annonces</Nav.Link>
-                        <Nav.Link to={`/${routing.historique.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Statistiques</Nav.Link>
-                        <Nav.Link to="/contact" as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Contact</Nav.Link>
-                        <Nav.Link to={`/${routing.stephistoriqueInscription.path}`} as={NavLink} className="nav-link" activeClassName="text-lg text-gray-100 bg-blue-500 ">Aide</Nav.Link>
+                        <Nav.Link to={`/${routing.searchAnnonce.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                            <HiOutlineSpeakerphone size={20} /> <span>Annonces</span>
+                        </Nav.Link>
+                        <Nav.Link to={`/${routing.historique.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                            <ImProfile size={20} /> <span>apercu profile </span>
+                        </Nav.Link>
+                        {
+                            typeAdmin == typeadmin.employeur ?
+                                <Nav.Link to={`/${routing.followStatistique.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                                    <FcStatistics size={20} /> <span>vue d{"'"}encsemble </span>
+                                </Nav.Link>
+                                :
+                                null
+                        }
+                        <Nav.Link to="/contact" as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                        <MdPhoneCallback size={20} /> <span>Contact </span>
+                        </Nav.Link>
+                        <Nav.Link to={`/${routing.stephistoriqueInscription.path}`} as={NavLink} className="nav-link flex space-x-2" activeClassName="text-lg text-gray-100 bg-blue-500 ">
+                        <BiHelpCircle size={20} /> <span>Aide </span>
+                        </Nav.Link>
                     </Nav>
                     <Nav class="visible mx-5">
 
@@ -148,6 +169,9 @@ const HeaderWeb = () => {
                                                 alert("Déconnexion impossible")
                                             }
                                             else {
+                                                handleClearLocalStorage();
+                                                navigation('/');
+                                                window.location.reload();
                                                 e.preventDefault();
                                                 dispatch(EntrepriseDisConnect(idEmployeur));
                                             }
@@ -166,7 +190,7 @@ const HeaderWeb = () => {
                                 null
                         }
 
-                        
+
                         {
                             typeAdmin == typeadmin.candidat || typeAdmin == typeadmin.employeur ?
                                 null :

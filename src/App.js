@@ -35,6 +35,7 @@ import HistoriquePage from "./pages/web/HistoriquePage";
 import OffreDetailPage from "./pages/web/OffreDetailPage";
 import HowToPage from "./pages/web/HowToPage";
 import CategoriesAnnoncesPage from "./pages/web/CategoriesAnnoncesPage";
+import FollowEmployeur from "./pages/web/FollowEmployeur";
 
 
 
@@ -65,6 +66,7 @@ function App() {
             <Route path={`${routing.searchAnnonce.path}`} element={<AnnoncesListPage />} />
             <Route path={`${routing.categoriesAnnonces.path}`} element={<CategoriesAnnoncesPage />} />
             <Route path={`${routing.detailAnnonce.path}`} element={<AnnonceDetail />} />
+            <Route path={`${routing.followStatistique.path}`} element={<FollowEmployeur />} />
             //inscription du candidat
             <Route path={`${routing.inscription.path}`} element={<SignUpPage />} />
             <Route path={`${routing.inscriptionCandidat.path}`} element={<SignupCandidatPage />} />

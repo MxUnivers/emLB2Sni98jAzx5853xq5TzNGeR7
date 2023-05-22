@@ -59,7 +59,8 @@ export const EntrepriseConnexion = (data,redirect) => {
                 localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
 
         
-                redirect(`/${routing.employeurDashboard.path}`);
+                // redirect(`/${routing.employeurDashboard.path}`);
+                redirect(`/`);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -76,11 +77,11 @@ export const EntrepriseDisConnect = (id) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/auth/entreprise/disconnect_entreprise/${id}`, {
+            .post(`${baseurl.url}/api/v1/auth/entreprise/disconnect/${id}/`, {
                 headers:
                 {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                 }
             })
             .then((response) => {
@@ -97,11 +98,13 @@ export const EntrepriseDisConnect = (id) => {
                 // localStorage.removeItem(localvalue.candidat.idCandidat);
                 // localStorage.removeItem(localvalue.candidat.emailCandidat);
                 // localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
+                alert("deconnexion réussi")
                 handleClearLocalStorage();
                 window.location.reload();
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                alert("Error la deconnéxion")
             });
     };
 }

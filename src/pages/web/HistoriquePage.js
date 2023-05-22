@@ -8,6 +8,7 @@ import { routing } from '../../utlis/routing';
 import { AiTwotoneEdit } from "react-icons/ai";
 import { typeadmin } from '../../utlis/storage/account';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 
 
