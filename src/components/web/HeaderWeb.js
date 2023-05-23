@@ -23,7 +23,7 @@ import { BiHelpCircle } from "react-icons/bi";
 const HeaderWeb = () => {
     const navigation = useNavigate();
 
-    var avatarImage = "https://images.pexels.com/photos/7275385/pexels-photo-7275385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+    var avatarImage = "https://images.pexels.com/photos/7275385/pexels-photo-7275385.jpeg?auhref=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
 
@@ -73,7 +73,7 @@ const HeaderWeb = () => {
             }
 
 
-            
+
             <Navbar bg="light" expand="lg" className="fixed  bg-white top-0 w-full visible border-b">
                 <Navbar.Brand href="/">
                     <img src="https://www.roquefort-labedoule.fr/_5/upload/offre-emploi-e1497615572612.png" class="white-logo w-14 h-14" alt="logo" />
@@ -83,34 +83,39 @@ const HeaderWeb = () => {
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className='mr-auto visible'>
                         <Nav.Link
-                            to='/'
-                            as={NavLink}
+                            href='/'
+
                             className='nav-link flex space-x-2'
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <MdOutlineHome size={20} /> <span>Accueil</span>
                         </Nav.Link>
                         <Nav.Link
-                            to={`/${routing.searchAnnonce.path}`}
-                            
+                            href={`/${routing.searchAnnonce.path}`}
+
                             className='nav-link flex space-x-2'
-                            as={NavLink}
+
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <HiOutlineSpeakerphone size={20} /> <span>Annonces</span>
                         </Nav.Link>
-                        <Nav.Link
-                            to={`/${routing.historique.path}`}
-                            as={NavLink}
-                            className='nav-link flex space-x-2'
-                            activeClassName='text-lg text-gray-100 bg-blue-500 '
-                        >
-                            <ImProfile size={20} /> <span>apercu profile </span>
-                        </Nav.Link>
+                        {
+                            typeAdmin == typeadmin.candidat ?
+                                <Nav.Link
+                                    href={`/${routing.historique.path}`}
+
+                                    className='nav-link flex space-x-2'
+                                    activeClassName='text-lg text-gray-100 bg-blue-500 '
+                                >
+                                    <ImProfile size={20} /> <span>apercu profile </span>
+                                </Nav.Link>
+                                :
+                                null
+                        }
                         {typeAdmin == typeadmin.employeur ? (
                             <Nav.Link
-                                to={`/${routing.followStatistique.path}`}
-                                as={NavLink}
+                                href={`/${routing.followStatistique.path}`}
+
                                 className='nav-link flex space-x-2'
                                 activeClassName='text-lg text-gray-100 bg-blue-500 '
                             >
@@ -118,16 +123,16 @@ const HeaderWeb = () => {
                             </Nav.Link>
                         ) : null}
                         <Nav.Link
-                            to='/contact'
-                            as={NavLink}
+                            href='/contact'
+
                             className='nav-link flex space-x-2'
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <MdPhoneCallback size={20} /> <span>Contact </span>
                         </Nav.Link>
                         <Nav.Link
-                            to={`/${routing.stephistoriqueInscription.path}`}
-                            as={NavLink}
+                            href={`/${routing.stephistoriqueInscription.path}`}
+
                             className='nav-link flex space-x-2'
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
@@ -247,7 +252,7 @@ const HeaderWeb = () => {
                 </Navbar.Collapse>
             </Navbar>
 
-            
+
 
 
 

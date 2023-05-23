@@ -137,5 +137,31 @@ export const LocationGetAllAnnonces = async (setState) => {
 
 
 
+export const AnnonceEditById = (id,data,toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/annonce/edit/${id}`, data, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Annonce Modifier")
+                window.location.reload();
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de Modifier l'annonce")
+            });
+    };
+}
+
+
+
+
 
 

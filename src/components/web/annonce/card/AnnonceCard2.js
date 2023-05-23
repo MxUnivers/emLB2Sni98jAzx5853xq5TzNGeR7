@@ -3,8 +3,15 @@ import { routing } from '../../../../utlis/routing';
 import { localvalue } from '../../../../utlis/storage/localvalue';
 import moment from 'moment';
 import { imageIcons } from '../../../../utlis/imageFile';
+import { Button, Modal } from 'react-bootstrap';
 
 const AnnonceCard2 = ({ item }) => {
+
+
+
+    
+
+
     return (
         <div class="job-block-item">
             <div class="row align-items-center">
@@ -56,6 +63,7 @@ const AnnonceCard2 = ({ item }) => {
                                 </div>
                             </div>
 
+                            {/*
                             <div class="col-lg-3">
                                 <div class="job-list-optional">
                                     <a href={`/${routing.detailAnnonce.path}`} class="default-btn visible bg-blue-600"
@@ -63,22 +71,21 @@ const AnnonceCard2 = ({ item }) => {
                                             sessionStorage.setItem(localvalue.annonceDetail.id, `${item._id}`);
                                         }}
                                     >Postuler maintenant <i class="flaticon-list-1"></i></a>
-
-                                    {
-                                        /*
-                                        <div class="save-text">
-                                        <span>Enregistrer</span>
-                                    </div>
-                                        */
-                                    }
                                 </div>
                             </div>
+                            */}
+
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            
         </div>
     )
 }
 
-export default AnnonceCard2
+export default AnnonceCard2;
+
+

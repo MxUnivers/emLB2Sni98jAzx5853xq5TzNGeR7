@@ -5,6 +5,7 @@ import { baseurl } from "../../../utlis/url/baseurl";
 import { localvalue } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
 import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { toast } from "react-toastify";
 
 
 
@@ -140,7 +141,7 @@ export const EntrepriseEditProfile = (id,data) => {
 
 
 // Une entreprise qui poste une annonce
-export const EntreprisePostAnnonce = (id,data) => {
+export const EntreprisePostAnnonce = (id,data,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -153,13 +154,23 @@ export const EntreprisePostAnnonce = (id,data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Annonce Créer avec succès");
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de Créer un annonce");
             });
     };
 }
+
+
+
+
+
+//Modifier cette annonce
+
+
+
 
 // Une entreprise qui poste une anonnce
 export const EntreprisePostOffre = (id,data) => {
@@ -185,7 +196,7 @@ export const EntreprisePostOffre = (id,data) => {
 
 
 
-export const EntrepriseEditAnnonce = (id,data) => {
+export const EntrepriseEditAnnonce = (id,data,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -198,10 +209,12 @@ export const EntrepriseEditAnnonce = (id,data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Annonce Modifier")
                 window.location.reload();
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de Modifier l'annonce")
             });
     };
 }

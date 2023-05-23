@@ -3,6 +3,7 @@ import { typeContrat } from '../../../utlis/options/optionDivers'
 import { useDispatch, useSelector } from 'react-redux';
 import { EntreprisePostAnnonce, EntreprisePostOffre } from '../../../action/api/employeur/EmployeurAction';
 import { localvalue } from '../../../utlis/storage/localvalue';
+import { secteursActivites } from '../../../utlis/options/employeurOption';
 
 
 
@@ -107,19 +108,35 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                                     <input type="email" onChange={handleChangeForm} name="email" class="form-control" placeholder="Job Title Here" />
                                 </div>
                             </div>
-
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-4 col-md-6">
                                 <div class="form-group">
                                     <label>Nom de l{"'"}entreprise</label>
                                     <input type="text" onChange={handleChangeForm} name="entreprise" class="form-control" placeholder="Job Title Here" />
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-group">
+                                    <label>Secteur d{"'"}activités</label>
+                                    <select onChange={handleChangeForm} name="secteur_activites" class="form-control" >
+                                        {
+                                            secteursActivites.map((item) => {
+                                                return (
+                                                    <option value={item.value} >{item.value}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                            {
+                                /* <div class="col-lg-4 col-md-6">
                                 <div class="form-group">
                                     <label>Date de début du job</label>
                                     <input type="date" onChange={handleChangeForm} name="dateDebut" class="form-control" placeholder="Job Title Here" />
-                                </div>
-                            </div>
+                                </div></div>
+                                */
+                            }
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>Type de contrat</label>
@@ -154,12 +171,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                                 </div>
                             </div>
 
-
-
-
-
                             {error && <p class="text-danger">Une erreur est survenue lors de l{"'"}inscription : {error}</p>}
-
                             {
                                 loading ?
                                     <p>envois en cours ....</p> :
@@ -171,8 +183,6 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                     </form>
                 </div>
             }
-
-
 
             {
                 showComponentB &&
@@ -245,11 +255,6 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                                     <textarea cols="30" onChange={handleChangeForm} name="description" rows="6" placeholder="Short description..." class="form-control"></textarea>
                                 </div>
                             </div>
-
-
-
-
-
                             {error && <p class="text-danger">Une erreur est survenue lors de l{"'"}inscription : {error}</p>}
 
                             {
@@ -264,12 +269,8 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                 </div>
             }
 
-
-
-
-
         </div>
     )
 }
 
-export default DashBoardEmployeurPostAnnoncePage
+export default DashBoardEmployeurPostAnnoncePage;
