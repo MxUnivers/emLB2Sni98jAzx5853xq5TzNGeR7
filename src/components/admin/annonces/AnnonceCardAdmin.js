@@ -5,7 +5,7 @@ import { LocaleState } from '../../../utlis/storage/localvalueFunction'
 
 export const AnnonceCardAdmin = ({ item }) => {
     return (
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-12 w-full">
             <div class="dashboard-job-card">
                 <div class="job-content">
                     <div class="company-logo">

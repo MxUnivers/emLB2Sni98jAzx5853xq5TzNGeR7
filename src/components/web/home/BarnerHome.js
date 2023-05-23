@@ -1,70 +1,81 @@
 import React from 'react';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+import { AiFillCaretLeft, AiFillCaretRight } from  "react-icons/ai";
 
 const BarnerHome = () => {
+    const handleOnSlideChange = (e) => {
+        console.log('Slide changed', e.slide);
+    };
+
+    const settings = {
+        dots: true, // Afficher les points indicateurs
+        infinite: true, // Défilement infini
+        speed: 500, // Vitesse de transition en millisecondes
+        slidesToShow: 3, // Nombre d'éléments à afficher simultanément
+        slidesToScroll: 1, // Nombre d'éléments à faire défiler à la fois
+    };
+
+    const carousel_bg = [
+        {
+            titre: "VOUS AVEZ DU TALENT ? RENCONTREZ L'OPPORTUNITÉ",
+            sous_titre: "n'attender plus inscrivez vous",
+            image: "https://images.pexels.com/photos/3184163/pexels-photo-3184163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        },
+        {
+            titre: "VOUS AVEZ DU TALENT ? RENCONTREZ L'OPPORTUNITÉ",
+            sous_titre: "n'attender plus inscrivez vous",
+            image: "https://images.pexels.com/photos/3184163/pexels-photo-3184163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        },
+        {
+            titre: "VOUS AVEZ DU TALENT ? RENCONTREZ L'OPPORTUNITÉ",
+            sous_titre: "n'attender plus inscrivez vous",
+            image: "https://images.pexels.com/photos/3184163/pexels-photo-3184163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        }
+    ]
     // var  bgImg = "home.jpg";
-    var  bgImg = "https://images.pexels.com/photos/4559515/pexels-photo-4559515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+    var bgImg = "https://images.pexels.com/photos/4559515/pexels-photo-4559515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
     return (
-        <div class="main-banner-area-with-bg-image visible  bg-gradient-to-tr from-transparent to-black" style={{backgroundImage:`url('${bgImg}')`}}>
-            <div class="container-fluid">
-                <div class="main-banner-content-with-search visible" data-speed="0.06" data-revert="true">
-                    <h1  class="visible" data-aos-delay="50" data-aos-duration="500">
-                    VOUS AVEZ DU TALENT ?
-                    <br/> RENCONTREZ L{"'"}OPPORTUNITÉ</h1>
+        <AliceCarousel
+            onSlideChange={handleOnSlideChange} autoPlay autoPlayInterval={3000} activeIndex={1}
+            prevButton={
+                <button
+                    className="bg-gray-300 rounded-full p-2 hover:bg-gray-400 focus:outline-none"
+                    
+                >
+                    <AiFillCaretLeft /> 
+                </button>
+            } // Composant personnalisé pour la flèche précédente
+            nextButton={
+                <button
+                    className="bg-gray-300 rounded-full p-2 hover:bg-gray-400 focus:outline-none"
+                    
+                >
+                <AiFillCaretRight />
+                </button>
+            } // Composant personnalisé pour la flèche suivante
+            prevButtonClassName="custom-prev-" // Classe CSS pour styliser la flèche précédente
+            nextButtonClassName="custom-next-button" // Classe CSS pour styliser la flèche suivante
 
-                    <form class="banner-search-form">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-group">
-                                    <label><i class="flaticon-edit"></i></label>
-                                    <input class="form-control" type="text" placeholder="Keywords"/>
+        >
+
+            {
+                carousel_bg.map((item) => {
+                    return (
+                        <div class="main-banner-area-with-bg-image visible  bg-gradient-to-tr from-transparent to-black" style={{ backgroundImage: `url('${item.image}')` }}>
+                            <div class="container-fluid">
+                                <div class="main-banner-content-with-search visible" data-speed="0.06" data-revert="true">
+
                                 </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-control h-full">
-                                    <label><i class="flaticon-placeholder"></i></label>
-                                    <select class="selectize-filter form-control">
-                                        <option value="1">Location</option>
-                                        <option value="2">Canada</option>
-                                        <option value="3">Japan</option>
-                                        <option value="4">Germany</option>
-                                        <option value="5">Switzerland</option>
-                                        <option value="6">Australia</option>
-                                        <option value="7">United States</option>
-                                        <option value="8">New Zealand</option>
-                                        <option value="9">United Kingdom</option>
-                                        <option value="10">Sweden</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6">
-                                <div class="form-control h-full">
-                                    <label><i class="flaticon-list"></i></label>
-                                    <select class="selectize-filter form-control">
-                                        <option value="1">Category</option>
-                                        <option value="2">Assurance</option>
-                                        <option value="3">Banking</option>
-                                        <option value="4">Copyright</option>
-                                        <option value="5">Design</option>
-                                        <option value="6">Finance</option>
-                                        <option value="7">IT Sector</option>
-                                        <option value="8">Management</option>
-                                        <option value="9">Photography</option>
-                                        <option value="10">Software</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6">
-                                <button type="submit" class="search-btn">Search A Job <i class="ri-search-line"></i></button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                    )
+                })
+            }
+        </AliceCarousel>
     )
 }
+
+
 
 export default BarnerHome;

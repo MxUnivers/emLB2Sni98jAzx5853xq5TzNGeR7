@@ -6,7 +6,10 @@ const LayoutWeb = () => {
     return (
         <div>
             <HeaderWeb/>
+            <div class="pt-28">
             <Outlet/>
+            </div>
+            
         </div>
     )
 }

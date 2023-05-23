@@ -9,7 +9,7 @@ const CandidatCardAdmin = ({ item }) => {
 
 
     return (
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-12 w-full">
             <div class="single-applicants-card bg-teal-100 hover:bg-teal-200 active:bg-teal-250">
                 <div class="image">
                     <a href="#"><img src={item.coverPicture} alt={item.username} /></a>
