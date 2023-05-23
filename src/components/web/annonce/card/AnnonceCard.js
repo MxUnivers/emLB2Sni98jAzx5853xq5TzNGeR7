@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const AnnonceCard = ({ data }) => {
     return (
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6 w-full">
             <div class="single-job-list-card">
                 <div class="job-information">
                     <div class="company-logo">

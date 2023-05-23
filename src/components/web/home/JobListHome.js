@@ -4,10 +4,12 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { AnnonceGetAll } from '../../../action/api/annonces/AnnoncesAction';
 import AnnonceCard from '../annonce/card/AnnonceCard';
-import ErrorComponent from '../../chargement/ErrorComponent';
 import { useQuery } from 'react-query';
 import LoaderComponent from '../../chargement/LoaderComponent';
-import { queryCahe } from '../../../utlis/config';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+
 
 const JobListHome = () => {
     // data annonces
@@ -31,6 +33,24 @@ const JobListHome = () => {
 
     // const { data, isLoading, isError } = useQuery(queryCahe.annonces, AnnonceGetAll(setdataAnnonce));
 
+    const responsive = {
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3,
+            slidesToSlide: 3, // Nombre d'éléments à faire glisser
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2,
+            slidesToSlide: 2, // Nombre d'éléments à faire glisser
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1,
+            slidesToSlide: 1, // Nombre d'éléments à faire glisser
+        },
+    };
+
     return (
         <div class="job-list-area pb-100">
             <div class="container">
@@ -48,14 +68,27 @@ const JobListHome = () => {
                 {
                     dataAnnonce && dataAnnonce.length > 0 ?
                         (
-                            <div class="row" data-aos="fade-up">
-                                {
-                                    dataAnnonce.slice(start, perPage).map((item) => {
-                                        return (
-                                            <AnnonceCard data={item} />
-                                        )
-                                    })
-                                }
+                            <div  data-aos="fade-up">
+                            <Carousel
+                                responsive={responsive}
+                                infinite={true} // Défilement infini
+                                draggable={true} // Possibilité de faire glisser les éléments
+                                swipeable={true} // Possibilité de faire glisser avec le doigt sur les appareils tactiles
+                                keyBoardControl={true} // Contrôle du carousel avec le clavier
+                            >
+                                
+                                    {
+                                        dataAnnonce.slice(start, perPage).map((item) => {
+                                            return (
+                                                
+                                                <AnnonceCard data={item} />
+                                                
+                                                
+                                            )
+                                        })
+                                    }
+                                
+                            </Carousel>
                             </div>
                         )
                         : <LoaderComponent />
