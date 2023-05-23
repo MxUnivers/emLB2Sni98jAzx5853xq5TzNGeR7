@@ -91,8 +91,9 @@ const HeaderWeb = () => {
                         </Nav.Link>
                         <Nav.Link
                             to={`/${routing.searchAnnonce.path}`}
-                            as={NavLink}
+                            
                             className='nav-link flex space-x-2'
+                            as={NavLink}
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <HiOutlineSpeakerphone size={20} /> <span>Annonces</span>
