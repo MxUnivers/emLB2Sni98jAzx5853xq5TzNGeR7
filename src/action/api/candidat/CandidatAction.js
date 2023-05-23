@@ -101,6 +101,28 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre) => {
     };
 }
 
+export const CandidatPostuleOneAnnonce = (idcandidat, idAnnonce,toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/candidat/get_candidat/${idcandidat}/postuler/${idAnnonce}/annonces`, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success('Canditures poster réussie !');
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error('Impossible de poster votre canditure !');
+            });
+    };
+}
+
 
 
 

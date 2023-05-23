@@ -13,7 +13,7 @@ import { useQuery } from 'react-query';
 import { queryCahe } from '../../utlis/config';
 
 const AnnonceDetail = () => {
-    var idPost = sessionStorage.getItem(localvalue.annonceDetail.id);
+    var idPost = localStorage.getItem(localvalue.annonceDetail.id);
     var [dataAnnonceRecents ,setdataAnnonceRecents] = useState([]); 
     const [post, setpost] = useState();
     useEffect(() => {
