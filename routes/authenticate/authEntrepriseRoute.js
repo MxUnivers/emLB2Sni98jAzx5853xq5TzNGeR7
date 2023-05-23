@@ -41,10 +41,10 @@ router.post('/login/', AuthorizationMiddleware, async (req, res) => {
 
 
 
-router.post('/disconnect_entreprise/:entrepriseId', AuthorizationMiddleware, async (req, res) => {
+router.post('/disconnect/:id/', AuthorizationMiddleware, async (req, res) => {
   try {
-    const entrepriseId = req.params.entrepriseId;
-    const entrepriseExist = await EntrepriseModel.findById({ _id: entrepriseId });
+    const entrepriseId = req.params.id;
+    const entrepriseExist = await EntrepriseModel.findOne({ _id: entrepriseId });
     if (!entrepriseExist) {
       res.status(409).json({ message: "Deconnexion Impossible de se decconecter" })
     }
