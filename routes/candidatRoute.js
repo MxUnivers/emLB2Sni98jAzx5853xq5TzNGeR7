@@ -4,6 +4,7 @@ const CandidatModel = require('../models/CandidatModel');
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 const OffreEmploi = require('../models/OffreEmploiModel');
+const AnnonceModel = require('../models/AnnonceModel');
 
 // Fonction pour créer un candidat
 router.post("/", AuthorizationMiddleware, async (req, res) => {
@@ -199,6 +200,47 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
     res.status(500).send({ message: "Une erreur est suvenue" });
   }
 });
+
+
+
+
+
+
+// Pour ajouter un candidat une annonce
+router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, res) => {
+  const offreId = req.params.offreId;
+  const candidatId = req.params.candidatId;
+  try {
+
+    const candidatExit = await CandidatModel.findById({ _id: candidatId });
+    const offre = await AnnonceModel.findOne({ _id: offreId });
+
+    if (!candidatExit) {
+      return res.status(406).json({ message: "Candidat non trouvé" });
+    }
+
+    if (!offre) {
+      return res.status(407).json({ message: "Ann once non trouvée" });
+    }
+    if (offre.candidats.find(candidat => candidat._id.toString() === candidatId)) {
+      return res.status(409).json({ message: "Le candidat a déjà postulé à cette offre" });
+    }
+    const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
+    const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
+
+
+    await candidat.save();
+    await offrePostule.save();
+    await res.json({ data: candidat, message: "Candidature posté" });
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Une erreur est suvenue" });
+  }
+});
+
+
+
 
 
 
