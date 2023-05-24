@@ -5,6 +5,8 @@ const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 const OffreEmploi = require('../models/OffreEmploiModel');
 const AnnonceModel = require('../models/AnnonceModel');
+const CandidatureModel = require('../models/CandidatureModel');
+const { error } = require('firebase-functions/logger');
 
 // Fonction pour créer un candidat
 router.post("/", AuthorizationMiddleware, async (req, res) => {
@@ -167,6 +169,32 @@ router.get('/get_candidat/:id/offres', AuthorizationMiddleware, async (req, res)
 
 
 
+// recupérer tou les annonces des candidat
+router.get('/get_candidat/:id/annonces', AuthorizationMiddleware, async (req, res) => {
+  try {
+    const candidatId = req.params.id;
+
+    await CandidatModel.findById({ _id: candidatId })
+      .populate('AnnoncesPostuless')
+      .exec(async (err, candidat) => {
+        if (err) {
+          // Gérer l'erreur
+        }
+        if (candidat) {
+          const annoncePostulees = candidat.AnnoncesPostuless;
+          await res.json({ data: annoncePostulees })
+          // Utiliser le tableau des offres postulées
+        }
+      });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error');
+  }
+});
+
+
+
 
 
 // Route pour ajouter une offre à un candidat
@@ -218,24 +246,35 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, 
     if (!candidatExit) {
       return res.status(406).json({ message: "Candidat non trouvé" });
     }
-
     if (!offre) {
       return res.status(407).json({ message: "Ann once non trouvée" });
     }
     if (offre.candidats.find(candidat => candidat._id.toString() === candidatId)) {
-      return res.status(409).json({ message: "Le candidat a déjà postulé à cette offre" });
+      return res.status(409).json({ message: "Le candidat a déjà postulé à cette Annonce" });
     }
-    const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
-    const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
+    if (candidatExit.AnnoncesPostuless.find(candidat => candidat._id.toString() === candidatId)) {
+      return res.status(410).json({ message: "Cette offre existe déja chez vous " });
+    }
 
+
+    // Ajouter une nouvelle canditure à l'annonce 
+    const candidature = new CandidatureModel({
+      idAnnonce: offre._id,
+      idCandidat: candidatExit,
+      titre: offre.titre
+    })
+    candidature.save();
+    const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { AnnoncesPostuless: offre } }, { new: true });
+    const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
 
     await candidat.save();
     await offrePostule.save();
     await res.json({ data: candidat, message: "Candidature posté" });
-    
+
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Une erreur est suvenue" });
+    res.status(500).send({ message: "Une erreur est suvenue" + err });
+    console.log(err);
   }
 });
 

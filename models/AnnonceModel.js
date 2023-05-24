@@ -7,6 +7,12 @@ const annonceSchema = new Schema({
         type: String,
         required: false
     },
+    idAdministrateur:{
+        type:String
+    },
+    idEntreprise:{
+        type:String,
+    },
     description: {
         type: String,
         required: false
@@ -40,13 +46,11 @@ const annonceSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    candidats: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Candidat',
-    }],
+    candidats: [
+        {type:Object}
+    ],
     secteur_activites: {
         type: String,
-        enum: secteursActivites,
         required: false,
       },
     blocked: {

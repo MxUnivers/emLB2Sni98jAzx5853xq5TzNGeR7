@@ -4,6 +4,7 @@ dotenv.config()
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const AnnonceModel = require("../models/AnnonceModel");
 const CandidatModel = require("../models/CandidatModel");
+const EntrepriseModel = require("../models/EntrepriseModel");
 
 
 
@@ -32,20 +33,20 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
         const candidates = await CandidatModel.find();
         const nouvelleAnnonce = new AnnonceModel(req.body);
 
-        candidates.forEach((candidate) => {
-            const message = `Bonjour ${candidate.firstname}, une nouvelle annonce "${nouvelleAnnonce.titre}" a été créée. Veuillez consulter notre application pour plus de détails.`;
+        // candidates.forEach((candidate) => {
+        //     const message = `Bonjour ${candidate.firstname}, une nouvelle annonce "${nouvelleAnnonce.titre}" a été créée. Veuillez consulter notre application pour plus de détails.`;
 
-            client.messages
-                .create({
-                    body: message,
-                    from: '+12545365609',
-                    to: `${candidate.telephone}`, // Supposons que le numéro de téléphone du candidat est stocké dans la propriété "phoneNumber"
-                })
-                .then((message) => {
-                    console.log(`SMS envoyé à ${candidate.telephone}: ${message.sid}`)
-                })
-                .catch((error) => { console.error(`Erreur lors de l'envoi du SMS à ${candidate.firstname}:`, error) });
-        });
+        //     client.messages
+        //         .create({
+        //             body: message,
+        //             from: '+12545365609',
+        //             to: `${candidate.telephone}`, // Supposons que le numéro de téléphone du candidat est stocké dans la propriété "phoneNumber"
+        //         })
+        //         .then((message) => {
+        //             console.log(`SMS envoyé à ${candidate.telephone}: ${message.sid}`)
+        //         })
+        //         .catch((error) => { console.error(`Erreur lors de l'envoi du SMS à ${candidate.firstname}:`, error) });
+        // });
 
         await nouvelleAnnonce.save(); // Sauvegarde de l'annonce dans la base données
         res.json({ message: "Annonce créée avec succès", nouvelleAnnonce }); // Réponse avec un message de succès et les détails de l'annonce créée
@@ -67,15 +68,17 @@ router.put("/edit/:id", async (req, res) => {
         const id = req.params.id;
         // Récupération des données de l'annonce depuis le corps de la requête
         const annonceExist = await AnnonceModel.findById({ _id: id })
-        if (!annonceExist) { // Si l'annonce n'existe pas, on renvoie une erreur
+        if (!annonceExist) {
             return res.status(404).json({ message: "Annonce non trouvée" });
         }
-        const annonce = await AnnonceModel.findByIdAndUpdate({ _id: id }, req.body, { new: true }); // Utilisation de l'option { new: true } pour renvoyer la version modifiée de l'annonce
+        // Mettre à jour l'annonce elle-même
+        const annonce = await AnnonceModel.findByIdAndUpdate({ _id: id }, req.body);
         await annonce.save();
-        await res.json({ message: "Annonce modifiée avec succès", annonce }); // Réponse avec un message de succès et les détails de l'annonce modifiée
+        res.json({ message: "Annonce modifiée avec succès", annonce });
+
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Une erreur s'est produite lors de la modification de l'annonce" }); // Réponse avec un message d'erreur en cas d'échec de la modification de l'annonce
+        res.status(500).json({ message: "Une erreur s'est produite lors de la modification de l'annonce"+error }); // Réponse avec un message d'erreur en cas d'échec de la modification de l'annonce
     }
 });
 
@@ -120,6 +123,9 @@ router.get('/get_categories/:id', AuthorizationMiddleware, async (req, res) => {
         res.status(500).json('Server Error');
     }
 });
+
+
+
 
 
 

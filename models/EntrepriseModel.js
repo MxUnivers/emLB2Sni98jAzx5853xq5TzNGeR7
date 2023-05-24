@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { secteursActivites } = require("../utils/FormatApi");
 
 const EntrepriseSchema = new mongoose.Schema({
   username:{
@@ -59,6 +60,11 @@ const EntrepriseSchema = new mongoose.Schema({
   offres: [
     {type:Object}
   ],
+  secteur_activites: {
+    type: String,
+    enum: secteursActivites,
+    required: false,
+  },
   facebook_url:{
     type:String,default:"#"
   },
