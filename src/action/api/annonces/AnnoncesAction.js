@@ -137,12 +137,12 @@ export const LocationGetAllAnnonces = async (setState) => {
 
 
 
-export const AnnonceEditById = (id,data,toast) => {
+export const AnnonceEditById = (id,data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .put(`${baseurl.url}/api/v1/annonce/edit/${id}`, data, {
-                headers:
+                headers : 
                 {
                     'Content-Type': 'application/json',
                     'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -150,12 +150,11 @@ export const AnnonceEditById = (id,data,toast) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Annonce Modifier")
-                window.location.reload();
+                    window.location.reload()
+                
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Impossible de Modifier l'annonce")
             });
     };
 }
@@ -165,3 +164,24 @@ export const AnnonceEditById = (id,data,toast) => {
 
 
 
+
+// recuprer les annonces d'une entreprise 
+export const AnnoncesOfEntreprisesId = async (id, setState,setState2) => {
+    try {
+        const response = await axios.get(`${baseurl.url}/api/v1/entreprise/get_annonces/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        });
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+            console.log(response.data.data);
+            setState(response.data.data);
+            setState2(response.data.data);
+        } else {
+            console.log('La structure de la réponse est incorrecte');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};

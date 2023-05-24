@@ -5,7 +5,6 @@ import { baseurl } from "../../../utlis/url/baseurl";
 import { localvalue } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
 import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
-import { toast } from "react-toastify";
 
 
 
@@ -16,7 +15,7 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 
 // Fonction pour ajouter des administrateurs à l'application
-export const EntrepriseSignUp = (data) => {
+export const EntrepriseSignUp = (data, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -29,17 +28,21 @@ export const EntrepriseSignUp = (data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Inscription résussi avec succès . Velliez vous connecter maintenant !");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Inscription échoué !");
             });
     };
 }
 
 
 
-export const EntrepriseConnexion = (data,redirect) => {
+export const EntrepriseConnexion = (data, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -54,17 +57,22 @@ export const EntrepriseConnexion = (data,redirect) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 handleClearLocalStorage();
                 // ReRecupérer les données de connexion 
-                localStorage.setItem(localvalue.emloyeur.idEmployeur,response.data.data._id);
-                localStorage.setItem(localvalue.emloyeur.coverPictureEmployeur,response.data.data.logo);
-                localStorage.setItem(localvalue.emloyeur.tokenEmployeur,response.data.data.token);
-                localStorage.setItem(localvalue.typeAdmin,response.data.data.type);
+                localStorage.setItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
+                localStorage.setItem(localvalue.emloyeur.coverPictureEmployeur, response.data.data.logo);
+                localStorage.setItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
+                localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
 
-        
+                toast.success("Connexion réussi !");
+                setTimeout(() => {
+                    redirect(`/`);
+                }, 4000);
                 // redirect(`/${routing.employeurDashboard.path}`);
-                redirect(`/`);
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de se connecter !");
+
             });
     };
 }
@@ -117,7 +125,7 @@ export const EntrepriseDisConnect = (id) => {
 
 
 
-export const EntrepriseEditProfile = (id,data) => {
+export const EntrepriseEditProfile = (id, data,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -130,10 +138,11 @@ export const EntrepriseEditProfile = (id,data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Profile modifier avec succès");
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de modifier le profile");
             });
     };
 }
@@ -141,9 +150,20 @@ export const EntrepriseEditProfile = (id,data) => {
 
 
 // Une entreprise qui poste une annonce
-export const EntreprisePostAnnonce = (id,data,toast) => {
+export const EntreprisePostAnnonce = (id, data, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
+        console.log(
+            data.titre,
+            data.entreprise,
+            data.description,
+            data.email,
+            data.salaire,
+            data.dateDebut,
+            data.telephone,
+            data.secteurs_activites,
+            data.typeContrat
+        )
         await axios
             .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/annonces`, data, {
                 headers:
@@ -155,6 +175,9 @@ export const EntreprisePostAnnonce = (id,data,toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Annonce Créer avec succès");
+                setTimeout(()=>{
+                    window.location.reload()
+                },2000);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -173,7 +196,7 @@ export const EntreprisePostAnnonce = (id,data,toast) => {
 
 
 // Une entreprise qui poste une anonnce
-export const EntreprisePostOffre = (id,data) => {
+export const EntreprisePostOffre = (id, data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -196,7 +219,7 @@ export const EntreprisePostOffre = (id,data) => {
 
 
 
-export const EntrepriseEditAnnonce = (id,data,toast) => {
+export const EntrepriseEditAnnonce = (id, data, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -229,7 +252,7 @@ export const EntrepriseEditAnnonce = (id,data,toast) => {
 
 
 
-export const EntrepriseEditPassword = (id,data) => {
+export const EntrepriseEditPassword = (id, data) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -253,30 +276,30 @@ export const EntrepriseEditPassword = (id,data) => {
 
 
 
-export const EntrepriseGetAll = async(setState, setState2) => {
-        await axios
-            .get(`${baseurl.url}/api/v1/auth/entreprise/login/`, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
+export const EntrepriseGetAll = async (setState, setState2) => {
+    await axios
+        .get(`${baseurl.url}/api/v1/auth/entreprise/login/`, {
+            headers:
+            {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        })
+        .then((response) => {
 
-                setState(response.data.data);
-                setState2(response.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-   
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
 }
 
 
 
 
-export const EntrepriseGetById = async(id, setState) => {
+export const EntrepriseGetById = async (id, setState) => {
     await axios
         .get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${id}`, {
             headers:
@@ -298,7 +321,7 @@ export const EntrepriseGetById = async(id, setState) => {
 
 
 // Listes de tous les annonces l'entreprise
-export const EntrepriseGetAllAnnonces = async(id,setState,setState2) => {
+export const EntrepriseGetAllAnnonces = async (id, setState, setState2) => {
     await axios
         .get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${id}/annonces`, {
             headers:
@@ -318,7 +341,7 @@ export const EntrepriseGetAllAnnonces = async(id,setState,setState2) => {
 }
 
 
-export const EntrepriseGetAllOffres = async(id,setState,setState2) => {
+export const EntrepriseGetAllOffres = async (id, setState, setState2) => {
     await axios
         .get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${id}/offres`, {
             headers:

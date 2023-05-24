@@ -3,7 +3,8 @@ import BarnerCandidatAuth from '../../../components/web/auth/BarnerCandidatAuth'
 import { routing } from '../../../utlis/routing';
 import { CandidatConnexion } from '../../../action/api/candidat/CandidatAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const LoginCandidatPage = () => {
   
@@ -32,7 +33,7 @@ const LoginCandidatPage = () => {
       alert("Champ mot de passe vide ");
       return;
     }
-    dispatch(CandidatConnexion(formData));
+    dispatch(CandidatConnexion(formData,navigation,toast));
   };
 
 
@@ -45,6 +46,7 @@ const LoginCandidatPage = () => {
 
 
       <BarnerCandidatAuth />
+      <ToastContainer />
 
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="flex flex-col md:flex-row rounded-xl shadow-md bg-white w-11/12 md:w-3/4 lg:w-1/2">

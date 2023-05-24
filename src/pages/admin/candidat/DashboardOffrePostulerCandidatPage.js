@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HiSearchCircle } from 'react-icons/hi';
-import { CandidatGetAllOffrePostulees } from '../../../action/api/candidat/CandidatAction';
+import { CandidatGetAllAnnoncesPostulees, CandidatGetAllOffrePostulees } from '../../../action/api/candidat/CandidatAction';
 import { localvalue } from '../../../utlis/storage/localvalue';
 
 
@@ -10,7 +10,7 @@ const DashboardOffrePostulerCandidatPage = () => {
     const [dataOffre, setdataOffre] = useState([]);
     const [dataOffre2, setdataOffre2] = useState([]);
     useEffect(() => {
-        CandidatGetAllOffrePostulees(id, setdataOffre, setdataOffre2);
+        CandidatGetAllAnnoncesPostulees(id, setdataOffre, setdataOffre2);
     }, []);
 
 

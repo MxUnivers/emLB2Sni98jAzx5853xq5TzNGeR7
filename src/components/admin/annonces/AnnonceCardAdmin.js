@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { Button, Modal, ToastContainer } from 'react-bootstrap'
 import { typeContrat } from '../../../utlis/options/optionDivers'
 import { secteursActivites } from '../../../utlis/options/employeurOption'
-import moment from 'moment'
-import { EntrepriseEditAnnonce, EntreprisePostAnnonce } from '../../../action/api/employeur/EmployeurAction'
+import moment from 'moment';
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnnonceEditById } from '../../../action/api/annonces/AnnoncesAction'
@@ -87,25 +86,20 @@ export const AnnonceCardAdmin = ({ item }) => {
 
 
 const FormAnnonceEdit = ({ data }) => {
-    var idAdmin = localStorage.getItem(localvalue.emloyeur.idEmployeur);
+    
 
-    const [formData, setFormData] = useState(
-        {
-            titre: '',
-            email: '',
-            entreprise: '',
-            telephone: "",
-            description: "",
-        });
+    const [formData, setFormData] = useState({});
+
+
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
     const handleChangeForm = (event) => {
-        const { name, value } = event.target;
+        const { name , value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmitEdit = (event) => {
         if (formData.titre = "" | null) {
             alert("Titre requis")
         }
@@ -128,164 +122,105 @@ const FormAnnonceEdit = ({ data }) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="w-full mx-auto">
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Titre de l{"'"}annonce
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="text"
-                        name="titre"
-                        defaultValue={data.titre}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir le titre de l'annonce"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Nom de l{"'"}entreprise
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="text"
-                        name="entreprise"
-                        defaultValue={data.entreprise}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir le nom de l'entreprise"
-                    />
-                </div>
-                {
-                    /*
-                    <div className="mb-4">
-                    <label htmlFor="date" className="block text-gray-700 font-bold mb-2">
-                        Date
-                    </label>
-                    <input
-                        type="date"
-                        defaultValue={moment(data.dateDebut).format('DD/MM/YYYY')}
-                        name="dateDebut"
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                </div>
-                    */
-                }
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Description de l{"'"}annonce
-                    </label>
-                    <textarea
-                        onChange={handleChangeForm}
-                        name="description"
-                        defaultValue={data.description}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir la description de l'annonce"
-                    ></textarea>
-                </div>
-                <div className="mb-4">
-                    <label  className="block text-gray-700 font-bold mb-2">
-                        Secteur d{"'"}activités
-                    </label>
-                    <select
-                        onChange={handleChangeForm}
-                        name="secteur_activites"
-                        className="form-control appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    >
+            <div class="post-a-new-job-box">
+                <h3>Poster une annonce</h3>
+                <form onSubmit={handleSubmitEdit}>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>Titre (metier ou besoin )</label>
+                                <input required defaultValue={data.titre} type="text" onChange={handleChangeForm} name="titre" class="form-control" placeholder="Job Title Here" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label>téléphone</label>
+                                <input required defaultValue={data.telephone} type="number" onChange={handleChangeForm} name="telephone" class="form-control" placeholder="Job Title Here" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label>email</label>
+                                <input requireddefaultValue={data.email} type="email" onChange={handleChangeForm} name="email" class="form-control" placeholder="Job Title Here" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>Nom de l{"'"}entreprise</label>
+                                <input required defaultValue={data.entreprise} type="text" onChange={handleChangeForm} name="entreprise" class="form-control" placeholder="Job Title Here" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label>Type de contrat</label>
+                                <select  name="typeContrat" onChange={handleChangeForm} class="form-control">
+                                    {
+                                        secteursActivites.map((item) => {
+                                            return (
+                                                <option vlaue={item.value} selected={data.secteur_activites ==  item.value ? true : false} >{item.label}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>Date de début du job</label>
+                                <input required defaultValue={data.dateDebut} type="date" onChange={handleChangeForm} name="dateDebut" class="form-control" placeholder="Job Title Here" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label>Type de contrat</label>
+                                <select  name="typeContrat" onChange={handleChangeForm} class="form-control">
+                                    {
+                                        typeContrat.map((item) => {
+                                            return (
+                                                <option vlaue={item.value} selected={data.typeContrat ==  item.value ? true : false} >{item.label}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label>Salaire</label>
+                                <input  type='number' defaultValue={data.salaire} onChange={handleChangeForm} name="salaire" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label>lieu </label>
+                                <input required defaultValue={data.lieu} type='text' onChange={handleChangeForm} name="lieu" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label>Description de l{"'"}annonce</label>
+                                <textarea required defaultValue={data.description} cols="30" onChange={handleChangeForm} name="description" rows="6" placeholder="Short description..." class="form-control"></textarea>
+                            </div>
+                        </div>
+
+
+
+
+
+                        {error && <p class="text-danger">Impossible de modifier : {error}</p>}
+
                         {
-                            secteursActivites.map((item) => {
-                                return (
-                                    <option value={item.value} selected={item.value === data.secteur_activites ? true : false} > {item.value} </option>
-                                )
-                            })
+                            loading ?
+                                <p>envois en cours ....</p> :
+                                <div class="col-lg-12 col-md-12">
+                                    <button type="submit" class="default-btn bg-blue-600 ">Poster annonce <i class="flaticon-send"></i></button>
+                                </div>
                         }
-                    </select>
-                </div>
-                <div className="mb-4">
-                    <label  className="block text-gray-700 font-bold mb-2">
-                        Téléphone
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="tel"
-                        name="telephone"
-                        defaultValue={data.telephone}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir le numéro de téléphone"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Email
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="email"
-                        name="email"
-                        defaultValue={data.email}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir l'adresse email"
-
-                    />
-                </div>
-
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Type de contrat
-                    </label>
-                    <select
-                        onChange={handleChangeForm}
-                        name="typeContrat"
-                        className="form-control appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                        {
-                            typeContrat.map((item) => {
-                                return (
-                                    <option value={item.value} selected={item.value == data.typeContrat ? true : false} > {item.value} </option>
-                                )
-                            })
-                        }
-                    </select>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Salaire
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="number"
-                        name="salaire"
-                        defaultValue={data.salaire}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir le salaire"
-
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Lieu
-                    </label>
-                    <input
-                        onChange={handleChangeForm}
-                        type="text"
-                        name="lieu"
-                        defaultValue={data.lieu}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Saisir le lieu"
-                    />
-                </div>
-                {
-                    loading ?
-                        <p>Modification en cours ....</p>
-                        :
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Modifier
-                        </button>
-                }
-            </form>
-            <ToastContainer />
+                    </div>
+                </form>
+            </div>        
         </div>
     )
 }

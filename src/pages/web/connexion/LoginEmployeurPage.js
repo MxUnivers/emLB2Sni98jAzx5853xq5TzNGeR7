@@ -5,6 +5,7 @@ import { routing } from '../../../utlis/routing';
 import { EntrepriseConnexion } from '../../../action/api/employeur/EmployeurAction';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -33,16 +34,17 @@ const LoginEmployeurPage = () => {
             return;
         }
         if (formData.password == "") {
-            alert("Cmap mot de passe vide");
+            alert("Champ mot de passe vide");
             return;
         }
-        dispatch(EntrepriseConnexion(formData,navigation));
+        dispatch(EntrepriseConnexion(formData,navigation,toast));
     };
 
     return (
         <div>
 
             <BarnerEmployeurAuth />
+            <ToastContainer/>
 
             <div className="mt-20 min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">

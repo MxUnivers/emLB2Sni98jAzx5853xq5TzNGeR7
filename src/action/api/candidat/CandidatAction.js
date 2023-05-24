@@ -10,9 +10,10 @@ import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFuncti
 
 
 
+
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
-export const CandidatSignUp = (data) => {
+export const CandidatSignUp = (data,redirect,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -25,10 +26,14 @@ export const CandidatSignUp = (data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Connexion réussi !")
+                setTimeout(() => {
+                    redirect(`/${routing.connexionCandidat.path}`)
+                }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Inscription échouée !")
             });
     };
 }
@@ -114,11 +119,11 @@ export const CandidatPostuleOneAnnonce = (idcandidat, idAnnonce,toast) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success('Canditures poster réussie !');
+                toast.success('Votre candidature a été posté avec succèss !');
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error('Impossible de poster votre canditure !');
+                toast.error('Impossible de poster votre candidature !');
             });
     };
 }
@@ -152,7 +157,7 @@ export const CandidatEditPassword = (id, data) => {
 
 // Authenfication du candidate
 
-export const CandidatConnexion = (data) => {
+export const CandidatConnexion = (data,redirect,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -179,12 +184,16 @@ export const CandidatConnexion = (data) => {
                 localStorage.removeItem(localvalue.emloyeur.emailEmployeur);
 
                 // redirect(`/${routing.candidatDashboard.path}`);
-                window.location.reload();
-
+                toast.success("Connexion Réussi ! ");
+                setTimeout(() => {
+                    redirect("/");
+                }, 4000);
 
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Impossible de se connecter ! ")
+
             });
     };
 }
@@ -318,6 +327,26 @@ export const CandidatGetById = async (id, setState) => {
 export const CandidatGetAllOffrePostulees = async (candidatId, setState, setState2) => {
 
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${candidatId}/offres`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data)
+            setState2(response.data.data)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+// recuprer les annonces d'un candidat 
+export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setState2) => {
+
+    await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${candidatId}/annonces`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`

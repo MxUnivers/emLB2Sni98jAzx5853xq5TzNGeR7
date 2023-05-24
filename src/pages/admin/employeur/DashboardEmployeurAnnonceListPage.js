@@ -7,11 +7,11 @@ import { LocaleState } from '../../../utlis/storage/localvalueFunction';
 import Fuse from 'fuse.js';
 import { AnnonceCardAdmin } from '../../../components/admin/annonces/AnnonceCardAdmin';
 import OffreCardAdmin from '../../../components/admin/offres/OffreCardAdmin';
+import { AnnoncesOfEntreprises, AnnoncesOfEntreprisesId } from '../../../action/api/annonces/AnnoncesAction';
 
 
 
 const DashboardEmployeurAnnonceListPage = () => {
-
 
     var idAdmin = localStorage.getItem(localvalue.emloyeur.idEmployeur);
     // Annonces
@@ -21,7 +21,8 @@ const DashboardEmployeurAnnonceListPage = () => {
     const [dataOffre, setdataOffre] = useState([]);
     const [dataOffre2, setdataOffre2] = useState([]);
     useEffect(() => {
-        EntrepriseGetAllAnnonces(idAdmin, setdataAnnonce, setdataAnnonce2);
+        // EntrepriseGetAllAnnonces(idAdmin, setdataAnnonce, setdataAnnonce2);
+        AnnoncesOfEntreprisesId(idAdmin,setdataAnnonce,setdataAnnonce2)
         EntrepriseGetAllOffres(idAdmin, setdataOffre, setdataOffre2);
     }, []);
 

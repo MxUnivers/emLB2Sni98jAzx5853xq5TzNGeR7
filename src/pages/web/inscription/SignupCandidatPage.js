@@ -15,6 +15,8 @@ import { localites } from '../../../utlis/options/annonceOptions';
 import { competences, languages, level_School } from '../../../utlis/options/candidatOption';
 import { useDispatch, useSelector } from 'react-redux';
 import { CandidatSignUp } from '../../../action/api/candidat/CandidatAction';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -23,6 +25,7 @@ import { CandidatSignUp } from '../../../action/api/candidat/CandidatAction';
 registerPlugin(FilePondPluginImagePreview)
 
 const SignupCandidatPage = () => {
+    const  navigation  =  useNavigate();
     // Uploader images
     const [photo, setPhoto] = useState(null);
 
@@ -100,7 +103,7 @@ const SignupCandidatPage = () => {
             alert("Champ nom d'utlisateur vide ");
             return;
         }
-        dispatch(CandidatSignUp(formData));
+        dispatch(CandidatSignUp(formData,navigation,toast));
     };
 
 
@@ -110,6 +113,7 @@ const SignupCandidatPage = () => {
     return (
         <div>
             <BarnerCandidat />
+            <ToastContainer/>
 
             <div class='main p-10 d-flex flex-column bg-gray-200'>
 

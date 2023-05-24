@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EntrepriseEditProfile, EntrepriseGetById } from '../../../action/api/employeur/EmployeurAction';
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { optionPays } from '../../../utlis/options/optionDivers';
-import { localites } from '../../../utlis/options/annonceOptions';
-import { level_School } from '../../../utlis/options/candidatOption';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import { ApiKey } from '../../../utlis/config';
+import { ToastContainer, toast } from 'react-toastify';
 
 const DashboardEmployeurPofilePage = () => {
 
@@ -38,7 +37,7 @@ const DashboardEmployeurPofilePage = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(EntrepriseEditProfile(idAdmin, formDataEdit));
+        dispatch(EntrepriseEditProfile(idAdmin, formDataEdit,toast));
     };
 
 
@@ -52,6 +51,7 @@ const DashboardEmployeurPofilePage = () => {
                     <li class="item">employeur</li>
                 </ol>
             </div>
+            <ToastContainer/>
 
 
             <div class="my-profile-box">

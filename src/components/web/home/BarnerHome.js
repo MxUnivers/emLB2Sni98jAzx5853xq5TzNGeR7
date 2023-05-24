@@ -37,7 +37,7 @@ const BarnerHome = () => {
     var bgImg = "https://images.pexels.com/photos/4559515/pexels-photo-4559515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
     return (
         <AliceCarousel
-            onSlideChange={handleOnSlideChange} autoPlay autoPlayInterval={3000} activeIndex={1}
+            onSlideChange={handleOnSlideChange} autoPlay infinite autoPlayInterval={4000} activeIndex={0}
             otsClass="custom-dots" // Classe CSS personnalisée pour les indicateurs
             buttonsDisabled={false}
             prevButton={

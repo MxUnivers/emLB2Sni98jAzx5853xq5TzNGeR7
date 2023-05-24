@@ -8,6 +8,8 @@ import { routing } from '../../../utlis/routing';
 import { EntrepriseSignUp } from '../../../action/api/employeur/EmployeurAction';
 import { optionPays } from '../../../utlis/options/optionDivers';
 import { useDispatch, useSelector } from 'react-redux';
+import { secteursActivites } from '../../../utlis/options/employeurOption';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -17,12 +19,7 @@ const SignupEmployer = () => {
         console.log('Content was updated:', content);
     };
 
-    const options = [
-        { value: 'informatique', label: 'Informatique' },
-        { value: 'comptabilité', label: 'Comptabilité' },
-        { value: 'marketing', label: 'Marketing' },
-        { value: 'ventes', label: 'Ventes' },
-    ];
+    
 
     const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -42,12 +39,13 @@ const SignupEmployer = () => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(EntrepriseSignUp(formData))
+        dispatch(EntrepriseSignUp(formData,toast))
     }
 
     return (
         <div>
             <BarnerEmployer />
+            <ToastContainer/>
 
             <div class="main p-10 d-flex flex-column">
 
@@ -66,67 +64,53 @@ const SignupEmployer = () => {
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Nom de votre entreprise</label>
-                                    <input type="text" name="full_name" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
+                                    <label>Nom de votre entreprise *</label>
+                                    <input required type="text" name="full_name" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Nom d{"'"}utlisateur</label>
-                                    <input type="text" name="username" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" onChange={handleChangeForm} class="form-control" placeholder="Your Email" />
+                                    <label>Nom d{"'"}utlisateur *</label>
+                                    <input required type="text" name="username" onChange={handleChangeForm} class="form-control" placeholder="Your Name" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Télephone</label>
-                                    <input type="number" name="telephone" onChange={handleChangeForm} class="form-control" placeholder="Your Phone" />
+                                    <label>Email *</label>
+                                    <input required type="email" name="email" onChange={handleChangeForm} class="form-control" placeholder="Your Email" />
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Adrrese de votre entreprise</label>
-                                    <input type="text" name="adresse" onChange={handleChangeForm} class="form-control" placeholder="Côte d'ivoire , Abidjan ,  Yopougon" />
+                                    <label>Télephone  ( +225XXXXXXXX  )  *</label>
+                                    <input required type="number" name="telephone" onChange={handleChangeForm} class="form-control" placeholder="Your Phone" />
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>Adrrese de votre entreprise *</label>
+                                    <input required type="text" name="adresse" onChange={handleChangeForm} class="form-control" placeholder="Côte d'ivoire , Abidjan ,  Yopougon" />
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Mot de passe</label>
-                                    <input type="password" name="password" onChange={handleChangeForm} class="form-control" placeholder="" />
+                                    <label>Mot de passe *</label>
+                                    <input required type="password" name="password" onChange={handleChangeForm} class="form-control" placeholder="" />
                                 </div>
                             </div>
 
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Dites en plus sur votre entreprise</label>
+                                    <label>Dites en plus sur votre entreprise *</label>
 
-                                    <Editor
+                                    <textarea required
                                         class="form-control"
-                                        apiKey={`${ApiKey.tiny.path}`}
-                                        initialValue="<p>Décriver en plus sur votre entrprise sur votre acticté / les succès de votre entrpise</p>"
-                                        init={{
-                                            height: 200,
-                                            menubar: true,
-                                            plugins: [
-                                                'advlist autolink lists link image charmap print preview anchor',
-                                                'searchreplace visualblocks code fullscreen',
-                                                'insertdatetime media table paste code help wordcount'
-                                            ],
-                                            toolbar:
-                                                'undo redo | formatselect | bold italic backcolor | \
-                                                alignleft aligncenter alignright alignjustify | \
-                                                bullist numlist outdent indent | removeformat | help'
-                                        }}
-                                        onEditorChange={handleEditorChange}
+                                        name="description"
+                                        onChange={handleChangeForm}
                                     />
                                 </div>
                             </div>
@@ -136,28 +120,24 @@ const SignupEmployer = () => {
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Selectionné votre secteur d{"'"}activité</label>
+                                    <label>secteur d{"'"}activité *</label>
                                     <div>
-                                        <Select
-                                            options={options}
-                                            isMulti
+                                        <select required class="form-control"
+                                        name="secteur_activites"
                                             onChange={handleChange}
-                                            value={selectedOptions}
-                                        />
-                                        <p>Options sélectionnées:</p>
-                                        <ul>
-                                            {selectedOptions.map((option) => (
-                                                <li key={option.value}>{option.label}</li>
+                                        >
+                                            {secteursActivites.map((option) => (
+                                                <option value={option.value}>{option.label}</option>
                                             ))}
-                                        </ul>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Pays</label>
-                                    <select class="form-control" name="pays" onChange={handleChangeForm}>
+                                    <label>Pays * </label>
+                                    <select required class="form-control" name="pays" onChange={handleChangeForm}>
                                         {
                                             optionPays.map((item) => {
                                                 return (

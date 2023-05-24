@@ -164,18 +164,13 @@ const AnnonceResultSearch = () => {
                         }
 
                         <div class="row ">
-                            {
-                                /*slice(start, perPage) */
-                                dataAnnonce && dataAnnonce.length > 0 ?
-                                    (
+                                    {
                                         dataAnnonce?.map((item) => {
                                             return (
                                                 <AnnonceCard data={item} />
                                             )
                                         })
-                                    ) :
-                                    <LoaderComponent />
-                            }
+                                     } :
                         </div>
 
                         {perPage < total && (
