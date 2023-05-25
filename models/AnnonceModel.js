@@ -54,6 +54,10 @@ const annonceSchema = new Schema({
         type: String,
         required: false,
       },
+      type:{
+        type: String,
+        default:"annonce"
+      },
     blocked: {
         type: Boolean,
         required: false,

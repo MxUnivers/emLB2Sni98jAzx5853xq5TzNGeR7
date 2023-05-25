@@ -236,6 +236,7 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, re
 
 // Pour ajouter un candidat une annonce
 router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, res) => {
+  
   const offreId = req.params.offreId;
   const candidatId = req.params.candidatId;
   try {
@@ -247,7 +248,7 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, 
       return res.status(406).json({ message: "Candidat non trouvé" });
     }
     if (!offre) {
-      return res.status(407).json({ message: "Ann once non trouvée" });
+      return res.status(407).json({ message: "Annonce non trouvée" });
     }
     if (offre.candidats.find(candidat => candidat._id.toString() === candidatId)) {
       return res.status(409).json({ message: "Le candidat a déjà postulé à cette Annonce" });
@@ -262,12 +263,12 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, 
       idAnnonce: offre._id,
       idCandidat: candidatId,
       titre: offre.titre,
-      idEntreprise:offre.idEntreprise
+      idEntreprise: offre.idEntreprise,
+      typeCandidature : "annonce"
     });
     const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { AnnoncesPostuless: offre } }, { new: true });
     const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
 
-    
     await candidature.save();
     await candidat.save();
     await offrePostule.save();

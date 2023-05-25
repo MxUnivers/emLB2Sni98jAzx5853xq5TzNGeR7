@@ -14,6 +14,7 @@ const offreEmploiSchema = new mongoose.Schema(
     lieu: { type: String, required: false },
     dateDebut: { type: Date, default: Date.now, required: false },
     dateFin: { type: Date, default: Date.now, required: false },
+    type: {  type: String, default: "annonce" },
     typeContrat: {
       type: String,
       enum: ['CDI', 'CDD', 'STAGE', 'ALTERNANCE'],
