@@ -15,7 +15,19 @@ router.get("/get_candidatures", AuthorizationMiddleware, async (req, res) => {
 
 
 
-module.exports = router;
+
+router.get("/get_candidature/:IdCandidautre", AuthorizationMiddleware, async (req, res) => {
+    try {
+        const  id = req.params.IdCandidautre;
+        const candidatures = await CandidatureModel.findById({_id:id});
+        res.json({ message: "Candidature récupérer", data: candidatures })
+    } catch (error) {
+        res.status(500).send({ message: "Impossible de recupérer la candidature" + error })
+    }
+});
+
+
+
 
 
 
@@ -55,7 +67,7 @@ router.get("/get_candidature/candidat/:IdCandidat", AuthorizationMiddleware, asy
 
 
 // Accepeter la candidature d'un candidat 
-router.post("/authorized/entreoprise/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
+router.post("/authorized/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.Idcandidature;
         const candidature = await CandidatureModel.findById({ _id : id });
@@ -67,7 +79,7 @@ router.post("/authorized/entreoprise/:Idcandidature", AuthorizationMiddleware, a
         }
         candidature.status = "Acceptée"
         await candidature.save();
-        res.json({ message: "Candidature accépter ", data: candidatures() })
+        res.json({ message: "Candidature accépter ", data: candidature })
     } catch (error) {
         res.status(500).send({ message : "Impossible d'accpeter la candidature avec succès" + error })
     }
@@ -90,7 +102,7 @@ router.post("/unauthorized/entreprise/:Idcandidature", AuthorizationMiddleware, 
         }
         candidature.status = "Refusée";
         candidature.save();
-        res.json({ message: "Candidature accépter ", data: candidatures() })
+        res.json({ message: "Candidature accépter ", data: candidature })
     } catch (error) {
         res.status(500).send({ message : "Impossible de recupérer les  candidatures" + error })
     }
