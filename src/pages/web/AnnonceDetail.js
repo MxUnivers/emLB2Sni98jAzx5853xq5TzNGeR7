@@ -17,6 +17,7 @@ import { typeadmin } from '../../utlis/storage/account';
 import { CandidatPostuleOneAnnonce } from '../../action/api/candidat/CandidatAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import JobOfferLoader from '../../components/chargement/job/JobOffreLoader';
 
 
 
@@ -139,11 +140,8 @@ const AnnonceDetail = () => {
                         <div class="col-lg-8 col-md-12">
 
                             {
-                                isLoading ?
-                                    <LoaderComponent />
-                                    :
-                                    (
-                                        post &&
+                                
+                                        post ?
                                         <div class="job-details-desc">
                                             <h2>{post.titre}</h2>
 
@@ -199,7 +197,9 @@ const AnnonceDetail = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    )
+                                        :
+                                        <JobOfferLoader/>
+                                    
                             }
 
 

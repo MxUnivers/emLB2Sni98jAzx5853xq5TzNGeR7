@@ -35,6 +35,31 @@ export const AnnonceGetAll = async (setState, setState2) => {
 
 
 
+
+// recuprer un annonce par son id
+export const AnnonceGetById = async (id , setState) => {
+    try {
+        const response = await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        });
+
+        if (response.status == 200 || response.status == 300) {
+            console.log(response.data.data)
+            setState(response.data.data);
+        } else {
+            console.log('La structure de la réponse est incorrecte');
+            alert("la Structure des données est incorrecte")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
 // Recupérer tout les annonces par categories
 export const AnnonceGetAllByCategories = async (id, setState) => {
     try {
