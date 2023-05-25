@@ -1,5 +1,6 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
+import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../annonces/AnnoncesAction";
 
 
 export const CandidaturesEntreprises = async (idEntreprise, setState, setState2) => {
@@ -39,4 +40,83 @@ export const CandidatureOfCandidat = async (idCandidat, setState, setState2) => 
             console.log(error);
         });
 
+}
+
+
+
+export const CandidatureById = async (idCandidature, setState) => {
+
+    await axios.get(`${baseurl.url}/api/v1/candidature/get_candidature/${idCandidature}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data)
+            console.log(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+
+
+// Accepter une candidature
+export const CandidatureAuthorized = (id,toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/candidature/authorized/${id}`, {
+                headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Candidature accepté avec succèes !");
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Candidature non accepter !");
+            });
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+// Rejeté un candidature
+export const CandidatureUnAuthorized = (id,toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/candidature/unauthorized/${id}`,  {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Candidature réjeté avec succèes !")
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("La candidature n'a pas pu être rejetée !")
+            });
+    };
 }
