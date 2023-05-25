@@ -9,6 +9,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { typeadmin } from '../../utlis/storage/account';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import CandidaturesForCandidat from '../../components/web/candidat/CandidaturesForCandidat';
 
 
 
@@ -124,11 +125,12 @@ const HistoriquePage = () => {
                                     null
                             }
                         </button></Tab>
-                        {
-                            /*
-                        <Tab><button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Offres d{"'"}emplois</button></Tab>
-                            */
-                        }
+                        
+                        <Tab>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Candidatures ...</button>
+                        </Tab>
+                        
+                        
                     </TabList>
                     {
                         typeAdmin == typeadmin.candidat ?
@@ -197,8 +199,7 @@ const HistoriquePage = () => {
                             : null
                     }
                     <TabPanel>
-                        <h2>Contenu de l'onglet 3</h2>
-                        <p>Ceci est le contenu de l'onglet 3.</p>
+                        <CandidaturesForCandidat/>
                     </TabPanel>
                 </Tabs>
             </div>
