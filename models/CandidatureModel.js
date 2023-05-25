@@ -4,10 +4,13 @@ const candidatureSchema = new mongoose.Schema({
     idAnnonce: {
         type: String,
     },
-    titre:{
-        String
-    },
     idCandidat:{
+        type:String
+    },
+    idEntreprise:{
+        type:String
+    },
+    titre:{
         type:String
     },
     lettreMotivation: {

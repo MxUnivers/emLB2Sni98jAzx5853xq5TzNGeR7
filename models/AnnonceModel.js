@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const annonceSchema = new Schema({
     titre: {
         type: String,
-        required: false
+        required: false,
+        default:"Annonce pour un travail"
     },
     idAdministrateur:{
         type:String

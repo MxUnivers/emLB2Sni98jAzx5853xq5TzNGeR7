@@ -260,13 +260,15 @@ router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, 
     // Ajouter une nouvelle canditure à l'annonce 
     const candidature = new CandidatureModel({
       idAnnonce: offre._id,
-      idCandidat: candidatExit,
-      titre: offre.titre
-    })
-    candidature.save();
+      idCandidat: candidatId,
+      titre: offre.titre,
+      idEntreprise:offre.idEntreprise
+    });
     const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { AnnoncesPostuless: offre } }, { new: true });
     const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
 
+    
+    await candidature.save();
     await candidat.save();
     await offrePostule.save();
     await res.json({ data: candidat, message: "Candidature posté" });
