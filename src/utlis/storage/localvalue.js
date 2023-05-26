@@ -11,6 +11,15 @@ export const localvalue = {
         secteur_activites:"secteur_activites-annonces"
     },
 
+    offreDetail :{
+        id:"OffreIdWeb",
+        coverPicture:"coverPictureOffreWeb",
+        entreprise:"coverPictureOffreWeb",
+        description:"descriptionOffreWeb",
+        salaire:"salaireOffreWeb",
+        lieu:"salaireOffreWeb",
+        secteur_activites:"secteur_activites-annonces"
+    },
 
     
 

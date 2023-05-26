@@ -10,6 +10,7 @@ import { typeadmin } from '../../utlis/storage/account';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import CandidaturesForCandidat from '../../components/web/candidat/CandidaturesForCandidat';
+import { LocaleState } from '../../utlis/storage/localvalueFunction';
 
 
 
@@ -125,12 +126,12 @@ const HistoriquePage = () => {
                                     null
                             }
                         </button></Tab>
-                        
+
                         <Tab>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Candidatures ...</button>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Candidatures ...</button>
                         </Tab>
-                        
-                        
+
+
                     </TabList>
                     {
                         typeAdmin == typeadmin.candidat ?
@@ -182,10 +183,9 @@ const HistoriquePage = () => {
                                                 <div>
                                                     <h2 className="text-lg font-bold">
                                                         <a href={`/${routing.detailOffre.path}`}
-
-                                                            onClick={() => {
-                                                                localStorage.setItem(localvalue.offreAdmin.id, user._id)
+                                                            onClick={() => {sessionStorage.setItem(localvalue.offreDetail.id, `${offre._id}`)
                                                             }}
+                                                            
                                                         >{offre.titre}</a>
                                                     </h2>
                                                     <p className="text-gray-600">{offre.entreprise}</p>
@@ -199,7 +199,7 @@ const HistoriquePage = () => {
                             : null
                     }
                     <TabPanel>
-                        <CandidaturesForCandidat/>
+                        <CandidaturesForCandidat />
                     </TabPanel>
                 </Tabs>
             </div>

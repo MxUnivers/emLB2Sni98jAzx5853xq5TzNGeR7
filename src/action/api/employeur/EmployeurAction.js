@@ -196,7 +196,7 @@ export const EntreprisePostAnnonce = (id, data, toast) => {
 
 
 // Une entreprise qui poste une anonnce
-export const EntreprisePostOffre = (id, data) => {
+export const EntreprisePostOffre = (id, data,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -209,10 +209,15 @@ export const EntreprisePostOffre = (id, data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Impossible de poster cette offre");
+                setTimeout(()=>{
+                    window.location.reload()
+                },2000);
+                
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.success("Offre Non posté");
             });
     };
 }

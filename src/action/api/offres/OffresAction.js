@@ -29,6 +29,29 @@ export const OffreGetAll = async (setState, setState2) => {
 
 
 
+// 
+export const OffreGetById = async (id, setState) => {
+
+    await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        }
+    )
+        .then((response) => {
+            setState(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+
+
 
 
 
