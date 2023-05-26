@@ -14,8 +14,8 @@ class SearchEmploisPage extends StatefulWidget {
 }
 
 class _SearchEmploisPageState extends State<SearchEmploisPage> {
-
   bool _isInit = true;
+  bool isLoading = false;
 
   TextEditingController searchController = TextEditingController();
   TextEditingController _searchController = TextEditingController();
@@ -38,6 +38,9 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
     final String apiUrl =
         '${baseurl["url"].toString()}/api/v1/offre/get_offres';
 
+    setState(() {
+      isLoading = true;
+    });
     final response = await http.get(Uri.parse(apiUrl), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -47,6 +50,7 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
 
     if (response.statusCode == 200 || response.statusCode == 300) {
       setState(() {
+        isLoading = false;
         Map<String, dynamic> _data = jsonDecode(response.body);
         print(offres);
         offres = _data["data"];
@@ -55,31 +59,38 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
       offres;
     } else {
       throw Exception('Failed to load offres');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-
   List<dynamic> searchResults = [];
   void performSearch(String searchTerm) {
-    if(searchTerm == ""){
-      offres= offres2;
+    if (searchTerm == "") {
+      offres = offres2;
     }
     setState(() {
       searchResults = offres.where((offre) {
         String titre = offre["titre"].toString().toLowerCase();
+        String entreprise = offre["entreprise"].toString().toLowerCase();
+        String secteur_activites =
+            offre["secteur_activites"].toString().toLowerCase();
+        String dateDebut = offre["dateDebut"].toString().toLowerCase();
 
-        return titre.contains(searchTerm.toLowerCase());
+        return titre.contains(searchTerm.toLowerCase()) ||
+            entreprise.contains(searchTerm.toLowerCase()) ||
+            secteur_activites.contains(searchTerm.toLowerCase()) ||
+            dateDebut.contains(searchTerm.toLowerCase());
       }).toList();
-      offres= searchResults;
+      offres = searchResults;
     });
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
@@ -97,7 +108,8 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
               child: TextField(
                 controller: _searchController,
                 onChanged: (value) {
-                  performSearch(value); // Appeler la fonction de recherche à chaque changement de texte
+                  performSearch(
+                      value); // Appeler la fonction de recherche à chaque changement de texte
                 },
                 decoration: InputDecoration(
                   hintText: 'Recherche',
@@ -117,51 +129,68 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
           ),
           centerTitle: true,
         ),
-        backgroundColor: Colors.blue.shade100,
+        backgroundColor: Colors.grey.shade50,
         body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 10,),
-                  Container(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child:
-                          offres.length > 0 ?
-                          Container(
-                            child:
-                            Column(
-                              children:
-                            offres.map((data) =>
-                                JobCard(
-                                  id: data["_id"].toString(),
-                                  title: data["titre"].toString(),
-                                  description: data["description"]
-                                      .toString(),
-                                  location: data["lieu"].toString(),
-                                  company: data["entreprise"]
-                                      .toString()
-                                      .substring(0, 10) +
-                                      "...",
-                                  imageUrl: data["logo"]
-                                      .toString() ==
-                                      null
-                                      ? data["logo"].toString()
-                                      : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
-                                )
-                            ).toList()
-
-                          )
-                    ):
-
-                              Container(
-                                child:Text("Rien trouvé dans la recherche ..")
-                              )
-
+            child: Stack(children: [
+              // Les éléments de la page
+              Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                ])));
+                      Container(
+                        child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: offres.length > 0
+                                ? Container(
+                                    child: Column(
+                                        children: offres
+                                            .map((data) => JobCard(
+                                                  id: data["_id"].toString(),
+                                                  title:
+                                                      data["titre"].toString(),
+                                                  description:
+                                                      data["description"]
+                                                          .toString(),
+                                                  location:
+                                                      data["lieu"].toString(),
+                                                  company: data["entreprise"]
+                                                          .toString()
+                                                          .substring(0, 10) +
+                                                      "...",
+                                                  imageUrl: data["logo"]
+                                                              .toString() ==
+                                                          null
+                                                      ? data["logo"].toString()
+                                                      : "https://icon-library.com/images/icon-job/icon-job-3.jpg",
+                                                ))
+                                            .toList()))
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text(
+                                        "Rien trouvé dans la recherche .."))),
+                      ),
+                    ]),
+                // Définissez ici le contenu de votre page
+              ),
+              isLoading
+                  ? Container(
+                      height: screenHeight,
+                      color: Colors.black.withOpacity(0.3),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : SizedBox(),
+            ])));
   }
 }
 
@@ -239,7 +268,13 @@ class JobCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DetailEmploiPage(id: id, titre: title, entreprise: company, logo: imageUrl, description: description, lieu: location)),
+                        builder: (context) => DetailEmploiPage(
+                            id: id,
+                            titre: title,
+                            entreprise: company,
+                            logo: imageUrl,
+                            description: description,
+                            lieu: location)),
                   );
                 },
                 child: Text('Postuler'),
@@ -247,7 +282,6 @@ class JobCard extends StatelessWidget {
             ),
           ],
         ),
-
       ),
     );
   }
