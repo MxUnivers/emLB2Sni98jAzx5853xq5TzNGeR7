@@ -11,9 +11,8 @@ const candidatureSchema = new mongoose.Schema({
     cv: { type: String, required: false,},
     date: { type: Date, default: Date.now,},
     status: { type: String, enum: ['En attente', 'Acceptée', 'Refusée'],default: 'En attente',},
-}, {
-    timestamps: true
-}
+}, 
+{ timestamps: true }
 );
 
 const CandidatureModel = mongoose.model('Candidature', candidatureSchema);

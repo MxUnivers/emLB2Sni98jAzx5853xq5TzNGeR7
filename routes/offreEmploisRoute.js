@@ -86,10 +86,6 @@ router.get('/get_offres', AuthorizationMiddleware, async (req, res) => {
 router.get('/get_offre/:id', AuthorizationMiddleware, async (req, res) => {
     try {
         const offreId = req.params.id;
-        const offreExist = await OffreEmploiModel.findById({ _id: offreId });
-        if (!offreExist) {
-            res.status(406).json({ message: "L'offre n'existe pas" })
-        }
         const offre = await OffreEmploiModel.findById({ _id: offreId });
         res.json({ data: offre });
     } catch (error) {

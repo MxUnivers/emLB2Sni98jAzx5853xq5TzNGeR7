@@ -165,6 +165,7 @@ router.post('/post_entreprise/:id/offres', AuthorizationMiddleware, async (req, 
     }
     const newAnnonce = new OffreEmploi(req.body);
     const entreprise = await EntrepriseModel.findByIdAndUpdate({ _id: id }, { $push: { offres: newAnnonce } })
+    newAnnonce.idEntreprise = id;
     await newAnnonce.save();
     await entreprise.save();
 
@@ -238,8 +239,8 @@ router.get('/get_entreprise/:id/offres', AuthorizationMiddleware, async (req, re
     if (!entrepriseExit) {
       res.status(407).json({ message: "entreprise non trouvé" });
     }
-    const entreprise = await EntrepriseModel.findById({ _id: id })
-    await res.json({ data: entreprise.offres.reverse() });
+    const offres = await OffreEmploi.find({ idEntreprise: id })
+    await res.json({ data: offres.reverse() });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');

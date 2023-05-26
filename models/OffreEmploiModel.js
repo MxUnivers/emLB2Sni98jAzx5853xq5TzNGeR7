@@ -7,9 +7,10 @@ const offreEmploiSchema = new mongoose.Schema(
   {
     titre: { type: String, required: false },
     entreprise: { type: String, required: false },
+    idEntreprise  : {type:String, required:false},
     description: { type: String, required: false },
     lieu: { type: String, required: false },
-    logo: { type: String, required: false },
+    logo: { type: String, required: false, default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU" },
     description: { type: String, required: false },
     lieu: { type: String, required: false },
     dateDebut: { type: Date, default: Date.now, required: false },
@@ -22,7 +23,6 @@ const offreEmploiSchema = new mongoose.Schema(
     },
     secteur_activites: {
       type: String,
-      enum: secteursActivites,
       required: false,
     },
     salaire: { type: Number },
