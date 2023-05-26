@@ -13,3 +13,17 @@ List<String> suggestions = [
   "Chauffeur",
   "Aide-soignant",
 ];
+
+
+List<String> options_levels_school = [
+  'Sans dilpôme',
+  'Bts 1',
+  'Bts 2',
+  'Licence 1',
+  'Licence 2',
+  'Licence 3',
+  'Master 1',
+  'Master 2',
+  'Doctorat',
+  'But'
+];

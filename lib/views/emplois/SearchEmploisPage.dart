@@ -32,7 +32,7 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
   }
 
   List<dynamic> offres = [];
-  List<dynamic> _data = [];
+  List<dynamic> offres2 = [];
 
   Future<void> _getOffres() async {
     final String apiUrl =
@@ -50,6 +50,7 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
         Map<String, dynamic> _data = jsonDecode(response.body);
         print(offres);
         offres = _data["data"];
+        offres2 = _data["data"];
       });
       offres;
     } else {
@@ -58,27 +59,21 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
   }
 
 
-  void filterSearchResults(String query) {
-    List<dynamic> searchList = [];
-    searchList.addAll(offres);
-    if (query.isNotEmpty) {
-      List<Map<String, dynamic>> tempList = [];
-      searchList.forEach((item) {
-        if (item['titre'].toLowerCase().contains(query.toLowerCase())) {
-          tempList.add(item);
-        }
-      });
-      setState(() {
-        filteredList = tempList;
-      });
-      return;
-    } else {
-      List<Map<String,dynamic>> offres = [];
-      setState(() {
-        filteredList = offres;
-      });
+  List<dynamic> searchResults = [];
+  void performSearch(String searchTerm) {
+    if(searchTerm == ""){
+      offres= offres2;
     }
+    setState(() {
+      searchResults = offres.where((offre) {
+        String titre = offre["titre"].toString().toLowerCase();
+
+        return titre.contains(searchTerm.toLowerCase());
+      }).toList();
+      offres= searchResults;
+    });
   }
+
 
 
 
@@ -101,8 +96,8 @@ class _SearchEmploisPageState extends State<SearchEmploisPage> {
               padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
               child: TextField(
                 controller: _searchController,
-                onSubmitted: (value) {
-                  filterSearchResults(value);
+                onChanged: (value) {
+                  performSearch(value); // Appeler la fonction de recherche à chaque changement de texte
                 },
                 decoration: InputDecoration(
                   hintText: 'Recherche',

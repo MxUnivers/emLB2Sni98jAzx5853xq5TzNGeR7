@@ -78,7 +78,4 @@ En général, il est important de se concentrer sur une conception de l'applicat
 - Deconnexion du candidat
   Effecer tout les information gérer les redirections
 
-
-
-
-
+- 

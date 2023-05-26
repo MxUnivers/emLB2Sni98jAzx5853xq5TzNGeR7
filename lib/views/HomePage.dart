@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   DateTime? _lastPressedAt; // variable pour enregistrer l'heure de la dernière pression du bouton retour
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 
   @override
@@ -80,22 +81,24 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
           title: Text('Offres d\'emploi'),
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Scaffold.of(context).openDrawer();
+              _scaffoldKey.currentState?.openDrawer();
             },
             icon: Icon(Icons.menu_rounded),
           ),
         ),
+
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue.shade700),
+                decoration: BoxDecoration(color: Colors.blue.shade900),
                 accountName:
                     Text("${firstname.toString()} ${lastname.toString()}"),
                 accountEmail: Text(email.toString()),
@@ -120,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    MaterialPageRoute(builder: (context) => UserProfilePage()),
                   );
                 },
               ),
