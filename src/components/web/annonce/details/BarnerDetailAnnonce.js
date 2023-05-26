@@ -1,7 +1,7 @@
 import React from 'react'
 
 const BarnerDetailAnnonce = ({data}) => {
-  var bgImg =  "https://images.pexels.com/photos/3182752/pexels-photo-3182752.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load";
+  var bgImg =  "https://images.pexels.com/photos/8549940/pexels-photo-8549940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
     return (
         <div class="page-banner-area item-bg-two h[400px]" style={{backgroundImage:`url('${bgImg}')`}}>
