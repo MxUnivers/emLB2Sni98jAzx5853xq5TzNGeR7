@@ -12,6 +12,8 @@ import 'package:mobileoffreemploi/views/emplois/SearchEmploisPage.dart';
 import 'package:mobileoffreemploi/views/notifcations/NotificationPage.dart';
 import 'package:mobileoffreemploi/views/profile/ProfilePage.dart';
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:mobileoffreemploi/views/candidature/ListCandidaturePage.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -95,6 +97,7 @@ class _HomePageState extends State<HomePage> {
         ),
 
         drawer: Drawer(
+          width: 230,
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
@@ -118,7 +121,17 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.person_outline),
+                leading: Icon(Icons.account_tree_sharp),
+                title: Text('candidatures'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ListCandidaturePage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.perm_contact_cal_sharp),
                 title: Text('Profile'),
                 onTap: () {
                   Navigator.push(
@@ -127,6 +140,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
+              ListTile(
+                leading: Icon(Icons.logout_outlined),
+                title: Text('Déconnexion'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserProfilePage()),
+                  );
+                },
+              )
             ],
           ),
         ),

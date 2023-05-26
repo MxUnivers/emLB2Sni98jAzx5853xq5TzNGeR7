@@ -7,6 +7,8 @@ import "dart:ui";
 
 import 'package:mobileoffreemploi/views/auth/ConnexionPage.dart';
 
+import '../../config/options/optionSuggestions.dart';
+
 class InscriptionPage extends StatefulWidget {
   const InscriptionPage({Key? key}) : super(key: key);
 
@@ -135,7 +137,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
           children: [
             SizedBox(height: 10),
             Image.asset(
-              "assets/images/logo.png",
+              logoApplication,
               height: 50,
             ),
             SizedBox(height: 5),

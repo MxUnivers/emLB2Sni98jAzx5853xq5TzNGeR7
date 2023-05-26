@@ -27,3 +27,6 @@ List<String> options_levels_school = [
   'Doctorat',
   'But'
 ];
+
+
+String logoApplication  = "assets/images/logo.png";

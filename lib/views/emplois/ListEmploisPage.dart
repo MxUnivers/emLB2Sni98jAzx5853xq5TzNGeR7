@@ -84,7 +84,8 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Suggestion de recherche
-                  CarouselSlider(
+                /*
+                * CarouselSlider(
                     options: CarouselOptions(
                       height: 50.0,
                       enlargeCenterPage: true,
@@ -113,7 +114,9 @@ class _ListEmploisPageState extends State<ListEmploisPage> {
                         },
                       );
                     }).toList(),
-                  ),
+                  )
+                * */
+
                   SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(children: [

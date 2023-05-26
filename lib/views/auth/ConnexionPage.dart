@@ -10,6 +10,8 @@ import 'package:mobileoffreemploi/views/auth/InscriptionPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "package:mobileoffreemploi/storage/profileStorage.dart";
 
+import '../../config/options/optionSuggestions.dart';
+
 class ConnexionPage extends StatefulWidget {
   const ConnexionPage({Key? key}) : super(key: key);
   @override
@@ -126,8 +128,8 @@ class _ConnexionPageState extends State<ConnexionPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 80),
-              Image.network(
-                "https://avatars.githubusercontent.com/u/107148545?v=4",
+              Image.asset(
+                logoApplication,
                 height: 50,
               ),
               SizedBox(height: 15),
