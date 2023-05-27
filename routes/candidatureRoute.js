@@ -7,7 +7,7 @@ const router = require("express").Router();
 
 // Modifier une candidature
 // Accepeter la candidature d'un candidat 
-router.post("/edit/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
+router.put("/edit/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.Idcandidature;
         const candidatureExit = await CandidatureModel.findById({ _id : id });
