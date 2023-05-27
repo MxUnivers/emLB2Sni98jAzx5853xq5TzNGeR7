@@ -10,11 +10,16 @@ import { typeadmin } from '../../utlis/storage/account';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import CandidaturesForCandidat from '../../components/web/candidat/CandidaturesForCandidat';
-import { LocaleState } from '../../utlis/storage/localvalueFunction';
+import { useNavigate } from 'react-router-dom';
+import localforage from 'localforage';
 
 
 
 const HistoriquePage = () => {
+
+    const navigation = useNavigate();
+
+
     var idProfile = localStorage.getItem(localvalue.candidat.idCandidat);
     var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
 
@@ -139,7 +144,12 @@ const HistoriquePage = () => {
                                 <h1 className="text-2xl font-bold mb-4">Vos offres d{"'"}emplois </h1>
                                 <div class="shadow-md p-3 rounded-lg border">
                                     {offres.map((offre) => (
-                                        <div key={offre.id} className="flex items-center mb-8 hover:bg-gray-50">
+                                        <a key={offre.id} className="flex items-center mb-8 hover:bg-gray-50"
+                                        href={`/${routing.detailOffre.path}`}
+                                            onClick={() => {
+                                                localforage.setItem(localvalue.offreDetail.id, offre._id);
+                                            }}
+                                        >
                                             <img
                                                 src={`${offre.logo}`.length > 15 || `${offre.logo}`.length == "" | null ? offre.logo :
                                                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU"
@@ -148,17 +158,12 @@ const HistoriquePage = () => {
                                                 className="w-16 h-16 object-cover rounded-full mr-4"
                                             />
                                             <div>
-
-                                                <a className="text-lg font-bold" href={`/${routing.detailOffre.path}`}
-
-                                                    onClick={() => {
-                                                        localStorage.setItem(localvalue.offreAdmin.id, user._id)
-                                                    }}
+                                                <a className="text-lg font-bold"
                                                 >{offre.titre}</a>
                                                 <p className="text-gray-600">{offre.entreprise}</p>
                                                 <p className="text-gray-600">{offre.date}</p>
                                             </div>
-                                        </div>
+                                        </a>
                                     ))}
                                 </div>
                             </TabPanel>
@@ -172,7 +177,9 @@ const HistoriquePage = () => {
                                     {
                                         user &&
                                         user.offresPostulees.map((offre) => (
-                                            <div key={offre.id} className="flex items-center mb-8 hover:bg-gray-50">
+                                            <div key={offre._id} className="flex items-center mb-8 hover:bg-gray-50" onClick={() => {
+
+                                            }}>
                                                 <img
                                                     src={`${offre.logo}`.length > 15 || `${offre.logo}`.length == "" | null ? offre.logo :
                                                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow8AkuhZ9if3JUQJSEbT9hlhVldNECSBNiQ&usqp=CAU"
@@ -183,9 +190,9 @@ const HistoriquePage = () => {
                                                 <div>
                                                     <h2 className="text-lg font-bold">
                                                         <a href={`/${routing.detailOffre.path}`}
-                                                            onClick={() => {sessionStorage.setItem(localvalue.offreDetail.id, `${offre._id}`)
+                                                            onClick={() => {
+                                                                localStorage.setItem(`${localvalue.offreDetail.id}`, `${offre._id}`);
                                                             }}
-                                                            
                                                         >{offre.titre}</a>
                                                     </h2>
                                                     <p className="text-gray-600">{offre.entreprise}</p>

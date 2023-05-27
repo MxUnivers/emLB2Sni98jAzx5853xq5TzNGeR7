@@ -4,7 +4,8 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { useState } from 'react';
 import { baseurl } from '../../utlis/url/baseurl';
 import axios from 'axios';
-
+import localforage from 'localforage';
+import moment from 'moment';
 
 
 
@@ -15,19 +16,27 @@ import axios from 'axios';
 const OffreDetailPage = () => {
     var bgImg = "https://images.pexels.com/photos/1181605/pexels-photo-1181605.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 
-    
 
 
-    const [dataOffre, setdataOffre] = useState();
-    
-    var idOffre = sessionStorage.getItem(`${localvalue.offreDetail.id}`);
-    localStorage.removeItem(`${localvalue.offreDetail.id}`);
-
-
+    const [idOffre, setidOffre] = useState('');
 
     useEffect(() => {
-        OffreById(idOffre, setdataOffre);
+        fetchValue();
+        
     }, []);
+
+    const fetchValue = async () => {
+        const value = await localforage.getItem(localvalue.offreDetail.id);
+        setidOffre(value);
+        alert(idOffre);
+        OffreById(idOffre, setdataOffre);
+    };
+
+    const [dataOffre, setdataOffre] = useState();
+
+
+
+
 
 
     const OffreById = async (id, setState) => {
@@ -73,7 +82,7 @@ const OffreDetailPage = () => {
                     dataOffre ?
                         <div className="max-w-3xl mx-auto px-4">
                             <h1 className="text-3xl font-bold mb-4">{dataOffre.titre}</h1>
-                            <p className="text-gray-600 mb-4">Lieu | Date postée {dataOffre.dateDebut}</p>
+                            <p className="text-gray-600 mb-4">Lieu | Date postée {moment(dataOffre.dateDebut).format("DD/MM/YYYY")}</p>
                             <div className="bg-white p-6 rounded shadow mb-4">
                                 <h2 className="text-xl font-bold mb-2">Détails du poste</h2>
                                 <p className="text-gray-700 mb-4">{dataOffre.description}</p>
