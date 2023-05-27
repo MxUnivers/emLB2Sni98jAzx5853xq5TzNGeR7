@@ -4,6 +4,31 @@ const CandidatureModel = require("../models/CandidatureModel");
 const router = require("express").Router();
 
 
+
+// Modifier une candidature
+// Accepeter la candidature d'un candidat 
+router.post("/edit/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
+    try {
+        const id = req.params.Idcandidature;
+        const candidatureExit = await CandidatureModel.findById({ _id : id });
+        if(!candidatureExit){
+            res.json({message:" Candidature non trouvé ! "});
+        }
+        const candidature = await CandidatureModel.findByIdAndUpdate({ _id : id },req.body);
+        await candidature.save();
+        res.json({ message: "Candidature Modifier avec succès ", data: candidature })
+    } catch (error) {
+        res.status(500).send({ message : "Impossible d'accpeter la candidature avec succès" + error })
+    }
+});
+
+
+
+
+
+
+
+
 router.get("/get_candidatures", AuthorizationMiddleware, async (req, res) => {
     try {
         const candidatures = await CandidatureModel.find({});
