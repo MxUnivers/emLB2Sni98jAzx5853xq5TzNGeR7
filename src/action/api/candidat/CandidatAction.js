@@ -13,7 +13,7 @@ import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFuncti
 
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
-export const CandidatSignUp = (data,redirect,toast) => {
+export const CandidatSignUp = (data, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -85,7 +85,7 @@ export const CandidatEditCv = (id, data) => {
 
 
 
-export const CandidatPostuleOneOffre = (idcandidat, idOffre) => {
+export const CandidatPostuleOneOffre = (idcandidat, idOffre,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -98,15 +98,19 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Votre candidature à été posté avec succès 😉");
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Imoossible de poster votre candidature  😭!")
             });
     };
 }
 
-export const CandidatPostuleOneAnnonce = (idcandidat, idAnnonce,toast) => {
+export const CandidatPostuleOneAnnonce = (idcandidat, idAnnonce, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -157,7 +161,7 @@ export const CandidatEditPassword = (id, data) => {
 
 // Authenfication du candidate
 
-export const CandidatConnexion = (data,redirect,toast) => {
+export const CandidatConnexion = (data, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
