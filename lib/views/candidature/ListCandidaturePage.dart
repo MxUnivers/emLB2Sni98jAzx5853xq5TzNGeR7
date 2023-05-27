@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:mobileoffreemploi/config/baseurl.dart';
+import 'package:mobileoffreemploi/storage/profileStorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ListCandidaturePage extends StatefulWidget {
   const ListCandidaturePage({Key? key}) : super(key: key);
@@ -8,61 +14,179 @@ class ListCandidaturePage extends StatefulWidget {
 }
 
 class _ListCandidaturePageState extends State<ListCandidaturePage> {
+  bool isLoading = false;
+
   List<dynamic> candidatures = [
-    {
-      "id": "1",
-      "titre": "Candidature 1",
-      "description": "Description de la candidature 1",
-    },
-    {
-      "id": "2",
-      "titre": "Candidature 2",
-      "description": "Description de la candidature 2",
-    },
+    // Ajoutez d'autres candidatures ici
+  ];
+  List<dynamic> candidatures2 = [
     // Ajoutez d'autres candidatures ici
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _getCandidatiures();
+    // Charger les données de l'utilisateur ici
+  }
+
+  late String id;
+  late String firstname;
+  late String lastname;
+  late String email;
+  late String telephone;
+  late String coverPicture;
+  // Récupérer une valeur Profile du candidat
+
+  Future<List<dynamic>> _getCandidatiures() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(()  {
+      id = prefs.getString(storageProfile["_id"].toString()) ?? "";
+    });
+    setState(() {
+      isLoading = true;
+    });
+
+    final String apiUrl =
+        '${baseurl["url"].toString()}/api/v1/candidature/get_candidature/candidat/${id}';
+
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization':
+          "${baseurl["TypeToken"].toString()} ${baseurl["token"].toString()}"
+    });
+
+    if (response.statusCode == 200 || response.statusCode == 300) {
+      setState(() {
+        isLoading = false;
+      });
+      setState(() {
+        Map<String, dynamic> _data = jsonDecode(response.body);
+        print(_data);
+        candidatures = _data["data"];
+        candidatures2 = _data["data"];
+      });
+      return candidatures;
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      throw Exception('Failed to load offres');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text("Candidature"),
           centerTitle: true,
           backgroundColor: Colors.blue.shade800,
         ),
-        body: Container(
-          child: Column(
-              children: candidatures
-                  .map((data) => Card(
-                      child: ListTile(
-                          title: Text(data["titre"].toString()),
-                          subtitle: Container(
-                            child: Text(data["description"].toString()),
-                          ),
-                          trailing: Container(
-                            child: Text("En attente"),
-                          ),
-                          leading: Image.network("https://avatars.githubusercontent.com/u/107148545?v=4",),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text(data["titre"].toString()),
-                                  content: Text(data["description"].toString()),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('Fermer'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          })))
-                  .toList()),
-        ));
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Stack(children: [
+              Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        child: Column(
+                            children: candidatures
+                                .map((data) => Card(
+                                    child: ListTile(
+                                        title: Text(data["titre"].toString()+"..."),
+                                        subtitle: Container(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Colors.blue.shade800
+                                            ),
+                                            child: Text(
+                                              "Annonce",textAlign: TextAlign.center,
+                                              style: TextStyle(color:Colors.white),),
+                                          ),
+                                        ),
+                                        trailing: data['status'].toString() == "Acceptée"?
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green
+                                          ),
+                                          child: Text(data["status"].toString()),
+                                        ):
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.orangeAccent
+                                          ),
+                                          child: Text(data["status"].toString()),
+                                        ),
+                                        leading: Image.network(
+                                          "https://avatars.githubusercontent.com/u/107148545?v=4",
+                                        ),
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                scrollable: true,
+                                                title: data["status"] == "Acceptée"?
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.green
+                                                  ),
+                                                  child: Text(
+                                                    data["titre"].toString(), style: TextStyle(color:Colors.white),),
+                                                ):
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.orangeAccent
+                                                  ),
+                                                  child: Text(
+                                                    data["titre"].toString(), style: TextStyle(color:Colors.white),),
+                                                ),
+                                                content: Container(
+                                                  height: 100,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey.shade100,
+                                                      borderRadius:BorderRadius.circular(10)
+                                                  ),
+                                                  child: Text(data["lettreMotivation"].toString(),
+                                                  textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('Fermer'),
+                                                  ),
+                                                  IconButton(
+
+                                                    onPressed: (){},
+                                                    icon: Icon(Icons.send),color: Colors.indigo.shade900,
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        })))
+                                .toList()),
+                      ),
+                      isLoading
+                          ? Container(
+                        height: screenHeight,
+                        color: Colors.black.withOpacity(0.3),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                          : SizedBox()
+                    ]),
+              ),
+            ])));
   }
 }
