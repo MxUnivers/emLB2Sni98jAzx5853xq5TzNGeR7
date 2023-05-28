@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { OffreGetAll } from '../../action/api/offres/OffresAction';
+import { OffreGetAll, OffreGetById } from '../../action/api/offres/OffresAction';
 import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { BsTelephone, BsVoicemail } from "react-icons/bs";
@@ -12,6 +12,15 @@ import 'react-tabs/style/react-tabs.css';
 import CandidaturesForCandidat from '../../components/web/candidat/CandidaturesForCandidat';
 import { useNavigate } from 'react-router-dom';
 import localforage from 'localforage';
+import { Button, Modal } from 'react-bootstrap';
+import AvancedLoaderProfile from '../../components/chargement/profile/AvancedLoaderProfile';
+import moment from 'moment';
+import { FaGooglePlay } from "react-icons/fa";
+
+
+
+
+
 
 
 
@@ -25,12 +34,23 @@ const HistoriquePage = () => {
 
     var bgImg = "https://images.pexels.com/photos/4559705/pexels-photo-4559705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
+    const [dataOffre, setdataOffre] = useState();
     const [offres, setoffres] = useState([]);
     const [user, setuser] = useState();
     useEffect(() => {
         OffreGetAll(setoffres);
         CandidatGetById(idProfile, setuser);
-    }, [])
+    }, []);
+
+
+
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
     return (
 
         <div>
@@ -144,10 +164,10 @@ const HistoriquePage = () => {
                                 <h1 className="text-2xl font-bold mb-4">Vos offres d{"'"}emplois </h1>
                                 <div class="shadow-md p-3 rounded-lg border">
                                     {offres.map((offre) => (
-                                        <a key={offre.id} className="flex items-center mb-8 hover:bg-gray-50"
-                                        href={`/${routing.detailOffre.path}`}
+                                        <a type='button' href={`#detail-sur-l'offre-${String(offre.titre).replaceAll(" ", "-")}`} key={offre._id} className="flex items-center mb-8 hover:bg-gray-50"
                                             onClick={() => {
-                                                localforage.setItem(localvalue.offreDetail.id, offre._id);
+                                                handleOpenModal();
+                                                OffreGetById(offre._id, setdataOffre);
                                             }}
                                         >
                                             <img
@@ -213,10 +233,92 @@ const HistoriquePage = () => {
 
 
 
+            {/* Modal Offre d'emplois  */}
+
+
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Details sur l{"'"}offre d{"'"}emplois</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+                    {
+                        dataOffre ?
+                            <div className="max-w-3xl mx-auto px-4">
+                                <h1 className="text-3xl font-bold mb-4">{dataOffre.titre}</h1>
+                                <p className="text-gray-600 mb-4">Lieu | Date postée {moment(dataOffre.dateDebut).format("DD/MM/YYYY")}</p>
+                                <a href={`https://play.google.com/store/apps?hl=fr&gl=US`} target='_blank'  >
+                                    <Button variant='outline-secondary' class="btn flex flex-row justify-center items-center space-x-3"><span>Télécharger l{"'"}application</span> <FaGooglePlay class=" text-green-600 hover:text-white" size={30} /></Button>
+                                </a>
+                                <div className="bg-white p-6 rounded shadow mb-4">
+                                    <h2 className="text-xl font-bold mb-2">Détails du poste</h2>
+                                    <p className="text-gray-700 mb-4">{dataOffre.description}</p>
+                                    <ul className="list-disc list-inside">
+                                        <li>Niveau d{"'"}expérience requis {dataOffre.years_experience}</li>
+                                        <li>Type de contrat {dataOffre.typeContrat}</li>
+                                        <li>Horaires de travail</li>
+                                        <li>Salaire {dataOffre.salaire} </li>
+                                    </ul>
+
+                                    <Button variant="outline-primary" onClick={handleOpenModal}>
+                                        Postuler
+                                    </Button>
+                                </div>
+                                {
+                                    dataOffre && dataOffre.candidatPostulees.length > 0 ?
+
+                                        (
+                                            <div className="bg-white p-6 rounded shadow mb-4">
+                                                <h2 className="text-xl font-bold mb-2">Candidats disponibles</h2>
+
+                                                <ul className="list-disc list-inside">
+                                                    {
+
+                                                        dataOffre.candidatPostulees.map((item) => {
+                                                            return (
+                                                                <li>Nom du candidat 1 {item.firtname} {item.lastname} {item.email} </li>
+                                                            )
+                                                        })
+
+                                                    }
+
+                                                </ul>
+                                            </div>
+                                        ) :
+                                        null
+                                }
+                                <div className="bg-white p-6 rounded shadow mb-4">
+                                    <h2 className="text-xl font-bold mb-2">Comment postuler</h2>
+                                    <p className="text-gray-700 mb-4">Instructions pour postuler à l'offre d'emploi...</p>
+                                </div>
+                                {
+                                    /*
+                                    <div className="bg-white p-6 rounded shadow mb-4">
+                                    <h2 className="text-xl font-bold mb-2">Informations supplémentaires</h2>
+                                    <p className="text-gray-700 mb-4">Informations supplémentaires sur l'offre d'emploi...</p>
+                                </div>
+                                    */
+                                }
+                            </div>
+                            :
+                            <AvancedLoaderProfile />
+                    }
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-secondary" onClick={handleCloseModal}>
+                        Fermer
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+
         </div>
 
 
     )
+
+
 }
 
 
