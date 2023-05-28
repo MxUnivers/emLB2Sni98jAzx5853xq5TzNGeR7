@@ -7,6 +7,7 @@ import "package:get/get.dart";
 import 'package:mobileoffreemploi/config/baseurl.dart';
 import 'package:mobileoffreemploi/storage/profileStorage.dart';
 import 'package:mobileoffreemploi/views/auth/ConnexionPage.dart';
+import 'package:mobileoffreemploi/views/candidature/AnnoncePostulerListPage.dart';
 import 'package:mobileoffreemploi/views/candidature/PostCandidaturePage.dart';
 import 'package:mobileoffreemploi/views/emplois/DetailEmploiPage.dart';
 import 'package:mobileoffreemploi/views/emplois/ListEmploisPage.dart';
@@ -17,6 +18,10 @@ import "package:shared_preferences/shared_preferences.dart";
 import 'package:mobileoffreemploi/views/candidature/ListCandidaturePage.dart';
 
 import 'candidature/OffrePostulerListPage.dart';
+
+
+
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     getDataProfileConnexion();
     _getOffres();
     // Charger les données de l'utilisateur ici
@@ -143,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OffrePostulerListPage()),
+                        builder: (context) => AnnoncePostulerListPage()),
                   );
                 },
               ),

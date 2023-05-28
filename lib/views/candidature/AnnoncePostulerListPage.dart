@@ -77,7 +77,7 @@ class _AnnoncePostulerListPageState extends State<AnnoncePostulerListPage> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Annonces postulées"),
+          title: Text("Annonces postulées (${candidatures.length.toString()})"),
           centerTitle: true,
           backgroundColor: Colors.blue.shade800,
         ),
@@ -101,7 +101,7 @@ class _AnnoncePostulerListPageState extends State<AnnoncePostulerListPage> {
                                               color: Colors.lightGreen.shade800
                                             ),
                                             child: Text(
-                                              "offre d'emplois",textAlign: TextAlign.center,
+                                              "annonce",textAlign: TextAlign.center,
                                               style: TextStyle(color:Colors.white),),
                                           ),
                                         ),
