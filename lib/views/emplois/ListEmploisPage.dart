@@ -190,7 +190,7 @@ class JobCard extends StatelessWidget {
                   color: Colors.blueGrey,
                   child: Image.network(
                     imageUrl,
-                    height: 150,
+                    height: 70,
                     width: double.infinity,
                     fit: BoxFit.contain,
                   ),

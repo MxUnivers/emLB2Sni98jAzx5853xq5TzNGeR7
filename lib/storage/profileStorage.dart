@@ -1,10 +1,13 @@
 
 
+import 'dart:ffi';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 Map<String, String> storageProfile =
 {
+  "isLoggedIn":"_isLoggedInConnexion",
   "_id":"idConnexion",
   "firstname":"firsnameConnexion",
   "lastname":"lastnameConnexion",
@@ -17,6 +20,7 @@ Map<String, String> storageProfile =
 
 // Enregistrer une valeur
 Future<void> saveDataProfileConnexion(
+    String isLogin ,
     String id ,
     String firstname,
     String lastname,
@@ -25,6 +29,7 @@ Future<void> saveDataProfileConnexion(
     String coverPicture,
     ) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString(storageProfile["isLoggedIn"].toString(),"connecté");
   await prefs.setString(storageProfile["_id"].toString(), id);
   await prefs.setString(storageProfile["firstname"].toString(),firstname );
   await prefs.setString(storageProfile["lastname"].toString(),lastname );

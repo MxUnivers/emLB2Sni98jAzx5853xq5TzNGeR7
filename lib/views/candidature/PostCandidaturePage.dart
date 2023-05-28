@@ -27,15 +27,14 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
   }
 
   // Récupérer une valeur Profile du candidat
+  late String isLoggIn ;
   Future<void> getDataProfileConnexion() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     setState(() {
-      idConnexion = prefs.getString(storageProfile["_id"].toString()) ?? "";
-      firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
-      lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
-      email = prefs.getString(storageProfile["email"].toString()) ?? "";
-      telephone = prefs.getString(storageProfile["telephone"].toString()) ?? "";
+      isLoggIn = prefs.getString(storageProfile["isLoggedIn"].toString()) ?? "";
     });
+
   }
 
 
@@ -64,6 +63,7 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
       );
       return;
     }
+    String description = _description.text;
     final url = Uri.parse("${baseurl["url"].toString()}/api/v1/candidat/get_candidat/${idConnexion.toString()}/postuler/${widget.id.toString()}/offres");
     setState(() {
       _isLoading = true;
@@ -73,7 +73,9 @@ class _PostCandidaturePageState extends State<PostCandidaturePage> {
       headers: {
         'Authorization': "Bearer ${baseurl["token"].toString()}",
         'Content-Type': 'application/json',
-      },
+      },body: json.encode({
+      "lettreMotivation":description
+    })
     );
     if (response.statusCode == 200 || response.statusCode == 300) {
       // Stopper le chargement de mon bouton

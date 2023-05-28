@@ -17,6 +17,8 @@ class InscriptionPage extends StatefulWidget {
 }
 
 class _InscriptionPageState extends State<InscriptionPage> {
+
+  bool hideText = false;
   // Chargement dut bouton
   bool _isLoading = false;
 
@@ -120,6 +122,9 @@ class _InscriptionPageState extends State<InscriptionPage> {
     }
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,7 +209,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                     child: TextField(
                       controller: telephoneController,
                       decoration: InputDecoration(
-                          labelText: "téléphone ...",
+                          labelText: "téléphone +XXXXXXXXXXXX...",
                           suffixIcon: Icon(
                             Icons.phone,
                             size: 27,
@@ -214,6 +219,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                   Container(
                     width: 250,
                     child: TextField(
+                      obscureText: !hideText,
                       controller: passwordController,
                       decoration: InputDecoration(
                           labelText: "mot de passe ...",
@@ -226,6 +232,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                   Container(
                     width: 250,
                     child: TextField(
+                      obscureText: !hideText,
                       controller: confirm_passwordController,
                       decoration: InputDecoration(
                           labelText: "confirmer mot de passe ...",
@@ -233,6 +240,26 @@ class _InscriptionPageState extends State<InscriptionPage> {
                             Icons.remove_red_eye,
                             size: 27,
                           )),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                          value: hideText,
+                          onChanged: (value) {
+                            setState(() {
+                              hideText = value!;
+                            });
+                          },
+                        ),
+                        Text(
+                          "Afficher mot de passe",
+                          style: TextStyle(color: Colors.blue.shade600),
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -263,7 +290,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                             child: Padding(
                               padding: EdgeInsets.all(12.0),
                               child: Text(
-                                "Connexion",
+                                "Inscription",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

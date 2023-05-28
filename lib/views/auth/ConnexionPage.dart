@@ -19,6 +19,9 @@ class ConnexionPage extends StatefulWidget {
 }
 
 class _ConnexionPageState extends State<ConnexionPage> {
+
+  bool hideText = false;
+
   bool _isLoading = false;
   // Controller de text
   final TextEditingController _emailController = TextEditingController();
@@ -34,6 +37,27 @@ class _ConnexionPageState extends State<ConnexionPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+  @override
+  void initState() {
+    super.initState();
+      // Charger les données de l'utilisateur ici
+  }
+  late String isLoggIn ;
+  Future<void> getDataProfileConnexion() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggIn = prefs.getString(storageProfile["isLoggedIn"].toString()) ?? "";
+    });
+    if(isLoggIn=="connecté"){
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    }
+    else{
+      return;
+    }
   }
 
   var imageprofile =
@@ -76,6 +100,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
       final data = jsonDecode(response.body);
       // Accéder aux valeurs de données que vous avez récupérées
       saveDataProfileConnexion(
+        "connecté",
           data['data']["_id"].toString(),
           data['data']["firstname"].toString(),
           data['data']["lastname"].toString(),
@@ -86,12 +111,12 @@ class _ConnexionPageState extends State<ConnexionPage> {
       // message du post de mon application
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.green,
           content: Text('Connexion réussi'),
         ),
       );
       // Redirection vers la page d'accueil de mon application
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
@@ -177,6 +202,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
                     Container(
                       width: 250,
                       child: TextField(
+                        obscureText: !hideText,
                         controller: _passwordController,
                         focusNode: _focusNode2,
                         onSubmitted: (value) {
@@ -188,6 +214,26 @@ class _ConnexionPageState extends State<ConnexionPage> {
                               FontAwesomeIcons.eyeSlash,
                               size: 27,
                             )),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            value: hideText,
+                            onChanged: (value) {
+                              setState(() {
+                                hideText = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            "Afficher mot de passe",
+                            style: TextStyle(color: Colors.blue.shade600),
+                          )
+                        ],
                       ),
                     ),
                     Padding(

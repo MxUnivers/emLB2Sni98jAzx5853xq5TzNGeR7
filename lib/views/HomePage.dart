@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import "dart:convert";
@@ -14,6 +16,7 @@ import 'package:mobileoffreemploi/views/profile/ProfilePage.dart';
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:mobileoffreemploi/views/candidature/ListCandidaturePage.dart';
 
+import 'candidature/OffrePostulerListPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,10 +24,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime? _lastPressedAt; // variable pour enregistrer l'heure de la dernière pression du bouton retour
+  DateTime?
+      _lastPressedAt; // variable pour enregistrer l'heure de la dernière pression du bouton retour
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   @override
   void initState() {
@@ -34,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     // Charger les données de l'utilisateur ici
   }
 
+  late String isLoggIn;
   late String id;
   late String firstname;
   late String lastname;
@@ -43,7 +47,9 @@ class _HomePageState extends State<HomePage> {
   // Récupérer une valeur Profile du candidat
   Future<void> getDataProfileConnexion() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     setState(() {
+      isLoggIn = prefs.getString(storageProfile["isLoggedIn"].toString()) ?? "";
       id = prefs.getString(storageProfile["_id"].toString()) ?? "";
       firstname = prefs.getString(storageProfile["firstname"].toString()) ?? "";
       lastname = prefs.getString(storageProfile["lastname"].toString()) ?? "";
@@ -95,7 +101,6 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.menu_rounded),
           ),
         ),
-
         drawer: Drawer(
           width: 230,
           child: ListView(
@@ -126,7 +131,30 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ListCandidaturePage()),
+                    MaterialPageRoute(
+                        builder: (context) => ListCandidaturePage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.speaker_phone),
+                title: Text('Annonces postulées'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OffrePostulerListPage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.offline_pin),
+                title: Text('offres postulées'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OffrePostulerListPage()),
                   );
                 },
               ),
@@ -198,13 +226,18 @@ class _HomePageState extends State<HomePage> {
                             builder: (context) => SearchEmploisPage()),
                       );
                     },
-                    child: TextField(
-                      enabled: false,
-                      onTap: () {},
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Rechercher un emploi',
-                        suffixIcon: Icon(Icons.search),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextField(
+                        enabled: false,
+                        onTap: () {},
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Rechercher un emploi',
+                          suffixIcon: Icon(Icons.search),
+                        ),
                       ),
                     ),
                   )),
@@ -215,13 +248,14 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Offres d\'emploi populaires',
+                      "Offres d'emplois",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    TextButton(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue.shade800),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -229,7 +263,15 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => ListEmploisPage()),
                         );
                       },
-                      child: Text('Voir plus'),
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Text('Voir plus'),
+                            SizedBox(width: 3,),
+                            Icon(Icons.menu_open)
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -267,8 +309,6 @@ class _HomePageState extends State<HomePage> {
                     ),
             ])));
   }
-  
-  
 
   // Candidat
   Future<bool> _onWillPop() async {
@@ -283,30 +323,15 @@ class _HomePageState extends State<HomePage> {
 
   //Redirection page
   void redirectToPage(BuildContext context) {
-    if(id== null){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ConnexionPage()),
-    );}
+    if (id == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ConnexionPage()),
+      );
+    }
     return;
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class JobCard extends StatelessWidget {
   final String id;
@@ -350,11 +375,14 @@ class JobCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Image.network(
-                    imageUrl,
-                    height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Container(
+                    color: Colors.blue.shade500,
+                    child: Image.network(
+                      imageUrl,
+                      height: 70,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -400,5 +428,4 @@ class JobCard extends StatelessWidget {
           ),
         ));
   }
-
 }
