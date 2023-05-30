@@ -26,6 +26,8 @@ const  offreEmploisRoute =  require("./routes/offreEmploisRoute");
 const authEntrepriseRoute =  require("./routes/authenticate/authEntrepriseRoute");
 
 const  candidaturesRoute = require("./routes/candidatureRoute");
+// Messages
+const  messageRoute= require("./routes/messageRoute");
 
 
 
@@ -84,6 +86,7 @@ app.use(`${apiV1}/auth/entreprise`,authEntrepriseRoute);
 app.use(`${apiV1}/annonce`,annonceRoute);
 app.use(`${apiV1}/offre`,offreEmploisRoute);
 app.use(`${apiV1}/candidature`,candidaturesRoute);
+app.use(`${apiV1}/message`,messageRoute);
 
 
 
