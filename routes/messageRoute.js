@@ -61,6 +61,20 @@ router.post('/', async (req, res) => {
     }
 });
 
+
+// Un entreprise écrit à un candidat
+router.post('/post-message/:idSend/to/:idRecepter', async (req, res) => {
+    try {
+        const  idSend = req.params.idSend
+        const { content } = req.body;
+        const newMessage = new Message({ content });
+        const savedMessage = await newMessage.save();
+        res.json(savedMessage);
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la création du message' });
+    }
+});
+
 // Mettre à jour un message existant
 router.put('/edit/:id', async (req, res) => {
     try {
