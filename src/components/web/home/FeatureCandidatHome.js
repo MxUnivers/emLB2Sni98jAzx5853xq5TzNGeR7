@@ -4,8 +4,14 @@ import 'aos/dist/aos.css';
 import { useState } from 'react';
 import { CandidatGetAll } from '../../../action/api/candidat/CandidatAction';
 import CandidatCard from '../candidat/CandidatCard';
+import { localvalue } from '../../../utlis/storage/localvalue';
+import { typeadmin } from '../../../utlis/storage/account';
+import { routing } from '../../../utlis/routing';
+import { Button } from 'react-bootstrap';
 
 const FeatureCandidatHome = () => {
+    var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
+
     const [dataCandidat, setdataCandidat] = useState([]);
     useEffect(() => {
         AOS.init({
@@ -15,6 +21,21 @@ const FeatureCandidatHome = () => {
         });
         CandidatGetAll(setdataCandidat);
     }, []);
+
+
+    // pagnination 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 3; // Nombre d'éléments par page
+
+    // Calculez l'index de début et de fin pour l'affichage des éléments sur la page actuelle
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const currentItems = dataCandidat.slice(firstIndex, lastIndex);
+
+    // Fonction pour gérer le changement de page
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div class="featured-candidates-area pb-100" >
@@ -70,19 +91,50 @@ const FeatureCandidatHome = () => {
                             </div>
 
                             {
-                                dataCandidat.map((item) => {
+                                currentItems.map((item) => {
                                     return (
-                                        <CandidatCard data={item}/>
+                                        <CandidatCard data={item} />
                                     )
                                 })
                             }
+                            {/* Rendu de la pagination */}
+                            <div className="pagination">
+                            <Button variant='outline-primary' onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                                Précédent
+                            </Button>
+
+                            {/* Affichage des numéros de page */}
+                            {Array.from({ length: Math.ceil(dataCandidat.length / itemsPerPage) }, (_, index) => index + 1).map((page) => (
+                                <Button
+                                variant='outline-primary'
+                                    key={page}
+
+                                    onClick={() => handlePageChange(page)}
+                                    className={currentPage === page ? 'active' : ''}
+                                >
+                                    {page}
+                                </Button>
+                            ))}
+
+                            <Button
+                            variant='outline-primary'
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === Math.ceil(dataCandidat.length / itemsPerPage)}
+                            >
+                                Suivant
+                            </Button>
+                        </div>
 
 
 
 
-                            <div class="featured-candidates-btn">
-                                <a href="candidates-2.html">View All Candidates <i class="flaticon-right-arrow"></i></a>
-                            </div>
+                            {
+                                typeAdmin == typeadmin.employeur ?
+                                    <div class="featured-candidates-btn">
+                                        <a href={`${routing.candidatAllParticipant.path}`}>View All Candidates <i class="flaticon-right-arrow"></i></a>
+                                    </div> :
+                                    null
+                            }
                         </div>
                     </div>
                 </div>

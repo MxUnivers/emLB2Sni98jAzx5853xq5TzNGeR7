@@ -12,6 +12,7 @@ import { HiCalendar, HiLocationMarker, HiOutlineMail, HiPhone } from 'react-icon
 import { AiOutlineSend } from 'react-icons/ai';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { Entreprise_Send_Message } from '../../../../action/api/messages/MessageAction';
 
 const PendingCandidatApplications = () => {
   var idAdmin = localStorage.getItem(localvalue.emloyeur.idEmployeur);
@@ -28,7 +29,9 @@ const PendingCandidatApplications = () => {
   const [annonce, setannonce] = useState();
   const [candidat, setcandidat] = useState();
   const [idCandidature, setidCandidature] = useState();
+  // messeg au candidat
   const [message, setMessage] = useState();
+  const [subjet, setsubjet] = useState();
 
   useEffect(() => {
     CandidaturesEntreprises(idAdmin, setapplications, setapplications2);
@@ -69,7 +72,25 @@ const PendingCandidatApplications = () => {
     event.preventDefault();
     // type en fonction des offres de employeurs
 
-    dispatch(CandidatureAuthorized(idCandidature, toast));
+    // dispatch(CandidatureAuthorized(idCandidat, toast));
+  };
+
+
+  const [dataMessage, setdataMessage] = useState({ name: '', email: '' });
+
+  const handleChangeFormMessage = (event) => {
+    const { name, value } = event.target;
+    setdataMessage({ ...dataMessage, [name]: value });
+  }
+  const handleSendMessageSubmit = (event) => {
+    event.preventDefault();
+    if (dataMessage.subject == "") {
+      alert("sujet requis !")
+    }
+    if (dataMessage.content == "") {
+      alert("message requis !")
+    }
+    dispatch(Entreprise_Send_Message(idAdmin, candidat._id, dataMessage, toast));
   };
 
 
@@ -155,20 +176,29 @@ const PendingCandidatApplications = () => {
                         handleShowProfileCandidat()
                       }}>voire plus </button>
                     </div>
-                    <form className="mb-4">
+                    <form className="mb-4 my-3 p-2 border" onSubmit={handleSendMessageSubmit}>
+                      <div className="text-gray-600 mb-2">
+                        <label className="block text-sm font-medium text-gray-700">Sujet</label>
+                        <input required type='text' onChange={handleChangeFormMessage} name="subject" placeholder={annonce.titre} className="form-control font-medium text-gray-700" />
+                      </div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700">
                         Message
                       </label>
-                      <textarea
-                        id="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                      <textarea required
+                        onChange={handleChangeFormMessage}
+                        name="content"
                         className="mt-1 px-4 py-2 block w-full border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         rows="4"
                         placeholder="Votre message"
-                        required
                       ></textarea>
-                      <button type="submit" class="w-full bg-blue-400  bg-blue-600 flex space-x-3 justify-center items-center rounded-2xl py-2 px-2  text-white"><span>envoyer</span> <AiOutlineSend size={25} /> </button>
+                      {
+                        loading ? <p class="text-gray-500">Envois du message cours .... </p>
+                          :
+                          <button type="submit" onClick={() => {
+                            alert(dataMessage);
+                            console.log(dataMessage);
+                          }} class="w-full bg-blue-400  bg-blue-600 flex space-x-3 justify-center items-center rounded-2xl py-2 px-2  text-white"><span>envoyer</span> <AiOutlineSend size={25} /> </button>
+                      }
                     </form>
 
                   </div>

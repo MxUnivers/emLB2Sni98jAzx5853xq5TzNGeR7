@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import LoaderComponent from '../../chargement/LoaderComponent';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { routing } from '../../../utlis/routing';
 
 
 const JobListHome = () => {
@@ -100,7 +101,7 @@ const JobListHome = () => {
 
                 )}
                 <div class="browse-jobs-btn">
-                    <a href="#" class="default-btn">voir plus d{"'"}annonces <i class="flaticon-list-1"></i></a>
+                    <a href={`/${routing.searchAnnonce.path}`} class="default-btn">voir plus d{"'"}annonces <i class="flaticon-list-1"></i></a>
                 </div>
             </div>
         </div>

@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { localvalue } from '../../../utlis/storage/localvalue';
+import { typeadmin } from '../../../utlis/storage/account';
+import { routing } from '../../../utlis/routing';
 
 
 const OverViewHome = () => {
+    var typeAdmin  =  localStorage.getItem(localvalue.typeAdmin);
     useEffect(() => {
         AOS.init({
             duration: 1000,
@@ -22,9 +26,15 @@ const OverViewHome = () => {
                                 Créez votre CV professionnel et donnez un coup de pouce à votre carrière ! Notre application vous offre l'aide d'un expert pour construire un CV qui mettra en valeur vos compétences et vos expériences professionnelles. Optimisez vos chances de décrocher le poste de vos rêves grâce à notre outil de création de CV facile à utiliser et efficace.
                             </p>
 
-                            <div class="overview-btn">
-                                <a href="dashboard-submit-resume.html" class="default-btn">Envoyer votre cv<i class="flaticon-list-1"></i></a>
+                            {
+                                typeAdmin == typeadmin.candidat ?
+                                <div class="overview-btn">
+                                <a href={`/${routing.candidatCv.path}`} class="default-btn">Envoyer votre cv<i class="flaticon-list-1"></i></a>
                             </div>
+                            :
+                            null
+                            }
+                            
                         </div>
                     </div>
 

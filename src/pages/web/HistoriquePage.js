@@ -16,6 +16,7 @@ import { Button, Modal } from 'react-bootstrap';
 import AvancedLoaderProfile from '../../components/chargement/profile/AvancedLoaderProfile';
 import moment from 'moment';
 import { FaGooglePlay } from "react-icons/fa";
+import MessageListPage from '../../components/web/candidat/MessageListPage';
 
 
 
@@ -155,6 +156,9 @@ const HistoriquePage = () => {
                         <Tab>
                             <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Candidatures ...</button>
                         </Tab>
+                        <Tab>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-1 px-3 m-1 ">Reception messages ..</button>
+                        </Tab>
 
 
                     </TabList>
@@ -228,6 +232,11 @@ const HistoriquePage = () => {
                     <TabPanel>
                         <CandidaturesForCandidat />
                     </TabPanel>
+
+                    <TabPanel>
+                        <MessageListPage />
+                    </TabPanel>
+
                 </Tabs>
             </div>
 

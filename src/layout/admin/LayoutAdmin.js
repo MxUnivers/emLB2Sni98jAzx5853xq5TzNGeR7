@@ -6,6 +6,7 @@ import FooterAdmin from '../../components/admin/FooterAdmin';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { typeadmin } from '../../utlis/storage/account';
 import HeaderWeb from '../../components/web/HeaderWeb';
+import ButtonList from '../../components/admin/ButtonList';
 
 const LayoutAdmin = () => {
 
@@ -48,6 +49,7 @@ const LayoutAdmin = () => {
           */
         }
         <HeaderWeb/>
+        <ButtonList/>
         <Outlet />
         <FooterAdmin />
       </div>
