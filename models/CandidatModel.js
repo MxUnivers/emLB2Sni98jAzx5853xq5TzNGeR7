@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const CandidatSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        auto: true
+      },
     username: {
         type: String, required: false
     },

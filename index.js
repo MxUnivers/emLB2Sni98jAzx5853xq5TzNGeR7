@@ -76,6 +76,7 @@ app.get("/", AuthorizationMiddleware, (req, res) => {
   console.log("api vu ...")
 });
 
+
 const apiV1 = `/api/v1`;
 app.use(`${apiV1}/admimistrator`, administratorRoute);
 app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);

@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { secteursActivites } = require("../utils/FormatApi");
 
 const EntrepriseSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true
+  },
   username:{
     type:String,
     require:false,
