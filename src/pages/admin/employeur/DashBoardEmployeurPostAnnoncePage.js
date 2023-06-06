@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react'
 import { typeContrat } from '../../../utlis/options/optionDivers'
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,16 +37,43 @@ const DashBoardEmployeurPostAnnoncePage = () => {
     
 
 
+    // state annonces
+    const [nameA, setnameA] = useState("");
+    const [telA, settelA] = useState("");
+    const [emailAnnonce, setemailA] = useState("");
+    const [full_nameA, setfull_nameA] = useState("");
+    const [secteurA, setsecteurA] = useState("");
+    const [dateA, setdateA] = useState("");
+    const [typeContratA, settypeContratA] = useState("");
+    const [salaireA, setsalaireA] = useState("");
+    const [lieuA, setlieuA] = useState("");
+    const [descriptionA, setdescriptionA] = useState("");
+
+    // State Offre
+    const [nameO, setnameO] = useState("");
+    const [telO, settelO] = useState("");
+    const [emailO, setemailO] = useState("");
+    const [full_nameO, setfull_nameO] = useState("");
+    const [secteurO, setsecteurO] = useState("");
+    const [dateO, setdateO] = useState("");
+    const [typeContratO, settypeContratO] = useState("");
+    const [salaireO, setsalaireO] = useState("");
+    const [lieuO, setlieuO] = useState("");
+    const [descriptionO, setdescriptionO] = useState("");
+
+
 
     const [formData, setFormData] = useState({});
-    
     const handleChangeForm = (event) => {
         const { name, value } = event.target;
         setFormData((formData) => ({
           ...formData,
           [name]: value,
         }));
-      };
+    };
+
+
+
 
     const handleSubmitAnnonce = (event) => {
         if (formData.titre="" | null) {

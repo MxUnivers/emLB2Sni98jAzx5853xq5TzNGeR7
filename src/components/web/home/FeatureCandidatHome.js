@@ -99,31 +99,31 @@ const FeatureCandidatHome = () => {
                             }
                             {/* Rendu de la pagination */}
                             <div className="pagination">
-                            <Button variant='outline-primary' onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                                Précédent
-                            </Button>
-
-                            {/* Affichage des numéros de page */}
-                            {Array.from({ length: Math.ceil(dataCandidat.length / itemsPerPage) }, (_, index) => index + 1).map((page) => (
-                                <Button
-                                variant='outline-primary'
-                                    key={page}
-
-                                    onClick={() => handlePageChange(page)}
-                                    className={currentPage === page ? 'active' : ''}
-                                >
-                                    {page}
+                                <Button variant='outline-primary' onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                                    Précédent
                                 </Button>
-                            ))}
 
-                            <Button
-                            variant='outline-primary'
-                                onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === Math.ceil(dataCandidat.length / itemsPerPage)}
-                            >
-                                Suivant
-                            </Button>
-                        </div>
+                                {/* Affichage des numéros de page */}
+                                {Array.from({ length: Math.ceil(dataCandidat.length / itemsPerPage) }, (_, index) => index + 1).map((page) => (
+                                    <Button
+                                        variant='outline-primary'
+                                        key={page}
+
+                                        onClick={() => handlePageChange(page)}
+                                        className={currentPage === page ? 'active' : ''}
+                                    >
+                                        {page}
+                                    </Button>
+                                ))} 
+
+                                <Button
+                                    variant='outline-primary'
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === Math.ceil(dataCandidat.length / itemsPerPage)}
+                                >
+                                    Suivant
+                                </Button>
+                            </div>
 
 
 
