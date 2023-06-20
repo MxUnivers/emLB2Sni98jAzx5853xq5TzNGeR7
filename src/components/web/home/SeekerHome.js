@@ -17,7 +17,7 @@ const SeekerHome = () => {
                             <div class="seeker-image">
                                 <img src="assets/images/job-seeker/seeker-1.png" alt="image"/>
                             </div>
-                            <h3>Create Account</h3>
+                            <h3>Créer un compte</h3>
                             
                             <div class="step">Step 1</div>
                         </div>
@@ -32,7 +32,7 @@ const SeekerHome = () => {
                             <div class="seeker-image">
                                 <img src="assets/images/job-seeker/seeker-2.png" alt="image"/>
                             </div>
-                            <h3>Submit Resume</h3>
+                            <h3>Connecter nous </h3>
                             
                             <div class="step">Step 2</div>
                         </div>
@@ -47,7 +47,7 @@ const SeekerHome = () => {
                             <div class="seeker-image">
                                 <img src="assets/images/job-seeker/seeker-3.png" alt="image"/>
                             </div>
-                            <h3>Apply Jobs</h3>
+                            <h3>Postuler pour le Job</h3>
                             
                             <div class="step">Step 3</div>
                         </div>

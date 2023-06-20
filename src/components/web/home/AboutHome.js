@@ -27,28 +27,28 @@ const AboutHome = () => {
 
                     <div class="col-lg-6 col-md-12 ">
                         <div class="about-content" data-aos="fade-right"  data-aos-delay="70" data-aos-duration="700">
-                            <h3 class="visible text-gray-500 opacity-100">plateforme X est un endroit digne de confiance pour trouver l{"'"}emploi de vos rêves</h3>
-                            <p class="visible">Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
-                            <p class="visible">Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua.</p>
-
+                            <h3 class="visible text-gray-500 opacity-100"> Metter en valeur vos compétences, votre expérience et vos réalisations de manière claire et attrayante</h3>
+                            <p class="visible">Vous êtes à la recherche d'une opportunité professionnelle qui correspond à vos aspirations et à vos compétences ? Ne cherchez pas plus loin, car notre plateforme d'emplois est là pour vous aider à trouver le travail de vos rêves.</p>
+                            <p class=" text-2xl font-bold mt-5 visible">Des resultats plus que satifaisants</p>
+                            
                             <div class="row visible">
                                 <div class="col-lg-6 col-sm-6 col-md-6 col-6">
                                     <div class="about-fun-fact">
                                         <h3>
-                                            <span class="odometer" data-count="25">00</span>
-                                            <span class="sign-icon">+</span>
+                                            <span class="odometer" data-count="25">+</span>
+                                            <span class="sign-icon">30720</span>
                                         </h3>
-                                        <p>Annés expériences</p>
+                                        <p>Etudiants</p>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-sm-6 col-md-6 col-6">
                                     <div class="about-fun-fact">
                                         <h3>
-                                            <span class="odometer" data-count="16">00</span>
-                                            <span class="sign-icon">+</span>
+                                            <span class="odometer" data-count="16">+</span>
+                                            <span class="sign-icon">2300</span>
                                         </h3>
-                                        <p>PRIX GAGNÉS</p>
+                                        <p>Entreprises</p>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,9 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import { routing } from '../../../utlis/routing';
+import { type } from '@testing-library/user-event/dist/type';
+import { localvalue } from '../../../utlis/storage/localvalue';
 
 const BarnerHome = () => {
     const handleOnSlideChange = (e) => {
@@ -19,7 +22,7 @@ const BarnerHome = () => {
     const carousel_bg = [
         {
             titre: "VOUS AVEZ DU TALENT ? RENCONTREZ L'OPPORTUNITÉ",
-            sous_titre: "n'attender plus inscrivez vous",
+            sous_titre: "n'attender plus inscrivez vous maintenant",
             image: "https://images.pexels.com/photos/6146978/pexels-photo-6146978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
         },
         {
@@ -28,13 +31,15 @@ const BarnerHome = () => {
             image: "https://images.pexels.com/photos/3184163/pexels-photo-3184163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
         },
         {
-            titre: "Cette plaforme est fait pour vous",
+            titre: "Cette plaforme est faite pour vous",
             sous_titre: "n'attender plus inscrivez vous",
             image: "https://images.pexels.com/photos/5648085/pexels-photo-5648085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
         }
-    ]
+    ];
     // var  bgImg = "home.jpg";
     var bgImg = "https://images.pexels.com/photos/4559515/pexels-photo-4559515.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
+    var typeAdmin = localStorage.getItem(localvalue.typeAdmin);
     return (
         <AliceCarousel
             onSlideChange={handleOnSlideChange} autoPlay infinite autoPlayInterval={4000} activeIndex={0}
@@ -70,7 +75,17 @@ const BarnerHome = () => {
                                     <div class="container">
                                         <div class="page-banner-content">
                                             <h2>{item.titre}</h2>
-                                            <p class="text-gray-100 text-2xl">{item.sous_titre}</p>
+                                            {
+                                                typeAdmin == null | "" ?
+                                                    <div>
+                                                        <p class="text-gray-100 text-2xl">{item.sous_titre}</p>
+                                                        <a href={`/${routing.connexion.path}`}>
+                                                            <button class="btn px-3 py-2 bg-blue-600 text-xl hover:bg-blue-700 text-white rounded-2xl ">
+                                                                se connecter
+                                                            </button>
+                                                        </a>
+                                                    </div> : null
+                                            }
                                         </div>
                                     </div>
                                 </div>

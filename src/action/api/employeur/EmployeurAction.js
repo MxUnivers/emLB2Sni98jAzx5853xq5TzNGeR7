@@ -125,7 +125,7 @@ export const EntrepriseDisConnect = (id) => {
 
 
 
-export const EntrepriseEditProfile = (id, data,toast) => {
+export const EntrepriseEditProfile = (id, data, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -150,22 +150,29 @@ export const EntrepriseEditProfile = (id, data,toast) => {
 
 
 // Une entreprise qui poste une annonce
-export const EntreprisePostAnnonce = (id, data, toast) => {
+export const EntreprisePostAnnonce = (
+    id,
+    titre, entreprise, description, typeAnnonce,
+    telephone, email, salaire, lieu, pays,
+    secteurs_activites, dateDebut, toast
+) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        console.log(
-            data.titre,
-            data.entreprise,
-            data.description,
-            data.email,
-            data.salaire,
-            data.dateDebut,
-            data.telephone,
-            data.secteurs_activites,
-            data.typeContrat
-        )
         await axios
-            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/annonces`, data, {
+            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/annonces`,
+                {
+                    "titre": titre,
+                    "entreprise": entreprise,
+                    "description": description,
+                    "typeAnnonce": typeAnnonce,
+                    "telephone": telephone,
+                    "email": email,
+                    "lieu": lieu,
+                    "pays": pays,
+                    "salaire": salaire,
+                    "secteurs_activites": secteurs_activites,
+                    "dateDebut": dateDebut
+                }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -175,9 +182,9 @@ export const EntreprisePostAnnonce = (id, data, toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Annonce Créer avec succès");
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.reload()
-                },2000);
+                }, 2000);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -196,24 +203,42 @@ export const EntreprisePostAnnonce = (id, data, toast) => {
 
 
 // Une entreprise qui poste une anonnce
-export const EntreprisePostOffre = (id, data,toast) => {
+export const EntreprisePostOffre = (id,
+    titre, entreprise, description, typeOffre, typeContrat,
+    telephone, email, salaire, lieu, pays,
+    secteurs_activites, dateDebut, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/offres`, data, {
-                headers:
+            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/offres`,
                 {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    "titre": titre,
+                    "entreprise": entreprise,
+                    "description": description,
+                    "typeOffre": typeOffre,
+                    "typeContrat": typeContrat,
+                    "telephone": telephone,
+                    "email": email,
+                    "lieu": lieu,
+                    "pays": pays,
+                    "salaire": salaire,
+                    "secteurs_activites": secteurs_activites,
+                    "dateDebut": dateDebut
                 }
-            })
+                , {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Impossible de poster cette offre");
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.reload()
-                },2000);
-                
+                }, 2000);
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

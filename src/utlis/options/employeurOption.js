@@ -38,3 +38,10 @@ export const secteursActivites = [
 ];
 
 
+export const secteursUrgentces = [
+  { label: "Alternative", value: "Alternative" },
+  { label: "Urgent", value: "Urgente" },
+  { label: "Permanence", value: "Permanence" },
+];
+
+

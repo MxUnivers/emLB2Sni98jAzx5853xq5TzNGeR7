@@ -171,7 +171,7 @@ const HeaderWeb = () => {
                                         {
                                             loading ?
                                                 <p>Déconnexion en cours ... </p> :
-                                                <button className="btn btn-danger flex dropdown-item">
+                                                <button type='submit' className="btn btn-danger flex dropdown-item">
                                                     <HiOutlineLogout className="mr-1 flex" />
                                                     <span>Deconnexion</span>
                                                 </button>
@@ -190,7 +190,7 @@ const HeaderWeb = () => {
                                     }
                                     id="profile-dropdown">
                                     <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
-                                        Tableau de bord E
+                                        Tableau Employeur
                                     </NavDropdown.Item>
                                     <NavDropdown.Item href={`/${routing.candidatDashboard.path}`}>
                                         Statistiques
@@ -207,8 +207,7 @@ const HeaderWeb = () => {
                                                 handleClearLocalStorage();
                                                 navigation('/');
                                                 window.location.reload();
-                                                e.preventDefault();
-                                                dispatch(EntrepriseDisConnect(idEmployeur));
+                                                // dispatch(EntrepriseDisConnect(idEmployeur));
                                             }
                                         }} >
                                         {

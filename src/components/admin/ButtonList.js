@@ -3,39 +3,39 @@ import { FaUser, FaLock, FaNewspaper, FaUserCircle, FaMoneyBillWave, FaChartBar 
 
 const ButtonList = () => {
   return (
-    <ul className="button-list">
-      <li className="sm:hidden">
-        <button className="btn-icon">
+    <ul className="button-list flex flex-wrap space-x-1 space-y-1">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaUser />
         </button>
         <span className="btn-label">Candidat</span>
       </li>
-      <li className="sm:hidden">
-        <button className="btn-icon">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaLock />
         </button>
         <span className="btn-label">Mot de passe</span>
       </li>
-      <li className="sm:hidden">
-        <button className="btn-icon">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaNewspaper />
         </button>
-        <span className="btn-label">Publications</span>
+        <span className="btn-label  ">Publications</span>
       </li>
-      <li className="sm:hidden">
-        <button className="btn-icon">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaUserCircle />
         </button>
         <span className="btn-label">Profile</span>
       </li>
-      <li className="sm:hidden">
-        <button className="btn-icon">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaMoneyBillWave />
         </button>
         <span className="btn-label">Paiement</span>
       </li>
-      <li className="sm:hidden">
-        <button className="btn-icon">
+      <li className="sm:hidden bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-2 py-1 rounded-lg">
+        <button className="btn-icon  ">
           <FaChartBar />
         </button>
         <span className="btn-label">Tableau de bord</span>
