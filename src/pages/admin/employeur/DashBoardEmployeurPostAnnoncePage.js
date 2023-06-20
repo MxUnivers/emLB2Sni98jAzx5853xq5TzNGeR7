@@ -104,7 +104,11 @@ const DashBoardEmployeurPostAnnoncePage = () => {
             alert("email requis")
         }
         event.preventDefault();
-        dispatch(EntreprisePostOffre(idAdmin, formData, toast))
+        dispatch(EntreprisePostOffre(
+            idAdmin, titreO, entrepriseO, descriptionO,
+            typeOffre, typeContratO, telO, emailO, salaireO,
+            lieuO, paysO, secteurO, dateO, toast
+        ))
     };
 
 
@@ -196,7 +200,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>Salaire</label>
-                                    <input required type='number' value={titreA} onChange={(e) => { settitreA(e.target.value) }} class="form-control" />
+                                    <input required type='number' value={salaireA} onChange={(e) => { setsalaireA(e.target.value) }} class="form-control" />
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
@@ -323,7 +327,7 @@ const DashBoardEmployeurPostAnnoncePage = () => {
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>Salaire</label>
-                                    <input required type='number' value={titreO} onChange={(e) => { settitreO(e.target.value) }} class="form-control" />
+                                    <input required type='number' value={salaireO} onChange={(e) => { setsalaireO(e.target.value) }} class="form-control" />
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
