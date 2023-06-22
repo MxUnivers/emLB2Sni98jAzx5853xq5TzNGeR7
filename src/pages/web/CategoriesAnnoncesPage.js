@@ -7,6 +7,7 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { routing } from '../../utlis/routing';
 import { RiLoader2Fill, RiSearchLine } from "react-icons/ri";
 import Fuse from 'fuse.js';
+import FooterWeb from '../../components/web/FooterWeb';
 
 
 
@@ -134,6 +135,8 @@ const CategoriesAnnoncesPage = () => {
                     {/* listes des items teléchargés */}
                 </div>
             </div>
+
+            <FooterWeb />
         </div>
     )
 }

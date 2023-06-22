@@ -11,7 +11,7 @@ import { HiLogin, HiOutlineLockClosed, HiOutlineLogout, HiOutlineSpeakerphone, H
 import { useDispatch, useSelector } from 'react-redux';
 import { CandidatDeconnexion } from '../../action/api/candidat/CandidatAction';
 import { EntrepriseDisConnect } from '../../action/api/employeur/EmployeurAction';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { handleClearLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { MdOutlineHome, MdPhoneCallback } from "react-icons/md";
 import { FcStatistics } from "react-icons/fc";
@@ -22,6 +22,8 @@ import { BiHelpCircle } from "react-icons/bi";
 
 const HeaderWeb = () => {
     const navigation = useNavigate();
+    const  location = useLocation();
+    
 
     var avatarImage = "https://images.pexels.com/photos/7275385/pexels-photo-7275385.jpeg?auhref=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
@@ -85,7 +87,7 @@ const HeaderWeb = () => {
                         <Nav.Link
                             href='/'
 
-                            className='nav-link flex space-x-2'
+                            className={`nav-link flex space-x-2  ${location.pathname==="/" ? "bg-blue-600 px-2 py-2 rounded-lg text-white":""}`}
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <MdOutlineHome size={20} /> <span>Accueil</span>
@@ -93,7 +95,7 @@ const HeaderWeb = () => {
                         <Nav.Link
                             href={`/${routing.searchAnnonce.path}`}
 
-                            className='nav-link flex space-x-2'
+                            className={`nav-link flex space-x-2  ${location.pathname==="/"+routing.searchAnnonce.path ? "bg-blue-600 px-2 py-2 rounded-lg text-white":""}`}
 
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
@@ -104,7 +106,7 @@ const HeaderWeb = () => {
                                 <Nav.Link
                                     href={`/${routing.historique.path}`}
 
-                                    className='nav-link flex space-x-2'
+                                    className={`nav-link flex space-x-2  ${location.pathname==="/"+routing.historique.path ? "bg-blue-600 px-2 py-2 rounded-lg text-white":""}`}
                                     activeClassName='text-lg text-gray-100 bg-blue-500 '
                                 >
                                     <ImProfile size={20} /> <span>apercu profile </span>
@@ -116,16 +118,16 @@ const HeaderWeb = () => {
                             <Nav.Link
                                 href={`/${routing.followStatistique.path}`}
 
-                                className='nav-link flex space-x-2'
+                                className={`nav-link flex space-x-2  ${location.pathname==="/"+routing.followStatistique.path ? "bg-blue-600 px-2 py-2 rounded-lg text-white":""}`}
                                 activeClassName='text-lg text-gray-100 bg-blue-500 '
                             >
                                 <FcStatistics size={20} /> <span>vue d{"'"}encsemble </span>
                             </Nav.Link>
                         ) : null}
                         <Nav.Link
-                            href='/contact'
+                            href={`/${routing.contact.path}`}
 
-                            className='nav-link flex space-x-2'
+                            className={`nav-link flex space-x-2  ${location.pathname==="/"+routing.contact.path ? "bg-blue-600 px-2 py-2 rounded-lg text-white":""}`}
                             activeClassName='text-lg text-gray-100 bg-blue-500 '
                         >
                             <MdPhoneCallback size={20} /> <span>Contact </span>

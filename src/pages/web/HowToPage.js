@@ -1,4 +1,5 @@
 import React from 'react';
+import FooterWeb from '../../components/web/FooterWeb';
 
 function HowToPage() {
     var bgImg = "https://images.pexels.com/photos/6141084/pexels-photo-6141084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -246,6 +247,8 @@ function HowToPage() {
                 </div>
             </div>
 
+
+            <FooterWeb />
         </div>
     );
 }

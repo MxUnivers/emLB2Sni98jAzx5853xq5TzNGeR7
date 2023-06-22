@@ -17,6 +17,7 @@ import AvancedLoaderProfile from '../../components/chargement/profile/AvancedLoa
 import moment from 'moment';
 import { FaGooglePlay } from "react-icons/fa";
 import MessageListPage from '../../components/web/candidat/MessageListPage';
+import FooterWeb from '../../components/web/FooterWeb';
 
 
 
@@ -322,6 +323,8 @@ const HistoriquePage = () => {
                 </Modal.Footer>
             </Modal>
 
+
+            <FooterWeb />
 
 
         </div>

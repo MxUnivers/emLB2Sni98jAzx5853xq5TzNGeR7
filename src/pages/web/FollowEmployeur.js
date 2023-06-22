@@ -9,6 +9,7 @@ import AcceptedCandidatApplications from '../../components/web/employer/all-view
 import RejectedCandidatApplications from '../../components/web/employer/all-view/RejectedCandidatApplications';
 import PendingCandidatApplications from '../../components/web/employer/all-view/PendingCandidatApplications';
 import { FiMonitor, FiBarChart, FiCheckCircle, FiXCircle, FiClock, FiSettings } from "react-icons/fi";
+import FooterWeb from '../../components/web/FooterWeb';
 
 
 
@@ -112,6 +113,7 @@ const FollowEmployeur = () => {
             </div>
 
 
+            <FooterWeb />
 
         </div>
     )
