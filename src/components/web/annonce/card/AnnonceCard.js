@@ -86,13 +86,14 @@ const AnnonceCard = ({ data }) => {
                 </ul>
                 {/* 
                     }} */}
-                {
+                {/*
                     typeAdmin == typeadmin.candidat ?
                         <div class="job-btn">
                             <a href={`#`} onClick={handleShow}
                                 class="default-btn">Postuler maintenant <i class="flaticon-list-1"></i></a>
                         </div> :
                         null
+                        */
                 }
             </div>
 

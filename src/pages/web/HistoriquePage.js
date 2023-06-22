@@ -248,9 +248,13 @@ const HistoriquePage = () => {
             {/* Modal Offre d'emplois  */}
 
 
-            <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal show={showModal} onHide={handleCloseModal} size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Details sur l{"'"}offre d{"'"}emplois</Modal.Title>
+                    <Modal.Title>
+                    {
+                        /*Details sur l{"'"}offre d{"'"}emplois */
+                    }
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
@@ -322,13 +326,8 @@ const HistoriquePage = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
             <FooterWeb />
-
-
         </div>
-
 
     )
 

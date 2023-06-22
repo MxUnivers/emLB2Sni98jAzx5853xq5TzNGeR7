@@ -100,8 +100,7 @@ const AnnonceDetail = () => {
     return (
         <div>
         {
-            /*<BarnerDetailAnnonce data={post && post.titre} />
-             */
+            /*<BarnerDetailAnnonce data={post && post.titre} />*/
         }
             {/* Alert de confirmation */}
             <ToastContainer />
