@@ -6,7 +6,9 @@ function HowToPage() {
         <div>
 
 
-            <div class="page-banner-area item-bg-two" style={{ backgroundImage: `url('${bgImg}')` }}>
+            {
+                /*
+                <div class="page-banner-area item-bg-two" style={{ backgroundImage: `url('${bgImg}')` }}>
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -17,6 +19,8 @@ function HowToPage() {
                     </div>
                 </div>
             </div>
+                */
+            }
 
             <div className="container-fluid w-full flex flex-col items-center justify-center h-screen bg-gray-100">
                 <div className=" px-6 py-8 w-full  bg-white shadow-lg rounded-lg">

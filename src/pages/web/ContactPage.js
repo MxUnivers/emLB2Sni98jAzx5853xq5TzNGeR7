@@ -6,7 +6,9 @@ import FooterWeb from '../../components/web/FooterWeb';
 const ContactPage = () => {
     return (
         <div>
-            <BarnerContact />
+            {
+                /*<BarnerContact /> */
+            }
             <StartContact />
             <FooterWeb />
         </div>

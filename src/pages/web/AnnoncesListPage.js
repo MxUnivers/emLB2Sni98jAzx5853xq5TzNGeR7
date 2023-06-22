@@ -6,7 +6,9 @@ import AnnonceResultSearch from '../../components/web/annonce/AnnonceResultSearc
 const AnnoncesListPage = () => {
     return (
         <div>
-            <AnnonceSearch />
+            {
+                /*<AnnonceSearch /> */
+            }
             <AnnonceResultSearch/>
             <FooterWeb/>
         </div>

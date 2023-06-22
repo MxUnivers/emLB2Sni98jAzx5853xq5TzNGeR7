@@ -52,7 +52,8 @@ const CategoriesAnnoncesPage = () => {
     return (
         <div>
 
-            <div class="page-banner-area item-bg-four" style={{ backgroundImage: `url('${bgImg}')` }}>
+            {
+                /*<div class="page-banner-area item-bg-four" style={{ backgroundImage: `url('${bgImg}')` }}>
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -63,7 +64,8 @@ const CategoriesAnnoncesPage = () => {
                     </div>
                 </div>
             </div>
-
+ */
+            }
             <div class="job-list-area pt-100 pb-75">
                 <div class="container">
                     <div class="section-title">

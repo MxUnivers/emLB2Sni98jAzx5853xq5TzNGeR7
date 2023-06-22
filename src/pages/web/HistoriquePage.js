@@ -56,7 +56,8 @@ const HistoriquePage = () => {
 
         <div>
 
-            <div class="page-banner-area item-bg-two" style={{ backgroundImage: `url('${bgImg}')` }}>
+            {
+                /*<div class="page-banner-area item-bg-two" style={{ backgroundImage: `url('${bgImg}')` }}>
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -66,7 +67,8 @@ const HistoriquePage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */
+            }
 
 
             {
