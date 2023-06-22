@@ -10,8 +10,10 @@ import moment from 'moment';
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnnonceEditById } from '../../../action/api/annonces/AnnoncesAction'
+import { useNavigate } from 'react-router-dom'
 
 export const AnnonceCardAdmin = ({ item }) => {
+    const navigation = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => { setShowModal(false); };
     const handleShow = () => { setShowModal(true); };
@@ -49,31 +51,26 @@ export const AnnonceCardAdmin = ({ item }) => {
                         <li class="private">Private</li>
                     </ul>
                     <ul class="option-list">
-                        <li><Button onClick={handleShow} variant="outline-primary" class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-edit-line"></i></Button></li>
+                        <li>
+                            <Button
+                                onClick={() => {
+                                    navigation(`/${routing.employeurEditAnnonce.path}`, { state: item })
+                                }}
+                                variant="outline-primary"
+                                class="option-btn d-inline-block"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="View Aplication"
+                                type="button">
+                                <i class="ri-edit-line"></i>
+                            </Button>
+                        </li>
                         <li><Button variant="outline-danger" class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-delete-bin-line"></i></Button></li>
                     </ul>
                 </div>
             </div>
 
 
-            {/*Modal de mofication  */}
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modification de l{"'"} annonce</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {/** Contentue du modal */}
-                    <FormAnnonceEdit data={item} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={handleClose}>
-                        Fermer
-                    </Button>
-
-                </Modal.Footer>
-            </Modal>
-            {/* Toaster */}
-            <ToastContainer />
 
 
         </div>
@@ -86,7 +83,21 @@ export const AnnonceCardAdmin = ({ item }) => {
 
 
 const FormAnnonceEdit = ({ data }) => {
-    
+
+    // les state de l'application .
+
+    const [titre, settitre] = useState(data.titre);
+    const [telephone, settelephone] = useState(data.telephone);
+    const [email, setemail] = useState(data.email);
+    const [entreprise, setentreprise] = useState(data.entreprise);
+    const [typeContrt, settypeContrt] = useState(data.typeContrat);
+    const [dateDebut, setdateDebut] = useState(data.dateDebut);
+    const [secteurs_activites, setsecteurs_activites] = useState(data.secteur_activites);
+    const [salaire, setsalaire] = useState(data.salaire);
+    const [lieu, setlieu] = useState(data.lieu);
+    const [description, setdescription] = useState(data.description);
+
+
 
     const [formData, setFormData] = useState({});
 
@@ -95,7 +106,7 @@ const FormAnnonceEdit = ({ data }) => {
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
     const handleChangeForm = (event) => {
-        const { name , value } = event.target;
+        const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     }
 
@@ -117,97 +128,101 @@ const FormAnnonceEdit = ({ data }) => {
         }
 
         event.preventDefault();
-        dispatch(AnnonceEditById(data._id, formData, toast));
+        dispatch(AnnonceEditById(data._id,
+            titre, telephone, email, entreprise, secteursActivites, typeContrat, dateDebut, salaire, lieu, description
+            , toast));
     };
 
     return (
         <div>
             <div class="post-a-new-job-box">
-                <h3>Poster une annonce</h3>
+                <h3></h3>
                 <form onSubmit={handleSubmitEdit}>
                     <div class="row">
+
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Titre (metier ou besoin )</label>
-                                <input required defaultValue={data.titre} type="text" onChange={handleChangeForm} name="titre" class="form-control" placeholder="Job Title Here" />
+                                <input required value={titre} type="text" onChange={(e) => { settitre(e.target.value) }} name="titre" class="form-control" placeholder="Job Title Here" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label>téléphone</label>
-                                <input required defaultValue={data.telephone} type="number" onChange={handleChangeForm} name="telephone" class="form-control" placeholder="Job Title Here" />
+                                <input required value={telephone} type="number" onChange={(e) => { settelephone(e.target.value) }} name="telephone" class="form-control" placeholder="Job Title Here" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label>email</label>
-                                <input requireddefaultValue={data.email} type="email" onChange={handleChangeForm} name="email" class="form-control" placeholder="Job Title Here" />
+                                <input value={email} type="email" onChange={(e) => { setemail(e.target.value) }} name="email" class="form-control" placeholder="Job Title Here" />
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label>Nom de l{"'"}entreprise</label>
-                                <input required defaultValue={data.entreprise} type="text" onChange={handleChangeForm} name="entreprise" class="form-control" placeholder="Job Title Here" />
+                                <input required value={entreprise} type="text" onChange={(e) => { setentreprise(e.target.value) }} name="entreprise" class="form-control" placeholder="Job Title Here" />
                             </div>
                         </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="form-group">
-                                <label>Type de contrat</label>
-                                <select  name="typeContrat" onChange={handleChangeForm} class="form-control">
+                                <label>Secteurs d{"'"}activités</label>
+                                <select name="typeContrat" onChange={(e) => { setsecteurs_activites(e.target.value) }} class="form-control">
                                     {
                                         secteursActivites.map((item) => {
                                             return (
-                                                <option vlaue={item.value} selected={data.secteur_activites ==  item.value ? true : false} >{item.label}</option>
+                                                <option vlaue={item.value} selected={data.secteur_activites == item.value ? true : false} >{item.label}</option>
                                             )
                                         })
                                     }
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label>Date de début du job</label>
-                                <input required defaultValue={data.dateDebut} type="date" onChange={handleChangeForm} name="dateDebut" class="form-control" placeholder="Job Title Here" />
+                                <label>Date de début du job </label>
+                                <input required value={dateDebut} type="date" onChange={(e) => { setdateDebut(e.target.value) }} name="dateDebut" class="form-control" placeholder="Job Title Here" />
                             </div>
                         </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="form-group">
                                 <label>Type de contrat</label>
-                                <select  name="typeContrat" onChange={handleChangeForm} class="form-control">
+                                <select name="typeContrat" onChange={(e) => { settypeContrt(e.target.value) }} class="form-control">
                                     {
                                         typeContrat.map((item) => {
                                             return (
-                                                <option vlaue={item.value} selected={data.typeContrat ==  item.value ? true : false} >{item.label}</option>
+                                                <option vlaue={item.value} selected={data.typeContrat == item.value ? true : false} >{item.label}</option>
                                             )
                                         })
                                     }
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="form-group">
                                 <label>Salaire</label>
-                                <input  type='number' defaultValue={data.salaire} onChange={handleChangeForm} name="salaire" class="form-control" />
+                                <input type='number' value={salaire} onChange={(e) => { setsalaire(e.target.value) }} name="salaire" class="form-control" />
                             </div>
                         </div>
+
                         <div class="col-lg-4 col-md-4">
                             <div class="form-group">
                                 <label>lieu </label>
-                                <input required defaultValue={data.lieu} type='text' onChange={handleChangeForm} name="lieu" class="form-control" />
+                                <input required value={lieu} type='text' onChange={(e) => { setlieu(e.target.value) }} name="lieu" class="form-control" />
                             </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
                                 <label>Description de l{"'"}annonce</label>
-                                <textarea required defaultValue={data.description} cols="30" onChange={handleChangeForm} name="description" rows="6" placeholder="Short description..." class="form-control"></textarea>
+                                <textarea required value={description} cols="30" onChange={(e) => { setdescription(e.target.value) }} name="description" rows="6" placeholder="Short description..." class="form-control"></textarea>
                             </div>
                         </div>
-
-
-
-
 
                         {error && <p class="text-danger">Impossible de modifier : {error}</p>}
 
@@ -220,7 +235,7 @@ const FormAnnonceEdit = ({ data }) => {
                         }
                     </div>
                 </form>
-            </div>        
+            </div>
         </div>
     )
 }

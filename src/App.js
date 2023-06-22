@@ -36,6 +36,8 @@ import OffreDetailPage from "./pages/web/OffreDetailPage";
 import HowToPage from "./pages/web/HowToPage";
 import CategoriesAnnoncesPage from "./pages/web/CategoriesAnnoncesPage";
 import FollowEmployeur from "./pages/web/FollowEmployeur";
+import DashBoardEmployeurEditAnnoncePage from "./pages/admin/employeur/DashBoardEmployeurEditAnnoncePage";
+import DashBoardEmployeurEditOffrePage from "./pages/admin/employeur/DashBoardEmployeurEditOffrePage";
 
 
 
@@ -99,10 +101,12 @@ function App() {
 
 
             // Employeur
-            <Route path={`${routing.employeurDashboard.path}`} element={typeAdmin == typeadmin.employeur ? <DashbordEmployeurPage /> : <Navigate to="" />}   />
-            <Route path={`${routing.employeurProfile.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurPofilePage/>  : <Navigate to="" />} />
-            <Route path={`${routing.employeurPostAnnonce.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurPostAnnoncePage /> : <Navigate to="" />}   />
-            <Route path={`${routing.employeurAnnonces.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurAnnonceListPage/>  : <Navigate to="" />} />
+            <Route path={`${routing.employeurDashboard.path}`} element={typeAdmin == typeadmin.employeur ? <DashbordEmployeurPage /> : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurProfile.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurPofilePage/>  : <Navigate to="/" />} />
+            <Route path={`${routing.employeurPostAnnonce.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurPostAnnoncePage /> : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurEditAnnonce.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurEditAnnoncePage /> : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurEditOffre.path}`} element={typeAdmin == typeadmin.employeur ? <DashBoardEmployeurEditOffrePage /> : <Navigate to="/" />}   />
+            <Route path={`${routing.employeurAnnonces.path}`} element={typeAdmin == typeadmin.employeur ? <DashboardEmployeurAnnonceListPage/>  : <Navigate to="/" />} />
 
           </Route>
 

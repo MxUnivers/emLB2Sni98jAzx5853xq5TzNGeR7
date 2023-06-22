@@ -37,7 +37,7 @@ export const AnnonceGetAll = async (setState, setState2) => {
 
 
 // recuprer un annonce par son id
-export const AnnonceGetById = async (id , setState) => {
+export const AnnonceGetById = async (id, setState) => {
     try {
         const response = await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
             headers: {
@@ -162,24 +162,47 @@ export const LocationGetAllAnnonces = async (setState) => {
 
 
 
-export const AnnonceEditById = (id,data) => {
+export const AnnonceEditById = (
+    id,titre,telephone,email,
+    entreprise,secteur_activites,typeContrat,
+    dateDebut,salaire,lieu,description,
+    toast
+) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .put(`${baseurl.url}/api/v1/annonce/edit/${id}`, data, {
-                headers : 
+            .put(`${baseurl.url}/api/v1/annonce/edit/${id}`,
+
                 {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    "titre": titre,
+                    "telephone": telephone,
+                    "email": email,
+                    "entreprise": entreprise,
+                    "secteur_activites": secteur_activites,
+                    "typeContrat": typeContrat,
+                    "dateDebut": dateDebut,
+                    "salaire": salaire,
+                    "lieu": lieu,
+                    "description": description
                 }
-            })
+                , {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                    window.location.reload()
-                
+                toast.success("Annonce modifier avec succès")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Annonce non modifier !");
             });
     };
 }
@@ -191,7 +214,7 @@ export const AnnonceEditById = (id,data) => {
 
 
 // recuprer les annonces d'une entreprise 
-export const AnnoncesOfEntreprisesId = async (id, setState,setState2) => {
+export const AnnoncesOfEntreprisesId = async (id, setState, setState2) => {
     try {
         const response = await axios.get(`${baseurl.url}/api/v1/entreprise/get_annonces/${id}`, {
             headers: {

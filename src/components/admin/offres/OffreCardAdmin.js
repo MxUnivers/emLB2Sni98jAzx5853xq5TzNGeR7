@@ -2,8 +2,11 @@ import React from 'react'
 import { routing } from '../../../utlis/routing';
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { LocaleState } from '../../../utlis/storage/localvalueFunction';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const OffreCardAdmin = ({item}) => {
+    const  navigation  =  useNavigate();
     return (
 
         <div class="col-lg-6 col-md-12">
@@ -34,10 +37,21 @@ const OffreCardAdmin = ({item}) => {
                         
                     </ul>
                     <ul class="option-list">
-                        <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-eye-line"></i></button></li>
-                        <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-check-line"></i></button></li>
-                        <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Reject Aplication" type="button"><i class="ri-close-line"></i></button></li>
-                        <li><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Aplication" type="button"><i class="ri-delete-bin-line"></i></button></li>
+                        <li>
+                        <Button
+                                onClick={() => {
+                                    navigation(`/${routing.employeurEditOffre.path}`, { state: item })
+                                }}
+                                variant="outline-primary"
+                                class="option-btn d-inline-block"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="View Aplication"
+                                type="button">
+                                <i class="ri-edit-line"></i>
+                            </Button>
+                        </li>
+                       
                     </ul>
                 </div>
             </div>

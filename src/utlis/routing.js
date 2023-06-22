@@ -1,4 +1,3 @@
-import { localvalue } from "./storage/localvalue";
 
 export const routing = {
     // Application web
@@ -112,6 +111,12 @@ export const routing = {
     },
     employeurPostAnnonce:{
         path:"poster-une-annonce"
+    },
+    employeurEditAnnonce:{
+        path:"modfier-votre-annonce"
+    },
+    employeurEditOffre:{
+        path:"modfier-votre-offre"
     },
     employeurAnnonces:{
         path:"vos-publications-sur-la-plateforme"

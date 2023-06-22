@@ -125,7 +125,23 @@ export const EntrepriseDisConnect = (id) => {
 
 
 
-export const EntrepriseEditProfile = (id, data, toast) => {
+export const EntrepriseEditProfile = (id,
+
+    // const [username, setusername] = useState("")
+    // const [entreprise, setentreprise] = useState("");
+    // const [email, setemail] = useState("");
+    // const [telephone, settelephone] = useState("");
+    // const [secteurActivites, setsecteurActivites] = useState("");
+    // const [address, setaddress] = useState();
+    // const [pays, setpays] = useState();
+    // const [facebook, setfacebook] = useState();
+    // const [instagram, setinstagram] = useState();
+    // const [twitter, settwitter] = useState();
+    // const [linkdine, setlinkdine] = useState();
+    // const [description, setdescription] = useState();
+
+
+    data, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -194,10 +210,50 @@ export const EntreprisePostAnnonce = (
 }
 
 
-
-
-
 //Modifier cette annonce
+export const EntrepriseEditAnnonce = (
+    id,
+    titre, entreprise, description, typeAnnonce,
+    telephone, email, salaire, lieu, pays,
+    secteurs_activites, dateDebut, toast
+) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/annonce/edit/${id}`,
+                {
+                    "titre": titre,
+                    "entreprise": entreprise,
+                    "description": description,
+                    "typeAnnonce": typeAnnonce,
+                    "telephone": telephone,
+                    "email": email,
+                    "lieu": lieu,
+                    "pays": pays,
+                    "salaire": salaire,
+                    "secteurs_activites": secteurs_activites,
+                    "dateDebut": dateDebut
+                }, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Annonce modifier avec succès");
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Annonce nom modifier");
+            });
+    };
+}
+
 
 
 
@@ -224,8 +280,8 @@ export const EntreprisePostOffre = (id,
                     "salaire": salaire,
                     "secteurs_activites": secteurs_activites,
                     "dateDebut": dateDebut
-                }
-                , {
+                },
+                {
                     headers:
                     {
                         'Content-Type': 'application/json',
@@ -234,11 +290,55 @@ export const EntreprisePostOffre = (id,
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Impossible de poster cette offre");
+                toast.success("Offre Créer avec succès");
                 setTimeout(() => {
-                    window.location.reload()
+                    window.location.reload();
                 }, 2000);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.success("Offre Non posté");
+            });
+    };
+}
 
+
+//modifier offre de l'entreprise
+export const EntrepriseEditOffre = (id,
+    titre, entreprise, description, typeOffre, typeContrat,
+    telephone, email, salaire, lieu, pays,
+    secteurs_activites, dateDebut, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/offre/edit/${id}`,
+                {
+                    "titre": titre,
+                    "entreprise": entreprise,
+                    "description": description,
+                    "typeOffre": typeOffre,
+                    "typeContrat": typeContrat,
+                    "telephone": telephone,
+                    "email": email,
+                    "lieu": lieu,
+                    "pays": pays,
+                    "salaire": salaire,
+                    "secteurs_activites": secteurs_activites,
+                    "dateDebut": dateDebut
+                },
+                {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Offre Créer avec succès");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -249,28 +349,6 @@ export const EntreprisePostOffre = (id,
 
 
 
-export const EntrepriseEditAnnonce = (id, data, toast) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/entreprise/edit/${id}`, data, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Annonce Modifier")
-                window.location.reload();
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Impossible de Modifier l'annonce")
-            });
-    };
-}
 
 
 
