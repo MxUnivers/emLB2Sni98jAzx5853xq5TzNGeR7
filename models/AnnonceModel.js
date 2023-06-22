@@ -6,13 +6,13 @@ const annonceSchema = new Schema({
     titre: {
         type: String,
         required: false,
-        default:"Annonce pour un travail"
+        default: "Annonce pour un travail"
     },
-    idAdministrateur:{
-        type:String
+    idAdministrateur: {
+        type: String
     },
-    idEntreprise:{
-        type:String,
+    idEntreprise: {
+        type: String,
     },
     description: {
         type: String,
@@ -28,7 +28,9 @@ const annonceSchema = new Schema({
     telephone: {
         type: String, required: false
     },
-    
+    typeAnnonce: {
+        type: String, required: false
+    },
     lieu: {
         type: String,
         required: false,
@@ -48,24 +50,24 @@ const annonceSchema = new Schema({
         default: Date.now,
     },
     candidats: [
-        {type:Object}
+        { type: Object }
     ],
     secteur_activites: {
         type: String,
         required: false,
-      },
-      type:{
+    },
+    type: {
         type: String,
-        default:"annonce"
-      },
+        default: "annonce"
+    },
     blocked: {
         type: Boolean,
         required: false,
         default: false
     },
-    candidatAdmis:[
+    candidatAdmis: [
         { type: Object }
-      ]
+    ]
 });
 
 const AnnonceModel = mongoose.model('Annonce', annonceSchema);

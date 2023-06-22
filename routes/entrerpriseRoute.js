@@ -39,7 +39,7 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
 
     const entrepriseExist = await EntrepriseModel.findById({ _id: id });
     if (!entrepriseExist) {
-      return res.status(404).json({ message: "Entreprise non trouvé mon trouvé" });
+      return res.status(408).json({ message: "Entreprise non trouvé mon trouvé" });
     }
     const result = await EntrepriseModel.findByIdAndUpdate({ _id: id }, updates);
 
@@ -131,7 +131,7 @@ router.post('/post_entreprise/:id/annonces', AuthorizationMiddleware, async (req
     }
 
     // Création d'une nouvelle instance du modèle d'annonce avec les données reçues dans le corps de la requête
-    const nouvelleAnnonce = new AnnonceModel(req.body);
+    const nouvelleAnnonce = new AnnonceModel(req.body,{logo:entrepriseExist.logo});
     nouvelleAnnonce.idEntreprise = idEntreprise; // Attribution de l'ID de l'entreprise à l'annonce
 
     // Enregistrement de la nouvelle annonce dans la base de données
@@ -163,7 +163,7 @@ router.post('/post_entreprise/:id/offres', AuthorizationMiddleware, async (req, 
     if (!entrepriseExit) {
       res.status(407).json({ message: "entreprise non trouvé" });
     }
-    const newAnnonce = new OffreEmploi(req.body);
+    const newAnnonce = new OffreEmploi(req.body,{logo:entrepriseExit.logo});
     const entreprise = await EntrepriseModel.findByIdAndUpdate({ _id: id }, { $push: { offres: newAnnonce } })
     newAnnonce.idEntreprise = id;
     await newAnnonce.save();
