@@ -22,6 +22,11 @@ const annonceSchema = new Schema({
         type: String,
         required: false
     },
+    logo: {
+        type: String,
+        required: false,
+        default:"https://img.freepik.com/vecteurs-libre/illustrationn-megaphone-style-monochrome-isole-fond-blanc_1284-38767.jpg?w=740&t=st=1687538491~exp=1687539091~hmac=3b1a2979e84a530d1d65941f6cf761b1da9d6ca10f9ffb054a456e5649113f44"
+    },
     email: {
         type: String, required: false
     },
