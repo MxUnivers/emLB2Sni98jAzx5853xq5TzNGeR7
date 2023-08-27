@@ -1,5 +1,8 @@
 
 
+export  const app_bg = {
+    bg_blue : "bg-blue-900"
+}
 
 export  const ApiKey = {
     tiny :{
