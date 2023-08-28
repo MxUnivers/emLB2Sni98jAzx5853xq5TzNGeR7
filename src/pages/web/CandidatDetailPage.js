@@ -61,6 +61,11 @@ const CandidatDetailPage = () => {
                                                     <span>Offres (0)</span>
                                                 </Link>
                                             </div>
+                                            <div class="mt-1 mb-1 flex justify-center">
+                                                <Link to={`/${routing.candidature_list}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
+                                                    <span>Candidature (0)</span>
+                                                </Link>
+                                            </div>
                                         </div>
 
 

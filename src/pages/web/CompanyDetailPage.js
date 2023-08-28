@@ -7,6 +7,7 @@ import { BsCalendarWeek, BsTelephone } from 'react-icons/bs'
 import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
 import { routing } from '../../utlis/routing';
+import { Link } from 'react-router-dom';
 
 
 
@@ -179,6 +180,12 @@ const CompanyDetailPage = () => {
 
                                 <div class="mt-4">
                                     <h5 class="text-3xl ">Offres d{"'"}emplois</h5>
+                                    <div class=" flex flex-row  justify-between items-center">
+                                        <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
+                                        <Link to={`/${routing.job_post}`}>
+                                            <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
+                                        </Link>
+                                    </div>
 
 
                                     <main class="flex  w-full items-center mt-10 justify-center bg-white">
@@ -207,12 +214,12 @@ const CompanyDetailPage = () => {
                                                                 </span>
                                                             </div>
 
-                                                            <button onClick={() => {
-                                                                    // handleShow(item);
-                                                                }}
-                                                                    className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Bloquer
+                                                            <a href={`/${routing.job_edit}`}>
+                                                                <button onClick={() => {}}
+                                                                    className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
                                                                 </button>
-                                                            
+                                                            </a>
+
                                                             <a href={`/${routing.job_details}`}>
                                                                 <button
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
