@@ -13,32 +13,35 @@ import CompanyDetailPage from "./pages/web/CompanyDetailPage";
 import JobPostPage from "./pages/web/JobPostPage";
 import JobEditPage from "./pages/web/JobEditPage";
 import CandidatureListPage from "./pages/web/CandidatureListPage";
+import SignUpPage from "./pages/web/SignUpPage";
 
 
 
 function App() {
 
- 
+
 
   return (
     <div >
       <BrowserRouter>
         <Routes>
 
-        <Route path="" element={<Layout/>}>
-        <Route index path="" element={<HomePage/>}  />
-        <Route  path={`${routing.job_list}`} element={<ListEmploisWebPage/>}  />
-        <Route  path={`${routing.job_details}`} element={<JobDetailPage/>}  />
-        <Route  path={`${routing.job_post}`} element={<JobPostPage/>}  />
-        <Route  path={`${routing.job_edit}`} element={<JobEditPage/>}  />
-        <Route  path={`${routing.candidat_list}`} element={<CandidatPage/>}  />
-        <Route  path={`${routing.candidat_details}`} element={<CandidatDetailPage/>}  />
-        <Route  path={`${routing.candidature_list}`} element={<CandidatureListPage/>}  />
-        <Route  path={`${routing.candidat_applied}`} element={<JobAppliedWebPage/>}  />
-        <Route  path={`${routing.company_details}`} element={<CompanyDetailPage/>}  />
-        
-        
-        </Route>
+          <Route path={`/${routing.inscription}`} element={<SignUpPage />} />
+
+          <Route path="" element={<Layout />}>
+            <Route index path="" element={<HomePage />} />
+            <Route path={`${routing.job_list}`} element={<ListEmploisWebPage />} />
+            <Route path={`${routing.job_details}`} element={<JobDetailPage />} />
+            <Route path={`${routing.job_post}`} element={<JobPostPage />} />
+            <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
+            <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
+            <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
+            <Route path={`${routing.candidature_list}`} element={<CandidatureListPage />} />
+            <Route path={`${routing.candidat_applied}`} element={<JobAppliedWebPage />} />
+            <Route path={`${routing.company_details}`} element={<CompanyDetailPage />} />
+
+
+          </Route>
 
 
 

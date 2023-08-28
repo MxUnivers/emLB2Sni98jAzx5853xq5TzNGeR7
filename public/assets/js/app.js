@@ -15,10 +15,10 @@ function windowScroll() {
     }
 }
 
-window.addEventListener('scroll', (ev) => {
-    ev.preventDefault();
-    windowScroll();
-})
+// window.addEventListener('scroll', (ev) => {
+//     ev.preventDefault();
+//     windowScroll();
+// })
 
 
 //menu active & scrollspy
