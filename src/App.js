@@ -14,6 +14,7 @@ import JobPostPage from "./pages/web/JobPostPage";
 import JobEditPage from "./pages/web/JobEditPage";
 import CandidatureListPage from "./pages/web/CandidatureListPage";
 import SignUpPage from "./pages/web/SignUpPage";
+import SignInPage from "./pages/web/SignInPage";
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Routes>
 
           <Route path={`/${routing.inscription}`} element={<SignUpPage />} />
+          <Route path={`/${routing.connexion}`} element={<SignInPage />} />
 
           <Route path="" element={<Layout />}>
             <Route index path="" element={<HomePage />} />

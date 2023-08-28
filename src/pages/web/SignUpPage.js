@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { competences, level_School } from '../../utlis/options/candidatOption';
 import Select from 'react-select';
 import { optionPays } from '../../utlis/options/optionDivers';
+import { routing } from '../../utlis/routing';
 
 
 
@@ -85,7 +86,7 @@ const SignUpPage = () => {
                             <form>
 
                                 <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Information personne</div>
+                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">1.</span> Information personne</div>
 
                                     <div class="chva6">
                                         <div>
@@ -111,11 +112,13 @@ const SignUpPage = () => {
                                             <input class="cvac0 coz82" type="text" required={true} />
                                         </div>
                                     </div>
-                                    <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                            Etape suivante <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} />
+                                        </div>
                                     </div>
+                                    
                                 </div>
 
 
@@ -149,41 +152,33 @@ const SignUpPage = () => {
                                         </div>
 
                                     </div>
-                                    <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                            Etape suivante <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
-                                    </div>
+                                    
                                 </div>
 
 
 
                                 <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">4.</span> Informations Etude</div>
+                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Infos sur votre profile</div>
 
                                     <div>
                                         <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description du job <span class="cvmpf">*</span></label>
                                         <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                     </div>
                                     <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Salaire <span class="cvmpf">*</span></label>
-                                            <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                {level_School.map((item) => {
-                                                    return (
-                                                        <option value={item.value}>{item.label}</option>
-                                                    )
-                                                })}
-                                            </select>
-                                        </div>
-                                    <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                            Etape suivante <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
+                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Salaire <span class="cvmpf">*</span></label>
+                                        <select id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                            {level_School.map((item) => {
+                                                return (
+                                                    <option value={item.value}>{item.label}</option>
+                                                )
+                                            })}
+                                        </select>
                                     </div>
+
                                 </div>
 
                                 <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">1.</span> Information personne</div>
+                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Localisation</div>
 
                                     <div class="chva6">
                                         <div>
@@ -224,17 +219,13 @@ const SignUpPage = () => {
                             </div>
 
 
-                            <button class="c6hhw c9dke cf8q3 cday3 cpsdf c9csv co11h coz82 chkpc crp1m">
-                                <div class="czlxp cmdkn crp1m">
-                                    <svg class="c52y5 ca49d cyzlo cezze cryem" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.679 6.545H8.043v3.273h4.328c-.692 2.182-2.401 2.91-4.363 2.91a4.727 4.727 0 1 1 3.035-8.347l2.378-2.265A8 8 0 1 0 8.008 16c4.41 0 8.4-2.909 7.67-9.455Z"></path>
-                                    </svg>
-                                </div>
-                                <span class="cp8dt cupxg ca92d">
-                                    Continue With Google
-                                    <span class="cls93 cv1su cwp6w c52y5 c04ox ctziu c94my cg4yh">-&gt;</span>
-                                </span>
-                            </button>
+                            <a href={`/${routing.connexion}`}>
+                            <div class="cq38v">
+                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
+                                            Se connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                        </button>
+                                    </div>
+                            </a>
 
                         </div>
 
