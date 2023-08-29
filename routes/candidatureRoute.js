@@ -4,9 +4,30 @@ const CandidatureModel = require("../models/CandidatureModel");
 const router = require("express").Router();
 
 
+// Poster une candidature
+router.put("/post/:idCandidat/idEntreprise/:idReruter/offre/:idOffre", AuthorizationMiddleware, async (req, res) => {
+    try {
+        const IdCandidat =  req.params.idCandidat;
+        const idRecruteur =  req.params.idReruter;
+        const IdOffre =  req.params.idOffre;
+
+        const candidature = new CandidatureModel(req.body);
+        candidature.idCandidat;
+        candidature.idEntreprise;
+        candidature.idOffre;
+
+        await candidature.save();
+        return res.status(200).json({ message: "Candidature Modifier avec succès ", data: candidature })
+    } catch (error) {
+        res.status(500).send({ message : "Impossible d'accpeter la candidature avec succès" + error })
+    }
+});
+
+
 
 // Modifier une candidature
-// Accepeter la candidature d'un candidat 
+
+
 router.put("/edit/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.Idcandidature;

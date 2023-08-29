@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const candidatureSchema = new mongoose.Schema({
-    idAnnonce: { type: String },
+
+    idOffre: { type: String },
     idCandidat:{ type:String},
     idEntreprise:{ type:String},
     firstname: { type: String, required: false,},

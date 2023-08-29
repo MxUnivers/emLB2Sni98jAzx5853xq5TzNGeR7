@@ -17,26 +17,32 @@ const client = require("twilio")(accountSid, authToken);
 
 
 // Ajouter une offre d'emplois
-router.post('/', AuthorizationMiddleware, async (req, res) => {
+router.post('/post/:idEntreprise', AuthorizationMiddleware, async (req, res) => {
     try {
+        const IdRecruteur  =  req.params.idEntreprise;
         const nouvelleOffre = new OffreEmploiModel(req.body);
-        client.messages
-            .create({
-                subject: "Plateforme d'emplois",
-                body:
-                    `une nouvelle offre vient d'être posté : 
-                    ${nouvelleOffre.titre} ,
-                    lieu : ${nouvelleOffre.lieu} ,
-                    email : ${nouvelleOffre.email}
+        nouvelleOffre.idEntreprise = IdRecruteur;
+
+        // client.messages
+        //     .create({
+        //         subject: "Plateforme d'emplois",
+        //         body:
+        //             `une nouvelle offre vient d'être posté : 
+        //             ${nouvelleOffre.titre} ,
+        //             lieu : ${nouvelleOffre.lieu} ,
+        //             email : ${nouvelleOffre.email}
                     
-                    * connecter vous a votre espace maintent en cliquant ici 🙏
-                    https://plenitude-ci.com/ .
-                    `,
-                from: "+12545365609", to: "+2250748641040"
-            })
-            .then(message => console.log(message.sid));
+        //             * connecter vous a votre espace maintent en cliquant ici 🙏
+        //             https://plenitude-ci.com/ .
+        //             `,
+        //         from: "+12545365609", to: "+2250748641040"
+        //     })
+        //     .then(message => console.log(message.sid));
+        //await Envoyer_Notification(nouvelleOffre.titre, nouvelleOffre.description, nouvelleOffre.dateDebut)
+
+
         const offre = await nouvelleOffre.save();
-        await Envoyer_Notification(nouvelleOffre.titre, nouvelleOffre.description, nouvelleOffre.dateDebut)
+        
         res.json({ message: 'Offre d\'emploi créée avec succès', offre });
     } catch (error) {
         console.error(error);
@@ -99,29 +105,6 @@ router.get('/get_offre/:id', AuthorizationMiddleware, async (req, res) => {
 
 
 
-// Fonction pour ajouter un candidats à une offre d'emplois
-router.post("/:offreId/candidats", AuthorizationMiddleware, async (req, res) => {
-    try {
-        const { nom, email, cv } = req.body;
-        const candidat = new CandidatModel({
-            nom,
-            email,
-            cv
-        });
-        const offre = await OffreEmploiModel.findOneAndUpdate(
-            { _id: req.params.offreId },
-            { $push: { candidats: candidat } },
-            { new: true }
-        );
-        res.json({ message: "Candidat ajouté avec succès à l'offre", offre });
-    } catch (error) {
-        console.error(error);
-        res
-            .status(500)
-            .json({ message: "Une erreur s'est produite lors de l'ajout du candidat" });
-    }
-});
-
 
 
 
@@ -165,6 +148,52 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la suppression de l\'offre d\'emploi' });
     }
 });
+
+
+
+
+
+
+// ajout un membre à un groupe 
+router.put("/add_candidat/:idCandidat/offre/:idOffre", async (req, res) => {
+    try {
+        
+        const IdOffre = req.params.idOffre;
+        const IdCandidat = req.params.idCandidat;
+
+        // verfifer que le memre existe
+        const candidatExist = await CandidatModel.findById({ _id: IdCandidat });
+        if (!candidatExist) {
+            return res.status(407).json({ message: "Candidat introubable ! " });
+        };
+
+        const offreExist = await OffreEmploiModel.findById({ _id: IdOffre });
+        if (!offreExist) {
+            return res.status(408).json({ message: "Cette Offre est introuvable" });
+        }
+
+
+        if (offreExist.candidats.find(objet => objet._id.toString() === IdCandidat)) {
+            return res.status(409).json({ message: "Cet adhérent existe déja dans le groupe !" });
+        }
+
+        //const newAdherent = new AdherentModel(memberExist);
+        offreExist.candidats.push(candidatExist);
+        candidatExist.offres.push(offreExist);
+        offreExist.save();
+        candidatExist.save();
+
+        
+        return  res.status(200).json({ message: "Candidat viens de postuler a cette offre !", data: offreExist });
+
+    } catch (err) {
+        res.status(505).json({ message: "Erreur lors de l'ajout du membre au groupe" + err });
+    }
+});
+
+
+
+
 
 
 

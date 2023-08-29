@@ -122,7 +122,7 @@ router.put('/blocked/:id', AuthorizationMiddleware, async (req, res) => {
     if (!entreprises) {
       await res.status(401).json({ message: "Cette entreprise n,'existe pas " })
     }
-    entreprises.blocked = true;
+    entreprises.access = false;
     await entreprises.save();
     await res.json({ data: entreprises });
   } catch (err) {
@@ -146,7 +146,7 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
     if (!entreprises) {
       await res.status(401).json({ message: "Cette entreprise n,'existe pas " })
     }
-    entreprises.blocked = false;
+    entreprises.access = true;
     await entreprises.save();
     await res.json({ data: entreprises });
   } catch (err) {
