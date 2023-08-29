@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const CandidatSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true
-      },
     username: {
         type: String, required: false
     },
@@ -18,7 +14,7 @@ const CandidatSchema = new mongoose.Schema({
         type: String, required: false
     },
     coverPicture: {
-        type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzH6TfTtq91hzmeIvm_4JOdb5y1UWjTlYZdA&usqp=CAU"
+        type: String, default: "https://img.freepik.com/vecteurs-premium/gens-economiser-argent_24908-51568.jpg?size=626&ext=jpg&ga=GA1.2.846079211.1692004311&semt=ais"
     },
     dateNaissance: {
         type: String,
@@ -35,46 +31,31 @@ const CandidatSchema = new mongoose.Schema({
     adresse: {
         type: String, required: false
     },
-    ville: {
-        type: String, required: false
-    },
     pays: {
         type: String, required: false
     },
     level_school: {
         type: String, required: false
     },
+    site_web: {
+        type: String, required: false
+    },
     years_experience: {
         type: Number, required: false
     },
-    competences: {
-        type: [String], required: false
-    },
+    competences: [{type:Object}],
     langues: {
-        type: [String], required: false
+        type: [{type:String}], required: false
     },
     cv: {
         type: String
     },
-    lettre_motivation: {
-        type: String
-    },
-    type: {
-        type: String, default: "candidat"
-    },
     token: {
         type: String, required: false
-    },
-    blocked: {
-        type: Boolean,
-        default: false
     },
     is_active: {
         type: Boolean,
         default: false
-    },
-    date_mise_a_jour: {
-        type: Date, default: Date.now
     },
     facebook_url: {
         type: String
@@ -88,29 +69,23 @@ const CandidatSchema = new mongoose.Schema({
     instagram_url: {
         type: String
     },
-    offresPostulees: [
-        {type:Object}
-    ],
-    AnnoncesPostuless: [
-        {type:Object}
-    ],
-    bookmarks:{
-        offres:[
-            {type:Object},
-        ],
-        annonces:[
-            {type:Object},
-        ]
-    },
+    offres: [{type:Object}],
+    bookmarks:[{type:Object}],
     likes:{
         type:Number ,
         required:false,
         default:5,
+    },
+    is_active:{
+        type:Boolean , default:false
+    },
+    access:{
+        type:Boolean , default:true
     }
 }, {
     timestamps: true
 })
 
-const CandidatModel = mongoose.model('Candidat', CandidatSchema)
+const CandidatModel = mongoose.model('candidat', CandidatSchema)
 
 module.exports = CandidatModel;

@@ -10,16 +10,16 @@ const OffreEmploi = require("../models/OffreEmploiModel");
 // Fonction pour Ajouter une entreprise à l'appliction
 router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const entreprise = await EntrepriseModel.findOne({ email });
+    const { username,email, password } = req.body;
+    const entreprise = await EntrepriseModel.findOne({ email ,username });
     if (entreprise) {
-      res.status(400).json({ message: "Cet email à déja étéuliser" });
+      res.status(400).json({ message: "Cet Recruter existe deja" });
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const newEntreprise = new EntrepriseModel(req.body);
     newEntreprise.password = hashPassword;
     await newEntreprise.save();
-    return res.json({ message: "Compte entreprise créer avec succès ", data: newEntreprise });
+    return res.json({ message: "Compte recuteur créer avec succès ", data: newEntreprise });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
@@ -39,12 +39,12 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
 
     const entrepriseExist = await EntrepriseModel.findById({ _id: id });
     if (!entrepriseExist) {
-      return res.status(408).json({ message: "Entreprise non trouvé mon trouvé" });
+      return res.status(408).json({ message: "Recruteur non trouvé mon trouvé" });
     }
     const result = await EntrepriseModel.findByIdAndUpdate({ _id: id }, updates);
 
     await result.save();
-    return res.json({ message: "Entreprise modifier", data: result });
+    return res.json({ message: "Recruteur modifier", data: result });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
@@ -64,7 +64,7 @@ router.put("/password/edit/:id", AuthorizationMiddleware, async (req, res) => {
 
     const entrepriseExist = await EntrepriseModel.findById({ _id: id });
     if (!entrepriseExist) {
-      return res.status(404).json({ message: "Entreprise non trouvé mon trouvé" });
+      return res.status(404).json({ message: "Recruteur non trouvé mon trouvé" });
     }
     const result = await EntrepriseModel.findById({ _id: id });
     const hashPassword = await bcrypt.hash(password, 10);
@@ -111,145 +111,6 @@ router.get('/get_entreprise/:id', AuthorizationMiddleware, async (req, res) => {
     res.status(500).json('Server Error');
   }
 });
-
-
-
-
-
-
-
-// poster l'annonces d'une entreprise
-router.post('/post_entreprise/:id/annonces', AuthorizationMiddleware, async (req, res) => {
-  try {
-    // Récupération de l'ID de l'entreprise depuis le corps de la requête
-    const idEntreprise = req.params.id;
-
-    // Vérification si l'entreprise existe
-    const entrepriseExist = await EntrepriseModel.findById({_id:idEntreprise});
-    if (!entrepriseExist) {
-      return res.status(404).json({ message: "Entreprise non trouvée" });
-    }
-
-    // Création d'une nouvelle instance du modèle d'annonce avec les données reçues dans le corps de la requête
-    const nouvelleAnnonce = new AnnonceModel(req.body,{logo:entrepriseExist.logo});
-    nouvelleAnnonce.idEntreprise = idEntreprise; // Attribution de l'ID de l'entreprise à l'annonce
-
-    // Enregistrement de la nouvelle annonce dans la base de données
-    await nouvelleAnnonce.save();
-
-    // Ajout de l'annonce à l'entreprise
-    entrepriseExist.annonces.push(nouvelleAnnonce);
-    await entrepriseExist.save();
-
-    res.json({ message: "Annonce créée avec succès", annonce: nouvelleAnnonce });
-
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
-
-
-
-// poster l'offre d'une entreprise
-router.post('/post_entreprise/:id/offres', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const id = req.params.id;
-    const entrepriseExit = await EntrepriseModel.findById({ _id: id });
-    if (!entrepriseExit) {
-      res.status(407).json({ message: "entreprise non trouvé" });
-    }
-    const newAnnonce = new OffreEmploi(req.body,{logo:entrepriseExit.logo});
-    const entreprise = await EntrepriseModel.findByIdAndUpdate({ _id: id }, { $push: { offres: newAnnonce } })
-    newAnnonce.idEntreprise = id;
-    await newAnnonce.save();
-    await entreprise.save();
-
-    await res.json({ data: entreprise });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
-
-
-// poster l'offre d'une entreprise
-router.post('/post_entreprise/:id/annonces', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const id = req.params.id;
-    const entrepriseExit = await EntrepriseModel.findById({ _id: id });
-    if (!entrepriseExit) {
-      res.status(407).json({ message: "entreprise non trouvé" });
-    }
-    const newAnnonce = new AnnonceModel(req.body);
-    const entreprise = await EntrepriseModel.findByIdAndUpdate({ _id: id }, { $push: { annonces: newAnnonce } })
-    newAnnonce.idEntreprise = entreprise._id;
-    await newAnnonce.save();
-    await entreprise.save();
-
-    await res.json({ data: entreprise });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
-
-
-
-// recupérer toute lesannonces d'une entreprise
-router.get('/get_annonces/:id', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const id = req.params.id;
-    const entrepriseExit = await EntrepriseModel.findById({ _id: id });
-    if (!entrepriseExit) {
-      res.status(407).json({ message: "Entreprise non trouvé" });
-    }
-    const annonces = await AnnonceModel.find({ idEntreprise: id })
-    await res.json({ data: annonces.reverse() });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
-
-
-
-
-// recupérer toute lesannonces d'une entreprise
-router.get('/get_entreprise/:id/offres', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const id = req.params.id;
-    const entrepriseExit = await EntrepriseModel.findById({ _id: id });
-    if (!entrepriseExit) {
-      res.status(407).json({ message: "entreprise non trouvé" });
-    }
-    const offres = await OffreEmploi.find({ idEntreprise: id })
-    await res.json({ data: offres.reverse() });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
 
 
 

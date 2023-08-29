@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 const { secteursActivites } = require("../utils/FormatApi");
 
 const EntrepriseSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    auto: true
-  },
   username:{
     type:String,
     require:false,
@@ -37,6 +33,9 @@ const EntrepriseSchema = new mongoose.Schema({
   pays:{
     type:String,
   },
+  addresse:{
+    type:String
+  },
   password: {
     type: String,
     required: false
@@ -44,7 +43,7 @@ const EntrepriseSchema = new mongoose.Schema({
   token: {
     type: String, required: false
   },
-  type:{type:String,default:"employeur"},
+  type:{type:String,default:"MANAGER"},
   comptePaiement: {
     solde: {
       type: Number,
@@ -58,15 +57,14 @@ const EntrepriseSchema = new mongoose.Schema({
       type: String
     }
   },
-  annonces: [
-    {type:Object}
-  ],
+  maps : {
+    type:String  , default:false
+  },
   offres: [
     {type:Object}
   ],
   secteur_activites: {
     type: String,
-    enum: secteursActivites,
     required: false,
   },
   facebook_url:{
@@ -85,12 +83,12 @@ const EntrepriseSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  blocked: {
+  access: {
     type: Boolean,
-    default: false
+    default: true
   },
 });
 
-const EntrepriseModel = mongoose.model("Entreprise", EntrepriseSchema);
+const EntrepriseModel = mongoose.model("entreprise", EntrepriseSchema);
 
 module.exports = EntrepriseModel;

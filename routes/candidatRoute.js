@@ -13,20 +13,21 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
 
   // Vérifier si l'email existe déjà dans la base de données
   try {
-    const { email, password } = req.body;
+    const {username, email, password } = req.body;
     // Vérifier si l'email existe déjà
-    const candidatExist = await CandidatModel.findOne({ email });
+    const candidatExist = await CandidatModel.findOne({ email ,username});
     if (candidatExist) {
-      return res.status(400).json({ message: 'Un administrateur avec cet e-mail existe déjà' });
+      return res.status(400).json({ message: 'Cet candidat existe déja ! ' });
     }
     // Hacher le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
     // Créer un nouvel administrateur
     const newCandidat = new CandidatModel(req.body);
     newCandidat.password = hashedPassword;
+    newCandidat._is_active=false;
     await newCandidat.save();
     // Renvoyer une réponse JSON
-    res.json({ message: 'Un nouvel administrateur a été créé avec succès' });
+    return res.status(200).json({ message: 'Inscription du candidat réussi' });
   } catch (error) {
     // En cas d'erreur, renvoyer une réponse avec le message d'erreur correspondant
     return res.status(500).json({ message: error.message });
@@ -47,7 +48,7 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Candidat mon trouvé" });
     }
     await result.save();
-    return res.json(result);
+    return res.status(200).json({message:"Modification reussi ",data:result});
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
@@ -67,7 +68,7 @@ router.put("/password/edit/:id", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     candidat.password = hashedPassword;
     await candidat.save();
-    await res.json({ message: "Mot de passe modifier avec succès" })
+    return res.status(200).json({ message: "Mot de passe modifier avec succès" })
 
   } catch (error) {
     console.error(error);
@@ -87,9 +88,9 @@ router.put('/blocked/:id', AuthorizationMiddleware, async (req, res) => {
     if (!candidat) {
       return res.status(404).json({ message: "Candidat introuvable" });
     }
-    candidat.blocked = true;
+    candidat.access = false;
 
-    res.json({ message: "Candidat bloqué avec succès", candidat: candidat });
+    return res.status(200).json({ message: "Candidat bloqué avec succès", candidat: candidat });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Erreur lors du blocage du candidat" });
@@ -108,9 +109,9 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
     if (!candidat) {
       return res.status(404).json({ message: "Candidat introuvable" });
     }
-    candidat.blocked = false;
+    candidat.access = true;
 
-    res.json({ message: "Candidat bloqué avec succès", candidat: candidat });
+    return res.status(200).json({ message: "Candidat bloqué avec succès", candidat: candidat });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Erreur lors du blocage du candidat" });
@@ -123,7 +124,7 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
 // fonction pour reucupéere les candidats
 router.get('/get_candidats', AuthorizationMiddleware, async (req, res) => {
   try {
-    const candidates = await CandidatModel.find();
+    const candidates = await CandidatModel.find({access:true});
     res.json({ data: candidates.reverse() });
   } catch (err) {
     console.error(err.message);
@@ -135,166 +136,12 @@ router.get('/get_candidats', AuthorizationMiddleware, async (req, res) => {
 router.get('/get_candidat/:id', AuthorizationMiddleware, async (req, res) => {
   try {
     const id = req.params.id
-    const candidates = await CandidatModel.findById({ _id: id });
-    res.json({ data: candidates });
+    const candidat = await CandidatModel.findById({ _id: id });
+    res.json({ data: candidat });
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error');
   }
 });
-
-// recupérer tou les offres des candidats
-router.get('/get_candidat/:id/offres', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const candidatId = req.params.id;
-
-    await CandidatModel.findById({ _id: candidatId })
-      .populate('offresPostulees')
-      .exec(async (err, candidat) => {
-        if (err) {
-          // Gérer l'erreur
-        }
-        if (candidat) {
-          const offresPostulees = candidat.offresPostulees;
-          await res.json({ data: offresPostulees })
-          // Utiliser le tableau des offres postulées
-        }
-      });
-
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-// recupérer tou les annonces des candidat
-router.get('/get_candidat/:id/annonces', AuthorizationMiddleware, async (req, res) => {
-  try {
-    const candidatId = req.params.id;
-
-    await CandidatModel.findById({ _id: candidatId })
-      .populate('AnnoncesPostuless')
-      .exec(async (err, candidat) => {
-        if (err) {
-          // Gérer l'erreur
-        }
-        if (candidat) {
-          const annoncePostulees = candidat.AnnoncesPostuless;
-          await res.json({ data: annoncePostulees })
-          // Utiliser le tableau des offres postulées
-        }
-      });
-
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error');
-  }
-});
-
-
-
-
-
-// Route pour ajouter une offre à un candidat
-router.post('/get_candidat/:candidatId/postuler/:offreId/offres', async (req, res) => {
-  const offreId = req.params.offreId;
-  const candidatId = req.params.candidatId;
-  try {
-
-    const candidatExit = await CandidatModel.findById({ _id: candidatId });
-    const offre = await OffreEmploi.findOne({ _id: offreId });
-
-    if (!candidatExit) {
-      return res.status(406).json({ message: "Candidat non trouvé" });
-    }
-
-    if (!offre) {
-      return res.status(407).json({ message: "Offre non trouvée" });
-    }
-    if (offre.candidatPostulees.find(candidat => candidat._id.toString() === candidatId)) {
-      return res.status(409).json({ message: "Le candidat a déjà postulé à cette offre" });
-    }
-
-    // Ajouter une nouvelle canditure à l'annonce 
-    const candidature = new CandidatureModel({
-      idAnnonce: offre._id,
-      idCandidat: candidatId,
-      titre: offre.titre,
-      idEntreprise: offre.idEntreprise,
-      typeCandidature: "offre"
-    });
-    const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { offresPostulees: offre } }, { new: true });
-    const offrePostule = await OffreEmploi.findOneAndUpdate({ _id: offreId }, { $push: { candidatPostulees: candidat } }, { new: true });
-
-    await candidature.save();
-    await candidat.save();
-    await offrePostule.save();
-    await res.json({ data: candidat });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Une erreur est suvenue" });
-  }
-});
-
-
-
-
-
-
-// Pour ajouter un candidat une annonce
-router.post('/get_candidat/:candidatId/postuler/:offreId/annonces', async (req, res) => {
-
-  const offreId = req.params.offreId;
-  const candidatId = req.params.candidatId;
-  try {
-
-    const candidatExit = await CandidatModel.findById({ _id: candidatId });
-    const offre = await AnnonceModel.findOne({ _id: offreId });
-
-    if (!candidatExit) {
-      return res.status(406).json({ message: "Candidat non trouvé" });
-    }
-    if (!offre) {
-      return res.status(407).json({ message: "Annonce non trouvée" });
-    }
-    if (offre.candidats.find(candidat => candidat._id.toString() === candidatId)) {
-      return res.status(409).json({ message: "Le candidat a déjà postulé à cette Annonce" });
-    }
-    if (candidatExit.AnnoncesPostuless.find(candidat => candidat._id.toString() === candidatId)) {
-      return res.status(410).json({ message: "Cette offre existe déja chez vous " });
-    }
-
-
-    // Ajouter une nouvelle canditure à l'annonce 
-    const candidature = new CandidatureModel({
-      idAnnonce: offre._id,
-      idCandidat: candidatId,
-      titre: offre.titre,
-      idEntreprise: offre.idEntreprise,
-      typeCandidature: "annonce"
-    });
-    const candidat = await CandidatModel.findOneAndUpdate({ _id: candidatId }, { $push: { AnnoncesPostuless: offre } }, { new: true });
-    const offrePostule = await AnnonceModel.findOneAndUpdate({ _id: offreId }, { $push: { candidats: candidat } }, { new: true });
-
-    await candidature.save();
-    await candidat.save();
-    await offrePostule.save();
-    await res.json({ data: candidat, message: "Candidature posté" });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Une erreur est suvenue" + err });
-    console.log(err);
-  }
-});
-
-
-
-
-
-
-
 
 module.exports = router;
