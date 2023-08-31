@@ -1,0 +1,6 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Mon Application",
+  "welcomeMessage": "Bienvenue dans mon application !",
+  // Ajoutez d'autres clés de traduction pour le français ici
+}
