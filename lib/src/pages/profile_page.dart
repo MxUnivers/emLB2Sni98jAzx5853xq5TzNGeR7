@@ -182,24 +182,30 @@ class _ProfilePageState extends State<ProfilePage> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Icon(
-                                          Icons.people,
+                                          Icons.work,
                                           color: Colors.lightGreen[400],
                                           size: 35,
                                         ),
                                         SizedBox(width: 20.0,),
+                                        GestureDetector(
+                                          onTap : (){
+                                            _afficherFeuilleModale(context);
+                                          },
+                                          child:
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("Team",
+                                            Text("Offre d'emplois postuler",
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                               ),),
-                                            Text("Team Natsu",
+                                            Text("0",
                                               style: TextStyle(
                                                 fontSize: 12.0,
                                                 color: Colors.grey[400],
                                               ),)
                                           ],
+                                        )
                                         )
 
                                       ],
@@ -284,4 +290,41 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+  void _afficherFeuilleModale(BuildContext context) {
+    showModalBottomSheet(backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: AppTheme_App.withPrimary,
+            borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20))
+          ),
+          height: 500, // Ajustez la hauteur selon vos besoins
+          child: Column(
+            children: [
+              // Contenu de votre feuille modale ici
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text('Partager'),
+                onTap: () {
+                  // Action à effectuer lorsque l'élément est tapé
+                  Navigator.pop(context); // Fermer la feuille modale
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Supprimer'),
+                onTap: () {
+                  // Action à effectuer lorsque l'élément est tapé
+                  Navigator.pop(context); // Fermer la feuille modale
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }
