@@ -4,13 +4,14 @@ import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
 import 'package:offre_emplois_mobile_candidat/src/themes/constants.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({
-     Key, key,
-    required this.hintText,
-    required this.inputType,
-  }) : super(key: key);
   final String hintText;
   final TextInputType inputType;
+  const MyTextField({
+     Key, key,
+     required this.hintText,
+     required this.inputType,
+  }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

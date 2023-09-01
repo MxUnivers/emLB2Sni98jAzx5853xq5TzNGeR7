@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
 import 'package:offre_emplois_mobile_candidat/src/model/CandidatModel.dart';
+import '../themes/constants.dart';
+import '../themes/theme.dart';
 import '../widgets/EditImage.dart';
 import '../widgets/EditTextField.dart';
 import '../widgets/EditTextFieldDescription.dart';
 import '../widgets/display_image_widget.dart';
+import '../widgets/my_text_field.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfileEditPage extends StatefulWidget {
@@ -65,42 +68,98 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   child: Row(
                     children: [
                       Card(
-                          elevation: 1,color: AppTheme_App.primaryColor,
+                          elevation: 1,
+                          color: AppTheme_App.primaryColor,
                           child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            color: AppTheme_App.primaryColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          "Personnel",
-                          style: GoogleFonts.nunito(
-                              color: AppTheme_App.withPrimary),
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: AppTheme_App.primaryColor,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              "Personnel",
+                              style: GoogleFonts.nunito(
+                                  color: AppTheme_App.withPrimary),
+                            ),
+                          )),
+                      Card(
+                        elevation: 1,
+                        color: AppTheme_App.withPrimary,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          decoration: BoxDecoration(
+                              color: AppTheme_App.withPrimary,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            "Compétences",
+                            style: GoogleFonts.nunito(
+                                color: AppTheme_App.primaryColor),
+                          ),
                         ),
-                      )),
-                Card(
-                    elevation: 1,color: AppTheme_App.withPrimary,
-                    child:
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                            color: AppTheme_App.withPrimary,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          "Compténeces",
-                          style: GoogleFonts.nunito(
-                              color: AppTheme_App.primaryColor),
-                        ),
-                      ),
-          )
-
+                      )
                     ],
                   ))),
           Expanded(
-            child: Container(),
+            child: Container(
+              margin: EdgeInsets.only(top: 30),
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+
+                      MyTextField(
+                          hintText: 'Nom', inputType: TextInputType.text),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      MyTextField(
+                          hintText: 'Prénoms', inputType: TextInputType.text),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      MyTextField(
+                          hintText: 'Email', inputType: TextInputType.text),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      MyTextField(
+                          hintText: 'Téléphone', inputType: TextInputType.text),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 40,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppTheme.primaryColor,
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: TextButton(
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.resolveWith(
+                                  (states) => Colors.black12,
+                            ),
+                          ),
+                          onPressed: (){},
+                          child: Text(
+                            "Modifier ",
+                            style: kButtonText.copyWith(
+                                color: AppTheme_App.withPrimary),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
             flex: 4,
           )
         ],
