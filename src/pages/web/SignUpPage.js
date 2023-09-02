@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { competences, level_School } from '../../utlis/options/candidatOption';
+import { candidatsChoices, competences, languages_school, level_School, salaires_School, years_experience_school } from '../../utlis/options/candidatOption';
 import Select from 'react-select';
 import { optionPays } from '../../utlis/options/optionDivers';
 import { routing } from '../../utlis/routing';
@@ -9,51 +9,56 @@ import { routing } from '../../utlis/routing';
 const SignUpPage = () => {
 
 
-
-    const [candidats, setcandidats] = useState([
-        {
-            _id: "1",
-            name: "Bly Bi Gohi Aymar ",
-            active: true,
-            coverPicture: "https://img.freepik.com/photos-premium/homme-etudiant-afro-americain-fond-jaune-isole-lunettes-heureux_1368-222691.jpg?w=900",
-            profession: "Developpeur full stack , Animateur , Modlisateur 3d ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
-        },
-        {
-            _id: "1",
-            name: "Alicia Touré ",
-            coverPicture: "https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            active: true,
-            profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
-        },
-        {
-            _id: "1",
-            name: "Cédric ",
-            coverPicture: "https://img.freepik.com/photos-gratuite/etudiant-positif-peau-foncee-porte-dossiers-livre-pointe-expression-joyeuse-cote-sourire-pleines-dents_273609-23704.jpg?w=900&t=st=1693235710~exp=1693236310~hmac=2afd47b244941ca069e099779258dc77df9a96f3aedddf1511fdfd8d8e8c5479",
-            active: true,
-            profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
-        }
-    ]);
+    // state pour un liste candidats
+    const [candidats, setcandidats] = useState(candidatsChoices);
 
 
+    // state pour le bloc etape 1
+    const [username, setusername] = useState();
     const [firstname, setfirstname] = useState();
     const [lastname, setlastname] = useState();
     const [dateNaissance, setdateNaissance] = useState();
     const [email, setemail] = useState();
-    const [description, setdescription] = useState();
     const [telephone, settelephone] = useState();
     const [password, setpassword] = useState();
 
-
-
+    // state pour le bloc etape 2
+    const [level_school, setlevel_school] = useState();
+    const [title_post, settitle_post] = useState();
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedOptionsLangues, setSelectedOptionsLangues] = useState([]);
 
-    const handleSelectChange = selectedOptions => {
-        setSelectedOptions(selectedOptions);
+    // state pour le bloc etape 2
+    const [description, setdescription] = useState();
+    const [years_experience, setyears_experience] = useState();
+    const [salaire, setsalaire] = useState();
+
+    // state pour le bloc etpape 4
+    const [pays, setpays] = useState();
+    const [addresse, setaddresse] = useState();
+
+    // state pour le bloc etape 5
+    const [site_web, setsite_web] = useState();
+    const [facebook_url, setfacebook_url] = useState();
+    const [linkedin_url, setlinkedin_url] = useState();
+    const [twitter_url, settwitter_url] = useState();
+    const [instagram_url, setinstagram_url] = useState();
+
+
+
+
+
+
+
+
+    //
+    const handleSelectChange1 = (selected) => {
+        setSelectedOptions(selected);
     };
 
+    const handleSelectChange2 = (selected) => {
+        setSelectedOptionsLangues(selected);
+    };
     return (
         <main class="crp1m">
 
@@ -68,7 +73,7 @@ const SignUpPage = () => {
                         <header class="c62g5 cmdkn crp1m">
                             <div class="c7kkg czlxp cf6y5 crp1m c7htb">
 
-                                <a class="cfkm3 chkpc" href="index.html" aria-label="Cruip">
+                                <a class="cfkm3 chkpc" href="/" aria-label="Cruip">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
                                         <path class="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
                                         <path class="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
@@ -102,13 +107,19 @@ const SignUpPage = () => {
                                     </div>
                                     <div class="chva6">
                                         <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email <span class="cvmpf">*</span></label>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span class="cvmpf">*</span></label>
                                             <input class="cvac0 coz82" type="text" required={true} />
                                         </div>
                                     </div>
                                     <div class="chva6">
                                         <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone <span class="cvmpf">*</span></label>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} />
+                                        </div>
+                                    </div>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span class="cvmpf">*</span></label>
                                             <input class="cvac0 coz82" type="text" required={true} />
                                         </div>
                                     </div>
@@ -118,7 +129,7 @@ const SignUpPage = () => {
                                             <input class="cvac0 coz82" type="text" required={true} />
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -147,12 +158,23 @@ const SignUpPage = () => {
                                                 isMulti
                                                 options={competences}
                                                 value={selectedOptions}
-                                                onChange={handleSelectChange}
+                                                onChange={handleSelectChange1}
+                                                placeholder="choi"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span class="cvmpf">*</span></label>
+                                            <Select
+                                                isMulti
+                                                options={languages_school}
+                                                value={selectedOptionsLangues}
+                                                onChange={handleSelectChange2}
+                                                placeholder="Choix de langues"
                                             />
                                         </div>
 
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -161,15 +183,26 @@ const SignUpPage = () => {
                                     <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Infos sur votre profile</div>
 
                                     <div>
-                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description du job <span class="cvmpf">*</span></label>
+                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span class="cvmpf">*</span></label>
                                         <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                     </div>
                                     <div>
-                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Salaire <span class="cvmpf">*</span></label>
+                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
                                         <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                            {level_School.map((item) => {
+                                            {years_experience_school.map((item) => {
                                                 return (
-                                                    <option value={item.value}>{item.label}</option>
+                                                    <option value={item}>{item}</option>
+                                                )
+                                            })}
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevé vous ( F CFA )  <span class="cvmpf">*</span></label>
+                                        <select id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                            {salaires_School.map((item) => {
+                                                return (
+                                                    <option value={item}>{item}</option>
                                                 )
                                             })}
                                         </select>
@@ -178,7 +211,7 @@ const SignUpPage = () => {
                                 </div>
 
                                 <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Localisation</div>
+                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">4.</span> Localisation</div>
 
                                     <div class="chva6">
                                         <div>
@@ -206,6 +239,48 @@ const SignUpPage = () => {
                                 </div>
 
 
+                                <div class="cz2ao">
+                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">5.</span>Réseaux Sociaux Sociaux</div>
+
+                                    
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true}  placeholder="https://www.site-web.com" />
+                                        </div>
+                                    </div>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.facebook.com" />
+                                        </div>
+                                    </div>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.linkedin.com" />
+                                        </div>
+                                    </div>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.instagram.com" />
+                                        </div>
+                                    </div>
+                                    <div class="chva6">
+                                        <div>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
+                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.twitter.com" />
+                                        </div>
+                                    </div>
+                                    <div class="cq38v">
+                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                            S{"'"}inscrire <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+
 
 
 
@@ -220,11 +295,11 @@ const SignUpPage = () => {
 
 
                             <a href={`/${routing.connexion}`}>
-                            <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
-                                            Se connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
-                                    </div>
+                                <div class="cq38v">
+                                    <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
+                                        Se connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                    </button>
+                                </div>
                             </a>
 
                         </div>
