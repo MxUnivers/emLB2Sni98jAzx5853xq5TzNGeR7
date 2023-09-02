@@ -3,12 +3,17 @@ import { competences, level_School } from '../../utlis/options/candidatOption';
 import Select from 'react-select';
 import { optionPays } from '../../utlis/options/optionDivers';
 import { routing } from '../../utlis/routing';
+import { toast } from 'react-toastify';
+import { CandidatConnexion } from '../../action/api/candidat/CandidatAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const SignInPage = () => {
 
 
+    const navigate= useNavigate();
 
     const [candidats, setcandidats] = useState([
         {
@@ -38,7 +43,7 @@ const SignInPage = () => {
     ]);
 
 
-    
+
     const [email, setemail] = useState();
     const [password, setpassword] = useState();
 
@@ -49,6 +54,29 @@ const SignInPage = () => {
     const handleSelectChange = selectedOptions => {
         setSelectedOptions(selectedOptions);
     };
+
+    // state de redux
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    //valdation de formulaire
+    // valider inscription 
+    const hanldeSubmitCandidat = (event) => {
+        if (email == "") {
+            return toast.error("Email  requis !");
+        }
+        if (password == "") {
+            return toast.error("Mot de passe  requis !");
+        }
+
+
+
+        event.preventDefault();
+        dispatch(CandidatConnexion(email, password,navigate, toast));
+
+    }
+
 
     return (
         <main class="crp1m">
@@ -79,7 +107,7 @@ const SignInPage = () => {
                                 <h1 class="cukoz c4q7l ca00q c7csb">Connexion </h1>
                                 <div class="clvg0">Veilleur renseigner vos information pour vous connectez</div>
                             </div>
-                            <form>
+                            <form onSubmit={hanldeSubmitCandidat}>
 
                                 <div class="cz2ao">
 
@@ -99,15 +127,15 @@ const SignInPage = () => {
                                 </div>
 
                                 <div class="cq38v">
-                                    <button type="submit" class="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                        Se Connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                    </button>
+                                    {
+                                        loading ?
+                                            <p class="text-gray-600 animate-pulse">Connexion en cours</p>
+                                            :
+                                            <button type="submit" class="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Se Connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            </button>
+                                    }
                                 </div>
-
-
-
-
-
 
                             </form>
 

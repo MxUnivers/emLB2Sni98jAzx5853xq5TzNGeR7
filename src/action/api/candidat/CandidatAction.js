@@ -206,11 +206,14 @@ export const CandidatEditPassword = (id, data) => {
 
 // Authenfication du candidate
 
-export const CandidatConnexion = (data, redirect, toast) => {
+export const CandidatConnexion = (email,password, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/auth/candidat/login`, data, {
+            .post(`${baseurl.url}/api/v1/auth/candidat/login`, {
+                "email":email,
+                "password":password
+            }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -220,18 +223,6 @@ export const CandidatConnexion = (data, redirect, toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 handleClearLocalStorage();
-
-                localStorage.setItem(localvalue.candidat.tokenCandidat, response.data.data.token);
-                localStorage.setItem(localvalue.candidat.idCandidat, response.data.data._id);
-                localStorage.setItem(localvalue.candidat.emailCandidat, response.data.data.email);
-                localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
-                localStorage.setItem(localvalue.candidat.coverPictureCandidat, response.data.data.coverPicture);
-
-                //Effacer tout les données les données de l'employeur
-                localStorage.removeItem(localvalue.emloyeur.idEmployeur);
-                localStorage.removeItem(localvalue.emloyeur.tokenEmployeur);
-                localStorage.removeItem(localvalue.emloyeur.emailEmployeur);
-
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
                 setTimeout(() => {
