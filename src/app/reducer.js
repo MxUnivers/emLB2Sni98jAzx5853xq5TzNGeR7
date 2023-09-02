@@ -1,6 +1,6 @@
 // reducer.js
 
-import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../action/api/annonces/AnnoncesAction";
+import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "./actions";
 
 
 const initialState = {

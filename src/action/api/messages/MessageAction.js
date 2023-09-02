@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../annonces/AnnoncesAction";
+import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 
 
 
