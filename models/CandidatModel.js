@@ -22,11 +22,16 @@ const CandidatSchema = new mongoose.Schema({
     email: {
         type: String, required: false, unique: true
     },
-    password: {
+    title_post:{
+        type:String ,require:false
+    },
+    
+    salaire: {
         type: String, required: false
     },
+
     telephone: {
-        type: String, required: false
+        type: String, required: false, unique:true
     },
     adresse: {
         type: String, required: false
@@ -41,18 +46,16 @@ const CandidatSchema = new mongoose.Schema({
         type: String, required: false
     },
     years_experience: {
-        type: Number, required: false
+        type: String, required: false,require:"0-0"
     },
     competences: [{type:Object}],
     langues: {
-        type: [{type:String}], required: false
+        type: [{type:Object}], required: false
     },
     cv: {
         type: String
     },
-    token: {
-        type: String, required: false
-    },
+    
     is_active: {
         type: Boolean,
         default: false
@@ -76,12 +79,18 @@ const CandidatSchema = new mongoose.Schema({
         required:false,
         default:5,
     },
+    password: {
+        type: String, required: false
+    },
     is_active:{
         type:Boolean , default:false
     },
     access:{
         type:Boolean , default:true
-    }
+    },
+    token: {
+        type: String, required: false
+    },
 }, {
     timestamps: true
 })
