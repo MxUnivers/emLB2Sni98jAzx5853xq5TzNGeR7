@@ -11,23 +11,70 @@ import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/act
 
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
-export const CandidatSignUp = (data, redirect, toast) => {
+export const CandidatSignUp = (
+
+    username,
+    firstname,
+    lastname,
+    description,
+    dateNaissance,
+    email,
+    title_post,
+    salaire,
+    telephone,
+    addresse,
+    pays,
+    level_school,
+    site_web,
+    years_experience,
+    selectedOptions,
+    selectedOptionsLangues,
+    facebook_url,
+    linkedin_url,
+    twitter_url, instagram_url, password
+    , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidat/`, data, {
-                headers:
+            .post(`${baseurl.url}/api/v1/candidat/`,
                 {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    "username": username,
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "description": description,
+                    "dateNaissance": dateNaissance,
+                    "email": email,
+                    "title_post": title_post,
+                    "salaire": salaire,
+                    "telephone": telephone,
+                    "adresse": addresse,
+                    "pays": pays,
+                    "level_school": level_school,
+                    "site_web": site_web,
+                    "years_experience": years_experience,
+                    "competences": selectedOptions,
+                    "langues": selectedOptionsLangues,
+                    "facebook_url": facebook_url,
+                    "linkedin_url": linkedin_url,
+                    "twitter_url": twitter_url,
+                    "instagram_url": instagram_url,
+                    "password": password
                 }
-            })
+
+                , {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Connexion réussi !")
+                toast.success(" Vous Inscit avec succès , Profiter d'opportunité !")
                 setTimeout(() => {
-                    redirect(`/${routing.connexionCandidat.path}`)
+                    window.location.href=`/`;
                 }, 2500);
+                
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -83,7 +130,7 @@ export const CandidatEditCv = (id, data) => {
 
 
 
-export const CandidatPostuleOneOffre = (idcandidat, idOffre,toast) => {
+export const CandidatPostuleOneOffre = (idcandidat, idOffre, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios

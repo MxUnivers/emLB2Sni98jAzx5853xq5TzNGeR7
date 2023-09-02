@@ -38,12 +38,8 @@ const SignInPage = () => {
     ]);
 
 
-    const [firstname, setfirstname] = useState();
-    const [lastname, setlastname] = useState();
-    const [dateNaissance, setdateNaissance] = useState();
+    
     const [email, setemail] = useState();
-    const [description, setdescription] = useState();
-    const [telephone, settelephone] = useState();
     const [password, setpassword] = useState();
 
 
@@ -103,7 +99,7 @@ const SignInPage = () => {
                                 </div>
 
                                 <div class="cq38v">
-                                    <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                    <button type="submit" class="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
                                         Se Connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                     </button>
                                 </div>
