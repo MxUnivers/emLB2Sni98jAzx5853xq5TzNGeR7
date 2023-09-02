@@ -3,6 +3,7 @@ import { candidatsChoices, competences, languages_school, level_School, salaires
 import Select from 'react-select';
 import { optionPays } from '../../utlis/options/optionDivers';
 import { routing } from '../../utlis/routing';
+import Stepper from 'react-stepper-horizontal';
 
 
 
@@ -49,6 +50,25 @@ const SignUpPage = () => {
 
 
 
+    // state pour les etapes d'inscription
+    const [step, setStep] = useState(0);
+    const nextStep = () => {
+        setStep(step + 1);
+    };
+    const prevStep = () => {
+        setStep(step - 1);
+    };
+    const steps = [
+        { title: 'Étape 1' },
+        { title: 'Étape 2' },
+        { title: 'Étape 3' },
+        { title: 'Étape 4' },
+        { title: 'Étape 5' },
+    ];
+
+
+
+
 
 
     //
@@ -90,197 +110,242 @@ const SignUpPage = () => {
                             </div>
                             <form>
 
-                                <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">1.</span> Information personne</div>
+                            {step}
+                                <Stepper steps={steps} activeStep={step} />
+                                {
+                                    step === 0
+                                    &&
+                                    <div class="cz2ao">
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">2.</span> Informations de compétences</div>
+                                        <div class="chva6">
 
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" >Nom <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
+                                            <div>
+                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
+                                                <select id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                    {level_School.map((item) => {
+                                                        return (
+                                                            <option value={item.value}>{item.label}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="position">Poste Occupé <span class="ctgjb">*</span></label>
+                                                <input id="position" class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
+                                            </div>
+                                            <div>
+                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Compétences <span class="cvmpf">*</span></label>
+                                                <Select
+                                                    isMulti
+                                                    options={competences}
+                                                    value={selectedOptions}
+                                                    onChange={handleSelectChange1}
+                                                    placeholder="choi"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span class="cvmpf">*</span></label>
+                                                <Select
+                                                    isMulti
+                                                    options={languages_school}
+                                                    value={selectedOptionsLangues}
+                                                    onChange={handleSelectChange2}
+                                                    placeholder="Choix de langues"
+                                                />
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Prénoms <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
-                                        </div>
+
                                     </div>
 
-                                </div>
+                                }
 
 
 
-                                <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">2.</span> Informations de compétences</div>
-                                    <div class="chva6">
+                                {
+                                    step === 1
+                                    &&
+                                    <div class="cz2ao">
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Infos sur votre profile</div>
 
                                         <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span class="cvmpf">*</span></label>
+                                            <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
                                             <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                {level_School.map((item) => {
+                                                {years_experience_school.map((item) => {
                                                     return (
-                                                        <option value={item.value}>{item.label}</option>
+                                                        <option value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
                                         </div>
+
                                         <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="position">Poste Occupé <span class="ctgjb">*</span></label>
-                                            <input id="position" class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
-                                        </div>
-                                        <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Compétences <span class="cvmpf">*</span></label>
-                                            <Select
-                                                isMulti
-                                                options={competences}
-                                                value={selectedOptions}
-                                                onChange={handleSelectChange1}
-                                                placeholder="choi"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span class="cvmpf">*</span></label>
-                                            <Select
-                                                isMulti
-                                                options={languages_school}
-                                                value={selectedOptionsLangues}
-                                                onChange={handleSelectChange2}
-                                                placeholder="Choix de langues"
-                                            />
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">3.</span> Infos sur votre profile</div>
-
-                                    <div>
-                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span class="cvmpf">*</span></label>
-                                        <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
-                                    </div>
-                                    <div>
-                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
-                                        <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                            {years_experience_school.map((item) => {
-                                                return (
-                                                    <option value={item}>{item}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevé vous ( F CFA )  <span class="cvmpf">*</span></label>
-                                        <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                            {salaires_School.map((item) => {
-                                                return (
-                                                    <option value={item}>{item}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">4.</span> Localisation</div>
-
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" >Pays <span class="cvmpf">*</span></label>
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevé vous ( F CFA )  <span class="cvmpf">*</span></label>
                                             <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                {optionPays.map((item) => {
+                                                {salaires_School.map((item) => {
                                                     return (
-                                                        <option value={item.value}>{item.label}</option>
+                                                        <option value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
                                         </div>
+
                                     </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} />
+
+                                }
+                                {
+                                    step === 2
+                                    &&
+                                    <div class="cz2ao">
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">4.</span> Localisation</div>
+
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" >Pays <span class="cvmpf">*</span></label>
+                                                <select id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                    {optionPays.map((item) => {
+                                                        return (
+                                                            <option value={item.value}>{item.label}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="cq38v">
+                                            <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                S{"'"}inscrire <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                            S{"'"}inscrire <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
+                                }
+
+
+                                {
+                                    step === 3
+                                    &&
+                                    <div class="cz2ao">
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">5.</span>Réseaux Sociaux Sociaux</div>
+
+
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.site-web.com" />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.facebook.com" />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.linkedin.com" />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.instagram.com" />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.twitter.com" />
+                                            </div>
+                                        </div>
+
                                     </div>
+                                }
+
+
+
+                                {
+                                    step === 4
+                                    &&
+                                    <div class="cz2ao">
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">1.</span> Information personne</div>
+
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" >Nom <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Prénoms <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
+                                                <input class="cvac0 coz82" type="text" required={true} />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+
+
+                                <div class="flex justify-center space-x-3">
+                                    {step > 0 && (
+
+                                        <div class="cq38v">
+                                            <button type="button" onClick={prevStep} class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Précedent <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            </button>
+                                        </div>
+                                    )}
+                                    {step < steps.length - 1 && (
+
+                                        <div class="cq38v">
+                                            <button type="button" onClick={nextStep} class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Suivant <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            </button>
+                                        </div>
+                                    )}
+                                    {step === steps.length - 1 && (
+
+                                        <div class="cq38v">
+                                            <button type="button" class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Terminer <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
-
-
-                                <div class="cz2ao">
-                                    <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">5.</span>Réseaux Sociaux Sociaux</div>
-
-                                    
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true}  placeholder="https://www.site-web.com" />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.facebook.com" />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.linkedin.com" />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.instagram.com" />
-                                        </div>
-                                    </div>
-                                    <div class="chva6">
-                                        <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" type="text" required={true} placeholder="https://www.twitter.com" />
-                                        </div>
-                                    </div>
-                                    <div class="cq38v">
-                                        <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                            S{"'"}inscrire <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-
 
 
 
