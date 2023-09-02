@@ -5,6 +5,8 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Importez le CSS pour le style des toasts
 
 const queryClient = new QueryClient(
   {
@@ -25,6 +27,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient} queryCache={queryCache} >
+      <ToastContainer/>
         <App />
       </QueryClientProvider>
     </Provider>
