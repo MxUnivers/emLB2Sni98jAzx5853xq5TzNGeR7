@@ -13,18 +13,22 @@ const OffreEmploi = require("../models/OffreEmploiModel");
 // Fonction pour Ajouter une entreprise à l'appliction
 router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
-    const { username,email,telephone, password } = req.body;
-    const entreprise = await EntrepriseModel.findOne({ email ,username,telephone });
-    if (entreprise) {
-      return res.status(400).json({ message: "Cet compte recruteur existe déja !" });
+    const {username, email,telephone, password } = req.body;
+    // Vérifier si l'email existe déjà
+    const entrepriseExist = await EntrepriseModel.findOne({ email ,username,telephone});
+    if (entrepriseExist) {
+      return res.status(400).json({ message: 'Cet compte recuteur existe déja ! ' });
     }
-    const hashPassword = await bcrypt.hash(password, 10);
+    // Hacher le mot de passe
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Créer un nouvel administrateur
     const newEntreprise = new EntrepriseModel(req.body);
-    newEntreprise.password = hashPassword;
+    newEntreprise.password = hashedPassword;
+    newEntreprise.is_active=false;
     await newEntreprise.save();
-    return res.json({ message: "Compte recuteur créer avec succès ", data: newEntreprise });
+    // Renvoyer une réponse JSON
+    return res.status(200).json({ message: 'Compte recuteur du candidat réussi',data:newEntreprise });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Impossible de créer votre compte recruteur " }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
   }
 });

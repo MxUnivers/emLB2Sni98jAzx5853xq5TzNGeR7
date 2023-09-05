@@ -11,12 +11,13 @@ dotenv.config();
 router.post('/login/', AuthorizationMiddleware, async (req, res) => {
   try {
     // Vérifier si le candidat existe dans la base de données
-    const candidat = await EntrepriseModel.findOne({ email: req.body.email });
+    const {email} =  req.body;
+    const candidat = await EntrepriseModel.findOne({ email });
     if (!candidat) {
       return res.status(402).json({ message: 'Adresse e-mail ou mot de passe incorrect.' });
     }
     // verifier si le compte à été bloquer
-    if (candidat.blocked == true) {
+    if (candidat.access == false) {
       return res.status(410).json({ message: 'Imposible de se connecter par ce que votre compte à eté bloquer' });
     }
     // Vérifier si le mot de passe est correct
@@ -29,7 +30,7 @@ router.post('/login/', AuthorizationMiddleware, async (req, res) => {
     // Générer un token JWT pour la session de connexion
     const token = jwt.sign({ id: candidat._id }, process.env.JWT_SECRET);
     candidat.token = token;
-    candidat.is_active = true
+    candidat.is_active = true;
     await candidat.save();
     // Envoyer une réponse avec le token JWT
     return res.status(200).json({ token: token, data: candidat, message: "Entreprise Connecté" });

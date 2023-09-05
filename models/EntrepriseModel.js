@@ -45,29 +45,29 @@ const EntrepriseSchema = new mongoose.Schema({
   
   telephone: {
     type: String,
-    required: true
+    required: false
   },
-  telephone_entreprise: {
+  telephone_entreprise: {//ok
     type: String,
     required: false
   },
   adresse: {
     type: String,
-    required: true
+    required: false
   },
-  description_entreprise: {
+  description_entreprise: {//ok
     type: String
   },
-  logo: {
+  logo: { //ok
     type: String
   },
-  pays_entreprise:{
+  pays_entreprise:{//ok
     type:String,
   },
   addresse_entreprise:{
     type:String
   },
-  salaire_capital: {
+  salaire_capital: {//of
     type: String,
     required: false
   },
@@ -97,7 +97,6 @@ const EntrepriseSchema = new mongoose.Schema({
   ],
   secteur_activites: [{type:Object}],
   langues: [{type:Object}],
-
   site_web:{
     type:String,default:"#",require:false
   },
