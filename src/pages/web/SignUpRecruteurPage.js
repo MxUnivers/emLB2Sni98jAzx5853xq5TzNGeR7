@@ -24,7 +24,6 @@ const SignUpRecruteurPage = () => {
 
     // state pour le bloc etape 1
     const [full_name, setfull_name] = useState();
-    const [dateNaissance, setdateNaissance] = useState();
     const [dateNaissance_entreprise, setdateNaissance_entreprise] = useState();
 
     const [email_entreprise, setemail_entreprise] = useState();
@@ -32,12 +31,7 @@ const SignUpRecruteurPage = () => {
 
 
 
-    const [username, setusername] = useState();
-    const [firstname, setfirstname] = useState();
-    const [lastname, setlastname] = useState();
-
-    const [telephone, settelephone] = useState();
-    const [password, setpassword] = useState();
+    
 
     
 
@@ -68,8 +62,13 @@ const SignUpRecruteurPage = () => {
     const [instagram_url, setinstagram_url] = useState();
 
     // state pour le bloc etape 5
+    const [username, setusername] = useState();
+    const [firstname, setfirstname] = useState();
+    const [lastname, setlastname] = useState();
     const [email, setemail] = useState();
-
+    const [dateNaissance, setdateNaissance] = useState();
+    const [telephone, settelephone] = useState();
+    const [password, setpassword] = useState();
 
 
 
@@ -95,7 +94,7 @@ const SignUpRecruteurPage = () => {
 
 
     const showErrorToast = (message) => {
-        toast.error(message, {
+        toast.info(message, {
             position: "top-right",
             autoClose: 3000, // Durée d'affichage du toast en millisecondes
             hideProgressBar: false,
@@ -147,35 +146,19 @@ const SignUpRecruteurPage = () => {
             if (!eval(field)) {
                 showErrorToast(
                     //`${field.replace("_", " ")} requis !`
-                    `verifier les champs avec * sont bien saisis`
+                    `Champs avec * sont obligatoire`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
 
-        dispatch(EntrepriseSignUp())
+        dispatch(EntrepriseSignUp(
+            username,full_name,firstname,lastname,employers_count,description_entreprise,dateNaissance,dateNaissance_entreprise,email,
+            email_entreprise,title_post,logo,salaire_capital,telephone,telephone_entreprise,addresse_entreprise,pays_entreprise,maps_entreprise,
+            secteur_activites,site_web,langues,facebook_url,linkedin_url,twitter_url,instagram_url,password,toast
+            ))
         /*var userData = {
-            "username": username,
-            "firstname": firstname,
-            "lastname": lastname,
-            "description": description,
-            "dateNaissance": dateNaissance,
-            "email": email,
-            "title_post": title_post,
-            "salaire": salaire,
-            "telephone": telephone,
-            "adresse": addresse,
-            "pays": pays,
-            "level_school": level_school,
-            "site_web": site_web,
-            "years_experience": years_experience,
-            "competences": selectedOptions,
-            "langues": selectedOptionsLangues,
-            "facebook_url": facebook_url,
-            "linkedin_url": linkedin_url,
-            "twitter_url": twitter_url,
-            "instagram_url": instagram_url,
-            "password": password
+            
         } */
 
 
