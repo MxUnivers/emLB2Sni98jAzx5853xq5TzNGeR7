@@ -61,19 +61,17 @@ const EntrepriseSchema = new mongoose.Schema({
   logo: {
     type: String
   },
-  pays:{
+  pays_entreprise:{
     type:String,
   },
-  addresse:{
+  addresse_entreprise:{
     type:String
   },
-  password: {
+  salaire_capital: {
     type: String,
     required: false
   },
-  token: {
-    type: String, required: false
-  },
+  
   typeStatut:{type:String,default:"STARTER",enum: ["PREMIUM","NORMAL","STARTER"]},
   comptePaiement: {
     solde: {
@@ -98,6 +96,7 @@ const EntrepriseSchema = new mongoose.Schema({
     {type:Object}
   ],
   secteur_activites: [{type:Object}],
+  langues: [{type:Object}],
 
   site_web:{
     type:String,default:"#"
@@ -113,6 +112,13 @@ const EntrepriseSchema = new mongoose.Schema({
   },
   instagram_url:{
     type:String,default:"#"
+  },
+  password: {
+    type: String,
+    required: false
+  },
+  token: {
+    type: String, required: false
   },
   is_active: {
     type: Boolean,

@@ -10,10 +10,10 @@ const OffreEmploi = require("../models/OffreEmploiModel");
 // Fonction pour Ajouter une entreprise à l'appliction
 router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
-    const { username,email, password } = req.body;
-    const entreprise = await EntrepriseModel.findOne({ email ,username });
+    const { username,email,telephone, password } = req.body;
+    const entreprise = await EntrepriseModel.findOne({ email ,username,telephone });
     if (entreprise) {
-      res.status(400).json({ message: "Cet Recruter existe deja" });
+      return res.status(400).json({ message: "Cet compte recruteur existe déja !" });
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const newEntreprise = new EntrepriseModel(req.body);
@@ -22,7 +22,7 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     return res.json({ message: "Compte recuteur créer avec succès ", data: newEntreprise });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Une erreur s'est produite lors de la création de l'entreprise" }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
+    return res.status(500).json({ message: "Impossible de créer votre compte recruteur " }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
   }
 });
 
