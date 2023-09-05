@@ -59,6 +59,15 @@ const SignUpPage = () => {
     // state pour les etapes d'inscription
     const [step, setStep] = useState(0);
     const nextStep = () => {
+        if(
+            step==0 && 
+            level_School=="" &&
+            title_post==""&&
+             selectedOptions==[]&&
+             selectedOptionsLangues==[]
+            ){
+                alert()
+        }
         setStep(step + 1);
     };
     const prevStep = () => {
@@ -73,6 +82,17 @@ const SignUpPage = () => {
     ];
 
 
+
+    const showErrorToast = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
 
 
 
@@ -95,57 +115,34 @@ const SignUpPage = () => {
 
     // valider inscription 
     const hanldeSubmitCandidat = (event) => {
-        if (level_School == "") {
-            return toast.error("Diplôme requis !")
-        }
-        if (title_post == "") {
-            return toast.error("profession requis !");
-        }
-        if (selectedOptions == []) {
-            return toast.error("Compétences requis !")
-        }
-        if (selectedOptionsLangues == []) {
-            return toast.error("Langues requis !")
-        }
-        if (description == "") {
-            return toast.error("Description sur vous requise !")
-        }
-        if (years_experience == "") {
-            return toast.error("Année d'expériences requise !")
-        }
-        if (salaire == "") {
-            return toast.error("Salaire  requis !")
-        }
-        if (competences == []) {
-            return toast.error("Compétences requis !")
-        }
-        if (pays == "") {
-            return toast.error("Pays requis !")
-        }
-        if (addresse == "") {
-            return toast.error("Compétences requis !")
-        }
-        // reseau sociaux non obligutaoire
-        if (username == "") {
-            return toast.error("Nom utilisateur requis !")
-        }
-        if (firstname == "") {
-            return toast.error("Nom  requis !")
-        }
-        if (lastname == "") {
-            return toast.error("Prénoms  requis !")
-        }
-        if (email == "") {
-            return toast.error("Email  requis !")
-        }
-        if (telephone == "") {
-            return toast.error("Telephone  requis !")
-        }
-        if (password == "") {
-            return toast.error("Mot de passe  requis !")
+        event.preventDefault();
+
+        // Liste des champs obligatoires
+        const requiredFields = [
+            "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
+            "description", "years_experience", "salaire",
+            "pays", "addresse", "username", "firstname", "lastname", "email",
+            "telephone", "password","facebook_url","linkedin_url"
+        ];
+
+        // Vérifiez chaque champ requis.
+        for (const field of requiredFields) {
+            if (!eval(field)) {
+                showErrorToast(
+                    //`${field.replace("_", " ")} requis !`
+                    `les champs avec * obligatoire`
+                );
+                return; // Arrêtez le traitement si un champ est vide.
+            }
         }
 
-        var userData = {
+        dispatch(CandidatSignUp(
+            username, firstname, lastname, description, dateNaissance, email, title_post,
+            salaire, telephone, addresse, pays, level_school, site_web, years_experience,
+            selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
+            instagram_url, password, toast
+        ))
+        /*var userData = {
             "username": username,
             "firstname": firstname,
             "lastname": lastname,
@@ -167,15 +164,8 @@ const SignUpPage = () => {
             "twitter_url": twitter_url,
             "instagram_url": instagram_url,
             "password": password
-        }
-
-        event.preventDefault();
-        dispatch(CandidatSignUp(
-            username, firstname, lastname, description, dateNaissance, email, title_post,
-            salaire, telephone, addresse, pays, level_school, site_web, years_experience,
-            selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
-            instagram_url, password, toast
-        ))
+        } */
+        
 
 
 
@@ -204,7 +194,11 @@ const SignUpPage = () => {
                             </div>
                         </header>
 
-                        <button type='button' title={"Test notiifcation"} onClick={() => { toast.success('Opération réussie !'); }}  >Test</button>
+                        <button type='button' title={"Test notiifcation"} onClick={() => {
+
+                            alert("Salut");
+                            toast.success('Opération réussie !');
+                         }}  >Test</button>
                         <div class="cmdkn cggc7">
 
                             <div class="cjplb">
@@ -224,7 +218,7 @@ const SignUpPage = () => {
 
                                             <div>
                                                 <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
-                                                <select required={true} onChange={(e) => { setlevel_school(e.currentTarget.value) }} class="c033a c9csv coz82 cxa4q">
+                                                <select required={false} onChange={(e) => { setlevel_school(e.currentTarget.value) }} class="c033a c9csv coz82 cxa4q">
                                                     {level_School.map((item) => {
                                                         return (
                                                             <option value={item.value}>{item.label}</option>
@@ -297,7 +291,7 @@ const SignUpPage = () => {
 
                                         <div>
                                             <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevez vous ? ( F CFA )  <span class="cvmpf">*</span></label>
-                                            <select required={true} onChange={(e) => { setsalaire(e.target.value) }} class="c033a c9csv coz82 cxa4q">
+                                            <select required={false} onChange={(e) => { setsalaire(e.target.value) }} class="c033a c9csv coz82 cxa4q">
                                                 {salaires_School.map((item) => {
                                                     return (
                                                         <option value={item}>{item}</option>
@@ -330,7 +324,7 @@ const SignUpPage = () => {
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span class="cvmpf">*</span></label>
-                                                <input value={addresse} onChange={(e) => { setaddresse(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
+                                                <input value={addresse} onChange={(e) => { setaddresse(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
                                     </div>
@@ -347,31 +341,31 @@ const SignUpPage = () => {
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
-                                                <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="https://www.site-web.com" />
+                                                <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.site-web.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
-                                                <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="https://www.facebook.com" />
+                                                <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.facebook.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
-                                                <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="https://www.linkedin.com" />
+                                                <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.linkedin.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
-                                                <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="https://www.instagram.com" />
+                                                <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.instagram.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
-                                                <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="https://www.twitter.com" />
+                                                <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.twitter.com" />
                                             </div>
                                         </div>
 
@@ -389,43 +383,43 @@ const SignUpPage = () => {
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" >Nom Utilisateur <span class="cvmpf">*</span></label>
-                                                <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
+                                                <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" >Nom <span class="cvmpf">*</span></label>
-                                                <input value={username} onChange={(e) => { setusername(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
+                                                <input value={username} onChange={(e) => { setusername(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Prénoms <span class="cvmpf">*</span></label>
-                                                <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
+                                                <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span class="cvmpf">*</span></label>
-                                                <input value={email} onChange={(e) => { setemail(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                <input value={email} onChange={(e) => { setemail(e.target.value) }} class="cvac0 coz82" type="email" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
-                                                <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} class="cvac0 coz82" type="number" required={true} />
+                                                <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} class="cvac0 coz82" type="number" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span class="cvmpf">*</span></label>
-                                                <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} class="cvac0 coz82" type="date" required={true} />
+                                                <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} class="cvac0 coz82" type="date" required={false} />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
-                                                <input value={password} onChange={(e) => { setpassword(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
+                                                <input value={password} onChange={(e) => { setpassword(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
 
