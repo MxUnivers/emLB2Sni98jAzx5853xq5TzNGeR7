@@ -11,20 +11,51 @@ const EntrepriseSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  firstname: {
+    type: String,
+    required: false
+  },
+  lastname: {
+    type: String,
+    required: false
+  },
+  title_post: {
+    type: String,
+    required: false
+  },
   email: {
     type: String,
-    required: true,
+    required: false,
+  },
+  email_entreprise: {
+    type: String,
+    required: false,
     unique: true
   },
+  
+  employers_count:{
+    type:String , require:false
+  },
+  dateNaissance:{
+    type:String , require:false
+  },
+  dateNaissance_entreprise:{
+    type:String , require:false
+  },
+  
   telephone: {
     type: String,
     required: true
+  },
+  telephone_entreprise: {
+    type: String,
+    required: false
   },
   adresse: {
     type: String,
     required: true
   },
-  description: {
+  description_entreprise: {
     type: String
   },
   logo: {
@@ -43,7 +74,7 @@ const EntrepriseSchema = new mongoose.Schema({
   token: {
     type: String, required: false
   },
-  type:{type:String,default:"MANAGER"},
+  typeStatut:{type:String,default:"STARTER",enum: ["PREMIUM","NORMAL","STARTER"]},
   comptePaiement: {
     solde: {
       type: Number,
@@ -60,12 +91,16 @@ const EntrepriseSchema = new mongoose.Schema({
   maps : {
     type:String  , default:false
   },
+  maps_entreprise : {
+    type:String  , default:false
+  },
   offres: [
     {type:Object}
   ],
-  secteur_activites: {
-    type: String,
-    required: false,
+  secteur_activites: [{type:Object}],
+
+  site_web:{
+    type:String,default:"#"
   },
   facebook_url:{
     type:String,default:"#"
