@@ -47,7 +47,7 @@ export const EntrepriseSignUp = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidat/`,
+            .post(`${baseurl.url}/api/v1/entreprise/`,
                 {
                     "username": username,
                     "full_name": full_name,

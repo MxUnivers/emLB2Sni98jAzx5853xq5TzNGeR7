@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CandidatSignUp } from '../../action/api/candidat/CandidatAction';
 import { employers, existence_entreprise, secteursActivite } from '../../utlis/options/employeurOption';
 import { EntrepriseSignUp } from '../../action/api/employeur/EmployeurAction';
+import { baseurl } from '../../utlis/url/baseurl';
+import axios from 'axios';
 
 
 
@@ -106,6 +108,38 @@ const SignUpRecruteurPage = () => {
 
 
 
+    // Uploader photo de profile
+    const [LoadingPhoto, setLoadingPhoto] = useState(false);
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
+      fileReader.onerror = (error) => { reject(error); };
+    });
+  }
+  function uploadSinglePhoto(base64) {
+    setLoadingPhoto(true);
+    axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
+      .then((res) => { 
+        setlogo(res.data);
+      toast.dark("Photo télécharger avec succès")
+      })
+      .then(() => setLoadingPhoto(false))
+      .catch(()=>{
+        console.log("Photo ,on uploder");  toast.error("Photo non télécharger !")
+        setLoadingPhoto(false);
+    });
+  }
+  const HandleFileInputChangePhoto = async (event) => {
+    const files = event.target.files;
+    console.log(files.length);
+    if (files.length === 1) {
+      const base64 = await convertBase64(files[0]);
+      uploadSinglePhoto(base64); return;
+    }
+    const base64s = [];
+    for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+  };
+
 
     //
     const handleSelectChange1 = (selected) => {
@@ -130,15 +164,15 @@ const SignUpRecruteurPage = () => {
         // Liste des champs obligatoires
         const requiredFields = [
             // boc 1
-            title_post,dateNaissance_entreprise,
+            "title_post","dateNaissance_entreprise",
             // bloc 2
-            full_name,secteur_activites,
-            description_entreprise,employers_count,
-            salaire_capital,logo,
+            "full_name","secteur_activites",
+            "description_entreprise","employers_count",
+            "salaire_capital","logo",
             // bloc 3
-            pays_entreprise,addresse_entreprise,maps_entreprise,
+            "pays_entreprise","addresse_entreprise","maps_entreprise",
             // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
-            username,firstname,lastname,email,telephone,dateNaissance,password
+            "username","firstname","lastname","email","telephone","dateNaissance","password"
         ];
 
         // Vérifiez chaque champ requis.
@@ -146,7 +180,7 @@ const SignUpRecruteurPage = () => {
             if (!eval(field)) {
                 showErrorToast(
                     //`${field.replace("_", " ")} requis !`
-                    `Champs avec * sont obligatoire`
+                    `Champs avec * sont obligatoires`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
@@ -299,7 +333,7 @@ const SignUpRecruteurPage = () => {
                                                         alt="Upload" />
                                                 </div>
                                                 <div>
-                                                    <input id="file" type="file" class="cy5z7 cgbhm cudou ch9ub c5c82 cjgxk ck6se clvg0 cp7ke cgtgg c04ox c94my caxg1 cvzfu cjhjm c9csv coz82 cfkm3" />
+                                                    <input id="file" type="file" onChange={HandleFileInputChangePhoto} accept=".PNG , .JPG , JPEG" class="cy5z7 cgbhm cudou ch9ub c5c82 cjgxk ck6se clvg0 cp7ke cgtgg c04ox c94my caxg1 cvzfu cjhjm c9csv coz82 cfkm3" />
                                                 </div>
                                             </div>
                                         </div>
