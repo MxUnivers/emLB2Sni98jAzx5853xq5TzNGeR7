@@ -70,9 +70,9 @@ export const CandidatSignUp = (
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success(" Vous Inscit avec succès , Profiter d'opportunité !")
+                toast.success(" Vous êtes inscrit , Profiter d'opportunité !")
                 setTimeout(() => {
-                    window.location.href=`/`;
+                    window.location.href=`/${routing.inscription}`;
                 }, 2500);
                 
             })

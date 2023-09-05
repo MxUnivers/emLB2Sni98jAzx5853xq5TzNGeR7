@@ -11,7 +11,7 @@ import { CandidatSignUp } from '../../action/api/candidat/CandidatAction';
 
 
 
-const SignUpPage = () => {
+const SignUpRecruteurPage = () => {
     // state utile  
     const navigate = useState();
 
@@ -202,7 +202,7 @@ const SignUpPage = () => {
                         <div class="cmdkn cggc7">
 
                             <div class="cjplb">
-                                <h1 class="cukoz c4q7l ca00q c7csb">Inscription </h1>
+                                <h1 class="cukoz c4q7l ca00q c7csb">Inscription Recruteur </h1>
                                 <div class="clvg0">Veilleur suivre les etape pour vous inscrire</div>
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
@@ -548,4 +548,4 @@ const SignUpPage = () => {
     )
 }
 
-export default SignUpPage;
+export default SignUpRecruteurPage;

@@ -8,8 +8,11 @@ import FooterWeb from '../components/FooterWeb'
 const Layout = () => {
   return (
     <>
-    <NabbarHidden/>
+    {/*<NabbarHidden/> */}
+    <header>
     <NavbarWeb/>
+    </header>
+    
     {/*<DarkCompo/> */}
     <Outlet/>
     <FooterWeb/>

@@ -15,6 +15,7 @@ import JobEditPage from "./pages/web/JobEditPage";
 import CandidatureListPage from "./pages/web/CandidatureListPage";
 import SignUpPage from "./pages/web/SignUpPage";
 import SignInPage from "./pages/web/SignInPage";
+import SignUpRecruteurPage from "./pages/web/SignUpRecruteurPage";
 
 
 
@@ -27,8 +28,14 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route path={`/${routing.inscription}`} element={<SignUpPage />} />
+          {/*connexion recurteur et candidat*/}
           <Route path={`/${routing.connexion}`} element={<SignInPage />} />
+
+
+          {/* Inscription candidat */}
+          <Route path={`/${routing.inscription}`} element={<SignUpPage />} />
+          {/* Inscription recruteur */}
+          <Route path={`/${routing.inscription_recruteur}`} element={<SignUpRecruteurPage />} />
 
           <Route path="" element={<Layout />}>
             <Route index path="" element={<HomePage />} />

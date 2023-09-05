@@ -20,6 +20,7 @@ export const routing = {
     company_details:"company_detail",
     connexion:"login",
     inscription:"inscription",
+    inscription_recruteur:"inscription-recruteur",
     deconnexion:"logout",
     reset_password:"reset_password",
 
