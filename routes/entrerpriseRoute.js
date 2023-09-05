@@ -7,6 +7,9 @@ const OffreEmploi = require("../models/OffreEmploiModel");
 
 
 
+
+
+
 // Fonction pour Ajouter une entreprise à l'appliction
 router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
@@ -25,6 +28,8 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     return res.status(500).json({ message: "Impossible de créer votre compte recruteur " }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
   }
 });
+
+
 
 
 
@@ -50,6 +55,8 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
 
 
 
@@ -111,6 +118,8 @@ router.get('/get_entreprise/:id', AuthorizationMiddleware, async (req, res) => {
     res.status(500).json('Server Error');
   }
 });
+
+
 
 
 

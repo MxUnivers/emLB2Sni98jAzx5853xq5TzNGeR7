@@ -90,7 +90,7 @@ const EntrepriseSchema = new mongoose.Schema({
     type:String  , default:false
   },
   maps_entreprise : {
-    type:String  , default:false
+    type:String  , default:false,default:"#"
   },
   offres: [
     {type:Object}
@@ -99,19 +99,19 @@ const EntrepriseSchema = new mongoose.Schema({
   langues: [{type:Object}],
 
   site_web:{
-    type:String,default:"#"
+    type:String,default:"#",require:false
   },
   facebook_url:{
-    type:String,default:"#"
+    type:String,default:"#",require:false
   },
   twitter_url:{
-    type:String,default:"#"
+    type:String,default:"#",require:false
   },
   linkedin_url:{
-    type:String,default:"#"
+    type:String,default:"#",require:false
   },
   instagram_url:{
-    type:String,default:"#"
+    type:String,default:"#",require:false
   },
   password: {
     type: String,
