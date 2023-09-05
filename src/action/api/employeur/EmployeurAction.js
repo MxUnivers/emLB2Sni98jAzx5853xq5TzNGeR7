@@ -14,28 +14,90 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 
 
+
+
 // Fonction pour ajouter des administrateurs à l'application
-export const EntrepriseSignUp = (data, toast) => {
+export const EntrepriseSignUp = (
+
+    username,
+    full_name,
+    firstname,
+    lastname,
+    employers_count,
+    description_entreprise,
+    dateNaissance,
+    dateNaissance_entreprise,
+    email,
+    email_entreprise,
+    title_post,
+    logo,
+    salaire_capital,
+    telephone,
+    telephone_entreprise,
+    addresse_entreprise,
+    pays_entreprise,
+    maps_entreprise,
+    secteur_activites,
+    site_web,
+    langues,
+    facebook_url,
+    linkedin_url,
+    twitter_url, instagram_url, password
+    , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/entreprise/`, data, {
-                headers:
+            .post(`${baseurl.url}/api/v1/candidat/`,
                 {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    "username": username,
+                    "full_name": full_name,
+
+                    "firstname": firstname,
+                    "lastname": lastname,
+
+                    "description_entreprise": description_entreprise,
+                    "dateNaissance": dateNaissance,
+                    "dateNaissance_entreprise": dateNaissance_entreprise,
+                    "email": email,
+                    "email": email_entreprise,
+                    "telephone": telephone,
+                    "telephone_entreprise": telephone_entreprise,
+                    "logo": logo,
+                    "employers_count":employers_count,
+
+                    "title_post": title_post,
+                    "salaire_capital": salaire_capital,
+                    "addresse_entreprise": addresse_entreprise,
+                    "pays_entreprise": pays_entreprise,
+                    "maps_entreprise":maps_entreprise,
+                    "site_web": site_web,
+                    "secteur_activites": secteur_activites,
+                    "langues": langues,
+                    "facebook_url": facebook_url,
+                    "linkedin_url": linkedin_url,
+                    "twitter_url": twitter_url,
+                    "instagram_url": instagram_url,
+                    "password": password
                 }
-            })
+
+                , {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Inscription résussi avec succès . Velliez vous connecter maintenant !");
+                toast.success(`${response.message}`);
                 setTimeout(() => {
-                    window.location.reload();
-                }, 4000);
+                    window.location.href=`/${routing.connexion}`;
+                }, 2500);
+                
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Inscription échoué !");
+                toast.error(`${error.message}`)
             });
     };
 }

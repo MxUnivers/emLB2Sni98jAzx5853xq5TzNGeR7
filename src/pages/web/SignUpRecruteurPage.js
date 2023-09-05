@@ -8,6 +8,8 @@ import { Button, } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { CandidatSignUp } from '../../action/api/candidat/CandidatAction';
+import { employers, existence_entreprise, secteursActivite } from '../../utlis/options/employeurOption';
+import { EntrepriseSignUp } from '../../action/api/employeur/EmployeurAction';
 
 
 
@@ -21,35 +23,53 @@ const SignUpRecruteurPage = () => {
 
 
     // state pour le bloc etape 1
+    const [full_name, setfull_name] = useState();
+    const [dateNaissance, setdateNaissance] = useState();
+    const [dateNaissance_entreprise, setdateNaissance_entreprise] = useState();
+
+    const [email_entreprise, setemail_entreprise] = useState();
+    const [telephone_entreprise, settelephone_entreprise] = useState();
+
+
+
     const [username, setusername] = useState();
     const [firstname, setfirstname] = useState();
     const [lastname, setlastname] = useState();
-    const [dateNaissance, setdateNaissance] = useState();
-    const [email, setemail] = useState();
+
     const [telephone, settelephone] = useState();
     const [password, setpassword] = useState();
 
-    // state pour le bloc etape 2
-    const [level_school, setlevel_school] = useState();
-    const [title_post, settitle_post] = useState();
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [selectedOptionsLangues, setSelectedOptionsLangues] = useState([]);
+    
+
 
     // state pour le bloc etape 2
-    const [description, setdescription] = useState();
-    const [years_experience, setyears_experience] = useState();
-    const [salaire, setsalaire] = useState();
+    const [employers_count, setemployers_count] = useState();
+    const [salaire_capital, setsalaire_capital] = useState();
+
+
+    // state pour le bloc etape 2
+    const [pays_entreprise, setpays_entreprise] = useState();
+    const [addresse_entreprise, setaddresse_entreprise] = useState();
+    const [logo, setlogo] = useState("https://lespagesvertesci.net/userfiles/image/f38072ef.jpg")
+    const [title_post, settitle_post] = useState();
+    const [secteur_activites, setsecteur_activites] = useState([]);
+    const [langues, setlangues] = useState([]);
+    const [description_entreprise, setdescription_entreprise] = useState();
+
+    // state pour le bloc etape 3
+
+    const [maps_entreprise, setmaps_entreprise] = useState();
 
     // state pour le bloc etpape 4
-    const [pays, setpays] = useState();
-    const [addresse, setaddresse] = useState();
-
-    // state pour le bloc etape 5
     const [site_web, setsite_web] = useState();
     const [facebook_url, setfacebook_url] = useState();
     const [linkedin_url, setlinkedin_url] = useState();
     const [twitter_url, settwitter_url] = useState();
     const [instagram_url, setinstagram_url] = useState();
+
+    // state pour le bloc etape 5
+    const [email, setemail] = useState();
+
 
 
 
@@ -59,15 +79,6 @@ const SignUpRecruteurPage = () => {
     // state pour les etapes d'inscription
     const [step, setStep] = useState(0);
     const nextStep = () => {
-        if(
-            step==0 && 
-            level_School=="" &&
-            title_post==""&&
-             selectedOptions==[]&&
-             selectedOptionsLangues==[]
-            ){
-                alert()
-        }
         setStep(step + 1);
     };
     const prevStep = () => {
@@ -99,12 +110,12 @@ const SignUpRecruteurPage = () => {
 
     //
     const handleSelectChange1 = (selected) => {
-        setSelectedOptions(selected);
+        setsecteur_activites(selected);
     };
 
     const handleSelectChange2 = (selected) => {
-        setSelectedOptionsLangues(selected);
-        console.log(selectedOptionsLangues);
+        setlangues(selected);
+        console.log(langues);
     };
 
 
@@ -119,10 +130,16 @@ const SignUpRecruteurPage = () => {
 
         // Liste des champs obligatoires
         const requiredFields = [
-            "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
-            "description", "years_experience", "salaire","dateNaissance",
-            "pays", "addresse", "username", "firstname", "lastname", "email",
-            "telephone", "password","facebook_url","linkedin_url"
+            // boc 1
+            title_post,dateNaissance_entreprise,
+            // bloc 2
+            full_name,secteur_activites,
+            description_entreprise,employers_count,
+            salaire_capital,logo,
+            // bloc 3
+            pays_entreprise,addresse_entreprise,maps_entreprise,
+            // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
+            username,firstname,lastname,email,telephone,dateNaissance,password
         ];
 
         // Vérifiez chaque champ requis.
@@ -130,18 +147,13 @@ const SignUpRecruteurPage = () => {
             if (!eval(field)) {
                 showErrorToast(
                     //`${field.replace("_", " ")} requis !`
-                    `les champs avec * obligatoire`
+                    `verifier les champs avec * sont bien saisis`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
 
-        dispatch(CandidatSignUp(
-            username, firstname, lastname, description, dateNaissance, email, title_post,
-            salaire, telephone, addresse, pays, level_school, site_web, years_experience,
-            selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
-            instagram_url, password, toast
-        ))
+        dispatch(EntrepriseSignUp())
         /*var userData = {
             "username": username,
             "firstname": firstname,
@@ -165,7 +177,7 @@ const SignUpRecruteurPage = () => {
             "instagram_url": instagram_url,
             "password": password
         } */
-        
+
 
 
 
@@ -194,11 +206,13 @@ const SignUpRecruteurPage = () => {
                             </div>
                         </header>
 
-                        <button type='button' title={"Test notiifcation"} onClick={() => {
+                        {
+                            /*<button type='button' title={"Test notiifcation"} onClick={() => {
 
                             alert("Salut");
                             toast.success('Opération réussie !');
-                         }}  >Test</button>
+                        }}  >Test</button>*/
+                        }
                         <div class="cmdkn cggc7">
 
                             <div class="cjplb">
@@ -207,7 +221,7 @@ const SignUpRecruteurPage = () => {
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
-                                {step}
+                                
                                 <Stepper steps={steps} activeStep={step} />
                                 {
                                     step === 0
@@ -216,48 +230,23 @@ const SignUpRecruteurPage = () => {
                                         <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Compétences</div>
                                         <div class="chva6">
 
+
                                             <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
-                                                <select required={false} onChange={(e) => { setlevel_school(e.currentTarget.value) }} class="c033a c9csv coz82 cxa4q">
-                                                    {level_School.map((item) => {
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="position">Quelle poste occupé(e) vous dans votre enteprise ? <span class="ctgjb">*</span></label>
+                                                <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} class="cvac0 coz82" type="text" required="" placeholder="Ingénieur" />
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Temps d{"'"}existence de votre entreprise (année) <span class="cvmpf"></span></label>
+                                                <select onChange={(e) => { setemployers_count(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                    {existence_entreprise.map((item) => {
                                                         return (
-                                                            <option value={item.value}>{item.label}</option>
+                                                            <option value={item}>{item}</option>
                                                         )
                                                     })}
                                                 </select>
                                             </div>
-                                            <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="position">Poste Occupé <span class="ctgjb">*</span></label>
-                                                <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
-                                            </div>
-                                            <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Compétences <span class="cvmpf">*</span></label>
-                                                <Select
-                                                    isMulti
-                                                    options={competences}
-                                                    value={selectedOptions}
-                                                    onChange={handleSelectChange1}
-                                                    placeholder="choix de vos compétences"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span class="cvmpf">*</span></label>
-                                                <Select
-                                                    isMulti
-                                                    options={languages_school}
-                                                    value={selectedOptionsLangues}
-                                                    onChange={handleSelectChange2}
-                                                    placeholder="Choix de langues"
-                                                />
-                                                <div>
-                                                    <h3>Options 1 :</h3>
-                                                    <ul>
-                                                        {selectedOptionsLangues.map((option) => (
-                                                            <li key={option.value}>{option.label}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </div>
+
 
 
                                         </div>
@@ -272,16 +261,34 @@ const SignUpRecruteurPage = () => {
                                     step === 1
                                     &&
                                     <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Votre profile</div>
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Votre profile entreprise</div>
 
-                                        <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span class="cvmpf">*</span></label>
-                                            <textarea value={description} onChange={(e) => { setdescription(e.target.value) }} id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Nom de votre entreprise <span class="cvmpf">*</span></label>
+                                                <input value={full_name} onChange={(e) => { setfull_name(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
-                                            <select onChange={(e) => { setyears_experience(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                {years_experience_school.map((item) => {
+                                        <div class="mt-5">
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Secteurs d{"'"}activités de votre entreprise <span class="cvmpf">*</span></label>
+                                            <Select
+                                                isMulti
+                                                required={true}
+                                                options={secteursActivite}
+                                                value={secteur_activites}
+                                                onChange={handleSelectChange1}
+                                                placeholder="choisix du/des  secteur(s) d'activité(s)"
+                                            />
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description votre entreprise <span class="cvmpf">*</span></label>
+                                            <textarea value={description_entreprise} onChange={(e) => { setdescription_entreprise(e.target.value) }} id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                        </div>
+                                        <div class="mt-5">
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Nombre d{"'"}employés  <span class="cvmpf">*</span></label>
+                                            <select onChange={(e) => { setemployers_count(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                {employers.map((item) => {
                                                     return (
                                                         <option value={item}>{item}</option>
                                                     )
@@ -289,15 +296,29 @@ const SignUpRecruteurPage = () => {
                                             </select>
                                         </div>
 
-                                        <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevez vous ? ( F CFA )  <span class="cvmpf">*</span></label>
-                                            <select required={false} onChange={(e) => { setsalaire(e.target.value) }} class="c033a c9csv coz82 cxa4q">
+                                        <div class="mt-5">
+                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Budget de votre entreprise / année ? ( F CFA )  <span class="cvmpf">*</span></label>
+                                            <select required={false} onChange={(e) => { setsalaire_capital(e.target.value) }} class="c033a c9csv coz82 cxa4q">
                                                 {salaires_School.map((item) => {
                                                     return (
                                                         <option value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise <span class="cvmpf">*</span></label>
+                                            <div class="czlxp crp1m">
+                                                <div class="cyzlo cy9uk">
+                                                    <img class="cuiwd c59v3 csm78 ciwnj c7htb cf986"
+                                                        src={logo}
+                                                        alt="Upload" />
+                                                </div>
+                                                <div>
+                                                    <input id="file" type="file" class="cy5z7 cgbhm cudou ch9ub c5c82 cjgxk ck6se clvg0 cp7ke cgtgg c04ox c94my caxg1 cvzfu cjhjm c9csv coz82 cfkm3" />
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -311,8 +332,8 @@ const SignUpRecruteurPage = () => {
 
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" >Pays <span class="cvmpf">*</span></label>
-                                                <select onChange={(e => { setpays(e.target.value) })} class="c033a c9csv coz82 cxa4q" required="">
+                                                <label class="ckncn c9csv cfkm3 ckcgr" >Pays de {"'"}entreprise <span class="cvmpf">*</span></label>
+                                                <select required={true} onChange={(e => { setpays_entreprise(e.target.value) })} class="c033a c9csv coz82 cxa4q" >
                                                     {optionPays.map((item) => {
                                                         return (
                                                             <option value={item.value}>{item.label}</option>
@@ -323,8 +344,15 @@ const SignUpRecruteurPage = () => {
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span class="cvmpf">*</span></label>
-                                                <input value={addresse} onChange={(e) => { setaddresse(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise de votre entreprise <span class="cvmpf">*</span></label>
+                                                <input value={addresse_entreprise} onChange={(e) => { setaddresse_entreprise(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="Ville ,Commnune , Quatier ..." />
+                                            </div>
+                                        </div>
+
+                                        <div class="chva6">
+                                            <div>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Localisation sur la carte google maps <span class="cvmpf"></span></label>
+                                                <input value={maps_entreprise} onChange={(e) => { setmaps_entreprise(e.target.value) }} class="cvac0 coz82" type="text" placeholder="https://www.google.ci/maps/etc..." required={false} />
                                             </div>
                                         </div>
                                     </div>
@@ -340,31 +368,31 @@ const SignUpRecruteurPage = () => {
 
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf"></span></label>
                                                 <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.site-web.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf"></span></label>
                                                 <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.facebook.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf"></span></label>
                                                 <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.linkedin.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf"></span></label>
                                                 <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.instagram.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf"></span></label>
                                                 <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.twitter.com" />
                                             </div>
                                         </div>
@@ -378,7 +406,7 @@ const SignUpRecruteurPage = () => {
                                     step === 4
                                     &&
                                     <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Votre compte</div>
+                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Information de connexion (Votre compte)</div>
 
                                         <div class="chva6">
                                             <div>
@@ -431,8 +459,8 @@ const SignUpRecruteurPage = () => {
                                     {step > 0 && (
 
                                         <div class="cq38v">
-                                            <button type="button" onClick={prevStep} class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                Précedent <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            <button type="button" onClick={prevStep} class="bg-gray-300 text-gray-800 hover:bg-gray-200 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh text-gray-800"> &larr; </span> Précedent
                                             </button>
                                         </div>
                                     )}
