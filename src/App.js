@@ -16,6 +16,7 @@ import CandidatureListPage from "./pages/web/CandidatureListPage";
 import SignUpPage from "./pages/web/SignUpPage";
 import SignInPage from "./pages/web/SignInPage";
 import SignUpRecruteurPage from "./pages/web/SignUpRecruteurPage";
+import SignInRecuteurPage from "./pages/web/SignInRecuteurPage";
 
 
 
@@ -28,8 +29,10 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {/*connexion recurteur et candidat*/}
+          {/* connexion candidat */}
           <Route path={`/${routing.connexion}`} element={<SignInPage />} />
+          {/* connexion recurteur */}
+          <Route path={`/${routing.connexion_recuteur}`} element={<SignInRecuteurPage />} />
 
 
           {/* Inscription candidat */}

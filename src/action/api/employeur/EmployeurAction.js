@@ -28,7 +28,6 @@ export const EntrepriseSignUp = (
     dateNaissance,
     dateNaissance_entreprise,
     email,
-    email_entreprise,
     title_post,
     logo,
     salaire_capital,
@@ -59,7 +58,6 @@ export const EntrepriseSignUp = (
                     "dateNaissance": dateNaissance,
                     "dateNaissance_entreprise": dateNaissance_entreprise,
                     "email": email,
-                    "email": email_entreprise,
                     "telephone": telephone,
                     "telephone_entreprise": telephone_entreprise,
                     "logo": logo,
@@ -91,7 +89,7 @@ export const EntrepriseSignUp = (
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success(`${response.message}`);
                 setTimeout(() => {
-                    window.location.href=`/${routing.connexion}`;
+                    window.location.href=`/${routing.connexion_recuteur}`;
                 }, 2500);
                 
             })
@@ -104,11 +102,14 @@ export const EntrepriseSignUp = (
 
 
 
-export const EntrepriseConnexion = (data, redirect, toast) => {
+export const EntrepriseConnexion = (email,password, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/auth/entreprise/login/`, data, {
+            .post(`${baseurl.url}/api/v1/auth/entreprise/login`, {
+                "email":email,
+                "password":password
+            }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -118,27 +119,20 @@ export const EntrepriseConnexion = (data, redirect, toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 handleClearLocalStorage();
-                // ReRecupérer les données de connexion 
-                localStorage.setItem(localvalue.emloyeur.idEmployeur, response.data.data._id);
-                localStorage.setItem(localvalue.emloyeur.coverPictureEmployeur, response.data.data.logo);
-                localStorage.setItem(localvalue.emloyeur.tokenEmployeur, response.data.data.token);
-                localStorage.setItem(localvalue.typeAdmin, response.data.data.type);
-
-                toast.success("Connexion réussi !");
+                // redirect(`/${routing.candidatDashboard.path}`);
+                toast.success("Connexion Réussi ! ");
                 setTimeout(() => {
-                    redirect(`/`);
-                }, 4000);
-                // redirect(`/${routing.employeurDashboard.path}`);
+                    redirect("/");
+                }, 3000);
 
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Impossible de se connecter !");
+                toast.error("email ou mot de passe incorrecte ! ")
 
             });
     };
 }
-
 
 
 

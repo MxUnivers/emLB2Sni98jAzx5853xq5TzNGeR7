@@ -33,9 +33,9 @@ const SignUpRecruteurPage = () => {
 
 
 
-    
 
-    
+
+
 
 
     // state pour le bloc etape 2
@@ -110,35 +110,35 @@ const SignUpRecruteurPage = () => {
 
     // Uploader photo de profile
     const [LoadingPhoto, setLoadingPhoto] = useState(false);
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
-      fileReader.onerror = (error) => { reject(error); };
-    });
-  }
-  function uploadSinglePhoto(base64) {
-    setLoadingPhoto(true);
-    axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
-      .then((res) => { 
-        setlogo(res.data);
-      toast.dark("Photo télécharger avec succès")
-      })
-      .then(() => setLoadingPhoto(false))
-      .catch(()=>{
-        console.log("Photo ,on uploder");  toast.error("Photo non télécharger !")
-        setLoadingPhoto(false);
-    });
-  }
-  const HandleFileInputChangePhoto = async (event) => {
-    const files = event.target.files;
-    console.log(files.length);
-    if (files.length === 1) {
-      const base64 = await convertBase64(files[0]);
-      uploadSinglePhoto(base64); return;
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
+            fileReader.onerror = (error) => { reject(error); };
+        });
     }
-    const base64s = [];
-    for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
-  };
+    function uploadSinglePhoto(base64) {
+        setLoadingPhoto(true);
+        axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
+            .then((res) => {
+                setlogo(res.data);
+                toast.dark("Photo télécharger avec succès")
+            })
+            .then(() => setLoadingPhoto(false))
+            .catch(() => {
+                console.log("Photo ,on uploder"); toast.error("Photo non télécharger !")
+                setLoadingPhoto(false);
+            });
+    }
+    const HandleFileInputChangePhoto = async (event) => {
+        const files = event.target.files;
+        console.log(files.length);
+        if (files.length === 1) {
+            const base64 = await convertBase64(files[0]);
+            uploadSinglePhoto(base64); return;
+        }
+        const base64s = [];
+        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+    };
 
 
     //
@@ -164,33 +164,32 @@ const SignUpRecruteurPage = () => {
         // Liste des champs obligatoires
         const requiredFields = [
             // boc 1
-            "title_post","dateNaissance_entreprise",
+            "title_post", "dateNaissance_entreprise",
             // bloc 2
-            "full_name","secteur_activites",
-            "description_entreprise","employers_count",
-            "salaire_capital","logo",
+            "full_name", "secteur_activites",
+            "description_entreprise", "employers_count",
+            "salaire_capital", "logo",
             // bloc 3
-            "pays_entreprise","addresse_entreprise","maps_entreprise",
+            "pays_entreprise", "addresse_entreprise", "maps_entreprise",
             // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
-            "username","firstname","lastname","email","telephone","dateNaissance","password"
+            "username", "firstname", "lastname", "email", "telephone", "dateNaissance", "password"
         ];
 
         // Vérifiez chaque champ requis.
         for (const field of requiredFields) {
             if (!eval(field)) {
                 showErrorToast(
-                    //`${field.replace("_", " ")} requis !`
-                    `Champs avec * sont obligatoires`
+                    `${field.replace("_", " ")} requis !`
+                    //`Champs avec * sont obligatoires`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
 
         dispatch(EntrepriseSignUp(
-            username,full_name,firstname,lastname,employers_count,description_entreprise,dateNaissance,dateNaissance_entreprise,email,
-            email_entreprise,title_post,logo,salaire_capital,telephone,telephone_entreprise,addresse_entreprise,pays_entreprise,maps_entreprise,
-            secteur_activites,site_web,langues,facebook_url,linkedin_url,twitter_url,instagram_url,password,toast
-            ))
+            username, full_name, firstname, lastname, employers_count, description_entreprise, dateNaissance, dateNaissance_entreprise, email, title_post, logo, salaire_capital, telephone, telephone_entreprise, addresse_entreprise, pays_entreprise, maps_entreprise,
+            secteur_activites, site_web, langues, facebook_url, linkedin_url, twitter_url, instagram_url, password, toast
+        ))
         /*var userData = {
             
         } */
@@ -238,7 +237,7 @@ const SignUpRecruteurPage = () => {
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
-                                
+
                                 <Stepper steps={steps} activeStep={step} />
                                 {
                                     step === 0
@@ -255,10 +254,10 @@ const SignUpRecruteurPage = () => {
 
                                             <div class="mt-5">
                                                 <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Temps d{"'"}existence de votre entreprise (année) <span class="cvmpf"></span></label>
-                                                <select onChange={(e) => { setemployers_count(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                <select onChange={(e) => { setdateNaissance_entreprise(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
                                                     {existence_entreprise.map((item) => {
                                                         return (
-                                                            <option value={item}>{item}</option>
+                                                            <option selected={dateNaissance_entreprise==item? true :false} value={item}>{item}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -307,7 +306,7 @@ const SignUpRecruteurPage = () => {
                                             <select onChange={(e) => { setemployers_count(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
                                                 {employers.map((item) => {
                                                     return (
-                                                        <option value={item}>{item}</option>
+                                                        <option selected={employers_count==item? true :false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -318,7 +317,7 @@ const SignUpRecruteurPage = () => {
                                             <select required={false} onChange={(e) => { setsalaire_capital(e.target.value) }} class="c033a c9csv coz82 cxa4q">
                                                 {salaires_School.map((item) => {
                                                     return (
-                                                        <option value={item}>{item}</option>
+                                                        <option selected={salaire_capital==item? true :false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -353,7 +352,7 @@ const SignUpRecruteurPage = () => {
                                                 <select required={true} onChange={(e => { setpays_entreprise(e.target.value) })} class="c033a c9csv coz82 cxa4q" >
                                                     {optionPays.map((item) => {
                                                         return (
-                                                            <option value={item.value}>{item.label}</option>
+                                                            <option selected={pays_entreprise==item? true :false} value={item.value}>{item.label}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -493,7 +492,7 @@ const SignUpRecruteurPage = () => {
 
                                         loading ?
                                             <div class="cq38v flex items-center">
-                                                <p class="animate-pulse  text-gray-500">Inscription en cours ...</p>
+                                                <p class="animate-pulse  text-gray-500">Inscription Recruteur en cours ...</p>
                                             </div>
                                             :
                                             <div class="cq38v">
