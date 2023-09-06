@@ -61,11 +61,11 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
         const id = req.params.id;
         const offreExist = await OffreEmploiModel.findById({ _id: id });
         if (!offreExist) {
-            return await res.json({ message: "Offre indisponible" });
+            return  res.status(402).json({ message: "Offre indisponible" });
         }
         const offre = await OffreEmploiModel.findByIdAndUpdate({ _id: id }, req.body, { new: true });
         await offre.save();
-        res.json({ message: 'Offre d\'emploi mise à jour avec succès', offre });
+        return res.status(200).json({ message: 'Offre d\'emploi mise à jour avec succès', data:offre });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });
@@ -88,7 +88,7 @@ router.get('/get_offres', AuthorizationMiddleware, async (req, res) => {
 });
 
 // Fontion Recupérer la liste de d'entreprise
-router.get('/get_offres/id', AuthorizationMiddleware, async (req, res) => {
+router.get('/get_offres/:id', AuthorizationMiddleware, async (req, res) => {
     try {
         const  idEntreprise =  req.params.id
         const offre = await OffreEmploiModel.find({idEntreprise:idEntreprise});

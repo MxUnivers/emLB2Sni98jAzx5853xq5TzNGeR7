@@ -6,15 +6,20 @@ const { secteursActivites } = require('../utils/FormatApi')
 const offreEmploiSchema = new mongoose.Schema(
   {
     idEntreprise:{type:String, required:false},
+    company :{type:String,required:false},
     title: { type: String, required: false },
     email: { type: String, required: false },
+    telephone: { type: String, required: false },
+    salaire: { type: String, required: false },
     coverPicture: { type: String, required: false },
     title_post: { type: String, required: false },
     areaOffre: { type: String, required: false },
-    dispobility: { type: String, required: false },
+    expireDispobility: { type: String, required: false },
+    typeContrat: { type: String, required: false },
+    addresse: { type: String, required: false },
     description: { type: String, required: false },
     salaire: { type: String, required: false },
-    access: { type: Boolean, required: true },
+    access: { type: Boolean, required: false,default:true },
     candidats : [{type:Object}]
   },
   { timestamps: true }
