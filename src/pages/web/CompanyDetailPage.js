@@ -58,8 +58,6 @@ const CompanyDetailPage = () => {
     const [company, setcompany] = useState();
     useEffect(() => {
         EntrepriseGetById(idCompany, setcompany);
-        if(getAndCheckLocalStorage == typePersonConnected[0]){ settypePERSON(getAndCheckLocalStorage(localvalue.TYPEACCESS))}
-        else{settypePERSON("")}
     }, [])
 
 
@@ -250,7 +248,7 @@ const CompanyDetailPage = () => {
                                     <div class=" flex flex-row  justify-between items-center">
                                         <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
                                         {
-                                            typePERSON === typePersonConnected[0]?
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0]?
                                             <Link to={`/${routing.job_post}`}>
                                             <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
                                         </Link>:
