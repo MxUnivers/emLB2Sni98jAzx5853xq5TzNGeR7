@@ -118,12 +118,16 @@ export const EntrepriseConnexion = (email,password, redirect, toast) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+
+                // efface tous les données du localStorage de l'application .
                 handleClearLocalStorage();
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
+                
+                // Assignation de données 
                 setWithExpiration(
                     localvalue.recruteurID,
-                    response.data._id,
+                    response.data.data._id,
                     dureeDeVie
                 );
 

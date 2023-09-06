@@ -1,8 +1,8 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { routing } from "../../../utlis/routing";
-import { localvalue } from "../../../utlis/storage/localvalue";
-import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
+import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 
 
@@ -222,11 +222,13 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                // efface tous les données en localStorage de l'application
                 handleClearLocalStorage();
 
+                // assignation des dnnées du localStorage de du candycat
                 setWithExpiration(
                     localvalue.candidatID,
-                    response.data._id,
+                    response.data.data._id,
                     dureeDeVie
                 );
                 setWithExpiration(
