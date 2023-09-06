@@ -223,6 +223,17 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 handleClearLocalStorage();
+
+                setWithExpiration(
+                    localvalue.candidatID,
+                    response.data._id,
+                    dureeDeVie
+                );
+                setWithExpiration(
+                    localvalue.TYPEACCESS,
+                    typePersonConnected[1],
+                    dureeDeVie
+                );
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
                 setTimeout(() => {

@@ -2,9 +2,9 @@
 
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { localvalue } from "../../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
-import { handleClearLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 
 
 
@@ -121,6 +121,18 @@ export const EntrepriseConnexion = (email,password, redirect, toast) => {
                 handleClearLocalStorage();
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
+                setWithExpiration(
+                    localvalue.recruteurID,
+                    response.data._id,
+                    dureeDeVie
+                );
+
+                setWithExpiration(
+                    localvalue.TYPEACCESS,
+                    typePersonConnected[0],
+                    dureeDeVie
+                );
+                
                 setTimeout(() => {
                     redirect("/");
                 }, 3000);
