@@ -43,7 +43,7 @@ router.post('/post/:idEntreprise', AuthorizationMiddleware, async (req, res) => 
 
         const offre = await nouvelleOffre.save();
         
-        res.json({ message: 'Offre d\'emploi créée avec succès', offre });
+        return res.status(200).json({ message: 'Offre d\'emploi créée avec succès', offre });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la création de l\'offre d\'emploi' });
