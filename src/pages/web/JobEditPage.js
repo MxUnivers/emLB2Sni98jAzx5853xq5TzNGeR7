@@ -199,12 +199,12 @@ const JobEditPage = () => {
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
-                                                        <input id="email" value={telephone} onChange={(e) => { setTelephone(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                        <input id="email" value={telephone} onChange={(e) => { setTelephone(e.target.value) }} class="cvac0 coz82" type="number" required={true} />
                                                     </div>
 
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
-                                                        <input id="email" value={addresse} onChange={(e) => { setAddresse(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                        <input id="email" value={addresse} onChange={(e) => { setAddresse(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise <span class="clvg0">(optional)</span></label>
@@ -258,11 +258,11 @@ const JobEditPage = () => {
                                                     </div>
                                                     <div>
                                                         <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description du job <span class="cvmpf">*</span></label>
-                                                        <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                                        <textarea id="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="salary">Salaire (FCFA/ mois) <span class="clvg0">(optional)</span></label>
-                                                        <select onChange={(e) => { salaire(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
+                                                        <select onChange={(e) => { setSalaire(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
                                                             <option >-- Choix du Salaire --</option>
                                                             {
                                                                 salaires_School.map((item) => {

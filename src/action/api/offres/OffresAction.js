@@ -28,18 +28,18 @@ export const OffreCreate = (
         dispatch({ type: SEND_REQUEST });
         if(getAndCheckLocalStorage(localvalue.recruteurID)){
             await axios
-            .post(`${baseurl.url}/api/v1/offre/`,
+            .post(`${baseurl.url}/api/v1/offre/post/${getAndCheckLocalStorage(localvalue.recruteurID)}`,
                 {
-                    "idEntreprise": getAndCheckLocalStorage(localvalue.recruteurID),
+                    //"idEntreprise": getAndCheckLocalStorage(localvalue.recruteurID),
                     "company": company,
                     "title": title,
                     "email": email,
                     "telephone": telephone,
                     "salaire": salaire,
                     "coverPicture": coverPicture,
-                    "title_post": title_post,
+                    //"title_post": title_post,
                     "areaOffre": areaOffre,
-                    "expireDispobility": expireDispobility,
+                    //"expireDispobility": expireDispobility,
                     "typeContrat": typeContrat,
                     "description": description,
                     "addresse": addresse
