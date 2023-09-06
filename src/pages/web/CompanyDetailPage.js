@@ -8,6 +8,11 @@ import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
 import { routing } from '../../utlis/routing';
 import { Link } from 'react-router-dom';
+import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
+import { useEffect } from 'react';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
+import { useState } from 'react';
 
 
 
@@ -47,6 +52,18 @@ const CompanyDetailPage = () => {
 
     ]
 
+    var idCompany = getAndCheckLocalStorage(localvalue.recruteurID);
+    const [typePERSON, settypePERSON] = useState();
+
+    const [company, setcompany] = useState();
+    useEffect(() => {
+        EntrepriseGetById(idCompany, setcompany);
+        if(getAndCheckLocalStorage == typePersonConnected[0]){ settypePERSON(getAndCheckLocalStorage(localvalue.TYPEACCESS))}
+        else{settypePERSON("")}
+    }, [])
+
+
+
     return (
 
         <div class="main-content">
@@ -58,71 +75,110 @@ const CompanyDetailPage = () => {
                     <div class="container-fluid px-7 ">
                         <div class="flex  flex-col sm:flex-col md:flex-row lg:flex-row  justify-between">
 
+                        
 
 
-                            <div class="w-full col-span-5 px-5">
+                            <div class="w-full col-span-2 px-5">
 
                                 <div class="side-bar ms-lg-4">
                                     <div class="card border rounded-lg  shadow-sm job-overview">
                                         <div class="card-body p-4 flex-col flex justify-center items-center">
 
                                             <div class="w-fullflex flex-col justify-center">
-                                                <div class="">
-                                                    <img src="assets/images/featured-job/img-10.png" alt=""
-                                                        class="img-fluid rounded-full  h-32 w-32" />
-                                                </div>
-                                                <div class="flex mt-4 flex-col justify-center">
-                                                    <i class="uil uil-user icon bg-primary-subtle text-primary"></i>
-                                                    <div class="ms-3 flex ">
-                                                        <h6 class="fs-14 mb-2"></h6>
-                                                        <p class="text-muted mb-0 text-xl text-center ">Product Designer</p>
-                                                    </div>
-                                                </div>
+                                                {
+                                                    company && company.logo ?
+                                                        <div class="">
+                                                            <img src={`${company.logo}`} alt=""
+                                                                class="img-fluid rounded-full  h-32 w-32" />
+                                                        </div> :
+                                                        <div class="">
+                                                            <div class="rounded-full  h-32 w-32 animate-pulse bg-gray-300" />
+                                                        </div>
+
+                                                }
+                                                {
+                                                    getAndCheckLocalStorage(localvalue.TYPEACCESS)
+                                                }
+                                                {
+                                                    company && company.full_name ?
+                                                        <div class="flex mt-4 flex-col justify-center">
+                                                            <i class="uil uil-user icon bg-primary-subtle text-primary"></i>
+                                                            <div class="ms-3 flex ">
+                                                                <h6 class="fs-14 mb-2"></h6>
+                                                                <p class="text-muted mb-0 text-xl text-center ">{company.full_name}</p>
+                                                            </div>
+                                                        </div> :
+                                                        <div class="flex mt-4 flex-col justify-center w-full h-7 rounded-lg bg-gray-300 animate-pulse ">
+                                                        </div>
+                                                }
                                             </div>
-                                            <ul class="list-unstyled mt-4 mb-0">
-                                                <li>
-
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Employer </h6>
-                                                            <p class="text-muted mb-0"> 100-100</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Localisation </h6>
-                                                            <p class="text-muted mb-0"> New york</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Qualification</h6>
-                                                            <p class="text-muted mb-0 bg-green-400 text-white px-2 py-1 rounded-lg">Bachelor Degree</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-
-
-                                            </ul>
 
                                             <div class="mt-4">
                                                 <a href="company-details.html"
                                                     class="btn btn-primary btn-hover w-100 rounded"><i
-                                                        class="mdi mdi-eye"></i> View Profile</a>
+                                                        class="mdi mdi-eye"></i> Modifier profile</a>
                                             </div>
+
+                                            <ul class="list-unstyled mt-4 mb-0">
+
+                                                {
+                                                    company && company.employers_count ?
+                                                        <li>
+                                                            <div class="d-flex mt-4">
+                                                                <i
+                                                                    class="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3 flex space-x-2">
+                                                                    <h6 class="fs-14 mb-2">Employés </h6>
+                                                                    <p class="text-muted mb-0"> {company.employers_count}</p>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li>
+                                                            <div class="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
+                                                        </li>
+
+                                                }
+
+                                                {
+                                                    company && company.addresse_entreprise ?
+                                                        <li>
+                                                            <div class="d-flex mt-4">
+                                                                <i
+                                                                    class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3 flex space-x-2">
+                                                                    <h6 class="fs-14 mb-2">Localisation </h6>
+                                                                    <p class="text-muted mb-0"> {company.addresse_entreprise}</p>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li>
+                                                            <div class="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
+                                                        </li>
+
+                                                }
+                                                <li>
+                                                    <div class="d-flex mt-4">
+                                                        <i
+                                                            class="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
+
+                                                        <h6 class="fs-14 mb-2">Secteurs d{"'"}activités</h6>
+                                                        <div class="ms-3 flex flex-wrap gap-2">
+
+                                                            {company && Array.isArray(company.secteur_activites) && company.secteur_activites.length > 0 ? (
+                                                                company.secteur_activites.map((item, index) => (
+                                                                    <p key={index} class="text-muted mb-0 bg-green-400 text-white px-2 py-1 rounded-lg">
+                                                                        {item.label}
+                                                                    </p>
+                                                                ))
+                                                            ) : null}
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+
+
 
 
                                         </div>
@@ -130,12 +186,17 @@ const CompanyDetailPage = () => {
 
 
 
-                                    <div class="mt-4">
+                                    {
+                                        company && company.maps_entreprise ?
+                                        <div class="mt-4">
                                         <h6 class="fs-16 mb-3 text-2xl">Carte</h6>
                                         <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin"
+                                            src={`${company.maps_entreprise}`}
                                             style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>:
+                                    <div class="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
                                     </div>
+                                    }
                                 </div>
 
                             </div>
@@ -147,32 +208,38 @@ const CompanyDetailPage = () => {
 
 
 
-                            <div class="col-span-6">
+                            <div class="col-span-10 w-full">
                                 <div class="card job-detail overflow-hidden">
-                                    <div>
+                                    {
+                                        /*<div>
                                         <div class="job-details-compnay-profile">
-                                            <img src="assets/images/featured-job/img-10.png" alt=""
-                                                class="img-fluid rounded-3 rounded-3" />
+                                            <img src={`${company.logo}`} alt=""
+                                                class=" h-5 w-5 rounded-full" />
                                         </div>
-                                    </div>
+                                    </div> */
+                                    }
 
 
-                                    <div class="card-body p-4">
+                                    <div class="w-full card-body p-4">
 
 
-                                        <div class="mt-4">
-                                            <h5 class="mb-3 text-2xl">A propos de l{"'"}entreprise </h5>
-                                            <div class="job-detail-desc">
-                                                <p class="text-muted mb-0">As a Product Designer, you will work within a
-                                                    Product Delivery Team fused with UX, engineering, product and data
-                                                    talent. You will help the team design beautiful interfaces that
-                                                    solve business challenges for our clients. We work with a number of
-                                                    Tier 1 banks on building web-based applications for AML, KYC and
-                                                    Sanctions List management workflows. This role is ideal if you are
-                                                    looking to segue your career into the FinTech or Big Data arenas.
-                                                </p>
-                                            </div>
-                                        </div>
+                                        {
+                                            company && company.description_entreprise ?
+                                                <div class="mt-4">
+                                                    <h5 class="mb-3 text-2xl">A propos de l{"'"}entreprise </h5>
+                                                    <div class="job-detail-desc">
+                                                        <p class="text-muted mb-0">
+                                                            {
+                                                                company.description_entreprise
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                :
+                                                <div class="py-10 w-full rounded-xl mt-4 bg-gray-300 animate-none">
+                                                </div>
+                                        }
+
 
 
                                     </div>
@@ -182,9 +249,13 @@ const CompanyDetailPage = () => {
                                     <h5 class="text-3xl ">Offres d{"'"}emplois</h5>
                                     <div class=" flex flex-row  justify-between items-center">
                                         <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
-                                        <Link to={`/${routing.job_post}`}>
+                                        {
+                                            typePERSON === typePersonConnected[0]?
+                                            <Link to={`/${routing.job_post}`}>
                                             <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
-                                        </Link>
+                                        </Link>:
+                                        null
+                                        }
                                     </div>
 
 
@@ -215,7 +286,7 @@ const CompanyDetailPage = () => {
                                                             </div>
 
                                                             <a href={`/${routing.job_edit}`}>
-                                                                <button onClick={() => {}}
+                                                                <button onClick={() => { }}
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
                                                                 </button>
                                                             </a>

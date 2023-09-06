@@ -138,7 +138,7 @@ export const EntrepriseConnexion = (email,password, redirect, toast) => {
                 );
                 
                 setTimeout(() => {
-                    redirect("/");
+                    redirect(`/${routing.company_details}`);
                 }, 3000);
 
             })
