@@ -47,7 +47,7 @@ router.post('/disconnect/:id/', AuthorizationMiddleware, async (req, res) => {
     const entrepriseId = req.params.id;
     const entrepriseExist = await EntrepriseModel.findOne({ _id: entrepriseId });
     if (!entrepriseExist) {
-      res.status(409).json({ message: "Deconnexion Impossible de se decconecter" })
+      return res.status(409).json({ message: "Deconnexion Impossible de se decconecter" })
     }
     entrepriseExist.token = "";
     entrepriseExist.is_active = false
