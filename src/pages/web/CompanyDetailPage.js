@@ -7,12 +7,14 @@ import { BsCalendarWeek, BsTelephone } from 'react-icons/bs'
 import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
 import { routing } from '../../utlis/routing';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
 import { useEffect } from 'react';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import { useState } from 'react';
+import moment from 'moment/moment';
+import { OffreGetAllById } from '../../action/api/offres/OffresAction';
 
 
 
@@ -21,36 +23,15 @@ const CompanyDetailPage = () => {
 
 
 
-    const Data = [
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
+    const  navigate =  useNavigate();
 
-    ]
+    const [offres, setoffres] = useState([]);
+    const [offres2, setoffres2] = useState([]);
+
+    const handleEditItem = (job)=>{
+        navigate(`/${routing.job_edit}`,{state:{job}})
+    }
+
 
     var idCompany = getAndCheckLocalStorage(localvalue.recruteurID);
     const [typePERSON, settypePERSON] = useState();
@@ -58,6 +39,7 @@ const CompanyDetailPage = () => {
     const [company, setcompany] = useState();
     useEffect(() => {
         EntrepriseGetById(idCompany, setcompany);
+        OffreGetAllById(idCompany,setoffres,setoffres2);
     }, [])
 
 
@@ -73,10 +55,10 @@ const CompanyDetailPage = () => {
                     <div class="container-fluid px-7 ">
                         <div class="flex  flex-col sm:flex-col md:flex-row lg:flex-row  justify-between">
 
-                        
 
 
-                            <div class="w-full col-span-2 px-5">
+
+                            <div class="w-full col-span-4 px-5">
 
                                 <div class="side-bar ms-lg-4">
                                     <div class="card border rounded-lg  shadow-sm job-overview">
@@ -186,14 +168,14 @@ const CompanyDetailPage = () => {
 
                                     {
                                         company && company.maps_entreprise ?
-                                        <div class="mt-4">
-                                        <h6 class="fs-16 mb-3 text-2xl">Carte</h6>
-                                        <iframe
-                                            src={`${company.maps_entreprise}`}
-                                            style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
-                                    </div>:
-                                    <div class="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
-                                    </div>
+                                            <div class="mt-4">
+                                                <h6 class="fs-16 mb-3 text-2xl">Carte</h6>
+                                                <iframe
+                                                    src={`${company.maps_entreprise}`}
+                                                    style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
+                                            </div> :
+                                            <div class="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
+                                            </div>
                                     }
                                 </div>
 
@@ -206,7 +188,7 @@ const CompanyDetailPage = () => {
 
 
 
-                            <div class="col-span-10 w-full">
+                            <div class="col-span-8 w-full">
                                 <div class="card job-detail overflow-hidden">
                                     {
                                         /*<div>
@@ -218,7 +200,7 @@ const CompanyDetailPage = () => {
                                     }
 
 
-                                    <div class="w-full card-body p-4">
+                                    <div class="w-full card-body p-4 shadow-lg rounded-lg border">
 
 
                                         {
@@ -243,75 +225,60 @@ const CompanyDetailPage = () => {
                                     </div>
                                 </div>
 
-                                <div class="mt-4">
+                                <div class=" px-2 py-4 shadow-sm mt-5 border">
                                     <h5 class="text-3xl ">Offres d{"'"}emplois</h5>
                                     <div class=" flex flex-row  justify-between items-center">
                                         <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
                                         {
-                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0]?
-                                            <Link to={`/${routing.job_post}`}>
-                                            <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
-                                        </Link>:
-                                        null
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                                <Link to={`/${routing.job_post}`}>
+                                                    <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
+                                                </Link> :
+                                                null
                                         }
                                     </div>
 
 
                                     <main class="flex  w-full items-center mt-10 justify-center bg-white">
-
-
                                         <div className=" flex gap-5 justify-center flex-wrap items-center py-3">
                                             {
-                                                Data.map((item) => {
+                                                offres.map((item) => {
                                                     return (
                                                         <div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-
                                                             <span className="flex justify-between items-center gap-4">
-                                                                <h1 className="text-[16px] font-semibold text-textColor ">{item.title}</h1>
-                                                                <span className="flex items-center gap-1 text-gray-400"><BiTimeFive />{item.time}</span>
+                                                                <h1 className="text-[16px] font-semibold text-textColor ">{item.full_name}</h1>
+                                                                <span className="flex items-center gap-1 text-gray-400"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
                                                             </span>
-
                                                             <h6 className="text-gray-400">{item.location}</h6>
                                                             <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
-                                                                {item.desc}
+                                                                {item.description_entreprise}
                                                             </p>
-
                                                             <div className="company flex items-center gap-2">
-                                                                <img src={item.image} alt="Company Logo" className="w-[10%]" />
+                                                                <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
                                                                 <span className="text-[14px] py-[1rem] block ">
-                                                                    {item.company}
+                                                                        {item.company}
                                                                 </span>
                                                             </div>
-
-                                                            <a href={`/${routing.job_edit}`}>
-                                                                <button onClick={() => { }}
+                                                            <div >
+                                                                <button onClick={()=>{handleEditItem(item)}}
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
                                                                 </button>
-                                                            </a>
-
+                                                            </div>
                                                             <a href={`/${routing.job_details}`}>
                                                                 <button
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
                                                                 </button>
                                                             </a>
                                                         </div>
-                                                    );
+                                                    )
                                                 })}
                                         </div>
                                     </main>
-
-
-
-
-
-
                                 </div>
-
                                 <div class="text-center mt-4">
-                                    <a href="job-list.html" class="primary-link form-text">Voire plus  <i
+                                    <a href="#" class="btn btn bg-blue-300 btn-sm py-1 px-2 text-md text-white  primary-link form-text">Voire plus  <i
                                         class="mdi mdi-arrow-right"></i></a>
                                 </div>
-
                             </div>
 
 

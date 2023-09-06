@@ -1,17 +1,121 @@
 import React, { useState } from 'react'
 import { useStateManager } from 'react-select';
+import { salaires_School } from '../../utlis/options/candidatOption';
+import { typeContrats } from '../../utlis/options/optionDivers';
+import { secteursActivite } from '../../utlis/options/employeurOption';
+import axios from 'axios';
+import { baseurl } from '../../utlis/url/baseurl';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { OffreCreate } from '../../action/api/offres/OffresAction';
 
 const JobPostPage = () => {
 
-    const [entreprise, setentreprise] = useState();
-    const [email, setemail] = useState();
-    const [logo, setlogo] = useState();
 
-    const [title, settitle] = useState();
-    const [category, setcategory] = useState();
-    const [contrat, setcontrat] = useState();
-    const [salaire, setsalaire] = useState();
-    const [description, setdescription] = useState();
+    const [company, setCompany] = useState('');
+    const [title, setTitle] = useState('');
+    const [email, setEmail] = useState();
+    const [telephone, setTelephone] = useState();
+    const [salaire, setSalaire] = useState();
+    const [coverPicture, setCoverPicture] = useState('https://lespagesvertesci.net/userfiles/image/f38072ef.jpg');
+    const [title_post, setTitlePost] = useState();
+    const [areaOffre, setAreaOffre] = useState();
+    const [expireDispobility, setExpireDispobility] = useState();
+    const [typeContrat, setTypeContrat] = useState();
+    const [description, setDescription] = useState();
+    const [addresse, setAddresse] = useState();
+
+    const [candidats, setCandidats] = useState([]);
+
+
+
+
+
+
+
+
+    // Upload de photo
+
+    // Uploader photo de profile
+    const [LoadingPhoto, setLoadingPhoto] = useState(false);
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
+            fileReader.onerror = (error) => { reject(error); };
+        });
+    }
+    function uploadSinglePhoto(base64) {
+        setLoadingPhoto(true);
+        axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
+            .then((res) => {
+                setCoverPicture(res.data);
+                toast.dark("Photo télécharger avec succès")
+            })
+            .then(() => setLoadingPhoto(false))
+            .catch(() => {
+                console.log("Photo ,on uploder"); toast.error("Photo non télécharger !")
+                setLoadingPhoto(false);
+            });
+    }
+    const HandleFileInputChangePhoto = async (event) => {
+        const files = event.target.files;
+        console.log(files.length);
+        if (files.length === 1) {
+            const base64 = await convertBase64(files[0]);
+            uploadSinglePhoto(base64); return;
+        }
+        const base64s = [];
+        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+    };
+
+
+
+
+    // toast de erreur validation de champs
+    const showErrorToast = (message) => {
+        toast.info(message, {
+            position: "top-right",
+            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
+
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    const handleSumit = (event)=>{
+        event.preventDefault();
+
+        const requiredFields = [
+            // boc 1
+            "company","title","email","telephone",
+            "salaire","coverPicture","areaOffre",
+            "typeContrat","description","addresse"
+        ];
+
+        // Vérifiez chaque champ requis.
+        for (const field of requiredFields) {
+            if (!eval(field)) {
+                showErrorToast(
+                    //`${field.replace("_", " ")} requis !`
+                    `Champs avec * sont obligatoires`
+                );
+                return; // Arrêtez le traitement si un champ est vide.
+            }
+        }
+
+        dispatch(OffreCreate(company,title,email,telephone,
+            salaire,coverPicture,title_post,areaOffre,expireDispobility,
+            typeContrat,description,addresse,toast
+            )
+        )
+    }
+
+
 
     return (
 
@@ -52,7 +156,7 @@ const JobPostPage = () => {
                                     </div>
 
 
-                                    <form class="caact">
+                                    <form class="caact"  onSubmit={handleSumit}>
                                         <div class="c5cvj cmw6a cfqhd">
 
 
@@ -61,22 +165,31 @@ const JobPostPage = () => {
                                                 <div class="chva6">
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="name">Nom entreprise<span class="ctgjb">*</span></label>
-                                                        <input id="name" class="cvac0 coz82" type="text" required={true} placeholder="" />
+                                                        <input id="name" value={company} onChange={(e) => { setCompany(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="" />
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Email <span class="ctgjb">*</span></label>
-                                                        <input id="email" class="cvac0 coz82" type="email" required={true} />
+                                                        <input id="email" value={email} onChange={(e) => { setEmail(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                    </div>
+                                                    <div>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
+                                                        <input id="email" value={telephone} onChange={(e) => { setTelephone(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                    </div>
+
+                                                    <div>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
+                                                        <input id="email" value={addresse} onChange={(e) => { setAddresse(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise <span class="clvg0">(optional)</span></label>
                                                         <div class="czlxp crp1m">
                                                             <div class="cyzlo cy9uk">
                                                                 <img class="cuiwd c59v3 csm78 ciwnj c7htb cf986"
-                                                                    src="https://lespagesvertesci.net/userfiles/image/f38072ef.jpg"
+                                                                    src={`${coverPicture}`}
                                                                     alt="Upload" />
                                                             </div>
                                                             <div>
-                                                                <input id="file" type="file" class="cy5z7 cgbhm cudou ch9ub c5c82 cjgxk ck6se clvg0 cp7ke cgtgg c04ox c94my caxg1 cvzfu cjhjm c9csv coz82 cfkm3" />
+                                                                <input id="file" type="file" accept='.JPG,.PNG,.JPEG' onChange={HandleFileInputChangePhoto} class="cy5z7 cgbhm cudou ch9ub c5c82 cjgxk ck6se clvg0 cp7ke cgtgg c04ox c94my caxg1 cvzfu cjhjm c9csv coz82 cfkm3" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -89,26 +202,32 @@ const JobPostPage = () => {
                                                 <div class="chva6">
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="position">Titre du poste <span class="ctgjb">*</span></label>
-                                                        <input id="position" class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
+                                                        <input id="position" value={title} onChange={(e) => { setTitle(e.target.value) }} class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
                                                     </div>
                                                     <div>
-                                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Categorie du poste<span class="cvmpf">*</span></label>
-                                                        <select id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                            <option>Programming</option>
-                                                            <option>Design</option>
-                                                            <option>Management / Finance</option>
-                                                            <option>Customer Support</option>
-                                                            <option>Sales / Marketing</option>
+                                                        <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Catégorie du poste<span class="cvmpf">*</span></label>
+                                                        <select onChange={(e) => { setAreaOffre(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
+                                                            <option >-- Choix Categorie --</option>
+                                                            {
+                                                                secteursActivite.map((item) => {
+                                                                    return (
+                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                    )
+                                                                })
+                                                            }
                                                         </select>
                                                     </div>
                                                     <div>
                                                         <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Disponibilté / contrat <span class="cvmpf">*</span></label>
-                                                        <select id="commitment" class="c033a c9csv coz82 cxa4q" required="">
-                                                            <option>Full-time</option>
-                                                            <option>Part-time</option>
-                                                            <option>Intership</option>
-                                                            <option>Contract / Freelance</option>
-                                                            <option>Co-founder</option>
+                                                        <select onChange={(e) => { setTypeContrat(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
+                                                            <option >-- Choix de Disponilité --</option>
+                                                            {
+                                                                typeContrats.map((item) => {
+                                                                    return (
+                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                    )
+                                                                })
+                                                            }
                                                         </select>
                                                     </div>
                                                     <div>
@@ -116,8 +235,17 @@ const JobPostPage = () => {
                                                         <textarea id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                                     </div>
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="salary">Salaire <span class="clvg0">(optional)</span></label>
-                                                        <input id="salary" class="cvac0 coz82" type="text" />
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="salary">Salaire (FCFA/ mois) <span class="clvg0">(optional)</span></label>
+                                                        <select onChange={(e) => { salaire(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
+                                                            <option >-- Choix du Salaire --</option>
+                                                            {
+                                                                salaires_School.map((item) => {
+                                                                    return (
+                                                                        <option selected={salaire == item ? true : false} value={item}>{item}</option>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </select>
                                                         <div class="clvg0 cwe8x cqaaz c8nfh">Example: “100,000 - $170,000 USD”</div>
                                                     </div>
                                                 </div>
@@ -165,7 +293,12 @@ const JobPostPage = () => {
                                                 </div> */
                                                 }
                                                 <div class="cq38v">
-                                                    <button class="cd99b croe6 cday3 c8dh7 coz82 ct2sf">Publier</button>
+                                                {
+                                                    loading ? 
+                                                    <p class="text-gray-500 animate-pulse"> Publier</p>
+                                                    :
+                                                    <button type='submit' class=" bg-blue-500 cd99b croe6 cday3 c8dh7 coz82 ct2sf">Appliquer</button>
+                                                }
                                                 </div>
                                                 <div class="cixlf">
                                                     <div class="clvg0 cwe8x">By clicking pay you agree to our <a class="c5xyh" href="#0">Terms of Service</a> and <a class="c5xyh" href="#0">Privacy Policy</a>.</div>
