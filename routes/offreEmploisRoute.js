@@ -2,6 +2,7 @@
 
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const CandidatModel = require("../models/CandidatModel");
+const EntrepriseModel = require("../models/EntrepriseModel");
 const OffreEmploiModel = require("../models/OffreEmploiModel");
 const Envoyer_Notification = require("../utils/NotificationSend");
 const router = require("express").Router();
@@ -105,7 +106,14 @@ router.get('/get_offre/:id', AuthorizationMiddleware, async (req, res) => {
     try {
         const offreId = req.params.id;
         const offre = await OffreEmploiModel.findById({ _id: offreId });
-        return res.status(200).json({ data: offre , message:"Offre recupérer avce succès"});
+        if(!offre){
+            return res.status(402).json({message:"Offre not found"});
+        }
+        const entrepriseExist = await EntrepriseModel.findById({_id:offre.idEntreprise});
+        if(!entrepriseExist){
+            return res.status(406).json({message:"Entreprise not found"});
+        }
+        return res.status(200).json({ data: offre ,entreprise:entrepriseExist, message:"Offre recupérer avce succès"});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });

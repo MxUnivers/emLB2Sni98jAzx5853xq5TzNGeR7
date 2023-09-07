@@ -12,7 +12,7 @@ const offreEmploiSchema = new mongoose.Schema(
     telephone: { type: String, required: false },
     salaire: { type: String, required: false },
     coverPicture: { type: String, required: false },
-    title_post: { type: String, required: false },
+    competences: [{type:Object }],
     areaOffre: { type: String, required: false },
     expireDispobility: { type: String, required: false },
     typeContrat: { type: String, required: false },
