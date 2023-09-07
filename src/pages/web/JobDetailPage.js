@@ -13,6 +13,8 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import JobEditPage from './JobEditPage';
+import { typeContrats } from '../../utlis/options/optionDivers';
+import moment from 'moment/moment';
 
 const JobDetailPage = () => {
 
@@ -43,7 +45,7 @@ const JobDetailPage = () => {
             EntrepriseGetById(idEntreprise, setentreprise)
         }
 
-    }, [jobDetail])
+    }, [])
 
     return (
 
@@ -330,11 +332,10 @@ const JobDetailPage = () => {
 
                                 <div class="side-bar ms-lg-4">
                                     <div class="card border rounded-lg  shadow-sm job-overview">
-                                        <div class="card-body p-4">
-                                            <h6 class="fs-17">Job Overview</h6>
+                                        <div class="card-body p-4 flex flex-col justify-center ">
                                             {
                                                 entreprise && entreprise.logo && entreprise.full_name ?
-                                                    <Link to={`/${routing.company_details}`} class="w-full">
+                                                    <Link to={`/${routing.company_details}`} class="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
                                                         <div class="flex flex-col justify-center space-y-2">
                                                             <img src={`${entreprise.logo}`} alt=""
                                                                 class="img-fluid  rounded-3xl h-12 w-12" />
@@ -351,42 +352,47 @@ const JobDetailPage = () => {
                                                     <div class="d-flex mt-4">
                                                         <i class="uil uil-user icon bg-primary-subtle text-primary"></i>
                                                         <div class="ms-3 flex ">
-                                                            <h6 class="fs-14 mb-2">Titre </h6>
-                                                            <p class="text-muted mb-0 text-xl ">Product Designer</p>
+                                                            <h6 class="fs-14 mb-2"></h6>
+                                                            {
+                                                                jobDetail && jobDetail.title ?
+                                                                    <p class="text-muted mb-0 text-xl ">{jobDetail.title}</p> :
+                                                                    <div class="w-full h-6 rounded-xl bg-gray-200 animate-pulse " />
+                                                            }
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex ">
-                                                            <h6 class="fs-14 mb-2">Experience </h6>
-                                                            <p class="text-muted mb-0"> 0-3 Years</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Localisation </h6>
-                                                            <p class="text-muted mb-0"> New york</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Salaire</h6>
-                                                            <p class="text-muted mb-0">$35k - $45k</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
+                                                {
+                                                    jobDetail && jobDetail.addresse ?
+                                                        <li>
+                                                            <div class="d-flex mt-4">
+                                                                <i
+                                                                    class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3 flex space-x-2">
+                                                                    <h6 class="fs-14 mb-2">Lieu :  </h6>
+                                                                    <p class="text-muted mb-0">{jobDetail.addresse} </p>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li>
+                                                            <div class="bg-gray-200 rounded-xl animate-pulse w-full h-7" />
+                                                        </li>
+                                                }
+                                                {
+                                                    jobDetail && jobDetail.salaire ?
+                                                        <li>
+                                                            <div class="d-flex mt-4">
+                                                                <i
+                                                                    class="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3 flex space-x-2">
+                                                                    <h6 class="fs-14 mb-2">Salaire / mois (Fcfa) : </h6>
+                                                                    <p class="text-muted mb-0">{jobDetail.salaire}</p>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li><div class="bg-gray-200 rounded-xl animate-pulse w-full h-7" /></li>
+                                                }
+                                                {
+                                                    /*<li>
                                                     <div class="d-flex mt-4">
                                                         <i
                                                             class="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
@@ -395,90 +401,69 @@ const JobDetailPage = () => {
                                                             <p class="text-muted mb-0">Bachelor Degree</p>
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4 flex space-x-2">
-                                                        <i
-                                                            class="uil uil-building icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3">
-                                                            <h6 class="fs-14 mb-2">Industry</h6>
-                                                            <p class="text-muted mb-0">Private</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex mt-4">
-                                                        <i
-                                                            class="uil uil-history icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Date Posted</h6>
-                                                            <p class="text-muted mb-0">Posted 2 hrs ago</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                </li> */
+                                                }
+                                                {
+                                                    jobDetail && jobDetail.typeContrat ?
+                                                        <li>
+                                                            <div class="d-flex mt-4 flex space-x-2">
+                                                                <i
+                                                                    class="uil uil-building icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3">
+                                                                    <h6 class="fs-14 mb-2">Type Comptrat</h6>
+                                                                    <div class={`text-muted mb-0 bg-green-500 rounded-xl text-center py-2 text-white`}>{jobDetail.typeContrat}</div>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li>
+                                                            <div class="bg-gray-200 animate-pulse w-full h-7 rounded-xl" />
+                                                        </li>
+                                                }
+                                                {
+                                                    jobDetail && jobDetail.createdAt ?
+                                                        <li>
+                                                            <div class="d-flex mt-4">
+                                                                <i
+                                                                    class="uil uil-history icon bg-primary-subtle text-primary"></i>
+                                                                <div class="ms-3 flex space-x-2">
+                                                                    <h6 class="fs-14 mb-2">Date Posté</h6>
+                                                                    <p class="text-muted mb-0">{moment(jobDetail.createdAt).format("DD/MM/YYYY à HH:MM")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </li> :
+                                                        <li>
+                                                            <div class="h-7 rounded-lg w-full bg-gray-200 animate-pulse" />
+                                                        </li>
+                                                }
                                             </ul>
                                             <div class="mt-3 flex space-x-2 ">
                                                 <button
-                                                    class="btn btn-primary btn-hover w-100 mt-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800">Posutluer <i
-                                                        class="uil uil-arrow-right"></i></button>
-                                                <button
-                                                    class="btn btn-hover w-100 mt-2 bg-gray-100 hover:bg-gray-50 active:bg-gray-200"><i
-                                                        class="uil uil-bookmark"></i> Ajouter Bookmark</button>
+                                                    class="btn btn-hover w-full mt-2 bg-gray-100 hover:bg-gray-50 active:bg-gray-200"><i
+                                                        class="uil uil-bookmark"></i> Postuler</button>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="card company-profile mt-4">
                                         <div class="card-body p-4">
-                                            <div class="text-center">
-                                                <img src="assets/images/featured-job/img-02.png" alt=""
-                                                    class="img-fluid rounded-3" />
+                                            {
+                                                entreprise && entreprise.full_name && entreprise.logo ?
+                                                    <div class="text-center">
+                                                        <img src="assets/images/featured-job/img-02.png" alt=""
+                                                            class="img-fluid rounded-3" />
 
-                                                <div class="mt-4 flex space-x-2">
-                                                    <h6 class="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
-                                                    <p class="text-muted">Since July 2017</p>
-                                                </div>
-                                            </div>
-                                            <ul class="list-unstyled mt-4">
-                                                <li>
-                                                    <div class="d-flex">
-                                                        <i class="uil uil-phone-volume text-primary fs-4"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Phone</h6>
-                                                            <p class="text-muted fs-14 mb-0">+589 560 56555</p>
+                                                        <div class="mt-4 flex space-x-2">
+                                                            <h6 class="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
+                                                            <p class="text-muted">Since July 2017</p>
                                                         </div>
+                                                    </div> :
+                                                    <div class="flex flex-col w-full  justify-center">
+                                                        <div class="bg-gray-200 rounded-full h-20 w-20 my-2  " />
+                                                        <div class="bg-gray-200 w-full h-7  my-2 " />
                                                     </div>
-                                                </li>
-                                                <li class="mt-3">
-                                                    <div class="d-flex">
-                                                        <i class="uil uil-envelope text-primary fs-4"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Email</h6>
-                                                            <p class="text-muted fs-14 mb-0">pixltechnology@info.com</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-3">
-                                                    <div class="d-flex">
-                                                        <i class="uil uil-globe text-primary fs-4"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Site web </h6>
-                                                            <p class="text-muted fs-14 text-break mb-0">
-                                                                www.Jobcytechnology.pvt.ltd.com</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-3">
-                                                    <div class="d-flex">
-                                                        <i class="uil uil-map-marker text-primary fs-4"></i>
-                                                        <div class="ms-3 flex space-x-2">
-                                                            <h6 class="fs-14 mb-2">Localisation</h6>
-                                                            <p class="text-muted fs-14 mb-0">Oakridge Lane Richardson.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            }
+                                            <ul class="list-unstyled mt-4 w-full">
+                                                </ul>
                                             <div class="mt-4">
                                                 <a href="company-details.html"
                                                     class="btn btn-primary btn-hover w-100 rounded"><i
