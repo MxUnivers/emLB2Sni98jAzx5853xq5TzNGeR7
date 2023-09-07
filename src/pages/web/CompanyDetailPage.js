@@ -34,7 +34,6 @@ const CompanyDetailPage = () => {
     const handleDetailItem = (job)=>{
         setWithExpiration(localvalue.JobID,job._id,dureeDeVie);
         navigate(`/${routing.job_details}`,{state:{job}});
-
     }
 
 
@@ -43,8 +42,9 @@ const CompanyDetailPage = () => {
 
     const [company, setcompany] = useState();
     useEffect(() => {
-        EntrepriseGetById(idCompany, setcompany);
+        
         OffreGetAllById(idCompany,setoffres,setoffres2);
+        EntrepriseGetById(idCompany, setcompany);
     }, [])
 
 
@@ -235,7 +235,8 @@ const CompanyDetailPage = () => {
                                     <div class=" flex flex-row  justify-between items-center">
                                         <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
                                         {
-                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] &&
+                                             idCompany==  getAndCheckLocalStorage(localvalue.recruteurID) ?
                                                 <Link to={`/${routing.job_post}`}>
                                                     <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
                                                 </Link> :

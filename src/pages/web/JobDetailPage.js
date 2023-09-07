@@ -3,13 +3,13 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { BsCalendarWeek, BsTelephone } from 'react-icons/bs'
 import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import { useEffect } from 'react';
-import { OffreGetById } from '../../action/api/offres/OffresAction';
+import { OffreGetAll, OffreGetById } from '../../action/api/offres/OffresAction';
 import { useState } from 'react';
-import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
-import { localvalue } from '../../utlis/storage/localvalue';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import JobEditPage from './JobEditPage';
@@ -17,6 +17,8 @@ import { typeContrats } from '../../utlis/options/optionDivers';
 import moment from 'moment/moment';
 
 const JobDetailPage = () => {
+
+    const navigate = useNavigate();
 
     var jobId = getAndCheckLocalStorage(localvalue.JobID);
 
@@ -35,17 +37,22 @@ const JobDetailPage = () => {
 
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
-    const [idEntreprise, setidEntreprise] = useState();
+    //const [idEntreprise, setidEntreprise] = useState();
+    const [offres, setoffres] = useState([])
+    const [offres2, setoffres2] = useState([])
+
 
 
     useEffect(() => {
-        OffreGetById(jobId, setjobDetail, setisLoading);
-        if (job) {
-            setidEntreprise(job.idEntreprise);
-            EntrepriseGetById(idEntreprise, setentreprise)
-        }
+        OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
+        OffreGetAll(setoffres,setoffres2);
+    }, []);
 
-    }, [])
+    // handle
+    const handleCompanyDetail = (company) => {
+        setWithExpiration(localvalue.recruteurID, company._id, dureeDeVie)
+        navigate(`/${routing.company_details}`);
+    }
 
     return (
 
@@ -252,17 +259,19 @@ const JobDetailPage = () => {
                                 </div>
 
                                 <div class="mt-4">
-                                    <h5 class="text-3xl ">Autres Jobs</h5>
+                                    <h5 class="text-3xl ">Autres Jobs </h5>
 
-                                    <div class="job-box card mt-4 flex ">
+                                    {
+                                        offres.map((item)=>{
+                                            return(
+                                                <div class="job-box card mt-4 flex ">
 
                                         <div class="p-4">
 
-
                                             <div class="row flex justify-between space-x-2">
                                                 <div class="col-lg-1">
-                                                    <img src="assets/images/featured-job/img-01.png" alt=""
-                                                        class="img-fluid rounded-3" />
+                                                    <img src={item.coverPicture} alt=""
+                                                        class="img-fluid h-10 w-10 rounded-xl" />
                                                 </div>
                                                 <div class="col-lg-10">
                                                     <div class="mt-3 mt-lg-0">
@@ -312,6 +321,9 @@ const JobDetailPage = () => {
 
                                         </div>
                                     </div>
+                                            )
+                                        })
+                                    }
 
 
 
@@ -463,12 +475,20 @@ const JobDetailPage = () => {
                                                     </div>
                                             }
                                             <ul class="list-unstyled mt-4 w-full">
-                                                </ul>
-                                            <div class="mt-4">
-                                                <a href="company-details.html"
-                                                    class="btn btn-primary btn-hover w-100 rounded"><i
-                                                        class="mdi mdi-eye"></i> View Profile</a>
-                                            </div>
+                                            </ul>
+                                            {
+                                                entreprise && entreprise._id?
+                                                <div class="mt-4">
+                                                <a href={`/${routing.company_details}`}
+                                                    onClick={() => {
+                                                        setWithExpiration(entreprise._id, localvalue.recruteurID, dureeDeVie)
+                                                    }}
+                                                    class="btn btn-primary btn-hover w-100 rounded"><i class="mdi mdi-eye"></i>
+                                                    Profile
+                                                </a>
+                                            </div>:
+                                            null
+                                            }
                                         </div>
                                     </div>
 

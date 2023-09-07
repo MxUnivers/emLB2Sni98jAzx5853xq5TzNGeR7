@@ -187,7 +187,7 @@ export const OffreGetAll = async ( setState, setState2) => {
 
 
 // 
-export const OffreGetById = async (id, setState,setisLoading) => {
+export const OffreGetById = async (id, setState,setisLoading,setentreprise) => {
 
     
     setisLoading(true);
@@ -202,6 +202,7 @@ export const OffreGetById = async (id, setState,setisLoading) => {
             .then((response) => {
                 setisLoading(false);
                 setState(response.data.data);
+                setentreprise(response.data.entreprise)
             })
             .catch((error) => {
                 setisLoading(false);
