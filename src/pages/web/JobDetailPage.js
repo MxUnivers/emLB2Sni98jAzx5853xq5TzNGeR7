@@ -45,7 +45,7 @@ const JobDetailPage = () => {
 
     useEffect(() => {
         OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
-        OffreGetAll(setoffres,setoffres2);
+        OffreGetAll(setoffres, setoffres2);
     }, []);
 
     // handle
@@ -237,22 +237,35 @@ const JobDetailPage = () => {
 
 
                                         <div class="mt-4 pt-3">
-                                            <ul class="list-inline mb-0 inline-flex">
+                                            <ul class="list-inline mb-0  flex flex-wrap space-x-2">
                                                 <li class="list-inline-item mt-1">
-                                                    Share this job:
+                                                    Reseaux sociaux 
                                                 </li>
-                                                <li class="list-inline-item mt-1">
-                                                    <a href="javascript:void(0)" class="btn btn-primary bg-blue-700 text-white btn-hover"><i
-                                                        class="uil uil-facebook-f"></i> Facebook</a>
-                                                </li>
-                                                <li class="list-inline-item mt-1">
-                                                    <a href="javascript:void(0)" class="btn btn-danger bg-red-700 text-white btn-hover"><i
-                                                        class="uil uil-google"></i> Google+</a>
-                                                </li>
-                                                <li class="list-inline-item mt-1">
-                                                    <a href="javascript:void(0)" class="btn btn-success bg-white text-blue-700 btn-hover"><i
-                                                        class="uil uil-linkedin-alt"></i> linkedin</a>
-                                                </li>
+                                                {
+                                                    entreprise && entreprise.facebook_url && entreprise.facebook_url!=="#"  ?
+                                                        <li class="list-inline-item mt-1">
+                                                            <a href={`${entreprise.facebook_url}`} target="_blank" class="btn py-1 px-2 btn-primary bg-blue-700 text-white btn-hover"><i
+                                                                class="uil uil-facebook-f"></i> Facebook</a>
+                                                        </li> :
+                                                        null
+                                                }
+                                                {
+                                                    entreprise && entreprise.site_web && entreprise.site_web!=="#"  ?
+                                                        <li class="list-inline-item mt-1">
+                                                            <a href={`${entreprise.site_web}`} target="_blank" class="btn py-1 px-2 btn-danger bg-red-400 text-white btn-hover"><i
+                                                            class="uil uil-google"></i>site web + </a>
+                                                        </li> :
+                                                        null
+                                                }
+                                                {
+                                                    entreprise && entreprise.linkedin_url && entreprise.linkedin_url!=="#"  ?
+                                                        <li class="list-inline-item mt-1">
+                                                            <a href={`${entreprise.linkedin_url}`} target="_blank" class="btn py-1 px-2 btn-success bg-white text-blue-700 btn-hover"><i
+                                                            class="uil uil-linkedin-alt"></i>Linkedine </a>
+                                                        </li> :
+                                                        null
+                                                }
+                                                
                                             </ul>
                                         </div>
                                     </div>
@@ -262,65 +275,62 @@ const JobDetailPage = () => {
                                     <h5 class="text-3xl ">Autres Jobs </h5>
 
                                     {
-                                        offres.map((item)=>{
-                                            return(
-                                                <div class="job-box card mt-4 flex ">
+                                        offres.map((item) => {
+                                            return (
+                                                <div class="job-box card mt-4 flex flex-wrap justify-between rounded-lg border ">
 
-                                        <div class="p-4">
+                                                    <div class="p-4">
 
-                                            <div class="row flex justify-between space-x-2">
-                                                <div class="col-lg-1">
-                                                    <img src={item.coverPicture} alt=""
-                                                        class="img-fluid h-10 w-10 rounded-xl" />
-                                                </div>
-                                                <div class="col-lg-10">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <h5 class="fs-17 mb-1"><a href="job-details.html"
-                                                            class="text-dark">HTML Developer</a> <small
-                                                                class="text-muted fw-normal">(0-2 Yrs Exp.)</small></h5>
-                                                        <ul class="list-inline mb-0 flex ">
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0">Jobcy Technology
-                                                                    Pvt.Ltd</p>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0"><i
-                                                                    class="mdi mdi-map-marker"></i> California</p>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0"><i
-                                                                    class="uil uil-wallet"></i> $250 - $800 / month
-                                                                </p>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="mt-2">
-                                                            <span class="badge bg-success-subtle text-success mt-1">Full
-                                                                Time</span>
-                                                            <span
-                                                                class="badge bg-warning-subtle text-warning mt-1">Urgent</span>
-                                                            <span
-                                                                class="badge bg-info-subtle text-info mt-1">Private</span>
+                                                        <div class="row flex justify-between space-x-2">
+                                                            <div class="col-lg-1">
+                                                                <img src={item.coverPicture} alt=""
+                                                                    class="img-fluid h-10 w-10 rounded-xl" />
+                                                            </div>
+                                                            <div class="col-lg-10">
+                                                                <div class="mt-3 mt-lg-0">
+                                                                    <h5 class="fs-17 mb-1"><a href="job-details.html"
+                                                                        class="text-dark text-lg font-semibold">{item.title}</a></h5>
+                                                                    <ul class="list-inline mb-0 flex space-x-2">
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0">{item.company}</p>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0"><i
+                                                                                class="mdi mdi-map-marker"></i> {item.addresse}</p>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0"><i
+                                                                                class="uil uil-wallet"></i> {item.salaire} / mois
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="mt-2">
+                                                                        {
+                                                                            item.typeContrat ?
+                                                                                <span class="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
+                                                                                null
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="favorite-icon">
+                                                            <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="favorite-icon">
-                                                <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="p-3 bg-light">
-                                            <div class="flex justify-between items-center">
-                                                <div class="col-md-3">
-                                                    <div class="text-md-end btn ">
-                                                        <a href="javascript:void(0)" class="primary-link">voire details <i
-                                                            class="mdi mdi-chevron-double-right"></i></a>
+                                                    <div class="p-3 bg-light">
+                                                        <div class="flex justify-between items-center">
+                                                            <div class="col-md-3">
+                                                                <div class="text-md-end btn ">
+                                                                    <a href={`/${routing.job_list}`} class="primary-link">Details
+                                                                        <i class="mdi mdi-chevron-double-right"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
                                                     </div>
                                                 </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
                                             )
                                         })
                                     }
@@ -334,7 +344,7 @@ const JobDetailPage = () => {
                                 </div>
 
                                 <div class="text-center mt-4">
-                                    <a href="job-list.html" class="primary-link form-text">View More <i
+                                    <a href="job-list.html" class="primary-link form-text">Voire plus <i
                                         class="mdi mdi-arrow-right"></i></a>
                                 </div>
 
@@ -477,17 +487,17 @@ const JobDetailPage = () => {
                                             <ul class="list-unstyled mt-4 w-full">
                                             </ul>
                                             {
-                                                entreprise && entreprise._id?
-                                                <div class="mt-4">
-                                                <a href={`/${routing.company_details}`}
-                                                    onClick={() => {
-                                                        setWithExpiration(entreprise._id, localvalue.recruteurID, dureeDeVie)
-                                                    }}
-                                                    class="btn btn-primary btn-hover w-100 rounded"><i class="mdi mdi-eye"></i>
-                                                    Profile
-                                                </a>
-                                            </div>:
-                                            null
+                                                entreprise && entreprise._id ?
+                                                    <div class="mt-4">
+                                                        <a href={`/${routing.company_details}`}
+                                                            onClick={() => {
+                                                                setWithExpiration(entreprise._id, localvalue.recruteurID, dureeDeVie)
+                                                            }}
+                                                            class="btn btn-primary btn-hover w-100 rounded"><i class="mdi mdi-eye"></i>
+                                                            Profile
+                                                        </a>
+                                                    </div> :
+                                                    null
                                             }
                                         </div>
                                     </div>
