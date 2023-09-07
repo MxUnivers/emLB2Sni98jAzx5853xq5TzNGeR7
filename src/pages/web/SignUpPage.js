@@ -59,15 +59,7 @@ const SignUpPage = () => {
     // state pour les etapes d'inscription
     const [step, setStep] = useState(0);
     const nextStep = () => {
-        if(
-            step==0 && 
-            level_School=="" &&
-            title_post==""&&
-             selectedOptions==[]&&
-             selectedOptionsLangues==[]
-            ){
-                alert()
-        }
+        
         setStep(step + 1);
     };
     const prevStep = () => {

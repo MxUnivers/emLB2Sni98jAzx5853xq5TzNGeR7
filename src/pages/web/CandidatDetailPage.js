@@ -10,6 +10,11 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { useState } from 'react';
 import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { useEffect } from 'react';
+import Stepper from "react-stepper-horizontal";
+
+
+
+
 
 const CandidatDetailPage = () => {
 
@@ -23,6 +28,35 @@ const CandidatDetailPage = () => {
     useEffect(() => {
         CandidatGetById(idCandidat, setcandidat);
     }, [])
+
+
+
+    // handle Modal 
+    // position modal state
+    const [step, setStep] = useState(0);
+    const [stepEdit, setStepEdit] = useState(0);
+
+    const [modalApply, setModalApply] = useState(false);// 
+    const [modalApplyEdit, setModalApplyEdit] = useState(false);//
+
+    const handleShow = (item) => { setModalApply(true); setStep(item) }
+    const handleClose = (item) => { setModalApply(false) }
+
+
+    const handleShowEdit = (item) => { setModalApplyEdit(true); setStepEdit(item) }
+    const handleCloseEdit = (item) => { setModalApplyEdit(false) }
+
+
+
+
+    const steps = [
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+    ];
+
 
 
     return (
@@ -161,68 +195,91 @@ const CandidatDetailPage = () => {
                                             <div class="card-body p-4 border-top">
                                                 <h6 class=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
                                                 <div class="flex flex-wrap justify-center gap-2">
-                                                {
-                                                    candidat.competences.map((item) => {
-                                                        return (
-                                                            <div class="space-y-3 flex flex-wrap space-x-3">
-                                                                <span class="badge bg-blue-400 text-white py-2 px-3 rounded-lg mt-1">
-                                                                    {item.label}
-                                                                </span>
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
+                                                    {
+                                                        candidat.competences.map((item) => {
+                                                            return (
+                                                                <div class="space-y-3 flex flex-wrap space-x-3">
+                                                                    <span class="badge bg-blue-400 text-white py-1 text-xs px-3 rounded-lg mt-1">
+                                                                        {item.label}
+                                                                    </span>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
                                                 </div>
-                                            </div>:
-                                            <div  class="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
+                                            </div> :
+                                            <div class="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
                                     }
                                     <div class="candidate-contact-details card-body p-4 border-top">
                                         <h6 class="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
                                         <ul class="list-unstyled mb-0">
-                                            <li>
-                                                <div class="d-flex align-items-center mt-4">
-                                                    <div class="icon bg-primary-subtle text-primary flex-shrink-0">
-                                                        <i class="uil uil-envelope-alt"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6 class="fs-14 mb-1"><MdEmail /></h6>
-                                                        <p class="text-muted mb-0">gabrielpalmer@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex align-items-center mt-4">
-                                                    <div class="icon bg-primary-subtle text-primary flex-shrink-0">
-                                                        <i class="uil uil-map-marker"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6 class="fs-14 mb-1"><MdLocationCity /></h6>
-                                                        <p class="text-muted mb-0">Dodge City, Louisiana</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex align-items-center mt-4">
-                                                    <div class="icon bg-primary-subtle text-primary flex-shrink-0">
-                                                        <i class="uil uil-phone"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6 class="fs-14 mb-1"><MdPhone /></h6>
-                                                        <p class="text-muted mb-0">+1(452) 125-6789</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex align-items-center mt-4">
-                                                    <div class="icon bg-primary-subtle text-primary flex-shrink-0">
-                                                        <i class="uil uil-skype-alt"></i>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <h6 class="fs-14 mb-1"><MdWeb /> site web : </h6>
-                                                        <p class="text-muted mb-0">https://www.ok.com</p>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            {
+                                                candidat && candidat.email ?
+                                                    <li>
+                                                        <div class="d-flex align-items-center mt-4">
+
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-1"><MdEmail /></h6>
+                                                                <p class="text-muted mb-0">{candidat.email}</p>
+                                                            </div>
+                                                        </div>
+                                                    </li> :
+                                                    <li>
+                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                    </li>
+                                            }
+                                            {
+                                                candidat && candidat.pays && candidat.adresse ?
+                                                    <li>
+                                                        <div class="d-flex align-items-center mt-4">
+
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-1"><MdLocationCity /></h6>
+                                                                <p class="text-muted mb-0">{candidat.pays}, {candidat.adresse}</p>
+                                                            </div>
+                                                        </div>
+                                                    </li> :
+                                                    <li>
+                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                    </li>
+                                            }
+                                            {
+                                                candidat && candidat.telephone ?
+                                                    <li>
+                                                        <div class="d-flex align-items-center mt-4">
+
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-1"><MdPhone /></h6>
+                                                                <p class="text-muted mb-0">{candidat.telephone}</p>
+                                                            </div>
+                                                        </div>
+                                                    </li> :
+                                                    <li>
+                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                    </li>
+                                            }
+
+
+                                            {
+                                                candidat && candidat.telephone !== "#" ?
+                                                    <li>
+                                                        <div class="d-flex align-items-center mt-4">
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-1"><MdWeb /> site web :</h6>
+                                                                <a href={`${candidat.site_web}`} target="_blank" >
+                                                                    <p class="text-muted mb-0">{candidat.site_web}</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </li> :
+                                                    <li>
+                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulsemy-1 h-4 " />
+                                                    </li>
+                                            }
+
+
+
+
                                         </ul>
                                     </div>
                                 </div>
@@ -230,18 +287,22 @@ const CandidatDetailPage = () => {
 
                             <div class="col-lg-8">
                                 <div class="card candidate-details ms-lg-4 mt-4 mt-lg-0">
-                                    <div class="card-body p-4 candidate-personal-detail">
-                                        <div>
-                                            <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
-                                            <p class="text-muted mb-2">Very well thought out and articulate
-                                                communication. Clear milestones, deadlines and fast work. Patience.
-                                                Infinite patience. No
-                                                shortcuts. Even if the client is being careless. Some quick example text
-                                                to build on the card title and bulk the card{"'"}s content Moltin gives you
-                                                platform.</p>
-                                        </div>
-                                        <div class="candidate-education-details mt-4 pt-3">
-                                            <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
+                                    <div class="card-body p-4 candidate-personal-detail mx-1">
+                                        {
+                                            candidat && candidat.description ?
+                                                <div class="rounded-xl shadow-sm px-2 py-2 border ">
+                                                    <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
+                                                    <p class="text-muted mb-2">{candidat.description}</p>
+                                                </div> :
+                                                <div class="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
+                                        }
+                                        <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                            <div class="flex flex-row justify-between items-center">
+                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
+                                                <button onClick={()=>{handleShow(0)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                    + Education
+                                                </button>
+                                            </div>
                                             <div class="candidate-education-content mt-4 flex space-x-3">
                                                 <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
                                                     B
@@ -258,10 +319,14 @@ const CandidatDetailPage = () => {
                                             </div>
 
                                         </div>
-                                        <div class="candidate-education-details mt-4 pt-3">
-                                            <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Experiences</h6>
+                                        <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
-
+                                            <div class="flex flex-row justify-between items-center  ">
+                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
+                                                <button class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                    + experience
+                                                </button>
+                                            </div>
                                             <div class="candidate-education-content mt-4 flex space-x-3">
                                                 <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
                                                     W
@@ -278,8 +343,13 @@ const CandidatDetailPage = () => {
                                             </div>
 
                                         </div>
-                                        <div class="candidate-portfolio mt-4 pt-3">
-                                            <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projects</h6>
+                                        <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                            <div class="flex flex-row justify-between items-center">
+                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
+                                                <button class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                    + projet
+                                                </button>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-lg-4 mt-4">
                                                     <div class="candidate-portfolio-box card border-0 flex flex-row space-x-3">
@@ -378,6 +448,67 @@ const CandidatDetailPage = () => {
                         </div>
                     </div>
                 </section>
+
+
+
+
+
+
+
+
+
+
+
+                {
+                    modalApply &&
+                    (
+                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                            {
+                                step == 0 &&
+                                <div class="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 class="text-lg font-bold mb-4">Ajouter niveau Education</h2>
+                                    <form>
+                                        <div class="mb-4">
+                                            <label for="fullName" class="block font-bold mb-1">Titre</label>
+                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="message" class="block font-bold mb-1">Ecole</label>
+                                            <input class="w-full border border-gray-300 rounded px-3 py-2"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="resume" class="block font-bold mb-1">Description</label>
+                                            <textarea class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                                Ajouter
+                                            </button>
+                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            }
+                        </div>
+                    )
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
