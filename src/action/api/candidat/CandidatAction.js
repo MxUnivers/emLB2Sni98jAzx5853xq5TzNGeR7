@@ -155,30 +155,6 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre, toast) => {
     };
 }
 
-export const CandidatPostuleOneAnnonce = (idcandidat, idAnnonce, toast) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/candidat/get_candidat/${idcandidat}/postuler/${idAnnonce}/annonces`, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success('Votre candidature a été posté avec succèss !');
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error('Impossible de poster votre candidature !');
-            });
-    };
-}
-
-
-
 
 export const CandidatEditPassword = (id, data) => {
     return async (dispatch) => {
@@ -239,7 +215,7 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
                 setTimeout(() => {
-                    redirect("/");
+                    redirect(`/${routing.candidat_details}`);
                 }, 4000);
 
             })
@@ -250,6 +226,8 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
             });
     };
 }
+
+
 export const CandidatDeconnexion = async (id) => {
 
     let config = {

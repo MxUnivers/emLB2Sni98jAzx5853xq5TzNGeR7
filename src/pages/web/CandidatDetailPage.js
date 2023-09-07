@@ -1,23 +1,33 @@
 import React from 'react'
 import { BiEdit } from 'react-icons/bi';
-import { BsLinkedin, BsWhatsapp } from 'react-icons/bs';
+import { BsLinkedin, BsTwitter, BsWhatsapp } from 'react-icons/bs';
 import { CiFacebook } from 'react-icons/ci';
 import { MdEmail, MdLocationCity, MdPhone, MdWeb } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
+import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { localvalue } from '../../utlis/storage/localvalue';
+import { useState } from 'react';
+import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
+import { useEffect } from 'react';
 
 const CandidatDetailPage = () => {
+
+
+
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID)
+    var typeAccess = getAndCheckLocalStorage(localvalue.candidatTYPE);
+
+    const [candidat, setcandidat] = useState();
+
+    useEffect(() => {
+        CandidatGetById(idCandidat, setcandidat);
+    }, [])
+
+
     return (
         <div class="main-content">
-
             <div class="page-content">
-
-
-
-
-
-
-
                 <section class="section mt-28 mb-36">
                     <div class=" px-5 container-fluid">
                         <div class="row lg:flex md:lg:flex   lg:justify-between">
@@ -25,36 +35,71 @@ const CandidatDetailPage = () => {
                                 <div class="card border bg-white shadow rounded-lg">
                                     <div class="card-body p-4 py-5  px-5">
                                         <div class="border-b flex flex-col justify-center items-center">
-                                            <img src="assets/images/user/img-01.jpg" alt=""
-                                                class="avatar-lg rounded-full  h-32 w-32" />
-                                            <h6 class="fs-18 mb-0 mt-4 text-center textxl font-semibold text-gray-600">Gabriel Palmer</h6>
-                                            <p class="text-muted mb-4 text-center">Creative Designer</p>
+                                            {
+                                                candidat && candidat.coverPicture ?
+                                                    <img src={candidat.coverPicture} alt=""
+                                                        class="avatar-lg rounded-full  h-32 w-32" /> :
+                                                    <div class="h-32 w-32 rounded-full bg-gray-200 animate-pulse" />
+                                            }
+                                            {
+                                                candidat && candidat.firstname && candidat.lastname ?
+                                                    <h6 class="fs-18 mb-0 mt-4 text-center textxl font-semibold text-gray-600">{
+                                                        `${candidat.firstname} ${candidat.lastname}`
+                                                    }</h6> :
+                                                    <div class="my-2 bg-gray-200 animate-pulse w-full px-3 h-5 rounded-lg " />
+                                            }
+                                            {
+                                                candidat && candidat.title_post ?
+                                                    <p class="text-muted mb-4 text-center">{candidat.title_post}</p> :
+                                                    <div class="bg-gray-200 animate my-1 h-6 w-full px-3 rounded-lg" />
+                                            }
 
 
                                             <ul class=" inline-flex mb-5 space-x-4">
 
-                                                <li class="inline-flex">
-                                                    <a href="javascript:void(0)" class="social-link">
-                                                        <CiFacebook class="h-7 w-7" />
-                                                    </a>
-                                                </li>
-                                                <li class="inline-flex">
-                                                    <a href="javascript:void(0)" class="social-link">
-                                                        <BsWhatsapp class="h-7 w-7" />
-                                                    </a>
-                                                </li>
-                                                <li class="inline-flex">
-                                                    <a href="javascript:void(0)" class="social-link">
-                                                        <BsLinkedin class="h-7 w-7" />
-                                                    </a>
-                                                </li>
+                                                {candidat && candidat.facebook_url ?
+                                                    <li class="inline-flex">
+                                                        <a href={candidat.facebook_url} target="_blank" class="social-link">
+                                                            <CiFacebook class="h-7 w-7" />
+                                                        </a>
+                                                    </li> :
+                                                    <li class="inline-flex">
+                                                        <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                    </li>
+                                                }
+                                                {
+                                                    candidat && candidat.twitter_url ?
+                                                        <li class="inline-flex">
+                                                            <a href={candidat.twitter_url} target="_blank" class="social-link">
+                                                                <BsTwitter class="h-7 w-7" />
+                                                            </a>
+                                                        </li> :
+                                                        <li class="inline-flex">
+                                                            <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                        </li>
+                                                }
+                                                {
+                                                    candidat && candidat.linkedin_url ?
+                                                        <li class="inline-flex">
+                                                            <a href={candidat.linkedin_url} target="_blank" class="social-link">
+                                                                <BsLinkedin class="h-7 w-7" />
+                                                            </a>
+                                                        </li> :
+                                                        <li class="inline-flex">
+                                                            <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                        </li>
+                                                }
                                             </ul>
 
                                             <div class="mt-5 mb-5 flex justify-center">
-                                                <button class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
-                                                    <BiEdit />
-                                                    <span>Mettre à jour</span>
-                                                </button>
+                                                {
+                                                    candidat && candidat._id ?
+                                                        <button class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
+                                                            <BiEdit />
+                                                            <span>Mettre à jour</span>
+                                                        </button> :
+                                                        null
+                                                }
                                             </div>
                                             <div class="mt-1 mb-1 flex justify-center">
                                                 <Link to={`/${routing.candidat_applied}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
@@ -74,7 +119,8 @@ const CandidatDetailPage = () => {
 
                                     <div class="candidate-profile-overview  card-body border-top p-4">
                                         <h6 class="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
-                                        <ul class=" mb-5">
+                                        {
+                                            /*<ul class=" mb-5">
                                             <li>
                                                 <div class="flex flex-col">
                                                     <label class="text-dark text-gray-700 font-bold ">Categorie</label>
@@ -99,7 +145,8 @@ const CandidatDetailPage = () => {
                                                     </div>
                                                 </div>
                                             </li>
-                                        </ul>
+                                        </ul> */
+                                        }
                                         <div class="mt-3">
                                             <a href="javascript:void(0)" class="btn btn-danger btn-hover w-100"><i
                                                 class="uil uil-phone"></i> Me contacter</a>
@@ -109,16 +156,26 @@ const CandidatDetailPage = () => {
 
                                     </div>
 
-                                    <div class="card-body p-4 border-top">
-                                        <h6 class=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
-                                        <div class="space-y-3 flex flex-wrap space-x-3">
-                                            <span class="badge bg-blue-400 text-white py-2 px-3 rounded-lg mt-1">User Interface
-                                                Design</span>
-                                            <span class="badge bg-blue-400 text-white py-2 px-3 rounded-lg mt-1">Web
-                                                Design</span>
-
-                                        </div>
-                                    </div>
+                                    {
+                                        candidat && candidat.competences ?
+                                            <div class="card-body p-4 border-top">
+                                                <h6 class=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
+                                                <div class="flex flex-wrap justify-center gap-2">
+                                                {
+                                                    candidat.competences.map((item) => {
+                                                        return (
+                                                            <div class="space-y-3 flex flex-wrap space-x-3">
+                                                                <span class="badge bg-blue-400 text-white py-2 px-3 rounded-lg mt-1">
+                                                                    {item.label}
+                                                                </span>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                                </div>
+                                            </div>:
+                                            <div  class="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
+                                    }
                                     <div class="candidate-contact-details card-body p-4 border-top">
                                         <h6 class="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
                                         <ul class="list-unstyled mb-0">
