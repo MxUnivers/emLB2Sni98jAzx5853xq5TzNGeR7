@@ -3,10 +3,47 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { BsCalendarWeek, BsTelephone } from 'react-icons/bs'
 import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
+import { useEffect } from 'react';
+import { OffreGetById } from '../../action/api/offres/OffresAction';
+import { useState } from 'react';
+import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { localvalue } from '../../utlis/storage/localvalue';
+import { useDispatch, useSelector } from 'react-redux';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
+import JobEditPage from './JobEditPage';
 
 const JobDetailPage = () => {
+
+    var jobId = getAndCheckLocalStorage(localvalue.JobID);
+
+
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+
+    const location = useLocation();
+    const { job } = location.state;
+
+
+    const [idJobDetail, setidJobDetail] = useState(jobId);
+    const [jobDetail, setjobDetail] = useState();
+
+    const [isLoading, setisLoading] = useState();
+    const [entreprise, setentreprise] = useState();
+    const [idEntreprise, setidEntreprise] = useState();
+
+
+    useEffect(() => {
+        OffreGetById(jobId, setjobDetail, setisLoading);
+        if (job) {
+            setidEntreprise(job.idEntreprise);
+            EntrepriseGetById(idEntreprise, setentreprise)
+        }
+
+    }, [jobDetail])
 
     return (
 
@@ -24,9 +61,14 @@ const JobDetailPage = () => {
                             <div class="col-lg-8">
                                 <div class="card job-detail overflow-hidden">
                                     <div>
+
                                         <div class="job-details-compnay-profile">
-                                            <img src="assets/images/featured-job/img-10.png" alt=""
-                                                class="img-fluid rounded-3 rounded-3" />
+                                            {
+                                                jobDetail && jobDetail.coverPicture ?
+                                                    <img src={`${jobDetail.coverPicture}`} alt=""
+                                                        class="img-fluid h-24 w-24 rounded-xl rounded-3" /> :
+                                                    <div class="h-24 w-24 rounded-full animate-pulse bg-gray-300" />
+                                            }
                                         </div>
                                     </div>
 
@@ -35,11 +77,21 @@ const JobDetailPage = () => {
                                         <div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h5 class="mb-1 text-3xl">Product Designer / UI Designer</h5>
+                                                    {
+                                                        jobDetail && jobDetail.title ?
+                                                            <h5 class="mb-1 text-3xl">{jobDetail.title}</h5>
+                                                            :
+                                                            <div class="h-7 w-full bg-gray-300 animate-pulse rounded-lg" />
+                                                    }
                                                     <ul class="list-inline text-muted mb-0">
-                                                        <li class="list-inline-item">
-                                                            <i class="mdi mdi-account"></i> 8 Candidats
-                                                        </li>
+                                                        {
+                                                            jobDetail && jobDetail.candidats ?
+                                                                <li class="list-inline-item">
+                                                                    <i class="mdi mdi-account"></i> {jobDetail.candidats.length} Candidats
+                                                                </li> :
+                                                                <div class="h-7 w-full bg-gray-200 animate-pulse rounded-lg" />
+
+                                                        }
                                                         <li class="list-inline-item text-warning review-rating">
                                                             <span class="badge bg-warning">4.8</span> <i
                                                                 class="mdi mdi-star align-middle"></i><i
@@ -69,7 +121,8 @@ const JobDetailPage = () => {
                                             </div>
                                         </div>
 
-                                        <div class="mt-4">
+                                        {
+                                            /*<div class="mt-4">
                                             <div class="grid grid-cols-4 gap-4">
                                                 <div class="col-lg-3">
                                                     <div class="border rounded-start p-3">
@@ -96,23 +149,24 @@ const JobDetailPage = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */
+                                        }
 
                                         <div class="mt-4">
                                             <h5 class="mb-3 text-2xl">Description sur le job </h5>
-                                            <div class="job-detail-desc">
-                                                <p class="text-muted mb-0">As a Product Designer, you will work within a
-                                                    Product Delivery Team fused with UX, engineering, product and data
-                                                    talent. You will help the team design beautiful interfaces that
-                                                    solve business challenges for our clients. We work with a number of
-                                                    Tier 1 banks on building web-based applications for AML, KYC and
-                                                    Sanctions List management workflows. This role is ideal if you are
-                                                    looking to segue your career into the FinTech or Big Data arenas.
-                                                </p>
-                                            </div>
+                                            {
+                                                jobDetail && jobDetail.description ?
+                                                    <div class="job-detail-desc">
+                                                        <p class="text-muted mb-0">
+                                                            {jobDetail.description}
+                                                        </p>
+                                                    </div> :
+                                                    <div class="w-full h-36 bg-gray-300 animate-pulse rounded-xl" />
+                                            }
                                         </div>
 
-                                        <div class="mt-4">
+                                        {
+                                            /*<div class="mt-4">
                                             <h5 class="mb-3 text-2xl">Responsibilities</h5>
                                             <div class="job-detail-desc mt-2">
                                                 <p class="text-muted">As a Product Designer, you will work within a
@@ -160,7 +214,8 @@ const JobDetailPage = () => {
                                                         Bootstrap</li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> */
+                                        }
 
                                         <div class="mt-4">
                                             <h5 class="mb-3 text-2xl">Compétences</h5>
@@ -277,13 +332,20 @@ const JobDetailPage = () => {
                                     <div class="card border rounded-lg  shadow-sm job-overview">
                                         <div class="card-body p-4">
                                             <h6 class="fs-17">Job Overview</h6>
-                                            <Link to={`/${routing.company_details}`}>
-                                                <div class="flex flex-col space-y-2">
-                                                    <img src="assets/images/featured-job/img-10.png" alt=""
-                                                        class="img-fluid  rounded-3xl h-12 w-12" />
-                                                        <h2>Entrpise en question</h2>
-                                                </div>
-                                            </Link>
+                                            {
+                                                entreprise && entreprise.logo && entreprise.full_name ?
+                                                    <Link to={`/${routing.company_details}`} class="w-full">
+                                                        <div class="flex flex-col justify-center space-y-2">
+                                                            <img src={`${entreprise.logo}`} alt=""
+                                                                class="img-fluid  rounded-3xl h-12 w-12" />
+                                                            <h2 class="text-xl font-bold">{entreprise.full_name}</h2>
+                                                        </div>
+                                                    </Link> :
+                                                    <div class="flex felx-col space-y-3" >
+                                                        <div class="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
+                                                        <div class="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                    </div>
+                                            }
                                             <ul class="list-unstyled mt-4 mb-0">
                                                 <li>
                                                     <div class="d-flex mt-4">

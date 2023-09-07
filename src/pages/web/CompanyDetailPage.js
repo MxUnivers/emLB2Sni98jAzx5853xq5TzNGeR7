@@ -8,8 +8,8 @@ import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
 import { routing } from '../../utlis/routing';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
-import { localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
 import { useEffect } from 'react';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import { useState } from 'react';
@@ -30,6 +30,11 @@ const CompanyDetailPage = () => {
 
     const handleEditItem = (job)=>{
         navigate(`/${routing.job_edit}`,{state:{job}})
+    }
+    const handleDetailItem = (job)=>{
+        setWithExpiration(localvalue.JobID,job._id,dureeDeVie);
+        navigate(`/${routing.job_details}`,{state:{job}});
+
     }
 
 
@@ -246,12 +251,12 @@ const CompanyDetailPage = () => {
                                                     return (
                                                         <div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
                                                             <span className="flex justify-between items-center gap-4">
-                                                                <h1 className="text-[16px] font-semibold text-textColor ">{item.full_name}</h1>
-                                                                <span className="flex items-center gap-1 text-gray-400"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
+                                                                <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
+                                                                <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
                                                             </span>
                                                             <h6 className="text-gray-400">{item.location}</h6>
                                                             <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
-                                                                {item.description_entreprise}
+                                                                {item.description}
                                                             </p>
                                                             <div className="company flex items-center gap-2">
                                                                 <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
@@ -264,11 +269,11 @@ const CompanyDetailPage = () => {
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
                                                                 </button>
                                                             </div>
-                                                            <a href={`/${routing.job_details}`}>
-                                                                <button
+                                                            <div >
+                                                                <button type='button' onClick={()=>{handleDetailItem(item)}}
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
                                                                 </button>
-                                                            </a>
+                                                            </div>
                                                         </div>
                                                     )
                                                 })}

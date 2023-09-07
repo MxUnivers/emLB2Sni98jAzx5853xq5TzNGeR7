@@ -211,7 +211,7 @@ const JobPostPage = () => {
                                                             {
                                                                 secteursActivite.map((item) => {
                                                                     return (
-                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                        <option selected={areaOffre == item.label ? true : false} value={item.label}>{item.label}</option>
                                                                     )
                                                                 })
                                                             }
@@ -224,7 +224,7 @@ const JobPostPage = () => {
                                                             {
                                                                 typeContrats.map((item) => {
                                                                     return (
-                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                        <option selected={typeContrat == item.label ? true : false} value={item.label}>{item.label}</option>
                                                                     )
                                                                 })
                                                             }

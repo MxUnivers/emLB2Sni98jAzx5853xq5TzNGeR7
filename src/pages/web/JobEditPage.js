@@ -19,6 +19,7 @@ const JobEditPage = () => {
     
     
 
+    const [idOffre, setidOffre] = useState();
     const [company, setCompany] = useState('');
     const [title, setTitle] = useState('');
     const [email, setEmail] = useState();
@@ -42,14 +43,15 @@ const JobEditPage = () => {
     // recupération de valeur
     useEffect(() => {
         if(job){
+            setidOffre(job._id)
             setCompany(job.company);
             setTitle(job.title);
             setEmail(job.email)
             setTelephone(job.telephone)
             setCoverPicture(job.coverPicture)
             setAreaOffre(job.areaOffre);
-            setTypeContrat(job.areaOffre);
-            setAddresse(addresse);
+            setTypeContrat(job.typeContrat);
+            setAddresse(job.addresse);
             setDescription(job.description)
             setSalaire(job.salaire);
         }
@@ -134,7 +136,7 @@ const JobEditPage = () => {
             }
         }
 
-        dispatch(OffreEditById(getAndCheckLocalStorage(localvalue.recruteurID),company,title,email,telephone,
+        dispatch(OffreEditById(idOffre,company,title,email,telephone,
             salaire,coverPicture,title_post,areaOffre,expireDispobility,
             typeContrat,description,addresse,toast
             )
@@ -203,7 +205,7 @@ const JobEditPage = () => {
                                                     </div>
 
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse de l{"'"}entreprise <span class="ctgjb">*</span></label>
                                                         <input id="email" value={addresse} onChange={(e) => { setAddresse(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                     <div>
@@ -237,7 +239,7 @@ const JobEditPage = () => {
                                                             {
                                                                 secteursActivite.map((item) => {
                                                                     return (
-                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                        <option selected={areaOffre == item.label ? true : false} value={item.label}>{item.label}</option>
                                                                     )
                                                                 })
                                                             }
@@ -250,7 +252,7 @@ const JobEditPage = () => {
                                                             {
                                                                 typeContrats.map((item) => {
                                                                     return (
-                                                                        <option selected={salaire == item.label ? true : false} value={item.label}>{item.label}</option>
+                                                                        <option selected={typeContrat == item.label ? true : false} value={item.label}>{item.label}</option>
                                                                     )
                                                                 })
                                                             }
