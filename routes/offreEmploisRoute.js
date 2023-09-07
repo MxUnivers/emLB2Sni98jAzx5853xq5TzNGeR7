@@ -105,7 +105,7 @@ router.get('/get_offre/:id', AuthorizationMiddleware, async (req, res) => {
     try {
         const offreId = req.params.id;
         const offre = await OffreEmploiModel.findById({ _id: offreId });
-        res.json({ data: offre });
+        return res.status(200).json({ data: offre , message:"Offre recupérer avce succès"});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Une erreur s\'est produite lors de la mise à jour de l\'offre d\'emploi' });
