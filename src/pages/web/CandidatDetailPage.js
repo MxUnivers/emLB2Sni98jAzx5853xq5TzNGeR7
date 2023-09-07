@@ -323,7 +323,7 @@ const CandidatDetailPage = () => {
 
                                             <div class="flex flex-row justify-between items-center  ">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                <button class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                <button onClick={()=>{handleShow(1)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                     + experience
                                                 </button>
                                             </div>
@@ -346,7 +346,7 @@ const CandidatDetailPage = () => {
                                         <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                <button class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                <button onClick={()=>{handleShow(2)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                     + projet
                                                 </button>
                                             </div>
@@ -466,15 +466,72 @@ const CandidatDetailPage = () => {
                             {
                                 step == 0 &&
                                 <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-bold mb-4">Ajouter niveau Education</h2>
+                                    <h2 class="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
                                     <form>
                                         <div class="mb-4">
-                                            <label for="fullName" class="block font-bold mb-1">Titre</label>
+                                            <label for="fullName" class="block mb-1">Titre</label>
                                             <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
-                                            <label for="message" class="block font-bold mb-1">Ecole</label>
+                                            <label for="message" class="block mb-1">Ecole</label>
                                             <input class="w-full border border-gray-300 rounded px-3 py-2"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="resume" class="block font-bold mb-1">Description</label>
+                                            <textarea class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                                Ajouter
+                                            </button>
+                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            }
+
+
+
+                            {
+                                step == 1 &&
+                                <div class="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 class="text-lg font-bold mb-4">Ajouter Expérience</h2>
+                                    <form>
+                                        <div class="mb-4">
+                                            <label for="fullName" class="block font-bold mb-1">Metier poste Occupé dans </label>
+                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="message" class="block font-bold mb-1">entreprise</label>
+                                            <input class="w-full border border-gray-300 rounded px-3 py-2"/>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="resume" class="block font-bold mb-1">Description</label>
+                                            <textarea class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                                Ajouter
+                                            </button>
+                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+
+                            {
+                                step == 2 &&
+                                <div class="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 class="text-lg font-bold mb-4">Ajouter nouveau projet</h2>
+                                    <form>
+                                        <div class="mb-4">
+                                            <label for="fullName" class="block font-bold mb-1">Nom du projet</label>
+                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="resume" class="block font-bold mb-1">Description</label>
