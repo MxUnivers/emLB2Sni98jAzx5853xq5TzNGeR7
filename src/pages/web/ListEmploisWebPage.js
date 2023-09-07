@@ -8,11 +8,17 @@ import { BsHouseDoor } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai"
 import { CiLocationOn } from "react-icons/ci";
 import { routing } from '../../utlis/routing';
+import { OffreGetAll, OffreGetAllById } from '../../action/api/offres/OffresAction';
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
+import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { useEffect } from 'react';
+import moment from 'moment';
 
 const ListEmploisWebPage = () => {
     const navigate = useNavigate();
 
-    const [emploisList, setemploisList] = useState([1, 1, 1, 1]);
+    const [offres, setoffres] = useState([]);
+    const [offres2, setoffres2] = useState([]);
 
     const [modalApply, setmodalApply] = useState(false);
     const handleShow = (item) => {
@@ -22,36 +28,17 @@ const ListEmploisWebPage = () => {
         setmodalApply(false)
     }
 
-    const Data = [
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
+    useEffect(() => {
+        OffreGetAll(setoffres, setoffres2);
+    }, []);
 
-    ]
+
+
+    const handleDetailItem = (job)=>{
+        setWithExpiration(localvalue.JobID,job._id,dureeDeVie);
+        navigate(`/${routing.job_details}`,{state:{job}});
+    }
+
 
 
 
@@ -141,41 +128,31 @@ const ListEmploisWebPage = () => {
 
                     <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
                         {
-                            Data.map((item) => {
+                            offres.map((item) => {
                                 return (
                                     <div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-
                                         <span className="flex justify-between items-center gap-4">
-                                            <h1 className="text-[16px] font-semibold text-textColor ">{item.title}</h1>
-                                            <span className="flex items-center gap-1 text-gray-400"><BiTimeFive />{item.time}</span>
+                                            <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
+                                            <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
                                         </span>
-
                                         <h6 className="text-gray-400">{item.location}</h6>
                                         <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
-                                            {item.desc}
+                                            {item.description}
                                         </p>
-
                                         <div className="company flex items-center gap-2">
-                                            <img src={item.image} alt="Company Logo" className="w-[10%]" />
+                                            <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
                                             <span className="text-[14px] py-[1rem] block ">
                                                 {item.company}
                                             </span>
                                         </div>
-
-                                       {
-                                        /* <button onClick={() => {
-                                            handleShow(item);
-                                        }}
-                                            className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Apply Now
-                                        </button> */
-                                       }
-                                        <a href={`/${routing.job_details}`}>
-                                            <button
+                                        
+                                        <div >
+                                            <button type='button' onClick={() => { handleDetailItem(item) }}
                                                 className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
                                             </button>
-                                        </a>
+                                        </div>
                                     </div>
-                                );
+                                )
                             })}
                     </div>
                 </main>

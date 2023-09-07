@@ -163,6 +163,27 @@ export const OffreGetAllById = async (id, setState, setState2) => {
 }
 
 
+// recuprer tous les ofres 
+// spécialement pour les entreprises
+export const OffreGetAll = async ( setState, setState2) => {
+
+    await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
 
 
 // 
