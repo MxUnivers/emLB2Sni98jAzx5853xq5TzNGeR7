@@ -239,10 +239,10 @@ const JobDetailPage = () => {
                                         <div class="mt-4 pt-3">
                                             <ul class="list-inline mb-0  flex flex-wrap space-x-2">
                                                 <li class="list-inline-item mt-1">
-                                                    Reseaux sociaux 
+                                                    Reseaux sociaux
                                                 </li>
                                                 {
-                                                    entreprise && entreprise.facebook_url && entreprise.facebook_url!=="#"  ?
+                                                    entreprise && entreprise.facebook_url && entreprise.facebook_url !== "#" ?
                                                         <li class="list-inline-item mt-1">
                                                             <a href={`${entreprise.facebook_url}`} target="_blank" class="btn py-1 px-2 btn-primary bg-blue-700 text-white btn-hover"><i
                                                                 class="uil uil-facebook-f"></i> Facebook</a>
@@ -250,22 +250,22 @@ const JobDetailPage = () => {
                                                         null
                                                 }
                                                 {
-                                                    entreprise && entreprise.site_web && entreprise.site_web!=="#"  ?
+                                                    entreprise && entreprise.site_web && entreprise.site_web !== "#" ?
                                                         <li class="list-inline-item mt-1">
                                                             <a href={`${entreprise.site_web}`} target="_blank" class="btn py-1 px-2 btn-danger bg-red-400 text-white btn-hover"><i
-                                                            class="uil uil-google"></i>site web + </a>
+                                                                class="uil uil-google"></i>site web + </a>
                                                         </li> :
                                                         null
                                                 }
                                                 {
-                                                    entreprise && entreprise.linkedin_url && entreprise.linkedin_url!=="#"  ?
+                                                    entreprise && entreprise.linkedin_url && entreprise.linkedin_url !== "#" ?
                                                         <li class="list-inline-item mt-1">
                                                             <a href={`${entreprise.linkedin_url}`} target="_blank" class="btn py-1 px-2 btn-success bg-white text-blue-700 btn-hover"><i
-                                                            class="uil uil-linkedin-alt"></i>Linkedine </a>
+                                                                class="uil uil-linkedin-alt"></i>Linkedine </a>
                                                         </li> :
                                                         null
                                                 }
-                                                
+
                                             </ul>
                                         </div>
                                     </div>
@@ -277,7 +277,10 @@ const JobDetailPage = () => {
                                     {
                                         offres.map((item) => {
                                             return (
-                                                <div class="job-box card mt-4 flex flex-wrap justify-between rounded-lg border ">
+                                                <div onClick={() => {
+                                                    setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                }}
+                                                    class="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
 
                                                     <div class="p-4">
 
@@ -288,7 +291,10 @@ const JobDetailPage = () => {
                                                             </div>
                                                             <div class="col-lg-10">
                                                                 <div class="mt-3 mt-lg-0">
-                                                                    <h5 class="fs-17 mb-1"><a href="job-details.html"
+                                                                    <h5 class="fs-17 mb-1"><a href={`/${routing.job_details}`}
+                                                                    onClick={()=>{
+                                                                        setWithExpiration(localvalue.JobID,item._id,dureeDeVie)
+                                                                    }}
                                                                         class="text-dark text-lg font-semibold">{item.title}</a></h5>
                                                                     <ul class="list-inline mb-0 flex space-x-2">
                                                                         <li class="list-inline-item">
@@ -322,7 +328,9 @@ const JobDetailPage = () => {
                                                         <div class="flex justify-between items-center">
                                                             <div class="col-md-3">
                                                                 <div class="text-md-end btn ">
-                                                                    <a href={`/${routing.job_list}`} class="primary-link">Details
+                                                                    <a href={`/${routing.job_details}`} onClick={() => {
+                                                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                    }} class="primary-link">Details
                                                                         <i class="mdi mdi-chevron-double-right"></i></a>
                                                                 </div>
                                                             </div>
@@ -344,7 +352,7 @@ const JobDetailPage = () => {
                                 </div>
 
                                 <div class="text-center mt-4">
-                                    <a href="job-list.html" class="primary-link form-text">Voire plus <i
+                                    <a href={`/${routing.job_list}`} class="primary-link form-text">Voire plus <i
                                         class="mdi mdi-arrow-right"></i></a>
                                 </div>
 

@@ -34,9 +34,9 @@ const ListEmploisWebPage = () => {
 
 
 
-    const handleDetailItem = (job)=>{
-        setWithExpiration(localvalue.JobID,job._id,dureeDeVie);
-        navigate(`/${routing.job_details}`,{state:{job}});
+    const handleDetailItem = (job) => {
+        setWithExpiration(localvalue.JobID, job._id, dureeDeVie);
+        navigate(`/${routing.job_details}`, { state: { job } });
     }
 
 
@@ -130,25 +130,29 @@ const ListEmploisWebPage = () => {
                         {
                             offres.map((item) => {
                                 return (
-                                    <div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-                                        <span className="flex justify-between items-center gap-4">
+                                    <div key={item._id} onClick={() => {
+                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
+                                        navigate(`/${routing.job_details}`, { state: { item } });
+                                    }} className="group cursor-pointer relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
+                                        <span className="flex justify-between items-center gap-4 mb-3">
                                             <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
                                             <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
                                         </span>
                                         <h6 className="text-gray-400">{item.location}</h6>
-                                        <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
+                                        <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-2 ">
                                             {item.description}
                                         </p>
                                         <div className="company flex items-center gap-2">
-                                            <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
+                                            <img src={item.coverPicture} alt="Company Logo" className="w-[10%] " />
                                             <span className="text-[14px] py-[1rem] block ">
                                                 {item.company}
                                             </span>
                                         </div>
-                                        
+
                                         <div >
                                             <button type='button' onClick={() => { handleDetailItem(item) }}
-                                                className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
+                                                className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >
+                                                Details
                                             </button>
                                         </div>
                                     </div>
