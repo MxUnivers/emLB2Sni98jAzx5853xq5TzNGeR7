@@ -1,11 +1,12 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
+import { routing } from "../../../utlis/routing";
 
 
-export const CandidaturesEntreprises = async (idEntreprise, setState, setState2) => {
+export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setState2) => {
 
-    await axios.get(`${baseurl.url}/api/v1/candidature/get_candidature/entreprise/${idEntreprise}`, {
+    await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/entreprise/${idEntreprise}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -23,9 +24,9 @@ export const CandidaturesEntreprises = async (idEntreprise, setState, setState2)
 }
 
 
-export const CandidatureOfCandidat = async (idCandidat, setState, setState2) => {
+export const CandidatureAllOfCandidat = async (idCandidat, setState, setState2) => {
 
-    await axios.get(`${baseurl.url}/api/v1/candidature/get_candidature/candidat/${idCandidat}`, {
+    await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/candidat/${idCandidat}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -66,7 +67,7 @@ export const CandidatureById = async (idCandidature, setState) => {
 
 
 // Accepter une candidature
-export const CandidatureAuthorized = (id,toast) => {
+export const CandidatureAuthorized = (id, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -99,11 +100,11 @@ export const CandidatureAuthorized = (id,toast) => {
 
 
 // Rejeté un candidature
-export const CandidatureUnAuthorized = (id,toast) => {
+export const CandidatureUnAuthorized = (id, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidature/unauthorized/${id}`,  {
+            .post(`${baseurl.url}/api/v1/candidature/unauthorized/${id}`, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -120,3 +121,44 @@ export const CandidatureUnAuthorized = (id,toast) => {
             });
     };
 }
+
+
+
+
+// candidat postlue là l'offre
+// Rejeté un candidature
+export const CandidaturePost = (
+    idCandidat, idEntreprise, idOffre,
+    firstname, lastname, email, telephone, cv, description, redirect, toast
+) => {
+        return async (dispatch) => {
+            dispatch({ type: SEND_REQUEST });
+            try {
+                const response = await axios.post(
+                    `${baseurl.url}/api/v1/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}`,
+                    {
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        telephone: telephone,
+                        cv: cv,
+                        description: description
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                        }
+                    }
+                );
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Votre candidature a été postée avec succès!");
+                setTimeout(() => {
+                    redirect(`/${routing.candidature_list}`);
+                }, 3000);
+            } catch (error) {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Candidature non envoyée !");
+            }
+        }
+};

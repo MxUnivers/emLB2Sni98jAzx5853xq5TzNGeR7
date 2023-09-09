@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { routing } from '../utlis/routing'
+import { getAndCheckLocalStorage, handleClearLocalStorage } from '../utlis/storage/localvalueFunction'
+import { CandidatGetById } from '../action/api/candidat/CandidatAction';
+import { localvalue } from '../utlis/storage/localvalue';
 
 const NavbarWeb = () => {
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    const [candidat, setcandidat] = useState();
+    useEffect(() => {
+        CandidatGetById(idCandidat, setcandidat);
+    }, [])
+
     return (
         <nav class="navbar fixed right-0 left-0 top-0 lg:top-[0px] px-5 lg:px-24 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900"
             id="navbar">
             <div class="mx-auto container-fluid">
                 <div class="flex flex-wrap items-center justify-between mx-auto">
-                    <a href="index.html" class="flex items-center">
+                    <a href="/" class="flex items-center">
                         <img src="assets/images/logo-dark.png" alt="" class="logo-dark h-[22px] block dark:hidden" />
                         <img src="assets/images/logo-light.png" alt="" class="logo-dark h-[22px] hidden dark:block" />
                     </a>
@@ -32,7 +41,9 @@ const NavbarWeb = () => {
                                         <i class="text-2xl mdi mdi-bell"></i>
                                     </button>
                                     <span
-                                        class="absolute text-xs px-1.5 bg-red-500 text-white font-medium rounded-full left-6 top-3 ring-2 ring-white dark:ring-neutral-800">3</span>
+                                        class="absolute text-xs px-1.5 bg-red-500 text-white font-medium rounded-full left-6 top-3 ring-2 ring-white dark:ring-neutral-800">
+                                        3
+                                    </span>
                                 </div>
                                 <div class="absolute right-0 top-auto left-auto z-50 hidden list-none bg-white rounded shadow dropdown-menu w-72 dark:bg-neutral-800 "
                                     id="notification">
@@ -40,9 +51,10 @@ const NavbarWeb = () => {
                                         aria-labelledby="notification">
                                         <div class="grid grid-cols-1 ">
                                             <div class="p-4 bg-gray-50 dark:bg-neutral-700">
-                                                <h6 class="mb-1 text-gray-800 dark:text-gray-50"> Notification </h6>
-                                                <p class="mb-0 text-gray-500 text-13 dark:text-gray-300">You have 4 unread
-                                                    Notification</p>
+                                                <h6 class="mb-1 text-gray-800 dark:text-gray-50"> Candidatures </h6>
+                                                <p class="mb-0 text-gray-500 text-13 dark:text-gray-300">
+                                                    vous avez 4 messages
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="h-60" data-simplebar>
@@ -67,89 +79,14 @@ const NavbarWeb = () => {
                                                     </div>
                                                 </a>
 
-                                                <a href="#!">
-                                                    <div
-                                                        class="flex items-center p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
-                                                        <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                            <img src="assets/images/user/img-01.jpg"
-                                                                class="w-10 h-10 rounded-full" alt="user-pic" />
-                                                        </div>
-                                                        <div class="flex-grow">
-                                                            <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">Kevin
-                                                                Stewart</h6>
-                                                            <div class="text-gray-600 text-13 dark:text-gray-300">
-                                                                <p class="mb-0"><i
-                                                                    class="mdi mdi-clock-outline dark:text-gray-300"></i>
-                                                                    <span>1 hour ago</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#!">
-                                                    <div
-                                                        class="flex items-center p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
-                                                        <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                            <img src="assets/images/featured-job/img-04.png"
-                                                                class="w-10 h-10 rounded-full" alt="user-pic" />
-                                                        </div>
-                                                        <div class="flex-grow">
-                                                            <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">
-                                                                Applications has been approved</h6>
-                                                            <div class="text-gray-600 text-13 dark:text-gray-300">
-                                                                <p class="mb-0"><i
-                                                                    class="mdi mdi-clock-outline dark:text-gray-300"></i>
-                                                                    <span>45 min ago</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#!">
-                                                    <div
-                                                        class="flex items-center p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
-                                                        <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                            <img src="assets/images/user/img-02.jpg"
-                                                                class="w-10 h-10 rounded-full" alt="user-pic" />
-                                                        </div>
-                                                        <div class="flex-grow">
-                                                            <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">Salena
-                                                                Layfield</h6>
-                                                            <div class="text-gray-600 text-13 dark:text-gray-300">
-                                                                <p class="mb-0"><i
-                                                                    class="mdi mdi-clock-outline dark:text-gray-300"></i>
-                                                                    <span>15 min ago</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#!">
-                                                    <div
-                                                        class="flex items-center p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
-                                                        <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                            <img src="assets/images/featured-job/img-01.png"
-                                                                class="w-10 h-10 rounded-full" alt="user-pic" />
-                                                        </div>
-                                                        <div class="flex-grow">
-                                                            <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">Creative
-                                                                Agency</h6>
-                                                            <div class="text-gray-600 text-13 dark:text-gray-300">
-                                                                <p class="mb-0"><i
-                                                                    class="mdi mdi-clock-outline dark:text-gray-300"></i>
-                                                                    <span>15 min ago</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
 
                                             </div>
                                         </div>
                                         <div
                                             class="grid p-1 border-t border-gray-50 dark:border-zinc-600 justify-items-center bg-gray-50 dark:bg-neutral-700">
                                             <a class="border-0 group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 btn dark:text-gray-50"
-                                                href="javascript:void(0)">
-                                                <i class="mr-1 mdi mdi-arrow-right-circle"></i> <span>View More..</span>
+                                                href={`/${routing.candidature_list}`}>
+                                                <i class="mr-1 mdi mdi-arrow-right-circle"></i> <span>voire plus..</span>
                                             </a>
                                         </div>
                                     </div>
@@ -158,39 +95,64 @@ const NavbarWeb = () => {
                         </div>
                         <div>
                             <div class="relative dropdown ltr:mr-4 rtl:ml-4">
+                            {
+                                getAndCheckLocalStorage(localvalue.candidatTYPE) !== null ?
                                 <button type="button" class="flex items-center px-4 py-5 dropdown-toggle"
                                     id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="true">
-                                    <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                                        src="assets/images/user/img-02.jpg" alt="Header Avatar" />
-                                    <span class="hidden fw-medium xl:block dark:text-gray-50">Shawn L.</span>
+                                    {
+                                        candidat && candidat.coverPicture ?
+                                            <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
+                                                src={candidat.coverPicture} alt="Header Avatar" /> :
+                                            <div class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2 bg-gray-200 animate-pulse" />
+                                    }
+                                    {
+                                        candidat && candidat.username ?
+                                            <span class="hidden fw-medium xl:block dark:text-gray-50">Shawn L.</span> :
+                                            <span class="hidden fw-medium xl:block bg-gray-200 h-3 w-7 rounded-lg"></span>
+                                    }
                                 </button>
+                                :
                                 <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
                                     id="profile/log" aria-labelledby="navNotifications">
                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                        <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
+                                            href={`/${routing.candidature_list}`}>Connexion</div>
+                                    </li>
+                                </ul> 
+                            }
+                                {
+                                    getAndCheckLocalStorage(localvalue.recruteurTYPE) !== null ?
+                                    <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                    id="profile/log" aria-labelledby="navNotifications">
+                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                         <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href="manage-jobs.html">Manage Jobs</a>
+                                            href={`/${routing.candidat_details}`}>Profile </a>
                                     </li>
                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href="bookmark-jobs.html">Bookmarks Jobs</a>
+                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                            href={`/${routing.candidature_list}`}>Job Postulé</a>
                                     </li>
+                                    <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
+                                        <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                        >Dexonnexion</div>
+                                    </li>
+                                </ul>:
+                                <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                    id="profile/log" aria-labelledby="navNotifications">
                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href="profile.html">My Profile</a>
+                                        <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                            href={`/${routing.candidature_list}`}>Connexion</a>
                                     </li>
-                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href="sign-out.html">Logout</a>
-                                    </li>
-                                </ul>
+                                </ul>  
+                                }
                             </div>
                         </div>
                     </div>
 
                     <div id="navbar-collapse"
                         class="navbar-res items-center justify-between w-full text-sm lg:flex lg:w-auto lg:order-1 group-focus:[.navbar-toggler]:block hidden">
-                        <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center lg:flex-row"
+                        <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center  lg:flex-row"
                             id="navigation-menu">
                             <li class="relative dropdown">
                                 <a href='/' class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
@@ -200,16 +162,6 @@ const NavbarWeb = () => {
                             <li class="relative dropdown">
                                 <a href={`/${routing.job_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
                                 >Emplois
-                                </a>
-                            </li>
-                            <li class="relative dropdown">
-                                <a href={`/${routing.candidat_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
-                                >Candidats
-                                </a>
-                            </li>
-                            <li class="relative dropdown">
-                                <a href={`/${routing.candidat_details}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
-                                >Candidat details
                                 </a>
                             </li>
                             <li class="relative dropdown lg:mt-0">
@@ -222,21 +174,8 @@ const NavbarWeb = () => {
                                     <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
                                         href="about.html">A propos</a>
                                     </li>
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
-                                        href="services.html">Services</a>
-                                    </li>
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
-                                        href="pricing.html">Pricing</a>
-                                    </li>
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
-                                        href="privacy-policy.html">Privacy & Policy</a>
-                                    </li>
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
-                                        href="faqs.html">Faqs</a>
-                                    </li>
                                 </ul>
                             </li>
-                            
                         </ul>
                     </div>
                 </div>

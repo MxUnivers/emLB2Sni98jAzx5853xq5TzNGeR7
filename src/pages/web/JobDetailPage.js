@@ -3,7 +3,7 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { BsCalendarWeek, BsTelephone } from 'react-icons/bs'
 import { HiLocationMarker } from "react-icons/hi";
 import { MdAttachEmail } from "react-icons/md";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import { useEffect } from 'react';
 import { OffreGetAll, OffreGetById } from '../../action/api/offres/OffresAction';
@@ -15,12 +15,15 @@ import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import JobEditPage from './JobEditPage';
 import { typeContrats } from '../../utlis/options/optionDivers';
 import moment from 'moment/moment';
+import { CandidaturePost } from '../../action/api/candidatures/CandidatureAction';
+import { toast } from 'react-toastify';
 
 const JobDetailPage = () => {
 
     const navigate = useNavigate();
 
     var jobId = getAndCheckLocalStorage(localvalue.JobID);
+    var candidatId = getAndCheckLocalStorage(localvalue.candidatID);
 
 
     const dispatch = useDispatch();
@@ -53,6 +56,88 @@ const JobDetailPage = () => {
         setWithExpiration(localvalue.recruteurID, company._id, dureeDeVie)
         navigate(`/${routing.company_details}`);
     }
+
+
+
+
+
+
+    const [modalApply, setmodalApply] = useState()
+    const [firstname, setfirstname] = useState();
+    const [lastname, setlastname] = useState();
+    const [email, setemail] = useState();
+    const [telephone, settelephone] = useState();
+    const [description, setdescription] = useState();
+    const [cv, setcv] = useState();
+
+
+
+    const handleShow = () => {
+        setmodalApply(true);
+    }
+    const handleClose = () => {
+        setmodalApply(false);
+    }
+
+    const showErrorToast = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
+
+    const HandleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        previewFile(file);
+    }
+    // previewFile
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setcv(reader.result);
+            // console.log(previewSource)
+        }
+    }
+    const hanldeSubmitCandidat = (event) => {
+        event.preventDefault();
+
+        // Liste des champs obligatoires
+        const requiredFields = [
+            "firstname", "lastname", "email", "telephone", "cv", "description"
+        ];
+
+        // Vérifiez chaque champ requis.
+        for (const field of requiredFields) {
+            if (!eval(field)) {
+                showErrorToast(
+                    //`${field.replace("_", " ")} requis !`
+                    `les champs avec * obligatoire`
+                );
+                return; // Arrêtez le traitement si un champ est vide.
+            }
+        }
+
+        if (candidatId !== null || candidatId !== "") {
+            dispatch(CandidaturePost(
+                candidatId, jobDetail.idEntreprise, jobDetail._id,
+                firstname, lastname, email, telephone, cv, description, navigate, toast
+            ));
+        } else {
+            toast.error("Veillez vous connecté");
+            setTimeout(() => {
+                window.location.href = `/${routing.connexion}`
+            }, 2500);
+        }
+    }
+
+
+
+
 
     return (
 
@@ -292,9 +377,9 @@ const JobDetailPage = () => {
                                                             <div class="col-lg-10">
                                                                 <div class="mt-3 mt-lg-0">
                                                                     <h5 class="fs-17 mb-1"><a href={`/${routing.job_details}`}
-                                                                    onClick={()=>{
-                                                                        setWithExpiration(localvalue.JobID,item._id,dureeDeVie)
-                                                                    }}
+                                                                        onClick={() => {
+                                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                        }}
                                                                         class="text-dark text-lg font-semibold">{item.title}</a></h5>
                                                                     <ul class="list-inline mb-0 flex space-x-2">
                                                                         <li class="list-inline-item">
@@ -467,7 +552,7 @@ const JobDetailPage = () => {
                                                 }
                                             </ul>
                                             <div class="mt-3 flex space-x-2 ">
-                                                <button
+                                                <button onClick={handleShow}
                                                     class="btn btn-hover w-full mt-2 bg-gray-100 hover:bg-gray-50 active:bg-gray-200"><i
                                                         class="uil uil-bookmark"></i> Postuler</button>
                                             </div>
@@ -522,6 +607,66 @@ const JobDetailPage = () => {
                         </div>
                     </div>
                 </section>
+
+
+
+
+
+
+
+                {
+                    modalApply &&
+                    (
+                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                            <div class="bg-white w-full m-10 my-10 rounded-lg shadow-lg p-6">
+                                <h2 class="text-lg font-bold mb-4">Postuler à l'offre d'emploi {candidatId} </h2>
+                                <form onSubmit={hanldeSubmitCandidat} class="">
+                                    <div class="mb-1">
+                                        <label for="fullName" class="block font-bold mb-1">Nom *</label>
+                                        <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="fullName" class="block font-bold mb-1">Prénoms *</label>
+                                        <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="email" class="block font-bold mb-1">Email *</label>
+                                        <input value={email} onChange={(e) => { setemail(e.target.value) }} type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="phone" class="block font-bold mb-1">Téléphone *</label>
+                                        <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" id="phone" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                    </div>
+                                    <div class="mb-1">
+                                        <label for="phone" class=" font-bold mb-1 flex space-x-2">Cv * {cv && <p class="text-green-600 "> ''Téléchager''</p>}</label>
+                                        <input onChange={HandleFileInputChange} type="file" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="message" class="block font-bold mb-1">Motif *</label>
+                                        <textarea id="message" value={description} onChange={(e) => { setdescription(e.target.value) }} class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                                    </div>
+                                    {/*<div class="mb-4">
+                                        <label for="resume" class="block font-bold mb-1">CV :</label>
+                                        <input type="file" id="resume" class="w-full border     border-gray-300 rounded px-3 py-2" />
+                                    </div> */}
+                                    <div class="flex justify-end">
+                                        {
+                                            loading ?
+                                                <p class="text-gray-600 animate-pulse">Envois en cours</p>
+                                                :
+                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    Envoyer
+                                                </button>
+                                        }
+                                        <button type="button" onClick={handleClose} class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
+                                            Annuler
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )
+                }
 
 
 

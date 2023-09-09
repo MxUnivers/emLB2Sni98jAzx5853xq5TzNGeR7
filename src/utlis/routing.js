@@ -16,6 +16,7 @@ export const routing = {
     candidat_applied:"candidat_candidat_applied",
     candidat_list:"candidats_list_group",
     candidature_list:"candidatures_list_group",
+    candidature_list_recruteur:"candidatures_list_group_recruteur",
     company_list:"conpany_list",
     company_details:"company_detail",
     connexion:"authentification-connexion-candidat-&=email,mot-de-passe=&",

@@ -15,6 +15,7 @@ import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import { useState } from 'react';
 import moment from 'moment/moment';
 import { OffreGetAllById } from '../../action/api/offres/OffresAction';
+import { CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
 
 
 
@@ -23,17 +24,17 @@ const CompanyDetailPage = () => {
 
 
 
-    const  navigate =  useNavigate();
+    const navigate = useNavigate();
 
     const [offres, setoffres] = useState([]);
     const [offres2, setoffres2] = useState([]);
 
-    const handleEditItem = (job)=>{
-        navigate(`/${routing.job_edit}`,{state:{job}})
+    const handleEditItem = (job) => {
+        navigate(`/${routing.job_edit}`, { state: { job } })
     }
-    const handleDetailItem = (job)=>{
-        setWithExpiration(localvalue.JobID,job._id,dureeDeVie);
-        navigate(`/${routing.job_details}`,{state:{job}});
+    const handleDetailItem = (job) => {
+        setWithExpiration(localvalue.JobID, job._id, dureeDeVie);
+        navigate(`/${routing.job_details}`, { state: { job } });
     }
 
 
@@ -41,10 +42,14 @@ const CompanyDetailPage = () => {
     const [typePERSON, settypePERSON] = useState();
 
     const [company, setcompany] = useState();
+    const [candidatures, setcandidatures] = useState([]);
+    const [candidatures2, setcandidatures2] = useState([]);
     useEffect(() => {
-        
-        OffreGetAllById(idCompany,setoffres,setoffres2);
+
+
+        OffreGetAllById(idCompany, setoffres, setoffres2);
         EntrepriseGetById(idCompany, setcompany);
+        CandidaturesALLOfEntreprises(idCompany, setcandidatures, setcandidatures2)
     }, [])
 
 
@@ -104,7 +109,17 @@ const CompanyDetailPage = () => {
                                                         class="mdi mdi-eye"></i> Modifier profile</a>
                                             </div>
 
+
                                             <ul class="list-unstyled mt-4 mb-0">
+                                                <li>
+                                                    <div class="d-flex mt-4">
+                                                        <i
+                                                            class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                        <div class="ms-3 flex space-x-2 border border-blue-500 rounded-lg py-1 px-2">
+                                                            <a href={`/${routing.candidature_list_recruteur}`} class="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length >0 ? "s":""} {candidatures.length > 0 ? candidatures.length: ""} </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
 
                                                 {
                                                     company && company.employers_count ?
@@ -141,6 +156,7 @@ const CompanyDetailPage = () => {
                                                         </li>
 
                                                 }
+
                                                 <li>
                                                     <div class="d-flex mt-4">
                                                         <i
@@ -236,7 +252,7 @@ const CompanyDetailPage = () => {
                                         <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
                                         {
                                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] &&
-                                             idCompany==  getAndCheckLocalStorage(localvalue.recruteurID) ?
+                                                idCompany == getAndCheckLocalStorage(localvalue.recruteurID) ?
                                                 <Link to={`/${routing.job_post}`}>
                                                     <button type="button" class="btn btn-success bg-blue-600 text-white flex flex-row space-x-2"><span>+</span><span>Poster</span></button>
                                                 </Link> :
@@ -262,16 +278,16 @@ const CompanyDetailPage = () => {
                                                             <div className="company flex items-center gap-2">
                                                                 <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
                                                                 <span className="text-[14px] py-[1rem] block ">
-                                                                        {item.company}
+                                                                    {item.company}
                                                                 </span>
                                                             </div>
                                                             <div >
-                                                                <button onClick={()=>{handleEditItem(item)}}
+                                                                <button onClick={() => { handleEditItem(item) }}
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
                                                                 </button>
                                                             </div>
                                                             <div >
-                                                                <button type='button' onClick={()=>{handleDetailItem(item)}}
+                                                                <button type='button' onClick={() => { handleDetailItem(item) }}
                                                                     className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
                                                                 </button>
                                                             </div>

@@ -30,7 +30,7 @@ export const Entreprise_Send_Message = (idEntreprise,idCandidat,data,toast) => {
 
 // Recuprer tout les message du candidats
 
-export const MessageAllCandidatById = async (id, setState) => {
+export const MessageAllCandidatById = async (id, setState,setState2) => {
     try {
         const response = await axios.get(`${baseurl.url}/api/v1/message/get_message/candidat/${id}/messages`, {
             headers: {
@@ -41,6 +41,7 @@ export const MessageAllCandidatById = async (id, setState) => {
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
             console.log(response.data.data)
             setState(response.data.data);
+            setState2(response.data.data);
         } else {
             console.log('La structure de la réponse est incorrecte');
             alert("la La tsructure de donnée est increect")
@@ -49,3 +50,30 @@ export const MessageAllCandidatById = async (id, setState) => {
         console.log(error);
     }
 };
+
+
+
+
+export const MessageAllEntrepriseById = async (id, setState,setState2) => {
+    try {
+        const response = await axios.get(`${baseurl.url}/api/v1/message/get_message/entreprise/${id}/messages`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        });
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+            console.log(response.data.data)
+            setState(response.data.data);
+            setState2(response.data.data);
+        } else {
+            console.log('La structure de la réponse est incorrecte');
+            alert("la La tsructure de donnée est increect")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+

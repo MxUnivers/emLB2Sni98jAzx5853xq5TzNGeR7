@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ModalApplyOffre from '../../containers/modal/ModalApplyOffre';
 import { app_bg } from '../../utlis/config';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -8,9 +8,16 @@ import { BsHouseDoor } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai"
 import { CiLocationOn } from "react-icons/ci";
 import { routing } from '../../utlis/routing';
+import { OffreGetAll } from '../../action/api/offres/OffresAction';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
+import moment from 'moment';
+import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 
 const JobAppliedWebPage = () => {
     const navigate = useNavigate();
+
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
     const [emploisList, setemploisList] = useState([1, 1, 1, 1]);
 
@@ -22,37 +29,21 @@ const JobAppliedWebPage = () => {
         setmodalApply(false)
     }
 
-    const Data = [
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
-        {
-            id: 1,
-            image: "https://img.icons8.com/fluency/48/null/mac-os.png",
-            title: "Web Developer",
-            time: "Now",
-            location: "Canada",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            company: "Netflix"
-        },
+    const handleDetailItem = (job) => {
+        setWithExpiration(localvalue.JobID, job._id, dureeDeVie);
+        navigate(`/${routing.job_details}`, { state: { job } });
+    }
 
-    ]
 
+    const [candidat, setcandidat] = useState();
+    const [offres, setoffres] = useState([]);
+    const [offres2, setoffres2] = useState([]);
+
+
+    useEffect(() => {
+        OffreGetAll(setoffres, setoffres2);
+        CandidatGetById(idCandidat, setcandidat);
+    }, []);
 
 
     return (
@@ -96,49 +87,51 @@ const JobAppliedWebPage = () => {
                     </div>
                 </section>
 
-
-
-
-
-
-
-
-                <main class="flex  w-screen items-center mt-10 justify-center bg-white">
-
-
-                    <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
-                        {
-                            Data.map((item) => {
-                                return (
-                                    <div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded [10px] hover:bg-blueColor shadow-lg  hover:shadow-2xl border ">
-
-                                        <span className="flex justify-between items-center gap-4">
-                                            <h1 className="text-[16px] font-semibold text-textColor ">{item.title}</h1>
-                                            <span className="flex items-center text-gray-400 gap-1"><BiTimeFive />{item.time}</span>
-                                        </span>
-
-                                        <h6 className="text-gray-400">{item.location}</h6>
-                                        <p className="text-[13px] text-[#959595] pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
-                                            {item.desc}
-                                        </p>
-
-                                        <div className="company flex items-center gap-2">
-                                            <img src={item.image} alt="Company Logo" className="w-[10%]" />
-                                            <span className="text-[14px] py-[1rem] block ">
-                                                {item.company}
-                                            </span>
-                                        </div>
-                                        <a href={`/${routing.job_details}`}>
-                                            <button
-                                                className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor bg-blue-300  hover:bg-blue-400 group-hover/item:text-textColor " >Details
-                                            </button>
-                                        </a>
-                                    </div>
-                                );
-                            })}
-                    </div>
-                </main>
-
+                {
+                    candidat && candidat.offres.length > 0
+                        ?
+                        <main class="flex  w-screen items-center mt-10 justify-center bg-white">
+                            <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
+                                {
+                                    offres.map((item) => {
+                                        if (candidat.offres.some(element2 => element2._id === item._id)) {
+                                            return (
+                                                <div key={item._id} onClick={() => {
+                                                    setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
+                                                    navigate(`/${routing.job_details}`, { state: { item } });
+                                                }} className="group cursor-pointer relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
+                                                    <span className="flex justify-between items-center gap-4 mb-3">
+                                                        <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
+                                                        <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
+                                                    </span>
+                                                    <h6 className="text-gray-400">{item.location}</h6>
+                                                    <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-2 ">
+                                                        {item.description}
+                                                    </p>
+                                                    <div className="company flex items-center gap-2">
+                                                        <img src={item.coverPicture} alt="Company Logo" className="w-[10%] " />
+                                                        <span className="text-[14px] py-[1rem] block ">
+                                                            {item.company}
+                                                        </span>
+                                                    </div>
+                                                    <div >
+                                                        <button type='button' onClick={() => { handleDetailItem(item) }}
+                                                            className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >
+                                                            Details
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )
+                                        } else {
+                                            return null;
+                                        }
+                                    })}
+                            </div>
+                        </main> :
+                        <div class=" flex justify-center items-center gap-5  h-screen mt-10 text-center pt-10">
+                            <div class="bg-gray-50 w-full  rounded-lg animate-pulse h-28 justify-center items-center text-center " >Aucunne offre pour l{"'"}instant </div>
+                        </div>
+                }
 
 
 

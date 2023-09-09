@@ -72,7 +72,7 @@ export const CandidatSignUp = (
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success(" Vous êtes inscrit , Profiter d'opportunité !")
                 setTimeout(() => {
-                    window.location.href=`/${routing.inscription}`;
+                    window.location.href=`/${routing.connexion}`;
                 }, 2500);
                 
             })
@@ -212,6 +212,12 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
                     typePersonConnected[1],
                     dureeDeVie
                 );
+                setWithExpiration(
+                    localvalue.token,
+                    response.data.token,
+                    dureeDeVie
+                );
+                
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
                 setTimeout(() => {
@@ -229,7 +235,6 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
 
 
 export const CandidatDeconnexion = async (id) => {
-
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -238,7 +243,6 @@ export const CandidatDeconnexion = async (id) => {
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
         }
     };
-
     await axios(config)
         .then((response) => {
             // localStorage.removeItem(localvalue.candidat.tokenCandidat, response.data.data.token);

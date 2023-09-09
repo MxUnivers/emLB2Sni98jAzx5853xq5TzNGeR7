@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { useEffect } from 'react';
 import Stepper from "react-stepper-horizontal";
+import { CandidatureAllOfCandidat } from '../../action/api/candidatures/CandidatureAction';
 
 
 
@@ -24,9 +25,12 @@ const CandidatDetailPage = () => {
     var typeAccess = getAndCheckLocalStorage(localvalue.candidatTYPE);
 
     const [candidat, setcandidat] = useState();
+    const [candidatures, setcandidatures] = useState([]);
+    const [candidatures2, setcandidatures2] = useState([]);
 
     useEffect(() => {
         CandidatGetById(idCandidat, setcandidat);
+        CandidatureAllOfCandidat(idCandidat,setcandidatures,setcandidatures2)
     }, [])
 
 
@@ -137,12 +141,12 @@ const CandidatDetailPage = () => {
                                             </div>
                                             <div class="mt-1 mb-1 flex justify-center">
                                                 <Link to={`/${routing.candidat_applied}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Offres (0)</span>
+                                                    <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.lentgh : null}</span>
                                                 </Link>
                                             </div>
                                             <div class="mt-1 mb-1 flex justify-center">
                                                 <Link to={`/${routing.candidature_list}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Candidature (0)</span>
+                                                    <span>Candidature ({candidatures.length})</span>
                                                 </Link>
                                             </div>
                                         </div>
@@ -369,7 +373,8 @@ const CandidatDetailPage = () => {
 
                                             </div>
                                         </div>
-                                        <form action="#" class="mt-4 pt-3 ">
+                                        {
+                                            /*<form action="#" class="mt-4 pt-3 ">
                                             <h6 class="fs-17 fw-semibold mb-2 text-2xl font-bold">Donner votre avis</h6>
                                             <div class="row">
                                                 <div class="col-lg-12">
@@ -405,11 +410,10 @@ const CandidatDetailPage = () => {
                                                 <button type="submit" class="btn btn-primary bg-blue-300 btn-hover">Envoyer <i
                                                     class="uil uil-angle-right-b"></i></button>
                                             </div>
-                                        </form>
-
-
-
-
+                                        </form> 
+                                        
+                                        
+                                        
 
 
                                         <div class="mt-4 pt-3">
@@ -437,6 +441,17 @@ const CandidatDetailPage = () => {
                                             </div>
 
                                         </div>
+                                        
+                                        
+                                        */
+                                        }
+
+
+
+
+
+
+                                        
 
 
 

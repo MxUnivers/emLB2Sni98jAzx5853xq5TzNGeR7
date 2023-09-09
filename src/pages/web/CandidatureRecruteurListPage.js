@@ -4,15 +4,16 @@ import { routing } from '../../utlis/routing';
 import { useState } from 'react';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
-import { CandidatureAllOfCandidat, CandidatureById } from '../../action/api/candidatures/CandidatureAction';
-import { MessageAllCandidatById } from '../../action/api/messages/MessageAction';
+import { CandidatureAllOfCandidat, CandidatureById, CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
+import { MessageAllCandidatById, MessageAllEntrepriseById } from '../../action/api/messages/MessageAction';
 import moment from 'moment';
 import { OffreGetById } from '../../action/api/offres/OffresAction';
 
-const CandidatureListPage = () => {
+const CandidatureRecruteurListPage = () => {
 
 
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
+    var typRecruteur = getAndCheckLocalStorage(localvalue.TYPEACCESS);
 
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
@@ -45,8 +46,8 @@ const CandidatureListPage = () => {
     const [message, setmessage] = useState();
 
     useEffect(() => {
-        CandidatureAllOfCandidat(idCandidat, setcandidatures, setcandidatures2);
-        MessageAllCandidatById(idCandidat, setmessageList, setmessageLis2);
+        CandidaturesALLOfEntreprises(idRecruteur, setcandidatures, setcandidatures2);
+        MessageAllEntrepriseById(idRecruteur, setmessageList, setmessageLis2);
     }, [])
 
     return (
@@ -60,16 +61,11 @@ const CandidatureListPage = () => {
                     >
                         <div class="mx-auto max-w-xl text-center">
                             <h1 class="text-3xl font-extrabold sm:text-5xl">
-                                Vos candidatures
+                                Candiatutre recus
                                 <strong class="font-extrabold text-blue-700 sm:block">
-                                    Candidature
+                                    Message envoyées
                                 </strong>
                             </h1>
-
-                            <p class="mt-4 sm:text-xl/relaxed">
-                                Candidatures aux offres d{"'"}emplois
-                            </p>
-
                             <div class="mt-8 flex flex-wrap justify-center gap-4">
                                 <button onClick={() => { handleShowButton(0) }}
                                     class={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
@@ -93,45 +89,54 @@ const CandidatureListPage = () => {
 
                 {/* Les Candidats */}
                 <div className={`py-8 w-full ${buttonSelected == 0 ? "" : "hidden"}`}>
-                    <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
-                        {
-                            candidatures.map((item) => {
-                                return (
-                                    <div onClick={() => {
-                                        OffreGetById(item.idOffre, setoffreDetail);
-                                        handleShow();
-                                        setcandidatureDetail(item)
-                                        
-                                    }} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
-                                        <div className="flex items-center border-b border-gray-200 pb-6">
-                                            <img src="https://img.freepik.com/vecteurs-libre/cv-du-meilleur-candidat-dans-illustration-vectorielle-plane-mains-homme-entreprise-recherche-employe-chasseur-tetes-qui-embauche-gens-gestion-ressources-humaines-concept-entretien-embauche_74855-24461.jpg?w=826&t=st=1694284756~exp=1694285356~hmac=11cbbba3a275bdb5905ddadc84b0d3f30814a450b727c1437347f47197c08cdf"
-                                                alt className="w-12 h-12 rounded-full" />
-                                            <div className="flex items-start justify-between w-full">
-                                                <div className="pl-3 w-full">
-                                                    <p className="text-xl font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
-                                                    <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
-                                                </div>
-                                                <div className={`
+                    {
+                        candidatures && candidatures.length ?
+                            <div className="grid grid-cols-1 sm:grid-cols1 md:grid-cols-1 grid-cols-3 w-full gap-5">
+                                {
+                                    candidatures.map((item) => {
+                                        return (
+                                            <div onClick={() => {
+                                                OffreGetById(item.idOffre, setoffreDetail);
+                                                handleShow();
+                                                setcandidatureDetail(item)
+
+                                            }} className="w-full  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
+                                                <div className="flex items-center border-b border-gray-200 pb-6">
+                                                    <img src="https://img.freepik.com/vecteurs-libre/cv-du-meilleur-candidat-dans-illustration-vectorielle-plane-mains-homme-entreprise-recherche-employe-chasseur-tetes-qui-embauche-gens-gestion-ressources-humaines-concept-entretien-embauche_74855-24461.jpg?w=826&t=st=1694284756~exp=1694285356~hmac=11cbbba3a275bdb5905ddadc84b0d3f30814a450b727c1437347f47197c08cdf"
+                                                        alt className="w-12 h-12 rounded-full" />
+                                                    <div className="flex items-start justify-between w-full">
+                                                        <div className="pl-3 w-full">
+                                                            <p className="text-xl font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
+                                                            <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                        </div>
+                                                        <div className={`
                                             ${item.status == "PENDING" ? "bg-orange-200" : ""}
                                             ${item.status == "VALIDATE" ? "bg-green-500" : ""}
                                             ${item.status == "CANCEL" ? "bg-red-500" : ""} 
                                             py-1 px-4 ml-3 text-xs text-gray-700 rounded-full `}>
-                                                    {
-                                                        item.status == "PENDING" ? "ENvoyé".toUpperCase() : ""
-                                                    }
-                                                    {
-                                                        item.status == "VALIDATE" ? "ACCEPTER" : ""
-                                                    }
-                                                    {
-                                                        item.status == "CANCEL" ? "REFUSE" : ""
-                                                    }
+                                                            {
+                                                                item.status == "PENDING" ? "ENvoyé".toUpperCase() : ""
+                                                            }
+                                                            {
+                                                                item.status == "VALIDATE" ? "ACCEPTER" : ""
+                                                            }
+                                                            {
+                                                                item.status == "CANCEL" ? "REFUSE" : ""
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                    </div>
+                                        )
+                                    })}
+                            </div>
+                            :
+                            <div class="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
+                                <div class="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
+                                    <h1 class="text-xl text-gray-500">Aucune candidature pour l{"'"}instant </h1>
+                                </div>
+                            </div>
+                    }
                 </div>
 
 
@@ -349,4 +354,4 @@ const CandidatureListPage = () => {
     )
 }
 
-export default CandidatureListPage;
+export default CandidatureRecruteurListPage;

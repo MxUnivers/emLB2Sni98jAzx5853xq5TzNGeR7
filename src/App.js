@@ -17,6 +17,7 @@ import SignUpPage from "./pages/web/SignUpPage";
 import SignInPage from "./pages/web/SignInPage";
 import SignUpRecruteurPage from "./pages/web/SignUpRecruteurPage";
 import SignInRecuteurPage from "./pages/web/SignInRecuteurPage";
+import CandidatureRecruteurListPage from "./pages/web/CandidatureRecruteurListPage";
 
 
 
@@ -48,7 +49,10 @@ function App() {
             <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
+
+            {/* # Candidatures */}
             <Route path={`${routing.candidature_list}`} element={<CandidatureListPage />} />
+            <Route path={`${routing.candidature_list_recruteur}`} element={<CandidatureRecruteurListPage />} />
             <Route path={`${routing.candidat_applied}`} element={<JobAppliedWebPage />} />
             <Route path={`${routing.company_details}`} element={<CompanyDetailPage />} />
 
