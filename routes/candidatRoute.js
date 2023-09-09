@@ -3,9 +3,6 @@ const { AuthorizationMiddleware } = require('../middlewares/Authtoken');
 const CandidatModel = require('../models/CandidatModel');
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
-const OffreEmploi = require('../models/OffreEmploiModel');
-const AnnonceModel = require('../models/AnnonceModel');
-const CandidatureModel = require('../models/CandidatureModel');
 const { error } = require('firebase-functions/logger');
 
 // Fonction pour créer un candidat

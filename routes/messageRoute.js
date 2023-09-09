@@ -6,6 +6,24 @@ const MessageModel = require("../models/MessageModel");
 const router = require("express").Router();
 
 
+// poster un message 
+router.get('/send/:idSender/receip/:idRecep', AuthorizationMiddleware, async (req, res) => {
+    try {
+        
+        const idSend = req.params.idSender;
+        const idRecep = req.params.idRecep;
+        const message = await MessageModel(req.body);
+        message.idSender=idSend;
+        message.idRecipient=idRecep;
+
+        await message.save();
+        return res.status(200).json({data: message, message:"Message envoyé"});
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+    }
+});
+
+
 
 
 // recupérer tout les messages des candidats
@@ -14,7 +32,7 @@ router.get('/get_message/candidat/:idCandidat/messages', AuthorizationMiddleware
         const id = req.params.idCandidat;
         const candidatExist = await CandidatModel.findById({ _id: id });
         if (!candidatExist) {
-            await res.status(406).json({ message: " candidat introuvable ! " })
+            await res.status(406).json({ message: " candidat introuvable ! " });
         }
         const messages = await MessageModel.find({ idRecipient: id });
         res.json({data: messages, message:"Message du candidats recupérer"});
@@ -33,7 +51,7 @@ router.get('/get_message/entreprise/:idEntreprise/messages', AuthorizationMiddle
         if (!entrepriseExist) {
             await res.status(406).json({ message: "le employeur introuvable ! " })
         }
-        const messages = await MessageModel.find({ idRecipient: id });
+        const messages = await MessageModel.find({ idSender: id });
         res.json(messages);
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des messages' });

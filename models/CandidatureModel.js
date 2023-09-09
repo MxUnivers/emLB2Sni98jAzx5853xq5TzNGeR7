@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
-const candidatureSchema = new mongoose.Schema({
+const CandidatureSchema = new mongoose.Schema({
 
     idOffre: { type: String },
     idCandidat:{ type:String},
     idEntreprise:{ type:String},
+    coverPicture:{type:String,require:false},
+    title:{type:String,require:false},
+    logo:{type:String,require:false},
     firstname: { type: String, required: false,},
     lastname: { type: String, required: false,},
     email: { type: String, required: false,},
@@ -13,9 +16,9 @@ const candidatureSchema = new mongoose.Schema({
     cv: { type: String, required: false,},
     status: { type: String, enum: ['PENDING', 'VALIDATE', 'CANCEL'],default: 'PENDING',},
 }, 
-{ timestamps: true }
+{ timestamps: true ,}
 );
 
-const CandidatureModel = mongoose.model('Candidature', candidatureSchema);
+const CandidatureModel = mongoose.model('Candidature', CandidatureSchema);
 
 module.exports = CandidatureModel;

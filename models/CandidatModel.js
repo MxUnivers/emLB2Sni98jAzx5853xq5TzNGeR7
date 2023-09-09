@@ -72,7 +72,7 @@ const CandidatSchema = new mongoose.Schema({
     instagram_url: {
         type: String
     },
-    offres: [{type:Object}],
+    offres: [{type:String}],
     bookmarks:[{type:Object}],
     likes:{
         type:Number ,

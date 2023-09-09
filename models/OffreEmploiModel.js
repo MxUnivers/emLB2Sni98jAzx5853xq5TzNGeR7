@@ -20,7 +20,7 @@ const offreEmploiSchema = new mongoose.Schema(
     description: { type: String, required: false },
     salaire: { type: String, required: false },
     access: { type: Boolean, required: false,default:true },
-    candidats : [{type:Object}]
+    candidats : [{type:String}]
   },
   { timestamps: true }
 )
