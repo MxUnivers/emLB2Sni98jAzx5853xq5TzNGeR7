@@ -91,29 +91,29 @@ const CandidatureRecruteurListPage = () => {
                 <div className={`py-8 w-full ${buttonSelected == 0 ? "" : "hidden"}`}>
                     {
                         candidatures && candidatures.length ?
-                            <div className="grid grid-cols-1 sm:grid-cols1 md:grid-cols-1 grid-cols-3 w-full gap-5">
+                            <div className="flex flex-wrap justify-center  w-full gap-1">
                                 {
                                     candidatures.map((item) => {
                                         return (
                                             <div onClick={() => {
-                                                OffreGetById(item.idOffre, setoffreDetail);
+                                                OffreGetById(item.idOffre, setoffreDetail,setisLoading,setentreprise);
                                                 handleShow();
                                                 setcandidatureDetail(item)
 
-                                            }} className="w-full  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
+                                            }} className="  w-[350px] sm:w-[450px] md:w-[350px] lg:w-[350px]  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                                 <div className="flex items-center border-b border-gray-200 pb-6">
                                                     <img src="https://img.freepik.com/vecteurs-libre/cv-du-meilleur-candidat-dans-illustration-vectorielle-plane-mains-homme-entreprise-recherche-employe-chasseur-tetes-qui-embauche-gens-gestion-ressources-humaines-concept-entretien-embauche_74855-24461.jpg?w=826&t=st=1694284756~exp=1694285356~hmac=11cbbba3a275bdb5905ddadc84b0d3f30814a450b727c1437347f47197c08cdf"
                                                         alt className="w-12 h-12 rounded-full" />
                                                     <div className="flex items-start justify-between w-full">
                                                         <div className="pl-3 w-full">
-                                                            <p className="text-xl font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
+                                                            <p className="text-sm font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
                                                             <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                         </div>
                                                         <div className={`
-                                            ${item.status == "PENDING" ? "bg-orange-200" : ""}
-                                            ${item.status == "VALIDATE" ? "bg-green-500" : ""}
-                                            ${item.status == "CANCEL" ? "bg-red-500" : ""} 
-                                            py-1 px-4 ml-3 text-xs text-gray-700 rounded-full `}>
+                                                            ${item.status == "PENDING" ? "bg-orange-200" : ""}
+                                                            ${item.status == "VALIDATE" ? "bg-green-500" : ""}
+                                                            ${item.status == "CANCEL" ? "bg-red-500" : ""} 
+                                                            py-1 px-4 ml-3 text-xs text-gray-700 rounded-full `}>
                                                             {
                                                                 item.status == "PENDING" ? "ENvoyé".toUpperCase() : ""
                                                             }
@@ -144,38 +144,45 @@ const CandidatureRecruteurListPage = () => {
 
 
                 <div className={`py-8 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
-                    <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
-                        {
-                            messageList.map((item) => {
-                                return (
-                                    <div onClick={handleShowMsg} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
-                                        <div className="flex items-center border-b border-gray-200 pb-6">
-                                            <div className="w-12 h-12 rounded-full bg-blue-400 p-2">A</div>
-                                            <div className="flex items-start justify-between w-full">
-                                                <div className="pl-3 w-full">
-                                                    <p className="text-xl font-medium leading-5 text-gray-800">{item.subject}</p>
-                                                    <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                    {messageList && messageList.length ?
+                        <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
+                            {
+                                messageList.map((item) => {
+                                    return (
+                                        <div onClick={handleShowMsg} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
+                                            <div className="flex items-center border-b border-gray-200 pb-6">
+                                                <div className="w-12 h-12 rounded-full bg-blue-400 p-2">A</div>
+                                                <div className="flex items-start justify-between w-full">
+                                                    <div className="pl-3 w-full">
+                                                        <p className="text-xl font-medium leading-5 text-gray-800">{item.subject}</p>
+                                                        <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                    </div>
+                                                    <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z" stroke="#2C3E50" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
                                                 </div>
-                                                <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z" stroke="#2C3E50" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
                                             </div>
+                                            {
+                                                /*<div className="px-2">
+                                                <p className="text-sm leading-5 py-4 text-gray-600 line-clamp-2">{item.content}</p>
+                                                <div className="flex">
+                                                    <div className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#dogecoin</div>
+                                                    <div className="py-2 px-4 ml-3 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#crypto</div>
+                                                </div>
+                                            </div> */
+                                            }
                                         </div>
-                                        {
-                                            /*<div className="px-2">
-                                            <p className="text-sm leading-5 py-4 text-gray-600 line-clamp-2">{item.content}</p>
-                                            <div className="flex">
-                                                <div className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#dogecoin</div>
-                                                <div className="py-2 px-4 ml-3 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#crypto</div>
-                                            </div>
-                                        </div> */
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
 
-                    </div>
+                        </div> :
+                        <div class="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
+                            <div class="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
+                                <h1 class="text-xl text-gray-500">Aucun message pour l{"'"}instant </h1>
+                            </div>
+                        </div>
+                    }
 
                 </div>
             </div>
@@ -243,26 +250,22 @@ const CandidatureRecruteurListPage = () => {
                                     </div>
                                     <div class=" mt-2  w-full ">
                                         <div class=" flex justify-start rounded-lg w-full border-t ">
-                                            {
-                                                /*<div class="w-full space-y-3 flex flex-col ">
-                                                {
-                                                    offreDetail && offreDetail.coverPicture ?
-                                                        <img class="h-10 w-10 rounded-lg" src={offreDetail.coverPicture} /> :
-                                                        <div class="h-10 w-10 rounded-lg bg-gray-200 animate-pulse" />
-                                                }
-                                            </div> */
-                                            }
-                                            {
-                                                /*<div>
-                                                {
-                                                    offreDetail && offreDetail.title
-                                                        ?
-                                                        <h2 class="text-xl font-semibold">{offreDetail.title}</h2>
-                                                        :
-                                                        <div class="h-10 w-full rounded-lg bg-gray-200 animate-pulse" />
-                                                }
-                                            </div> */
-                                            }
+                                            <form class="w-full">
+                                                <div class="chva6">
+                                                    <div>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Titre du message <span class="cvmpf">*</span></label>
+                                                        <input class="w-full cvac0 coz82"  type="email" required={true} />
+                                                    </div>
+                                                </div>
+                                                <div class="chva6">
+                                                    <div>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Message <span class="cvmpf">*</span></label>
+                                                        <textarea class="w-full cvac0 coz82" 
+                                                        placeholder="Nous comme heureux de vous annoncer que votre offre à bien été selectioné par nos auteurs "
+                                                    type="password" required={true} />
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -270,10 +273,17 @@ const CandidatureRecruteurListPage = () => {
                             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button
                                     type="button"
+                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-gray-300 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                    onClick={handleClose}
+                                >
+                                    retour
+                                </button>
+                                <button
+                                    type="button"
                                     className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                                     onClick={handleClose}
                                 >
-                                    Fermer
+                                    Envoyer
                                 </button>
                             </div>
                         </div>
