@@ -23,6 +23,7 @@ const CandidatureListPage = () => {
     const [messageList, setmessageList] = useState([]);
     const [messageLis2, setmessageLis2] = useState([]);
     const [candidatureDetail, setcandidatureDetail] = useState();
+    const [messageDetail, setmessageDetail] = useState();
 
 
     const [buttonSelected, setbuttonSelected] = useState(0);
@@ -101,7 +102,6 @@ const CandidatureListPage = () => {
                                         OffreGetById(item.idOffre, setoffreDetail);
                                         handleShow();
                                         setcandidatureDetail(item)
-                                        
                                     }} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                         <div className="flex items-center border-b border-gray-200 pb-6">
                                             <img src={item.coverPicture}
@@ -143,13 +143,16 @@ const CandidatureListPage = () => {
                         {
                             messageList.map((item) => {
                                 return (
-                                    <div onClick={handleShowMsg} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
+                                    <div onClick={()=>{
+                                        handleShowMsg()
+                                        setmessageDetail(item);
+                                    }} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                         <div className="flex items-center border-b border-gray-200 pb-6">
-                                            <div className="w-12 h-12 rounded-full bg-blue-400 p-2">A</div>
+                                        <img src={`${item.coverPicture}`} className="w-12 h-12 rounded-full bg-blue-400 p-2"/>
                                             <div className="flex items-start justify-between w-full">
                                                 <div className="pl-3 w-full">
-                                                    <p className="text-xl font-medium leading-5 text-gray-800">{item.subject}</p>
-                                                    <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                    <p className="text-sm font-medium leading-5 text-gray-800">{item.subject}</p>
+                                                    <p className="text-xs leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                 </div>
                                                 <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z" stroke="#2C3E50" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
@@ -299,28 +302,28 @@ const CandidatureListPage = () => {
                                 <div className="sm:flex sm:items-start">
                                     <div className="w-full mt-3 text-center sm:mt-0 sm:text-left">
                                         {
-                                            message && message.subject ?
+                                            messageDetail && messageDetail.subject ?
                                                 <h3
                                                     className="text-lg leading-6 font-medium text-gray-900 mb-2"
                                                     id="modal-title"
                                                 >
-                                                    Message destiné au candidat candidat
+                                                    {messageDetail.subject}
                                                 </h3> :
                                                 <div class="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         <div className="w-full py-3 px-1 space-y-3">
                                             {
-                                                message && message.createdAt ?
+                                                messageDetail && messageDetail.createdAt ?
                                                     <p className="text-sm text-gray-500 mb-4">
-                                                        Date: 28/08/2023
+                                                        {moment(messageDetail.createdAt).format("DD/MM/YYYY HH:MM")}
                                                     </p> :
                                                     <div class="w-full  h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
 
                                             {
-                                                message && message.content ?
+                                                messageDetail && messageDetail.content ?
                                                     <p className="w-full text-sm text-gray-500 mb-4">
-                                                        Date: 28/08/2023
+                                                        {messageDetail.content}
                                                     </p> :
                                                     <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }

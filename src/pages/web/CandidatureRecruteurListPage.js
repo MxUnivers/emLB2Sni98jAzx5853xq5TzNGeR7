@@ -27,6 +27,7 @@ const CandidatureRecruteurListPage = () => {
     const [messageList, setmessageList] = useState([]);
     const [messageLis2, setmessageLis2] = useState([]);
     const [candidatureDetail, setcandidatureDetail] = useState();
+    const [messageDetail, setmessageDetail] = useState();
 
     // state pour message pour les candidatures
     const [titleCandidature, settitleCandidature] = useState();
@@ -200,6 +201,7 @@ const CandidatureRecruteurListPage = () => {
 
 
 
+                
 
                 <div className={`py-8 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
                     {messageList && messageList.length ?
@@ -207,12 +209,15 @@ const CandidatureRecruteurListPage = () => {
                             {
                                 messageList.map((item) => {
                                     return (
-                                        <div onClick={handleShowMsg} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
+                                        <div onClick={()=>{
+                                            handleShowMsg();
+                                            setmessageDetail(item);
+                                        }} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                             <div className="flex items-center border-b border-gray-200 pb-6">
-                                                <div className="w-12 h-12 rounded-full bg-blue-400 p-2">A</div>
+                                                <img src={`${item.coverPicture}`} className="w-12 h-12 rounded-full bg-blue-400 p-2"/>
                                                 <div className="flex items-start justify-between w-full">
                                                     <div className="pl-3 w-full">
-                                                        <p className="text-xl font-medium leading-5 text-gray-800">{item.subject}</p>
+                                                        <p className="text-sm font-bold font-medium leading-5 text-gray-800">{item.subject}</p>
                                                         <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                     </div>
                                                     <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -404,18 +409,18 @@ const CandidatureRecruteurListPage = () => {
                                 <div className="sm:flex sm:items-start">
                                     <div className="w-full mt-3 text-center sm:mt-0 sm:text-left">
                                         {
-                                            message && message.subject ?
+                                            messageDetail && messageDetail.subject ?
                                                 <h3
-                                                    className="text-lg leading-6 font-medium text-gray-900 mb-2"
+                                                    className="text-sm font-bold leading-6 font-medium text-gray-900 mb-2"
                                                     id="modal-title"
                                                 >
-                                                    Message destiné au candidat candidat
+                                                    {messageDetail.subject}
                                                 </h3> :
                                                 <div class="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         <div className="w-full py-3 px-1 space-y-3">
                                             {
-                                                message && message.createdAt ?
+                                                messageDetail && messageDetail.createdAt ?
                                                     <p className="text-sm text-gray-500 mb-4">
                                                         Date: 28/08/2023
                                                     </p> :
@@ -423,9 +428,9 @@ const CandidatureRecruteurListPage = () => {
                                             }
 
                                             {
-                                                message && message.content ?
+                                                messageDetail && messageDetail.content ?
                                                     <p className="w-full text-sm text-gray-500 mb-4">
-                                                        Date: 28/08/2023
+                                                        {messageDetail.content}
                                                     </p> :
                                                     <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
