@@ -5,11 +5,16 @@ import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/act
 
 
 // Envois de message de l'entreprise vers un candidat
-export const Entreprise_Send_Message = (idEntreprise,idCandidat,data,toast) => {
+export const Entreprise_Send_Message = (idEntreprise,idCandidat,subject,content,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/message/entreprise-post/${idEntreprise}/to/${idCandidat}`,data, {
+            .post(`${baseurl.url}/api/v1/message/send/${idEntreprise}/receip/${idCandidat}`,
+            {
+                "subject":subject,
+                "content":content
+            }
+            , {
                 headers:
                 {
                     "Content-Type": "application/json",
@@ -19,6 +24,9 @@ export const Entreprise_Send_Message = (idEntreprise,idCandidat,data,toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Message envoyé avec succès ");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

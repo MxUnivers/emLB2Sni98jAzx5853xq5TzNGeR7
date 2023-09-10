@@ -2,6 +2,7 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import { routing } from "../../../utlis/routing";
+import { Entreprise_Send_Message } from "../messages/MessageAction";
 
 
 export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setState2) => {
@@ -65,7 +66,7 @@ export const CandidatureById = async (idCandidature, setState) => {
 
 
 
-// Accepter une candidature
+// Accepter pour les premium
 export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip, title, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -77,35 +78,12 @@ export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip,
                     "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
                 }
             })
-            .then((response) => {
+            .then(async(response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Candidature accepté avec succèes !");
-                dispatch({ type: SEND_REQUEST });
 
-                // une fois la candidature Accepter on peut lui envoyeé un message ...
-                axios.post(`${baseurl.url}/api/v1/message/send/${idSend}/receip/${idReceip}`,
-                    {
-                        "subject": title,
-                        "content": content
-                    }, {
-                    headers:
-                    {
-                        "Content-Type": "application/json",
-                        "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
-                    }
-                })
-                    .then((res) => {
-                        dispatch({ type: REQUEST_SUCCESS, payload: res.data });
+                Entreprise_Send_Message(idSend,idReceip,title,content,toast)
 
-                        toast.success("Message envoyée avec succès");
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 3000);
-
-                    }).catch((err) => {
-                        dispatch({ type: REQUEST_FAILURE, payload: err.message });
-                        toast.error("Message non envoyé au candidat");
-                    })
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

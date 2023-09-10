@@ -4,11 +4,13 @@ import { routing } from '../../utlis/routing';
 import { useState } from 'react';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
-import { CandidatureAllOfCandidat, CandidatureById, CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
+import { CandidatureAllOfCandidat, CandidatureAuthorizedAndMessage, CandidatureById, CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
 import { MessageAllCandidatById, MessageAllEntrepriseById } from '../../action/api/messages/MessageAction';
 import moment from 'moment';
 import { OffreGetById } from '../../action/api/offres/OffresAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import toastNotification from '../../utlis/fonctions/toastNotification';
 
 const CandidatureRecruteurListPage = () => {
 
@@ -66,9 +68,41 @@ const CandidatureRecruteurListPage = () => {
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
-    const  handleSumitCandidature= (event)=>{
+    const showErrorToast = (message) => {
+        toast.info(message, {
+            position: "top-right",
+            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
+
+    const handleSumitCandidatureMessage = (event) => {
+
         event.preventDefault();
-        dispatch()
+
+
+        const requiredFields = ["titleCandidature", "contentCandidature"];
+
+        for (const field of requiredFields) {
+            if (!eval(field)) {
+                showErrorToast(
+                    //`${field.replace("_", " ")} requis !`
+                    `les champs avec * obligatoire`
+                );
+                return; // Arrêtez le traitement si un champ est vide.
+            }
+        }
+
+        dispatch(
+            CandidatureAuthorizedAndMessage(
+                candidatureDetail._id,
+                candidatureDetail.idEntreprise,
+                candidatureDetail.idCandidat, titleCandidature, contentCandidature, toast
+            )
+        )
     }
 
     return (
@@ -122,7 +156,7 @@ const CandidatureRecruteurListPage = () => {
                                                 setcandidatureDetail(item);
                                                 settitleCandidature(`${item.title}`);
                                                 setcontentCandidature(`Nous comme heureux de vous annoncer que votre candidature à l'offre à '${item.title}' bien été selectioné par nos auteurs `);
-                                                
+
 
                                             }} className="  w-[350px] sm:w-[450px] md:w-[350px] lg:w-[350px]  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                                 <div className="flex items-center border-b border-gray-200 pb-6">
@@ -286,15 +320,15 @@ const CandidatureRecruteurListPage = () => {
                                                 <div class="chva6">
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="email">Titre du message <span class="cvmpf">*</span></label>
-                                                        <input value={titleCandidature} onChange={(e)=>{settitleCandidature(e.target.value)}}  class="w-full cvac0 coz82" type="text" required={true} />
+                                                        <input value={titleCandidature} onChange={(e) => { settitleCandidature(e.target.value) }} class="w-full cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                 </div>
                                                 <div class="chva6">
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" >Message <span class="cvmpf">*</span></label>
-                                                        <textarea 
-                                                        value={contentCandidature} onChange={(e)=>{setcontentCandidature(e.target.value)}}
-                                                        class="w-full cvac0 coz82"
+                                                        <textarea
+                                                            value={contentCandidature} onChange={(e) => { setcontentCandidature(e.target.value) }}
+                                                            class="w-full cvac0 coz82"
                                                             rows={5}
                                                             placeholder={`Nous comme heureux de vous annoncer que votre candidature à l'offre à "${candidatureDetail.title}" bien été selectioné par nos auteurs `}
                                                             type="password" required={true} />
@@ -306,13 +340,13 @@ const CandidatureRecruteurListPage = () => {
                                                         <div class="chva6">
                                                             <div>
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setsmsChecked(e.target.checked)}} type="checkbox" checked={smsChecked} required={false} />
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setsmsChecked(e.target.checked) }} type="checkbox" checked={smsChecked} required={false} />
                                                             </div>
                                                         </div>
                                                         <div class="chva6">
                                                             <div>
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setemailChecked(e.target.checked)}} type="checkbox"  checked={emailChecked} required={false} />
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setemailChecked(e.target.checked) }} type="checkbox" checked={emailChecked} required={false} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -322,7 +356,7 @@ const CandidatureRecruteurListPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <form className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <form onSubmit={handleSumitCandidatureMessage} className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button
                                     type="button"
                                     className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-gray-400 text-base font-medium text-white hover:bg-gray-500 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -330,13 +364,17 @@ const CandidatureRecruteurListPage = () => {
                                 >
                                     retour
                                 </button>
-                                
-                                <button
-                                    type="submit"
-                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                >
-                                    Envoyer 
-                                </button>
+
+                                {
+                                    loading ?
+                                        <p class="animate-pulse text-gray-400">Envois en cours</p> :
+                                        <button
+                                            type="submit"
+                                            className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                        >
+                                            Envoyer
+                                        </button>
+                                }
                             </form>
                         </div>
                     </div>
