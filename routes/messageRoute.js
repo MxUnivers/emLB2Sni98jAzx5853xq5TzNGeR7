@@ -47,14 +47,14 @@ router.get('/get_message/candidat/:idCandidat/messages', AuthorizationMiddleware
 router.get('/get_message/entreprise/:idEntreprise/messages', AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.idEntreprise;
-        const entrepriseExist = await EntrepriseModel.findById({ idEntreprise: id });
+        const entrepriseExist = await EntrepriseModel.findById({ _id: id });
         if (!entrepriseExist) {
-            await res.status(406).json({ message: "le employeur introuvable ! " })
+            return res.status(407).json({ message: "le employeur introuvable ! " })
         }
         const messages = await MessageModel.find({ idSender: id });
-        res.json(messages);
+        return res.status(200).json({message:"Message de l'entreprise recupérer", data:messages});
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+        return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
     }
 });
 

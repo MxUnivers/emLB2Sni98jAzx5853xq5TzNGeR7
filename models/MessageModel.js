@@ -8,6 +8,9 @@ const messageSchema = new mongoose.Schema({
     idSender: { type: String, required: false },
     idRecipient: { type: String, required: false },
     idAdministrateur: { type: String, required: false },
+    coverPicture:{type:String,required:false,
+        default:"https://img.freepik.com/vecteurs-libre/caractere-couple-tenant-nouvelle-illustration-message_53876-26822.jpg?w=740&t=st=1694366817~exp=1694367417~hmac=b6b118a22c685adad59d1f18d81747fe2e21062cc21c48c6a0520f4b3250d39e"
+    },
     sender: {
         type: String,
         required: false,

@@ -44,15 +44,15 @@ router.post("/add/:idC/entreprise/:idE/offre/:idOffre", AuthorizationMiddleware,
 
         // Création de la candidature avec les bonnes références
         const candidature = new CandidatureModel(req.body);
-        candidature.idCandidat=idCandidat;
-        candidature.idEntreprise=idRecruteur;
+        candidature.idCandidat = idCandidat;
+        candidature.idEntreprise = idRecruteur;
         candidature.idOffre = idOffre;
-        candidature.title=offreExist.title;
-        candidature.coverPicture= offreExist.coverPicture;
+        candidature.title = offreExist.title;
+        candidature.coverPicture = offreExist.coverPicture;
         // Mise à jour des relations dans les modèles
         offreExist.candidats.push(idCandidat);
         await offreExist.save();
-        
+
         candidatExist.offres.push(idOffre);
         await candidatExist.save();
 
@@ -168,20 +168,24 @@ router.get("/get_candidatures/candidat/:IdCandidat", AuthorizationMiddleware, as
 
 
 // Accepter la candidature d'un candidat 
-router.post("/authorized/entreprise/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
-    try {
-        const id = req.params.Idcandidature;
-        const candidatureExist = await CandidatureModel.findById({ _id: id });
-        if (!candidatureExist) {
-            return res.status(407).json({ message: " Candidature non trouvé ! " });
+router.post("/authorized/entreprise/:Idcandidature",
+    //AuthorizationMiddleware
+    async (req, res) => {
+        try {
+            const id = req.params.Idcandidature;
+            const candidatureExist = await CandidatureModel.findById({ _id: id });
+            if (!candidatureExist) {
+                return res.status(407).json({ message: " Candidature non trouvé ! " });
+            }
+            console.log("Candidatutre Accepter maintenant ");
+            candidatureExist.status = "VALIDATE";
+            await candidatureExist.save();
+            console.log("Sauvegarder ");
+            return res.status(200).json({ message: "Candidature accépter ", data: candidatureExist })
+        } catch (error) {
+            res.status(500).send({ message: "Impossible d'accpeter la candidature avec succès" + error })
         }
-        candidatureExist.status = "VALIDATE";
-        await candidatureExist.save();
-        res.json({ message: "Candidature accépter ", data: candidatureExist })
-    } catch (error) {
-        res.status(500).send({ message: "Impossible d'accpeter la candidature avec succès" + error })
-    }
-});
+    });
 
 
 
@@ -197,7 +201,7 @@ router.post("/unauthorized/entreprise/:Idcandidature", AuthorizationMiddleware, 
         }
         candidature.status = "CANCEL";
         candidature.save();
-        res.json({ message: "Candidature Réjété ", data: candidature });
+        return res.status(200).json({ message: "Candidature Réjété ", data: candidature });
     } catch (error) {
         res.status(500).send({ message: "Impossible de recupérer les  candidatures" + error })
     }
