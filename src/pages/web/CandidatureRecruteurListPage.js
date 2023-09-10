@@ -290,13 +290,13 @@ const CandidatureRecruteurListPage = () => {
                                                         <div class="chva6">
                                                             <div>
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setsmsChecked(e.target.checked)}} type="checkbox" value={smsChecked} required={false} />
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setsmsChecked(e.target.checked)}} type="checkbox" checked={smsChecked} required={false} />
                                                             </div>
                                                         </div>
                                                         <div class="chva6">
                                                             <div>
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setemailChecked(e.target.checked)}} type="checkbox" value={emailChecked} required={false} />
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setemailChecked(e.target.checked)}} type="checkbox"  checked={emailChecked} required={false} />
                                                             </div>
                                                         </div>
                                                     </div>
