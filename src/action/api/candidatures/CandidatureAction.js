@@ -67,11 +67,11 @@ export const CandidatureById = async (idCandidature, setState) => {
 
 
 // Accepter une candidature
-export const CandidatureAuthorized = (id, toast) => {
+export const CandidatureAuthorized = (idCandidature, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidature/authorized/${id}`, {
+            .post(`${baseurl.url}/api/v1/candidature/authorized/entreprise/${idCandidature}`, {
                 headers:
                 {
                     "Content-Type": "application/json",
@@ -81,6 +81,16 @@ export const CandidatureAuthorized = (id, toast) => {
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Candidature accepté avec succèes !");
+                dispatch({ type: SEND_REQUEST });
+
+                axios.post(`${baseurl.url}/api/v1/message/send/${idSend}/receip/${idReceip}`)
+                    .then((res) => {
+                        dispatch({ type: REQUEST_SUCCESS, payload: res.data });
+                        toast.success("Message envoyé dans la boîte du candidat");
+                    }).catch((err) => {
+                        dispatch({ type: REQUEST_FAILURE, payload: err.message });
+                        toast.error("Message non envoyé au candidat")
+                    })
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -131,34 +141,34 @@ export const CandidaturePost = (
     idCandidat, idEntreprise, idOffre,
     firstname, lastname, email, telephone, cv, description, redirect, toast
 ) => {
-        return async (dispatch) => {
-            dispatch({ type: SEND_REQUEST });
-            try {
-                const response = await axios.post(
-                    `${baseurl.url}/api/v1/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}`,
-                    {
-                        firstname: firstname,
-                        lastname: lastname,
-                        email: email,
-                        telephone: telephone,
-                        cv: cv,
-                        description: description
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                        }
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        try {
+            const response = await axios.post(
+                `${baseurl.url}/api/v1/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}`,
+                {
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    telephone: telephone,
+                    cv: cv,
+                    description: description
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                     }
-                );
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Votre candidature a été postée avec succès!");
-                setTimeout(() => {
-                    redirect(`/${routing.candidature_list}`);
-                }, 3000);
-            } catch (error) {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Candidature non envoyée !");
-            }
+                }
+            );
+            dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+            toast.success("Votre candidature a été postée avec succès!");
+            setTimeout(() => {
+                redirect(`/${routing.candidature_list}`);
+            }, 3000);
+        } catch (error) {
+            dispatch({ type: REQUEST_FAILURE, payload: error.message });
+            toast.error("Candidature non envoyée !");
         }
+    }
 };

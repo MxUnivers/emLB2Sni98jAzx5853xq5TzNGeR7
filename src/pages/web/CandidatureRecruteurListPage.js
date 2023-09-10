@@ -8,6 +8,7 @@ import { CandidatureAllOfCandidat, CandidatureById, CandidaturesALLOfEntreprises
 import { MessageAllCandidatById, MessageAllEntrepriseById } from '../../action/api/messages/MessageAction';
 import moment from 'moment';
 import { OffreGetById } from '../../action/api/offres/OffresAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CandidatureRecruteurListPage = () => {
 
@@ -56,7 +57,19 @@ const CandidatureRecruteurListPage = () => {
     useEffect(() => {
         CandidaturesALLOfEntreprises(idRecruteur, setcandidatures, setcandidatures2);
         MessageAllEntrepriseById(idRecruteur, setmessageList, setmessageLis2);
-    }, [])
+    }, []);
+
+
+
+    // Submit
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
+    const  handleSumitCandidature= (event)=>{
+        event.preventDefault();
+        dispatch()
+    }
 
     return (
         <div className="main-content">
@@ -106,7 +119,10 @@ const CandidatureRecruteurListPage = () => {
                                             <div onClick={() => {
                                                 OffreGetById(item.idOffre, setoffreDetail, setisLoading, setentreprise);
                                                 handleShow();
-                                                setcandidatureDetail(item)
+                                                setcandidatureDetail(item);
+                                                settitleCandidature(`${item.title}`);
+                                                setcontentCandidature(`Nous comme heureux de vous annoncer que votre candidature à l'offre à '${item.title}' bien été selectioné par nos auteurs `);
+                                                
 
                                             }} className="  w-[350px] sm:w-[450px] md:w-[350px] lg:w-[350px]  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                                 <div className="flex items-center border-b border-gray-200 pb-6">
@@ -306,29 +322,22 @@ const CandidatureRecruteurListPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <form className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button
                                     type="button"
-                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-gray-300 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-gray-400 text-base font-medium text-white hover:bg-gray-500 active:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                                     onClick={handleClose}
                                 >
                                     retour
                                 </button>
+                                
                                 <button
-                                    type="button"
-                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={handleClose}
+                                    type="submit"
+                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                                 >
-                                    Envoyer
+                                    Envoyer 
                                 </button>
-                                <button
-                                    type="button"
-                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={handleClose}
-                                >
-                                    Accepter
-                                </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
