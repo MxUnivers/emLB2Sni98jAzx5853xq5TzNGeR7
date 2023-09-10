@@ -25,10 +25,18 @@ const CandidatureRecruteurListPage = () => {
     const [messageLis2, setmessageLis2] = useState([]);
     const [candidatureDetail, setcandidatureDetail] = useState();
 
+    // state pour message pour les candidatures
+    const [titleCandidature, settitleCandidature] = useState();
+    const [contentCandidature, setcontentCandidature] = useState()
+    const [smsChecked, setsmsChecked] = useState(false);
+    const [emailChecked, setemailChecked] = useState(false);
 
     const [buttonSelected, setbuttonSelected] = useState(0);
 
     const [show, setShow] = useState(false);
+
+
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -96,17 +104,17 @@ const CandidatureRecruteurListPage = () => {
                                     candidatures.map((item) => {
                                         return (
                                             <div onClick={() => {
-                                                OffreGetById(item.idOffre, setoffreDetail,setisLoading,setentreprise);
+                                                OffreGetById(item.idOffre, setoffreDetail, setisLoading, setentreprise);
                                                 handleShow();
                                                 setcandidatureDetail(item)
 
                                             }} className="  w-[350px] sm:w-[450px] md:w-[350px] lg:w-[350px]  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                                 <div className="flex items-center border-b border-gray-200 pb-6">
-                                                    <img src="https://img.freepik.com/vecteurs-libre/cv-du-meilleur-candidat-dans-illustration-vectorielle-plane-mains-homme-entreprise-recherche-employe-chasseur-tetes-qui-embauche-gens-gestion-ressources-humaines-concept-entretien-embauche_74855-24461.jpg?w=826&t=st=1694284756~exp=1694285356~hmac=11cbbba3a275bdb5905ddadc84b0d3f30814a450b727c1437347f47197c08cdf"
+                                                    <img src={item.coverPicture}
                                                         alt className="w-12 h-12 rounded-full" />
                                                     <div className="flex items-start justify-between w-full">
                                                         <div className="pl-3 w-full">
-                                                            <p className="text-sm font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
+                                                            <p className="text-sm font-medium leading-5 text-gray-800">{item.title}</p>
                                                             <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                         </div>
                                                         <div className={`
@@ -218,10 +226,18 @@ const CandidatureRecruteurListPage = () => {
                                                 </h3> :
                                                 <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
+
                                         {
                                             candidatureDetail && candidatureDetail.createdAt ?
                                                 <p className="text-sm text-gray-500 mb-4">
                                                     Date: 28/08/2023
+                                                </p> :
+                                                <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                        }
+                                        {
+                                            candidatureDetail && candidatureDetail.cv ?
+                                                <p className="text-sm text-blue-500 mb-4">
+                                                    <a href={`${candidatureDetail.cv}`} target='_blank' >Télécharger CV du candidat</a>
                                                 </p> :
                                                 <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
@@ -254,17 +270,37 @@ const CandidatureRecruteurListPage = () => {
                                                 <div class="chva6">
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="email">Titre du message <span class="cvmpf">*</span></label>
-                                                        <input class="w-full cvac0 coz82"  type="email" required={true} />
+                                                        <input value={titleCandidature} onChange={(e)=>{settitleCandidature(e.target.value)}}  class="w-full cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                 </div>
                                                 <div class="chva6">
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Message <span class="cvmpf">*</span></label>
-                                                        <textarea class="w-full cvac0 coz82" 
-                                                        placeholder="Nous comme heureux de vous annoncer que votre offre à bien été selectioné par nos auteurs "
-                                                    type="password" required={true} />
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" >Message <span class="cvmpf">*</span></label>
+                                                        <textarea 
+                                                        value={contentCandidature} onChange={(e)=>{setcontentCandidature(e.target.value)}}
+                                                        class="w-full cvac0 coz82"
+                                                            rows={5}
+                                                            placeholder={`Nous comme heureux de vous annoncer que votre candidature à l'offre à "${candidatureDetail.title}" bien été selectioné par nos auteurs `}
+                                                            type="password" required={true} />
                                                     </div>
                                                 </div>
+
+                                                {
+                                                    <div>
+                                                        <div class="chva6">
+                                                            <div>
+                                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span class="cvmpf"></span></label>
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setsmsChecked(e.target.checked)}} type="checkbox" value={smsChecked} required={false} />
+                                                            </div>
+                                                        </div>
+                                                        <div class="chva6">
+                                                            <div>
+                                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span class="cvmpf"></span></label>
+                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e)=>{setemailChecked(e.target.checked)}} type="checkbox" value={emailChecked} required={false} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </form>
                                         </div>
                                     </div>
@@ -284,6 +320,13 @@ const CandidatureRecruteurListPage = () => {
                                     onClick={handleClose}
                                 >
                                     Envoyer
+                                </button>
+                                <button
+                                    type="button"
+                                    className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                    onClick={handleClose}
+                                >
+                                    Accepter
                                 </button>
                             </div>
                         </div>

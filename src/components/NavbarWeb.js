@@ -4,14 +4,19 @@ import { getAndCheckLocalStorage, handleClearLocalStorage } from '../utlis/stora
 import { CandidatGetById } from '../action/api/candidat/CandidatAction';
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
+import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
 
 const NavbarWeb = () => {
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
+
+    const [recruteur, setrecruteur] = useState();
     const [candidat, setcandidat] = useState();
     const [messages, setmessages] = useState([]);
     const [messages2, setmessages2] = useState([]);
 
     useEffect(() => {
+        EntrepriseGetById(idRecruteur,setrecruteur);
         CandidatGetById(idCandidat, setcandidat);
         MessageAllCandidatById(idCandidat, setmessages, setmessages2)
     }, []);
@@ -153,6 +158,67 @@ const NavbarWeb = () => {
                                                     href={`/${routing.candidature_list}`}>Candidatures & Messages</a>
                                             </li>
                                             <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
+                                                <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                >Dexonnexion</div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    :
+                                    <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                        id="profile/log" aria-labelledby="navNotifications">
+                                        <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                            <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                href={`/${routing.connexion}`}>Connexion</a>
+                                        </li>
+                                    </ul>
+                            }
+
+
+
+                            {/*recurteur */}
+                            {
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                    <div class="relative dropdown ltr:mr-4 rtl:ml-4">
+
+                                        <button type="button" class="flex items-center px-4 py-5 dropdown-toggle"
+                                            id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="true">
+                                            {
+                                                recruteur && recruteur.logo ?
+                                                    <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
+                                                        src={recruteur.logo} alt="Header Avatar" /> :
+                                                    <div class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2 bg-gray-200 animate-pulse" />
+                                            }
+                                            {
+                                                recruteur && recruteur.username ?
+                                                    <span class="hidden fw-medium xl:block dark:text-gray-50">{recruteur.username}</span> :
+                                                    <span class="hidden fw-medium xl:block bg-gray-200 h-3 w-7 rounded-lg"></span>
+                                            }
+
+                                        </button>
+
+                                        <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                            id="profile/log" aria-labelledby="navNotifications">
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
+                                                    href={`/${routing.candidature_list}`}>Connexion</div>
+                                            </li>
+                                        </ul>
+
+
+                                        <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                            id="profile/log" aria-labelledby="navNotifications">
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                    href={`/${routing.company_details}`}>Profile </a>
+                                            </li>
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                    href={`/${routing.candidature_list_recruteur}`}>Candidatures & Messages</a>
+                                            </li>
+                                            {/*onClick={handleClearLocalStorage} */}
+                                            <li  class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
                                                 <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                 >Dexonnexion</div>
                                             </li>

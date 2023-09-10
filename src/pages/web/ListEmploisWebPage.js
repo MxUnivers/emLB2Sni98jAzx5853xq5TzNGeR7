@@ -62,7 +62,7 @@ const ListEmploisWebPage = () => {
 
                     <form action=''>
 
-                        <div className='firstDiv flex justify-between items-center rounded-[8px] gap-[10px] bg-white p-5 shadow-greyIsh-700'>
+                        <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center items-center py-3 rounded-[8px] gap-5 bg-white p-5 shadow-greyIsh-700'>
 
                             <div className='flex gap-2 items-center'>
                                 <AiOutlineSearch className='text-[25px] icon' />
@@ -85,6 +85,7 @@ const ListEmploisWebPage = () => {
                             <div className='flex gap-2 items-center'>
                                 <MdWorkOutline className='text-[25px] icon' />
                                 <select name="" id='type' className='bg-white rounded-[3px] px-4 py-1'>
+                                <option >--choix de contrat --</option>
                                     {
                                         typeContrats.map((item) => {
                                             return (
@@ -112,7 +113,7 @@ const ListEmploisWebPage = () => {
 
                 </div>
 
-                <main class="flex  w-full items-center mt-10 justify-center bg-white px-5">
+                <main class="flex min-h-full-screen  w-full items-center mt-10 justify-center bg-white px-5">
 
 
                     <div className=" flex grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
@@ -139,13 +140,15 @@ const ListEmploisWebPage = () => {
                                                                 setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
                                                             }}
                                                             class="text-dark text-lg font-semibold">{item.title}</a></h5>
-                                                        <ul class="list-inline mb-0 flex space-x-2">
+                                                        <ul class="list-inline mb-0 flex flex-wrap space-x-2">
                                                             <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0">{item.company}</p>
+                                                                <p class="text-muted fs-14 mb-0">
+                                                                <i class="mdi mdi-work"></i>
+                                                                {item.company}</p>
                                                             </li>
                                                             <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0"><i
-                                                                    class="mdi mdi-map-marker"></i> {item.addresse}</p>
+                                                                <p class="text-muted fs-14 mb-0">
+                                                                <i class="mdi mdi-map-marker"></i> {item.addresse}</p>
                                                             </li>
                                                             <li class="list-inline-item">
                                                                 <p class="text-muted fs-14 mb-0"><i
