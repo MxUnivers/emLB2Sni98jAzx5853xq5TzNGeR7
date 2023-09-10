@@ -60,14 +60,13 @@ export const CandidatureById = async (idCandidature, setState) => {
         .catch((error) => {
             console.log(error);
         });
-
 }
 
 
 
 
 // Accepter une candidature
-export const CandidatureAuthorized = (idCandidature, toast) => {
+export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip, title, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -83,13 +82,29 @@ export const CandidatureAuthorized = (idCandidature, toast) => {
                 toast.success("Candidature accepté avec succèes !");
                 dispatch({ type: SEND_REQUEST });
 
-                axios.post(`${baseurl.url}/api/v1/message/send/${idSend}/receip/${idReceip}`)
+                // une fois la candidature Accepter on peut lui envoyeé un message ...
+                axios.post(`${baseurl.url}/api/v1/message/send/${idSend}/receip/${idReceip}`,
+                    {
+                        "subject": title,
+                        "content": content
+                    }, {
+                    headers:
+                    {
+                        "Content-Type": "application/json",
+                        "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
                     .then((res) => {
                         dispatch({ type: REQUEST_SUCCESS, payload: res.data });
-                        toast.success("Message envoyé dans la boîte du candidat");
+
+                        toast.success("Message envoyée avec succès");
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+
                     }).catch((err) => {
                         dispatch({ type: REQUEST_FAILURE, payload: err.message });
-                        toast.error("Message non envoyé au candidat")
+                        toast.error("Message non envoyé au candidat");
                     })
             })
             .catch((error) => {
@@ -106,11 +121,34 @@ export const CandidatureAuthorized = (idCandidature, toast) => {
 
 
 
+// Rejeté un candidature
+export const CandidatureAuthorizedOnly = (id, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .post(`${baseurl.url}/api/v1/candidature/unauthorized/${id}`, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Candidature réjeté avec succèes !")
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("La candidature n'a pas pu être rejetée !")
+            });
+    };
+}
+
 
 
 
 // Rejeté un candidature
-export const CandidatureUnAuthorized = (id, toast) => {
+export const CandidatureUnAuthorizedOnly = (id, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
