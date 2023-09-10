@@ -86,6 +86,10 @@ const JobAppliedWebPage = () => {
                         </div>
                     </div>
                 </section>
+                {
+                    /*setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
+                                                    navigate(`/${routing.job_details}`, { state: { item } }); */
+                }
 
                 {
                     candidat && candidat.offres.length > 0
@@ -94,31 +98,69 @@ const JobAppliedWebPage = () => {
                             <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
                                 {
                                     offres.map((item) => {
-                                        if (candidat.offres.some(element2 => element2._id === item._id)) {
+                                        if (candidat.offres.some(element2 => element2 === item._id)) {
                                             return (
-                                                <div key={item._id} onClick={() => {
+                                                <div onClick={() => {
                                                     setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
                                                     navigate(`/${routing.job_details}`, { state: { item } });
-                                                }} className="group cursor-pointer relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-                                                    <span className="flex justify-between items-center gap-4 mb-3">
-                                                        <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
-                                                        <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
-                                                    </span>
-                                                    <h6 className="text-gray-400">{item.location}</h6>
-                                                    <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-2 ">
-                                                        {item.description}
-                                                    </p>
-                                                    <div className="company flex items-center gap-2">
-                                                        <img src={item.coverPicture} alt="Company Logo" className="w-[10%] " />
-                                                        <span className="text-[14px] py-[1rem] block ">
-                                                            {item.company}
-                                                        </span>
+                                                }}
+                                                    class="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
+
+                                                    <div class="p-4">
+
+                                                        <div class="row flex justify-between space-x-2">
+                                                            <div class="col-lg-1">
+                                                                <img src={item.coverPicture} alt=""
+                                                                    class="img-fluid h-10 w-10 rounded-xl" />
+                                                            </div>
+                                                            <div class="col-lg-10">
+                                                                <div class="mt-3 mt-lg-0">
+                                                                    <h5 class="fs-17 mb-1"><a href={`/${routing.job_details}`}
+                                                                        onClick={() => {
+                                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                        }}
+                                                                        class="text-dark text-lg font-semibold">{item.title}</a></h5>
+                                                                    <ul class="list-inline mb-0 flex space-x-2">
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0">{item.company}</p>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0"><i
+                                                                                class="mdi mdi-map-marker"></i> {item.addresse}</p>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <p class="text-muted fs-14 mb-0"><i
+                                                                                class="uil uil-wallet"></i> {item.salaire} / mois
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div class="mt-2">
+                                                                        {
+                                                                            item.typeContrat ?
+                                                                                <span class="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
+                                                                                null
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="favorite-icon">
+                                                            <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div >
-                                                        <button type='button' onClick={() => { handleDetailItem(item) }}
-                                                            className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >
-                                                            Details
-                                                        </button>
+                                                    <div class="p-3 bg-light">
+                                                        <div class="flex justify-between items-center">
+                                                            <div class="col-md-3">
+                                                                <div class="text-md-end btn ">
+                                                                    <a href={`/${routing.job_details}`} onClick={() => {
+                                                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                    }} class="primary-link">Details
+                                                                        <i class="mdi mdi-chevron-double-right"></i></a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             )
@@ -128,7 +170,7 @@ const JobAppliedWebPage = () => {
                                     })}
                             </div>
                         </main> :
-                        <div class=" flex justify-center items-center gap-5  h-screen mt-10 text-center pt-10">
+                        <div class=" flex justify-center items-center gap-5  h-screen mt-10 text-center pt-5 pb-5">
                             <div class="bg-gray-50 w-full  rounded-lg animate-pulse h-28 justify-center items-center text-center " >Aucunne offre pour l{"'"}instant </div>
                         </div>
                 }

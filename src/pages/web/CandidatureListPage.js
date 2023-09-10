@@ -104,11 +104,11 @@ const CandidatureListPage = () => {
                                         
                                     }} className="lg:w-4/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                         <div className="flex items-center border-b border-gray-200 pb-6">
-                                            <img src="https://img.freepik.com/vecteurs-libre/cv-du-meilleur-candidat-dans-illustration-vectorielle-plane-mains-homme-entreprise-recherche-employe-chasseur-tetes-qui-embauche-gens-gestion-ressources-humaines-concept-entretien-embauche_74855-24461.jpg?w=826&t=st=1694284756~exp=1694285356~hmac=11cbbba3a275bdb5905ddadc84b0d3f30814a450b727c1437347f47197c08cdf"
+                                            <img src={item.coverPicture}
                                                 alt className="w-12 h-12 rounded-full" />
                                             <div className="flex items-start justify-between w-full">
                                                 <div className="pl-3 w-full">
-                                                    <p className="text-xl font-medium leading-5 text-gray-800">{item.firstname} {item.lastname}</p>
+                                                    <p className="text-lg font-medium leading-5 text-gray-800">{item.title}</p>
                                                     <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                 </div>
                                                 <div className={`

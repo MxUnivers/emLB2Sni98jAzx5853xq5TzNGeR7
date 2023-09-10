@@ -13,6 +13,8 @@ import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { useEffect } from 'react';
 import moment from 'moment';
+import { typeContrats } from '../../utlis/options/optionDivers';
+import { MdWorkOutline } from 'react-icons/md';
 
 const ListEmploisWebPage = () => {
     const navigate = useNavigate();
@@ -56,7 +58,7 @@ const ListEmploisWebPage = () => {
 
 
 
-                <div className='bg-gray-50 mt-24 grid gap-10 bg-greyIsh rounded-[10px] p-[3rem] m-5'>
+                <div className='w-full bg-gray-50 mt-24 gap-3 rounded-[10px] p-5'>
 
                     <form action=''>
 
@@ -80,80 +82,104 @@ const ListEmploisWebPage = () => {
                                 {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
                             </div>
 
-                            <button className=' h-full p-5 px-10 rounded-[10px] btn btn-primary text-white cursor-pointer bg-blue-600 hover:bg-blue-500'>rechercher</button>
+                            <div className='flex gap-2 items-center'>
+                                <MdWorkOutline className='text-[25px] icon' />
+                                <select name="" id='type' className='bg-white rounded-[3px] px-4 py-1'>
+                                    {
+                                        typeContrats.map((item) => {
+                                            return (
+                                                <option value={item.label}>{item.label}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
 
+                            <div>
+                                <button type="button" className=' h-full p-5 px-10 py-2 rounded-[10px] btn btn-primary text-white cursor-pointer bg-blue-600 hover:bg-blue-500'>
+                                    rechercher
+                                </button>
+                                <button type="reset" className='text-[#a1a1a1] btn btn-danger cursor-pointer'>
+                                    Effacer
+                                </button>
+                            </div>
 
 
                         </div>
                     </form>
 
-                    <div className='secDiv flex items-center gap-10 justify-center'>
-                        <div className='singleSearch flex items-center gap-2'>
-                            <label htmlFor='relevance' className='text-[#808080] font-semibold'>Sort by:</label>
-                            <select name="" id='relevance' className='bg-white rounded-[3px] px-4 py-1'>
-                                <option value="">Relevance</option>
-                                <option value="">Inclusive</option>
-                                <option value="">Starts With</option>
-                                <option value="">Contains</option>
-                            </select>
-                        </div>
 
-                        <div className='singleSearch flex items-center gap-2'>
-                            <label htmlFor='type' className='text-[#808080] font-semibold'>Type:</label>
-                            <select name="" id='type' className='bg-white rounded-[3px] px-4 py-1'>
-                                <option value="">Full-time</option>
-                                <option value="">Remote</option>
-                                <option value="">Contract</option>
-                                <option value="">Part-time</option>
-                            </select>
-                        </div>
-
-                        <div className='singleSearch flex items-center gap-2'>
-                            <label htmlFor='level' className='text-[#808080] font-semibold'>Level:</label>
-                            <select name="" id='level' className='bg-white rounded-[3px] px-4 py-1'>
-                                <option value="">Senior</option>
-                                <option value="">Begginner</option>
-                                <option value="">Intermadiate</option>
-                                <option value="">Advocate</option>
-                            </select>
-                        </div>
-
-                        <span className='text-[#a1a1a1] btn btn-danger cursor-pointer'>Effacer</span>
-                    </div>
 
                 </div>
 
-                <main class="flex  w-screen items-center mt-10 justify-center bg-white">
+                <main class="flex  w-full items-center mt-10 justify-center bg-white px-5">
 
 
-                    <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
+                    <div className=" flex grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
                         {
                             offres.map((item) => {
                                 return (
-                                    <div key={item._id} onClick={() => {
+                                    <div onClick={() => {
                                         setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
                                         navigate(`/${routing.job_details}`, { state: { item } });
-                                    }} className="group cursor-pointer relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-                                        <span className="flex justify-between items-center gap-4 mb-3">
-                                            <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
-                                            <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
-                                        </span>
-                                        <h6 className="text-gray-400">{item.location}</h6>
-                                        <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-2 ">
-                                            {item.description}
-                                        </p>
-                                        <div className="company flex items-center gap-2">
-                                            <img src={item.coverPicture} alt="Company Logo" className="w-[10%] " />
-                                            <span className="text-[14px] py-[1rem] block ">
-                                                {item.company}
-                                            </span>
-                                        </div>
+                                    }}
+                                        class="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
 
-                                        <div >
-                                            <button type='button' onClick={() => { handleDetailItem(item) }}
-                                                className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >
-                                                Details
-                                            </button>
+                                        <div class="p-4">
+
+                                            <div class="row flex justify-between space-x-2">
+                                                <div class="col-lg-1">
+                                                    <img src={item.coverPicture} alt=""
+                                                        class="img-fluid h-10 w-10 rounded-xl" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    <div class="mt-3 mt-lg-0">
+                                                        <h5 class="fs-17 mb-1"><a href={`/${routing.job_details}`}
+                                                            onClick={() => {
+                                                                setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                            }}
+                                                            class="text-dark text-lg font-semibold">{item.title}</a></h5>
+                                                        <ul class="list-inline mb-0 flex space-x-2">
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted fs-14 mb-0">{item.company}</p>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted fs-14 mb-0"><i
+                                                                    class="mdi mdi-map-marker"></i> {item.addresse}</p>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted fs-14 mb-0"><i
+                                                                    class="uil uil-wallet"></i> {item.salaire} / mois
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="mt-2">
+                                                            {
+                                                                item.typeContrat ?
+                                                                    <span class="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
+                                                                    null
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="favorite-icon">
+                                                <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="p-3 bg-light">
+                                            <div class="flex justify-between items-center">
+                                                <div class="col-md-3">
+                                                    <div class="text-md-end btn ">
+                                                        <a href={`/${routing.job_details}`} onClick={() => {
+                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                        }} class="primary-link">Details
+                                                            <i class="mdi mdi-chevron-double-right"></i></a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 )

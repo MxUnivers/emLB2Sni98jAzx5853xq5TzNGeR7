@@ -6,6 +6,7 @@
 export const handleClearLocalStorage = () => {
     localStorage.clear(); // Effacer toutes les données du localStorage
     console.log('LocalStorage effacé');
+    window.location.href="/";
 };
 
 

@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { routing } from '../utlis/routing'
 import { getAndCheckLocalStorage, handleClearLocalStorage } from '../utlis/storage/localvalueFunction'
 import { CandidatGetById } from '../action/api/candidat/CandidatAction';
-import { localvalue } from '../utlis/storage/localvalue';
+import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
+import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 
 const NavbarWeb = () => {
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     const [candidat, setcandidat] = useState();
+    const [messages, setmessages] = useState([]);
+    const [messages2, setmessages2] = useState([]);
+
     useEffect(() => {
         CandidatGetById(idCandidat, setcandidat);
-    }, [])
+        MessageAllCandidatById(idCandidat, setmessages, setmessages2)
+    }, []);
+
 
     return (
         <nav class="navbar fixed right-0 left-0 top-0 lg:top-[0px] px-5 lg:px-24 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900"
@@ -51,40 +57,52 @@ const NavbarWeb = () => {
                                         aria-labelledby="notification">
                                         <div class="grid grid-cols-1 ">
                                             <div class="p-4 bg-gray-50 dark:bg-neutral-700">
-                                                <h6 class="mb-1 text-gray-800 dark:text-gray-50"> Candidatures </h6>
-                                                <p class="mb-0 text-gray-500 text-13 dark:text-gray-300">
+                                                <h6 class="mb-1 text-gray-800 dark:text-gray-50"> Messages </h6>
+                                                {
+                                                    /*<p class="mb-0 text-gray-500 text-13 dark:text-gray-300">
                                                     vous avez 4 messages
-                                                </p>
+                                                </p> */
+                                                }
                                             </div>
                                         </div>
-                                        <div class="h-60" data-simplebar>
-                                            <div>
-                                                <a href="#!">
-                                                    <div class="flex p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
-                                                        <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                            <div
-                                                                class="h-10 w-10 bg-violet-500/20 rounded-full text-center leading-[2.8]">
-                                                                <i class="text-lg text-violet-500 uil uil-user-check"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow">
-                                                            <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">22
-                                                                verified registrations</h6>
-                                                            <div class="text-gray-600 text-13 dark:text-gray-300">
-                                                                <p class="mb-0"><i
-                                                                    class="mdi mdi-clock-outline dark:text-gray-300"></i>
-                                                                    <span>3 hour ago</span></p>
-                                                            </div>
-                                                        </div>
+                                        {
+                                            messages && messages.length > 0 ?
+                                                <div class="h-60" data-simplebar>
+                                                    <div>
+                                                        {
+                                                            messages.map((item) => {
+                                                                return (() => {
+                                                                    <a href="#!">
+                                                                        <div class="flex p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
+                                                                            <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
+                                                                                <div
+                                                                                    class="h-10 w-10 bg-violet-500/20 rounded-full text-center leading-[2.8]">
+                                                                                    <i class="text-lg text-violet-500 uil uil-user-check"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="flex-grow">
+                                                                                <h6 class="mb-1 text-sm text-gray-700 dark:text-gray-300">22
+                                                                                    verified registrations</h6>
+                                                                                <div class="text-gray-600 text-13 dark:text-gray-300">
+                                                                                    <p class="mb-0"><i
+                                                                                        class="mdi mdi-clock-outline dark:text-gray-300"></i>
+                                                                                        <span>3 hour ago</span></p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                })
+                                                            })
+                                                        }
                                                     </div>
-                                                </a>
-
-
-                                            </div>
-                                        </div>
+                                                </div> :
+                                                <div class="py-2 px-1 ">
+                                                    <h1 class="text-gray-400 text-center ">Aucun messages ...</h1>
+                                                </div>
+                                        }
                                         <div
                                             class="grid p-1 border-t border-gray-50 dark:border-zinc-600 justify-items-center bg-gray-50 dark:bg-neutral-700">
-                                            <a class="border-0 group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500 btn dark:text-gray-50"
+                                            <a class="border-0  text-gray-500"
                                                 href={`/${routing.candidature_list}`}>
                                                 <i class="mr-1 mdi mdi-arrow-right-circle"></i> <span>voire plus..</span>
                                             </a>
@@ -94,59 +112,62 @@ const NavbarWeb = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="relative dropdown ltr:mr-4 rtl:ml-4">
                             {
-                                getAndCheckLocalStorage(localvalue.candidatTYPE) !== null ?
-                                <button type="button" class="flex items-center px-4 py-5 dropdown-toggle"
-                                    id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="true">
-                                    {
-                                        candidat && candidat.coverPicture ?
-                                            <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                                                src={candidat.coverPicture} alt="Header Avatar" /> :
-                                            <div class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2 bg-gray-200 animate-pulse" />
-                                    }
-                                    {
-                                        candidat && candidat.username ?
-                                            <span class="hidden fw-medium xl:block dark:text-gray-50">Shawn L.</span> :
-                                            <span class="hidden fw-medium xl:block bg-gray-200 h-3 w-7 rounded-lg"></span>
-                                    }
-                                </button>
-                                :
-                                <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
-                                    id="profile/log" aria-labelledby="navNotifications">
-                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
-                                            href={`/${routing.candidature_list}`}>Connexion</div>
-                                    </li>
-                                </ul> 
-                            }
-                                {
-                                    getAndCheckLocalStorage(localvalue.recruteurTYPE) !== null ?
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                    <div class="relative dropdown ltr:mr-4 rtl:ml-4">
+
+                                        <button type="button" class="flex items-center px-4 py-5 dropdown-toggle"
+                                            id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="true">
+                                            {
+                                                candidat && candidat.coverPicture ?
+                                                    <img class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
+                                                        src={candidat.coverPicture} alt="Header Avatar" /> :
+                                                    <div class="w-8 h-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2 bg-gray-200 animate-pulse" />
+                                            }
+                                            {
+                                                candidat && candidat.username ?
+                                                    <span class="hidden fw-medium xl:block dark:text-gray-50">{candidat.username}</span> :
+                                                    <span class="hidden fw-medium xl:block bg-gray-200 h-3 w-7 rounded-lg"></span>
+                                            }
+
+                                        </button>
+
+                                        <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                            id="profile/log" aria-labelledby="navNotifications">
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
+                                                    href={`/${routing.candidature_list}`}>Connexion</div>
+                                            </li>
+                                        </ul>
+
+
+                                        <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
+                                            id="profile/log" aria-labelledby="navNotifications">
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                    href={`/${routing.candidat_details}`}>Profile </a>
+                                            </li>
+                                            <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                    href={`/${routing.candidature_list}`}>Candidatures & Messages</a>
+                                            </li>
+                                            <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
+                                                <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                >Dexonnexion</div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    :
                                     <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
-                                    id="profile/log" aria-labelledby="navNotifications">
-                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href={`/${routing.candidat_details}`}>Profile </a>
-                                    </li>
-                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href={`/${routing.candidature_list}`}>Job Postulé</a>
-                                    </li>
-                                    <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
-                                        <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                        >Dexonnexion</div>
-                                    </li>
-                                </ul>:
-                                <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
-                                    id="profile/log" aria-labelledby="navNotifications">
-                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                        <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                            href={`/${routing.candidature_list}`}>Connexion</a>
-                                    </li>
-                                </ul>  
-                                }
-                            </div>
+                                        id="profile/log" aria-labelledby="navNotifications">
+                                        <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                            <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                href={`/${routing.connexion}`}>Connexion</a>
+                                        </li>
+                                    </ul>
+                            }
                         </div>
                     </div>
 
