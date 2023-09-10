@@ -44,12 +44,11 @@ router.post("/add/:idC/entreprise/:idE/offre/:idOffre", AuthorizationMiddleware,
 
         // Création de la candidature avec les bonnes références
         const candidature = new CandidatureModel(req.body);
-        candidature.idCandidat=idCandidat,
-        candidature.idEntreprise=idRecruteur,
-        candidature.idOffre = idOffre,
-        candidature.title=offreExist.title,
-        candidature.coverPicture= offreExist.logo;
-        
+        candidature.idCandidat=idCandidat;
+        candidature.idEntreprise=idRecruteur;
+        candidature.idOffre = idOffre;
+        candidature.title=offreExist.title;
+        candidature.coverPicture= offreExist.coverPicture;
         // Mise à jour des relations dans les modèles
         offreExist.candidats.push(idCandidat);
         await offreExist.save();
@@ -168,18 +167,15 @@ router.get("/get_candidatures/candidat/:IdCandidat", AuthorizationMiddleware, as
 
 
 
-// Accepeter la candidature d'un candidat 
-router.post("/authorized/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
+// Accepter la candidature d'un candidat 
+router.post("/authorized/entreprise/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.Idcandidature;
         const candidature = await CandidatureModel.findById({ _id: id });
         if (!candidature) {
             res.json({ message: " Candidature non trouvé ! " });
         }
-        if (candidature.status == "Acceptée") {
-            res.json({ message: "Cette Candidature à été déja prise en compte" });
-        }
-        candidature.status = "Acceptée"
+        candidature.status = "VALIDATE";
         await candidature.save();
         res.json({ message: "Candidature accépter ", data: candidature })
     } catch (error) {
@@ -199,12 +195,9 @@ router.post("/unauthorized/entreprise/:Idcandidature", AuthorizationMiddleware, 
         if (!candidature) {
             res.json({ message: " Candidature non trouvé ! " });
         }
-        if (candidature.status == "Refusée") {
-            res.json({ message: "Cette Candidature à été déja refusée ! " })
-        }
-        candidature.status = "Refusée";
+        candidature.status = "CANCEL";
         candidature.save();
-        res.json({ message: "Candidature accépter ", data: candidature })
+        res.json({ message: "Candidature Réjété ", data: candidature });
     } catch (error) {
         res.status(500).send({ message: "Impossible de recupérer les  candidatures" + error })
     }
