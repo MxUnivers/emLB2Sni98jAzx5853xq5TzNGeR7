@@ -7,11 +7,11 @@ const router = require("express").Router();
 
 
 // poster un message 
-router.get('/send/:idSender/receip/:idRecep', AuthorizationMiddleware, async (req, res) => {
+router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (req, res) => {
     try {
         
         const idSend = req.params.idSender;
-        const idRecep = req.params.idRecep;
+        const idRecep = req.params.idReceip;
         const message = await MessageModel(req.body);
         message.idSender=idSend;
         message.idRecipient=idRecep;
@@ -19,7 +19,7 @@ router.get('/send/:idSender/receip/:idRecep', AuthorizationMiddleware, async (re
         await message.save();
         return res.status(200).json({data: message, message:"Message envoyé"});
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+        return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
     }
 });
 

@@ -171,13 +171,13 @@ router.get("/get_candidatures/candidat/:IdCandidat", AuthorizationMiddleware, as
 router.post("/authorized/entreprise/:Idcandidature", AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.Idcandidature;
-        const candidature = await CandidatureModel.findById({ _id: id });
-        if (!candidature) {
-            res.json({ message: " Candidature non trouvé ! " });
+        const candidatureExist = await CandidatureModel.findById({ _id: id });
+        if (!candidatureExist) {
+            return res.status(407).json({ message: " Candidature non trouvé ! " });
         }
-        candidature.status = "VALIDATE";
-        await candidature.save();
-        res.json({ message: "Candidature accépter ", data: candidature })
+        candidatureExist.status = "VALIDATE";
+        await candidatureExist.save();
+        res.json({ message: "Candidature accépter ", data: candidatureExist })
     } catch (error) {
         res.status(500).send({ message: "Impossible d'accpeter la candidature avec succès" + error })
     }
