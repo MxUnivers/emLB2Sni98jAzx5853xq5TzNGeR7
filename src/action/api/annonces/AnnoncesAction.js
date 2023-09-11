@@ -86,7 +86,7 @@ export const AnnonceGetAllByCategories = async (id, setState) => {
 // recupérer les secteur d'activites des annonces
 export const CategorieGetAllAnnonces = async (setState) => {
     try {
-        const response = await axios.get(`${baseurl.url}/api/v1/annonce/get_annonces`, {
+        const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -101,7 +101,7 @@ export const CategorieGetAllAnnonces = async (setState) => {
             let result = [];
             for (let i = 0; i < liste.length; i++) {
                 let element = liste[i];
-                let key = element.secteur_activites;
+                let key = element.areaOffre;
                 if (!obj[key]) {
                     obj[key] = true;
                     result.push(key);

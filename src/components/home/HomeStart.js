@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomeStart = () => {
     return (
-        <section class="py-20 bg-amber-600/20 dark:bg-amber-600/20">
+        <section class="py-20 bg-blue-600/20 dark:bg-blue-600/20">
             <div class="container mx-auto">
                 <div class="nav-tabs round-pill">
                     <div class="grid items-center grid-cols-12 gap-5">

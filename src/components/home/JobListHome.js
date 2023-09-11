@@ -3,14 +3,16 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import JobCard from '../job/JobCard';
+import { OffreGetAll } from '../../action/api/offres/OffresAction';
 
 const JobListHome = () => {
 
 
-    const [annonceslist, setannonceslist] = useState([]);
+    const [offreslist, setoffreslist] = useState([]);
+    const [offreslist2, setoffreslist2] = useState([]);
 
     useEffect(() => {
-        AnnonceGetAll(setannonceslist);
+        OffreGetAll(setoffreslist,setoffreslist2);
     }, [])
 
     return (
@@ -69,7 +71,7 @@ const JobListHome = () => {
                                 <div class="space-y-8">
 
                                 {
-                                    annonceslist.map((item)=>{
+                                    offreslist.slice(0, 10).map((item)=>{
                                         return(
                                             <JobCard data={item}/>
                                         )
