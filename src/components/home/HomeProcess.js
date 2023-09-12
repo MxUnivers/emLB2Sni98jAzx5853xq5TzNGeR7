@@ -7,10 +7,12 @@ const HomeProcess = () => {
                     <div class="nav-tabs round-pill">
                         <div class="grid items-center grid-cols-12 gap-5">
                             <div class="col-span-12 lg:col-span-6">
-                                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">How It Work</h3>
-                                <p class="text-gray-500 dark:text-gray-300">Post a job to tell us about your project.
-                                    We{"'"}ll quickly match you with the
-                                    right freelancers.</p>
+                                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Comment postuler en tant que étudiant</h3>
+                                <p class="text-gray-500 dark:text-gray-300">
+                                {
+                                    `Nous vous mettrons rapidement en relation avec les Entreprise adéquats.`
+                                }
+                                </p>
 
                                 <div class="mt-5">
                                     <ul class="text-gray-700 nav">
@@ -24,17 +26,24 @@ const HomeProcess = () => {
                                                 </div>
                                                 <div class="flex">
                                                     <div
-                                                        class="shrink-0 h-10 w-10 rounded-full text-center bg-amber-800/70">
+                                                        class="shrink-0 h-10 w-10 rounded-full text-center bg-blue-800/70">
                                                         <span
-                                                        class=" text-16 leading-[2.5] dark:text-gray-50">1</span>
+                                                        class=" text-16 leading-[2.5] text-white dark:text-white">1</span>
                                                     </div>
                                                     <div class="grow ltr:ml-4 rtl:mr-4">
                                                         <h5
-                                                            class="fs-18 text-gray-900 group-data-[theme-color=violet]:group-[.active]:text-violet-500 group-data-[theme-color=sky]:group-[.active]:text-sky-500 dark:text-gray-50">
-                                                            Register an account</h5>
-                                                        <p class="mt-1 mb-2 text-gray-500 dark:text-gray-300">Due to its
-                                                            widespread use as filler text for layouts, non-readability
-                                                            is of great importance.</p>
+                                                            class="fs-18 text-xl font-semibold mb-3 mx-5 text-gray-900 group-data-[theme-color=violet]:group-[.active]:text-violet-500 group-data-[theme-color=sky]:group-[.active]:text-sky-500 dark:text-gray-50">
+                                                            Connecter vous pour postuler aux différent offres </h5>
+                                                        <p class="mt-1 mb-2 text-xs text-gray-500 dark:text-gray-300">
+                                                        {
+                                                            `
+                                                            Nous vous connaissons mieux que quiconque. Grâce à votre profil, 
+                                                            nous vous présentons des emplois qui correspondent à vos compétences, à vos ambitions et à vos
+                                                             rêves. Fini le temps perdu à fouiller parmi des milliers d'annonces qui 
+                                                             ne vous concernent pas.
+                                                            `
+                                                        }    
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -48,17 +57,22 @@ const HomeProcess = () => {
                                                 </div>
                                                 <div class="flex">
                                                     <div
-                                                    class="shrink-0 h-10 w-10 rounded-full text-center bg-amber-800/70">
+                                                    class="shrink-0 h-10 w-10 rounded-full text-center bg-blue-800/70">
                                                         <span
-                                                        class=" text-16 leading-[2.5] dark:text-gray-50">2</span>
+                                                        class=" text-16 leading-[2.5] text-white dark:text-white">2</span>
                                                     </div>
                                                     <div class="grow ltr:ml-4 rtl:mr-4">
                                                         <h5
-                                                            class="fs-18 text-gray-900 group-[.active]:text-violet-500 dark:text-gray-50">
-                                                            Find your job</h5>
-                                                        <p class="mt-1 mb-2 text-gray-500">There are many variations of
-                                                            passages of avaibookmark-label, but the majority
-                                                            alteration in some form.</p>
+                                                            class="fs-18 text-xl font-semibold mb-3 mx-5 text-gray-900 group-[.active]:text-violet-500 dark:text-gray-50">
+                                                            Trouver votre job</h5>
+                                                        <p class="mt-1 mb-2 text-xs text-gray-500">
+                                                        {
+                                                            `Nous collaborons avec 
+                                                            les meilleures entreprises pour vous offrir 
+                                                            des opportunités d'emploi exceptionnelles que 
+                                                            vous ne trouverez nulle part ailleurs.`
+                                                        }
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -69,17 +83,22 @@ const HomeProcess = () => {
                                                 class="relative inline-block w-full p-2 group" aria-current="page">
                                                 <div class="flex">
                                                     <div
-                                                    class="shrink-0 h-10 w-10 rounded-full text-center bg-amber-800/70">
+                                                    class="shrink-0 h-10 w-10 rounded-full text-center bg-blue-800/70">
                                                         <span
-                                                            class=" text-16 leading-[2.5] dark:text-gray-50">3</span>
+                                                            class=" text-16 leading-[2.5] text-white dark:text-white">3</span>
                                                     </div>
                                                     <div class="grow ltr:ml-4 rtl:mr-4">
                                                         <h5
-                                                            class="fs-18 text-gray-900 group-[.active]:text-violet-500 dark:text-gray-50">
-                                                            Apply for job</h5>
-                                                        <p class="mt-1 mb-2 text-gray-500">It is a long established fact
-                                                            that a reader will be distracted by the
-                                                            readable content of a page.</p>
+                                                            class="fs-18 text-xl font-semibold mb-3 mx-5 text-gray-900 group-[.active]:text-violet-500 dark:text-gray-50">
+                                                           Postuler</h5>
+                                                        <p class="mt-1 mb-2 text-xs text-gray-500">
+                                                        {
+                                                            `Fini les heures perdues à parcourir des centaines 
+                                                            d'annonces d'emploi. Nous avons simplifié le processus 
+                                                            pour vous. Postulez en quelques clics et suivez l'état 
+                                                            de vos candidatures en un clin d'œil.`
+                                                        }
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </a>

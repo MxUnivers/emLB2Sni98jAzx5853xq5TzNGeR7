@@ -113,10 +113,10 @@ const ListEmploisWebPage = () => {
 
                 </div>
 
-                <main class="flex min-h-full-screen  w-full items-center mt-10 justify-center bg-white px-5">
+                <main class="flex min-h-screen  w-full items-start mt-10 justify-center bg-white px-5">
 
 
-                    <div className=" flex grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
+                    <div className=" grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
                         {
                             offres.map((item) => {
                                 return (

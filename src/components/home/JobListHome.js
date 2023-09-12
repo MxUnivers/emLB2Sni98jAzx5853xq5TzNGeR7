@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import JobCard from '../job/JobCard';
 import { OffreGetAll } from '../../action/api/offres/OffresAction';
+import { routing } from '../../utlis/routing';
 
 const JobListHome = () => {
 
@@ -86,9 +87,9 @@ const JobListHome = () => {
                 <div class="mt-8">
                     <div class="grid grid-cols-1">
                         <div class="text-center">
-                            <a href="#"
-                                class="text-white border-transparent bg-amber-800/70 btn focus:ring focus:ring-custom-500/20">
-                                Plus de jobs <i class="uil uil-arrow-right ms-1">
+                            <a href={`/${routing.job_category}`}
+                                class="text-white border-transparent bg-blue-800/70 btn focus:ring focus:ring-custom-500/20">
+                                Postuler à plus d{"'"}offres ... <i class="uil uil-arrow-right ms-1">
                                 </i>
                             </a>
                         </div>

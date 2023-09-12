@@ -1,4 +1,5 @@
 import React from 'react'
+import { routing } from '../../utlis/routing'
 
 const HomeStart = () => {
     return (
@@ -10,13 +11,13 @@ const HomeStart = () => {
                             <div class="text-center">
                                 <h2
                                     class="mb-5 text-amber-700/70 text-3xl">
-                                    Browse Our <span class="text-yellow-500 fw-bold">5,000+</span> Latest
-                                    Jobs</h2>
+                                    Consultez nos  dernières <span class="text-yellow-500 fw-bold">5 000+</span> 
+                                    offres d{"'"}emploi</h2>
                                 <p class=" dark:text-amber-700/70">Post a job to tell us about your
                                     project. We{"'"}ll quickly match you with
                                     the right freelancers.</p>
                                 <div class="pt-2 mt-5">
-                                    <a href="javascript:void(0)"
+                                    <a href={`/${routing.connexion}`}
                                         class="text-white border-transparent bg-amber-800/70 btn hover:-translate-y-2">
                                         S{"'"}inscrire postuler
                                         <i class="align-middle uil uil-rocket ms-1"></i></a>

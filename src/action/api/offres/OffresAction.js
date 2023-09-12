@@ -184,7 +184,7 @@ export const OffreGetAll = async ( setState, setState2) => {
 }
 //
 // recupérer les secteur d'activites des offres
-export const CategorieGetAllAnnonces = async (setState,setState2) => {
+export const OffreGetAllCategory = async (setState,setState2) => {
     try {
         const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
             headers: {
