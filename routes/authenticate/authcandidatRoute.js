@@ -21,7 +21,7 @@ router.post('/login/',AuthorizationMiddleware, async (req, res) => {
         return res.status(402).json({ message: 'Adresse e-mail ou mot de passe incorrect.' });
       }
       // verifier si le compte à été bloquer
-      if(candidat.blocked ==  true){
+      if(candidat.access ==  false){
         return res.status(410).json({ message: 'Imposible de se connecter par ce que votre compte à eté bloquer' });
       }
       // Vérifier si le mot de passe est correct
