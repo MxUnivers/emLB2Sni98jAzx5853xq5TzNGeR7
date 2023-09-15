@@ -226,7 +226,7 @@ const NavbarWeb = () => {
                                                             href={`/${routing.candidature_list_recruteur}`}>Candidatures & Messages</a>
                                                     </li>
                                                     {/*onClick={handleClearLocalStorage} */}
-                                                    <li class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
+                                                    <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
                                                         <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                         >Dexonnexion</div>
                                                     </li>

@@ -5,7 +5,7 @@
 
 export const handleClearLocalStorage = () => {
     localStorage.clear(); // Effacer toutes les données du localStorage
-    console.log('LocalStorage effacé');
+    console.log('Deconnexion de la pplication ');
     window.location.href="/";
 };
 

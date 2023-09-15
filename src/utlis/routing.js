@@ -1,3 +1,5 @@
+import { localvalue } from "./storage/localvalue";
+import { getAndCheckLocalStorage } from "./storage/localvalueFunction";
 
 export const routing = {
     
@@ -18,7 +20,8 @@ export const routing = {
     candidature_list:"candidatures_list_group",
     candidature_list_recruteur:"candidatures_list_group_recruteur",
     company_list:"conpany_list",
-    company_details:"company_detail",
+    company_details:`profile-recurteur-${getAndCheckLocalStorage(localvalue.recruteurID)}`,
+    company_details_view:"company_detail_view",
     connexion:"authentification-connexion-candidat-&=email,mot-de-passe=&",
     connexion_recuteur:"authentification-recruteur-&=email,mot-de-passe=&",
     inscription:"inscription",

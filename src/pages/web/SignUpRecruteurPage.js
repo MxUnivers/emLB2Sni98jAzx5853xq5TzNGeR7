@@ -324,7 +324,7 @@ const SignUpRecruteurPage = () => {
                                         </div>
 
                                         <div class="mt-5">
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise <span class="cvmpf">*</span></label>
+                                            <label class="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise (5 mb max) <span class="cvmpf">*</span></label>
                                             <div class="czlxp crp1m">
                                                 <div class="cyzlo cy9uk">
                                                     <img class="cuiwd c59v3 csm78 ciwnj c7htb cf986"

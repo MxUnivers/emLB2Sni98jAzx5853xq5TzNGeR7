@@ -22,7 +22,11 @@ const JobDetailPage = () => {
 
     const navigate = useNavigate();
 
+    // Recruteur connecté
+    var recurteur = getAndCheckLocalStorage(localvalue.recruteurID);
+    // JobId
     var jobId = getAndCheckLocalStorage(localvalue.JobID);
+    // Candidat connecté
     var candidatId = getAndCheckLocalStorage(localvalue.candidatID);
 
 
@@ -449,18 +453,36 @@ const JobDetailPage = () => {
                                     <div class="card border rounded-lg  shadow-sm job-overview">
                                         <div class="card-body p-4 flex flex-col justify-center ">
                                             {
-                                                entreprise && entreprise.logo && entreprise.full_name ?
-                                                    <Link to={`/${routing.company_details}`} class="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
-                                                        <div class="flex flex-col justify-center space-y-2">
-                                                            <img src={`${entreprise.logo}`} alt=""
-                                                                class="img-fluid  rounded-3xl h-12 w-12" />
-                                                            <h2 class="text-xl font-bold">{entreprise.full_name}</h2>
+                                                recurteur == JobDetailPage.idEntreprise ?
+                                                    entreprise && entreprise.logo && entreprise.full_name ?
+                                                        <Link to={`/${routing.company_details_view}`}
+                                                            onClick={() => {
+                                                                setWithExpiration(localvalue.recruteurDetailID, jobDetail.idEntreprise, dureeDeVie)
+                                                            }}
+                                                            class="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                            <div class="flex flex-col justify-center space-y-2">
+                                                                <img src={`${entreprise.logo}`} alt=""
+                                                                    class="img-fluid  rounded-3xl h-12 w-12" />
+                                                                <h2 class="text-xl font-bold">{entreprise.full_name}</h2>
+                                                            </div>
+                                                        </Link> :
+                                                        <div class="flex felx-col space-y-3" >
+                                                            <div class="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
+                                                            <div class="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
                                                         </div>
-                                                    </Link> :
-                                                    <div class="flex felx-col space-y-3" >
-                                                        <div class="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
-                                                        <div class="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
-                                                    </div>
+                                                    :
+                                                    entreprise && entreprise.logo && entreprise.full_name ?
+                                                        <Link to={`/${routing.company_details}`} class="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                            <div class="flex flex-col justify-center space-y-2">
+                                                                <img src={`${entreprise.logo}`} alt=""
+                                                                    class="img-fluid  rounded-3xl h-12 w-12" />
+                                                                <h2 class="text-xl font-bold">{entreprise.full_name}</h2>
+                                                            </div>
+                                                        </Link> :
+                                                        <div class="flex felx-col space-y-3" >
+                                                            <div class="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
+                                                            <div class="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                        </div>
                                             }
                                             <ul class="list-unstyled mt-4 mb-0">
                                                 <li>

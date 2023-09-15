@@ -4,9 +4,12 @@ export const localvalue = {
 
     candidatID :"candidatID",
     candidatTYPE:"candidatTYPE",
+    candidatDetailID:"candidatDetailId",
 
     recruteurID:"recuteurID",
     recruteurTYPE:"recuteurTYPE",
+    recruteurDetailID:"recuteurDetailID",
+
 
     tokenAUTH:"tokenAUTH",
 
