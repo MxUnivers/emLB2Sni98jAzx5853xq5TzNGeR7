@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "plateforme-offres-emplois"
-  }
+    "default": "plateforme-offres-emplois",
+    "project": "plateforme-offres-emplois"
+  },
+  "targets": {},
+  "etags": {}
 }

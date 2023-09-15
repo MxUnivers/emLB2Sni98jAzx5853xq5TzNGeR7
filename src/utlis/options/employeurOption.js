@@ -1,6 +1,9 @@
 
 
 
+
+
+
 // Secteur d'activité pour  les entreprise
 export const secteursActivite = [
   { label: "Technologie de l'information", value: "technologie_information" },

@@ -19,6 +19,7 @@ import SignUpRecruteurPage from "./pages/web/SignUpRecruteurPage";
 import SignInRecuteurPage from "./pages/web/SignInRecuteurPage";
 import CandidatureRecruteurListPage from "./pages/web/CandidatureRecruteurListPage";
 import CompanyDetaiOffrelPage from "./pages/web/CompanyDetaiOffrelPage";
+import ErrorPage from "./pages/web/ErrorPage";
 
 
 
@@ -60,6 +61,8 @@ function App() {
 
 
           </Route>
+          <Route path={`/*`} element={<ErrorPage />} />
+
 
 
 
