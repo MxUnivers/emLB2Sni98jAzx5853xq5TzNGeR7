@@ -195,6 +195,7 @@ const CompanyDetailPage = () => {
                                                 <iframe
                                                     src={`${company.maps_entreprise}`}
                                                     style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
+                                                    
                                             </div> :
                                             <div class="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
                                             </div>
