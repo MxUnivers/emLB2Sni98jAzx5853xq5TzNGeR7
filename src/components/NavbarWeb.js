@@ -5,6 +5,9 @@ import { CandidatGetById } from '../action/api/candidat/CandidatAction';
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
+import {MdSchool, MdWork} from  "react-icons/md";
+
+
 
 const NavbarWeb = () => {
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
@@ -251,7 +254,7 @@ const NavbarWeb = () => {
                                 }}
                                     class="btn py-1 px-3 rounded-lg text-indigo-500 border-indigo-400"
                                 >
-                                    connexion
+                                    Connexion
                                 </button>
                             </div>
 
@@ -314,33 +317,6 @@ const NavbarWeb = () => {
                                     aria-modal="true"
                                     aria-labelledby="modal-title"
                                 >
-                                    <div className="bg-white px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
-                                        <div className="sm:flex flex flex-col w-full sm:items-start">
-                                            <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
-                                                <h3 className="text-md font-bold text-gray-900 mb-2"
-                                                    id="modal-title"
-                                                >
-                                                    Connexion
-                                                </h3>
-                                            </div>
-                                            <div class=" mt-2  w-full ">
-                                                <div class=" flex flex-col justify-start rounded-lg w-full border-t ">
-                                                    <div class="flex  justify-center mb-5">
-                                                        <h3 class="text-sm font-semibold text-gray-400">Faite le choix de votre connexion</h3>
-                                                    </div>
-                                                    <div class="flex justify-center item-center space-x-2">
-                                                        <a href={`/${routing.connexion}`} class="text-white bg-indigo-600 rounded-lg py-1 px-3">
-                                                            candidat
-                                                        </a>
-
-                                                        <a href={`/${routing.connexion_recuteur}`} class="text-white bg-indigo-600 rounded-lg py-1 px-3">
-                                                            recruteur
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button
                                             type="button"
@@ -349,6 +325,46 @@ const NavbarWeb = () => {
                                         >x
                                         </button>
                                     </div>
+                                    <div className="bg-white px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
+                                        <div className="sm:flex flex flex-col w-full sm:items-start">
+                                            <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
+                                                <h3 className="text-md font-bold text-gray-900 mb-2"
+                                                    id="modal-title"
+                                                >
+
+                                                </h3>
+                                            </div>
+                                            <div class="min-h-full bg-blue-400 flex justify-center items-center">
+                                                <div class="absolute w-60 h-60 rounded-xl bg-purple-300 -top-5 -left-16 z-0 transform rotate-45 hidden md:block">
+                                                </div>
+                                                <div class="absolute w-48 h-48 rounded-xl bg-purple-300 -bottom-6 -right-10 transform rotate-12 hidden md:block">
+                                                </div>
+                                                <div class="py-12 pl-10 px-12 justify-center bg-white rounded-2xl shadow-xl z-20">
+                                                    <div>
+                                                        <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">Se Connecter</h1>
+                                                        <p class="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer">
+                                                            Connecter a vous avec le profils qui vous convient . Soit recruteur ou candidat
+                                                        </p>
+                                                    </div>
+                                                    <div class="text-center mt-6 flex flex-col space-y-6 justify-center">
+                                                        <a href={`/${routing.connexion}`} class="py-3 w-64 text-xl text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                            <MdSchool class="h-7 w-7" /> <span>Candidat</span>
+                                                        </a>
+                                                        <a href={`/${routing.connexion_recuteur}`} class="py-3 w-64 text-xl text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                            <MdWork class="h-7 w-7" /><span>Recruteur</span>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="w-40 h-40 absolute bg-blue-300 rounded-full top-0 right-12 hidden md:block"></div>
+                                                <div
+                                                    class="w-20 h-40 absolute bg-blue-300 rounded-full bottom-20 left-10 transform rotate-45 hidden md:block">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
