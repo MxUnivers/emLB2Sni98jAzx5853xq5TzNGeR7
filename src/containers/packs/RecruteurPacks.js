@@ -2,7 +2,7 @@ import React from 'react'
 
 const RecruteurPacks = () => {
     return (
-        <div class="bg-white dark:bg-gray-800">
+        <div class="bg-blue-200 rounded-lg ">
 
             <div class="flex justify-center py-2 mt-10">
             <h1 class="text-4xl font-bold">Recruteur </h1>
