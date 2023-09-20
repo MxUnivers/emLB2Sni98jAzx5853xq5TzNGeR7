@@ -1,5 +1,4 @@
 const  statusPACKS = [
-    "FREE",
     "SILVER",
     "GOLD",
     "DIAMOND",
