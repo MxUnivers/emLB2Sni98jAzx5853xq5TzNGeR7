@@ -21,6 +21,7 @@ import SignInRecuteurPage from "./pages/web/SignInRecuteurPage";
 import CandidatureRecruteurListPage from "./pages/web/CandidatureRecruteurListPage";
 import CompanyDetaiOffrelPage from "./pages/web/CompanyDetaiOffrelPage";
 import ErrorPage from "./pages/web/ErrorPage";
+import PrincingPage from "./pages/web/PrincingPage";
 
 
 
@@ -61,6 +62,12 @@ function App() {
             <Route path={`${routing.company_details_view}`} element={<CompanyDetaiOffrelPage />} />
 
 
+
+            {/*Manage Pring */}
+            <Route path={`${routing.pricing}`} element={<PrincingPage/>}  />
+
+            
+            
           </Route>
           <Route path={`/*`} element={<ErrorPage />} />
 
