@@ -1,6 +1,6 @@
-const  bcrypt =  require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const { secteursActivites } = require("../utils/FormatApi");
+const { secteursActivites, statusPACKS } = require("../utils/FormatApi");
 
 const EntrepriseSchema = new mongoose.Schema({
   username: {
@@ -113,9 +113,20 @@ const EntrepriseSchema = new mongoose.Schema({
   instagram_url: {
     type: String, default: "#", require: false
   },
+
   password: {
     type: String,
     required: false
+  },
+
+
+  // packs pour les entreprise
+  account: {
+    solde: { type: Number, default: 0 },
+    pack: { type: String, default: statusPACKS[0] },
+    dateNow: { type: String, default: Date.now },
+    dateEnd: { type: String },
+    count_sms: { type: Number, default: 0 }
   },
   token: {
     type: String, required: false

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { statusPACKS } = require('../utils/FormatApi');
 
 const CandidatSchema = new mongoose.Schema({
     username: {
@@ -78,6 +79,14 @@ const CandidatSchema = new mongoose.Schema({
         type:Number ,
         required:false,
         default:5,
+    },
+    // account candidat
+    account:{
+        solde:{type:Number,default:0},
+        pack:{type:String,default:statusPACKS[0]},
+        dateNow:{type:String, default:Date.now},
+        dateEnd:{type:String},
+        count_sms:{type:Number,default:0}
     },
     password: {
         type: String, required: false

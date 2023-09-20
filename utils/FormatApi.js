@@ -1,3 +1,13 @@
+const  statusPACKS = [
+    "FREE",
+    "SILVER",
+    "GOLD",
+    "DIAMOND",
+]
+
+
+
+
 
 
 const  apiFormatActivite =     {
@@ -115,4 +125,4 @@ const secteursActivites = [
 
 
 
-module.exports =  { apiFormatActivite  , secteursActivites } ;
+module.exports =  { apiFormatActivite  , secteursActivites,statusPACKS } ;
