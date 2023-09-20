@@ -1,8 +1,5 @@
 const  statusPACKS = [
-    "SILVER",
-    "GOLD",
-    "DIAMOND",
-]
+    "SILVER", "GOLD", "DIAMOND", ]
 
 
 

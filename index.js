@@ -28,6 +28,10 @@ const authEntrepriseRoute =  require("./routes/authenticate/authEntrepriseRoute"
 const  candidaturesRoute = require("./routes/candidatureRoute");
 // Messages
 const  messageRoute= require("./routes/messageRoute");
+// Packs
+const  packRoute= require("./routes/packs/packRoute");
+
+
 
 
 
@@ -88,6 +92,7 @@ app.use(`${apiV1}/annonce`,annonceRoute);
 app.use(`${apiV1}/offre`,offreEmploisRoute);
 app.use(`${apiV1}/candidature`,candidaturesRoute);
 app.use(`${apiV1}/message`,messageRoute);
+app.use(`${apiV1}/packs`,packRoute);
 
 
 

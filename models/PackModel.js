@@ -13,9 +13,24 @@ const PackCandidatSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
+
+const PackEntrepriseSchema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        auto: true
+    },
+    title: { type: String, require: true, unique: true },
+    solde: { type: Number, require: true, unique: true },
+    sms_count: { type: Number, require: true, unique: true }
+}, { timestamps: true });
+
+
+
 const PackCandidatModel = mongoose.model('pack_candidat', PackCandidatSchema);
+const PackEntrepriseModel = mongoose.model('pack_entreprise', PackEntrepriseSchema);
 
 
+// pack Candidat
 const packTable = [
     {
         title: statusPACKS[0],
@@ -32,23 +47,52 @@ const packTable = [
         solde: 5000,
         sms_count: 100,
     }
-]
-
+];
 
 const createPack = async (item) => {
     const newPack = new PackCandidatModel(item);
     await newPack.save()
         .then((savedAdmin) => {
-            console.log('Pack Créer.');
+            console.log('Pack Créer candidat');
         })
         .catch((error) => {
             console.log("Pack non valide");
         });
 }
 
+
+
 // create pack candidat
 for (var item of packTable) {
     createPack(item);
-  }
+}
 
-module.exports = PackCandidatModel;
+
+
+
+
+// packentrperise entreprise
+
+
+const createPackEntreprise = async (item) => {
+    const newPack = new PackEntrepriseModel(item);
+    await newPack.save()
+        .then((savedAdmin) => {
+            console.log('Pack Créer entreperise');
+        })
+        .catch((error) => {
+            console.log("Pack e non valide");
+        });
+}
+
+// create pack candidat
+for (var item of packTable) {
+    createPackEntreprise(item);
+}
+
+
+
+
+
+
+module.exports ={ PackCandidatModel,PackEntrepriseModel} ;
