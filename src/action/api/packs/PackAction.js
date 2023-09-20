@@ -1,8 +1,5 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { routing } from "../../../utlis/routing";
-import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
-import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import confetti from 'canvas-confetti';
 
@@ -12,12 +9,12 @@ import confetti from 'canvas-confetti';
 
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
-export const SubcribPackCandidat = (
+export const SubscriblePackCandidat = (
     idPack,idCandidat,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/candidat/${idPack}/subscribe/${idCandidat}`,
+            .post(`${baseurl.url}/api/v1/candidat/${idPack}/subscribe/${idCandidat}`,
                 {
                     headers:
                     {
@@ -45,12 +42,12 @@ export const SubcribPackCandidat = (
 
 // pack entreprise
 
-export const SubcribPackEntreprise = (
+export const SubscriblePackEntreprise = (
     idPack,idCandidat,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/recruteur/${idPack}/subscribe/${idCandidat}`,
+            .post(`${baseurl.url}/api/v1/recruteur/${idPack}/subscribe/${idCandidat}`,
                 {
                     headers:
                     {
@@ -73,3 +70,49 @@ export const SubcribPackEntreprise = (
             });
     };
 }
+
+
+
+
+// recuperer pack candidats
+// spécialement pour les entreprises
+export const PackAllEntreprise = async (setState, setState2) => {
+
+    await axios.get(`${baseurl.url}/api/v1/pack/entreprises`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
+
+// recuperer pack candidats
+// spécialement pour les entreprises
+export const PackAllCandidat = async (setState, setState2) => {
+
+    await axios.get(`${baseurl.url}/api/v1/pack/candidat`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
