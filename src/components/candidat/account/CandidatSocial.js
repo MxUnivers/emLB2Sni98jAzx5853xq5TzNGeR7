@@ -27,7 +27,7 @@ const CandidatSocial = () => {
         if (candidat && candidat.site_web) {
             setsite_web(candidat.site_web)
         }
-        if (candidat && candidat.linkedine_url) {
+        if (candidat && candidat.linkedin_url) {
             setlinkedine_url(candidat.linkedin_url)
         }
         if (candidat && candidat.twitter_url) {

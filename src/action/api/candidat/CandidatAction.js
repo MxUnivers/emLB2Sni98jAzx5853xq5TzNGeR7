@@ -225,6 +225,34 @@ export const CandidatEditSocial = (
 
 
 
+
+export const CandidatEditPhoto = (
+    id,coverPicture, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`,
+                {
+                    "coverPicture": coverPicture
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Photo modifer")
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Photo non modifié !")
+            });
+    };
+}
+
+
+
 // candidatEdit pass
 
 
