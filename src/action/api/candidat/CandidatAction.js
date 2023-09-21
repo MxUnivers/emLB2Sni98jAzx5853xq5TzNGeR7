@@ -182,6 +182,49 @@ export const CandidatEditCompetence = (
 
 
 
+
+// Edit Competence
+export const CandidatEditSocial = (
+    id,
+    facebook_url,
+    linkedin_url,
+    twitter_url,
+    instagram_url,
+    site_web
+    , toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`,
+                {
+
+                    "facebook_url": facebook_url,
+                    "linkedin_url": linkedin_url,
+                    "twitter_url": twitter_url,
+                    "instagram_url": instagram_url,
+                    "site_web": site_web,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Mis à jour réussi")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Misa à jour impossible !")
+            });
+    };
+}
+
+
+
 // candidatEdit pass
 
 
