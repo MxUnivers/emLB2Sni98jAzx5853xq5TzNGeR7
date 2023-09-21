@@ -18,7 +18,10 @@ const CandidatPhoto = () => {
         if (candidat && candidat.coverPicture) {
             setcoverPicture(candidat.coverPicture);
         }
-    }, [candidat])
+    }, [candidat]);
+
+
+    
 
 
     return (

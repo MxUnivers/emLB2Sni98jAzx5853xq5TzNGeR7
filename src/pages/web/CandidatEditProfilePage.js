@@ -6,6 +6,16 @@ import CandidatPassword from '../../components/candidat/account/CandidatPassword
 import CandidatSocial from '../../components/candidat/account/CandidatSocial';
 
 const CandidatEditProfilePage = () => {
+
+    const  button_list = [
+        {id:1,label:"Profile"},
+        {id:2,label:"Reseaux sociaux"},
+        {id:3,label:"Compte"},
+        {id:4,label:"Autentification"},
+    ];
+
+
+    
     return (
         <div class="main-content">
             <div class="page-content mt-28">
@@ -35,22 +45,27 @@ const CandidatEditProfilePage = () => {
                                 class="text-lg vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
                                 Mise a jour profile</h1>
                         </div>
+                        <div class=" border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
+                        <button>
+                         
+                        </button>
+                        </div>
                         {/*<!-- Right Content -->*/}
                         <div class="EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr">
 
 
                             {/*photo de profile */}
                             <CandidatPhoto />
-                            <CandidatInfo/>
-                            <CandidatCompetence/>
-                            <CandidatPassword/>
-                            <CandidatSocial/>
+                            <CandidatInfo />
+                            <CandidatCompetence />
+                            <CandidatPassword />
+                            <CandidatSocial />
 
 
 
 
 
-                            
+
                             <div
                                 class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
                                 <div class="FF0B1uH_gtoM9lki9mia">
@@ -185,7 +200,7 @@ const CandidatEditProfilePage = () => {
                                 </div>
                             </div>
                         </div>
-                        
+
 
                     </div>
                     <div
