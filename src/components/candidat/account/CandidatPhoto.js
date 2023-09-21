@@ -13,13 +13,12 @@ const CandidatPhoto = () => {
 
     const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
 
-    var c = null;
     const [coverPicture, setcoverPicture] = useState();
     useEffect(() => {
-        if (candidat) {
-            setcoverPicture(candidat.coverPicture)
+        if (candidat && candidat.coverPicture) {
+            setcoverPicture(candidat.coverPicture);
         }
-    }, [idCandidat])
+    }, [candidat])
 
 
     return (
@@ -36,7 +35,7 @@ const CandidatPhoto = () => {
                     candidat ?
                         (<img
                             class="hD0sTTDgbxakubcHVW2X IxVXJAn2ZWxXpcIHvPnh nRgpYtDXPa8Sk01AYTQr mveJTCIb2WII7J4sY22F tkZo48dB4RhnHSlDXzoe RO6axy6tLw1YpZ9T54F_ _5qVeTKgUlNIvLfYDjop"
-                            src={candidat.coverPicture} alt="Jese picture" />
+                            src={coverPicture} alt="Jese picture" />
                         ) :
                         null)
                 }
@@ -46,7 +45,7 @@ const CandidatPhoto = () => {
                             :
                             candidat ?
                                 (<h3
-                                    class="Z3N7I2IDDsoXK6xJ1cSW q1oXbofRCOhVhOSB8tiU IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+                                    class=" font-semibold Z3N7I2IDDsoXK6xJ1cSW q1oXbofRCOhVhOSB8tiU IOPhczRgtphv6NdNBDjj __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE text-lg font-medium">
                                     {candidat.firstname} {candidat.lastname}
                                 </h3>
                                 ) : null
