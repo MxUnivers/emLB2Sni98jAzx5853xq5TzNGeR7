@@ -14,15 +14,17 @@ router.post("/candidat/:idCandidat/subscribe/:idPack", AuthorizationMiddleware, 
         const idCandidat = req.params.idCandidat;
         const idPack = req.params.idPack;
 
-        const candidatExit = await CandidatModel.findById({ _id: idCandidat });
-        if (!candidatExit) {
+        const candidatExist = await CandidatModel.findById({ _id: idCandidat });
+        if (!candidatExist) {
             return res.status(401).json({ message: "Ce candidat n'existe pas" });
         }
+        
         const packExist = await PackCandidatModel.findById({ _id: idPack });
         if (!packExist) {
             return res.status(402).json({ message: "Cet pack n'existe" })
         }
 
+        
 
         // get all pack
         const packsCandidat = await PackCandidatModel.find({});
@@ -43,7 +45,7 @@ router.post("/candidat/:idCandidat/subscribe/:idPack", AuthorizationMiddleware, 
 
 
         // assignation des données
-        candidatExit.account.pack = packFind.title;
+        candidatExit.account.pack = packFind.pack;
         candidatExit.account.solde = packFind.solde;
         candidatExit.account.dateNow = dateActuelle;
         candidatExit.account.dateEnd = datePlusUnAn;
@@ -74,7 +76,7 @@ router.post("/recruteur/:idRecruteur/subscribe/:idPack", AuthorizationMiddleware
 
         const recrutertExit = await EntrepriseModel.findById({ _id: idRecruteur });
         if (!recrutertExit) {
-            return res.status(401).json({ message: "Ce candidat n'existe pas" });
+            return res.status(401).json({ message: "Ce recruteur n'existe pas" });
         }
         const packExist = await PackEntrepriseModel.findById({ _id: idPack });
         if (!packExist) {
@@ -101,7 +103,7 @@ router.post("/recruteur/:idRecruteur/subscribe/:idPack", AuthorizationMiddleware
 
 
         // assignation des données
-        recrutertExit.account.pack = packFind.title;
+        recrutertExit.account.pack = packFind.pack;
         recrutertExit.account.solde = packFind.solde;
         recrutertExit.account.dateNow = dateActuelle;
         recrutertExit.account.dateEnd = datePlusUnAn;
@@ -124,7 +126,7 @@ router.post("/recruteur/:idRecruteur/subscribe/:idPack", AuthorizationMiddleware
 
 
 // packEntreprise
-router.post("/entreprises", AuthorizationMiddleware, async (req, res) => {
+router.get("/entreprises", AuthorizationMiddleware, async (req, res) => {
     try {
         
         const packsCandidat = await PackEntrepriseModel.find({});
@@ -136,11 +138,11 @@ router.post("/entreprises", AuthorizationMiddleware, async (req, res) => {
 })
 
 // candiday
-router.post("/entreprises", AuthorizationMiddleware, async (req, res) => {
+router.get("/candidat", AuthorizationMiddleware, async (req, res) => {
     try {
         
         const packsCandidat = await PackCandidatModel.find({});
-        res.status(200).json({data:packsCandidat, message :"Pack candidat recupérer"})
+        return res.status(200).json({data:packsCandidat, message :"Pack candidat recupérer"})
 
     } catch (error) {
         return res.status(505).json({ message: "Pack non validé " + error })
