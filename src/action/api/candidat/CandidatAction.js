@@ -2,9 +2,13 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { routing } from "../../../utlis/routing";
 import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
-import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
+import { getAndCheckLocalStorage, handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
+import { useState } from "react";
+import { useEffect } from "react";
 
+
+var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 
 
@@ -72,9 +76,9 @@ export const CandidatSignUp = (
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success(" Vous êtes inscrit , Profiter d'opportunité !")
                 setTimeout(() => {
-                    window.location.href=`/${routing.connexion}`;
+                    window.location.href = `/${routing.connexion}`;
                 }, 2500);
-                
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -182,13 +186,13 @@ export const CandidatEditPassword = (id, data) => {
 
 // Authenfication du candidate
 
-export const CandidatConnexion = (email,password, redirect, toast) => {
+export const CandidatConnexion = (email, password, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .post(`${baseurl.url}/api/v1/auth/candidat/login`, {
-                "email":email,
-                "password":password
+                "email": email,
+                "password": password
             }, {
                 headers:
                 {
@@ -217,7 +221,7 @@ export const CandidatConnexion = (email,password, redirect, toast) => {
                     response.data.token,
                     dureeDeVie
                 );
-                
+
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
                 setTimeout(() => {
@@ -393,6 +397,46 @@ export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setS
         })
         .catch((error) => {
             console.log(error);
-        });
+        })
+        
 
+}
+
+
+
+//state pour le candidat
+
+export default function useFetchCandidat(idCandidat) {
+    const [candidat, setCandidat] = useState(null);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            console.log(idCandidat);
+            await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${idCandidat}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setCandidat(response.data.data);
+                setError(null);
+                console.log(response.data.data)
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(error);
+            });
+
+            setIsLoading(false);
+        }
+
+        if (idCandidat) {
+            fetchData();
+        }
+    }, [idCandidat]);
+
+    return { isLoading, error, candidat };
 }
