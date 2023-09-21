@@ -22,6 +22,7 @@ import CandidatureRecruteurListPage from "./pages/web/CandidatureRecruteurListPa
 import CompanyDetaiOffrelPage from "./pages/web/CompanyDetaiOffrelPage";
 import ErrorPage from "./pages/web/ErrorPage";
 import PrincingPage from "./pages/web/PrincingPage";
+import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
 
 
 
@@ -52,6 +53,7 @@ function App() {
             <Route path={`${routing.job_post}`} element={<JobPostPage />} />
             <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
+            <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
 
             {/* # Candidatures */}

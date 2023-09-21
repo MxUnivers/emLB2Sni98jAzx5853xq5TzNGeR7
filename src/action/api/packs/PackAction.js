@@ -14,7 +14,7 @@ export const SubscriblePackCandidat = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/candidat/${idPack}/subscribe/${idCandidat}`,
+            .post(`${baseurl.url}/api/v1/packs/candidat/${idCandidat}/subscribe/${idPack}`,
                 {
                     headers:
                     {
@@ -33,7 +33,7 @@ export const SubscriblePackCandidat = (
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Inscription échouée !")
+                toast.error("Soucription pack échoué !")
             });
     };
 }
@@ -47,7 +47,7 @@ export const SubscriblePackEntreprise = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/recruteur/${idPack}/subscribe/${idCandidat}`,
+            .post(`${baseurl.url}/api/v1/packs/recruteur/${idPack}/subscribe/${idCandidat}`,
                 {
                     headers:
                     {
@@ -78,7 +78,7 @@ export const SubscriblePackEntreprise = (
 // spécialement pour les entreprises
 export const PackAllEntreprise = async (setState, setState2) => {
 
-    await axios.get(`${baseurl.url}/api/v1/pack/entreprises`, {
+    await axios.get(`${baseurl.url}/api/v1/packs/entreprises`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -100,7 +100,7 @@ export const PackAllEntreprise = async (setState, setState2) => {
 // spécialement pour les entreprises
 export const PackAllCandidat = async (setState, setState2) => {
 
-    await axios.get(`${baseurl.url}/api/v1/pack/candidat`, {
+    await axios.get(`${baseurl.url}/api/v1/packs/candidat`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`

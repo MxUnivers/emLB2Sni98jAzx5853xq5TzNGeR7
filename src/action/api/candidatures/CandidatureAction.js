@@ -1,8 +1,15 @@
+
+// state pour les requetes
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import { routing } from "../../../utlis/routing";
+import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { localvalue } from "../../../utlis/storage/localvalue";
 
+
+const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setState2) => {
 
@@ -212,3 +219,31 @@ export const CandidaturePost = (
         }
     }
 };
+
+
+
+
+export default function useFetchUsers() {
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${idCandidat}`);
+        const { results: user } = await response.data;
+        setData(user);
+        setError();
+      } catch (err) {
+        setData();
+        setError(err);
+      }
+      setIsLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  return { isLoading, error, data };
+}

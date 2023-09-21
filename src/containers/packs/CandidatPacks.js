@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const CandidatPacks = () => {
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID)
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 
     const [candidatDetail, setcandidatDetail] = useState();
@@ -20,32 +20,62 @@ const CandidatPacks = () => {
     useEffect(() => {
         PackAllCandidat(setpacks, setpacks2);
         CandidatGetById(idCandidat, setcandidatDetail);
+        
+
     }, []);
 
     // handleSumbit pack
     const [idPack, setidPack] = useState();
+    const [idPack2, setidPack2] = useState();
+    const [idPack3, setidPack3] = useState();
 
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
     // handleSubmit
-    const handleSubmitPack = (event) => {
-        event.prevenDefault();
-        if (idCandidat == "") {
-            return alert("Une erreur est survenue validation votre pack");
+    const handleSubmitPack1 = (event) => {
+        event.preventDefault();
+        if(packs.length > 0){
+            const id = packs[0]._id;
+            setidPack(id);
+            console.log(idPack)
+            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
         }
-        dispatch(SubscriblePackCandidat(idPack, idCandidat, toast));
+        
     }
 
+    const handleSubmitPack2 = (event) => {
+        event.preventDefault();
+        
+        if(packs.length > 1){
+            const id = packs[1]._id;
+            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
+        }
+    }
+
+
+
+    const handleSubmitPack3 = (event) => {
+        event.preventDefault();
+        
+        if(packs.length > 2){
+            const id = packs[2]._id;
+            setidPack3(id);
+            
+            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
+        }
+        
+    }
 
 
     return (
         <div class="bg-white dark:bg-gray-800">
 
+        
 
             <div class="flex justify-center py-2 mt-10">
-                <h1 class="text-4xl font-bold">Etudiant {candidatDetail && candidatDetail.account ? candidatDetail.firstname : null} </h1>
+                <h1 class="text-4xl font-bold"> Pack Etudiant  </h1>
             </div>
 
 
@@ -81,7 +111,7 @@ const CandidatPacks = () => {
                         </ul>
 
                         {candidatDetail && candidatDetail.account ?
-                            packs.find((pack) => pack.title === candidatDetail.account.pack) ?
+                            packs[0].pack== candidatDetail.account.pack ?
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                 >
@@ -91,22 +121,15 @@ const CandidatPacks = () => {
                                 loading ?
                                     <p>en cours...</p> :
                                     <>
-                                        {
-                                            packs.map((item) => {
-                                                if (item.title == candidatDetail.account.pack)
-                                                    return (
-                                                        <form onSubmit={handleSubmitPack}>
-                                                            <button type="submit" onClick={() => {
-                                                                setidPack(item._id);
-                                                            }}
-                                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                                            >
-                                                                Acheter
-                                                            </button>
-                                                        </form>
-                                                    )
-                                            })
-                                        }
+                                        <form onSubmit={handleSubmitPack1}>
+                                            <button type="submit"
+
+                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                                            >
+                                                Acheter 
+                                            </button>
+                                            {error&& <p class="text-red-500">{error}</p>}
+                                        </form>
                                     </> :
                             <button
                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
@@ -151,22 +174,28 @@ const CandidatPacks = () => {
                         </ul>
 
                         {candidatDetail && candidatDetail.account ?
-                            packs.find((pack) => pack.title === candidatDetail.account.pack) ?
+                            packs[1].pack== candidatDetail.account.pack ?
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                 >
                                     Activé
                                 </button>
                                 :
-                                <button
-                                    class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                >
-                                    Acheter
-                                </button> :
+                                loading ?
+                                    <p>en cours...</p> :
+                                    <>
+                                        <form onSubmit={handleSubmitPack2}>
+                                            <button type="submit"
+
+                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                                            >
+                                                Acheter 
+                                            </button>
+                                        </form>
+                                    </> :
                             <button
                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                            >
-                                ...
+                            > ...
                             </button>
                         }
                     </div>
@@ -210,11 +239,31 @@ const CandidatPacks = () => {
                             </li>
                         </ul>
 
-                        <button
-                            class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                        >
-                            Acheter
-                        </button>
+                        {candidatDetail && candidatDetail.account ?
+                            packs[2].pack== candidatDetail.account.pack ?
+                                <button
+                                    class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                                >
+                                    Activé
+                                </button>
+                                :
+                                loading ?
+                                    <p>en cours...</p> :
+                                    <>
+                                        <form onSubmit={handleSubmitPack3}>
+                                            <button type="submit"
+
+                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                                            >
+                                                Acheter 
+                                            </button>
+                                        </form>
+                                    </> :
+                            <button
+                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                            > ...
+                            </button>
+                        }
                     </div>
                 </div>
             </div>

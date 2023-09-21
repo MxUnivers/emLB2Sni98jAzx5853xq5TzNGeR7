@@ -15,6 +15,7 @@ export const routing = {
     job_post:"poster-une-offre-emplois",
     job_edit:"mise-a-offre-emplois",
     candidat_details:"candidat_details",
+    candidat_edit:"candidat-update-profile",
     candidat_applied:"candidat_candidat_applied",
     candidat_list:"candidats_list_group",
     candidature_list:"candidatures_list_group",

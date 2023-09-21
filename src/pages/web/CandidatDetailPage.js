@@ -12,6 +12,7 @@ import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { useEffect } from 'react';
 import Stepper from "react-stepper-horizontal";
 import { CandidatureAllOfCandidat } from '../../action/api/candidatures/CandidatureAction';
+import { handleCandidatEditRouting } from '../../utlis/url/ListFunction';
 
 
 
@@ -132,7 +133,11 @@ const CandidatDetailPage = () => {
                                             <div class="mt-5 mb-5 flex justify-center">
                                                 {
                                                     candidat && candidat._id ?
-                                                        <button class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
+                                                        <button 
+                                                        onClick={()=>{
+                                                            handleCandidatEditRouting();
+                                                        }}
+                                                        class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
                                                             <BiEdit />
                                                             <span>Mettre à jour</span>
                                                         </button> :
