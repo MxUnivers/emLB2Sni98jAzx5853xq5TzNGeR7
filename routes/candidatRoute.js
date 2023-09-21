@@ -10,9 +10,9 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
 
   // Vérifier si l'email existe déjà dans la base de données
   try {
-    const {username, email, password } = req.body;
+    const { username, email, password } = req.body;
     // Vérifier si l'email existe déjà
-    const candidatExist = await CandidatModel.findOne({ email ,username});
+    const candidatExist = await CandidatModel.findOne({ email, username });
     if (candidatExist) {
       return res.status(400).json({ message: 'Cet candidat existe déja ! ' });
     }
@@ -21,7 +21,7 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     // Créer un nouvel administrateur
     const newCandidat = new CandidatModel(req.body);
     newCandidat.password = hashedPassword;
-    newCandidat._is_active=false;
+    newCandidat._is_active = false;
     await newCandidat.save();
     // Renvoyer une réponse JSON
     return res.status(200).json({ message: 'Inscription du candidat réussi' });
@@ -45,7 +45,7 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Candidat mon trouvé" });
     }
     await result.save();
-    return res.status(200).json({message:"Modification reussi ",data:result});
+    return res.status(200).json({ message: "Modification reussi ", data: result });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
@@ -60,7 +60,7 @@ router.put("/password/edit/:id", async (req, res) => {
     const password = req.body.password;
     const candidat = await CandidatModel.findById({ _id: id })
     if (!candidat) {
-      res.json({ message: "Aucun candidat indisponible" })
+      return res.json({ message: "Aucun candidat indisponible" })
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     candidat.password = hashedPassword;
@@ -121,7 +121,7 @@ router.put('/unblocked/:id', AuthorizationMiddleware, async (req, res) => {
 // fonction pour reucupéere les candidats
 router.get('/get_candidats', AuthorizationMiddleware, async (req, res) => {
   try {
-    const candidates = await CandidatModel.find({access:true});
+    const candidates = await CandidatModel.find({ access: true });
     res.json({ data: candidates.reverse() });
   } catch (err) {
     console.error(err.message);

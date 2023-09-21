@@ -44,7 +44,7 @@ const CandidatSchema = new mongoose.Schema({
         type: String, required: false
     },
     site_web: {
-        type: String, required: false
+        type: String, required: false, default:"#"
     },
     years_experience: {
         type: String, required: false,require:"0-0"
@@ -62,16 +62,16 @@ const CandidatSchema = new mongoose.Schema({
         default: false
     },
     facebook_url: {
-        type: String
+        type: String, default:"#"
     },
     linkedin_url: {
-        type: String
+        type: String, default:"#"
     },
     twitter_url: {
-        type: String
+        type: String, default:"#"
     },
     instagram_url: {
-        type: String
+        type: String, default:"#"
     },
     offres: [{type:String}],
     bookmarks:[{type:Object}],
