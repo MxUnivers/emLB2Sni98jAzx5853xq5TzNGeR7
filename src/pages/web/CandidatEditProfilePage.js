@@ -1,5 +1,8 @@
 import React from 'react'
 import CandidatPhoto from '../../components/candidat/account/CandidatPhoto';
+import CandidatInfo from '../../components/candidat/account/CandidatInfo';
+import CandidatCompetence from '../../components/candidat/account/CandidatCompetence';
+import CandidatPassword from '../../components/candidat/account/CandidatPassword';
 
 const CandidatEditProfilePage = () => {
     return (
@@ -26,7 +29,7 @@ const CandidatEditProfilePage = () => {
                     <div
                         class="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3 sIk4Wc5VFaQpncPF5Sx4 AWLGIryfLKwkSeUZd4O6 h8KYXnua2NT4kTVzieom">
                         <div class="EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
-                            
+
                             <h1
                                 class="vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
                                 Mise a jour profile</h1>
@@ -35,51 +38,17 @@ const CandidatEditProfilePage = () => {
                         <div class="EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr">
 
 
-                        {/*photo de profile */}
-                           <CandidatPhoto/>
+                            {/*photo de profile */}
+                            <CandidatPhoto />
+                            <CandidatInfo/>
+                            <CandidatCompetence/>
+                            <CandidatPassword/>
 
-                           
+
+
+
+
                             
-                            <div
-                                class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
-                                <h3 class="hD0sTTDgbxakubcHVW2X vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">Language
-                                    &amp; Time</h3>
-                                <div class="hD0sTTDgbxakubcHVW2X">
-                                    <label for="settings-language"
-                                        class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Select
-                                        language</label>
-                                    <select id="settings-language" name="countries"
-                                        class="jtAJHOc7mn7b4IKRO59D vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5">
-                                        <option>English (US)</option>
-                                        <option>Italiano</option>
-                                        <option>Français (France)</option>
-                                        <option>正體字</option>
-                                        <option>Español (España)</option>
-                                        <option>Deutsch</option>
-                                        <option>Português (Brasil)</option>
-                                    </select>
-                                </div>
-                                <div class="EyjJPKD7jgGRBhaLpRVI">
-                                    <label for="settings-timezone"
-                                        class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Time
-                                        Zone</label>
-                                    <select id="settings-timezone" name="countries"
-                                        class="jtAJHOc7mn7b4IKRO59D vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5">
-                                        <option>GMT+0 Greenwich Mean Time (GMT)</option>
-                                        <option>GMT+1 Central European Time (CET)</option>
-                                        <option>GMT+2 Eastern European Time (EET)</option>
-                                        <option>GMT+3 Moscow Time (MSK)</option>
-                                        <option>GMT+5 Pakistan Standard Time (PKT)</option>
-                                        <option>GMT+8 China Standard Time (CST)</option>
-                                        <option>GMT+10 Eastern Australia Standard Time (AEST)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <button
-                                        class="y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T ezMFUVl744lvw6ht0lFe mveJTCIb2WII7J4sY22F c8dCx6gnV43hTOLV6ks5 ZjWEEmDsdPvU2GdH53LK cexDVMRjens2nRrMcG96 ijrOHNoSVGATsWYKl4Id d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">Save
-                                        all</button>
-                                </div>
-                            </div>
                             <div
                                 class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
                                 <div class="FF0B1uH_gtoM9lki9mia">
@@ -212,7 +181,7 @@ const CandidatEditProfilePage = () => {
                                                 <div class="YRrCJSr_j5nopfm4duUc d4louhNic5PFgJGRKqn6 RO6axy6tLw1YpZ9T54F_ _5qVeTKgUlNIvLfYDjop">
                                                     <div>
                                                         <img class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr RpVwy4sO7Asb86CncKJ_"
-                                                            src="images/users/bonnie-green.png" alt="Bonnie image"/>
+                                                            src="images/users/bonnie-green.png" alt="Bonnie image" />
                                                     </div>
                                                     <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
                                                         <p
@@ -242,7 +211,7 @@ const CandidatEditProfilePage = () => {
                                                 <div class="YRrCJSr_j5nopfm4duUc d4louhNic5PFgJGRKqn6 RO6axy6tLw1YpZ9T54F_ _5qVeTKgUlNIvLfYDjop">
                                                     <div>
                                                         <img class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr RpVwy4sO7Asb86CncKJ_"
-                                                            src="images/users/jese-leos.png" alt="Jese image"/>
+                                                            src="images/users/jese-leos.png" alt="Jese image" />
                                                     </div>
                                                     <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
                                                         <p
@@ -272,7 +241,7 @@ const CandidatEditProfilePage = () => {
                                                 <div class="YRrCJSr_j5nopfm4duUc d4louhNic5PFgJGRKqn6 RO6axy6tLw1YpZ9T54F_ _5qVeTKgUlNIvLfYDjop">
                                                     <div>
                                                         <img class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr RpVwy4sO7Asb86CncKJ_"
-                                                            src="images/users/thomas-lean.png" alt="Thomas image"/>
+                                                            src="images/users/thomas-lean.png" alt="Thomas image" />
                                                     </div>
                                                     <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
                                                         <p
@@ -302,7 +271,7 @@ const CandidatEditProfilePage = () => {
                                                 <div class="YRrCJSr_j5nopfm4duUc d4louhNic5PFgJGRKqn6 RO6axy6tLw1YpZ9T54F_ _5qVeTKgUlNIvLfYDjop">
                                                     <div>
                                                         <img class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr RpVwy4sO7Asb86CncKJ_"
-                                                            src="images/users/lana-byrd.png" alt="Lana image"/>
+                                                            src="images/users/lana-byrd.png" alt="Lana image" />
                                                     </div>
                                                     <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
                                                         <p
@@ -335,227 +304,7 @@ const CandidatEditProfilePage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="NM7Z1HBVjN_86WhEcXan">
-                            <div
-                                class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
-                                <h3 class="hD0sTTDgbxakubcHVW2X vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">General
-                                    information</h3>
-                                <form action="#">
-                                    <div class="xCPtuxM4_gihvpPwv9bX xcwgeeZbzBfzbYbc32HH Bcw8VuwRWYxPGjWjS6Ig">
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="first-name"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">First
-                                                Name</label>
-                                            <input type="text" name="first-name" id="first-name"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="Bonnie" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="last-name"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Last
-                                                Name</label>
-                                            <input type="text" name="last-name" id="last-name"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="Green" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="country"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Country</label>
-                                            <input type="text" name="country" id="country"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="United States" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="city"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">City</label>
-                                            <input type="text" name="city" id="city"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="e.g. San Francisco" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="address"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Address</label>
-                                            <input type="text" name="address" id="address"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="e.g. California" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="email"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Email</label>
-                                            <input type="email" name="email" id="email"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="example@company.com" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="phone-number"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Phone
-                                                Number</label>
-                                            <input type="number" name="phone-number" id="phone-number"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="e.g. +(12)3456 789" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="birthday"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Birthday</label>
-                                            <input type="number" name="birthday" id="birthday"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="15/08/1990" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="organization"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Organization</label>
-                                            <input type="text" name="organization" id="organization"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="Company Name" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="role"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Role</label>
-                                            <input type="text" name="role" id="role"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="React Developer" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="department"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Department</label>
-                                            <input type="text" name="department" id="department"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="Development" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="zip-code"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Zip/postal
-                                                code</label>
-                                            <input type="number" name="zip-code" id="zip-code"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="123456" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N sm:col-full">
-                                            <button
-                                                class="y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T ezMFUVl744lvw6ht0lFe mveJTCIb2WII7J4sY22F c8dCx6gnV43hTOLV6ks5 ZjWEEmDsdPvU2GdH53LK cexDVMRjens2nRrMcG96 ijrOHNoSVGATsWYKl4Id d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM"
-                                                type="submit">Save all</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div
-                                class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
-                                <h3 class="hD0sTTDgbxakubcHVW2X vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">Password
-                                    information</h3>
-                                <form action="#">
-                                    <div class="xCPtuxM4_gihvpPwv9bX xcwgeeZbzBfzbYbc32HH Bcw8VuwRWYxPGjWjS6Ig">
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="current-password"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Current
-                                                password</label>
-                                            <input type="text" name="current-password" id="current-password"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="••••••••" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="new-password"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">New
-                                                password</label>
-                                            <input type="text" name="new-password" id="new-password"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="••••••••" required=""/>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                                            <label for="confirm-password"
-                                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">Confirm
-                                                password</label>
-                                            <input type="text" name="confirm-password" id="confirm-password"
-                                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                                placeholder="••••••••" required=""/>
-                                        </div>
-                                        <div class="EWLTGduHCjFnjN6tLCXV">
-                                            <div class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe OyABRrnTV_kvHV7dJ0uE">Password requirements:
-                                            </div>
-                                            <div
-                                                class="Z3N7I2IDDsoXK6xJ1cSW c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
-                                                Ensure that these requirements are met:</div>
-                                            <ul class="LTEDJh4s7gPtSmaVhWcH wezTbYJgxYJp5ZDqX67N PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
-                                                <li class="gMXmdpOPfqG_3CKkL0VD _43MO1gcdi2Y0RJW1uHL">At least 10 characters (and up to 100
-                                                    characters)</li>
-                                                <li class="gMXmdpOPfqG_3CKkL0VD _43MO1gcdi2Y0RJW1uHL">At least one lowercase character</li>
-                                                <li class="gMXmdpOPfqG_3CKkL0VD _43MO1gcdi2Y0RJW1uHL">Inclusion of at least one special character,
-                                                    e.g., ! @ # ?</li>
-                                                <li class="gMXmdpOPfqG_3CKkL0VD _43MO1gcdi2Y0RJW1uHL">Some text here zoltan</li>
-                                            </ul>
-                                        </div>
-                                        <div class="_P4crYcwEj3d10LO5o8N sm:col-full">
-                                            <button
-                                                class="y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T ezMFUVl744lvw6ht0lFe mveJTCIb2WII7J4sY22F c8dCx6gnV43hTOLV6ks5 ZjWEEmDsdPvU2GdH53LK cexDVMRjens2nRrMcG96 ijrOHNoSVGATsWYKl4Id d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM"
-                                                type="submit">Save all</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div
-                                class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X roTtmJKSiubwdmgJkwrv">
-                                <div class="FF0B1uH_gtoM9lki9mia">
-                                    <h3 class="vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">Sessions</h3>
-                                    <ul class="Zy1Pypi71Xu6guex6urN NIAblPiyeuYQ0zW671xb XpuPpk9eXhVCrleKmXDr">
-                                        <li class="_9igzqn_6D3Qq5Hcwkfk">
-                                            <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 d4louhNic5PFgJGRKqn6">
-                                                <div class="VQS2tmQ_zFyBOC2tkmto">
-                                                    <svg class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr OyABRrnTV_kvHV7dJ0uE" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
-                                                    <p
-                                                        class="d3C8uAdJKNl1jzfE9ynq yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl vfNYjqjYMlN1XskEucCt OyABRrnTV_kvHV7dJ0uE">
-                                                        California 123.123.123.123
-                                                    </p>
-                                                    <p
-                                                        class="c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 vfNYjqjYMlN1XskEucCt XIIs8ZOri3wm8Wnj9N_y">
-                                                        Chrome on macOS
-                                                    </p>
-                                                </div>
-                                                <div class="_k0lTW0vvzboctTxDi2R Q_jg_EPdNf9eDMn1mLI2">
-                                                    <a href="#"
-                                                        class="b9aD6g2qw84oyZNsMO8j _Cj_M6jt2eLjDgkBBNgI R9nujHypnXyuHrBww9QK _hpGev6RXFut0Jm_iRgf c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id __9sbu0yrzdhGIkLWNXl _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk _7KA5gD55t2lxf9Jkj20 _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T _1jTZ8KXRZul60S6czNi XIIs8ZOri3wm8Wnj9N_y Mmx5lX7HVdrWCgh3EpTP dMTOiA3mf3FTjlHu6DqW OPrb_iG5WDy_7F05BDOX">Revoke</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="p_2EXc_a2sDA_h41l8QU gyULXFQVgjg7SZF8X3HH">
-                                            <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 d4louhNic5PFgJGRKqn6">
-                                                <div class="VQS2tmQ_zFyBOC2tkmto">
-                                                    <svg class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr OyABRrnTV_kvHV7dJ0uE" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                                    </svg>
-                                                </div>
-                                                <div class="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
-                                                    <p
-                                                        class="d3C8uAdJKNl1jzfE9ynq yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl vfNYjqjYMlN1XskEucCt OyABRrnTV_kvHV7dJ0uE">
-                                                        Rome 24.456.355.98
-                                                    </p>
-                                                    <p
-                                                        class="c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 vfNYjqjYMlN1XskEucCt XIIs8ZOri3wm8Wnj9N_y">
-                                                        Safari on iPhone
-                                                    </p>
-                                                </div>
-                                                <div class="_k0lTW0vvzboctTxDi2R Q_jg_EPdNf9eDMn1mLI2">
-                                                    <a href="#"
-                                                        class="b9aD6g2qw84oyZNsMO8j _Cj_M6jt2eLjDgkBBNgI R9nujHypnXyuHrBww9QK _hpGev6RXFut0Jm_iRgf c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id __9sbu0yrzdhGIkLWNXl _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk _7KA5gD55t2lxf9Jkj20 _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T _1jTZ8KXRZul60S6czNi XIIs8ZOri3wm8Wnj9N_y Mmx5lX7HVdrWCgh3EpTP dMTOiA3mf3FTjlHu6DqW OPrb_iG5WDy_7F05BDOX">Revoke</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div>
-                                        <button
-                                            class="y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T ezMFUVl744lvw6ht0lFe mveJTCIb2WII7J4sY22F c8dCx6gnV43hTOLV6ks5 ZjWEEmDsdPvU2GdH53LK cexDVMRjens2nRrMcG96 ijrOHNoSVGATsWYKl4Id d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">See
-                                            more</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                     </div>
                     <div
@@ -577,9 +326,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="company-news"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="company-news" class="_DVAfiyo21kM68EUVzEQ"/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="company-news" class="_DVAfiyo21kM68EUVzEQ" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 2 -->*/}
@@ -592,9 +341,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="account-activity"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="account-activity" class="_DVAfiyo21kM68EUVzEQ" checked=""/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="account-activity" class="_DVAfiyo21kM68EUVzEQ" checked="" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 3 -->*/}
@@ -607,9 +356,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="meetups"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="meetups" class="_DVAfiyo21kM68EUVzEQ" checked=""/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="meetups" class="_DVAfiyo21kM68EUVzEQ" checked="" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 4 -->*/}
@@ -622,9 +371,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="new-messages"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="new-messages" class="_DVAfiyo21kM68EUVzEQ"/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="new-messages" class="_DVAfiyo21kM68EUVzEQ" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                 </div>
@@ -652,9 +401,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="rating-reminders"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="rating-reminders" class="_DVAfiyo21kM68EUVzEQ"/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="rating-reminders" class="_DVAfiyo21kM68EUVzEQ" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 2 -->*/}
@@ -667,9 +416,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="item-update"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="item-update" class="_DVAfiyo21kM68EUVzEQ" checked=""/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="item-update" class="_DVAfiyo21kM68EUVzEQ" checked="" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 3 -->*/}
@@ -682,9 +431,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="item-comment"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="item-comment" class="_DVAfiyo21kM68EUVzEQ" checked=""/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="item-comment" class="_DVAfiyo21kM68EUVzEQ" checked="" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                     {/*<!-- Item 4 -->*/}
@@ -697,9 +446,9 @@ const CandidatEditProfilePage = () => {
                                         </div>
                                         <label for="buyer-rev"
                                             class="YRrCJSr_j5nopfm4duUc ahOqFrhzLjivRe8a1kX_ Q_jg_EPdNf9eDMn1mLI2 SA5DoMHfwOFtY4h_qzuM">
-                                            <input type="checkbox" id="buyer-rev" class="_DVAfiyo21kM68EUVzEQ"/>
-                                                <span
-                                                    class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
+                                            <input type="checkbox" id="buyer-rev" class="_DVAfiyo21kM68EUVzEQ" />
+                                            <span
+                                                class="Rr_S4jo1he4sYSgq5LE_ MnxxlQlR1H0xJuMEE8Yr WwS1mve_UI16RedcVHEs RpVwy4sO7Asb86CncKJ_ pXhVRBC8yaUNllmIWxln qUWbS_LTZujDB4XCd11V pZ06BCBBhEiS8JGgQDKV jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP"></span>
                                         </label>
                                     </div>
                                 </div>

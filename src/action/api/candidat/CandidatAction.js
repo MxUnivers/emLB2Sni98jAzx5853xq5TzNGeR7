@@ -87,6 +87,105 @@ export const CandidatSignUp = (
     };
 }
 
+// Candidat Generale Edit
+export const CandidatEditGenerale = (
+    id,
+    username,
+    firstname,
+    lastname,
+    dateNaissance,
+    email,
+    title_post,
+    telephone,
+    addresse,
+    pays, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`,
+                {
+                    "username": username,
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "dateNaissance": dateNaissance,
+                    "email": email,
+                    "title_post": title_post,
+                    "telephone": telephone,
+                    "adresse": addresse,
+                    "pays": pays,
+                }, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Profile mis à jour")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Mis à jour impossible !")
+            });
+    };
+}
+
+
+
+
+
+
+// Edit Competence
+export const CandidatEditCompetence = (
+    id,
+    salaire,
+    level_school,
+    years_experience,
+    selectedOptions,
+    selectedOptionsLangues
+    , toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/edit/${id}`,
+                {
+
+                    "salaire": salaire,
+                    "level_school": level_school,
+                    "years_experience": years_experience,
+                    "competences": selectedOptions,
+                    "langues": selectedOptionsLangues,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Mis à jour réussi")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Misa a jour  impossible !")
+            });
+    };
+}
+
+
+
+// candidatEdit pass
+
+
+
 
 export const CandidatEditProfile = (id, data) => {
     return async (dispatch) => {
@@ -160,11 +259,15 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre, toast) => {
 }
 
 
-export const CandidatEditPassword = (id, data) => {
+// candidat edit password
+export const CandidatEditPassword = (id, password,toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`, data, {
+            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`, 
+            {
+                "password":password
+            }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -173,10 +276,14 @@ export const CandidatEditPassword = (id, data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Mise a jour mot passe effectuer");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Mot passe non modifier");
             });
     };
 }
@@ -398,7 +505,7 @@ export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setS
         .catch((error) => {
             console.log(error);
         })
-        
+
 
 }
 
@@ -425,10 +532,10 @@ export default function useFetchCandidat(idCandidat) {
                 setError(null);
                 console.log(response.data.data)
             })
-            .catch((error) => {
-                console.log(error);
-                setError(error);
-            });
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
 
             setIsLoading(false);
         }

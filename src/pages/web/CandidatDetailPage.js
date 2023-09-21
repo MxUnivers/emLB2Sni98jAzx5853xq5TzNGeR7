@@ -8,7 +8,7 @@ import { routing } from '../../utlis/routing';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { useState } from 'react';
-import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
+import useFetchCandidat, { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { useEffect } from 'react';
 import Stepper from "react-stepper-horizontal";
 import { CandidatureAllOfCandidat } from '../../action/api/candidatures/CandidatureAction';
@@ -21,17 +21,18 @@ import { handleCandidatEditRouting } from '../../utlis/url/ListFunction';
 const CandidatDetailPage = () => {
 
 
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+
+    const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
 
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID)
     var typeAccess = getAndCheckLocalStorage(localvalue.candidatTYPE);
 
-    const [candidat, setcandidat] = useState();
     const [candidatures, setcandidatures] = useState([]);
     const [candidatures2, setcandidatures2] = useState([]);
 
     useEffect(() => {
-        CandidatGetById(idCandidat, setcandidat);
-        CandidatureAllOfCandidat(idCandidat,setcandidatures,setcandidatures2)
+        CandidatureAllOfCandidat(idCandidat,setcandidatures,setcandidatures2);
     }, [])
 
 

@@ -222,28 +222,3 @@ export const CandidaturePost = (
 
 
 
-
-export default function useFetchUsers() {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${idCandidat}`);
-        const { results: user } = await response.data;
-        setData(user);
-        setError();
-      } catch (err) {
-        setData();
-        setError(err);
-      }
-      setIsLoading(false);
-    }
-    fetchData();
-  }, []);
-
-  return { isLoading, error, data };
-}
