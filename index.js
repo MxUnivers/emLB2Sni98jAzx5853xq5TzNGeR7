@@ -12,6 +12,9 @@ dotenv.config();
 
 // Module de d'application .
 const administratorRoute = require("./routes/administratorRoute");
+
+const education_candidatRoute = require("./routes/educationCandidatRoute");
+
 const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");
 // Candidat
 const authCandidatRoute = require("./routes/authenticate/authcandidatRoute");
@@ -93,6 +96,7 @@ app.use(`${apiV1}/offre`,offreEmploisRoute);
 app.use(`${apiV1}/candidature`,candidaturesRoute);
 app.use(`${apiV1}/message`,messageRoute);
 app.use(`${apiV1}/packs`,packRoute);
+app.use(`${apiV1}/education`,education_candidatRoute);
 
 
 
