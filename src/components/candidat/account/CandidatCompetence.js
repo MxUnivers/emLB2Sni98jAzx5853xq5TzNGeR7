@@ -64,7 +64,7 @@ const CandidatCompetence = () => {
         event.preventDefault();
         dispatch(CandidatEditCompetence(
             idCandidat,salaire,level_school,years_experience,selectCompetences,
-            setselectLangues,
+            setselectLangues,description,
         toast));
     }
 

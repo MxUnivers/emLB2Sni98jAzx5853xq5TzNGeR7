@@ -55,6 +55,7 @@ function App() {
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
+            <Route path={`${routing.candidat_details_view}`} element={<CandidatDetailPage />} />
 
             {/* # Candidatures */}
             <Route path={`${routing.candidature_list}`} element={<CandidatureListPage />} />

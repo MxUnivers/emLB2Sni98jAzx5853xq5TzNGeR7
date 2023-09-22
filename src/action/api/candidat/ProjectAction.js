@@ -8,12 +8,12 @@ import { useEffect, useState } from "react";
 
 
 
-export const EducationCandidatPost = (
+export const ProjectCandidatPost = (
     idCandidat, title, entreprise, description, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/education/post/${idCandidat}`,
+            .post(`${baseurl.url}/api/v1/project/post/${idCandidat}`,
                 {
                     "idPerson":idCandidat,
                     "title": title,
@@ -27,11 +27,11 @@ export const EducationCandidatPost = (
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success(" Education ajouté ")
+                toast.success(" Project ajouté ")
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Education non prise en charge !")
+                toast.error("Project non prise en charge !")
             });
     };
 }
@@ -39,31 +39,31 @@ export const EducationCandidatPost = (
 
 
 
-export default function useFetchEducation(idCandidat) {
-    const [candidatEducation, setCandidatEducation] = useState([]);
-    const [errorEducation, setErrorEducation] = useState(null);
-    const [isLoadingEducation, setIsLoadingEducation] = useState(false);
+export default function useFetchProject(idCandidat) {
+    const [candidatProject, setCandidatProject] = useState([]);
+    const [errorProject, setErrorProject] = useState(null);
+    const [isLoadingProject, setIsLoadingProject] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
-            setIsLoadingEducation(true);
+            setIsLoadingProject(true);
             console.log(idCandidat);
-            await axios.get(`${baseurl.url}/api/v1/education/get_educations/candidat/${idCandidat}`, {
+            await axios.get(`${baseurl.url}/api/v1/project/get_educations/candidat/${idCandidat}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                 }
             }).then((response) => {
-                setCandidatEducation(response.data.data);
-                setErrorEducation(null);
+                setCandidatProject(response.data.data);
+                setErrorProject(null);
                 console.log(response.data.data)
             })
                 .catch((error) => {
                     console.log(error);
-                    setErrorEducation(error);
+                    setErrorProject(error);
                 });
 
-            setIsLoadingEducation(false);
+            setIsLoadingProject(false);
         }
 
         if (idCandidat) {
@@ -71,5 +71,5 @@ export default function useFetchEducation(idCandidat) {
         }
     }, [idCandidat]);
 
-    return { isLoadingEducation, errorEducation, candidatEducation };
+    return { isLoadingProject, errorProject, candidatProject };
 }

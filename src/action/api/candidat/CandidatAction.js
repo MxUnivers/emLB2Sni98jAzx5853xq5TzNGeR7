@@ -147,7 +147,7 @@ export const CandidatEditCompetence = (
     level_school,
     years_experience,
     selectedOptions,
-    selectedOptionsLangues
+    selectedOptionsLangues,description
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -160,6 +160,7 @@ export const CandidatEditCompetence = (
                     "years_experience": years_experience,
                     "competences": selectedOptions,
                     "langues": selectedOptionsLangues,
+                    "description":description
                 }, {
                 headers: {
                     'Content-Type': 'application/json',

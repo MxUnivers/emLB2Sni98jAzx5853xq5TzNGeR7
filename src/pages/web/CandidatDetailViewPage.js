@@ -23,7 +23,7 @@ import useFetchProject, { ProjectCandidatPost } from '../../action/api/candidat/
 
 
 
-const CandidatDetailPage = () => {
+const CandidatDetailViewPage = () => {
 
 
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
@@ -356,9 +356,7 @@ const CandidatDetailPage = () => {
                                         <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                <button onClick={() => { handleShow(0) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + Education
-                                                </button>
+                                                
                                             </div>
                                             {
                                                 isLoadingEducation ?
@@ -390,9 +388,7 @@ const CandidatDetailPage = () => {
 
                                             <div class="flex flex-row justify-between items-center  ">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                <button onClick={() => { handleShow(1) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + experience
-                                                </button>
+                                                
                                             </div>
                                             {
                                                 isLoadingExperience ?
@@ -422,9 +418,7 @@ const CandidatDetailPage = () => {
                                         <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                <button onClick={() => { handleShow(2) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + projet
-                                                </button>
+                                                
                                             </div>
                                             {
                                                 isLoadingProject ?
@@ -559,111 +553,7 @@ const CandidatDetailPage = () => {
 
 
 
-                {
-                    modalApply &&
-                    (
-                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
-                            {
-                                step == 0 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
-                                    <form onSubmit={handleSumbitEducation} >
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block mb-1">Titre</label>
-                                            <input value={title_education} onChange={(e) => { settitle_education(e.target.value) }}
-                                                type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="message" class="block mb-1">Ecole</label>
-                                            <input value={entreprise_education} onChange={(e) => { setentreprise_education(e.target.value) }}
-                                                class="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarea value={description_education} onChange={(e) => { setdescription_education(e.target.value) }}
-                                                class="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="flex justify-end">
-                                            {
-                                                isLoading ?
-                                                    <p class="animate-pulse">en cours ...</p>
-                                                    :
-                                                    <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                        Ajouter
-                                                    </button>
-                                            }
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            }
-
-
-
-                            {
-                                step == 1 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-bold mb-4">Ajouter Expérience</h2>
-                                    <form onClick={handleSumbitExeprience}>
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block font-bold mb-1">Metier poste Occupé dans </label>
-                                            <inputn value={title_experience} onChange={(e) => { settitle_experience(e.target.value) }} type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="message" class="block font-bold mb-1">entreprise</label>
-                                            <inputn value={entreprise_experience} onChange={(e) => { setentreprise_experience(e.target.value) }} class="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarean value={description_experience} onChange={(e) => { setdescription_education(e.target.value) }} class="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                Ajouter
-                                            </button>
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            }
-
-                            {
-                                step == 2 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-bold mb-4">Ajouter nouveau projet</h2>
-                                    <form onSubmit={handleSumbitProject}>
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block font-bold mb-1">Nom du projet</label>
-                                            <input value={title_project} onChange={(e) => { settitle_project(e.target.value) }} type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarea value={description_project} onChange={(e) => { setdescription_project(e.target.value) }} class="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div class="flex justify-end">
-                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                Ajouter
-                                            </button>
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            }
-                        </div>
-                    )
-                }
-
-
-
-
+                
 
 
 
@@ -688,4 +578,4 @@ const CandidatDetailPage = () => {
     )
 }
 
-export default CandidatDetailPage;
+export default CandidatDetailViewPage;
