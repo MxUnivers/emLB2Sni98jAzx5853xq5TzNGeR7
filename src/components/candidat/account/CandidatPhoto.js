@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import useFetchCandidat from '../../../action/api/candidat/CandidatAction';
+import useFetchCandidat, { CandidatEditPhoto } from '../../../action/api/candidat/CandidatAction';
 import { getAndCheckLocalStorage } from '../../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { MdOutlineAddAPhoto } from "react-icons/md";
+import axios from 'axios';
+import { baseurl } from '../../../utlis/url/baseurl';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -21,7 +25,64 @@ const CandidatPhoto = () => {
     }, [candidat]);
 
 
-    
+
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const err = useSelector((state) => state.error);
+
+
+
+    const [LoadingPhoto, setLoadingPhoto] = useState(false);
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
+            fileReader.onerror = (error) => { reject(error); };
+        });
+    }
+    function uploadSinglePhoto(base64) {
+        setLoadingPhoto(true);
+        axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
+            .then(async (res) => {
+                setcoverPicture(res.data);
+                await axios
+                    .put(`${baseurl.url}/api/v1/candidat/edit/${idCandidat}`,
+                        {
+                            "coverPicture": res.data
+                        }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                        }
+                    })
+                    .then((response) => {
+                        toast.success(" Photo Mis à jour");
+                    })
+                    .catch((error) => {
+                        toast.error("Photo non modifié !")
+                    });
+
+            })
+            .then(() => setLoadingPhoto(false))
+            .catch(() => {
+                console.log("Photo ,on uploder");
+                toast.error("Photo mis a jour  !")
+                setLoadingPhoto(false);
+            });
+    }
+    const HandleFileInputChangePhoto = async (event) => {
+        const files = event.target.files;
+        console.log(files.length);
+        if (files.length === 1) {
+            const base64 = await convertBase64(files[0]);
+            uploadSinglePhoto(base64); return;
+        }
+        const base64s = [];
+        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+    };
+
+
+
+
 
 
     return (
@@ -63,10 +124,19 @@ const CandidatPhoto = () => {
                                     class="hD0sTTDgbxakubcHVW2X d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                                     {candidat.title_post}
                                 </div>
-                                    <a href="#"
-                                        class="_k0lTW0vvzboctTxDi2R Q_jg_EPdNf9eDMn1mLI2 b9aD6g2qw84oyZNsMO8j _Cj_M6jt2eLjDgkBBNgI c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY mveJTCIb2WII7J4sY22F YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">
-                                        <MdOutlineAddAPhoto class="h-8 w-8" />
-                                    </a>
+                                    {
+                                        LoadingPhoto ?
+                                            <div type="button" class="btn bg-blue-500 animate-spin h-6 w-6 ..." disabled>
+                                            </div> :
+                                            <>
+                                                <input onChange={HandleFileInputChangePhoto} id="file" name="file" type="file" accept=".JPEG,.PNG,.JPG" class="sr-only" />
+                                                <label for="file"><div
+                                                    class="_k0lTW0vvzboctTxDi2R Q_jg_EPdNf9eDMn1mLI2 b9aD6g2qw84oyZNsMO8j _Cj_M6jt2eLjDgkBBNgI c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY mveJTCIb2WII7J4sY22F YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">
+                                                    <MdOutlineAddAPhoto class="h-8 w-8" />
+                                                </div>
+                                                </label>
+                                            </>
+                                    }
                                 </>
                                 ) : null
 

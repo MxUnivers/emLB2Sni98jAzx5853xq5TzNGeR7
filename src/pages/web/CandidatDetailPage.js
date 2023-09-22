@@ -13,6 +13,9 @@ import { useEffect } from 'react';
 import Stepper from "react-stepper-horizontal";
 import { CandidatureAllOfCandidat } from '../../action/api/candidatures/CandidatureAction';
 import { handleCandidatEditRouting } from '../../utlis/url/ListFunction';
+import useFetchEducation, { EducationCandidatPost } from '../../action/api/candidat/EducationAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 
@@ -25,15 +28,23 @@ const CandidatDetailPage = () => {
 
     const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
 
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID)
+    const { isLoadingEducation, errorEducation, candidatEducation } = useFetchEducation(idCandidat);
+
+
     var typeAccess = getAndCheckLocalStorage(localvalue.candidatTYPE);
 
     const [candidatures, setcandidatures] = useState([]);
     const [candidatures2, setcandidatures2] = useState([]);
 
+
+    const [title_education, settitle_education] = useState();
+    const [entreprise_education, setentreprise_education] = useState();
+    const [description_education, setdescription_education] = useState();
+
+
     useEffect(() => {
-        CandidatureAllOfCandidat(idCandidat,setcandidatures,setcandidatures2);
-    }, [])
+        CandidatureAllOfCandidat(idCandidat, setcandidatures, setcandidatures2);
+    }, []);
 
 
 
@@ -63,6 +74,16 @@ const CandidatDetailPage = () => {
         { title: '' },
     ];
 
+
+    // state de redux
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const errore = useSelector((state) => state.error);
+
+    const handleSumbitEducation = (event) => {
+        event.preventDefault();
+        dispatch(EducationCandidatPost(idCandidat, title_education, entreprise_education, description_education, toast))
+    }
 
 
     return (
@@ -134,11 +155,11 @@ const CandidatDetailPage = () => {
                                             <div class="mt-5 mb-5 flex justify-center">
                                                 {
                                                     candidat && candidat._id ?
-                                                        <button 
-                                                        onClick={()=>{
-                                                            handleCandidatEditRouting();
-                                                        }}
-                                                        class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
+                                                        <button
+                                                            onClick={() => {
+                                                                handleCandidatEditRouting();
+                                                            }}
+                                                            class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
                                                             <BiEdit />
                                                             <span>Mettre à jour</span>
                                                         </button> :
@@ -309,31 +330,41 @@ const CandidatDetailPage = () => {
                                         <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                <button onClick={()=>{handleShow(0)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                <button onClick={() => { handleShow(0) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                     + Education
                                                 </button>
                                             </div>
-                                            <div class="candidate-education-content mt-4 flex space-x-3">
-                                                <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
-                                                    B
-                                                </div>
-                                                <div class="ms-4">
-                                                    <h6 class="fs-16 mb-1">BCA - Bachelor of Computer Applications</h6>
-                                                    <p class="mb-2 text-muted">International University - (2004 - 2010)
-                                                    </p>
-                                                    <p class="text-muted">There are many variations of passages of
-                                                        available, but the majority alteration in some form. As a highly
-                                                        skilled and successfull product development and design
-                                                        specialist with more than 4 Years of My experience.</p>
-                                                </div>
-                                            </div>
+                                            {
+                                                isLoadingEducation ?
+                                                    (<p education en cours>...</p>) :
+                                                    (
+                                                        candidatEducation &&
+                                                        candidatEducation.length > 0
+                                                        && candidatEducation.map((item) => {
+                                                            return (
+                                                                <div class="candidate-education-content mt-4 flex space-x-3">
+                                                                    <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
+                                                                        {String(item.title).charAt(1)}
+                                                                    </div>
+                                                                    <div class="ms-4">
+                                                                        <h6 class="fs-16 mb-1">{item.title}</h6>
+                                                                        <p class="mb-2 text-muted">
+                                                                            {item.entreprise}
+                                                                        </p>
+                                                                        <p class="text-muted">{item.description}</p>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    )
+                                            }
 
                                         </div>
                                         <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
                                             <div class="flex flex-row justify-between items-center  ">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                <button onClick={()=>{handleShow(1)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                <button onClick={() => { handleShow(1) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                     + experience
                                                 </button>
                                             </div>
@@ -356,7 +387,7 @@ const CandidatDetailPage = () => {
                                         <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                <button onClick={()=>{handleShow(2)}} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                <button onClick={() => { handleShow(2) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                     + projet
                                                 </button>
                                             </div>
@@ -457,7 +488,7 @@ const CandidatDetailPage = () => {
 
 
 
-                                        
+
 
 
 
@@ -488,23 +519,31 @@ const CandidatDetailPage = () => {
                                 step == 0 &&
                                 <div class="bg-white rounded-lg shadow-lg p-6">
                                     <h2 class="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
-                                    <form>
+                                    <form onSubmit={handleSumbitEducation} >
                                         <div class="mb-4">
                                             <label for="fullName" class="block mb-1">Titre</label>
-                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            <input value={title_education} onChange={(e) => { settitle_education(e.target.value) }}
+                                                type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="message" class="block mb-1">Ecole</label>
-                                            <input class="w-full border border-gray-300 rounded px-3 py-2"/>
+                                            <input value={entreprise_education} onChange={(e) => { setentreprise_education(e.target.value) }}
+                                                class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarea class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                            <textarea value={description_education} onChange={(e) => { setdescription_education(e.target.value) }}
+                                                class="w-full border  border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="flex justify-end">
-                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                Ajouter
-                                            </button>
+                                            {
+                                                isLoading ?
+                                                    <p class="animate-pulse">en cours ...</p>
+                                                    :
+                                                    <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                                        Ajouter
+                                                    </button>
+                                            }
                                             <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
                                                 Annuler
                                             </button>
@@ -523,11 +562,11 @@ const CandidatDetailPage = () => {
                                     <form>
                                         <div class="mb-4">
                                             <label for="fullName" class="block font-bold mb-1">Metier poste Occupé dans </label>
-                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="message" class="block font-bold mb-1">entreprise</label>
-                                            <input class="w-full border border-gray-300 rounded px-3 py-2"/>
+                                            <input class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="resume" class="block font-bold mb-1">Description</label>
@@ -552,7 +591,7 @@ const CandidatDetailPage = () => {
                                     <form>
                                         <div class="mb-4">
                                             <label for="fullName" class="block font-bold mb-1">Nom du projet</label>
-                                            <input type="text"  class="w-full border border-gray-300 rounded px-3 py-2" />
+                                            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
                                         <div class="mb-4">
                                             <label for="resume" class="block font-bold mb-1">Description</label>
