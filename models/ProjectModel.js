@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
-    idPerson : {tyep:String,require:false},
+    idPerson : {type:String,require:false},
     title: { type: String, required: false,},
     entreprise: { type: String, required: false,},
     dateNow:{type:String,default:Date.now},

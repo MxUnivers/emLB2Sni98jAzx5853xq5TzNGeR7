@@ -1,6 +1,6 @@
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const CandidatModel = require("../models/CandidatModel");
-const EducationModel = require("../models/EducationModel");
+const ExprerienceModel = require("../models/ExperienceModel");
 
 const router = require("express").Router();
 
@@ -19,7 +19,7 @@ router.post("/post/:idCandidat", AuthorizationMiddleware, async (req, res) => {
         if (!candidatExit) {
             return res.status(401).json({ message: "Candidat non trouvé" })
         }
-        const educationNew = new EducationModel(req.body);
+        const educationNew = new ExprerienceModel(req.body);
 
         await educationNew.save();
 
@@ -44,7 +44,7 @@ router.put("/edit/:idEducation", AuthorizationMiddleware, async (req, res) => {
         if (!candidatExit) {
             return res.status(401).json({ message: "Candidat non trouvé" })
         }
-        const educationExit = await EducationModel.findByIdAndUpdate({ _id: idCandidat }, req.body);
+        const educationExit = await ExprerienceModel.findByIdAndUpdate({ _id: idCandidat }, req.body);
 
         educationExit.save();
 
@@ -71,7 +71,7 @@ router.get("/get_educations/candidat/:idCandidat", AuthorizationMiddleware, asyn
             return res.status(401).json({ message: "Candidat non trouvé" });
         }
 
-        const educationList = await EducationModel.find({ access: true, idPerson: idCandidat });
+        const educationList = await ExprerienceModel.find({ access: true, idPerson: idCandidat });
 
         return res.status(200).json({ message: "Education Recupérer", data: educationList })
 
@@ -90,7 +90,7 @@ router.put("/hide_education/:idEducation", AuthorizationMiddleware, async (req, 
     try {
         var idEducation = req.params.idEducation;
 
-        const educationExist = await EducationModel.findById({ id: idEducation });
+        const educationExist = await ExprerienceModel.findById({ id: idEducation });
         if (!educationExist) {
             return res.status(401).json({ message: "Education existe" })
         }
@@ -115,7 +115,7 @@ router.put("/show_education/:idEducation", AuthorizationMiddleware, async (req, 
     try {
         var idEducation = req.params.idEducation;
 
-        const educationExist = await EducationModel.findById({ id: idEducation });
+        const educationExist = await ExprerienceModel.findById({ id: idEducation });
         if (!educationExist) {
             return res.status(401).json({ message: "Education existe" })
         }

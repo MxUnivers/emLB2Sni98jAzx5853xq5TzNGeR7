@@ -15,24 +15,28 @@ const administratorRoute = require("./routes/administratorRoute");
 
 const education_candidatRoute = require("./routes/educationCandidatRoute");
 
-const authAdministratorRoute =  require("./routes/authenticate/authAdministratorRoute");
+const experience_candidatRoute = require("./routes/expererienceCandidatRoute");
+
+const project_candidatRoute = require("./routes/projectCandidatRoute");
+
+const authAdministratorRoute = require("./routes/authenticate/authAdministratorRoute");
 // Candidat
 const authCandidatRoute = require("./routes/authenticate/authcandidatRoute");
-const  candidatRoute = require("./routes/candidatRoute");
+const candidatRoute = require("./routes/candidatRoute");
 // Entreprises
-const  entrepriseRoute = require("./routes/entrerpriseRoute");
+const entrepriseRoute = require("./routes/entrerpriseRoute");
 // Annonces
-const  annonceRoute =  require("./routes/AnnonceRoute");
+const annonceRoute = require("./routes/AnnonceRoute");
 // Offres d"emplois
-const  offreEmploisRoute =  require("./routes/offreEmploisRoute");
+const offreEmploisRoute = require("./routes/offreEmploisRoute");
 
-const authEntrepriseRoute =  require("./routes/authenticate/authEntrepriseRoute");
+const authEntrepriseRoute = require("./routes/authenticate/authEntrepriseRoute");
 
-const  candidaturesRoute = require("./routes/candidatureRoute");
+const candidaturesRoute = require("./routes/candidatureRoute");
 // Messages
-const  messageRoute= require("./routes/messageRoute");
+const messageRoute = require("./routes/messageRoute");
 // Packs
-const  packRoute= require("./routes/packs/packRoute");
+const packRoute = require("./routes/packs/packRoute");
 
 
 
@@ -87,16 +91,18 @@ app.get("/", AuthorizationMiddleware, (req, res) => {
 const apiV1 = `/api/v1`;
 app.use(`${apiV1}/admimistrator`, administratorRoute);
 app.use(`${apiV1}/auth/admimistrator`, authAdministratorRoute);
-app.use(`${apiV1}/candidat`,candidatRoute);
-app.use(`${apiV1}/auth/candidat`,authCandidatRoute);
-app.use(`${apiV1}/entreprise`,entrepriseRoute);
-app.use(`${apiV1}/auth/entreprise`,authEntrepriseRoute);
-app.use(`${apiV1}/annonce`,annonceRoute);
-app.use(`${apiV1}/offre`,offreEmploisRoute);
-app.use(`${apiV1}/candidature`,candidaturesRoute);
-app.use(`${apiV1}/message`,messageRoute);
-app.use(`${apiV1}/packs`,packRoute);
-app.use(`${apiV1}/education`,education_candidatRoute);
+app.use(`${apiV1}/candidat`, candidatRoute);
+app.use(`${apiV1}/auth/candidat`, authCandidatRoute);
+app.use(`${apiV1}/entreprise`, entrepriseRoute);
+app.use(`${apiV1}/auth/entreprise`, authEntrepriseRoute);
+app.use(`${apiV1}/annonce`, annonceRoute);
+app.use(`${apiV1}/offre`, offreEmploisRoute);
+app.use(`${apiV1}/candidature`, candidaturesRoute);
+app.use(`${apiV1}/message`, messageRoute);
+app.use(`${apiV1}/packs`, packRoute);
+app.use(`${apiV1}/education`, education_candidatRoute);
+app.use(`${apiV1}/experience`, experience_candidatRoute);
+app.use(`${apiV1}/projcet`, project_candidatRoute);
 
 
 
