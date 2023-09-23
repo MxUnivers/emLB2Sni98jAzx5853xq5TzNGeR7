@@ -15,18 +15,30 @@ router.post("/post/:idCandidat", AuthorizationMiddleware, async (req, res) => {
     try {
         var idCandidat = req.params.idCandidat;
 
-        const candidatExit = await CandidatModel({ _id: idCandidat })
-        if (!candidatExit) {
-            return res.status(401).json({ message: "Candidat non trouvé" })
-        }
+        // const candidatExit = await CandidatModel.findOne({ _id: idCandidat });
+
+        // if (!candidatExit) {
+        //     return res.status(402).json({ message: "Candidat non trouvé" })
+        // }
+
+        console.log("Saut")
+        
         const PostNew = new PostModel(req.body);
+        console.log("Poster")
+
+        PostNew.idcustomerId = idCandidat;
+        PostNew.customerName = candidatExit.username;
+
+        console.log("save ..")
 
         await PostNew.save();
+        console.log("save succès")
+
 
         return res.status(200).json({ message: "Post ajouter", data: PostNew })
 
     } catch (error) {
-        return res.status(505).json({ message: "Educaton ajouter" })
+        return res.status(505).json({ message: "Poster non publiè" })
     }
 })
 
@@ -73,7 +85,7 @@ router.get("/posts/:idCandidat", AuthorizationMiddleware, async (req, res) => {
 
         const PostList = await PostModel.find({ access: true, idPerson: idCandidat });
 
-        return res.status(200).json({ message: "Post Recupérer", data: PostList })
+        return res.status(200).json({ message: "Post Recupérer", data: PostList.reverse })
 
     } catch (error) {
         return res.status(505).json({ message: "Educaton ajouter" })
@@ -88,7 +100,7 @@ router.get("/get_posts", AuthorizationMiddleware, async (req, res) => {
 
         const PostList = await PostModel.find({ access: true, idPerson: idCandidat });
 
-        return res.status(200).json({ message: "Post Recupérer", data: PostList })
+        return res.status(200).json({ message: "Post Recupérer", data: PostList.reverse() })
 
     } catch (error) {
         return res.status(505).json({ message: "Educaton ajouter" })
