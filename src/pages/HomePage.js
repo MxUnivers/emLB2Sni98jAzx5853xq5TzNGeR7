@@ -20,10 +20,14 @@ const HomePage = () => {
         <JobListHome/>
         <HomeProcess/>
         <HomeStart/>
-        <HomeTestimonial/>
-        <HomeBlog/>
+        
+        {
+          /*
+          <HomeTestimonial/>
+          <HomeBlog/>
         <HomePartenaires/>
-        <HomeSubscrible/>
+        <HomeSubscrible/> */
+        }
 
 
       </div>
