@@ -23,6 +23,7 @@ import CompanyDetaiOffrelPage from "./pages/web/CompanyDetaiOffrelPage";
 import ErrorPage from "./pages/web/ErrorPage";
 import PrincingPage from "./pages/web/PrincingPage";
 import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
+import BlogPage from "./pages/web/BlogPage";
 
 
 
@@ -56,6 +57,13 @@ function App() {
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
             <Route path={`${routing.candidat_details_view}`} element={<CandidatDetailPage />} />
+
+
+            {/*Blog */}
+            <Route path={`${routing.blog_list}`} element={<BlogPage />} />
+
+
+
 
             {/* # Candidatures */}
             <Route path={`${routing.candidature_list}`} element={<CandidatureListPage />} />

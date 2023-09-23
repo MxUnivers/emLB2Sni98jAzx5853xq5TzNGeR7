@@ -51,3 +51,39 @@ export const typeContrats = [
     {value:"STAGE",label:"STAGE"},
     {value:"ALTERNANCE",label:"ALTERNANCE"},
 ]
+
+
+
+export const areaPostList = [
+    "Technologie",
+    "Science",
+    "Voyage",
+    "Santé et bien-être",
+    "Mode",
+    "Cuisine et recettes",
+    "Sport et fitness",
+    "Éducation",
+    "Finance personnelle",
+    "Automobile",
+    "Art et créativité",
+    "Musique",
+    "Cinéma et divertissement",
+    "Environnement et durabilité",
+    "Politique",
+    "Histoire",
+    "Psychologie",
+    "Relations et amour",
+    "Parentalité",
+    "Animaux de compagnie",
+    "Photographie",
+    "Actualités et événements actuels",
+    "Science-fiction et fantasy",
+    "Développement personnel",
+    "Voyages culinaires",
+    "Actualités technologiques",
+    "Astuces et tutoriels",
+    "Bricolage et projets maison",
+    "Livres et littérature",
+    "Spiritualité et méditation"
+  ];
+  

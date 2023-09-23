@@ -280,8 +280,13 @@ const NavbarWeb = () => {
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.job_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.blog_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
                                 >Emplois
+                                </a>
+                            </li>
+                            <li class="relative dropdown">
+                                <a href={`/${routing.blog_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                >Social
                                 </a>
                             </li>
                             <li class="relative dropdown lg:mt-0">
