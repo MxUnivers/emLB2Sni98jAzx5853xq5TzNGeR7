@@ -114,7 +114,7 @@ const SignUpPage = () => {
             "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
             "description", "years_experience", "salaire","dateNaissance",
             "pays", "addresse", "username", "firstname", "lastname", "email",
-            "telephone", "password","facebook_url","linkedin_url"
+            "telephone", "password"
         ];
 
         // Vérifiez chaque champ requis.
@@ -199,7 +199,7 @@ const SignUpPage = () => {
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
-                                {step}
+                                
                                 <Stepper steps={steps} activeStep={step} />
                                 {
                                     step === 0
@@ -241,14 +241,7 @@ const SignUpPage = () => {
                                                     onChange={handleSelectChange2}
                                                     placeholder="Choix de langues"
                                                 />
-                                                <div>
-                                                    <h3>Options 1 :</h3>
-                                                    <ul>
-                                                        {selectedOptionsLangues.map((option) => (
-                                                            <li key={option.value}>{option.label}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
+                                                
                                             </div>
 
 
