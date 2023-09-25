@@ -11,37 +11,33 @@ const router = require("express").Router();
 
 
 
-router.post("/post/:idCandidat", AuthorizationMiddleware, async (req, res) => {
+
+
+// post 
+router.post('/post/:id', AuthorizationMiddleware, async (req, res) => {
     try {
-        var idCandidat = req.params.idCandidat;
+        const id = req.params.id
+        const candidat = await CandidatModel.findById({ _id: id });
+        if(!candidat){
+            return res.status(407).json({message:"Candidat introuvalble"});
+        }
 
-        // const candidatExit = await CandidatModel.findOne({ _id: idCandidat });
+        const postNew = new PostModel(req.body);
+        postNew.idcustomerId = id;
+        postNew.customerPhoto = candidat.coverPicture;
+        postNew.customerName = candidat.username;
+        postNew.areaPost = req.body.areaPost;
+        postNew.title =  req.body.title;
+        postNew.content=req.body.content;
 
-        // if (!candidatExit) {
-        //     return res.status(402).json({ message: "Candidat non trouvé" })
-        // }
+        await postNew.save();
 
-        console.log("Saut")
-        
-        const PostNew = new PostModel(req.body);
-        console.log("Poster")
-
-        PostNew.idcustomerId = idCandidat;
-        PostNew.customerName = candidatExit.username;
-
-        console.log("save ..")
-
-        await PostNew.save();
-        console.log("save succès")
-
-
-        return res.status(200).json({ message: "Post ajouter", data: PostNew })
-
-    } catch (error) {
-        return res.status(505).json({ message: "Poster non publiè" })
+        return res.status(200).json({ data: postNew, message: "poster ajouter avec succès" });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('Server Error');
     }
-})
-
+});
 
 
 
@@ -77,7 +73,7 @@ router.get("/posts/:idCandidat", AuthorizationMiddleware, async (req, res) => {
     try {
         var idCandidat = req.params.idCandidat;
 
-        const posts = await PostModel.find({idPerson:idCandidat });
+        const posts = await PostModel.find({ idPerson: idCandidat });
         const candidatExit = await CandidatModel.findById({ _id: idCandidat })
         if (!candidatExit) {
             return res.status(401).json({ message: "Candidat non trouvé" });
@@ -97,8 +93,7 @@ router.get("/posts/:idCandidat", AuthorizationMiddleware, async (req, res) => {
 router.get("/get_posts", AuthorizationMiddleware, async (req, res) => {
     try {
 
-
-        const PostList = await PostModel.find({ access: true, idPerson: idCandidat });
+        const PostList = await PostModel.find({});
 
         return res.status(200).json({ message: "Post Recupérer", data: PostList.reverse() })
 
