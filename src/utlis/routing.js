@@ -10,6 +10,7 @@ export const routing = {
     contact:"contact_us",
     privacy_policy:"condition_utilisation",
     blog_list:"post-blog-list",
+    blog_post:"post-blog-candidat-"+getAndCheckLocalStorage(localvalue.candidatID),
     job_list:"listes_des_emplois_de_la_plateforme",
     job_category:"categrory_jobs",
     job_details:"detail-jobs",

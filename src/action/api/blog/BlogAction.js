@@ -25,8 +25,7 @@ export const BlogAdd = (
                     "title":title,
                     "coverPicture":coverPicture,
                     "areaPost":areaPost,
-                    "content":content,
-                    "comments":[]
+                    "content":content
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
@@ -85,7 +84,7 @@ export const BlogEditById = (
 // spécialement pour les entreprises
 export const BlogAll = async (setState, setState2) => {
 
-    await axios.get(`${baseurl.url}/api/v1/packs/entreprises`, {
+    await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -94,6 +93,7 @@ export const BlogAll = async (setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            console.log(response.data.data);
         })
         .catch((error) => {
             console.log(error);

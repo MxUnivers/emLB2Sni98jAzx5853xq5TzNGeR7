@@ -166,6 +166,10 @@ const NavbarWeb = () => {
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            href={`/${routing.blog_post}`}>publication </a>
+                                                    </li>
+                                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                             href={`/${routing.candidature_list}`}>Candidatures & Messages</a>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
@@ -280,7 +284,7 @@ const NavbarWeb = () => {
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.blog_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.job_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
                                 >Emplois
                                 </a>
                             </li>
