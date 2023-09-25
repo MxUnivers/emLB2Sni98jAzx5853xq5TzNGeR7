@@ -21,7 +21,8 @@ const BlogCard = ({ item }) => {
                     <span class="text-xs font-medium text-blue-600 uppercase">
                         {item.areaPost}
                     </span>
-                    <div class="flex flex-row items-center">
+                    {
+                        /*<div class="flex flex-row items-center">
                         <div
                             class="text-xs font-medium text-gray-500 flex flex-row items-center mr-2"
                         >
@@ -87,7 +88,8 @@ const BlogCard = ({ item }) => {
                             </svg>
                             <span>7</span>
                         </div>
-                    </div>
+                    </div> */
+                    }
                 </div>
                 <hr class="border-gray-300" />
                 <div class="flex flex-wrap items-center flex-1 px-4 py-1 text-center mx-auto">
@@ -111,7 +113,7 @@ const BlogCard = ({ item }) => {
                     <div class="flex items-center justify-between">
                         <div class="flex items-center flex-1">
                             <img
-                                class="object-cover h-10 rounded-full"
+                                class="object-cover h-10 w-10 rounded-full"
                                 src={item.customerPhoto}
                                 alt="Avatar"
                             />
@@ -122,7 +124,7 @@ const BlogCard = ({ item }) => {
                                 <span class="mx-1 text-xs text-gray-600">{moment(item.createdAt).format("DD/MM/YYYY")}</span>
                             </div>
                         </div>
-                        <p class="mt-1 text-xs text-gray-600">9 minutes read</p>
+                        <p class="mt-1 text-xs text-gray-600">{moment(item.createdAt).format("HH:MM")}</p>
                     </div>
                 </section>
             </div>
