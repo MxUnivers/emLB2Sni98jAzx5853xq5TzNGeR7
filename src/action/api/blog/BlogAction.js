@@ -15,13 +15,14 @@ export const BlogAdd = (
         dispatch({ type: SEND_REQUEST });
         await axios
             .post(`${baseurl.url}/api/v1/blog/post/${idCandidat}`,
+                // {
+                //     headers:
+                //     {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                //     }
+                // },
                 {
-                    headers:
-                    {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                    }
-                },{
                     "title":title,
                     "coverPicture":coverPicture,
                     "areaPost":areaPost,

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BlogAll } from '../../action/api/blog/BlogAction';
+import moment from 'moment';
+import BlogCard from '../../components/blog/BlogCard';
 
 const BlogPage = () => {
     const [blogs, setblogs] = useState([]);
@@ -73,52 +75,21 @@ const BlogPage = () => {
                             </a>
                         </div>
 
-                        <div class="block lg:flex lg:space-x-2 px-2 lg:p-0 mt-10 mb-10">
-                            {/*<!-- post cards <!--*/}
-                            <div class="w-full lg:w-2/3">
-
+                        <div class="w-full container-fluid flex flex-col mt-10 mb-10">
+                           
+                            <section class="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto">
                                 {
                                     blogs.map((item) => {
                                         return (
-                                            <a class="block rounded w-full lg:flex mb-10"
-                                                href="#"
-                                            >
-                                                <div
-                                                    class="h-48 lg:w-48 flex-none bg-cover text-center overflow-hidden opacity-75"
-                                                    style={{ backgroundImage: `url(${item.coverPicture})` }}
-                                                    title="deit is very important"
-                                                >
-                                                </div>
-                                                <div class="bg-white rounded px-4 flex flex-col justify-between leading-normal">
-                                                    <div>
-                                                        <div class="mt-3 md:mt-0 text-gray-700 font-bold text-2xl mb-2">
-                                                            {item.title}
-                                                        </div>
-                                                        <p class="text-gray-700 text-base line-clamp-2">
-                                                            {item.content}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex mt-3">
-                                                        <img src="https://randomuser.me/api/portraits/men/86.jpg"
-                                                            class="h-10 w-10 rounded-full mr-2 object-cover" />
-                                                        <div>
-                                                            <p class="font-semibold text-gray-700 text-sm capitalize"> eduard franz </p>
-                                                            <p class="text-gray-600 text-xs"> 14 Aug </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                            <BlogCard item={item} />
                                         )
                                     })
                                 }
+                            </section>
 
-
-
-                            </div>
-
-                            {/*<!-- right sidebar <!--*/}
-                            <div class="w-full lg:w-1/3 px-3">
-                                {/*<!-- topics <!--*/}
+                            
+                            <div class="w-full px-3">
+                                
                                 <div class="mb-4">
                                     <h5 class="font-bold text-lg uppercase text-gray-700 px-1 mb-2"> Popular Topics </h5>
                                     <ul>
@@ -157,10 +128,10 @@ const BlogPage = () => {
                                     </ul>
                                 </div>
 
-                                {/*<!-- divider <!--*/}
+                                
                                 <div class="border border-dotted"></div>
 
-                                {/*<!-- subscribe <!--*/}
+                                
                                 <div class="p-1 mt-4 mb-4">
                                     <h5 class="font-bold text-lg uppercase text-gray-700 mb-2"> Subscribe </h5>
                                     <p class="text-gray-600">
@@ -173,7 +144,7 @@ const BlogPage = () => {
                                     </button>
                                 </div>
 
-                                {/*<!-- divider <!--*/}
+                                
                                 <div class="border border-dotted"></div>
 
                             </div>
@@ -182,10 +153,6 @@ const BlogPage = () => {
                     </main>
 
                 </div>
-
-
-
-
 
             </div>
         </div >
