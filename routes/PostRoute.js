@@ -14,7 +14,7 @@ const router = require("express").Router();
 
 
 // post 
-router.post('/post/:id', AuthorizationMiddleware, async (req, res) => {
+router.post('/post/:id', async (req, res) => {
     try {
         const id = req.params.id
         const candidat = await CandidatModel.findById({ _id: id });

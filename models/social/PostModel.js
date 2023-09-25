@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
     idcustomerId : {type:String,require:false},
-    customerPhoto : {type:String,require:false,default:""},
+    customerPhoto : {type:String,require:false,default:"https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg"},
     customerName : {type:String,require:false},
     title: { type: String, required: false,},
     dateNow:{type:String,default:Date.now()},
