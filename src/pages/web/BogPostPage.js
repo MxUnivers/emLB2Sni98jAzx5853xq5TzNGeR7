@@ -116,7 +116,7 @@ const BogPostPage = () => {
             <div class="page-content mt-28">
 
                 <div class="h-min-screem heading  text-center font-bold text-2xl m-5 text-gray-800">Poster votre publication</div>
-                <form onSubmit={hanldePostCandidat} class="editor mx-auto my-auto w-10/12 flex flex-col text-gray-800  p-4 shadow-lg max-w-2xl">
+                <form onSubmit={hanldePostCandidat} class="editor mx-auto mb-28 my-auto w-10/12 flex flex-col text-gray-800  p-4 shadow-lg max-w-2xl">
 
                     <input type={"text"} required={true} value={title} onChange={(e) => { settitle(e.target.value) }} name="title" id="new-password"
                         class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"

@@ -14,7 +14,7 @@ const BlogCard = ({ item }) => {
                     <img
                         src={item.coverPicture}
                         alt="Blog Cover"
-                        class="object-fill w-full rounded-lg rounded-b-none md:h-56"
+                        class=" rounded-lg rounded-b-none w-full h-[350px]"
                     />
                 </div>
                 <div class="flex items-center justify-between px-4 py-2 overflow-hidden">
@@ -92,7 +92,7 @@ const BlogCard = ({ item }) => {
                 <hr class="border-gray-300" />
                 <div class="flex flex-wrap items-center flex-1 px-4 py-1 text-center mx-auto">
                     <a href="#" class="hover:underline">
-                        <h2 class="text-2xl font-bold tracking-normal text-gray-800">
+                        <h2 class="text-2xl font-bold tracking-normal text-gray-800 line-clamp-2">
                             {item.title}
                         </h2>
                     </a>
