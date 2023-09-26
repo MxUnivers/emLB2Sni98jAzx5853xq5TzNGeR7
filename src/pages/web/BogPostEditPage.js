@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { areaPostList } from '../../utlis/options/optionDivers';
 import { toast } from 'react-toastify';
-import { BlogAdd } from '../../action/api/blog/BlogAction';
+import { BlogAdd, BlogEditById } from '../../action/api/blog/BlogAction';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { useEffect } from 'react';
@@ -12,13 +12,15 @@ import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
+import { useLocation } from 'react-router-dom';
 
 
 
 
 
 const BogPostEditPage = () => {
-
+    const location = useLocation();
+    const {item}= location.state;
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
     const [title, settitle] = useState();
@@ -27,6 +29,23 @@ const BogPostEditPage = () => {
     const [coverPicture, setcoverPicture] = useState("https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740");
 
     const { quill, quillRef } = useQuill();
+
+    useEffect(() => {
+        if(item){
+            settitle(item.title);
+            setcontent(item.content);
+            setareaPost(item.areaPost);
+            setcontent(item.content);
+            setcoverPicture(item.coverPicture);
+        }
+    }, [item])
+
+
+    useEffect(() => {
+        if (quill) {
+            quill.clipboard.dangerouslyPasteHTML(`${content}`);
+        }
+    }, [quill])
 
     useEffect(() => {
         if (quill) {
@@ -73,7 +92,7 @@ const BogPostEditPage = () => {
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
-        dispatch(BlogAdd(idCandidat, title, coverPicture, areaPost, content, toast))
+        dispatch(BlogEditById(item._id, title, coverPicture, areaPost, content, toast))
     }
 
 
@@ -113,8 +132,8 @@ const BogPostEditPage = () => {
         <div class="main-content">
             <div class="page-content mt-28">
 
-                <div class="h-min-screem heading  text-center font-bold text-2xl m-5 text-gray-800">Poster votre publication</div>
-                <form onSubmit={hanldePostCandidat} class="editor mx-auto mb-28 my-auto w-10/12 flex flex-col text-gray-800  p-4 shadow-lg max-w-2xl">
+                <div class="h-min-screem heading  text-center font-bold text-2xl m-5 text-gray-800">Mise a jour de votre publication</div>
+                <form onSubmit={hanldePostCandidat} class="editor mx-auto mb-28 my-auto w-10/12 flex flex-col text-gray-800  p-10 shadow-lg max-w-2xl">
 
                     <input type={"text"} required={true} value={title} onChange={(e) => { settitle(e.target.value) }} name="title" id="new-password"
                         class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"

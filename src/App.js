@@ -27,6 +27,7 @@ import BlogPage from "./pages/web/BlogPage";
 import BogPostPage from "./pages/web/BogPostPage";
 import BlogDetailPage from "./pages/web/BlogDetailPage";
 import BlogProfilePage from "./pages/web/BlogProfilePage";
+import BogPostEditPage from "./pages/web/BogPostEditPage";
 
 
 
@@ -65,6 +66,7 @@ function App() {
             {/*Blog */}
             <Route path={`${routing.blog_list}`} element={<BlogPage />} />
             <Route path={`${routing.blog_post}`} element={<BogPostPage />} />
+            <Route path={`${routing.blog_edit}`} element={<BogPostEditPage />} />
             <Route path={`${routing.blog_details}`} element={<BlogDetailPage />} />
             <Route path={`${routing.candidat_details_blog}`} element={<BlogProfilePage />} />
 

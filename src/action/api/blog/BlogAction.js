@@ -51,30 +51,31 @@ export const BlogEditById = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/blog/post/${idCandidat}`,
-                {
-                    headers:
-                    {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                    }
-                },{
-                    "title":title,
-                    "coverPicture":coverPicture,
-                    "areaPost":areaPost,
-                    "content":content
-                })
+            .put(`${baseurl.url}/api/v1/blog/edit/${idCandidat}`,
+            
+            // {
+            //     headers:
+            //     {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            //     }
+            // }
+            {
+                "title":title,
+                "coverPicture":coverPicture,
+                "areaPost":areaPost,
+                "content":content
+            })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                confetti();
-                toast.success("Votre publication est en ligne");
+                toast.success("Mis à jour effectué");
                 setTimeout(() => {
                     window.location.href=`/`;
                 }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Publication validé !")
+                toast.error("Mis à jour impossible !")
             });
     };
 }

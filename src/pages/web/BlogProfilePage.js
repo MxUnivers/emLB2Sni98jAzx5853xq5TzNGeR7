@@ -1,12 +1,18 @@
 import React from 'react'
-import useFetchCandidat from '../../action/api/candidat/CandidatAction'
-import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction'
-import { localvalue } from '../../utlis/storage/localvalue'
+import useFetchCandidat, { CandidatEditCompetence } from '../../action/api/candidat/CandidatAction'
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction'
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue'
 import BlogAll, { BlogGetAllCategoryCandidat } from '../../action/api/blog/BlogAction'
 import LoadingCompo1 from '../../components/loading/LoadingCompo1'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { routing } from '../../utlis/routing'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import {RiEditBoxLine} from  "react-icons/ri";
+
+
+
 
 const BlogProfilePage = () => {
     const navigate = useNavigate();
@@ -16,6 +22,30 @@ const BlogProfilePage = () => {
     const { isLoadingBlog, errorBlog, blogs, blogs2 } = BlogAll()
 
     const { isLoading, errorPost, category, category2 } = BlogGetAllCategoryCandidat(idCandidat);
+
+    const [username, setusername] = useState();
+    const [email, setemail] = useState();
+    const [telephone, settelephone] = useState();
+    const [coverPicture, setcoverPicture] = useState();
+    const [adresse, setadresse] = useState();
+    const [firstname, setfirstname] = useState();
+    const [title_post, settitle_post] = useState();
+    const [pays, setpays] = useState();
+
+
+
+
+    useEffect(()=>{
+        if(candidat){
+            setusername(candidat.username);
+            setcoverPicture(candidat.coverPicture);
+            setadresse(candidat.adresse)
+            setemail(candidat.email);
+            settelephone(candidat.telephone)
+            settitle_post(candidat.title_post);
+            setpays(candidat.pays);
+        }
+    },[candidat])
 
     return (
         <div class="main-content">
@@ -27,18 +57,22 @@ const BlogProfilePage = () => {
                 <div class="EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr ">
                     <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi dark:bg-white">
                         <div class="rvdRhGyExrNYTA6euxsF xu6Xcz2CnxX04u4eQAne SQf297smyJVNzzOO3iQL LvH1cgobxEYMRPVAp8WW ">
-                            <img class="TR_P65x9ie7j6uxFo_Cs XO0Hd72IH1CH2AVjcbWM v2F5G_Fm6X1wxdNJdQlJ mveJTCIb2WII7J4sY22F"
-                                src={candidat.coverPicture} alt="Jese portrait" />
+                            
+                                <img class="TR_P65x9ie7j6uxFo_Cs XO0Hd72IH1CH2AVjcbWM v2F5G_Fm6X1wxdNJdQlJ mveJTCIb2WII7J4sY22F"
+                                src={coverPicture} alt="Jese portrait" />
+                                
                             <div>
-                                <h2 class="vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">{candidat.username}</h2>
-                                <ul class="gC_jEY75u_oxfOOKnLpH wezTbYJgxYJp5ZDqX67N">
+                               
+                                    <h2 class="vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">{username}</h2>
+                                    
+                                    <ul class="gC_jEY75u_oxfOOKnLpH wezTbYJgxYJp5ZDqX67N">
                                     <li class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                                         <svg class="fhCwost7CSNRc2WSHLFW E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path></svg>
-                                        {candidat.title_post}
+                                        {title_post}
                                     </li>
                                     <li class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                                         <svg class="fhCwost7CSNRc2WSHLFW E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                        {candidat.adresse}
+                                        {adresse}
                                     </li>
                                 </ul>
                             </div>
@@ -49,20 +83,24 @@ const BlogProfilePage = () => {
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Email address
                                     </div>
-                                    <a class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" href={`mailto:${candidat.email}`}>
-                                        {candidat.email}
+                                    
+                                        <a class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" href={`mailto:${candidat && candidat.email ?  candidat.email :""}`}>
+                                         {email }
                                     </a>
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Pays
                                     </div>
-                                    <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                        {candidat.pays}
+                                    
+                                        <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+                                        {pays }
                                     </div>
+                                    
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Telephone
                                     </div>
-                                    <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                        {candidat.telephone}
+                                    
+                                        <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+                                        {telephone}
                                     </div>
                                 </address>
                             </div>
@@ -81,7 +119,7 @@ const BlogProfilePage = () => {
                                 {
                                     category.map((item) => {
                                         return (
-                                            <li class="Dnqe3vvw22y12_oWDYvR LNUrv_nGG839SRkGqY8B UptwuMAvsdRjvAaYNP6r d3C8uAdJKNl1jzfE9ynq ezMFUVl744lvw6ht0lFe _Cj_M6jt2eLjDgkBBNgI Qkdk47eO_FsOcXfaC9zb W5n_NSFnC6y2nqoHw_5x TR_P65x9ie7j6uxFo_Cs fhCwost7CSNRc2WSHLFW">{item}</li>
+                                            <li class="text-xs Dnqe3vvw22y12_oWDYvR LNUrv_nGG839SRkGqY8B UptwuMAvsdRjvAaYNP6r d3C8uAdJKNl1jzfE9ynq ezMFUVl744lvw6ht0lFe _Cj_M6jt2eLjDgkBBNgI Qkdk47eO_FsOcXfaC9zb W5n_NSFnC6y2nqoHw_5x TR_P65x9ie7j6uxFo_Cs fhCwost7CSNRc2WSHLFW">{item}</li>
                                         )
                                     })
                                 }
@@ -135,14 +173,19 @@ const BlogProfilePage = () => {
                                                                 {moment(item.createdAt).format("DD/MM/YYYY")} {moment(item.createdAt).format("HH:MM")}
                                                             </p>
                                                         </div>
-                                                        <a href="#" class="_k0lTW0vvzboctTxDi2R Nm7xMnguzOx6J5Ao7yCU sQaK4IH7BIQSgBTGX8Pe PeR2JZ9BZHYIH8Ea3F36 Y3FxyuXtj2gecrGXvLEI SA5DoMHfwOFtY4h_qzuM OPrb_iG5WDy_7F05BDOX dMTOiA3mf3FTjlHu6DqW XIIs8ZOri3wm8Wnj9N_y ZnBoTVi7VOJdCLSSU62n _7KA5gD55t2lxf9Jkj20">
-                                                            <svg class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
-                                                        </a>
+                                                        <div 
+                                                        onClick={()=>{
+                                                            setWithExpiration(localvalue.BlogID,item._id,dureeDeVie);
+                                                            navigate(`/${routing.blog_edit}`,{state:{item}})
+                                                        }}
+                                                        class="cursor-pointer _k0lTW0vvzboctTxDi2R Nm7xMnguzOx6J5Ao7yCU sQaK4IH7BIQSgBTGX8Pe PeR2JZ9BZHYIH8Ea3F36 Y3FxyuXtj2gecrGXvLEI SA5DoMHfwOFtY4h_qzuM OPrb_iG5WDy_7F05BDOX dMTOiA3mf3FTjlHu6DqW XIIs8ZOri3wm8Wnj9N_y ZnBoTVi7VOJdCLSSU62n _7KA5gD55t2lxf9Jkj20">
+                                                            <RiEditBoxLine/>
+                                                        </div>
                                                     </div>
                                                     <div class="UYOSZJ1_pv3B5nt1ujCP">
-                                                        <p class="d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
+                                                        <h2 class="font-semibold d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                                                             {item.title}
-                                                        </p>
+                                                        </h2>
 
                                                         {
                                                             item && item.coverPicture ?
