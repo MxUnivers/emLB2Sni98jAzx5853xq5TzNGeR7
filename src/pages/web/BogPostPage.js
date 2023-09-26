@@ -74,8 +74,6 @@ const BogPostPage = () => {
             }
         }
         dispatch(BlogAdd(idCandidat, title, coverPicture, areaPost, content, toast))
-
-
     }
 
 

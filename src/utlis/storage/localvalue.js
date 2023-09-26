@@ -16,6 +16,9 @@ export const localvalue = {
     JobID:"JobID",
     JobTITLE:"JobTITLE",
 
+
+    BlogID :"BlogId",
+
     MessageID:"MESSAGEID",
 
     CANDIDATURE:"CandidatureId",

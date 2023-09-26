@@ -25,6 +25,7 @@ import PrincingPage from "./pages/web/PrincingPage";
 import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
 import BlogPage from "./pages/web/BlogPage";
 import BogPostPage from "./pages/web/BogPostPage";
+import BlogDetailPage from "./pages/web/BlogDetailPage";
 
 
 
@@ -63,6 +64,7 @@ function App() {
             {/*Blog */}
             <Route path={`${routing.blog_list}`} element={<BlogPage />} />
             <Route path={`${routing.blog_post}`} element={<BogPostPage />} />
+            <Route path={`${routing.blog_details}`} element={<BlogDetailPage />} />
 
 
 
