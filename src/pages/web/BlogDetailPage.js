@@ -42,7 +42,7 @@ const BlogDetailPage = () => {
                                             {item.title}
                                         </h2>
                                         <div class="flex mt-3">
-                                            <img src="https://randomuser.me/api/portraits/men/97.jpg"
+                                            <img src={item.customerPhoto}
                                                 class="h-10 w-10 rounded-full mr-2 object-cover" />
                                             <div>
                                                 <p class="font-semibold text-gray-200 text-sm"> {item.customerName} </p>
@@ -55,16 +55,12 @@ const BlogDetailPage = () => {
                         }
 
                         <div class="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
-                            
-
                         {
                             item && item.content ?
                             <div class="mt-10 mb-10" dangerouslySetInnerHTML={{ __html: item.content }} />
                             :
                             null
                         }
-
-                            
                         </div>
                     </main>
 
