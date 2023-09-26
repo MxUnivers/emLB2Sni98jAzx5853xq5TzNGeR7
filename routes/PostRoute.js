@@ -44,17 +44,18 @@ router.post('/post/:id', async (req, res) => {
 
 
 // edit 
-router.put("/edit/:idPost", AuthorizationMiddleware, async (req, res) => {
+router.put("/edit/:idPost", /*AuthorizationMiddleware*/ async (req, res) => {
     try {
-        var idCandidat = req.params.idPost;
+        var id = req.params.idPost;
 
-        const postExist = await PostModel.findById({ _id: idCandidat })
+        const postExist = await PostModel.findById({ _id: id })
         if (!postExist) {
             return res.status(401).json({ message: "Publication non trouvé" })
         }
-        const postEdit = await PostModel.findByIdAndUpdate({ _id: idCandidat }, req.body);
+        const postEdit = await PostModel.findOneAndUpdate({ _id: id }, req.body);
+        
 
-        postEdit.save();
+        await postEdit.save();
 
         return res.status(200).json({ message: "Post ajouter", data: postEdit })
 
