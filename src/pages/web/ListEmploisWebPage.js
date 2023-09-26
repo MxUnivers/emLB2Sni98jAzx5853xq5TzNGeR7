@@ -8,19 +8,20 @@ import { BsHouseDoor } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai"
 import { CiLocationOn } from "react-icons/ci";
 import { routing } from '../../utlis/routing';
-import { OffreGetAll, OffreGetAllById } from '../../action/api/offres/OffresAction';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { useEffect } from 'react';
 import moment from 'moment';
 import { typeContrats } from '../../utlis/options/optionDivers';
 import { MdWorkOutline } from 'react-icons/md';
+import OffreGetAll from '../../action/api/offres/OffresAction';
+import JobCard2 from '../../components/job/JobCard2';
+import LoadingCompo1 from '../../components/loading/LoadingCompo1';
 
 const ListEmploisWebPage = () => {
     const navigate = useNavigate();
 
-    const [offres, setoffres] = useState([]);
-    const [offres2, setoffres2] = useState([]);
+    const { isLoading, error, offres, offres2 } = OffreGetAll();
 
     const [modalApply, setmodalApply] = useState(false);
     const handleShow = (item) => {
@@ -30,9 +31,7 @@ const ListEmploisWebPage = () => {
         setmodalApply(false)
     }
 
-    useEffect(() => {
-        OffreGetAll(setoffres, setoffres2);
-    }, []);
+
 
 
 
@@ -85,7 +84,7 @@ const ListEmploisWebPage = () => {
                             <div className='flex gap-2 items-center'>
                                 <MdWorkOutline className='text-[25px] icon' />
                                 <select name="" id='type' className='bg-white rounded-[3px] px-4 py-1'>
-                                <option >--choix de contrat --</option>
+                                    <option >--choix de contrat --</option>
                                     {
                                         typeContrats.map((item) => {
                                             return (
@@ -113,80 +112,24 @@ const ListEmploisWebPage = () => {
 
                 </div>
 
-                <main class="flex min-h-screen  w-full items-start mt-10 justify-center bg-white px-5">
+                <main class="flex min-h-[200px]  w-full items-start mt-10 justify-center bg-white px-5">
 
 
                     <div className=" grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
                         {
-                            offres.map((item) => {
-                                return (
-                                    <div onClick={() => {
-                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
-                                        navigate(`/${routing.job_details}`, { state: { item } });
-                                    }}
-                                        class="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
+                            isLoading ?
+                                <LoadingCompo1 text={"Des offres d'emplois fait pour vous ...."} />
+                                :
+                                error ?
+                                    <p>Une errue est suvenue</p>
+                                    :
+                                    offres.map((item) => {
+                                        return (
+                                            <JobCard2 data={item} />
+                                        )
+                                    })
 
-                                        <div class="p-4">
-
-                                            <div class="row flex justify-between space-x-2">
-                                                <div class="col-lg-1">
-                                                    <img src={item.coverPicture} alt=""
-                                                        class="img-fluid h-10 w-10 rounded-xl" />
-                                                </div>
-                                                <div class="col-lg-10">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <h5 class="fs-17 mb-1"><a href={`/${routing.job_details}`}
-                                                            onClick={() => {
-                                                                setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                            }}
-                                                            class="text-dark text-lg font-semibold">{item.title}</a></h5>
-                                                        <ul class="list-inline mb-0 flex flex-wrap space-x-2">
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0">
-                                                                <i class="mdi mdi-work"></i>
-                                                                {item.company}</p>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0">
-                                                                <i class="mdi mdi-map-marker"></i> {item.addresse}</p>
-                                                            </li>
-                                                            <li class="list-inline-item">
-                                                                <p class="text-muted fs-14 mb-0"><i
-                                                                    class="uil uil-wallet"></i> {item.salaire} / mois
-                                                                </p>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="mt-2">
-                                                            {
-                                                                item.typeContrat ?
-                                                                    <span class="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
-                                                                    null
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="favorite-icon">
-                                                <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="p-3 bg-light">
-                                            <div class="flex justify-between items-center">
-                                                <div class="col-md-3">
-                                                    <div class="text-md-end btn ">
-                                                        <a href={`/${routing.job_details}`} onClick={() => {
-                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                        }} class="primary-link">Details
-                                                            <i class="mdi mdi-chevron-double-right"></i></a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                        }
                     </div>
                 </main>
 

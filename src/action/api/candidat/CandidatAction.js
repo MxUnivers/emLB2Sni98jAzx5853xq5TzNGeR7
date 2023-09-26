@@ -586,7 +586,13 @@ export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setS
 //state pour le candidat
 
 export default function useFetchCandidat(idCandidat) {
-    const [candidat, setCandidat] = useState(null);
+    const [candidat, setCandidat] = useState({
+        offres:[
+            {
+                _id:""
+            }
+        ]
+    });
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 

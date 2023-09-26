@@ -6,7 +6,7 @@ import { MdAttachEmail } from "react-icons/md";
 import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import { useEffect } from 'react';
-import { OffreGetAll, OffreGetById } from '../../action/api/offres/OffresAction';
+import OffreGetAll, { OffreGetById } from '../../action/api/offres/OffresAction';
 import { useState } from 'react';
 import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
@@ -18,6 +18,7 @@ import moment from 'moment/moment';
 import { CandidaturePost } from '../../action/api/candidatures/CandidatureAction';
 import { toast } from 'react-toastify';
 
+
 const JobDetailPage = () => {
 
     const navigate = useNavigate();
@@ -28,6 +29,10 @@ const JobDetailPage = () => {
     var jobId = getAndCheckLocalStorage(localvalue.JobID);
     // Candidat connecté
     var candidatId = getAndCheckLocalStorage(localvalue.candidatID);
+
+    const { isLoadingO, erroro, offres , offres2} = OffreGetAll();
+
+
 
 
     const dispatch = useDispatch();
@@ -45,14 +50,11 @@ const JobDetailPage = () => {
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
     //const [idEntreprise, setidEntreprise] = useState();
-    const [offres, setoffres] = useState([])
-    const [offres2, setoffres2] = useState([])
 
 
 
     useEffect(() => {
         OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
-        OffreGetAll(setoffres, setoffres2);
     }, []);
 
     // handle

@@ -1,0 +1,12 @@
+import React from 'react'
+
+const LoadingCompo1 = ({ text }) => {
+    return (
+        <div class='flex items-center justify-center min-h-screen'>
+            <div style={{ borderTopColor: "transparent" }} class="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin"></div>
+            <p class="ml-2">{text}</p>
+        </div>
+    )
+}
+
+export default LoadingCompo1 ;

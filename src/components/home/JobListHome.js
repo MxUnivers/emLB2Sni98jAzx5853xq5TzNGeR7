@@ -1,20 +1,17 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
+// import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import JobCard from '../job/JobCard';
-import { OffreGetAll } from '../../action/api/offres/OffresAction';
+import OffreGetAll from '../../action/api/offres/OffresAction';
 import { routing } from '../../utlis/routing';
+import LoadingCompo1 from '../loading/LoadingCompo1';
 
 const JobListHome = () => {
 
+    const { isLoading, error, offres, offres2 } = OffreGetAll();
 
-    const [offreslist, setoffreslist] = useState([]);
-    const [offreslist2, setoffreslist2] = useState([]);
 
-    useEffect(() => {
-        OffreGetAll(setoffreslist,setoffreslist2);
-    }, [])
 
     return (
         <section class="py-20 bg-gray-50 dark:bg-neutral-700">
@@ -71,13 +68,18 @@ const JobListHome = () => {
                             <div class="pt-8 ">
                                 <div class="space-y-8">
 
-                                {
-                                    offreslist.slice(0, 10).map((item)=>{
-                                        return(
-                                            <JobCard data={item}/>
-                                        )
-                                    })
-                                }
+                                    {
+                                        isLoading ?
+                                            <LoadingCompo1 text={"Loading ..."} />
+                                            :
+                                            error ?
+                                                (<p>Une errue rest suvenue</p>) :
+                                                offres.slice(0, 10).map((item) => {
+                                                    return (
+                                                        <JobCard data={item} />
+                                                    )
+                                                })
+                                    }
 
                                 </div>
                             </div>

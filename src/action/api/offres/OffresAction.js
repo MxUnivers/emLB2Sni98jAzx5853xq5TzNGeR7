@@ -4,6 +4,7 @@ import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFuncti
 import { localvalue } from "../../../utlis/storage/localvalue";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../employeur/EmployeurAction";
 import { routing } from "../../../utlis/routing";
+import { useEffect, useState } from "react";
 
 
 
@@ -163,65 +164,6 @@ export const OffreGetAllById = async (id, setState, setState2) => {
 }
 
 
-// recuprer tous les ofres 
-// spécialement pour les entreprises
-export const OffreGetAll = async ( setState, setState2) => {
-
-    await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-        }
-    })
-        .then((response) => {
-            setState(response.data.data);
-            setState2(response.data.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-}
-//
-// recupérer les secteur d'activites des offres
-export const OffreGetAllCategory = async (setState,setState2) => {
-    try {
-        const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-            }
-        });
-
-        if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
-            // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
-            let liste = response.data.data;
-            let obj = {};
-            let result = [];
-            for (let i = 0; i < liste.length; i++) {
-                let element = liste[i];
-                let key = element.areaOffre;
-                if (!obj[key]) {
-                    obj[key] = true;
-                    result.push(key);
-                }
-            }
-            console.log(result); // Output: ["ok", "Supr"]
-            setState(result);
-            setState2(result);
-        } else {
-            console.log('La structure de la réponse est incorrecte');
-            alert("la Structure des données est incorrecte")
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-
-
 // 
 export const OffreGetById = async (id, setState,setisLoading,setentreprise) => {
 
@@ -251,5 +193,94 @@ export const OffreGetById = async (id, setState,setisLoading,setentreprise) => {
 
 
 
+export function OffreGetAllCategory() {
+    const [category, setcategory] = useState([]);
+    const [category2, setcategory2] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            
+            try {
+                const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                });
+        
+                if (response.data && response.data.data && Array.isArray(response.data.data)) {
+                    console.log(response.data.data)
+                    // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
+                    let liste = response.data.data;
+                    let obj = {};
+                    let result = [];
+                    for (let i = 0; i < liste.length; i++) {
+                        let element = liste[i];
+                        let key = element.areaOffre;
+                        if (!obj[key]) {
+                            obj[key] = true;
+                            result.push(key);
+                        }
+                    }
+                    console.log(result); // Output: ["ok", "Supr"]
+                    setcategory(result);
+                    setcategory2(result);
+                } else {
+                    console.log('La structure de la réponse est incorrecte');
+                    alert("la Structure des données est incorrecte")
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error);
+            }
+
+            setIsLoading(false);
+        }
+        fetchData();
+       
+    }, []);
+
+    return { isLoading, error, category,category2 };
+}
 
 
+
+
+
+
+export default function OffreGetAll() {
+    const [offres, setoffres] = useState([]);
+    const [offres2, setoffres2] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setoffres(response.data.data);
+                setoffres2(response.data.data);
+                setError(null);
+                console.log(response.data.data)
+            })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
+        }
+        fetchData();
+       
+    }, []);
+
+    return { isLoading, error, offres,offres2 };
+}
