@@ -92,14 +92,9 @@ const BlogProfilePage = () => {
 
                     <div class="container-fluid w-full justify-center">
                         <div class="flex flex-row px-5 container ">
-                            <div class="Q_jg_EPdNf9eDMn1mLI2 _SmdlCf6eUKB_V9S5IDj _hpGev6RXFut0Jm_iRgf rvdRhGyExrNYTA6euxsF om3BNuWld9UpFB3WzeiL lPgrNAFSq7M44sp_5uKw tkZo48dB4RhnHSlDXzoe XpuPpk9eXhVCrleKmXDr">
-                                <div class="oHnpzPI405hrnY5qLHCa" >
-                                    <div class="ahOqFrhzLjivRe8a1kX_ iRFVFKvV59EjIwjCM62m YuvmWSZkTA7DMMvNMCMz QHA_q3pLj0OyhJKA0aJI">
-                                        <input type="text" id="users-search" class="jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                            placeholder="Rechercher" />
-                                    </div>
-                                </div>
-                            </div>
+                        <input  name="title" id="new-password"
+                        class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
+                        placeholder="titre de votre publication " />
                             <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 zjZIaeYZzHaaBqxD5KzF EU43bH15DCmsqkGyVBGj SNt2jJ6mOxoWkDWNP3rs">
                                 <button
                                     onClick={() => {

@@ -5,7 +5,7 @@ import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/Candid
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
-import {MdSchool, MdWork} from  "react-icons/md";
+import { MdSchool, MdWork } from "react-icons/md";
 
 
 
@@ -13,7 +13,7 @@ const NavbarWeb = () => {
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
 
-    const {Loading, errorCandidat , candidat} = useFetchCandidat(idCandidat);
+    const { Loading, errorCandidat, candidat } = useFetchCandidat(idCandidat);
 
     const [recruteur, setrecruteur] = useState();
     const [messages, setmessages] = useState([]);
@@ -23,12 +23,24 @@ const NavbarWeb = () => {
     const handleShow = () => { setshow(true) }
     const handleClose = () => { setshow(false) }
 
+
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
     useEffect(() => {
         EntrepriseGetById(idRecruteur, setrecruteur);
         MessageAllCandidatById(idCandidat, setmessages, setmessages2)
     }, []);
 
-    
+
 
 
     return (
@@ -40,7 +52,7 @@ const NavbarWeb = () => {
                         <img src="assets/images/logo-dark.png" alt="" class="logo-dark h-[22px] block dark:hidden" />
                         <img src="assets/images/logo-light.png" alt="" class="logo-dark h-[22px] hidden dark:block" />
                     </a>
-                    <button data-collapse-toggle="navbar-collapse" type="button"
+                    <button onClick={() => { openModal() }} data-collapse-toggle="navbar-collapse" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg navbar-toggler group lg:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="navbar-sticky" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
@@ -57,7 +69,7 @@ const NavbarWeb = () => {
                                 <div>
                                     <div class="relative dropdown">
                                         <div class="relative">
-                                            <button type="button"
+                                            <button type="button" onClick={() => { openModal() }}
                                                 class="btn border-0 h-[70px] dropdown-toggle px-4 text-gray-500 dark:text-gray-300"
                                                 aria-expanded="false" data-dropdown-toggle="notification">
                                                 <i class="text-2xl mdi mdi-bell"></i>
@@ -393,6 +405,70 @@ const NavbarWeb = () => {
 
 
 
+
+                    {
+                        isOpen && (
+                          <div className="fixed z-50 inset-0 overflow-y-auto">
+                            <div className="flex h-screen">
+                              {/* Sidebar */}
+                              <div className="w-1/4 bg-white text-blue-700 p-4">
+                                <h2 className="text-2xl font-bold mb-4">
+                                <img
+                                src="assets/images/logo-dark.png"
+                                class="h-10 w-10 " alt=""
+                                />
+                                </h2>
+                                <ul>
+                                  <li className="mb-2">
+                                    <a href="#" className="text-blue-500 hover:text-blue-700">Accueil</a>
+                                  </li>
+                                  <li className="mb-2">
+                                    <a href="#" className="text-blue-500 hover:text-blue-700">Publication</a>
+                                  </li>
+                                  <li className="mb-2">
+                                    <a href="#" className="text-blue-500 hover:text-blue-700">Profil</a>
+                                  </li>
+                                  <li className="mb-2">
+                                    <a href="#" className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                  </li>
+                                  <li className="mb-2">
+                                    <a href="#" className="text-blue-500 hover:text-blue-700">Messages</a>
+                                  </li>
+                                </ul>
+                              </div>
+                              {/* Contenu */}
+                              <div className="w-3/4 bg-black p-4 opacity-25">
+                                <div className="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
+                                  <button
+                                    type="button"
+                                    className="text-gray-900 hover:text-gray-700 focus:outline-none"
+                                    onClick={() => { closeModal() }}
+                                  >
+                                    <svg
+                                      className="h-6 w-6 text-black"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                      aria-hidden="true"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div className="px-4 pt-2">
+                                  {/* Contenu principal de la page */}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      }
 
 
 
