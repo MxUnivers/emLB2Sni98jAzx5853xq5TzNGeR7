@@ -9,15 +9,15 @@ const router = require("express").Router();
 // poster un message 
 router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (req, res) => {
     try {
-        
+
         const idSend = req.params.idSender;
         const idRecep = req.params.idReceip;
         const message = await MessageModel(req.body);
-        message.idSender=idSend;
-        message.idRecipient=idRecep;
+        message.idSender = idSend;
+        message.idRecipient = idRecep;
 
         await message.save();
-        return res.status(200).json({data: message, message:"Message envoyé"});
+        return res.status(200).json({ data: message, message: "Message envoyé" });
     } catch (error) {
         return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
     }
@@ -30,16 +30,17 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
 router.get('/get_message/candidat/:idCandidat/messages', AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.idCandidat;
-        const candidatExist = await CandidatModel.findById({ _id: id });
+        const candidatExist = await CandidatModel.findById({_id:id}); // Utilisez simplement id ici
         if (!candidatExist) {
-            await res.status(406).json({ message: " candidat introuvable ! " });
+            return res.status(406).json({ message: "Candidat introuvable !" }); // Utilisez return pour arrêter l'exécution ici
         }
         const messages = await MessageModel.find({ idRecipient: id });
-        res.json({data: messages, message:"Message du candidats recupérer"});
+        res.status(200).json({ data: messages, message: "Messages du candidat récupérés" });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+        res.status(500).json({ message: "Erreur lors de la récupération des messages " + error.message }); // Utilisez error.message pour obtenir le message d'erreur précis
     }
 });
+
 
 
 
@@ -52,9 +53,9 @@ router.get('/get_message/entreprise/:idEntreprise/messages', AuthorizationMiddle
             return res.status(407).json({ message: "le employeur introuvable ! " })
         }
         const messages = await MessageModel.find({ idSender: id });
-        return res.status(200).json({message:"Message de l'entreprise recupérer", data:messages});
+        return res.status(200).json({ message: "Message de l'entreprise recupérer", data: messages });
     } catch (error) {
-        return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+        return res.status(500).json({ message: 'Erreur lors de la récupération des messages' });
     }
 });
 
@@ -68,7 +69,7 @@ router.get('/get_messages', AuthorizationMiddleware, async (req, res) => {
         const messages = await MessageModel.find();
         res.json(messages);
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
+        res.status(500).json({ message: 'Erreur lors de la récupération des messages' });
     }
 });
 
@@ -83,7 +84,7 @@ router.post('/', AuthorizationMiddleware, async (req, res) => {
         const savedMessage = await newMessage.save();
         res.json(savedMessage);
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la création du message' });
+        res.status(500).json({ message: 'Erreur lors de la création du message' });
     }
 });
 
@@ -98,10 +99,10 @@ router.post('/entreprise-post/:idSend/to/:idReceip', AuthorizationMiddleware, as
         const entrepriseExist = await EntrepriseModel.findById({ _id: idSend });
         const candidatExist = await CandidatModel.findById({ _id: idReceip });
         if (!entrepriseExist) {
-             res.status(406).json({ message: "Employeur Introuvable" });
+            res.status(406).json({ message: "Employeur Introuvable" });
         }
         if (!candidatExist) {
-             res.status(407).json({ message: "Candidat introuvable" });
+            res.status(407).json({ message: "Candidat introuvable" });
         }
         const newMessage = new MessageModel({
             idSender: idSend,
@@ -109,12 +110,12 @@ router.post('/entreprise-post/:idSend/to/:idReceip', AuthorizationMiddleware, as
             recipient: candidatExist.firstname + " " + candidatExist.lastname,
             idRecipient: idReceip
         }, req.body);
-        
+
         newMessage.save();
-        res.json({data:newMessage,message :"Message envoyée"});
-;
+        res.json({ data: newMessage, message: "Message envoyée" });
+        ;
     } catch (error) {
-        res.status(500).json({ error: 'Message non envoyée' });
+        res.status(500).json({ message: 'Message non envoyée' });
         console.log(error);
     }
 });
@@ -131,7 +132,7 @@ router.put('/edit/:id', AuthorizationMiddleware, async (req, res) => {
         const updatedMessage = await MessageModel.findByIdAndUpdate(id, { content }, { new: true });
         res.json(updatedMessage);
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la mise à jour du message' });
+        res.status(500).json({ message: 'Erreur lors de la mise à jour du message' });
     }
 });
 
@@ -145,7 +146,7 @@ router.delete('/messages/:id', AuthorizationMiddleware, async (req, res) => {
         await MessageModel.findByIdAndDelete(id);
         res.json({ message: 'Message supprimé avec succès' });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la suppression du message' });
+        res.status(500).json({ message: 'Erreur lors de la suppression du message' });
     }
 });
 
@@ -160,7 +161,7 @@ router.delete('/messages/:id', AuthorizationMiddleware, async (req, res) => {
         await MessageModel.findByIdAndDelete(id);
         res.json({ message: 'Message supprimé avec succès' });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la suppression du message' });
+        res.status(500).json({ message: 'Erreur lors de la suppression du message' });
     }
 });
 
