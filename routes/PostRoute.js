@@ -69,19 +69,18 @@ router.put("/edit/:idPost", AuthorizationMiddleware, async (req, res) => {
 
 
 // lister un niveau d'Post
-router.get("/posts/:idCandidat", AuthorizationMiddleware, async (req, res) => {
+router.get("/posts_candidat/:idCandidat", AuthorizationMiddleware, async (req, res) => {
     try {
         var idCandidat = req.params.idCandidat;
 
-        const posts = await PostModel.find({ idPerson: idCandidat });
         const candidatExit = await CandidatModel.findById({ _id: idCandidat })
         if (!candidatExit) {
             return res.status(401).json({ message: "Candidat non trouvé" });
         }
 
-        const PostList = await PostModel.find({ access: true, idPerson: idCandidat });
+        const PostList = await PostModel.find({ idcustomerId: idCandidat });
 
-        return res.status(200).json({ message: "Post Recupérer", data: PostList.reverse })
+        return res.status(200).json({ message: "Post Recupérer", data: PostList.reverse() })
 
     } catch (error) {
         return res.status(505).json({ message: "Educaton ajouter" })

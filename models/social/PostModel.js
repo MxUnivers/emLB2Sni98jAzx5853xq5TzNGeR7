@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
     idcustomerId : {type:String,require:false},
-    customerPhoto : {type:String,require:false,default:"https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg"},
+    customerPhoto : {type:String,require:false},
     customerName : {type:String,require:false},
     title: { type: String, required: false,},
     dateNow:{type:String,default:Date.now()},
@@ -12,7 +12,7 @@ const PostSchema = new mongoose.Schema({
     visible:{type:Boolean, require:true},
     comments:[{type:Object}],
     position:{type:Number, require:false,default:1},
-    coverPicture: { type: String, required: false,default:"https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740"}
+    coverPicture: { type: String, required: false}
 }, 
 { timestamps: true }
 );
