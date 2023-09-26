@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { BlogAll } from '../../action/api/blog/BlogAction';
+import BlogAll from '../../action/api/blog/BlogAction';
 import moment from 'moment';
 import BlogCard from '../../components/blog/BlogCard';
 import Carousel from 'react-multi-carousel';
+import LoadingBlogBarner from '../../components/loading/LoadingBlogBarner';
+import LoadingBlogContainer from '../../components/loading/LoadingBlogBarner2';
 
 const BlogPage = () => {
-    const [blogs, setblogs] = useState([]);
-    const [blogs2, setblogs2] = useState([]);
 
-    useEffect(() => {
-        BlogAll(setblogs, setblogs2)
-    }, [])
+    const { isLoading, error, blogs, blogs2 } = BlogAll();
 
 
 
     const responsive = {
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3,
-          slidesToSlide: 3 // optional, default to 1.
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3,
+            slidesToSlide: 3 // optional, default to 1.
         },
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2,
-          slidesToSlide: 2 // optional, default to 1.
+            breakpoint: { max: 1024, min: 464 },
+            items: 2,
+            slidesToSlide: 2 // optional, default to 1.
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1,
-          slidesToSlide: 1 // optional, default to 1.
+            breakpoint: { max: 464, min: 0 },
+            items: 1,
+            slidesToSlide: 1 // optional, default to 1.
         }
-      };
+    };
 
 
     return (
@@ -48,47 +46,82 @@ const BlogPage = () => {
                 <div class="max-w-screen-xl mx-auto">
 
                     <main class="mt-10">
-                        <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
-                            {
-                                blogs.map((item) => {
-                                    return (
-                                        <a
-                                            class="mb-4 md:mb-0 w-full px-5 md:w-full relative rounded inline-block"
-                                            style={{ height: "24em" }}
-                                            href="#"
-                                        >
-                                            <div class="absolute left-0 bottom-0 w-full h-full z-10"
-                                                style={{ backgroundImage: `linear-gradient(180deg,transparent,rgba(0,0,0,.7))` }}></div>
-                                            <img src={item.coverPicture} class="absolute left-0 top-0 w-full h-full rounded z-0 object-cover" />
-                                            <div class="p-4 absolute bottom-0 left-0 z-20">
-                                                <span class="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2">{item.areaPost}</span>
-                                                <h2 class="text-4xl font-semibold text-gray-100 leading-tight line-clamp-3">
-                                                   {item.title}
-                                                </h2>
-                                                <div class="flex mt-3">
-                                                    <img src={item.customerPhoto}
-                                                        class="h-10 w-10 rounded-full mr-2 object-cover" />
-                                                    <div>
-                                                        <p class="font-semibold text-gray-200 text-sm"> {item.customerName} </p>
-                                                        <p class="font-semibold text-gray-400 text-xs"> {moment(item.createdAt).format("DD/MM/YYYY")}</p>
-                                                    </div>
+                        {
+                            isLoading ?
+                                <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
+                                    {
+                                        [1, 1].map(() => {
+                                            return (
+                                                <div class="mx-3 my-2">
+                                                    <LoadingBlogBarner />
                                                 </div>
-                                            </div>
-                                        </a>
+                                            )
+                                        })
+                                    }
+                                </Carousel>
+
+                                :
+                                error ?
+                                    <p>une erreur est survenue</p>
+                                    :
+                                    (
+                                        <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
+                                            {
+                                                blogs.map((item) => {
+                                                    return (
+                                                        <a
+                                                            class="mb-4 md:mb-0 w-full px-5 md:w-full relative rounded inline-block"
+                                                            style={{ height: "24em" }}
+                                                            href="#"
+                                                        >
+                                                            <div class="absolute left-0 bottom-0 w-full h-full z-10"
+                                                                style={{ backgroundImage: `linear-gradient(180deg,transparent,rgba(0,0,0,.7))` }}></div>
+                                                            <img src={item.coverPicture} class="absolute left-0 top-0 w-full h-full rounded z-0 object-cover" />
+                                                            <div class="p-4 absolute bottom-0 left-0 z-20">
+                                                                <span class="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2">{item.areaPost}</span>
+                                                                <h2 class="text-4xl font-semibold text-gray-100 leading-tight line-clamp-3">
+                                                                    {item.title}
+                                                                </h2>
+                                                                <div class="flex mt-3">
+                                                                    <img src={item.customerPhoto}
+                                                                        class="h-10 w-10 rounded-full mr-2 object-cover" />
+                                                                    <div>
+                                                                        <p class="font-semibold text-gray-200 text-sm"> {item.customerName} </p>
+                                                                        <p class="font-semibold text-gray-400 text-xs"> {moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    )
+                                                })
+                                            }
+                                        </Carousel>
                                     )
-                                })
-                            }
-                        </Carousel>
+                        }
 
                         <div class="w-full container-fluid flex flex-wrap  mt-10 mb-10">
 
                             <section class="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto">
                                 {
-                                    blogs.map((item) => {
-                                        return (
-                                            <BlogCard item={item} />
-                                        )
-                                    })
+                                    isLoading ?
+                                        (
+                                            [1, 1, 1, 1, 1].map(() => {
+                                                return (
+                                                    <div class="mx-3 py-3">
+                                                        <LoadingBlogContainer />
+                                                    </div>
+                                                )
+                                            })
+                                         ) :
+                                        error ?
+                                            <p>Une erreur est survenue</p>
+                                            :
+
+                                            blogs.map((item) => {
+                                                return (
+                                                    <BlogCard item={item} />
+                                                )
+                                            })
                                 }
                             </section>
 
