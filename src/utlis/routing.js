@@ -18,6 +18,7 @@ export const routing = {
     job_post:"poster-une-offre-emplois",
     job_edit:"mise-a-offre-emplois",
     candidat_details:"profile-candidat-"+getAndCheckLocalStorage(localvalue.candidatID),
+    candidat_details_blog:"profile-blog-post-"+getAndCheckLocalStorage(localvalue.candidatID),
     candidat_details_view:"candidat_details_profile",
     candidat_edit:"candidat-update-profile",
     candidat_applied:"candidat_candidat_applied",

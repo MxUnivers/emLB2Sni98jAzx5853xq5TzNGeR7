@@ -81,7 +81,7 @@ const BlogPage = () => {
 
                         <div class="w-full container-fluid flex flex-wrap  mt-10 mb-10">
 
-                            <section class="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mx-auto">
+                            <section class="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                                 {
                                     isLoading ?
                                         (

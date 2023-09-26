@@ -30,7 +30,10 @@ const BlogCard = ({ item }) => {
                         </svg>
                     </div>
                 </div>
-                <img src={item.coverPicture} class="w-full h-[220px] rounded-lg bg-cover" alt="" />
+                {item.coverPicture?
+                    <img src={item.coverPicture} class="w-full h-[220px] rounded-lg bg-cover" alt="" />:
+                    null
+                }
                 <div class="p-6">
                     <h1 class="text-xl font-bold text-gray-800 cursor-pointer line-clamp-2">{item.title}</h1>
                     <div clas="mt-3">

@@ -17,14 +17,14 @@ import { baseurl } from '../../utlis/url/baseurl';
 
 
 
-const BogPostPage = () => {
+const BogPostEditPage = () => {
 
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
     const [title, settitle] = useState();
     const [areaPost, setareaPost] = useState();
     const [content, setcontent] = useState();
-    const [coverPicture, setcoverPicture] = useState();
+    const [coverPicture, setcoverPicture] = useState("https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740");
 
     const { quill, quillRef } = useQuill();
 
@@ -121,7 +121,7 @@ const BogPostPage = () => {
                         placeholder="titre de votre publication " />
 
                     <div class=" flex flex-col justify-between">
-                        <div class="my-5">
+                        <div>
                             <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Catégorie du poste<span class="cvmpf">*</span></label>
                             <select required={true} onChange={(e) => { setareaPost(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" >
                                 <option >-- Choix Categorie --</option>
@@ -135,12 +135,11 @@ const BogPostPage = () => {
                             </select>
                         </div>
 
-                        <div class="my-2">
-                            <label class="ckncn c9csv cfkm3 ckcgr" for="file">Image<span class="clvg0">(optional)</span></label>
+                        <div>
+                            <label class="ckncn c9csv cfkm3 ckcgr" for="file">Image post <span class="clvg0">(optional)</span></label>
                             <div class="czlxp crp1m">
                                 <div class="cyzlo cy9uk">
-                                    <img defaultValue={"https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740"}
-                                     class="cuiwd c59v3 csm78 ciwnj c7htb cf986"
+                                    <img class="cuiwd c59v3 csm78 ciwnj c7htb cf986"
                                         src={`${coverPicture}`}
                                         alt="Upload" />
                                 </div>
@@ -182,4 +181,4 @@ const BogPostPage = () => {
     )
 }
 
-export default BogPostPage;
+export default BogPostEditPage;

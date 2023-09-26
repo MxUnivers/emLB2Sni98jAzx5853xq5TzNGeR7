@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { routing } from '../utlis/routing'
 import { getAndCheckLocalStorage, handleClearLocalStorage } from '../utlis/storage/localvalueFunction'
-import { CandidatGetById } from '../action/api/candidat/CandidatAction';
+import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/CandidatAction';
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
@@ -13,8 +13,9 @@ const NavbarWeb = () => {
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
 
+    const {Loading, errorCandidat , candidat} = useFetchCandidat(idCandidat);
+
     const [recruteur, setrecruteur] = useState();
-    const [candidat, setcandidat] = useState();
     const [messages, setmessages] = useState([]);
     const [messages2, setmessages2] = useState([]);
 
@@ -24,7 +25,6 @@ const NavbarWeb = () => {
 
     useEffect(() => {
         EntrepriseGetById(idRecruteur, setrecruteur);
-        CandidatGetById(idCandidat, setcandidat);
         MessageAllCandidatById(idCandidat, setmessages, setmessages2)
     }, []);
 
@@ -166,7 +166,7 @@ const NavbarWeb = () => {
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.blog_post}`}>publication </a>
+                                                            href={`/${routing.candidat_details_blog}`}>publication </a>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"

@@ -147,7 +147,7 @@ export const CandidatEditCompetence = (
     level_school,
     years_experience,
     selectedOptions,
-    selectedOptionsLangues,description
+    selectedOptionsLangues, description
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -160,7 +160,7 @@ export const CandidatEditCompetence = (
                     "years_experience": years_experience,
                     "competences": selectedOptions,
                     "langues": selectedOptionsLangues,
-                    "description":description
+                    "description": description
                 }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ export const CandidatEditSocial = (
 
 
 export const CandidatEditPhoto = (
-    id,coverPicture, toast) => {
+    id, coverPicture, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -332,14 +332,14 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre, toast) => {
 
 
 // candidat edit password
-export const CandidatEditPassword = (id, password,toast) => {
+export const CandidatEditPassword = (id, password, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`, 
-            {
-                "password":password
-            }, {
+            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`,
+                {
+                    "password": password
+                }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -587,9 +587,32 @@ export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setS
 
 export default function useFetchCandidat(idCandidat) {
     const [candidat, setCandidat] = useState({
-        offres:[
+        coverPicture: "",
+        username: "",
+        email: "",
+        telephone: "",
+        firstname: "",
+        lastname: "",
+        addresse: "",
+        competences: [],
+        langues: [],
+        pays: "",
+        adresse: "",
+        salaire:"",
+        title_post:"",
+        description:"",
+        dateNaissance:"",
+        level_school:"",
+        site_web:"",
+        years_experience:"",
+        facebook_url:"",
+        linkedin_url:"",
+        twitter_url:"",
+        instagram_url:"",
+        bookmarks:[],
+        offres: [
             {
-                _id:""
+                _id: ""
             }
         ]
     });

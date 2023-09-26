@@ -3,6 +3,7 @@ import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import confetti from 'canvas-confetti';
 import {useEffect , useState} from  "react";
+import { routing } from "../../../utlis/routing";
 
 
 
@@ -33,7 +34,7 @@ export const BlogAdd = (
                 confetti();
                 toast.success("Votre publication est en ligne");
                 setTimeout(() => {
-                    window.location.href=`/`;
+                    window.location.reload();
                 }, 2500);
             })
             .catch((error) => {
@@ -138,4 +139,60 @@ export const BlogAllById = async (setState, setState2) => {
 
 }
 
+
+
+
+// 
+export function BlogGetAllCategoryCandidat(idCandidat) {
+    const [category, setcategory] = useState([]);
+    const [category2, setcategory2] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            
+            try {
+                const response = await axios.get(`${baseurl.url}/api/v1/blog/posts_candidat/${idCandidat}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                });
+        
+                if (response.data && response.data.data && Array.isArray(response.data.data)) {
+                    console.log(response.data.data)
+                    // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
+                    let liste = response.data.data;
+                    let obj = {};
+                    let result = [];
+                    for (let i = 0; i < liste.length; i++) {
+                        let element = liste[i];
+                        let key = element.areaPost;
+                        if (!obj[key]) {
+                            obj[key] = true;
+                            result.push(key);
+                        }
+                    }
+                    console.log(result); // Output: ["ok", "Supr"]
+                    setcategory(result);
+                    setcategory2(result);
+                } else {
+                    console.log('La structure de la réponse est incorrecte');
+                    alert("la Structure des données est incorrecte")
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error);
+            }
+
+            setIsLoading(false);
+        }
+        fetchData();
+       
+    }, []);
+
+    return { isLoading, error, category,category2 };
+}
 
