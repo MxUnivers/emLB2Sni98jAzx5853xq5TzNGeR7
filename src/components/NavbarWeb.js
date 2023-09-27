@@ -6,10 +6,13 @@ import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
 import { MdSchool, MdWork } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const NavbarWeb = () => {
+    const navigate  =  useNavigate();
+    
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
 
@@ -343,53 +346,52 @@ const NavbarWeb = () => {
                                 </div>
                                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                                 <div
-                                    className="inline-block mt-28 align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
+                                    className="inline-block mt-28 align-bottom bg-transparent rounded-lg text-left overflow-hidden transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
                                     role="dialog"
                                     aria-modal="true"
                                     aria-labelledby="modal-title"
                                 >
-                                    <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                        <button
-                                            type="button"
-                                            className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                            onClick={() => { handleClose() }}
-                                        >x
-                                        </button>
-                                    </div>
-                                    <div className="bg-white px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
+
+                                    <div className="bg-transparent  px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
                                         <div className="sm:flex flex flex-col w-full sm:items-start">
                                             <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
-                                                <h3 className="text-md font-bold text-gray-900 mb-2"
-                                                    id="modal-title"
-                                                >
 
-                                                </h3>
                                             </div>
-                                            <div class="min-h-full bg-blue-400 flex justify-center items-center">
-                                                <div class="absolute w-60 h-60 rounded-xl bg-purple-300 -top-5 -left-16 z-0 transform rotate-45 hidden md:block">
-                                                </div>
-                                                <div class="absolute w-48 h-48 rounded-xl bg-purple-300 -bottom-6 -right-10 transform rotate-12 hidden md:block">
-                                                </div>
-                                                <div class="py-12 pl-10 px-12 justify-center bg-white rounded-2xl shadow-xl z-20">
+                                            <div class="min-h-full bg-transparent flex justify-center items-center">
+                                                <div class="py-5 pl-10 px-12 justify-center bg-white rounded-2xl shadow-xl z-20">
+                                                    <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                        <button
+                                                            type="button"
+                                                            className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                            onClick={() => { handleClose() }}
+                                                        >X
+                                                        </button>
+                                                    </div>
                                                     <div>
                                                         <h1 class="text-3xl font-bold text-center mb-4 cursor-pointer">Se Connecter</h1>
                                                         <p class="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer">
-                                                            Connecter a vous avec le profils qui vous convient . Soit recruteur ou candidat
+                                                            Connecter a vous avec le profils qui vous convient . Soit
+                                                            <span class="underline" onClick={() => {
+                                                                navigate(`/${routing.connexion}`)
+                                                            }}> Candidat</span>
+                                                            ou
+                                                            <span class="underline" onClick={() => {
+                                                                navigate(`/${routing.connexion_recuteur}`)
+                                                            }}> Recruteur</span>
                                                         </p>
                                                     </div>
                                                     <div class="text-center mt-6 flex flex-col space-y-6 justify-center">
-                                                        <a href={`/${routing.connexion}`} class="py-3 w-64 text-xl text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                        <a href={`/${routing.connexion}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
                                                             <MdSchool class="h-7 w-7" /> <span>Candidat</span>
                                                         </a>
-                                                        <a href={`/${routing.connexion_recuteur}`} class="py-3 w-64 text-xl text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                        <div class="text-center py-2 justify-center w-full text-md text-gray-500">
+                                                            Ou
+                                                        </div>
+                                                        <a href={`/${routing.connexion_recuteur}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
                                                             <MdWork class="h-7 w-7" /><span>Recruteur</span>
                                                         </a>
 
                                                     </div>
-                                                </div>
-                                                <div class="w-40 h-40 absolute bg-blue-300 rounded-full top-0 right-12 hidden md:block"></div>
-                                                <div
-                                                    class="w-20 h-40 absolute bg-blue-300 rounded-full bottom-20 left-10 transform rotate-45 hidden md:block">
                                                 </div>
                                             </div>
 
