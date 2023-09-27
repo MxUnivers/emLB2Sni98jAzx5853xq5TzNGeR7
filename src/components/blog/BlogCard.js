@@ -12,11 +12,11 @@ const BlogCard = ({ item }) => {
                 navigate(`/${routing.blog_details}`, { state: { item } })
             }}
 
-            class="min-h-screen  flex items-center overflow-hidden py-5">
-            <div class="container mx-auto max-w-sm bg-white rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transform transition-all duration-500">
+            class="flex items-center overflow-hidden py-5">
+            <div class="card mx-auto max-w-sm bg-white rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transform transition-all duration-500">
                 <div class="flex items-center justify-between px-4">
                     <div class="flex justify-between items-center py-4">
-                        <img class="w-12 h-12 rounded-full" src={item.customerPhoto} alt="Alex" />
+                        <img class="w-9 h-9 rounded-full" src={item.customerPhoto} alt="Alex" />
                         <div class="ml-3">
                             <h1 class="text-lg font-bold text-gray-800 cursor-pointer">{item.customerName}</h1>
                             <p class="text-xs text-gray-800 hover:underline cursor-pointer">
@@ -30,10 +30,12 @@ const BlogCard = ({ item }) => {
                         </svg>
                     </div>
                 </div>
+                <div class="px-6">
                 {item.coverPicture?
-                    <img src={item.coverPicture} class="w-full h-[220px] rounded-lg bg-cover" alt="" />:
+                    <img src={item.coverPicture} class="min-w-full h-[220px]  rounded-2xl bg-cover" alt="" />:
                     null
                 }
+                </div>
                 <div class="p-6">
                     <h1 class="text-xl font-bold text-gray-800 cursor-pointer line-clamp-2">{item.title}</h1>
                     <div clas="mt-3">

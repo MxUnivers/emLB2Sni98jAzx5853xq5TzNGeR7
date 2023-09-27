@@ -9,7 +9,12 @@ import { useNavigate } from 'react-router-dom'
 import { routing } from '../../utlis/routing'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {RiEditBoxLine} from  "react-icons/ri";
+import { RiEditBoxLine } from "react-icons/ri";
+import {AiOutlinePlus} from  "react-icons/ai";
+import {GrSearch} from  "react-icons/gr";
+
+
+
 
 
 
@@ -35,8 +40,8 @@ const BlogProfilePage = () => {
 
 
 
-    useEffect(()=>{
-        if(candidat){
+    useEffect(() => {
+        if (candidat) {
             setusername(candidat.username);
             setcoverPicture(candidat.coverPicture);
             setadresse(candidat.adresse)
@@ -45,7 +50,7 @@ const BlogProfilePage = () => {
             settitle_post(candidat.title_post);
             setpays(candidat.pays);
         }
-    },[candidat])
+    }, [candidat])
 
     return (
         <div class="main-content">
@@ -57,15 +62,15 @@ const BlogProfilePage = () => {
                 <div class="EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr ">
                     <div class="_wYiJGbRZyFZeCc8y7Sf hD0sTTDgbxakubcHVW2X _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi dark:bg-white">
                         <div class="rvdRhGyExrNYTA6euxsF xu6Xcz2CnxX04u4eQAne SQf297smyJVNzzOO3iQL LvH1cgobxEYMRPVAp8WW ">
-                            
-                                <img class="TR_P65x9ie7j6uxFo_Cs XO0Hd72IH1CH2AVjcbWM v2F5G_Fm6X1wxdNJdQlJ mveJTCIb2WII7J4sY22F"
+
+                            <img class="TR_P65x9ie7j6uxFo_Cs XO0Hd72IH1CH2AVjcbWM v2F5G_Fm6X1wxdNJdQlJ mveJTCIb2WII7J4sY22F"
                                 src={coverPicture} alt="Jese portrait" />
-                                
+
                             <div>
-                               
-                                    <h2 class="vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">{username}</h2>
-                                    
-                                    <ul class="gC_jEY75u_oxfOOKnLpH wezTbYJgxYJp5ZDqX67N">
+
+                                <h2 class="vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">{username}</h2>
+
+                                <ul class="gC_jEY75u_oxfOOKnLpH wezTbYJgxYJp5ZDqX67N">
                                     <li class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                                         <svg class="fhCwost7CSNRc2WSHLFW E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path></svg>
                                         {title_post}
@@ -83,23 +88,23 @@ const BlogProfilePage = () => {
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Email address
                                     </div>
-                                    
-                                        <a class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" href={`mailto:${candidat && candidat.email ?  candidat.email :""}`}>
-                                         {email }
+
+                                    <a class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE" href={`mailto:${candidat && candidat.email ? candidat.email : ""}`}>
+                                        {email}
                                     </a>
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Pays
                                     </div>
-                                    
-                                        <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                        {pays }
+
+                                    <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+                                        {pays}
                                     </div>
-                                    
+
                                     <div class="XJih04pKHf8Cekga6Hj3">
                                         Telephone
                                     </div>
-                                    
-                                        <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+
+                                    <div class="TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
                                         {telephone}
                                     </div>
                                 </address>
@@ -129,22 +134,30 @@ const BlogProfilePage = () => {
                     </div>
 
                     <div class="container-fluid w-full justify-center">
-                        <div class="flex flex-row px-5 container ">
-                        <input  name="title" id="new-password"
-                        class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                        placeholder="titre de votre publication " />
-                            <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 zjZIaeYZzHaaBqxD5KzF EU43bH15DCmsqkGyVBGj SNt2jJ6mOxoWkDWNP3rs">
-                                <button
-                                    onClick={() => {
-                                        navigate(`/${routing.blog_post}`)
+                        <div class="mt-10  w-full flex max-w-md mx-auto lg:mx-0">
+                            <div class="flex sm:flex-row flex-col gap-5 w-full">
+                                <form action="#"
+                                    class="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-gray-600 shadow-lg shadow-gray-200/20  bg-white rounded-full ease-linear focus-within:bg-white  ">
+                                    <span class="min-w-max pr-2 border-r border-gray-200">
+                                        <GrSearch  class="h-5 w-5"/>
+                                    </span>
+                                    <input type="text" name="" id="" placeholder="recherche "
+                                        class="w-full py-3 outline-none bg-transparent rounded-3xl" />
+                                    <button 
+                                    onClick={()=>{
+                                        navigate(`/${routing.blog_post}`);
                                     }}
-                                    type="button" data-modal-toggle="add-user-modal" class="bg-blue-700 _k0lTW0vvzboctTxDi2R Q_jg_EPdNf9eDMn1mLI2 Nm7xMnguzOx6J5Ao7yCU Ce_ecllpQM9Lc4yCjD_9 _Cj_M6jt2eLjDgkBBNgI b9aD6g2qw84oyZNsMO8j c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY mveJTCIb2WII7J4sY22F YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T icxWjIgUd9_dzYucx1nx d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">
-                                    <svg class="YIUegm7fh_CpJbivTu6B MnxxlQlR1H0xJuMEE8Yr fhCwost7CSNRc2WSHLFW ZEPNZzATe5nPnS0shmrF" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                    Poster
-                                </button>
+                                    type='button' class="flex text-white justify-center items-center w-max min-w-max sm:w-max px-6 h-12 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554] hover:after:opacity-100 hover:after:scale-[2.5] bg-blue-600 border-transparent hover:border-[#172554]">
+                                        <span class="hidden sm:flex relative z-[5]">
+                                            Poster
+                                        </span>
+                                        <span class="flex sm:hidden relative z-[5]">
+                                            <AiOutlinePlus  class="w-5 h-5" />
+                                        </span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
-
                     </div>
 
 
@@ -173,13 +186,13 @@ const BlogProfilePage = () => {
                                                                 {moment(item.createdAt).format("DD/MM/YYYY")} {moment(item.createdAt).format("HH:MM")}
                                                             </p>
                                                         </div>
-                                                        <div 
-                                                        onClick={()=>{
-                                                            setWithExpiration(localvalue.BlogID,item._id,dureeDeVie);
-                                                            navigate(`/${routing.blog_edit}`,{state:{item}})
-                                                        }}
-                                                        class="cursor-pointer _k0lTW0vvzboctTxDi2R Nm7xMnguzOx6J5Ao7yCU sQaK4IH7BIQSgBTGX8Pe PeR2JZ9BZHYIH8Ea3F36 Y3FxyuXtj2gecrGXvLEI SA5DoMHfwOFtY4h_qzuM OPrb_iG5WDy_7F05BDOX dMTOiA3mf3FTjlHu6DqW XIIs8ZOri3wm8Wnj9N_y ZnBoTVi7VOJdCLSSU62n _7KA5gD55t2lxf9Jkj20">
-                                                            <RiEditBoxLine/>
+                                                        <div
+                                                            onClick={() => {
+                                                                setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
+                                                                navigate(`/${routing.blog_edit}`, { state: { item } })
+                                                            }}
+                                                            class="cursor-pointer _k0lTW0vvzboctTxDi2R Nm7xMnguzOx6J5Ao7yCU sQaK4IH7BIQSgBTGX8Pe PeR2JZ9BZHYIH8Ea3F36 Y3FxyuXtj2gecrGXvLEI SA5DoMHfwOFtY4h_qzuM OPrb_iG5WDy_7F05BDOX dMTOiA3mf3FTjlHu6DqW XIIs8ZOri3wm8Wnj9N_y ZnBoTVi7VOJdCLSSU62n _7KA5gD55t2lxf9Jkj20">
+                                                            <RiEditBoxLine />
                                                         </div>
                                                     </div>
                                                     <div class="UYOSZJ1_pv3B5nt1ujCP">
