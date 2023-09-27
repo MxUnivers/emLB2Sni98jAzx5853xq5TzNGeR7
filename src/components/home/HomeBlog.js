@@ -4,12 +4,13 @@ import BlogAll from '../../action/api/blog/BlogAction';
 import moment from 'moment/moment';
 import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
-import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
+import { toast } from 'react-toastify';
 
 const HomeBlog = () => {
 
-    const  navigate = useNavigate();
+    const navigate = useNavigate();
     const { isLoading, error, blogs, blogs2 } = BlogAll()
 
     const responsive = {
@@ -39,9 +40,8 @@ const HomeBlog = () => {
             <div class="container mx-auto">
                 <div class="grid grid-cols-1 gap-5">
                     <div class="mb-5 text-center">
-                        <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Quick Career Tips</h3>
-                        <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300">Post a job to tell us
-                            about your project. We{"'"}ll quickly match you with the right <br /> freelancers.</p>
+                        <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Publication récentes</h3>
+                        <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300"></p>
                     </div>
                 </div>
                 <Carousel responsive={responsive} infinite transitionDuration={5} autoPlay class="grid grid-cols-12 gap-5 justify-center items-center">
@@ -52,13 +52,16 @@ const HomeBlog = () => {
                         blogs.map((item) => {
                             return (
                                 <div class="col-span-12 md:col-span-6 lg:col-span-4 ">
-                                    <div  onClick={()=>{
-                                        setWithExpiration(localvalue.BlogID,item._id,dureeDeVie)
-                                        navigate(`/${routing.blog_details}`,{state:{item}})
-                                        setTimeout(()=>{
-                                            window.location.href=`/${routing.blog_details}`
-                                        },1000);
-                                        
+                                    <div onClick={() => {
+                                        if (getAndCheckLocalStorage(localvalue.TYPEACCESS)) {
+                                            toast.info("Vous n'êtes pas autorisé à lire cette publication vellez vous connecter")
+                                        } else {
+                                            setWithExpiration(localvalue.BlogID, item._id, dureeDeVie)
+                                            navigate(`/${routing.blog_details}`, { state: { item } })
+                                            setTimeout(() => {
+                                                window.location.href = `/${routing.blog_details}`
+                                            }, 1000);
+                                        }
                                     }}
                                         class="p-2 mt-3 cusor-pointer transition-all duration-500 bg-white rounded shadow-lg shadow-gray-100/50 card dark:bg-neutral-800 dark:shadow-neutral-600/20 group/blog">
                                         <div class="relative overflow-hidden">
@@ -91,11 +94,11 @@ const HomeBlog = () => {
                                         <div class="p-5">
                                             <a href="#" class="primary-link">
                                                 <h5 class="mb-1 text-gray-900 font-bold line-clamp-2 fs-17 dark:text-gray-50 hover:underline">
-                                                {item.title}
+                                                    {item.title}
                                                 </h5>
                                             </a>
                                             <div class="mb-3 text-gray-500 dark:text-gray-300 line-clamp-1"
-                                            dangerouslySetInnerHTML={{ __html: item.content }}
+                                                dangerouslySetInnerHTML={{ __html: item.content }}
                                             />
                                             <button href=""
                                                 class="font-medium group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500">
