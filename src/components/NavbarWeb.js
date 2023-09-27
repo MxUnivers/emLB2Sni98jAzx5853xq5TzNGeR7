@@ -411,7 +411,7 @@ const NavbarWeb = () => {
                             <div className="fixed z-50 inset-0 overflow-y-auto">
                                 <div className="flex h-screen">
                                     {/* Sidebar */}
-                                    <div className="w-1/4 bg-white text-blue-700 p-4">
+                                    <div className="w-1/2 sm:w-1/4 md:w-1/4 lg:w-1/4 bg-white text-blue-700 p-4">
                                         <h2 className="text-2xl font-bold mb-4">
                                             <img
                                                 src="assets/images/logo-dark.png"
