@@ -40,7 +40,7 @@ const BarnerHome = () => {
                         <div class="mb-3 ltr:mr-14 rtl:ml-14">
                             <h6 class="mb-3 text-sm text-gray-900 uppercase dark:text-gray-50">Nous vaons + 150,000 jobs disponibles</h6>
                             <h1 class="mb-3 text-5xl font-semibold leading-tight text-white dark:text-gray-50">
-                                Jouman , <br /> sur <span
+                                Jouman , <br /> <span
                                     class="font-bold    group-data-[theme-color=blue]:text-blue-500">
                                     Premier site Africain de mercenas de compétences
                                 </span>

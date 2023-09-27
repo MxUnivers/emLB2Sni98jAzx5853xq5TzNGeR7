@@ -16,16 +16,18 @@ const BlogCard = ({ item }) => {
 
     return (
 
-        <article class=" transition duration-350 ease-in-out p-5">
-            <div class="flex flex-shrink-0 p-4 pb-0 cursor-pointer"
-                onClick={() => {
-                    if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
-                        toast.info("Vous ètes pas autorisé à lire de cette publication . Veillez vous connecter")
-                    } else {
-                        setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
-                        navigate(`/${routing.blog_details}`, { state: { item } })
-                    }
-                }}
+        <article class=" transition duration-350 ease-in-out m-5 cursor-pointer"
+        onClick={() => {
+            if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
+                toast.info("Vous ètes pas autorisé à lire de cette publication . Veillez vous connecter")
+            } else {
+                setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
+                navigate(`/${routing.blog_details}`, { state: { item } })
+            }
+        }}
+        >
+            <div class="flex flex-shrink-0 p-4 pb-0 "
+                
             >
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
@@ -54,7 +56,7 @@ const BlogCard = ({ item }) => {
                 {
                     item.coverPicture ?
                         <div class="md:flex-shrink pr-6 pt-3">
-                            <div class="bg-cover bg-no-repeat bg-center rounded-lg w-full h-64" style={{ height: "200px", backgroundImage: `url(https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=448&amp;q=80)` }}>
+                            <div class="bg-cover bg-no-repeat bg-center rounded-lg w-full h-64" style={{ height: "200px", backgroundImage: `url(${item.coverPicture})` }}>
                                 <img class="opacity-0 w-full h-full" src={item.coverPicture}
                                     alt="" />
                             </div>

@@ -36,7 +36,7 @@ const BlogPage = () => {
 
 
         <div class="main-content">
-            <div class="page-content mt-28">
+            <div class="page-content mt-16">
 
 
 
