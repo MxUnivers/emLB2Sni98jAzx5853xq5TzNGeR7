@@ -39,6 +39,7 @@ const messageRoute = require("./routes/messageRoute");
 const packRoute = require("./routes/packs/packRoute");
 // Post Blog
 const blogRoute = require("./routes/PostRoute");
+const commentRoute = require("./routes/CommentRoute");
 
 
 
@@ -106,6 +107,7 @@ app.use(`${apiV1}/education`, education_candidatRoute);
 app.use(`${apiV1}/experience`, experience_candidatRoute);
 app.use(`${apiV1}/project`, project_candidatRoute);
 app.use(`${apiV1}/blog`, blogRoute);
+app.use(`${apiV1}/comment`, commentRoute);
 
 
 
