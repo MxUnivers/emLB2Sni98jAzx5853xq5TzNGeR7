@@ -3,12 +3,28 @@ import { app_bg } from '../../utlis/config';
 import { routing } from '../../utlis/routing';
 import { OffreGetAllCategory } from '../../action/api/offres/OffresAction';
 import LoadingCompo1 from '../loading/LoadingCompo1';
+import Carousel from 'react-multi-carousel';
 
 const CategoryHome = () => {
 
     const { isLoading, error, category, category2 } = OffreGetAllCategory();
 
 
+
+    const responsive = {
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 4,
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2,
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1,
+        },
+    };
 
 
     return (
@@ -25,15 +41,22 @@ const CategoryHome = () => {
                     </div>
                 </div>
 
+                <div class="grid grid-cols-12 gap-5">
+                </div>
 
 
                 {
                     isLoading ?
                         (<LoadingCompo1 text={"Loading ..."} />) :
                         error ?
-                            <p>Une erreur est survenue ...</p> :
                             (
-                                <div class="grid grid-cols-12 gap-5">
+                                <div class="flex justify-center px-10 ">
+                                   <div class="rounded-3xl h-14 w-full bg-gray-100 animate-pulse"/>
+                                </div>
+                            ) :
+                            (
+
+                                <Carousel responsive={responsive}>
                                     {
                                         category.map((item) => {
                                             return (
@@ -59,7 +82,7 @@ const CategoryHome = () => {
                                             )
                                         })
                                     }
-                                </div>
+                                </Carousel>
                             )
 
                 }

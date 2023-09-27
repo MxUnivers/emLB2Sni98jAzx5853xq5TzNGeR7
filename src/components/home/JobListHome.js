@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 // import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
 import JobCard from '../job/JobCard';
-import OffreGetAll from '../../action/api/offres/OffresAction';
+import OffreGetAll, { OffreGetAllContrat } from '../../action/api/offres/OffresAction';
 import { routing } from '../../utlis/routing';
 import LoadingCompo1 from '../loading/LoadingCompo1';
 
@@ -11,6 +11,7 @@ const JobListHome = () => {
 
     const { isLoading, error, offres, offres2 } = OffreGetAll();
 
+    const { isLoadingCategorie, errorCategrorie, category, category2 } = OffreGetAllContrat()
 
 
     return (
@@ -19,8 +20,8 @@ const JobListHome = () => {
                 <div class="grid grid-cols-1 gap-5">
                     <div class="mb-5 text-center">
                         <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Job Récement postées</h3>
-                        <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300">Post a job to tell us
-                            about your project. We{"'"}ll quickly match you with the right <br /> freelancers.</p>
+                        <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300">
+                            Trouver des offres <br /> ,stage , Freelancer , Cdd etc ...</p>
                     </div>
                 </div>
                 <div class="nav-tabs chart-tabpill">
@@ -29,35 +30,21 @@ const JobListHome = () => {
                             <div
                                 class="p-1.5 bg-white dark:bg-neutral-900 shadow-lg shadow-gray-100/30 rounded-lg dark:shadow-neutral-700">
                                 <ul class="items-center text-sm font-medium text-center text-gray-700 nav md:flex">
-                                    <li class="w-full">
-                                        <a href="javascript:void(0);" data-tw-toggle="tab"
-                                            data-tw-target="recent-job"
-                                            class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50 active"
-                                            aria-current="page">Recent Jobs</a>
-                                    </li>
-                                    <li class="w-full">
-                                        <a href="javascript:void(0);" data-tw-toggle="tab"
-                                            data-tw-target="featured-jobs-tab"
-                                            class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">Featured
-                                            Jobs</a>
-                                    </li>
-                                    <li class="w-full">
-                                        <a href="javascript:void(0);" data-tw-toggle="tab"
-                                            data-tw-target="freelancer-tab"
-                                            class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">Freelancer</a>
-                                    </li>
-                                    <li class="w-full">
-                                        <a href="javascript:void(0);" data-tw-toggle="tab"
-                                            data-tw-target="part-time-tab"
-                                            class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">Part
-                                            Time</a>
-                                    </li>
-                                    <li class="w-full">
-                                        <a href="javascript:void(0);" data-tw-toggle="tab"
-                                            data-tw-target="full-time-tab"
-                                            class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">Full
-                                            Time</a>
-                                    </li>
+                                    
+                                    {
+                                        category.map((item) => {
+                                            return (
+                                                <li class="w-full">
+                                                    <a href="javascript:void(0);" data-tw-toggle="tab"
+                                                        data-tw-target="featured-jobs-tab"
+                                                        class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">
+                                                        {item}
+                                                    </a>
+                                                </li>
+                                            )
+                                        })
+                                    }
+
                                 </ul>
                             </div>
                         </div>
@@ -89,7 +76,7 @@ const JobListHome = () => {
                 <div class="mt-8">
                     <div class="grid grid-cols-1">
                         <div class="text-center">
-                            <a href={`/${routing.job_category}`}
+                            <a href={`/${routing.job_list}`}
                                 class="text-white border-transparent bg-blue-800/70 btn focus:ring focus:ring-custom-500/20">
                                 Postuler à plus d{"'"}offres ... <i class="uil uil-arrow-right ms-1">
                                 </i>

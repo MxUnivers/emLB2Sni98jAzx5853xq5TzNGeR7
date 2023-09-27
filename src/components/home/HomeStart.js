@@ -18,7 +18,7 @@ const HomeStart = () => {
                                     the right freelancers.</p>
                                 <div class="pt-2 mt-5">
                                     <a href={`/${routing.connexion}`}
-                                        class="text-white border-transparent bg-amber-800/70 btn hover:-translate-y-2">
+                                        class="text-white border-transparent bg-blue-800/70 btn hover:-translate-y-2">
                                         S{"'"}inscrire postuler
                                         <i class="align-middle uil uil-rocket ms-1"></i></a>
                                 </div>

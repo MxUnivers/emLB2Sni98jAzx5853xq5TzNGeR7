@@ -1,28 +1,36 @@
 import React from 'react'
 import Carousel from 'react-multi-carousel';
+import BlogAll from '../../action/api/blog/BlogAction';
+import moment from 'moment/moment';
+import { useNavigate } from 'react-router-dom';
+import { routing } from '../../utlis/routing';
+import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 
 const HomeBlog = () => {
-    const bloglist = [1, 1, 1, 1]
+
+    const  navigate = useNavigate();
+    const { isLoading, error, blogs, blogs2 } = BlogAll()
 
     const responsive = {
         superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 3
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 3
         },
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3
         },
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
+            breakpoint: { max: 464, min: 0 },
+            items: 1
         }
-      };
+    };
 
 
 
@@ -36,29 +44,38 @@ const HomeBlog = () => {
                             about your project. We{"'"}ll quickly match you with the right <br /> freelancers.</p>
                     </div>
                 </div>
-                <Carousel responsive={responsive} infinite transitionDuration={3} autoPlay  class="grid grid-cols-12 gap-5 justify-center items-center">
+                <Carousel responsive={responsive} infinite transitionDuration={5} autoPlay class="grid grid-cols-12 gap-5 justify-center items-center">
 
 
 
                     {
-                        bloglist.map((item) => {
+                        blogs.map((item) => {
                             return (
-                                <div class="col-span-12 md:col-span-6 lg:col-span-4">
-                                    <div
-                                        class="p-2 mt-3 transition-all duration-500 bg-white rounded shadow-lg shadow-gray-100/50 card dark:bg-neutral-800 dark:shadow-neutral-600/20 group/blog">
+                                <div class="col-span-12 md:col-span-6 lg:col-span-4 ">
+                                    <div  onClick={()=>{
+                                        setWithExpiration(localvalue.BlogID,item._id,dureeDeVie)
+                                        navigate(`/${routing.blog_details}`,{state:{item}})
+                                        setTimeout(()=>{
+                                            window.location.href=`/${routing.blog_details}`
+                                        },1000);
+                                        
+                                    }}
+                                        class="p-2 mt-3 cusor-pointer transition-all duration-500 bg-white rounded shadow-lg shadow-gray-100/50 card dark:bg-neutral-800 dark:shadow-neutral-600/20 group/blog">
                                         <div class="relative overflow-hidden">
-                                            <img src="assets/images/blog/img-01.jpg" alt="" class="rounded" />
+                                            <img src={item.coverPicture} alt="" class="rounded h-[200px] w-full " />
                                             <div
                                                 class="absolute inset-0 hidden transition-all duration-500 rounded-md bg-black/30 group-hover/blog:block">
                                             </div>
                                             <div
                                                 class="hidden text-white transition-all duration-500 top-2 left-2 group-hover/blog:block author group-hover/blog:absolute">
                                                 <p class="mb-0 "><i class="mdi mdi-account text-light"></i> <a
-                                                    href="javascript:void(0)" class="text-light user">Dirio Walls</a></p>
-                                                <p class="mb-0 text-light date"><i class="mdi mdi-calendar-check"></i> 01 July,
-                                                    2021</p>
+                                                    href="javascript:void(0)" class="text-light user">{item.customerName}</a></p>
+                                                <p class="mb-0 text-light date"><i class="mdi mdi-calendar-check"></i>
+                                                    {moment(item.createdAt).format("DD/MM/YYYY")} {moment(item.createdAt).format("HH:MM")}
+                                                </p>
                                             </div>
-                                            <div
+                                            {
+                                                /*<div
                                                 class="hidden bottom-2 right-2 group-hover/blog:block author group-hover/blog:absolute">
                                                 <ul class="mb-0 list-unstyled">
                                                     <li class="list-inline-item"><a href="javascript:void(0)"
@@ -68,19 +85,22 @@ const HomeBlog = () => {
                                                         class="text-white"><i class="mdi mdi-comment-outline me-1"></i>
                                                         08</a></li>
                                                 </ul>
-                                            </div>
+                                            </div> */
+                                            }
                                         </div>
                                         <div class="p-5">
-                                            <a href="blog-details.html" class="primary-link">
-                                                <h5 class="mb-1 text-gray-900 fs-17 dark:text-gray-50">How apps is the IT world
-                                                    ?</h5>
+                                            <a href="#" class="primary-link">
+                                                <h5 class="mb-1 text-gray-900 font-bold line-clamp-2 fs-17 dark:text-gray-50 hover:underline">
+                                                {item.title}
+                                                </h5>
                                             </a>
-                                            <p class="mb-3 text-gray-500 dark:text-gray-300">The final text is not yet
-                                                avaibookmark-label. Dummy texts have Internet tend
-                                                been in use by typesetters.</p>
-                                            <a href="blog-details.html"
-                                                class="font-medium group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500">Read
-                                                more <i class="align-middle mdi mdi-chevron-right"></i></a>
+                                            <div class="mb-3 text-gray-500 dark:text-gray-300 line-clamp-1"
+                                            dangerouslySetInnerHTML={{ __html: item.content }}
+                                            />
+                                            <button href=""
+                                                class="font-medium group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500">
+                                                voire plus <i class="align-middle mdi mdi-chevron-right"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

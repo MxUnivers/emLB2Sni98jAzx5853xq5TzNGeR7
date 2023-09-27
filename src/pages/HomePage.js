@@ -8,6 +8,8 @@ import HomeTestimonial from '../components/home/HomeTestimonial';
 import HomeBlog from '../components/home/HomeBlog';
 import HomePartenaires from '../components/home/HomePartenaires';
 import HomeSubscrible from '../components/home/HomeSubscrible';
+import HomeSolgan from '../components/home/HomeSolgan';
+import HomePacks from '../components/home/HomePacks';
 
 const HomePage = () => {
   return (
@@ -16,8 +18,14 @@ const HomePage = () => {
 
 
         <BarnerHome />
+        <HomeSolgan/>
+        <HomePacks/>
         <CategoryHome/>
+
+        <HomeBlog/>
         <JobListHome/>
+
+
         <HomeProcess/>
         <HomeStart/>
         

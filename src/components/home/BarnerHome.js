@@ -9,26 +9,26 @@ import { routing } from '../../utlis/routing';
 const BarnerHome = () => {
 
 
-    const navigate  =  useNavigate();
+    const navigate = useNavigate();
     const responsive = {
         superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 1
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 1
         },
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 1
+            breakpoint: { max: 3000, min: 1024 },
+            items: 1
         },
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 1
+            breakpoint: { max: 1024, min: 464 },
+            items: 1
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
+            breakpoint: { max: 464, min: 0 },
+            items: 1
         }
-      };
+    };
 
 
     return (
@@ -40,14 +40,16 @@ const BarnerHome = () => {
                         <div class="mb-3 ltr:mr-14 rtl:ml-14">
                             <h6 class="mb-3 text-sm text-gray-900 uppercase dark:text-gray-50">Nous vaons + 150,000 jobs disponibles</h6>
                             <h1 class="mb-3 text-5xl font-semibold leading-tight text-white dark:text-gray-50">
-                                Faite le pas grandiose dans le monde de l{"'"}entreprise<br /> sur <span
-                                    class="font-bold    group-data-[theme-color=blue]:text-blue-500">Jouman</span>
+                                Jouman , <br /> sur <span
+                                    class="font-bold    group-data-[theme-color=blue]:text-blue-500">
+                                    Premier site Africain de mercenas de compétences
+                                </span>
                             </h1>
                             <p class="text-lg font-light text-gray-100 whitespace-pre-line dark:text-gray-100">
-                            Trouvez des
-                            emplois, créez des CV traçables et enrichissez vos candidatures.
-                            soigneusement conçu après avoir analysé les besoins des différents secteurs d'activité.
-                            secteurs d'activité.
+                                Trouvez des
+                                emplois, créez des CV traçables et enrichissez vos candidatures.
+                                soigneusement conçu après avoir analysé les besoins des différents secteurs d'activité.
+                                secteurs d'activité.
                             </p>
                         </div>
                         <form action="#">
@@ -67,9 +69,9 @@ const BarnerHome = () => {
                                             <select class="form-select form-control w-full  rounded-3xl" data-trigger name="choices-single-location"
                                                 id="choices-single-location" aria-label="Default select example">
                                                 {
-                                                    optionPays.map((item)=>{
-                                                        return(
-                                                <option value="value">{item.label}</option>
+                                                    optionPays.map((item) => {
+                                                        return (
+                                                            <option value="value">{item.label}</option>
                                                         )
                                                     })
                                                 }
@@ -79,9 +81,9 @@ const BarnerHome = () => {
                                     <div class="col-span-12 xl:col-span-4">
                                         <div class="h-full mt-3">
                                             <button
-                                             onClick={()=>{
-                                                window.location.href=`/${routing.job_list}`
-                                             }}
+                                                onClick={() => {
+                                                    window.location.href = `/${routing.job_list}`
+                                                }}
                                                 class="btn  bg-gray-300 border rounded-lg border-transparent ltr:xl:rounded-l-none rtl:xl:rounded-r-none w-full py-[18px] text-white"
                                                 type="button"><i class="uil uil-search me-1"></i> Trouver un job</button>
                                         </div>
