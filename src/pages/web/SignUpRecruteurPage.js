@@ -12,6 +12,7 @@ import { employers, existence_entreprise, secteursActivite } from '../../utlis/o
 import { EntrepriseSignUp } from '../../action/api/employeur/EmployeurAction';
 import { baseurl } from '../../utlis/url/baseurl';
 import axios from 'axios';
+import LoadinButton from '../../components/loading/LoadinButton';
 
 
 
@@ -492,7 +493,7 @@ const SignUpRecruteurPage = () => {
 
                                         loading ?
                                             <div class="cq38v flex items-center">
-                                                <p class="animate-pulse  text-gray-500">Inscription Recruteur en cours ...</p>
+                                            <LoadinButton text={"Inscription en cours ..."} />
                                             </div>
                                             :
                                             <div class="cq38v">

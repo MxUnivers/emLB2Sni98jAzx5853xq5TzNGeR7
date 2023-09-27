@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
-import { localvalue } from '../../utlis/storage/localvalue';
+import { localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import CommentAllPost, { AddComment } from '../../action/api/blog/CommentAction';
@@ -10,7 +10,9 @@ import moment from 'moment';
 
 const FormComment = ({ data }) => {
 
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID) || getAndCheckLocalStorage(localvalue.recruteurID);
+
+    var typeAdmin = getAndCheckLocalStorage(localvalue.TYPEACCESS);
     const [isOpen, setisOpen] = useState(false);
 
     const [content, setcontent] = useState();
@@ -24,12 +26,43 @@ const FormComment = ({ data }) => {
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
+    const showErrorToast = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
+
     const handleSumbitComment = (event) => {
-        event.preventDefult();
+        event.preventDefault();
+
+        const requiredFields = [
+            "content"
+        ];
+
+        // Vérifiez chaque champ requis.
+        for (const field of requiredFields) {
+            if (!eval(field)) {
+                showErrorToast(
+                    //`${field.replace("_", " ")} requis !`
+                    `votre commentaire est vide `
+                );
+                return; // Arrêtez le traitement si un champ est vide.
+            }
+        }
+
         dispatch(AddComment(idCandidat, data._id, data._areaPost, data.title, content, toast))
+
+
+
     }
 
     const { isLoading, errorBlog, comments } = CommentAllPost(data._id)
+
 
 
     return (
@@ -40,7 +73,7 @@ const FormComment = ({ data }) => {
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Poster votre commentaire</h2>
                         <div class="w-full md:w-full px-3 mb-2 mt-2">
-                            <textarea class="bg-white rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body"
+                            <textarea value={content} onChange={(e) => { setcontent(e.target.value) }} class="bg-white rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body"
                                 placeholder='...' required></textarea>
                         </div>
                         <div class="w-full md:w-full flex items-start md:w-full px-3">
@@ -54,7 +87,9 @@ const FormComment = ({ data }) => {
                                 {
                                     loading ?
                                         <LoadinButton text={"envois en cours ..."} /> :
-                                        <input type='submit' class="bg-white py-2 px-3  text-sm text-gray-700 font-medium border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Envoyer' />
+                                        <button class="bg-white cursor-pointer py-2 px-3  text-sm text-gray-700 font-medium border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100">
+                                            Envoyer
+                                        </button>
                                 }
                             </div>
                         </div>
@@ -106,13 +141,13 @@ const FormComment = ({ data }) => {
                                                                             <div className="flex-shrink-0">
                                                                                 <img
                                                                                     className="h-6 w-6 rounded-full"
-                                                                                    src={comment.curstomerPhoto}
+                                                                                    src={comment.customerPhoto}
                                                                                     alt="Photo du commentateur"
                                                                                 />
                                                                             </div>
                                                                             <div className="space-y-1">
                                                                                 <div className="text-sm leading-5 font-medium text-gray-900">{comment.customerName}</div>
-                                                                                <div className="text-sm leading-5 text-gray-500">
+                                                                                <div className="text-xs leading-5 text-gray-500">
                                                                                     {moment(comment.createdAt).format("DD/MM/YYYY")} {moment(comment.createdAt).format("HH:MM")}
                                                                                 </div>
                                                                                 <p className="text-sm leading-5 text-gray-700">{comment.content}</p>

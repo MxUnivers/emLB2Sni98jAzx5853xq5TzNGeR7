@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { CandidatConnexion } from '../../action/api/candidat/CandidatAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import LoadinButton from '../../components/loading/LoadinButton';
 
 
 
@@ -129,7 +130,7 @@ const SignInPage = () => {
                                 <div class="cq38v">
                                     {
                                         loading ?
-                                            <p class="text-gray-600 animate-pulse">Connexion en cours</p>
+                                        <LoadinButton text={"Connexion en cours ..."} />
                                             :
                                             <button type="submit" class="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
                                                 Se Connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>

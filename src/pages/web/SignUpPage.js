@@ -8,6 +8,7 @@ import { Button, } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { CandidatSignUp } from '../../action/api/candidat/CandidatAction';
+import LoadinButton from '../../components/loading/LoadinButton';
 
 
 
@@ -433,7 +434,7 @@ const SignUpPage = () => {
 
                                         loading ?
                                             <div class="cq38v flex items-center">
-                                                <p class="animate-pulse  text-gray-500">Inscription en cours ...</p>
+                                                <LoadinButton text={"Inscription en cours ..."} />
                                             </div>
                                             :
                                             <div class="cq38v">

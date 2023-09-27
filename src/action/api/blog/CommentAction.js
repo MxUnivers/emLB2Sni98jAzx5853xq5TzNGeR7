@@ -14,7 +14,7 @@ export const AddComment = (idCandidat, idBlog, areaPost, title, content, toast) 
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         try {
-            const response = await axios.post(`/api/v1/comment/post/${idCandidat}/blog/${idBlog}`, {
+            const response = await axios.post(`${baseurl.url}/api/v1/comment/post/${idCandidat}/blog/${idBlog}`, {
                 areaPost,
                 title,
                 content,
