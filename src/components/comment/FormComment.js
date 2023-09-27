@@ -57,8 +57,6 @@ const FormComment = ({ data }) => {
 
         dispatch(AddComment(idCandidat, data._id, data._areaPost, data.title, content, toast))
 
-
-
     }
 
     const { isLoading, errorBlog, comments } = CommentAllPost(data._id)
