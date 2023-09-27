@@ -408,67 +408,112 @@ const NavbarWeb = () => {
 
                     {
                         isOpen && (
-                          <div className="fixed z-50 inset-0 overflow-y-auto">
-                            <div className="flex h-screen">
-                              {/* Sidebar */}
-                              <div className="w-1/4 bg-white text-blue-700 p-4">
-                                <h2 className="text-2xl font-bold mb-4">
-                                <img
-                                src="assets/images/logo-dark.png"
-                                class="h-10 w-10 " alt=""
-                                />
-                                </h2>
-                                <ul>
-                                  <li className="mb-2">
-                                    <a href="#" className="text-blue-500 hover:text-blue-700">Accueil</a>
-                                  </li>
-                                  <li className="mb-2">
-                                    <a href="#" className="text-blue-500 hover:text-blue-700">Publication</a>
-                                  </li>
-                                  <li className="mb-2">
-                                    <a href="#" className="text-blue-500 hover:text-blue-700">Profil</a>
-                                  </li>
-                                  <li className="mb-2">
-                                    <a href="#" className="text-blue-500 hover:text-blue-700">Candidatures</a>
-                                  </li>
-                                  <li className="mb-2">
-                                    <a href="#" className="text-blue-500 hover:text-blue-700">Messages</a>
-                                  </li>
-                                </ul>
-                              </div>
-                              {/* Contenu */}
-                              <div className="w-3/4 bg-black p-4 opacity-25">
-                                <div className="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
-                                  <button
-                                    type="button"
-                                    className="text-gray-900 hover:text-gray-700 focus:outline-none"
-                                    onClick={() => { closeModal() }}
-                                  >
-                                    <svg
-                                      className="h-6 w-6 text-black"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                      aria-hidden="true"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                      />
-                                    </svg>
-                                  </button>
+                            <div className="fixed z-50 inset-0 overflow-y-auto">
+                                <div className="flex h-screen">
+                                    {/* Sidebar */}
+                                    <div className="w-1/4 bg-white text-blue-700 p-4">
+                                        <h2 className="text-2xl font-bold mb-4">
+                                            <img
+                                                src="assets/images/logo-dark.png"
+                                                class="h-10 w-10 " alt=""
+                                            />
+                                        </h2>
+
+                                        {
+                                            candidat && candidat._id == getAndCheckLocalStorage(localvalue.candidatID) ?
+                                                (
+                                                    <ul>
+                                                        <li className="mb-2">
+                                                            <a href="/" className="text-blue-500 hover:text-blue-700">Accueil</a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.candidat_details}`} className="text-blue-500 hover:text-blue-700">Profil</a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                        </li>
+                                                        {/*partie reservé au mobile */}
+                                                        {
+                                                            /* 
+                                                            <li className="mb-2">
+                                                          <a href={`/${routing.candidat_applied}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                        </li> */
+                                                        }
+
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700">Messages</a>
+                                                        </li>
+                                                    </ul>
+                                                ) : null
+                                        }
+
+
+                                        {
+                                            getAndCheckLocalStorage(localvalue.recruteurID) !== null ?
+                                                (
+                                                    <ul>
+                                                        <li className="mb-2">
+                                                            <a href="/" className="text-blue-500 hover:text-blue-700">Accueil</a>
+                                                        </li>
+                                                        {
+                                                            /*<li className="mb-2">
+                                                            <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
+                                                        </li> */
+                                                        }
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.company_details}`} className="text-blue-500 hover:text-blue-700">Profil</a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                        </li>
+                                                        {/*partie reservé au mobile */}
+                                                        {
+                                                            /* 
+                                                            <li className="mb-2">
+                                                          <a href={`/${routing.candidat_applied}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                        </li> */
+                                                        }
+                                                    </ul>
+                                                ) : null
+                                        }
+
+                                    </div>
+                                    {/* Contenu */}
+                                    <div className="w-3/4 bg-black p-4 opacity-25">
+                                        <div className="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
+                                            <button
+                                                type="button"
+                                                className="text-gray-900 hover:text-gray-700 focus:outline-none"
+                                                onClick={() => { closeModal() }}
+                                            >
+                                                <svg
+                                                    className="h-6 w-6 text-black"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M6 18L18 6M6 6l12 12"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div className="px-4 pt-2">
+                                            {/* Contenu principal de la page */}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="px-4 pt-2">
-                                  {/* Contenu principal de la page */}
-                                </div>
-                              </div>
                             </div>
-                          </div>
                         )
-                      }
+                    }
 
 
 
