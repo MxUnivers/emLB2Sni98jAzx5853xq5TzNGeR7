@@ -79,7 +79,6 @@ const CandidatPacks = () => {
         }else{
             toast.info("Veillez vous connecter d'abord vous connectez ");
         }
-
     }
 
 
@@ -135,11 +134,8 @@ const CandidatPacks = () => {
                                 loading ?
                                     <p><LoadinButton text={"En cours"}/></p> :
                                     <>
-                                        <form >
-                                            <button type="button"
-                                            onClick={()=>{
-                                                handleGetPricing(packs[0])
-                                            }}
+                                        <form onSubmit={handleSubmitPack1} >
+                                            <button type="submit"
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
                                                 Acheter 
