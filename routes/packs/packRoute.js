@@ -20,7 +20,7 @@ router.post("/candidat/:idCandidat/subscribe/:idPack", /*AuthorizationMiddleware
             return res.status(407).json({ message: "Ce candidat n'existe pas" });
         }
         const packExist = await PackCandidatModel.findById({ _id: idPack });
-        if (!packExist) {t
+        if (!packExist) {
             return res.status(408).json({ message: "Ce pack n'existe pas" })
         }
         // calcule de la date 
