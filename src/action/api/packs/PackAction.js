@@ -30,7 +30,7 @@ export const SubscriblePackCandidat = (
                 // setTimeout(() => {
                 //     window.location.href=`/`;
                 // }, 2500);
-                handleSubmitPaymentAuthorized();
+                // handleSubmitPaymentAuthorized();
                 
             })
             .catch((error) => {
