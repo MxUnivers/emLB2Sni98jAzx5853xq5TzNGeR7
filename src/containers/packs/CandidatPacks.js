@@ -7,8 +7,12 @@ import { localvalue } from '../../utlis/storage/localvalue';
 import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import LoadinButton from '../../components/loading/LoadinButton';
+import { useNavigate } from 'react-router-dom';
+import { routing } from '../../utlis/routing';
 
 const CandidatPacks = () => {
+    const navigate   =  useNavigate();
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 
@@ -68,6 +72,16 @@ const CandidatPacks = () => {
         
     }
 
+    const handleGetPricing = (item)=>{
+        if(getAndCheckLocalStorage(localvalue.candidatID)!==null && packs.length > 0){
+            alert("Pack recupéer");
+            navigate(`/${routing.checkout}`, {state:{item}});
+        }else{
+            toast.info("Veillez vous connecter d'abord vous connectez ");
+        }
+
+    }
+
 
     return (
         <div class="bg-white dark:bg-gray-800">
@@ -119,16 +133,17 @@ const CandidatPacks = () => {
                                 </button>
                                 :
                                 loading ?
-                                    <p>en cours...</p> :
+                                    <p><LoadinButton text={"En cours"}/></p> :
                                     <>
-                                        <form onSubmit={handleSubmitPack1}>
-                                            <button type="submit"
-
+                                        <form >
+                                            <button type="button"
+                                            onClick={()=>{
+                                                handleGetPricing(packs[0])
+                                            }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
                                                 Acheter 
                                             </button>
-                                            {error&& <p class="text-red-500">{error}</p>}
                                         </form>
                                     </> :
                             <button

@@ -40,3 +40,7 @@ export  const typePersonConnected  = [
 
 
 
+export const valueLocal = {
+    api_key_cine_pay : process.env.REACT_APP_API_KEY_CN,
+    site_web_id_cinetpay: process.env.REACT_APP_SITE_WEB_CN
+}

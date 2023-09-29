@@ -28,6 +28,7 @@ import BogPostPage from "./pages/web/BogPostPage";
 import BlogDetailPage from "./pages/web/BlogDetailPage";
 import BlogProfilePage from "./pages/web/BlogProfilePage";
 import BogPostEditPage from "./pages/web/BogPostEditPage";
+import CheckOutPage from "./pages/payment/CheckOutPage";
 
 
 
@@ -84,6 +85,7 @@ function App() {
 
             {/*Manage Pring */}
             <Route path={`${routing.pricing}`} element={<PrincingPage/>}  />
+            <Route path={`${routing.checkout}`} element={<CheckOutPage/>}  />
 
             
             

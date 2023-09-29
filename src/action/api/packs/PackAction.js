@@ -2,6 +2,7 @@ import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import confetti from 'canvas-confetti';
+import { handleSubmitPaymentAuthorized } from "../QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4";
 
 
 
@@ -26,9 +27,10 @@ export const SubscriblePackCandidat = (
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 confetti();
                 toast.success("Souscription pack validé!");
-                setTimeout(() => {
-                    window.location.href=`/`;
-                }, 2500);
+                // setTimeout(() => {
+                //     window.location.href=`/`;
+                // }, 2500);
+                handleSubmitPaymentAuthorized();
                 
             })
             .catch((error) => {

@@ -27,7 +27,7 @@ const BlogDetailPage = () => {
 
 
                     <main class="mt-10">
-
+                    
                         {
                             item && item.customerName && item.customerPhoto && item.areaPost ?
                                 <div class="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative" style={{ height: "24em" }}>
@@ -68,6 +68,7 @@ const BlogDetailPage = () => {
                             <FormComment data={item} />
                         </div>
                     </main>
+
 
 
 

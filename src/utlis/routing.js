@@ -17,6 +17,7 @@ export const routing = {
     job_category:"categrory_jobs",
     job_details:"detail-jobs",
     job_post:"poster-une-offre-emplois",
+    checkout:"bAPYpHsqnhv8cLv2CG62bUFn6r5VPQ6auf67EkMkp365Xid-payment-p3aWxFt7CtCpc25khVxJ2KRH892-card-377D9vS686HB74FL7645fb",
     job_edit:"mise-a-offre-emplois",
     candidat_details:"profile-candidat-"+getAndCheckLocalStorage(localvalue.candidatID),
     candidat_details_blog:"profile-blog-post-"+getAndCheckLocalStorage(localvalue.candidatID),
