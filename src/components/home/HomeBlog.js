@@ -53,7 +53,7 @@ const HomeBlog = () => {
                             return (
                                 <div class="col-span-12 md:col-span-6 lg:col-span-4 ">
                                     <div onClick={() => {
-                                        if (getAndCheckLocalStorage(localvalue.TYPEACCESS)) {
+                                        if (getAndCheckLocalStorage(localvalue.TYPEACCESS)==null) {
                                             toast.info("Vous n'êtes pas autorisé à lire cette publication vellez vous connecter")
                                         } else {
                                             setWithExpiration(localvalue.BlogID, item._id, dureeDeVie)

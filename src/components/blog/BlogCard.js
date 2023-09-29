@@ -17,17 +17,17 @@ const BlogCard = ({ item }) => {
     return (
 
         <article class=" transition duration-350 ease-in-out m-5 cursor-pointer"
-        onClick={() => {
-            if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
-                toast.info("Vous ètes pas autorisé à lire de cette publication . Veillez vous connecter")
-            } else {
-                setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
-                navigate(`/${routing.blog_details}`, { state: { item } })
-            }
-        }}
+            onClick={() => {
+                if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
+                    toast.info("Vous ètes pas autorisé à lire de cette publication . Veillez vous connecter")
+                } else {
+                    setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
+                    navigate(`/${routing.blog_details}`, { state: { item } })
+                }
+            }}
         >
             <div class="flex flex-shrink-0 p-4 pb-0 "
-                
+
             >
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
