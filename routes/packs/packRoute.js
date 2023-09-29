@@ -14,17 +14,15 @@ router.post("/candidat/:idCandidat/subscribe/:idPack", /*AuthorizationMiddleware
     try {
         const idCandidat = req.params.idCandidat;
         const idPack = req.params.idPack;
-
+        
         const candidatExist = await CandidatModel.findById({ _id: idCandidat });
         if (!candidatExist) {
             return res.status(407).json({ message: "Ce candidat n'existe pas" });
         }
-        
         const packExist = await PackCandidatModel.findById({ _id: idPack });
-        if (!packExist) {
+        if (!packExist) {t
             return res.status(408).json({ message: "Ce pack n'existe pas" })
         }
-
         // calcule de la date 
         const dateNow = Date.now();
         const unAnEnMillisecondes = 365 * 24 * 60 * 60 * 1000;
