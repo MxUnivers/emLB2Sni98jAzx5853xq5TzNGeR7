@@ -15,14 +15,15 @@ export const SubscriblePackCandidat = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/packs/candidat/${idCandidat}/subscribe/${idPack}`,
-                {
+            .post(`${baseurl.url}/api/v1/packs/candidat/${idCandidat}/subscribe/${idPack}`
+            /*{
                     headers:
                     {
                         'Content-Type': 'application/json',
                         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                     }
-                })
+                } */    
+            )
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 confetti();
