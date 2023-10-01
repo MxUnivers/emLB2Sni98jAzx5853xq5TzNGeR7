@@ -8,7 +8,7 @@ const PackCandidatSchema = new mongoose.Schema({
         auto: true
     },
     pack: { type: String, require: true, unique: true },
-    solde: { type: Number, require: true, unique: true },
+    solde: { type: Number, require: true },
     sms_count: { type: Number, require: true, unique: true }
 }, { timestamps: true });
 
@@ -20,7 +20,7 @@ const PackEntrepriseSchema = new mongoose.Schema({
         auto: true
     },
     pack: { type: String, require: true, unique: true },
-    solde: { type: Number, require: true, unique: true },
+    solde: { type: Number, require: true },
     sms_count: { type: Number, require: true, unique: true }
 }, { timestamps: true });
 
@@ -34,17 +34,17 @@ const PackEntrepriseModel = mongoose.model('pack_entreprise', PackEntrepriseSche
 const packTable = [
     {
         pack: statusPACKS[0],
-        solde: 1000,
+        solde: 100,
         sms_count: 20,
     },
     {
         pack: statusPACKS[1],
-        solde: 2000,
+        solde: 100,
         sms_count: 60,
     },
     {
         pack: statusPACKS[2],
-        solde: 5000,
+        solde: 100,
         sms_count: 100,
     }
 ];

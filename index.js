@@ -83,6 +83,58 @@ app.post("/uploadImage", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
+// verfication de notiifcation
+app.post('/payment-notification', async (req, res) => {
+  try {
+    // Récupérez les données de notification envoyées par Cinepay depuis req.body
+    const notificationData = req.body;
+
+    // Exemple de données de notification de Cinepay
+    /*
+    notificationData = {
+      cpm_site_id: 'VOTRE_SITE_ID',
+      cpm_trans_id: 'IDENTIFIANT_TRANSACTION',
+      cpm_currency: 'XOF',
+      cpm_amount: '100', // Montant en centimes (par exemple, 100 représente 1 XOF)
+      cpm_payment_date: '2022-09-30 12:00:00',
+      // ... d'autres données ...
+    }
+    */
+
+    // Vérifiez les données de notification pour confirmer le paiement
+    const siteId = process.env.REACT_APP_SITE_WEB_CN; // Remplacez par votre identifiant de site Cinepay
+    const transactionId = req.body.transactionId; // Remplacez par l'identifiant de la transaction que vous avez précédemment stocké
+
+    // Vérifiez si le site_id de la notification correspond à votre site_id
+    if (notificationData.cpm_site_id === siteId) {
+      // Vérifiez si l'identifiant de transaction correspond à celui que vous avez précédemment stocké
+      if (notificationData.cpm_trans_id === transactionId) {
+        // La transaction est confirmée avec succès
+        // Vous pouvez mettre à jour l'état du candidat ou effectuer d'autres actions ici
+        console.log('Paiement confirmé pour la transaction', transactionId);
+        res.status(200).json({ message: 'Paiement confirmé avec succès.' });
+      } else {
+        // L'identifiant de transaction ne correspond pas, ce n'est pas la bonne transaction
+        console.error('Identifiant de transaction incorrect');
+        res.status(400).json({ message: 'Identifiant de transaction incorrect.' });
+      }
+    } else {
+      // Le site_id ne correspond pas, ce n'est pas votre notification
+      console.error('Site ID incorrect');
+      res.status(400).json({ message: "'Site ID incorrect.'" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors du traitement de la notification de paiement.');
+  }
+});
+
+
+
+
+
+
+
 app.get("/", AuthorizationMiddleware, (req, res) => {
   res.send({
     article: "",
