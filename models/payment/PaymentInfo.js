@@ -45,6 +45,8 @@ const paymentSchema = new mongoose.Schema({
     Donnee2: String,
     Donnee3: String,
   },
+},{
+  timestamps:true
 });
 
 const PaymentInfoModel = mongoose.model('payment_info', paymentSchema);
