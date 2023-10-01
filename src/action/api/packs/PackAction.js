@@ -10,29 +10,59 @@ import { handleSubmitPaymentAuthorized } from "../QWBw8T76ht2P8tAm8ccum7FAWE55w9
 
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
+export const VerificationPackPaiement = (
+    setLoading, transaction_id, toast) => {
+
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        setLoading(true);
+        await axios
+            .post(`${baseurl.url}/api/v1/packs/check-cinepay-transaction`,
+                {
+                    "transaction_id": transaction_id
+                }
+            )
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                if (response.data.code === "00") {
+                    setLoading(false);
+                    confetti();
+                    toast.success("Paiement valide avec succès")
+                    console.log(response.data)
+                } else if (response.data.code === "627") {
+                    setLoading(false);
+                    toast.error("Paiement non effectués")
+                    console.log(response.data)
+                }
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                setLoading(false);
+                toast.error("Paiement immposible !")
+            });
+    };
+}
+
+
+
 export const SubscriblePackCandidat = (
-    idPack,idCandidat,toast) => {
+    idPack, idCandidat, toast) => {
+
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .post(`${baseurl.url}/api/v1/packs/candidat/${idCandidat}/subscribe/${idPack}`
-            /*{
-                    headers:
-                    {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                    }
-                } */    
             )
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+
                 confetti();
                 toast.success("Souscription pack validé!");
-                // setTimeout(() => {
-                //     window.location.href=`/`;
-                // }, 2500);
-                // handleSubmitPaymentAuthorized();
-                
+                setTimeout(() => {
+                    window.location.href = `/`;
+                }, 2500);
+
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -46,7 +76,7 @@ export const SubscriblePackCandidat = (
 // pack entreprise
 
 export const SubscriblePackEntreprise = (
-    idPack,idCandidat,toast) => {
+    idPack, idCandidat, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -63,9 +93,9 @@ export const SubscriblePackEntreprise = (
                 confetti();
                 toast.success("Souscription pack validé !");
                 setTimeout(() => {
-                    window.location.href=`/`;
+                    window.location.href = `/`;
                 }, 2500);
-                
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });

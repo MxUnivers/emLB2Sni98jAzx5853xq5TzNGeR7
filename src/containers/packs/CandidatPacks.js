@@ -10,9 +10,10 @@ import { toast } from 'react-toastify';
 import LoadinButton from '../../components/loading/LoadinButton';
 import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
+import CinepayPayment from './CinepayPayment';
 
 const CandidatPacks = () => {
-    const navigate   =  useNavigate();
+    const navigate = useNavigate();
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 
@@ -24,8 +25,6 @@ const CandidatPacks = () => {
     useEffect(() => {
         PackAllCandidat(setpacks, setpacks2);
         CandidatGetById(idCandidat, setcandidatDetail);
-        
-
     }, []);
 
     // handleSumbit pack
@@ -40,19 +39,19 @@ const CandidatPacks = () => {
     // handleSubmit
     const handleSubmitPack1 = (event) => {
         event.preventDefault();
-        if(packs.length > 0){
+        if (packs.length > 0) {
             const id = packs[0]._id;
             setidPack(id);
             console.log(idPack)
             dispatch(SubscriblePackCandidat(id, idCandidat, toast));
         }
-        
+
     }
 
     const handleSubmitPack2 = (event) => {
         event.preventDefault();
-        
-        if(packs.length > 1){
+
+        if (packs.length > 1) {
             const id = packs[1]._id;
             dispatch(SubscriblePackCandidat(id, idCandidat, toast));
         }
@@ -62,34 +61,47 @@ const CandidatPacks = () => {
 
     const handleSubmitPack3 = (event) => {
         event.preventDefault();
-        
-        if(packs.length > 2){
+
+        if (packs.length > 2) {
             const id = packs[2]._id;
             setidPack3(id);
-            
+
             dispatch(SubscriblePackCandidat(id, idCandidat, toast));
         }
-        
+
     }
 
-    const handleGetPricing = (item)=>{
-        if(getAndCheckLocalStorage(localvalue.candidatID)!==null && packs.length > 0){
+    const handleGetPricing = (item) => {
+        if (getAndCheckLocalStorage(localvalue.candidatID) !== null && packs.length > 0) {
             alert("Pack recupéer");
-            navigate(`/${routing.checkout}`, {state:{item}});
-        }else{
+            navigate(`/${routing.checkout}`, { state: { item } });
+        } else {
             toast.info("Veillez vous connecter d'abord vous connectez ");
         }
     }
 
 
+
+
+
+
+
+
+
+    // inegration de paiement 
+
+    
+
     return (
         <div class="bg-white dark:bg-gray-800">
 
-        
+
 
             <div class="flex justify-center py-2 mt-10">
                 <h1 class="text-4xl font-bold"> Pack Etudiant  </h1>
             </div>
+            
+            
 
 
             <div class="container px-6 py-8 mx-auto">
@@ -124,7 +136,7 @@ const CandidatPacks = () => {
                         </ul>
 
                         {candidatDetail && candidatDetail.account ?
-                            packs[0].pack== candidatDetail.account.pack ?
+                            packs[0].pack == candidatDetail.account.pack ?
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                 >
@@ -132,13 +144,16 @@ const CandidatPacks = () => {
                                 </button>
                                 :
                                 loading ?
-                                    <p><LoadinButton text={"En cours"}/></p> :
+                                    <p><LoadinButton text={"En cours"} /></p> :
                                     <>
-                                        <form onSubmit={handleSubmitPack1} >
-                                            <button type="submit"
+                                        <form  >
+                                            <button type="button"
+                                            onClick={()=>{
+                                                navigate(`/${routing.checkout}`,{state:{pack:packs[0]}})
+                                            }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
-                                                Acheter 
+                                                Acheter
                                             </button>
                                         </form>
                                     </> :
@@ -185,7 +200,7 @@ const CandidatPacks = () => {
                         </ul>
 
                         {candidatDetail && candidatDetail.account ?
-                            packs[1].pack== candidatDetail.account.pack ?
+                            packs[1].pack == candidatDetail.account.pack ?
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                 >
@@ -193,14 +208,14 @@ const CandidatPacks = () => {
                                 </button>
                                 :
                                 loading ?
-                                    <p>en cours...</p> :
+                                    <p><LoadinButton text={"En cours"} /></p> :
                                     <>
                                         <form onSubmit={handleSubmitPack2}>
                                             <button type="submit"
 
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
-                                                Acheter 
+                                                Acheter
                                             </button>
                                         </form>
                                     </> :
@@ -251,7 +266,7 @@ const CandidatPacks = () => {
                         </ul>
 
                         {candidatDetail && candidatDetail.account ?
-                            packs[2].pack== candidatDetail.account.pack ?
+                            packs[2].pack == candidatDetail.account.pack ?
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                 >
@@ -259,14 +274,14 @@ const CandidatPacks = () => {
                                 </button>
                                 :
                                 loading ?
-                                    <p>en cours...</p> :
+                                    <p><LoadinButton text={"En cours ..."} /></p> :
                                     <>
                                         <form onSubmit={handleSubmitPack3}>
                                             <button type="submit"
 
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
-                                                Acheter 
+                                                Acheter
                                             </button>
                                         </form>
                                     </> :

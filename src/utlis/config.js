@@ -56,9 +56,9 @@ export const IconPack = <svg
 
 export const packsItemsList = [
     {
-      titre: "Pack Étudiant",
+      titre: "Pack STARTER",
       description: "Accédez à des offres d'emploi exclusives pour les étudiants.",
-      prix: 9.99,
+      prix: "1000 F",
       avantages: [
         "Accès illimité aux offres d'emploi",
         "Mises à jour en temps réel",
@@ -68,21 +68,25 @@ export const packsItemsList = [
     {
       titre: "Pack Premium",
       description: "Démarquez-vous avec notre pack premium pour étudiants.",
-      prix: 19.99,
+      prix: "2000 F",
       avantages: [
         "Toutes les fonctionnalités du pack Étudiant",
         "Profil en vedette pour les employeurs",
         "Accès à des formations exclusives",
+        "Coaching ",
       ],
     },
     {
       titre: "Pack VIP",
       description: "Le summum de nos offres pour votre succès professionnel.",
-      prix: 29.99,
+      prix: "5000 F",
       avantages: [
         "Toutes les fonctionnalités du pack Premium",
         "Coaching professionnel personnalisé",
         "Réseau exclusif de recruteurs",
+        "Bourse d'études à l'étranger",
+        "Coaching  & formation",
+
       ],
     },
   ];
