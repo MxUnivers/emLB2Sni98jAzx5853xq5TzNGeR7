@@ -53,7 +53,6 @@ const CheckOutPage = () => {
                             }
                         )
                         .then((response) => {
-                            
                             if (response.data.code === "00") {
                                 setIsLoginpaymentUrl(false)
                                 confetti();
@@ -99,6 +98,7 @@ const CheckOutPage = () => {
 
 
                     <div class="min-w-screen min-h-screen bg-gray-50 py-5">
+
                         <div class="px-5">
                             <div class="mb-2">
                                 <a href="#" class="focus:outline-none hover:underline text-gray-500 text-sm"><i class="mdi mdi-arrow-left text-gray-400"></i>Back</a>
@@ -110,6 +110,7 @@ const CheckOutPage = () => {
                                 <a href="#" class="focus:outline-none hover:underline text-gray-500">Home</a> / <a href="#" class="focus:outline-none hover:underline text-gray-500">Cart</a> / <span class="text-gray-600">Checkout</span>
                             </div>
                         </div>
+
                         <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
                             <div class="w-full">
                                 <div class="-mx-3 md:flex items-start">
@@ -128,6 +129,7 @@ const CheckOutPage = () => {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="mb-6 pb-6 border-b border-gray-200">
                                             <div class="-mx-2 flex items-end justify-end">
                                                 <div class="flex-grow px-2 lg:max-w-xs">
@@ -158,6 +160,7 @@ const CheckOutPage = () => {
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="px-3 md:w-5/12">
                                         <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
                                             <div class="w-full flex mb-3 items-center">
@@ -177,6 +180,7 @@ const CheckOutPage = () => {
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div>
                                             {
                                                 IsLoginpaymentUrl ?
