@@ -27,9 +27,9 @@ const BoursesAvantages = () => {
                     <h2 class="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl xl:text-5xl">
                         opportunités éducatives enrichissantes.
                     </h2>
-                    <p class="mx-auto mt-6 text-gray-700 dark:text-gray-300 md:w-3/4 lg:w-3/5">A growing team doesn{"'"}t need
-                        to mean growing pains. Privacy, and the right tool for every step of your journey - Jira Software
-                        friction - company size.</p>
+                    <p class="mx-auto mt-6 text-gray-700 dark:text-gray-300 md:w-3/4 lg:w-3/5">
+                        Découvrez comment nos bourses d'études transforment vos aspirations en réalités éducatives en offrant un accès abordable à l' enseignement supérieur benefique en entreprise .
+                    </p>
                 </div>
 
                 <div
@@ -41,7 +41,7 @@ const BoursesAvantages = () => {
                                 <div
                                     class="group relative bg-white transition-shadow hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10 dark:bg-gray-800">
                                     <div class="relative space-y-8 p-8 py-12">
-                                        <img src={item.img} loading="lazy" class="w-16"
+                                        <img src={item.img} loading="lazy" class="w-20 h-20"
                                             width="512" height="512" alt="burger illustration" />
                                         <div class="space-y-2">
                                             <h3
