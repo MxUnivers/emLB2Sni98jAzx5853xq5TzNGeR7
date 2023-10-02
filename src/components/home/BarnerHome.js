@@ -8,6 +8,24 @@ import { routing } from '../../utlis/routing';
 
 const BarnerHome = () => {
 
+    const bgImg1 = "img/gens-plan-moyen-obtenant-leur-diplome.jpg"
+    const ImagList = [
+        {
+            titme: "",
+            description: "",
+            img: "img/gens-plan-moyen-obtenant-leur-diplome.jpg"
+        },
+        {
+            titme: "",
+            description: "",
+            img: "img/portrait-etudiant-masculin-livres.jpg"
+        },
+        {
+            titme: "",
+            description: "",
+            img: "img/groupe-afro-americains-travaillant-ensemble.jpg"
+        }
+    ]
 
     const navigate = useNavigate();
     const responsive = {
@@ -105,45 +123,26 @@ const BarnerHome = () => {
                             </div>
                             <div class="swiper homeslider">
                                 <Carousel responsive={responsive} autoPlay infinite transitionDuration={3} class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="text-center home-slide-box">
-                                            <img src="assets/images/home/img-02.png" alt=""
-                                                class="max-w-full rounded-3" />
-                                            <div class="bg-overlay"></div>
-                                            <div class="absolute bottom-0 p-4">
-                                                <h2 class="text-white font-secound fw-normal"> It looks perfect on
-                                                    all major browsers, tablets,
-                                                    and mobile devices.</h2>
-                                                <h6 class="text-white">- MichaeL Drake</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text-center home-slide-box">
-                                            <img src="assets/images/home/img-03.png" alt=""
-                                                class="max-w-full rounded-3" />
-                                            <div class="bg-overlay"></div>
-                                            <div class="absolute bottom-0 p-4">
-                                                <h2 class="text-white font-secound fw-normal"> This template is
-                                                    well organized and very easy to
-                                                    customize. </h2>
-                                                <h6 class="text-white">- Charles Dickens</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text-center home-slide-box">
-                                            <img src="assets/images/home/img-04.png" alt=""
-                                                class="max-w-full rounded-3" />
-                                            <div class="bg-overlay"></div>
-                                            <div class="absolute bottom-0 p-4">
-                                                <h2 class="text-white font-secound fw-normal"> All your client
-                                                    websites if you are an agency or
-                                                    freelancer. </h2>
-                                                <h6 class="text-white"> Rebecca Swartz</h6>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {
+                                        ImagList.map((item) => {
+                                            return (
+                                                <div class="swiper-slide">
+                                                    <div class="text-center home-slide-box">
+                                                        <img src={item.img} alt=""
+                                                            class="max-w-full h-full rounded-3" />
+                                                        <div class="bg-overlay"></div>
+                                                        <div class="absolute bottom-0 p-4">
+                                                            <h2 class="text-white font-secound fw-normal"> It looks perfect on
+                                                                all major browsers, tablets,
+                                                                and mobile devices.</h2>
+                                                            <h6 class="text-white">- MichaeL Drake</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+
                                 </Carousel>
                             </div>
                         </div>

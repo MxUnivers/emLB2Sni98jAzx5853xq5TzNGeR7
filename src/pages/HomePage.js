@@ -10,6 +10,7 @@ import HomePartenaires from '../components/home/HomePartenaires';
 import HomeSubscrible from '../components/home/HomeSubscrible';
 import HomeSolgan from '../components/home/HomeSolgan';
 import HomePacks from '../components/home/HomePacks';
+import HomeBourses from '../components/home/HomeBourses';
 
 const HomePage = () => {
   return (
@@ -19,10 +20,14 @@ const HomePage = () => {
 
         <BarnerHome />
         <HomeSolgan/>
+        <HomeBourses/>
         <HomePacks/>
-        <CategoryHome/>
+        
+        {
+          /*<CategoryHome/> */
+        }
 
-        <HomeBlog/>
+        {/*<HomeBlog/> */}
         <JobListHome/>
 
 

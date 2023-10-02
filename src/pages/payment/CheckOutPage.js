@@ -65,7 +65,6 @@ const CheckOutPage = () => {
                                 toast.error("Paiement non effectués")
                                 console.log(response.data);
                             window.location.reload()
-
                             }
                         })
                         .catch((error) => {

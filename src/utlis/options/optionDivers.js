@@ -87,3 +87,35 @@ export const areaPostList = [
     "Spiritualité et méditation"
   ];
   
+
+
+
+
+  export const categoriesDeBourses = [
+    "Bourses d'études en ingénierie",
+    "Bourses d'études en informatique",
+    "Bourses d'études en sciences de la santé",
+    "Bourses d'études en sciences humaines",
+    "Bourses d'études en sciences sociales",
+    "Bourses d'études en sciences naturelles",
+    "Bourses d'études en mathématiques",
+    "Bourses d'études en arts et en lettres",
+    "Bourses d'études en commerce et en gestion",
+    "Bourses d'études en sciences politiques",
+    "Bourses d'études en psychologie",
+    "Bourses d'études en éducation",
+    "Bourses d'études en musique et en arts de la scène",
+    "Bourses d'études en design et en arts visuels",
+    "Bourses d'études en environnement et en durabilité",
+    "Bourses d'études en génie civil",
+    "Bourses d'études en médecine et en soins de santé",
+    "Bourses d'études en droit",
+    "Bourses d'études pour les femmes en STEM",
+    "Bourses d'études pour les étudiants internationaux",
+    "Bourses d'études pour les étudiants en situation de handicap",
+    "Bourses d'études pour les minorités ethniques et raciales",
+    "Bourses d'études pour les vétérans et les membres des forces armées",
+    "Bourses d'études pour les étudiants en première génération",
+    "Bourses d'études pour les étudiants en études supérieures",
+  ];
+  
