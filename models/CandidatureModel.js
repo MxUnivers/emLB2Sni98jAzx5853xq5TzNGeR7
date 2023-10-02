@@ -14,6 +14,7 @@ const CandidatureSchema = new mongoose.Schema({
     telephone: { type: String, required: false,},
     description: { type: String, required: false,},
     cv: { type: String, required: false,},
+    areaCandidature: { type: String, required: false,default:"JOB"},
     status: { type: String, enum: ['PENDING', 'VALIDATE', 'CANCEL'],default: 'PENDING',},
 }, 
 { timestamps: true ,}

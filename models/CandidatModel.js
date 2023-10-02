@@ -74,7 +74,8 @@ const CandidatSchema = new mongoose.Schema({
         type: String, default:"#"
     },
     offres: [{type:String}],
-    bookmarks:[{type:Object}],
+    bourses: [{type:String}],
+    bookmarks:[{type:String}],
     likes:{
         type:Number ,
         required:false,

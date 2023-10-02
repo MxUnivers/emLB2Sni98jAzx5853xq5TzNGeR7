@@ -44,6 +44,7 @@ router.post("/add/:idC/entreprise/:idE/offre/:idOffre", AuthorizationMiddleware,
 
         // Création de la candidature avec les bonnes références
         const candidature = new CandidatureModel(req.body);
+        candidature.areaCandidature="JOB";
         candidature.idCandidat = idCandidat;
         candidature.idEntreprise = idRecruteur;
         candidature.idOffre = idOffre;
