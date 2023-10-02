@@ -29,6 +29,8 @@ const entrepriseRoute = require("./routes/entrerpriseRoute");
 const annonceRoute = require("./routes/AnnonceRoute");
 // Offres d"emplois
 const offreEmploisRoute = require("./routes/offreEmploisRoute");
+// Bourses d'etude
+const scholarshipRoute = require("./routes/scholarshipRoute");
 
 const authEntrepriseRoute = require("./routes/authenticate/authEntrepriseRoute");
 
@@ -105,6 +107,7 @@ app.use(`${apiV1}/entreprise`, entrepriseRoute);
 app.use(`${apiV1}/auth/entreprise`, authEntrepriseRoute);
 app.use(`${apiV1}/annonce`, annonceRoute);
 app.use(`${apiV1}/offre`, offreEmploisRoute);
+app.use(`${apiV1}/bourse`, scholarshipRoute);
 app.use(`${apiV1}/candidature`, candidaturesRoute);
 app.use(`${apiV1}/message`, messageRoute);
 app.use(`${apiV1}/packs`, packRoute);
