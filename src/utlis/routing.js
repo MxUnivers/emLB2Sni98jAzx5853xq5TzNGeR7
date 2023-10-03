@@ -14,6 +14,7 @@ export const routing = {
     blog_post:"post-blog-"+getAndCheckLocalStorage(localvalue.candidatID),
     blog_edit:"edit-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
     bourse_list:"listes_des_bourses_de_la_plateforme",
+    coaching_list:"coaching_et_formation_de_la_plateforme",
     job_list:"listes_des_emplois_de_la_plateforme",
     job_category:"categrory_jobs",
     job_details:"detail-jobs",

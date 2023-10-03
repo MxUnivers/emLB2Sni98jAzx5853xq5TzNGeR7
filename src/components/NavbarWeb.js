@@ -313,6 +313,11 @@ const NavbarWeb = () => {
                                 >Bourses
                                 </a>
                             </li>
+                            <li class="relative dropdown">
+                                <a href={`/${routing.coaching_list}`} class="py-5  text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                >Coaching & Formations
+                                </a>
+                            </li>
                             <li class="relative dropdown lg:mt-0">
                                 <button class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
                                     id="company" data-bs-toggle="dropdown">autres <i

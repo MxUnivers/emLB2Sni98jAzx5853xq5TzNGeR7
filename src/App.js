@@ -30,6 +30,7 @@ import BlogProfilePage from "./pages/web/BlogProfilePage";
 import BogPostEditPage from "./pages/web/BogPostEditPage";
 import CheckOutPage from "./pages/payment/CheckOutPage";
 import BoursesEtudePage from "./pages/web/BoursesEtudePage";
+import CoachingAndFormationPage from "./pages/web/CoachingAndFormationPage";
 
 
 
@@ -75,8 +76,9 @@ function App() {
             <Route path={`${routing.candidat_details_blog}`} element={<BlogProfilePage />} />
 
 
-            {/**Bourse d'etudes */}
+            {/**Bourse d'etudes et formations */}
             <Route path={`${routing.bourse_list}`} element={<BoursesEtudePage />} />
+            <Route path={`${routing.coaching_list}`} element={<CoachingAndFormationPage />} />
 
 
 
