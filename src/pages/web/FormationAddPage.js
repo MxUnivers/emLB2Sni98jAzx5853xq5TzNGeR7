@@ -9,6 +9,8 @@ import ReactQuillWrapper from '../../containers/formations/ReactQuillWrapper';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
+import LoadinButton from '../../components/loading/LoadinButton';
+import ReactPlayer from 'react-player';
 
 
 const FormationAddPage = () => {
@@ -61,7 +63,9 @@ const FormationAddPage = () => {
 
 
 
-    const [LoadingPhoto, setLoadingPhoto] = useState(false);
+
+    // Uploade Images
+    const [LoadingAll, setLoadingAll] = useState(false);
     const [coverPictures, setCoverPictures] = useState([]); // État pour stocker les URLs des images de couverture
 
     const convertBase64 = (file) => {
@@ -78,7 +82,7 @@ const FormationAddPage = () => {
     }
 
     const uploadSinglePhoto = (base64, moduleIndex, leconIndex) => {
-        setLoadingPhoto(true);
+        setLoadingAll(true);
         axios
             .post(`${baseurl.url}/uploadImage`, { image: base64 })
             .then((res) => {
@@ -96,12 +100,13 @@ const FormationAddPage = () => {
                 setCoverPictures(newCoverPictures);
 
                 toast.dark("Photo téléchargée avec succès");
+                setLoadingAll(false)
             })
-            .then(() => setLoadingPhoto(false))
+            .then(() => setLoadingAll(false))
             .catch(() => {
                 console.log("Erreur lors du téléchargement de la photo");
                 toast.error("Photo non téléchargée !");
-                setLoadingPhoto(false);
+                setLoadingAll(false);
             });
     };
 
@@ -120,6 +125,61 @@ const FormationAddPage = () => {
         }
         // Gérer le cas où plusieurs fichiers sont sélectionnés
     };
+
+
+
+
+
+
+
+    // **********************   Uploade Video *************************
+
+    const [videoUrls, setVideoUrls] = useState([]);
+    const uploadSingleVideo = (base64, moduleIndex, leconIndex) => {
+        setLoadingAll(true);
+        axios
+            .post(`${baseurl.url}/uploadVideo`, { video: base64 }) // Assurez-vous que le serveur accepte les vidéos
+            .then((res) => {
+                // Récupérer l'URL de la vidéo depuis la réponse du serveur
+                const videoUrl = res.data;
+
+                // Mettre à jour l'URL de la vidéo spécifique à la leçon
+                const newVideoUrls = [...videoUrls];
+
+                if (!newVideoUrls[moduleIndex]) {
+                    newVideoUrls[moduleIndex] = [];
+                }
+
+                newVideoUrls[moduleIndex][leconIndex] = videoUrl;
+                setVideoUrls(newVideoUrls);
+
+                toast.dark("Vidéo téléchargée avec succès");
+                setLoadingAll(false)
+            })
+            .then(() => setLoadingAll(false))
+            .catch(() => {
+                console.log("Erreur lors du téléchargement de la vidéo");
+                toast.error("Vidéo non téléchargée !");
+                setLoadingAll(false);
+            });
+    };
+
+    const HandleFileInputChangeVideo = async (event, moduleIndex, leconIndex) => {
+        const files = event.target.files;
+
+        if (files.length === 1) {
+            try {
+                const base64 = await convertBase64(files[0]);
+                uploadSingleVideo(base64, moduleIndex, leconIndex);
+            } catch (error) {
+                console.error("Erreur lors de la conversion en base64 :", error);
+            }
+            return;
+        }
+        // Gérer le cas où plusieurs fichiers sont sélectionnés
+    };
+
+
 
 
 
@@ -186,7 +246,7 @@ const FormationAddPage = () => {
                                                     <div key={moduleIndex} className="mb-4 border p-4">
                                                         <h2>Module {moduleIndex + 1}</h2>
                                                         <div className="mb-4">
-                                                            <label htmlFor={`modules.${moduleIndex}.moduleLabel`} className="block font-medium">Label du module</label>
+                                                            <label htmlFor={`modules.${moduleIndex}.moduleLabel`} className="block font-medium">Titre du module {moduleIndex + 1}</label>
                                                             <Field
                                                                 type="text"
                                                                 id={`modules.${moduleIndex}.moduleLabel`}
@@ -231,7 +291,7 @@ const FormationAddPage = () => {
 
                                                                             {/*Image de couverture */}
                                                                             <div className="mb-2">
-                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`} className="block font-medium">Image de couverture (URL)</label>
+                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`} className="block font-medium">Image de couverture (Leçon {leconIndex + 1} )</label>
                                                                                 <input
                                                                                     type="file"
                                                                                     id={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`}
@@ -249,21 +309,35 @@ const FormationAddPage = () => {
                                                                                 )}
                                                                             </div>
 
-                                                                            {/* Vidéo */}
+                                                                            {/* Vidéo de la leçon */}
                                                                             <div className="mb-2">
-                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.video`} className="block font-medium">Vidéo (URL)</label>
-                                                                                <Field
-                                                                                    type="text"
+                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.video`} className="block font-medium">Vidéo de la leçon ((Leçon {leconIndex + 1} ))</label>
+                                                                                <input
+                                                                                    type="file"
+                                                                                    accept='.MP4'
                                                                                     id={`modules.${moduleIndex}.lecons.${leconIndex}.video`}
                                                                                     name={`modules.${moduleIndex}.lecons.${leconIndex}.video`}
+                                                                                    onChange={(e) => HandleFileInputChangeVideo(e, moduleIndex, leconIndex)} // Appel de la fonction pour télécharger la vidéo
                                                                                     className="mt-1 p-2 w-full rounded border"
                                                                                 />
                                                                                 <ErrorMessage name={`modules.${moduleIndex}.lecons.${leconIndex}.video`} component="div" className="text-red-500" />
                                                                             </div>
+                                                                            {/* ... (autres champs de leçon) */}
+                                                                            <div className="mb-2">
+                                                                                {/* Affichage de la vidéo téléchargée en utilisant ReactPlayer */}
+                                                                                {videoUrls[moduleIndex] && videoUrls[moduleIndex][leconIndex] && (
+                                                                                    <ReactPlayer
+                                                                                        url={videoUrls[moduleIndex][leconIndex]}
+                                                                                        controls={true}
+                                                                                        width="100%"
+                                                                                        height="auto"
+                                                                                    />
+                                                                                )}
+                                                                            </div>
 
                                                                             {/* Informations supplémentaires */}
                                                                             <div className="mb-2">
-                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.additionalInfo`} className="block font-medium">Informations supplémentaires</label>
+                                                                                <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.additionalInfo`} className="block font-medium">Informations supplémentaires (Leçon {leconIndex + 1} )</label>
                                                                                 <Field
                                                                                     as="textarea"
                                                                                     id={`modules.${moduleIndex}.lecons.${leconIndex}.additionalInfo`}
@@ -272,24 +346,29 @@ const FormationAddPage = () => {
                                                                                 />
                                                                             </div>
 
-                                                                            <button type="button" onClick={() => removeLecon(leconIndex)}>Supprimer Leçon</button>
+                                                                            <button type="button" class="btn bg-red-600 rounded-3xl text-white py-1 text-xs" onClick={() => removeLecon(leconIndex)}>Supprimer Leçon {leconIndex + 1}</button>
                                                                         </div>
                                                                     ))}
-                                                                    <button type="button" onClick={() => pushLecon({ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' })}>Ajouter Leçon</button>
+                                                                    <button type="button" class="btn bg-blue-600 rounded-3xl py-2 text-white text-xs" onClick={() => pushLecon({ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' })}> + Ajouter Leçon</button>
                                                                 </div>
                                                             )}
                                                         </FieldArray>
-                                                        <button type="button" onClick={() => remove(moduleIndex)}>Supprimer Module</button>
+                                                        <button type="button" class="btn bg-red-600 rounded-3xl py-2 text-white text-xs" onClick={() => remove(moduleIndex)}>Supprimer Module {moduleIndex+1}</button>
                                                     </div>
                                                 ))}
-                                                <button type="button" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>Ajouter Module</button>
+                                                <button type="button" class="btn bg-blue-700 rounded-3xl text-white text-md" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>+ Ajouter Module</button>
                                             </div>
                                         )}
                                     </FieldArray>
 
-                                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4">
-                                        Enregistrer Formation
-                                    </button>
+                                    {
+                                        LoadingAll ?
+                                            <LoadinButton text={"Uploade Fichier en cours ..."} />
+                                            :
+                                            <button type="submit" className="bg-blue-900 rounded-3xl text-white px-4 py-2  hover:bg-blue-600 mt-4">
+                                                Enregistrer Formation
+                                            </button>
+                                    }
                                 </Form>
                             )}
                         </Formik>
