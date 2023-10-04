@@ -1,7 +1,11 @@
 import React from 'react'
+import { routing } from '../../utlis/routing'
 
 const BarnerCoachingAndFormation = () => {
     const bgImg  = "img/conferencier-africain-coach-affaires-confiant-donnant-presentation-equipe.jpg" 
+    const handleNavigate= ()=>{
+        window.location.href=`/${routing.formation_list}`;
+    }
     return (
         <section class="pt-10 sm:pt-10 md:pt-10">
             <div class="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
@@ -32,7 +36,11 @@ const BarnerCoachingAndFormation = () => {
                                         
                                     </div>
                                     <div class="md:pr-1.5 lg:pr-0">
-                                        <button type="submit" title="Start buying" class="relative ml-auto h-12 w-16 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 active:duration-75 active:before:scale-95 dark:before:bg-primaryLight sm:w-auto sm:px-6">
+                                        <button type="button"
+                                        onClick={()=>{
+                                            handleNavigate();
+                                        }}
+                                        title="Commencer la formation" class="relative ml-auto h-12 w-16 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 active:duration-75 active:before:scale-95 dark:before:bg-primaryLight sm:w-auto sm:px-6">
                                             <span class="relative w-max font-semibold text-white dark:text-gray-900 md:block"> Commencer </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="relative mx-auto h-6 w-6 text-white dark:text-gray-900 md:hidden">
                                                 <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />

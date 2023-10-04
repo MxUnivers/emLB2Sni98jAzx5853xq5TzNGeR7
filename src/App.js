@@ -31,6 +31,7 @@ import BogPostEditPage from "./pages/web/BogPostEditPage";
 import CheckOutPage from "./pages/payment/CheckOutPage";
 import BoursesEtudePage from "./pages/web/BoursesEtudePage";
 import CoachingAndFormationPage from "./pages/web/CoachingAndFormationPage";
+import FormationPage from "./pages/web/FormationPage";
 
 
 
@@ -79,6 +80,7 @@ function App() {
             {/**Bourse d'etudes et formations */}
             <Route path={`${routing.bourse_list}`} element={<BoursesEtudePage />} />
             <Route path={`${routing.coaching_list}`} element={<CoachingAndFormationPage />} />
+            <Route path={`${routing.formation_list}`} element={<FormationPage />} />
 
 
 
