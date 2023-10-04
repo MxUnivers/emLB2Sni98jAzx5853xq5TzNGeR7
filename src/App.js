@@ -32,6 +32,8 @@ import CheckOutPage from "./pages/payment/CheckOutPage";
 import BoursesEtudePage from "./pages/web/BoursesEtudePage";
 import CoachingAndFormationPage from "./pages/web/CoachingAndFormationPage";
 import FormationPage from "./pages/web/FormationPage";
+import FormationProfilePage from "./pages/web/FormationProfilePage";
+import FormationAddPage from "./pages/web/FormationAddPage";
 
 
 
@@ -81,6 +83,8 @@ function App() {
             <Route path={`${routing.bourse_list}`} element={<BoursesEtudePage />} />
             <Route path={`${routing.coaching_list}`} element={<CoachingAndFormationPage />} />
             <Route path={`${routing.formation_list}`} element={<FormationPage />} />
+            <Route path={`${routing.formation_list_entreprise}`} element={<FormationProfilePage />} />
+            <Route path={`${routing.formation_add}`} element={<FormationAddPage />} />
 
 
 

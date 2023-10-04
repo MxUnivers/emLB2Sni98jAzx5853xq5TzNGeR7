@@ -16,6 +16,8 @@ export const routing = {
     bourse_list:"listes_des_bourses_de_la_plateforme",
     coaching_list:"coaching_et_formation_de_la_plateforme",
     formation_list:"formation-de-la-plateforme",
+    formation_add:"ajouter-formation-sur-la-plateforme",
+    formation_list_entreprise:"formation-coaching",
     job_list:"listes_des_emplois_de_la_plateforme",
     job_category:"categrory_jobs",
     job_details:"detail-jobs",
