@@ -7,9 +7,15 @@ const FormationCard = ({ item }) => {
             href='#'>
             <div class="relative gap-6 sm:flex">
                 <div
-                    class="-mx-6 -mt-6 flex rounded-2xl border border-dashed bg-gray-100 p-10 dark:border-gray-700 dark:bg-gray-900/60 sm:mr-0 sm:-mb-6 sm:-ml-6 sm:-mt-6 sm:w-1/3 md:w-2/5 lg:w-1/3">
-                    <img class="m-auto w-auto sm:h-16 lg:h-12" src="../images/clients/nuxt.svg"
-                        loading="lazy" alt="nuxtjs logo" width="" height="" />
+                    class="-mx-6 -mt-6 m-2 flex rounded-2xl border border-dashed bg-gray-100 sm:mr-0 sm:-mb-6 sm:-ml-6 sm:-mt-6 sm:w-1/3 md:w-2/5 lg:w-1/3">
+                    {
+                        item && item.logo ?
+                        <img class="m-auto w-full h-full rounded-3xl sm:h-16 lg:h-12" src={item.logo}
+                        loading="lazy" alt="nuxtjs logo" />:
+                        /*<img class="m-auto w-auto sm:h-16 lg:h-12" src="../images/clients/nuxt.svg"
+                        loading="lazy" alt="nuxtjs logo" width="" height="" /> */
+                        null
+                    }
                 </div>
                 <div class="mt-6 space-y-6 sm:mt-0 sm:w-2/3 md:w-3/5 lg:w-2/3">
                     <div class="">
