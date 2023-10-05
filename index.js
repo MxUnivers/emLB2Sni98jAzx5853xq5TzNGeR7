@@ -42,6 +42,9 @@ const packRoute = require("./routes/packs/packRoute");
 // Post Blog
 const blogRoute = require("./routes/PostRoute");
 const commentRoute = require("./routes/CommentRoute");
+// Formation 
+const formationRoute = require("./routes/coaching/formationRoute");
+
 
 
 
@@ -107,6 +110,7 @@ app.use(`${apiV1}/entreprise`, entrepriseRoute);
 app.use(`${apiV1}/auth/entreprise`, authEntrepriseRoute);
 app.use(`${apiV1}/annonce`, annonceRoute);
 app.use(`${apiV1}/offre`, offreEmploisRoute);
+app.use(`${apiV1}/formation`, formationRoute);
 app.use(`${apiV1}/bourse`, scholarshipRoute);
 app.use(`${apiV1}/candidature`, candidaturesRoute);
 app.use(`${apiV1}/message`, messageRoute);
