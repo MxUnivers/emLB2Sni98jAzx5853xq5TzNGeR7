@@ -11,6 +11,10 @@ import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
 import LoadinButton from '../../components/loading/LoadinButton';
 import ReactPlayer from 'react-player';
+import Select from 'react-select';
+import { areaFormationOptions } from '../../utlis/options/optionDivers';
+import { useDispatch, useSelector } from 'react-redux';
+import { FormationCreate } from '../../action/api/formations/FormationAction';
 
 
 const FormationAddPage = () => {
@@ -192,10 +196,17 @@ const FormationAddPage = () => {
 
 
 
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
 
-    const handleSubmit = (values) => {
-        // Envoyer values au backend pour enregistrement
-        console.log(values);
+    const handleSubmit = (values, { setSubmitting }) => {
+        // Vous pouvez effectuer ici des opérations de prétraitement des données si nécessaire
+
+        // Appelez votre action Redux pour créer la formation
+        dispatch(FormationCreate(values, toast)); // Assurez-vous d'avoir importé `toast`
+
+        // N'oubliez pas de gérer setSubmitting si vous avez besoin de bloquer le formulaire pendant l'envoi
     };
 
 
@@ -204,7 +215,7 @@ const FormationAddPage = () => {
 
 
     return (
-        <section class="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
+        <section class="mt-16 mb-56 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
             <div class="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                 <div class="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
                 </div>
@@ -233,6 +244,31 @@ const FormationAddPage = () => {
                                             className="mt-1 p-2 w-full rounded border"
                                         />
                                         <ErrorMessage name="formationTitle" component="div" className="text-red-500" />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="areaFormation" className="block font-medium">Zone de formation</label>
+                                        <Field
+                                            name="areaFormation"
+                                            render={({ field }) => (
+                                                <Select
+                                                    {...field}
+                                                    options={areaFormationOptions}
+                                                    placeholder="Sélectionnez une zone de formation"
+                                                />
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label htmlFor="description" className="block font-medium">Description de la formation</label>
+                                        <Field
+                                            as="textarea"
+                                            id="description"
+                                            name="description"
+                                            rows="4" // Ajustez le nombre de lignes en conséquence
+                                            className="mt-1 p-2 w-full rounded border"
+                                        />
+                                        <ErrorMessage name="description" component="div" className="text-red-500" />
                                     </div>
 
                                     {/* Autres champs de formation */}
@@ -294,6 +330,7 @@ const FormationAddPage = () => {
                                                                                 <label htmlFor={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`} className="block font-medium">Image de couverture (Leçon {leconIndex + 1} )</label>
                                                                                 <input
                                                                                     type="file"
+                                                                                    accept='.JPEG,.PNG,.JPG'
                                                                                     id={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`}
                                                                                     name={`modules.${moduleIndex}.lecons.${leconIndex}.coverPicture`}
                                                                                     onChange={(e) => HandleFileInputChangePhoto(e, moduleIndex, leconIndex)} // Appel de la fonction pour télécharger l'image
@@ -353,10 +390,10 @@ const FormationAddPage = () => {
                                                                 </div>
                                                             )}
                                                         </FieldArray>
-                                                        <button type="button" class="btn bg-red-600 rounded-3xl py-2 text-white text-xs" onClick={() => remove(moduleIndex)}>Supprimer Module {moduleIndex+1}</button>
+                                                        <button type="button" class="btn bg-red-600 rounded-3xl py-2 text-white text-xs" onClick={() => remove(moduleIndex)}>Supprimer Module {moduleIndex + 1}</button>
                                                     </div>
                                                 ))}
-                                                <button type="button" class="btn bg-blue-700 rounded-3xl text-white text-md" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>+ Ajouter Module</button>
+                                                <button type="button" class="btn bg-blue-700 rounded-3xl  text-white text-md" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>+ Ajouter Module</button>
                                             </div>
                                         )}
                                     </FieldArray>
@@ -365,9 +402,12 @@ const FormationAddPage = () => {
                                         LoadingAll ?
                                             <LoadinButton text={"Uploade Fichier en cours ..."} />
                                             :
-                                            <button type="submit" className="bg-blue-900 rounded-3xl text-white px-4 py-2  hover:bg-blue-600 mt-4">
-                                                Enregistrer Formation
-                                            </button>
+                                            loading ?
+                                                (<LoadinButton text={"Enregistrement en cours .."} />)
+                                                :
+                                                <button type="submit" className="bg-blue-900 rounded-3xl text-white px-4 py-2  hover:bg-blue-600 mt-4">
+                                                    Enregistrer Formation
+                                                </button>
                                     }
                                 </Form>
                             )}
@@ -378,7 +418,7 @@ const FormationAddPage = () => {
 
                 </div>
             </div>
-        </section>
+        </section >
 
     )
 }

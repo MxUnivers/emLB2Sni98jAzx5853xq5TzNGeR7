@@ -15,7 +15,7 @@ const ReactQuillWrapper = ({ value, onChange }) => {
   }, [quill, onChange]);
 
   return (
-    <div ref={quillRef} style={{ height: '300px' }} />
+    <div ref={quillRef} style={{ height: '200px' }} />
   );
 };
 

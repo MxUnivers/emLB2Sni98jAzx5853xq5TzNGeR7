@@ -1,7 +1,7 @@
 import React from 'react'
 
-const FormationCard = ({item}) => {
-    
+const FormationCard = ({ item }) => {
+
     return (
         <a class='rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none'
             href='#'>
@@ -13,10 +13,8 @@ const FormationCard = ({item}) => {
                 </div>
                 <div class="mt-6 space-y-6 sm:mt-0 sm:w-2/3 md:w-3/5 lg:w-2/3">
                     <div class="">
-                        <h4 class="text-xl font-semibold text-gray-800 dark:text-white">Increased sales by
-                            360%</h4>
-                        <p class="mt-2 text-gray-600 dark:text-gray-400">Sint libero voluptas veniam at
-                            reprehenderit, veritatis harum et rerum.</p>
+                        <h4 class="text-xl font-semibold text-gray-800 dark:text-white">{item.formationTitle}</h4>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 line-clamp-2">{item.description}</p>
 
                         <div
                             class="relative my-4 before:absolute before:inset-y-0 before:-left-0.5 before:z-[1] before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-gray-400 after:absolute after:inset-y-0 after:-right-0.5 after:z-[1] after:my-auto after:h-1 after:w-1 after:rounded-full after:bg-gray-400">
@@ -36,8 +34,13 @@ const FormationCard = ({item}) => {
                                 </div>
                             </div>
                         </div>
-                        <p class="text-gray-600 dark:text-gray-400">Sint libero voluptas veniam at
-                            reprehenderit, veritatis harum et rerum.</p>
+
+                        {item && item.candidats ?
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Candidat inscrit {item.candidats.length}
+                            </p> :
+                            null}
+
                     </div>
                 </div>
             </div>
