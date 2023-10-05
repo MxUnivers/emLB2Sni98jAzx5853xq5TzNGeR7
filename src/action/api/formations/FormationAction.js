@@ -279,6 +279,43 @@ export function FormationGetAllContrat() {
 
 
 
+export function FormationGetAllEntrepriseById(idEntreprise) {
+    const [formations, setformations] = useState([]);
+    const [formations2, setformations2] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            await axios.get(`${baseurl.url}/api/v1/formation/get_formations/${idEntreprise}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setformations(response.data.data);
+                setformations2(response.data.data);
+                setError(null);
+                console.log(response.data.data)
+            })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
+        }
+        fetchData();
+       
+    }, []);
+
+    return { isLoading, error, formations,formations2 };
+}
+
+
+
+
 export default function FormationGetAll() {
     const [formations, setformations] = useState([]);
     const [formations2, setformations2] = useState([]);

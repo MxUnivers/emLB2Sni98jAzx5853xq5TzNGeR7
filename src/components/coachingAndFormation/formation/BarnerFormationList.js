@@ -14,12 +14,13 @@ const BarnerFormationList = () => {
                         <img class="m-auto h-16 w-auto" src="../images/clients/airbnb.svg" loading="lazy" alt="airbnb"
                             width="" height="" />
                         <h1 class="relative mt-6 text-center text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">
-                            Increased sales by
+                            Seance de Coachine & formation sur 
                             <span
-                                class="relative bg-gradient-to-r from-primaryLight to-secondary bg-clip-text px-2 text-5xl text-transparent dark:to-secondaryLight sm:text-6xl">360%</span>
+                                class="relative bg-gradient-to-r from-primaryLight to-secondary bg-clip-text px-2 text-5xl text-transparent dark:to-secondaryLight sm:text-6xl">Jouman</span>
                         </h1>
-                        <p class="my-6 text-gray-600 dark:text-gray-300">Laudantium in, voluptates ex placeat quo harum
-                            aliquam totam, doloribus eum impedit atque...</p>
+                        <p class="my-6 text-gray-600 dark:text-gray-300">
+                        Developpez vos compétences vers le monde de l{"'"}entreprise
+                        </p>
                     </div>
                     <img class="h-auto rounded-3xl object-cover" src={bgImg} alt="abstract background"
                         width="1000" height="668" />

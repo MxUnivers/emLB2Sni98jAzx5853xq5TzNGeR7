@@ -1,9 +1,9 @@
 
 
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react';
-import { Formik, Field, FieldArray, ErrorMessage, Form } from 'formik';
+import { Formik, Field, FieldArray, ErrorMessage, Form, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import ReactQuillWrapper from '../../containers/formations/ReactQuillWrapper';
 import { toast } from 'react-toastify';
@@ -69,9 +69,10 @@ const FormationAddPage = () => {
 
 
     // Uploade Images
-    const [LoadingAll, setLoadingAll] = useState(false);
+
     const [coverPictures, setCoverPictures] = useState([]); // État pour stocker les URLs des images de couverture
 
+    const [LoadingAll, setLoadingAll] = useState(false);
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -142,7 +143,7 @@ const FormationAddPage = () => {
     const uploadSingleVideo = (base64, moduleIndex, leconIndex) => {
         setLoadingAll(true);
         axios
-            .post(`${baseurl.url}/uploadVideo`, { video: base64 }) // Assurez-vous que le serveur accepte les vidéos
+            .post(`${baseurl.url}/uploadVideo`, { image: base64 }) // Assurez-vous que le serveur accepte les vidéos
             .then((res) => {
                 // Récupérer l'URL de la vidéo depuis la réponse du serveur
                 const videoUrl = res.data;
@@ -186,14 +187,16 @@ const FormationAddPage = () => {
 
 
 
+    // Uploade de la photo de la formation 
+
+
+    const [logoUrl, setLogoUrl] = useState('');
 
 
 
 
 
-
-
-
+    const fileInputRef = useRef(null);
 
 
     const dispatch = useDispatch();
@@ -232,7 +235,7 @@ const FormationAddPage = () => {
                             validationSchema={validationSchema}
                             onSubmit={handleSubmit}
                         >
-                            {({ values, errors }) => (
+                            {({ values, errors, setFieldValue }) => (
                                 <Form>
                                     {/* Informations sur la formation */}
                                     <div className="mb-4">
@@ -245,6 +248,61 @@ const FormationAddPage = () => {
                                         />
                                         <ErrorMessage name="formationTitle" component="div" className="text-red-500" />
                                     </div>
+
+
+
+                                    <div className="mb-4">
+                                        <label htmlFor="logo" className="block font-medium">Logo de la formation</label>
+                                        {/* Aperçu de l'image */}
+                                        {values.logo && (
+                                            <img src={values.logo} alt="Aperçu du logo" style={{ maxWidth: '100px' }} />
+                                        )}
+                                        <label htmlFor="logo" className="block btn cursor-pointer font-medium">
+                                            Sélectionnez une image
+                                        </label>
+                                        <input
+                                            type="file"
+                                            accept=".JPEG,.PNG,.JPG"
+                                            id="logo"
+                                            name="logo"
+                                            style={{ display: 'none' }}
+                                            ref={fileInputRef}
+                                            // Ajoutez une référence pour le champ de fichier
+                                            onChange={async (e) => {
+                                                const files = e.target.files;
+
+                                                if (files.length === 1) {
+                                                    try {
+                                                        const base64 = await convertBase64(files[0]);
+                                                        setLoadingAll(true);
+                                                        axios
+                                                            .post(`${baseurl.url}/uploadImage`, { image: base64 })
+                                                            .then((res) => {
+                                                                // Mettez à jour la valeur du champ "logo" avec l'URL de l'image
+                                                                setFieldValue('logo', res.data);
+                                                                setLoadingAll(false);
+                                                                console.log(res.data)
+                                                            })
+                                                            .catch((err) => {
+                                                                console.log("Erreur lors du téléchargement de la photo",err);
+                                                                toast.error("Photo non téléchargée !");
+                                                                setLoadingAll(false);
+                                                            });
+                                                    } catch (error) {
+                                                        console.error("Erreur lors de la conversion en base64 :", error);
+                                                        toast.error("Une erreur s'est produite lors de l'upload de l'image");
+                                                        setLoadingAll(false);
+                                                    }
+                                                }
+                                            }}
+                                        />
+
+                                        <ErrorMessage name="logo" component="div" className="text-red-500" />
+
+                                        {/* Le reste de votre formulaire */}
+
+                                    </div>
+
                                     <div className="mb-4">
                                         <label htmlFor="areaFormation" className="block font-medium">Zone de formation</label>
                                         <Field
