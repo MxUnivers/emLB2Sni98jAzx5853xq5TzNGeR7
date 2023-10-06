@@ -7,7 +7,7 @@ import LoadingCompo1 from '../../components/loading/LoadingCompo1';
 
 const FormationdetailPage = () => {
 
-    var idFormation =localStorage.getItem(localvalue.formationId)
+    var idFormation = localStorage.getItem(localvalue.formationId)
     const { isLoading, error, formation } = FormationGetById(idFormation);
 
 
@@ -26,7 +26,7 @@ const FormationdetailPage = () => {
                                         <ul class="relative space-y-3 border-l px-6 text-base dark:border-gray-700">
                                             <div id="link-indicator"
                                                 class="link-indicator link-indicator absolute top-0 -left-[3.5px] z-[1] h-6 w-1.5 rounded-full border-2 border-white bg-primary transition-[top] dark:border-gray-900 dark:bg-secondaryLight"
-                                                style={{top: "0px"}}></div>
+                                                style={{ top: "0px" }}></div>
                                             {
                                                 isLoading ?
                                                     (<LoadinButton text={"Module de formation"} />) :
@@ -59,73 +59,68 @@ const FormationdetailPage = () => {
                             <div class="space-y-12 text-gray-600 dark:text-gray-400 lg:col-span-4 xl:col-span-4 xl:col-start-2">
                                 <div class="space-y-6">
                                     {
-                                        formation && formation.formationTitle ? 
-                                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">
-                                    {formation.formationTitle}
-                                    </h2>:
-                                    <div>...</div>
+                                        formation && formation.formationTitle ?
+                                            <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">
+                                                {formation.formationTitle}
+                                            </h2> :
+                                            <div>...</div>
                                     }
 
                                     {
                                         formation && formation.logo ?
-                                        <img class="rounded-2xl h-[300px] w-full " src={formation.logo} loading="lazy"
-                                        alt="abstract background " />
-                                        : null
+                                            <img class="rounded-2xl h-[300px] w-full " src={formation.logo} loading="lazy"
+                                                alt="abstract background " />
+                                            : null
                                     }
                                     {
                                         formation && formation.description ?
-                                        <div class="space-y-4">
-                                        <p>{formation.description}</p>
-                                    </div>
-                                    : null
+                                            <div class="space-y-4">
+                                                <p>{formation.description}</p>
+                                            </div>
+                                            : null
                                     }
                                 </div>
 
-                                <div class="space-y-6">
-                                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Our New Design Token
-                                        Manager</h2>
-                                    <div class="space-y-4">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus corporis dolores
-                                            dolorem voluptas expedita, nulla explicabo qui aliquid facilis quam, facere voluptatem
-                                            accusantium minus recusandae, exercitationem ipsam alias impedit.</p>
-                                        <p>Lorem ipsum dolor sit amet <a href="#"
-                                            class="font-medium text-primary underline dark:text-primaryLight">Rem ducimus
-                                            corporis</a> dolores dolorem voluptas expedita, nulla explicabo qui aliquid facilis
-                                            quam, facere voluptatem accusantium minus recusandae, exercitationem ipsam alias
-                                            impedit.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident accusantium placeat
-                                            distinctio ratione reprehenderit quam quasi quia, dolores facilis quod cumque tempore?
-                                            Dolorem nisi, aperiam harum nam repellendus deleniti odio.</p>
-                                    </div>
-                                    
-                                </div>
+                                {
+                                    formation.modules.map((item, index) => {
+                                        return (
+                                            <div class="my-5">
+                                                <div class="space-y-6">
+                                                    <h2 class="text-xxl font-bold text-blue-800 dark:text-white md:text-2xl">
+                                                        {item.moduleLabel ? `module ${index + 1}  : `.toLocaleUpperCase() : ""}
+                                                        {item.moduleLabel} </h2>
+                                                </div>
 
-                                <div class="space-y-6">
-                                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Our New Design Token
-                                        Manager</h2>
-                                    <div class="space-y-4">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus corporis dolores
-                                            dolorem voluptas expedita, nulla explicabo qui aliquid facilis quam, facere voluptatem
-                                            accusantium minus recusandae, exercitationem ipsam alias impedit.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus corporis dolores
-                                            dolorem voluptas expedita, nulla explicabo qui aliquid facilis quam, facere voluptatem
-                                            accusantium minus recusandae, exercitationem ipsam alias impedit.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident accusantium placeat
-                                            distinctio ratione reprehenderit quam quasi quia, dolores facilis quod cumque tempore?
-                                            Dolorem nisi, aperiam harum nam repellendus deleniti odio.</p>
-                                    </div>
+                                                {
+                                                    item.lecons.map((item, index) => {
+                                                        return (
+                                                            <div class="space-y-10">
+                                                                <h2 class="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> Lecon {index + 1} :  {item.leconTitle}</h2>
 
-                                    <div class="grid gap-6 md:grid-cols-3 lg:-ml-48 xl:-mx-48">
-                                        <img class="h-96 w-full rounded-2xl object-cover" src="../images/blog/blog-cover.webp"
-                                            alt="abstract background" width="1556" height="778" />
-                                        <img class="h-96 w-full rounded-2xl object-cover" src="../images/blog/blog-cover2.webp"
-                                            alt="abstract background" width="1556" height="778" />
-                                        <img class="h-96 w-full rounded-2xl object-cover" src="../images/blog/cover.webp"
-                                            alt="abstract background" width="1556" height="668" />
-                                    </div>
-                                </div>
+                                                                {
+                                                                    item && item.coverPicture ?
+                                                                        <div class="grid grid-cols-1 lg:ml-1 xl:mx-5">
+                                                                            <img class="h-96 w-full rounded-2xl object-cover" src={item.coverPicture}
+                                                                                alt="abstract background" width="1556" height="778" />
+                                                                        </div> : null
+                                                                }
 
-                                <div class="space-y-6">
+                                                                <div class="space-y-4">
+                                                                    <div class="mt-10 mb-10" dangerouslySetInnerHTML={{ __html: item.leconContent }} />
+                                                                </div>
+
+
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+
+                                            </div>
+                                        )
+                                    })
+                                }
+                                {
+                                    /*<div class="space-y-6">
                                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Sales inscreased by
                                         360%</h2>
                                     <div class="space-y-4">
@@ -136,10 +131,12 @@ const FormationdetailPage = () => {
                                             distinctio ratione reprehenderit quam quasi quia, dolores facilis quod cumque tempore?
                                             Dolorem nisi, aperiam harum nam repellendus deleniti odio.</p>
                                     </div>
-                                </div>
+                                </div> */
+                                }
                             </div>
                         </div>
-                        <div class="mx-auto py-20 lg:w-3/5">
+                        {
+                            /*<div class="mx-auto py-20 lg:w-3/5">
                             <h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-white">Next case study</h3>
                             <div class="mt-8 grid">
                                 <a class='rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none'
@@ -182,7 +179,8 @@ const FormationdetailPage = () => {
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> */
+                        }
                     </div>
                 </section>
 
