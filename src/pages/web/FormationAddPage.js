@@ -50,13 +50,15 @@ const FormationAddPage = () => {
         idEntreprise: Yup.string(),
         urlVideo: Yup.string(),
         formationTitle: Yup.string().required('Le titre de la formation est requis'),
+        logo: Yup.string().required('Image de formation requise'),
         // Ajoutez ici les règles de validation pour les autres champs
         modules: Yup.array().of(
             Yup.object().shape({
-                moduleLabel: Yup.string().required('Le label du module est requis'),
+                moduleLabel: Yup.string().required('Le titre du module est requis'),
                 lecons: Yup.array().of(
                     Yup.object().shape({
                         leconTitle: Yup.string().required('Le titre de la leçon est requis'),
+                        leconContent: Yup.string().required('Le contenu de la leçon est requise'),
                         // Ajoutez ici les règles de validation pour les champs de leçon
                     })
                 ),
