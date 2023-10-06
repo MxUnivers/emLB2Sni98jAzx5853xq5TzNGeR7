@@ -286,7 +286,7 @@ const FormationAddPage = () => {
                                                                 console.log(res.data)
                                                             })
                                                             .catch((err) => {
-                                                                console.log("Erreur lors du téléchargement de la photo",err);
+                                                                console.log("Erreur lors du téléchargement de la photo", err);
                                                                 toast.error("Photo non téléchargée !");
                                                                 setLoadingAll(false);
                                                             });

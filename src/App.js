@@ -34,6 +34,7 @@ import CoachingAndFormationPage from "./pages/web/CoachingAndFormationPage";
 import FormationPage from "./pages/web/FormationPage";
 import FormationProfilePage from "./pages/web/FormationProfilePage";
 import FormationAddPage from "./pages/web/FormationAddPage";
+import FormationdetailPage from "./pages/web/FormationdetailPage";
 
 
 
@@ -83,6 +84,7 @@ function App() {
             <Route path={`${routing.bourse_list}`} element={<BoursesEtudePage />} />
             <Route path={`${routing.coaching_list}`} element={<CoachingAndFormationPage />} />
             <Route path={`${routing.formation_list}`} element={<FormationPage />} />
+            <Route path={`${routing.formation_detail}`} element={<FormationdetailPage />} />
             <Route path={`${routing.formation_list_entreprise}`} element={<FormationProfilePage />} />
             <Route path={`${routing.formation_add}`} element={<FormationAddPage />} />
 
@@ -98,11 +100,11 @@ function App() {
 
 
             {/*Manage Pring */}
-            <Route path={`${routing.pricing}`} element={<PrincingPage/>}  />
-            <Route path={`${routing.checkout}`} element={<CheckOutPage/>}  />
+            <Route path={`${routing.pricing}`} element={<PrincingPage />} />
+            <Route path={`${routing.checkout}`} element={<CheckOutPage />} />
 
-            
-            
+
+
           </Route>
           <Route path={`/*`} element={<ErrorPage />} />
 

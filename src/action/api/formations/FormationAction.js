@@ -16,7 +16,7 @@ export const FormationCreate = (
 ) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        if (getAndCheckLocalStorage(localvalue.recruteurID) && getAndCheckLocalStorage(localvalue.TYPEACCESS)===typePersonConnected[0]) {
+        if (getAndCheckLocalStorage(localvalue.recruteurID) && getAndCheckLocalStorage(localvalue.TYPEACCESS) === typePersonConnected[0]) {
             await axios
                 .post(`${baseurl.url}/api/v1/formation/post/${getAndCheckLocalStorage(localvalue.recruteurID)}`,
                     FormData, {
@@ -140,29 +140,6 @@ export const FormationGetAllById = async (id, setState, setState2) => {
 
 
 // 
-export const FormationGetById = async (id, setState,setisLoading,setentreprise) => {
-
-    
-    setisLoading(true);
-        await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            }
-        )
-            .then((response) => {
-                setisLoading(false);
-                setState(response.data.data);
-                setentreprise(response.data.entreprise)
-            })
-            .catch((error) => {
-                setisLoading(false);
-                console.log(error);
-            });
-
-}
 
 
 
@@ -177,7 +154,7 @@ export function FormationGetAllCategory() {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
-            
+
             try {
                 const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
                     headers: {
@@ -185,7 +162,7 @@ export function FormationGetAllCategory() {
                         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                     }
                 });
-        
+
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
                     console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
@@ -215,10 +192,10 @@ export function FormationGetAllCategory() {
             setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, category,category2 };
+    return { isLoading, error, category, category2 };
 }
 
 
@@ -233,7 +210,7 @@ export function FormationGetAllContrat() {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
-            
+
             try {
                 const response = await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
                     headers: {
@@ -241,7 +218,7 @@ export function FormationGetAllContrat() {
                         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                     }
                 });
-        
+
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
                     console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
@@ -271,10 +248,10 @@ export function FormationGetAllContrat() {
             setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, category,category2 };
+    return { isLoading, error, category, category2 };
 }
 
 
@@ -307,10 +284,10 @@ export function FormationGetAllEntrepriseById(idEntreprise) {
             setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, formations,formations2 };
+    return { isLoading, error, formations, formations2 };
 }
 
 
@@ -344,8 +321,65 @@ export default function FormationGetAll() {
             setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, formations,formations2 };
+    return { isLoading, error, formations, formations2 };
+}
+
+export function FormationGetById(idFormation) {
+    const [formation, setformation] = useState(
+        {
+            idEntreprise: '',
+            urlVideo: '',
+            formationTitle: '',
+            logo: '',
+            areaFormation: '',
+            description: '',
+            modules: [{ moduleLabel: '', lecons: [{ leconTitle: '', coverPicture: '', video: '', leconContent: '' }] }],
+            duree: '',
+            dateBegin: '',
+            dateEnd: '',
+            coach: {
+                coachWork: '',
+                coachNaissance: '',
+                coachName: '',
+                coachCoverPicture: '',
+                coachSchool: '',
+            },
+            lieu: '',
+            price: '',
+            capaciteMax: '',
+            candidats: [],
+            inscriptionOuverte: false,
+        }
+
+    );
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            await axios.get(`${baseurl.url}/api/v1/formation/get_formation/${idFormation}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setformation(response.data.data);
+                setError(null);
+            })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
+        }
+        fetchData();
+
+    }, []);
+
+    return { isLoading, error, formation };
 }

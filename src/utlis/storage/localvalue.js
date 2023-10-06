@@ -1,6 +1,7 @@
 export const localvalue = {
 
     TYPEACCESS:"TYPEPERSON",
+    
 
     candidatID :"candidatID",
     candidatTYPE:"candidatTYPE",
@@ -10,7 +11,10 @@ export const localvalue = {
     recruteurTYPE:"recuteurTYPE",
     recruteurDetailID:"recuteurDetailID",
 
+    //formation
+    formationId :"formationId",
 
+    //
     tokenAUTH:"tokenAUTH",
 
     JobID:"JobID",

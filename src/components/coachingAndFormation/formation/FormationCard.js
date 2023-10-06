@@ -1,9 +1,16 @@
 import React from 'react'
+import { localvalue } from '../../../utlis/storage/localvalue';
+import { routing } from '../../../utlis/routing';
 
 const FormationCard = ({ item }) => {
 
     return (
-        <a class='rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none'
+        <div 
+        onClick={()=>{
+            localStorage.setItem(localvalue.formationId,item._id);
+            window.location.href=`/${routing.formation_detail}`;
+        }}
+        class='rounded-3xl cursor-pointer border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none'
             href='#'>
             <div class="relative gap-6 sm:flex">
                 <div
@@ -50,7 +57,7 @@ const FormationCard = ({ item }) => {
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     )
 }
 
