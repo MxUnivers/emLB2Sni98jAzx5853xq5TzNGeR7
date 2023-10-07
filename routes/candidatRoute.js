@@ -4,25 +4,42 @@ const CandidatModel = require('../models/CandidatModel');
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
 const { error } = require('firebase-functions/logger');
+const { generateRandomPassword } = require('../utils/passwordCrypt');
+const sendEmail = require('../utils/emailSender');
 
 // Fonction pour créer un candidat
 router.post("/", AuthorizationMiddleware, async (req, res) => {
 
   // Vérifier si l'email existe déjà dans la base de données
   try {
-    const { username, email, password } = req.body;
+    const { username, email } = req.body;
     // Vérifier si l'email existe déjà
     const candidatExist = await CandidatModel.findOne({ email, username });
     if (candidatExist) {
       return res.status(400).json({ message: 'Cet candidat existe déja ! ' });
     }
     // Hacher le mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const passwordRandom = generateRandomPassword(10);
+    const hashedPassword = await bcrypt.hash(passwordRandom, 10);
+
+
+
+
+
+
     // Créer un nouvel administrateur
     const newCandidat = new CandidatModel(req.body);
     newCandidat.password = hashedPassword;
+
     newCandidat._is_active = false;
     await newCandidat.save();
+    sendEmail(
+      "aymarbly559@gmail.com",
+      "a g c t x y x c o x s k v a g k",
+      `${newCandidat.email}`,
+      "Bienevenue sur Jouman",
+      `Votre mot de passe  : ${passwordRandom}`
+    );
     // Renvoyer une réponse JSON
     return res.status(200).json({ message: 'Inscription du candidat réussi' });
   } catch (error) {
