@@ -3,7 +3,7 @@ const { statusPACKS } = require('../utils/FormatApi');
 
 const CandidatSchema = new mongoose.Schema({
     username: {
-        type: String, required: false
+        type: String, required: false,unique:true
     },
     firstname: {
         type: String, required: false
