@@ -508,7 +508,7 @@ const SignUpRecruteurPage = () => {
 
                             </form>
                             {
-                                error && <p class="text-red-300 mt-2 mb-1">Inscription impossible {error.message}</p>
+                                error && <p class="text-red-300 mt-2 mb-1"></p>
                             }
 
 

@@ -105,9 +105,12 @@ const CompanyDetailPage = () => {
                                             </div>
 
                                             <div class="mt-4">
-                                                <a href="company-details.html"
+                                                <button  type="button"
+                                                onClick={()=>{
+                                                    window.location.href=`/${routing.company_edit}`
+                                                }}
                                                     class="btn btn-primary btn-hover w-100 rounded"><i
-                                                        class="mdi mdi-eye"></i> Modifier profile</a>
+                                                        class="mdi mdi-eye"></i> Modifier profile</button>
                                             </div>
 
 

@@ -70,9 +70,6 @@ const SignInPage = () => {
         if (password == "") {
             return toast.error("Mot de passe  requis !");
         }
-
-
-
         event.preventDefault();
         dispatch(CandidatConnexion(email, password,navigate, toast));
 

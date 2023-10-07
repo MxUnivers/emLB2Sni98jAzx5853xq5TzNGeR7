@@ -5,6 +5,8 @@ import { baseurl } from "../../../utlis/url/baseurl";
 import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
 import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 
@@ -16,7 +18,7 @@ export const REQUEST_FAILURE = "REQUEST_FAILURE";
 
 
 
-// Fonction pour ajouter des administrateurs à l'application
+//  *************************************** Authentification ************************************
 export const EntrepriseSignUp = (
 
     username,
@@ -61,13 +63,13 @@ export const EntrepriseSignUp = (
                     "telephone": telephone,
                     "telephone_entreprise": telephone_entreprise,
                     "logo": logo,
-                    "employers_count":employers_count,
+                    "employers_count": employers_count,
 
                     "title_post": title_post,
                     "salaire_capital": salaire_capital,
                     "addresse_entreprise": addresse_entreprise,
                     "pays_entreprise": pays_entreprise,
-                    "maps_entreprise":maps_entreprise,
+                    "maps_entreprise": maps_entreprise,
                     "site_web": site_web,
                     "secteur_activites": secteur_activites,
                     "langues": langues,
@@ -89,9 +91,9 @@ export const EntrepriseSignUp = (
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success(`${response.message}`);
                 setTimeout(() => {
-                    window.location.href=`/${routing.connexion_recuteur}`;
+                    window.location.href = `/${routing.connexion_recuteur}`;
                 }, 2500);
-                
+
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -100,15 +102,14 @@ export const EntrepriseSignUp = (
     };
 }
 
-
-
-export const EntrepriseConnexion = (email,password, redirect, toast) => {
+ 
+export const EntrepriseConnexion = (email, password, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .post(`${baseurl.url}/api/v1/auth/entreprise/login`, {
-                "email":email,
-                "password":password
+                "email": email,
+                "password": password
             }, {
                 headers:
                 {
@@ -123,20 +124,19 @@ export const EntrepriseConnexion = (email,password, redirect, toast) => {
                 handleClearLocalStorage();
                 // redirect(`/${routing.candidatDashboard.path}`);
                 toast.success("Connexion Réussi ! ");
-                
+
                 // Assignation de données 
                 setWithExpiration(
                     localvalue.recruteurID,
                     response.data.data._id,
                     dureeDeVie
                 );
-
                 setWithExpiration(
                     localvalue.TYPEACCESS,
                     typePersonConnected[0],
                     dureeDeVie
                 );
-                
+
                 setTimeout(() => {
                     redirect(`/${routing.company_details}`);
                 }, 3000);
@@ -154,6 +154,12 @@ export const EntrepriseConnexion = (email,password, redirect, toast) => {
 
 
 
+
+
+// ********************************   Modification du  Profile *****************************
+
+
+
 export const EntrepriseDisConnect = (id) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -167,18 +173,6 @@ export const EntrepriseDisConnect = (id) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-
-                // // ReRecupérer les données de connexion 
-                // localStorage.removeItem(localvalue.emloyeur.idEmployeur);
-                // localStorage.removeItem(localvalue.emloyeur.coverPictureEmployeur);
-                // localStorage.removeItem(localvalue.emloyeur.tokenEmployeur);
-                // localStorage.removeItem(localvalue.typeAdmin);
-
-                // // Deconnexion du candidat
-                // localStorage.removeItem(localvalue.candidat.tokenCandidat);
-                // localStorage.removeItem(localvalue.candidat.idCandidat);
-                // localStorage.removeItem(localvalue.candidat.emailCandidat);
-                // localStorage.removeItem(localvalue.candidat.coverPictureCandidat);
                 alert("deconnexion réussi")
                 handleClearLocalStorage();
                 window.location.reload();
@@ -195,142 +189,9 @@ export const EntrepriseDisConnect = (id) => {
 
 
 
+//   **************************************    Offre de l'employeurs *******************
 
 
-export const EntrepriseEditProfile = (id,
-
-    // const [username, setusername] = useState("")
-    // const [entreprise, setentreprise] = useState("");
-    // const [email, setemail] = useState("");
-    // const [telephone, settelephone] = useState("");
-    // const [secteurActivites, setsecteurActivites] = useState("");
-    // const [address, setaddress] = useState();
-    // const [pays, setpays] = useState();
-    // const [facebook, setfacebook] = useState();
-    // const [instagram, setinstagram] = useState();
-    // const [twitter, settwitter] = useState();
-    // const [linkdine, setlinkdine] = useState();
-    // const [description, setdescription] = useState();
-
-
-    data, toast) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/entreprise/edit/${id}`, data, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Profile modifier avec succès");
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Impossible de modifier le profile");
-            });
-    };
-}
-
-
-
-// Une entreprise qui poste une annonce
-export const EntreprisePostAnnonce = (
-    id,
-    titre, entreprise, description, typeAnnonce,
-    telephone, email, salaire, lieu, pays,
-    secteurs_activites, dateDebut, toast
-) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/entreprise/post_entreprise/${id}/annonces`,
-                {
-                    "titre": titre,
-                    "entreprise": entreprise,
-                    "description": description,
-                    "typeAnnonce": typeAnnonce,
-                    "telephone": telephone,
-                    "email": email,
-                    "lieu": lieu,
-                    "pays": pays,
-                    "salaire": salaire,
-                    "secteurs_activites": secteurs_activites,
-                    "dateDebut": dateDebut
-                }, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Annonce Créer avec succès");
-                setTimeout(() => {
-                    window.location.reload()
-                }, 2000);
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Impossible de Créer un annonce");
-            });
-    };
-}
-
-
-//Modifier cette annonce
-export const EntrepriseEditAnnonce = (
-    id,
-    titre, entreprise, description, typeAnnonce,
-    telephone, email, salaire, lieu, pays,
-    secteurs_activites, dateDebut, toast
-) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .put(`${baseurl.url}/api/v1/annonce/edit/${id}`,
-                {
-                    "titre": titre,
-                    "entreprise": entreprise,
-                    "description": description,
-                    "typeAnnonce": typeAnnonce,
-                    "telephone": telephone,
-                    "email": email,
-                    "lieu": lieu,
-                    "pays": pays,
-                    "salaire": salaire,
-                    "secteurs_activites": secteurs_activites,
-                    "dateDebut": dateDebut
-                }, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Annonce modifier avec succès");
-                setTimeout(() => {
-                    window.location.reload()
-                }, 2000);
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Annonce nom modifier");
-            });
-    };
-}
-
-
-
-
-
-// Une entreprise qui poste une anonnce
 export const EntreprisePostOffre = (id,
     titre, entreprise, description, typeOffre, typeContrat,
     telephone, email, salaire, lieu, pays,
@@ -375,7 +236,6 @@ export const EntreprisePostOffre = (id,
 }
 
 
-//modifier offre de l'entreprise
 export const EntrepriseEditOffre = (id,
     titre, entreprise, description, typeOffre, typeContrat,
     telephone, email, salaire, lieu, pays,
@@ -421,22 +281,133 @@ export const EntrepriseEditOffre = (id,
 
 
 
+//                                   Modification du profile de l'employeur
 
 
-
-
-
-
-
-
-
-
-
-export const EntrepriseEditPassword = (id, data) => {
+export const EntrepriseEditCompetence = (
+    id,
+    salaire_capital,
+    employers_count,
+    pays_entreprise,
+    title_post, secteur_activites,langues,
+    description_entreprise
+    , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/entreprise/password/edit/${id}`, data, {
+            .put(`${baseurl.url}/api/v1/entreprise/edit/${id}`,
+                {
+
+                    "salaire_capital": salaire_capital,
+                    "employers_count": employers_count,
+                    "pays_entreprise": pays_entreprise,
+                    "title_post": title_post,
+                    "secteur_activites":secteur_activites,
+                    "langues":langues,
+                    "description_entreprise": description_entreprise
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Mis à jour réussi")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Misa a jour  impossible !")
+            });
+    };
+}
+
+
+
+
+// Edit Competence
+export const EntrepriseEditSocial = (
+    id,
+    facebook_url,
+    linkedin_url,
+    twitter_url,
+    instagram_url,
+    site_web
+    , toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/entreprise/edit/${id}`,
+                {
+
+                    "facebook_url": facebook_url,
+                    "linkedin_url": linkedin_url,
+                    "twitter_url": twitter_url,
+                    "instagram_url": instagram_url,
+                    "site_web": site_web,
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Mis à jour réussi")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Misa à jour impossible !")
+            });
+    };
+}
+
+
+
+
+export const EntrepriseEditPhoto = (
+    id, coverPicture, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/entreprise/edit/${id}`,
+                {
+                    "logo": coverPicture
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Photo modifer")
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Photo non modifié !")
+            });
+    };
+}
+
+
+
+
+// candidat edit password
+export const EntrepriseEditPassword = (id, password, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/entreprise/password/edit/${id}`,
+                {
+                    "password": password
+                }, {
                 headers:
                 {
                     'Content-Type': 'application/json',
@@ -445,13 +416,75 @@ export const EntrepriseEditPassword = (id, data) => {
             })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                window.location.reload();
+                toast.success("Mise a jour mot passe effectuer");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Mot passe non modifier");
             });
     };
 }
+
+
+
+export const EntrepriseEditGenerale = (
+    id,
+    username,
+    firstname,
+    lastname,
+    dateNaissance,
+    email,
+    title_post,
+    telephone,
+     toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/entreprise/edit/${id}`,
+                {
+                    "username": username,
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "dateNaissance": dateNaissance,
+                    "email": email,
+                    "title_post": title_post,
+                    "telephone": telephone,
+                }, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Profile mis à jour")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Mis à jour impossible !")
+            });
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -471,7 +504,7 @@ export const EntrepriseGetAll = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.body);
         });
 
 }
@@ -492,7 +525,7 @@ export const EntrepriseGetById = async (id, setState) => {
             setState(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.body);
         });
 
 }
@@ -515,7 +548,7 @@ export const EntrepriseGetAllAnnonces = async (id, setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error.body);
         });
 
 }
@@ -533,7 +566,7 @@ export const EntrepriseGetAllOffres = async (id, setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
-            console.log(JSON.stringify(response.data.data));
+            // console.log(JSON.stringify(response.data.data));
         })
         .catch((error) => {
             console.log(error);
@@ -541,3 +574,68 @@ export const EntrepriseGetAllOffres = async (id, setState, setState2) => {
 
 }
 
+
+export function useFetchEntreprise(idEntreprise) {
+    const [entreprise, setCompany] = useState({
+        logo: "",
+        username: "",
+        full_name: "",
+        email: "",
+        telephone: "",
+        employers_count:"",
+        dateNaissance:"",
+        firstname: "",
+        lastname: "",
+        title_post: "",
+        addresse_entreprise: "",
+        pays_entreprise: "",
+        adresse: "",
+        salaire_capital:"",
+        description_entreprise:"",
+        dateNaissance:"",
+        secteur_activites:[],
+        site_web:"",
+        dateNaissance_entreprise:"",
+        facebook_url:"",
+        linkedin_url:"",
+        twitter_url:"",
+        instagram_url:"",
+        bookmarks:[],
+        offres: [
+            {
+                _id: ""
+            }
+        ]
+    });
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            // console.log(idEntreprise);
+            await axios.get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${idEntreprise}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setCompany(response.data.data);
+                setError(null);
+                // console.log(response.data.data)
+            })
+                .catch((error) => {
+                    // console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
+        }
+
+        if (idEntreprise) {
+            fetchData();
+        }
+    }, [idEntreprise]);
+
+    return { isLoading, error, entreprise };
+}

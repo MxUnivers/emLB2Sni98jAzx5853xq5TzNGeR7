@@ -22,7 +22,6 @@ import CandidatureRecruteurListPage from "./pages/web/CandidatureRecruteurListPa
 import CompanyDetaiOffrelPage from "./pages/web/CompanyDetaiOffrelPage";
 import ErrorPage from "./pages/web/ErrorPage";
 import PrincingPage from "./pages/web/PrincingPage";
-import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
 import BlogPage from "./pages/web/BlogPage";
 import BogPostPage from "./pages/web/BogPostPage";
 import BlogDetailPage from "./pages/web/BlogDetailPage";
@@ -35,6 +34,8 @@ import FormationPage from "./pages/web/FormationPage";
 import FormationProfilePage from "./pages/web/FormationProfilePage";
 import FormationAddPage from "./pages/web/FormationAddPage";
 import FormationdetailPage from "./pages/web/FormationdetailPage";
+import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
+import CompanyEditProfilePage from "./pages/web/CompanyEditProfilePage";
 
 
 
@@ -66,6 +67,8 @@ function App() {
             <Route path={`${routing.job_details}`} element={<JobDetailPage />} />
             <Route path={`${routing.job_post}`} element={<JobPostPage />} />
             <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
+
+
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
@@ -94,8 +97,11 @@ function App() {
             <Route path={`${routing.candidature_list}`} element={<CandidatureListPage />} />
             <Route path={`${routing.candidature_list_recruteur}`} element={<CandidatureRecruteurListPage />} />
             <Route path={`${routing.candidat_applied}`} element={<JobAppliedWebPage />} />
+
+            {/** Entreprises */}
             <Route path={`${routing.company_details}`} element={<CompanyDetailPage />} />
             <Route path={`${routing.company_details_view}`} element={<CompanyDetaiOffrelPage />} />
+            <Route path={`${routing.company_edit}`} element={<CompanyEditProfilePage />} />
 
 
 

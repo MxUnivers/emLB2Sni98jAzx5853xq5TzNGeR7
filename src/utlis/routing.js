@@ -9,22 +9,32 @@ export const routing = {
     faq:"faq_&_plateforme",
     contact:"contact_us",
     privacy_policy:"condition_utilisation",
+
+
     blog_list:"post-blog-list",
     blog_details:"post-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
     blog_post:"post-blog-"+getAndCheckLocalStorage(localvalue.candidatID),
     blog_edit:"edit-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
+
+
     bourse_list:"listes_des_bourses_de_la_plateforme",
     coaching_list:"coaching_et_formation_de_la_plateforme",
     formation_list:"formation-de-la-plateforme",
     formation_detail:"formation-details",
     formation_add:"ajouter-formation-sur-la-plateforme",
     formation_list_entreprise:"formation-coaching",
+
+
     job_list:"listes_des_emplois_de_la_plateforme",
     job_category:"categrory_jobs",
     job_details:"detail-jobs",
     job_post:"poster-une-offre-emplois",
-    checkout:"bAPYpHsqnhv8cLv2CG62bUFn6r5VPQ6auf67EkMkp365Xid-payment-p3aWxFt7CtCpc25khVxJ2KRH892-card-377D9vS686HB74FL7645fb",
     job_edit:"mise-a-offre-emplois",
+
+
+
+    checkout:"bAPYpHsqnhv8cLv2CG62bUFn6r5VPQ6auf67EkMkp365Xid-payment-p3aWxFt7CtCpc25khVxJ2KRH892-card-377D9vS686HB74FL7645fb",
+    
     candidat_details:"profile-candidat-"+getAndCheckLocalStorage(localvalue.candidatID),
     candidat_details_blog:"profile-blog-post-"+getAndCheckLocalStorage(localvalue.candidatID),
     candidat_details_view:"candidat_details_profile",
@@ -33,9 +43,14 @@ export const routing = {
     candidat_list:"candidats_list_group",
     candidature_list:"candidatures_list_group",
     candidature_list_recruteur:"candidatures_list_group_recruteur",
+
+
     company_list:"conpany_list",
     company_details:`profile-recurteur-${getAndCheckLocalStorage(localvalue.recruteurID)}`,
     company_details_view:"company_detail_view",
+    company_edit:"company-update-profile",
+
+
     connexion:"authentification-connexion-candidat-&=email,mot-de-passe=&",
     connexion_recuteur:"authentification-recruteur-&=email,mot-de-passe=&",
     inscription:"inscription",
