@@ -62,7 +62,7 @@ export const CandidatSignUp = (
                     "linkedin_url": linkedin_url,
                     "twitter_url": twitter_url,
                     "instagram_url": instagram_url,
-                    "password": password
+                    // "password": password
                 }
 
                 , {
@@ -254,6 +254,39 @@ export const CandidatEditPhoto = (
 
 
 
+
+// candidat edit password
+export const CandidatEditPassword = (id, password, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`,
+                {
+                    "password": password
+                }, {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Mise a jour mot passe effectuer");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Mot passe non modifier");
+            });
+    };
+}
+
+
+
+
 // candidatEdit pass
 
 
@@ -330,35 +363,6 @@ export const CandidatPostuleOneOffre = (idcandidat, idOffre, toast) => {
     };
 }
 
-
-// candidat edit password
-export const CandidatEditPassword = (id, password, toast) => {
-    return async (dispatch) => {
-        dispatch({ type: SEND_REQUEST });
-        await axios
-            .put(`${baseurl.url}/api/v1/candidat/password/edit/${id}`,
-                {
-                    "password": password
-                }, {
-                headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            })
-            .then((response) => {
-                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success("Mise a jour mot passe effectuer");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2500);
-            })
-            .catch((error) => {
-                dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Mot passe non modifier");
-            });
-    };
-}
 
 
 

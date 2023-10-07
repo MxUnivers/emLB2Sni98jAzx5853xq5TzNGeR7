@@ -5,6 +5,8 @@ import CompanyCompetence from '../../components/entreprise/account/CompanyCompet
 import CompanyInfo from '../../components/entreprise/account/CompanyInfo';
 import CompanySocial from '../../components/entreprise/account/CompanySocial';
 import CompanyPassword from '../../components/entreprise/account/CompanyPassword';
+import { GrWorkshop } from 'react-icons/gr';
+import { MdWork } from 'react-icons/md';
 
 const CompanyEditProfilePage = () => {
 
@@ -45,15 +47,15 @@ const CompanyEditProfilePage = () => {
 
                             <h1
                                 class="text-lg vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
-                                Mise a jour profile</h1>
+                                Mise a jour profile <span class="btn btn-sm py-2 px-3 bg-gray-300 text-white flex space-x-2"><MdWork class="h-3 w-3" /><span class="text-xs">Recruteur</span></span></h1>
                         </div>
                         <div class=" flex justify-start  border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
                             {
                                 button_list.map((item) => {
                                     return (
                                         <button
-                                        onClick={()=>{setstep(item.id)}}
-                                        class={`btn mx-2 my-2 btn-sm py-2 text-xs ${step==item.id ?"bg-white font-bold text-blue-500":"bg-blue-500 text-white"} `}>
+                                            onClick={() => { setstep(item.id) }}
+                                            class={`btn mx-2 my-2 btn-sm py-2 text-xs ${step == item.id ? "bg-white font-bold text-blue-500" : "bg-blue-500 text-white"} `}>
                                             {item.label}
                                         </button>
                                     )
