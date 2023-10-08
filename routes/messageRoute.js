@@ -1,7 +1,9 @@
 const { AuthorizationMiddleware } = require("../middlewares/Authtoken");
 const CandidatModel = require("../models/CandidatModel");
+const CandidatureModel = require("../models/CandidatureModel");
 const EntrepriseModel = require("../models/EntrepriseModel");
 const MessageModel = require("../models/MessageModel");
+const { envoyerSMS } = require("../utils/sms");
 
 const router = require("express").Router();
 
@@ -16,7 +18,34 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
         message.idSender = idSend;
         message.idRecipient = idRecep;
 
-        await message.save();
+
+
+        // await message.save();
+
+        const candidatureExist = await CandidatureModel.findOne({ idCandidat: idRecep });
+        if (!candidatureExist) {
+            return res.status(409).json({ message: "Candidature non trouvé" });
+        }
+
+        const accountSid = 'AC0ac2e1c72b9b25dcdae2e346f59326c2';
+        const authToken = 'aa3657a62060817b4765df4372758656';
+        const client = require('twilio')(accountSid, authToken);
+
+        client.messages
+            .create({
+                body: `${message.content}`,
+                from: '+12564483104',
+                to: `+${candidatureExist.telephone}`
+            })
+            .then(message => console.log(message.sid))
+            .catch(error => {
+                console.error(error);
+            });
+
+
+
+
+
         return res.status(200).json({ data: message, message: "Message envoyé" });
     } catch (error) {
         return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
@@ -30,7 +59,7 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
 router.get('/get_message/candidat/:idCandidat/messages', AuthorizationMiddleware, async (req, res) => {
     try {
         const id = req.params.idCandidat;
-        const candidatExist = await CandidatModel.findById({_id:id}); // Utilisez simplement id ici
+        const candidatExist = await CandidatModel.findById({ _id: id }); // Utilisez simplement id ici
         if (!candidatExist) {
             return res.status(406).json({ message: "Candidat introuvable !" }); // Utilisez return pour arrêter l'exécution ici
         }
