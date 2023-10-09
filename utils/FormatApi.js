@@ -1,6 +1,10 @@
 const  statusPACKS = [
     "SILVER", "GOLD", "DIAMOND", ]
 
+    const typePersonConnected  = [
+        "RECRUTEUR".toLocaleUpperCase(),
+        "CANDIDAT".toLocaleUpperCase()
+    ]; 
 
 
 
@@ -121,4 +125,4 @@ const secteursActivites = [
 
 
 
-module.exports =  { apiFormatActivite  , secteursActivites,statusPACKS } ;
+module.exports =  { apiFormatActivite  , secteursActivites,statusPACKS , typePersonConnected } ;

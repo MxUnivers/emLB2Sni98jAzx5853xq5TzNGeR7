@@ -40,13 +40,19 @@ const paymentSchema = new mongoose.Schema({
   channels: String,
   metadata: String,
   lang: String,
+  UserID: { type: String, required: false },
+  PackID: { type: String, required: false },
+  TypePersonne: { type: String, required: false },
   invoice_data: {
     Donnee1: String,
     Donnee2: String,
     Donnee3: String,
+    UserID: { type: String, required: false },
+    PackID: { type: String, required: false },
+    TypePersonne: { type: String, required: false }
   },
-},{
-  timestamps:true
+}, {
+  timestamps: true
 });
 
 const PaymentInfoModel = mongoose.model('payment_info', paymentSchema);

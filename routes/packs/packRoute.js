@@ -12,6 +12,7 @@ dotenv.config();
 
 const axios = require("axios");
 const PaymentInfoModel = require("../../models/payment/PaymentInfo");
+const { typePersonConnected } = require("../../utils/FormatApi");
 
 
 // verification
@@ -36,7 +37,7 @@ router.post('/check-cinepay-transaction', async (req, res) => {
         const response = await axios(config)
         console.log(JSON.stringify(response.data));
 
-        
+
         const paymentStatus = await response.data.code;
 
         if (paymentStatus === '00') {
@@ -75,32 +76,35 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
         const transactionId = Math.floor(Math.random() * 100000000).toString();
 
         const data = {
-            apikey: process.env.REACT_APP_API_KEY_CN,
-            site_id: process.env.REACT_APP_SITE_WEB_CN,
-            transaction_id: transactionId,
-            amount: req.body.amount,
-            currency: "XOF",
-            alternative_currency: "",
-            description: "TEST INTEGRATION",
-            customer_id: "172",
-            customer_name: "KOUADIO",
-            customer_surname: "Francisse",
-            customer_email: "harrissylver@gmail.com",
-            customer_phone_number: "+225004315545",
-            customer_address: "Antananarivo",
-            customer_city: "Antananarivo",
-            customer_country: "CM",
-            customer_state: "CM",
-            customer_zip_code: "065100",
-            notify_url: "http://localhost:3000",
-            return_url: "http://localhost:3000",
-            channels: "ALL",
-            metadata: "user1",
-            lang: "FR",
-            invoice_data: {
-                Donnee1: "",
-                Donnee2: "",
-                Donnee3: ""
+            "apikey": process.env.REACT_APP_API_KEY_CN,
+            "site_id": process.env.REACT_APP_SITE_WEB_CN,
+            "transaction_id": transactionId,
+            "amount": req.body.amount,
+            "currency": "XOF",
+            "alternative_currency": "",
+            "description": " TEST INTEGRATION ",
+            "customer_id": "172",
+            "customer_name": "KOUADIO",
+            "customer_surname": "Francisse",
+            "customer_email": "harrissylver@gmail.com",
+            "customer_phone_number": "+225004315545",
+            "customer_address": "Antananarivo",
+            "customer_city": "Antananarivo",
+            "customer_country": "CM",
+            "customer_state": "CM",
+            "customer_zip_code": "065100",
+            "notify_url": "https://webhook.site/d1dbbb89-52c7-49af-a689-b3c412df820d",
+            "return_url": "https://webhook.site/d1dbbb89-52c7-49af-a689-b3c412df820d",
+            "channels": "ALL",
+            "metadata": "user1",
+            "lang": "FR",
+            "invoice_data": {
+                "Donnee1": "",
+                "Donnee2": "",
+                "Donnee3": "",
+                "UserID": req.body.UserID,
+                "PackID": req.body.PackID,
+                "TypePersonne": req.body.TypePersonne
             }
         };
 
@@ -114,6 +118,8 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
         };
 
         const paymentInfo = new PaymentInfoModel(data);
+
+
         await paymentInfo.save();
 
         const response = await axios(config);
@@ -129,50 +135,65 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
 
 
 
-router.post("/candidat/:idCandidat/subscribe/:idPack", /*AuthorizationMiddleware */
+router.post("/:type/:id/subscribe/:idPack", /*AuthorizationMiddleware */
     async (req, res) => {
         try {
-            const idCandidat = req.params.idCandidat;
+            const type = req.params.type; // Peut être "candidat" ou "entreprise"
+            const id = req.params.id;
             const idPack = req.params.idPack;
+
             // Validation des paramètres
-            if (!idCandidat || !idPack) {
-                return res.status(400).json({ message: "Les paramètres idCandidat et idPack sont requis" });
+            if (!type || !id || !idPack) {
+                return res.status(400).json({ message: "Les paramètres type, id et idPack sont requis" });
             }
 
-            const candidatExist = await CandidatModel.findById({ _id: idCandidat });
-            if (!candidatExist) {
-                return res.status(407).json({ message: "Ce candidat n'existe pas" });
+            let userModel, packModel;
+
+            if (type === typePersonConnected[1]) {
+                userModel = CandidatModel;
+                packModel = PackCandidatModel;
+            } else if (type === typePersonConnected[0]) {
+                userModel = EntrepriseModel;
+                packModel = PackEntrepriseModel;
+            } else {
+                return res.status(400).json({ message: "Le type doit être 'candidat' ou 'entreprise'" });
             }
-            const packExist = await PackCandidatModel.findById({ _id: idPack });
+
+            const userExist = await userModel.findById({ _id: id });
+            if (!userExist) {
+                return res.status(407).json({ message: "Cet utilisateur n'existe pas" });
+            }
+
+            const packExist = await packModel.findById({ _id: idPack });
             if (!packExist) {
                 return res.status(408).json({ message: "Ce pack n'existe pas" });
             }
-            const montant = packExist.solde;
-            // axios
 
-            // calcule de la date 
+            const montant = packExist.solde;
+
+            // Calcul de la date
             const dateNow = Date.now();
             const unAnEnMillisecondes = 365 * 24 * 60 * 60 * 1000;
             const dateEnd = dateNow + unAnEnMillisecondes;
             const dateActuelle = new Date(dateNow);
             const datePlusUnAn = new Date(dateEnd);
 
-            // assignation des données
-            candidatExist.account.pack = packExist.pack;
-            candidatExist.account.solde = packExist.solde;
-            candidatExist.account.dateNow = dateActuelle;
-            candidatExist.account.dateEnd = datePlusUnAn;
-            candidatExist.account.count_sms = packExist.sms_count;
+            // Assignation des données
+            userExist.account.pack = packExist.pack;
+            userExist.account.solde = packExist.solde;
+            userExist.account.dateNow = dateActuelle;
+            userExist.account.dateEnd = datePlusUnAn;
+            userExist.account.count_sms = packExist.sms_count;
 
-            // sauvegarde des données
-            await candidatExist.save();
+            // Sauvegarde des données
+            await userExist.save();
 
-            res.status(200).json({ data: candidatExist, message: "Pack souscrit" })
+            res.status(200).json({ data: userExist, message: "Pack souscrit" });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erreur serveur : " + error })
+            return res.status(500).json({ message: "Erreur serveur : " + error });
         }
-    })
+    });
 
 
 

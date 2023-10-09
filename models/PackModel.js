@@ -9,7 +9,7 @@ const PackCandidatSchema = new mongoose.Schema({
     },
     pack: { type: String, require: true, unique: true },
     solde: { type: Number, require: true },
-    sms_count: { type: Number, require: true, unique: true }
+    sms_count: { type: Number, require: true, unique: true },
 }, { timestamps: true });
 
 
