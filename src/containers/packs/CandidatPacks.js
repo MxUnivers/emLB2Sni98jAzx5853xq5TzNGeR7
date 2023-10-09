@@ -90,7 +90,7 @@ const CandidatPacks = () => {
 
     // inegration de paiement 
 
-    
+
 
     return (
         <div class="bg-white dark:bg-gray-800">
@@ -100,8 +100,8 @@ const CandidatPacks = () => {
             <div class="flex justify-center py-2 mt-10">
                 <h1 class="text-4xl font-bold"> Pack Etudiant  </h1>
             </div>
-            
-            
+
+
 
 
             <div class="container px-6 py-8 mx-auto">
@@ -148,9 +148,9 @@ const CandidatPacks = () => {
                                     <>
                                         <form  >
                                             <button type="button"
-                                            onClick={()=>{
-                                                //navigate(`/${routing.checkout}`,{state:{pack:packs[0]}})
-                                            }}
+                                                onClick={() => {
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
+                                                }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
                                                 Acheter
@@ -210,8 +210,11 @@ const CandidatPacks = () => {
                                 loading ?
                                     <p><LoadinButton text={"En cours"} /></p> :
                                     <>
-                                        <form onSubmit={handleSubmitPack2}>
-                                            <button type="submit"
+                                        <form >
+                                            <button type="button"
+                                                onClick={() => {
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
+                                                }}
 
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
@@ -276,9 +279,11 @@ const CandidatPacks = () => {
                                 loading ?
                                     <p><LoadinButton text={"En cours ..."} /></p> :
                                     <>
-                                        <form onSubmit={handleSubmitPack3}>
-                                            <button type="submit"
-
+                                        <form >
+                                            <button type="button"
+                                                onClick={() => {
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
+                                                }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
                                                 Acheter
