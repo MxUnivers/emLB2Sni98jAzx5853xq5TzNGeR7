@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import OffreGetAll, { OffreGetById } from '../../action/api/offres/OffresAction';
 import { useState } from 'react';
 import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
-import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
+import { dureeDeVie, localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import JobEditPage from './JobEditPage';
@@ -576,9 +576,13 @@ const JobDetailPage = () => {
                                                 }
                                             </ul>
                                             <div class="mt-3 flex space-x-2 ">
-                                                <button onClick={handleShow}
+                                                {
+                                                    getAndCheckLocalStorage(localvalue.TYPEACCESS) !==typePersonConnected[0] ?
+                                                    <button onClick={handleShow}
                                                     class="btn btn-hover w-full mt-2 bg-gray-100 hover:bg-gray-50 active:bg-gray-200"><i
                                                         class="uil uil-bookmark"></i> Postuler</button>
+                                                        : null
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -658,7 +662,7 @@ const JobDetailPage = () => {
                                         <input value={email} onChange={(e) => { setemail(e.target.value) }} type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">
-                                        <label for="phone" class="block font-bold mb-1">Téléphone *</label>
+                                        <label for="phone" class="block font-bold mb-1">Téléphone  , Ex: 225XXXXXXXX *</label>
                                         <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" id="phone" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">

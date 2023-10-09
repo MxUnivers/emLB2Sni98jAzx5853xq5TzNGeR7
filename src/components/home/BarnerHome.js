@@ -60,7 +60,7 @@ const BarnerHome = () => {
                             <h1 class="mb-3 text-5xl font-semibold leading-tight text-white dark:text-gray-50">
                                 Jouman , <br /> <span
                                     class="font-bold    group-data-[theme-color=blue]:text-blue-500">
-                                    Premier site Africain de mercenas de compétences
+                                    Premier site Africain mécénat de compétences
                                 </span>
                             </h1>
                             <p class="text-lg font-light text-gray-100 whitespace-pre-line dark:text-gray-100">

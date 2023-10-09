@@ -105,12 +105,16 @@ const CompanyDetailPage = () => {
                                             </div>
 
                                             <div class="mt-4">
-                                                <button  type="button"
+                                                {
+                                                    company && ( company._id == getAndCheckLocalStorage(localvalue.recruteurID)) ?
+                                                    <button  type="button"
                                                 onClick={()=>{
                                                     window.location.href=`/${routing.company_edit}`
                                                 }}
                                                     class="btn btn-primary btn-hover w-100 rounded"><i
-                                                        class="mdi mdi-eye"></i> Modifier profile</button>
+                                                        class="mdi mdi-eye"></i> Modifier profile</button>:
+                                                        null
+                                                }
                                             </div>
 
 

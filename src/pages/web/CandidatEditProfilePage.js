@@ -61,7 +61,7 @@ const CandidatEditProfilePage = () => {
                             }
                         </div>
                         {/*<!-- Right Content -->*/}
-                        <div class=" w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40">
+                        <div class="w-full  lg:w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40 ">
                             {/*photo de profile */}
                             {
                                 step == 1 &&

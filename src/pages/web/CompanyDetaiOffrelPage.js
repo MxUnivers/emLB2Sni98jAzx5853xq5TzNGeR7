@@ -87,9 +87,7 @@ const CompanyDetaiOffrelPage = () => {
                                                         </div>
 
                                                 }
-                                                {
-                                                    getAndCheckLocalStorage(localvalue.TYPEACCESS)
-                                                }
+                                                
                                                 {
                                                     company && company.full_name ?
                                                         <div class="flex mt-4 flex-col justify-center">
@@ -104,15 +102,18 @@ const CompanyDetaiOffrelPage = () => {
                                                 }
                                             </div>
 
-                                            <div class="mt-4">
-                                                <a href="company-details.html"
+                                            {
+                                                /*<div class="mt-4">
+                                                <a href="#"
                                                     class="btn btn-primary btn-hover w-100 rounded"><i
                                                         class="mdi mdi-eye"></i> Modifier profile</a>
-                                            </div>
+                                            </div> */
+                                            }
 
 
                                             <ul class="list-unstyled mt-4 mb-0">
-                                                <li>
+                                                {
+                                                    /*<li>
                                                     <div class="d-flex mt-4">
                                                         <i
                                                             class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
@@ -120,7 +121,8 @@ const CompanyDetaiOffrelPage = () => {
                                                             <a href={`/${routing.candidature_list_recruteur}`} class="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length >0 ? "s":""} {candidatures.length > 0 ? candidatures.length: ""} </a>
                                                         </div>
                                                     </div>
-                                                </li>
+                                                </li> */
+                                                }
 
                                                 {
                                                     company && company.employers_count ?
