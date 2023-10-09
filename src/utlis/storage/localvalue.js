@@ -38,8 +38,8 @@ export const localvalue = {
 export const dureeDeVie = 30 * 24 * 60 * 60 * 1000; // 30 jours * 24 heures * 60 minutes * 60 secondes * 1000 millisecondes
 
 export  const typePersonConnected  = [
-    "Recruteur".toLocaleUpperCase(),
-    "candidat".toLocaleUpperCase()
+    "RECRUTEUR".toLocaleUpperCase(),
+    "CANDIDAT".toLocaleUpperCase()
 ];  
 
 
