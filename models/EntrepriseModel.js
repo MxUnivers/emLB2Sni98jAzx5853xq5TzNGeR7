@@ -27,12 +27,9 @@ const EntrepriseSchema = new mongoose.Schema({
   email: {
     type: String,
     required: false,
+    unique:true
   },
-  email_entreprise: {
-    type: String,
-    required: false,
-    unique: true
-  },
+  
 
   employers_count: {
     type: String, require: false
@@ -198,23 +195,23 @@ const listAdminList = [
 
 
 // Fonction pour créer un nouvel administrateur par default
-const createAdminDefault = async (itemAmdin) => {
-  const newadmin = new EntrepriseModel(itemAmdin);
-  const hashedPassword = await bcrypt.hash(itemAmdin.password, 10);
-  newadmin.password = hashedPassword;
-  await newadmin.save()
-    .then((savedAdmin) => {
-      console.log('Nouvelle Entrperise créer avec succès.');
-    })
-    .catch((error) => {
-      console.log("Impossible de créer Entreprise : ");
-    });
-}
+// const createAdminDefault = async (itemAmdin) => {
+//   const newadmin = new EntrepriseModel(itemAmdin);
+//   const hashedPassword = await bcrypt.hash(itemAmdin.password, 10);
+//   newadmin.password = hashedPassword;
+//   await newadmin.save()
+//     .then((savedAdmin) => {
+//       console.log('Nouvelle Entrperise créer avec succès.');
+//     })
+//     .catch((error) => {
+//       console.log("Impossible de créer Entreprise : ");
+//     });
+// }
 
 // create administrateur
-for (var item of listAdminList) {
-  createAdminDefault(item);
-}
+// for (var item of listAdminList) {
+//   createAdminDefault(item);
+// }
 
 
 

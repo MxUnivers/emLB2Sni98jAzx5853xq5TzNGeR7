@@ -4,7 +4,18 @@ const EntrepriseModel = require("../models/EntrepriseModel");
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const OffreEmploi = require("../models/OffreEmploiModel");
+const sendEmail = require("../utils/emailSender");
 
+
+function generateRandomPasswordE(length) {
+  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset.charAt(randomIndex);
+  }
+  return password;
+}
 
 
 
@@ -13,25 +24,40 @@ const OffreEmploi = require("../models/OffreEmploiModel");
 // Fonction pour Ajouter une entreprise à l'appliction
 router.post("/", AuthorizationMiddleware, async (req, res) => {
   try {
-    const {username, email,telephone, password } = req.body;
+    const { username, email_entreprise, telephone } = req.body;
     // Vérifier si l'email existe déjà
-    const entrepriseExist = await EntrepriseModel.findOne({ email ,username,telephone});
+    const entrepriseExist = await EntrepriseModel.findOne({ email_entreprise, username, telephone });
     if (entrepriseExist) {
-      return res.status(400).json({ message: 'Cet compte recuteur existe déja ! ' });
+      return res.status(400).json({ message: 'Cet Recruteur existe déjà !' });
     }
-    // Hacher le mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Générer un mot de passe aléatoire
+    const passwordRandom = generateRandomPasswordE(10);
+    const hashedPassword = await bcrypt.hash(passwordRandom, 10);
+
     // Créer un nouvel administrateur
     const newEntreprise = new EntrepriseModel(req.body);
     newEntreprise.password = hashedPassword;
-    newEntreprise.is_active=false;
+
+    newEntreprise.is_active = false;
     await newEntreprise.save();
+    sendEmail(
+      "aymarbly559@gmail.com",
+      "a g c t x y x c o x s k v a g k",
+      `${newEntreprise.email}`,
+      "Bienvenue sur Jouman",
+      `Votre mot de passe : ${passwordRandom}`
+    );
+
     // Renvoyer une réponse JSON
-    return res.status(200).json({ message: 'Compte recuteur du candidat réussi',data:newEntreprise });
+    return res.status(200).json({ message: 'Inscription du Recruteur réussie' });
   } catch (error) {
-    return res.status(500).json({ message: "Impossible de créer votre compte recruteur " }); // Réponse avec un message d'erreur en cas d'échec de la création de l'entreprise
+    // En cas d'erreur, renvoyer une réponse avec le message d'erreur correspondant
+    console.error(error); // Ajoutez ceci pour voir l'erreur dans la console
+    return res.status(500).json({ message: 'Impossible de créer le compte du Recruteur' });
   }
 });
+
 
 
 

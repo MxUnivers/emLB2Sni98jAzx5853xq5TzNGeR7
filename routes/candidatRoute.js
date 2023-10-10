@@ -1,16 +1,25 @@
-const { response } = require('express');
+
 const { AuthorizationMiddleware } = require('../middlewares/Authtoken');
 const CandidatModel = require('../models/CandidatModel');
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
-const { error } = require('firebase-functions/logger');
-const { generateRandomPassword } = require('../utils/passwordCrypt');
 const sendEmail = require('../utils/emailSender');
+
+
+
+function generateRandomPassword(length) {
+  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset.charAt(randomIndex);
+  }
+  return password;
+}
+
 
 // Fonction pour créer un candidat
 router.post("/", AuthorizationMiddleware, async (req, res) => {
-
-  // Vérifier si l'email existe déjà dans la base de données
   try {
     const { username, email } = req.body;
     // Vérifier si l'email existe déjà
@@ -22,16 +31,11 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     const passwordRandom = generateRandomPassword(10);
     const hashedPassword = await bcrypt.hash(passwordRandom, 10);
 
-
-
-
-
-
     // Créer un nouvel administrateur
     const newCandidat = new CandidatModel(req.body);
     newCandidat.password = hashedPassword;
 
-    newCandidat._is_active = false;
+    newCandidat.is_active = false;
     await newCandidat.save();
     sendEmail(
       "aymarbly559@gmail.com",
@@ -40,10 +44,10 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
       "Bienevenue sur Jouman",
       `Votre mot de passe  : ${passwordRandom}`
     );
-    // Renvoyer une réponse JSON
-    return res.status(200).json({ message: 'Inscription du candidat réussi' });
+    return res.status(200).json({ message: 'Inscription du candidat réussi ,  votre mot de passe vous été envoyer par email' });
+
   } catch (error) {
-    // En cas d'erreur, renvoyer une réponse avec le message d'erreur correspondant
+    console.log(error);
     return res.status(500).json({ message: error.message });
   }
 });
