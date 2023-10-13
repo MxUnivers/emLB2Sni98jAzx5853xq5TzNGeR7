@@ -173,7 +173,7 @@ const SignUpRecruteurPage = () => {
             // bloc 3
             "pays_entreprise", "addresse_entreprise", "maps_entreprise",
             // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
-            "username", "firstname", "lastname", "email", "telephone", "dateNaissance", "password"
+            "username", "firstname", "lastname", "email", "telephone", "dateNaissance"
         ];
 
         // Vérifiez chaque champ requis.
@@ -189,7 +189,7 @@ const SignUpRecruteurPage = () => {
 
         dispatch(EntrepriseSignUp(
             username, full_name, firstname, lastname, employers_count, description_entreprise, dateNaissance, dateNaissance_entreprise, email, title_post, logo, salaire_capital, telephone, telephone_entreprise, addresse_entreprise, pays_entreprise, maps_entreprise,
-            secteur_activites, site_web, langues, facebook_url, linkedin_url, twitter_url, instagram_url, password, toast
+            secteur_activites, site_web, langues, facebook_url, linkedin_url, twitter_url, instagram_url, toast
         ))
         /*var userData = {
             
@@ -256,7 +256,8 @@ const SignUpRecruteurPage = () => {
                                             <div class="mt-5">
                                                 <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Temps d{"'"}existence de votre entreprise (année) <span class="cvmpf"></span></label>
                                                 <select onChange={(e) => { setdateNaissance_entreprise(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
-                                                    {existence_entreprise.map((item) => {
+                                                <option>-- Choisir --</option>    
+                                                {existence_entreprise.map((item) => {
                                                         return (
                                                             <option selected={dateNaissance_entreprise==item? true :false} value={item}>{item}</option>
                                                         )
@@ -451,7 +452,7 @@ const SignUpRecruteurPage = () => {
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide ( ex : +255XXXXXXXX ) <span class="cvmpf">*</span></label>
                                                 <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} class="cvac0 coz82" type="number" required={false} />
                                             </div>
                                         </div>
@@ -461,12 +462,14 @@ const SignUpRecruteurPage = () => {
                                                 <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} class="cvac0 coz82" type="date" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        {
+                                            /*<div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
                                                 <input value={password} onChange={(e) => { setpassword(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
-                                        </div>
+                                        </div> */
+                                        }
 
                                     </div>
                                 }

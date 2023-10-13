@@ -35,7 +35,7 @@ export const CandidatSignUp = (
     selectedOptionsLangues,
     facebook_url,
     linkedin_url,
-    twitter_url, instagram_url, password
+    twitter_url, instagram_url
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -61,8 +61,7 @@ export const CandidatSignUp = (
                     "facebook_url": facebook_url,
                     "linkedin_url": linkedin_url,
                     "twitter_url": twitter_url,
-                    "instagram_url": instagram_url,
-                    // "password": password
+                    "instagram_url": instagram_url
                 }
 
                 , {
@@ -74,10 +73,12 @@ export const CandidatSignUp = (
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success(" Vous êtes inscrit , Profiter d'opportunité !")
-                setTimeout(() => {
-                    window.location.href = `/${routing.connexion}`;
-                }, 2500);
+                if (response.status == 200) {
+                    toast.success(" Votre mot de passe vous été envoyer par email")
+                    setTimeout(() => {
+                        window.location.href = `/${routing.connexion}`;
+                    }, 2500);
+                }
 
             })
             .catch((error) => {
@@ -602,23 +603,28 @@ export default function useFetchCandidat(idCandidat) {
         langues: [],
         pays: "",
         adresse: "",
-        salaire:"",
-        title_post:"",
-        description:"",
-        dateNaissance:"",
-        level_school:"",
-        site_web:"",
-        years_experience:"",
-        facebook_url:"",
-        linkedin_url:"",
-        twitter_url:"",
-        instagram_url:"",
-        bookmarks:[],
+        salaire: "",
+        title_post: "",
+        description: "",
+        dateNaissance: "",
+        level_school: "",
+        site_web: "",
+        years_experience: "",
+        facebook_url: "",
+        linkedin_url: "",
+        twitter_url: "",
+        instagram_url: "",
+        bookmarks: [],
         offres: [
             {
                 _id: ""
             }
-        ]
+        ],
+        account: {
+            solde: 0,
+            pack: "",
+            count_sms: 0
+        }
     });
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -651,4 +657,44 @@ export default function useFetchCandidat(idCandidat) {
     }, [idCandidat]);
 
     return { isLoading, error, candidat };
+}
+
+
+
+
+// Candidats list
+
+export function useFetchCandidatAll() {
+    const [candidatAll, setCandidatAll] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
+            console.log(idCandidat);
+            await axios.get(`${baseurl.url}/api/v1/candidat/get_candidats`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setCandidatAll(response.data.data);
+                setError(null);
+                console.log(response.data.data)
+            })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
+        }
+
+        if (idCandidat) {
+            fetchData();
+        }
+    }, [idCandidat]);
+
+    return { isLoading, error, candidatAll };
 }

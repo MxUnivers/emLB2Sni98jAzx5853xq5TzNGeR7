@@ -15,6 +15,7 @@ const CompanyInfo = () => {
     const { isLoading, error, entreprise } = useFetchEntreprise(idEntreprise);
 
 
+    const [full_name, setfull_name] = useState()
     const [username, setusername] = useState();
     const [firstname, setfirstname] = useState();
     const [lastname, setlastname] = useState();
@@ -29,6 +30,9 @@ const CompanyInfo = () => {
 
         if (entreprise && entreprise.username) {
             setusername(entreprise.username)
+        }
+        if (entreprise && entreprise.full_name) {
+            setfull_name(entreprise.full_name)
         }
         if (entreprise && entreprise.firstname) {
             setfirstname(entreprise.firstname)
@@ -67,7 +71,7 @@ const CompanyInfo = () => {
     const handleSumit = (event) => {
         event.preventDefault();
         dispatch(EntrepriseEditGenerale(idEntreprise,
-            username, firstname, lastname, dateNaissance, email,
+            full_name,username, firstname, lastname, dateNaissance, email,
             title_post, telephone, toast));
     }
 
@@ -91,10 +95,18 @@ const CompanyInfo = () => {
                         <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
                             <label for="first-name"
                                 class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
+                                Nom de votre entreprise</label>
+                            <input value={full_name} onChange={(e) => { setfull_name(e.target.value) }} type="text" name="first-name" id="first-name"
+                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
+                                placeholder="....." required="" />
+                        </div>
+                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
+                            <label for="first-name"
+                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
                                 Nom</label>
                             <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" name="first-name" id="first-name"
                                 class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Bonnie" required="" />
+                                placeholder="...." required="" />
                         </div>
                         <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
                             <label for="last-name"
@@ -102,7 +114,7 @@ const CompanyInfo = () => {
                                 Prénoms</label>
                             <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" name="last-name" id="last-name"
                                 class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Green" required="" />
+                                placeholder="..." required="" />
                         </div>
 
 
@@ -113,7 +125,7 @@ const CompanyInfo = () => {
                             </label>
                             <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" name="address" id="address"
                                 class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="e.g. California" required="" />
+                                placeholder="....." required="" />
                         </div>
                         <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
                             <label for="email"
@@ -131,7 +143,7 @@ const CompanyInfo = () => {
                             </label>
                             <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} type="date" name="phone-number" id="phone-number"
                                 class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="e.g. +(12)3456 789" required="" />
+                                placeholder="..." required="" />
                         </div>
 
                         <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
@@ -141,7 +153,7 @@ const CompanyInfo = () => {
                             </label>
                             <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} type="text" name="organization" id="organization"
                                 class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Company Name" required="" />
+                                placeholder="...." required="" />
                         </div>
                         
                         <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">

@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsHouseDoor } from 'react-icons/bs';
 import { CiLocationOn } from 'react-icons/ci';
+import { useFetchCandidatAll } from '../../action/api/candidat/CandidatAction';
+import LoadingCompo1 from '../../components/loading/LoadingCompo1';
 
 const CandidatPage = () => {
 
 
-    const [candidatList, setcandidatList] = useState([1, 1, 1, 1, 1, 1]);
+    const { isLoading, error, candidatAll } = useFetchCandidatAll();
     const [showMsg, setshowMsg] = useState(false);
     const handleShowMsg = () => setshowMsg(true);
     const handleCloseMsg = () => setshowMsg(false);
@@ -74,45 +76,59 @@ const CandidatPage = () => {
 
 
                             {
-                                candidatList.map((item) => {
-                                    return (
-                                        <div class="w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                            <div class="flex justify-end px-4 pt-4">
-                                                <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                                                    <span class="sr-only">Open dropdown</span>
-                                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                                        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                                                    </svg>
-                                                </button>
+                                isLoading ?
+                                    (<LoadingCompo1 text={"Candidats trouver les candidats qui vous conviennent le mieux ..."} />)
+                                    :
+                                    error ?
+                                        <LoadingCompo1 text={"Veillez recharger la page"} />
+                                        :
+                                        candidatAll && candidatAll.length > 0 ?
+                                            candidatAll.map((item) => {
+                                                return (
+                                                    <div class="w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                                        <div class="flex justify-end px-4 pt-4">
+                                                            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                                                                <span class="sr-only">Open dropdown</span>
+                                                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                                                    <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                                                </svg>
+                                                            </button>
 
-                                                <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                                    <ul class="py-2" aria-labelledby="dropdownButton">
-                                                        <li>
-                                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                                        </li>
-                                                    </ul>
+                                                            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                                                <ul class="py-2" aria-labelledby="dropdownButton">
+                                                                    <li>
+                                                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col items-center pb-5">
+                                                            <img class="w-10 h-10 mb-3 rounded-full shadow-lg"
+                                                                src={item.coverPicture}
+                                                                alt="Bonnie image" />
+                                                            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{`${item.firstname} ${item.lastname}`}</h5>
+                                                            <span class="text-sm text-gray-500 dark:text-gray-400">{item.title_post}</span>
+                                                            <div class="flex mt-4 space-x-3 md:mt-6">
+                                                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Profile</a>
+                                                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                            :
+                                            <div class="h-screen p-5">
+                                                <div class="border p-5 flex justify-center">
+                                                    <p>Aucun candidats dans la recommandation</p>
                                                 </div>
+
                                             </div>
-                                            <div class="flex flex-col items-center pb-5">
-                                                <img class="w-10 h-10 mb-3 rounded-full shadow-lg"
-                                                    src="assets/images/user/img-01.jpg"
-                                                    alt="Bonnie image" />
-                                                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                                                <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
-                                                <div class="flex mt-4 space-x-3 md:mt-6">
-                                                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Profile</a>
-                                                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })
                             }
                         </div>
 
@@ -125,7 +141,7 @@ const CandidatPage = () => {
 
 
 
-                
+
 
 
 

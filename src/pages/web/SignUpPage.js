@@ -60,7 +60,7 @@ const SignUpPage = () => {
     // state pour les etapes d'inscription
     const [step, setStep] = useState(0);
     const nextStep = () => {
-        
+
         setStep(step + 1);
     };
     const prevStep = () => {
@@ -113,9 +113,9 @@ const SignUpPage = () => {
         // Liste des champs obligatoires
         const requiredFields = [
             "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
-            "description", "years_experience", "salaire","dateNaissance",
+            "description", "years_experience", "salaire", "dateNaissance",
             "pays", "addresse", "username", "firstname", "lastname", "email",
-            "telephone", "password"
+            "telephone",
         ];
 
         // Vérifiez chaque champ requis.
@@ -123,7 +123,7 @@ const SignUpPage = () => {
             if (!eval(field)) {
                 showErrorToast(
                     //`${field.replace("_", " ")} requis !`
-                    `les champs avec * obligatoire`
+                    `les champs avec * obligatoires`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
@@ -133,32 +133,9 @@ const SignUpPage = () => {
             username, firstname, lastname, description, dateNaissance, email, title_post,
             salaire, telephone, addresse, pays, level_school, site_web, years_experience,
             selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
-            instagram_url, password, toast
+            instagram_url, toast
         ))
-        /*var userData = {
-            "username": username,
-            "firstname": firstname,
-            "lastname": lastname,
-            "description": description,
-            "dateNaissance": dateNaissance,
-            "email": email,
-            "title_post": title_post,
-            "salaire": salaire,
-            "telephone": telephone,
-            "adresse": addresse,
-            "pays": pays,
-            "level_school": level_school,
-            "site_web": site_web,
-            "years_experience": years_experience,
-            "competences": selectedOptions,
-            "langues": selectedOptionsLangues,
-            "facebook_url": facebook_url,
-            "linkedin_url": linkedin_url,
-            "twitter_url": twitter_url,
-            "instagram_url": instagram_url,
-            "password": password
-        } */
-        
+
 
 
 
@@ -189,9 +166,8 @@ const SignUpPage = () => {
 
                         <button type='button' title={"Test notiifcation"} onClick={() => {
 
-                            alert("Salut");
                             toast.success('Opération réussie !');
-                         }}  >Test</button>
+                        }}  >Test</button>
                         <div class="cmdkn cggc7">
 
                             <div class="cjplb">
@@ -200,7 +176,7 @@ const SignUpPage = () => {
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
-                                
+
                                 <Stepper steps={steps} activeStep={step} />
                                 {
                                     step === 0
@@ -212,9 +188,10 @@ const SignUpPage = () => {
                                             <div>
                                                 <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
                                                 <select required={false} onChange={(e) => { setlevel_school(e.currentTarget.value) }} class="c033a c9csv coz82 cxa4q">
+                                                    <option>-- Choisir --</option>
                                                     {level_School.map((item) => {
                                                         return (
-                                                            <option value={item.value}>{item.label}</option>
+                                                            <option selected={level_school == item.value ? true : false} value={item.value}>{item.label}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -242,7 +219,7 @@ const SignUpPage = () => {
                                                     onChange={handleSelectChange2}
                                                     placeholder="Choix de langues"
                                                 />
-                                                
+
                                             </div>
 
 
@@ -267,9 +244,10 @@ const SignUpPage = () => {
                                         <div>
                                             <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
                                             <select onChange={(e) => { setyears_experience(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                                <option>-- Choisir --</option>
                                                 {years_experience_school.map((item) => {
                                                     return (
-                                                        <option value={item}>{item}</option>
+                                                        <option selected={years_experience == item ? true : false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -278,9 +256,10 @@ const SignUpPage = () => {
                                         <div>
                                             <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevez vous ? ( F CFA )  <span class="cvmpf">*</span></label>
                                             <select required={false} onChange={(e) => { setsalaire(e.target.value) }} class="c033a c9csv coz82 cxa4q">
+                                                <option>-- Choisir --</option>
                                                 {salaires_School.map((item) => {
                                                     return (
-                                                        <option value={item}>{item}</option>
+                                                        <option selected={salaire == item ? true : false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -299,9 +278,10 @@ const SignUpPage = () => {
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" >Pays <span class="cvmpf">*</span></label>
                                                 <select onChange={(e => { setpays(e.target.value) })} class="c033a c9csv coz82 cxa4q" required="">
+                                                    <option>-- Choisir --</option>
                                                     {optionPays.map((item) => {
                                                         return (
-                                                            <option value={item.value}>{item.label}</option>
+                                                            <option selected={pays == item.value} value={item.value}>{item.label}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -326,31 +306,31 @@ const SignUpPage = () => {
 
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf"></span></label>
                                                 <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.site-web.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf"></span></label>
                                                 <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.facebook.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf"></span></label>
                                                 <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.linkedin.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf"></span></label>
                                                 <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.instagram.com" />
                                             </div>
                                         </div>
                                         <div class="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf">*</span></label>
+                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf"></span></label>
                                                 <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.twitter.com" />
                                             </div>
                                         </div>
@@ -402,12 +382,14 @@ const SignUpPage = () => {
                                                 <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} class="cvac0 coz82" type="date" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        {
+                                            /*<div class="chva6">
                                             <div>
                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
                                                 <input value={password} onChange={(e) => { setpassword(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
                                             </div>
-                                        </div>
+                                        </div> */
+                                        }
 
                                     </div>
                                 }

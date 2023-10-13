@@ -259,6 +259,10 @@ const NavbarWeb = () => {
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            href={`/${routing.candidat_list}`}>Profiles Candidats </a>
+                                                    </li>
+                                                    <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
+                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                             href={`/${routing.pricing}`}>Abonement</a>
                                                     </li>
                                                     {/*onClick={handleClearLocalStorage} */}

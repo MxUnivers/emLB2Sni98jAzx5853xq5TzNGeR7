@@ -1,6 +1,6 @@
 import React from 'react'
 import { routing } from '../../utlis/routing'
-import { setWithExpiration } from '../../utlis/storage/localvalueFunction'
+import { setWithExpiration, getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction'
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ const JobCard = ({ data }) => {
                             <a href={`/${routing.job_details}`}
                                 onClick={() => {
                                     setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
-                                    navigate(`/${routing.job_details}`,{state:{data}})
+                                    navigate(`/${routing.job_details}`, { state: { data } })
                                 }}
                             ><img
                                     src={data.coverPicture} alt=""
@@ -37,7 +37,7 @@ const JobCard = ({ data }) => {
                             <h5 class="mb-1 fs-18"><a href={`/${routing.job_details}`}
                                 onClick={() => {
                                     setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
-                                    navigate(`/${routing.job_details}`,{state:{data}})
+                                    navigate(`/${routing.job_details}`, { state: { data } })
                                 }}
                                 class="text-gray-900 text-xl font-bold line-clamp-3 dark:text-gray-50">{data.title}</a>
                             </h5>
@@ -112,6 +112,19 @@ const JobCard = ({ data }) => {
                                 data-bs-toggle="modal">Postuler
                                 <i class="mdi mdi-chevron-double-right"></i></a>
                         </div>
+                        {
+                            getAndCheckLocalStorage(localvalue.recruteurID) == data.idEntreprise ?
+                                <div class="text-start text-md-end dark:text-gray-50">
+                                    <button type="button"
+                                        onClick={() => {
+                                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
+                                            navigate(`/${routing.job_edit}`, { state: { data } })
+                                        }}
+                                        data-bs-toggle="modal">Modifier
+                                        <i class="mdi mdi-chevron-double-right"></i></button>
+                                </div>
+                                : null
+                        }
                     </div>
 
                 </div>

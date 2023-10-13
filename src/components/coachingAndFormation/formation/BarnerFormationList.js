@@ -11,7 +11,7 @@ const BarnerFormationList = () => {
             <div class="relative mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                 <div class="grid gap-6 lg:grid-cols-2">
                     <div class="text-center sm:mx-auto sm:w-3/4 md:w-2/4 lg:w-auto">
-                        <img class="m-auto h-16 w-auto" src="../images/clients/airbnb.svg" loading="lazy" alt="airbnb"
+                        <img class="m-auto h-16 w-auto rounded-full" src="assets/images/logo-dark.png" loading="lazy" alt="airbnb"
                             width="" height="" />
                         <h1 class="relative mt-6 text-center text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">
                             Seance de Coachine & formation sur 

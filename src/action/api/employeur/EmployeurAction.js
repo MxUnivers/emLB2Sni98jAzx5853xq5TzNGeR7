@@ -43,7 +43,7 @@ export const EntrepriseSignUp = (
     langues,
     facebook_url,
     linkedin_url,
-    twitter_url, instagram_url, password
+    twitter_url, instagram_url
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -77,7 +77,6 @@ export const EntrepriseSignUp = (
                     "linkedin_url": linkedin_url,
                     "twitter_url": twitter_url,
                     "instagram_url": instagram_url,
-                    "password": password
                 }
 
                 , {
@@ -89,7 +88,8 @@ export const EntrepriseSignUp = (
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
-                toast.success(`${response.message}`);
+                toast.success(`${response.data.message}`);
+                toast.success(`Votre mot de passe vous à été envoyer par email`);
                 setTimeout(() => {
                     window.location.href = `/${routing.connexion_recuteur}`;
                 }, 2500);
@@ -102,7 +102,7 @@ export const EntrepriseSignUp = (
     };
 }
 
- 
+
 export const EntrepriseConnexion = (email, password, redirect, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -289,7 +289,7 @@ export const EntrepriseEditCompetence = (
     salaire_capital,
     employers_count,
     pays_entreprise,
-    title_post, secteur_activites,langues,
+    title_post, secteur_activites, langues,
     description_entreprise
     , toast) => {
     return async (dispatch) => {
@@ -302,8 +302,8 @@ export const EntrepriseEditCompetence = (
                     "employers_count": employers_count,
                     "pays_entreprise": pays_entreprise,
                     "title_post": title_post,
-                    "secteur_activites":secteur_activites,
-                    "langues":langues,
+                    "secteur_activites": secteur_activites,
+                    "langues": langues,
                     "description_entreprise": description_entreprise
                 }, {
                 headers: {
@@ -432,6 +432,7 @@ export const EntrepriseEditPassword = (id, password, toast) => {
 
 export const EntrepriseEditGenerale = (
     id,
+    full_name,
     username,
     firstname,
     lastname,
@@ -439,13 +440,14 @@ export const EntrepriseEditGenerale = (
     email,
     title_post,
     telephone,
-     toast) => {
+    toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .put(`${baseurl.url}/api/v1/entreprise/edit/${id}`,
                 {
                     "username": username,
+                    "full_name": full_name,
                     "firstname": firstname,
                     "lastname": lastname,
                     "dateNaissance": dateNaissance,
@@ -582,25 +584,25 @@ export function useFetchEntreprise(idEntreprise) {
         full_name: "",
         email: "",
         telephone: "",
-        employers_count:"",
-        dateNaissance:"",
+        employers_count: "",
+        dateNaissance: "",
         firstname: "",
         lastname: "",
         title_post: "",
         addresse_entreprise: "",
         pays_entreprise: "",
         adresse: "",
-        salaire_capital:"",
-        description_entreprise:"",
-        dateNaissance:"",
-        secteur_activites:[],
-        site_web:"",
-        dateNaissance_entreprise:"",
-        facebook_url:"",
-        linkedin_url:"",
-        twitter_url:"",
-        instagram_url:"",
-        bookmarks:[],
+        salaire_capital: "",
+        description_entreprise: "",
+        dateNaissance: "",
+        secteur_activites: [],
+        site_web: "",
+        dateNaissance_entreprise: "",
+        facebook_url: "",
+        linkedin_url: "",
+        twitter_url: "",
+        instagram_url: "",
+        bookmarks: [],
         offres: [
             {
                 _id: ""

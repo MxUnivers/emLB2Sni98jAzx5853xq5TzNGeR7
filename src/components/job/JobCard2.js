@@ -1,11 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { setWithExpiration , getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { routing } from '../../utlis/routing';
 
 const JobCard2 = ({data}) => {
     const navigate=  useNavigate();
+    var employeurId =  getAndCheckLocalStorage(localvalue.recruteurID);
 
 
   return (
@@ -69,6 +70,17 @@ const JobCard2 = ({data}) => {
                             <i class="mdi mdi-chevron-double-right"></i></a>
                     </div>
                 </div>
+                {
+                    data && data.idEntreprise == employeurId  ?
+                    <div class="col-md-3">
+                    <div class="text-md-end btn ">
+                        <a href={`/${routing.job_details}`} onClick={() => {
+                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
+                        }} class="primary-link">Edit
+                            <i class="mdi mdi-chevron-double-right"></i></a>
+                    </div>
+                </div>: null
+                }
 
             </div>
 

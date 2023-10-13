@@ -94,3 +94,7 @@ export const packsItemsList = [
   },
 ];
 
+
+
+export const statusPACKS = [
+  "SILVER", "GOLD", "DIAMOND",]

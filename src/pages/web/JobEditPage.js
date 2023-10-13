@@ -35,9 +35,6 @@ const JobEditPage = () => {
 
     const [candidats, setCandidats] = useState([]);
 
-
-
-
     const location =  useLocation();
     const {job} = location.state;
     // recupération de valeur
