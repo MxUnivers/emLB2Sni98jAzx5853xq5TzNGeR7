@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import BlogAll from '../../../action/api/blog/BlogAction';
 import LoadingCompo1 from '../../loading/LoadingCompo1';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue } from '../../../utlis/storage/localvalue';
+import { routing } from '../../../utlis/routing';
 
 const CandidatBlogProfile = ({ idCandidat }) => {
 
@@ -42,10 +45,16 @@ const CandidatBlogProfile = ({ idCandidat }) => {
                     </> :
                     <div class="container mx-auto">
                         <div class="grid grid-cols-1 gap-5">
-                            <div class="mb-5 text-center">
+                            {
+                                blogs && 
+                                blogs.filter(blog => blog.idcustomerId == idCandidat)
+                                && blogs.filter(blog => blog.idcustomerId == idCandidat).length>0?
+                                <div class="mb-5 text-center">
                                 <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Publication récentes</h3>
                                 <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300"></p>
                             </div>
+                            : null
+                            }
                         </div>
                         <Carousel responsive={responsive} infinite transitionDuration={5} autoPlay class="grid grid-cols-12 gap-5 justify-center items-center">
 

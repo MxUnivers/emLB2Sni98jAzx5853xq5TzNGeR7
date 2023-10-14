@@ -10,11 +10,30 @@ import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction'
 import { localvalue } from '../../utlis/storage/localvalue';
 import CandidatCard from '../../components/candidat/profile/CandidatCard';
 import { useFetchEntreprise } from '../../action/api/employeur/EmployeurAction';
-
+import Select from "react-select";
+import { competences } from '../../utlis/options/candidatOption';
 const CandidatPage = () => {
 
 
-    var idEntreprise =  getAndCheckLocalStorage(localvalue.recruteurID);
+    var idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
+
+    const [selectCompetences, setselectCompetences] = useState();
+    const handleSelectCompetence = (selectOptions) => {
+        setselectCompetences(selectOptions);
+        if (selectOptions && selectOptions.length > 0) {
+            const selectedCompetenceValues = selectOptions.map(option => option.value);
+            const filteredCandidates = candidatAll2.filter(candidate => {
+                return candidate.competences.some(competence => selectedCompetenceValues.includes(competence.value));
+            });
+            setcandidatAll(filteredCandidates);
+        } else {
+            setcandidatAll(candidatAll2);
+        }
+
+    }
+
+
+
     const [isLoading, setisLoading] = useState(true)
     const [candidatAll, setcandidatAll] = useState([])
     const [candidatAll2, setcandidatAll2] = useState([])
@@ -29,7 +48,7 @@ const CandidatPage = () => {
     }, [])
 
 
-    
+
     const { isLoadingEntreprise, errorEnreprise, entreprise } = useFetchEntreprise(idEntreprise);
 
 
@@ -46,27 +65,24 @@ const CandidatPage = () => {
 
                     <form action=''>
 
-                        <div className='firstDiv flex justify-between items-center rounded-[8px] gap-[10px] bg-blue-200 p-5 shadow-greyIsh-700'>
+                        <div className='firstDiv flex justify-between items-center rounded-[8px] gap-[10px] bg-white p-5 shadow-greyIsh-700'>
 
                             <div className='flex gap-2 items-center'>
                                 <AiOutlineSearch className='text-[25px] icon' />
-                                <input type='text' className=' bg-white rounded-lg text-blue-500 focus:outline-none w-[100%]' placeholder='Search Job Here...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
-                            </div>
+                                <Select
+                                    isMulti
+                                    options={competences}
+                                    value={selectCompetences}
+                                    onChange={handleSelectCompetence}
+                                    placeholder="choix de vos compétences"
+                                    id="settings-language" name="countries"
+                                    className="jtAJHOc7mn7b4IKRO59D vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
 
-                            <div className='flex gap-2 items-center'>
-                                <BsHouseDoor className='text-[25px] icon' />
-                                <input type='text' className=' bg-white rounded-lg text-blue-500 focus:outline-none w-[100%]' placeholder='Search by Company...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
+                                />
                             </div>
-
-                            <div className='flex gap-2 items-center'>
-                                <CiLocationOn className='text-[25px] icon' />
-                                <input type='text' className=' bg-white rounded-lg text-blue-500 focus:outline-none w-[100%]' placeholder='Search by Location...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
-                            </div>
-
-                            <button className=' h-full p-5 px-10 rounded-[10px] btn btn-primary text-white cursor-pointer bg-blue-600 hover:bg-blue-500'>rechercher</button>
+                            {
+                                /*<button className=' h-full p-5 px-10 rounded-[10px] btn btn-primary text-white cursor-pointer bg-blue-600 hover:bg-blue-500'>rechercher</button> */
+                            }
                         </div>
                     </form>
 
@@ -78,20 +94,6 @@ const CandidatPage = () => {
 
                 <section class="section">
                     <div class="container-fluid px-5">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         {
                             isLoading ?
                                 (<LoadingCompo1 text={"Candidats trouver les candidats qui vous conviennent le mieux ..."} />)
@@ -103,15 +105,15 @@ const CandidatPage = () => {
                                         {
                                             candidatAll.map((item) => {
                                                 return (
-                                                    <CandidatCard item={item} entreprise={entreprise}/>
+                                                    <CandidatCard item={item} entreprise={entreprise} />
                                                 )
                                             })
                                         }
                                     </div>
 
                                     :
-                                    <div class="h-screen p-5">
-                                        <div class="border p-5 flex justify-center">
+                                    <div class="">
+                                        <div class="h-screen p-5 border p-5 flex justify-center">
                                             <p>Aucun candidats dans la recommandation</p>
                                         </div>
 

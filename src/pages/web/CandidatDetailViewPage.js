@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useFetchExperience, { ExperienceCandidatPost } from '../../action/api/candidat/ExperienceAction';
 import useFetchProject, { ProjectCandidatPost } from '../../action/api/candidat/ProjectAction';
+import CandidatBlogProfile from '../../components/candidat/profile/CandidatBlogProfile';
 
 
 
@@ -329,7 +330,7 @@ const CandidatDetailViewPage = () => {
 
 
                                             {
-                                                candidat && candidat.telephone !== "#" ?
+                                                candidat && candidat.site_web !== "#" ?
                                                     <li>
                                                         <div class="d-flex align-items-center mt-4">
                                                             <div class="ms-3">
@@ -354,12 +355,17 @@ const CandidatDetailViewPage = () => {
                             </div>
 
                             <div class="w-full col-lg-8">
+
+                             <div class="card candaidat-details ms-lg-4 mt-4 mt-lg-0">
+                               <CandidatBlogProfile idCandidat={idCandidat}/>
+                             </div>
+
                                 <div class="card candidate-details ms-lg-4 mt-4 mt-lg-0">
                                     <div class="card-body p-4 candidate-personal-detail mx-1">
                                         {
                                             candidat && candidat.description ?
                                                 <div class="rounded-xl shadow-sm px-2 py-2 border ">
-                                                    <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
+                                                    <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">Présentation</h6>
                                                     <p class="text-muted mb-2">{candidat.description}</p>
                                                 </div> :
                                                 <div class="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
