@@ -37,6 +37,8 @@ import FormationdetailPage from "./pages/web/FormationdetailPage";
 import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
 import CompanyEditProfilePage from "./pages/web/CompanyEditProfilePage";
 import CandidatDetailViewPage from "./pages/web/CandidatDetailViewPage";
+import AboutusPage from "./pages/web/AboutusPage";
+import ContactPage from "./pages/web/ContactPage";
 
 
 
@@ -109,6 +111,11 @@ function App() {
             {/*Manage Pring */}
             <Route path={`${routing.pricing}`} element={<PrincingPage />} />
             <Route path={`${routing.checkout}`} element={<CheckOutPage />} />
+
+            {/*Others */}
+            <Route path={`${routing.aboutus}`} element={<AboutusPage />} />
+            <Route path={`${routing.contact}`} element={<ContactPage />} />
+
 
 
 
