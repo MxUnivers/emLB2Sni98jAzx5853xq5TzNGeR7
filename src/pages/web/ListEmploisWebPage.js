@@ -1,143 +1,151 @@
 import React from 'react'
-import ModalApplyOffre from '../../containers/modal/ModalApplyOffre';
-import { app_bg } from '../../utlis/config';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { BiTimeFive } from "react-icons/bi";
-import { BsHouseDoor } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai"
-import { CiLocationOn } from "react-icons/ci";
 import { routing } from '../../utlis/routing';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { useEffect } from 'react';
-import moment from 'moment';
 import { typeContrats } from '../../utlis/options/optionDivers';
 import { MdWorkOutline } from 'react-icons/md';
-import OffreGetAll from '../../action/api/offres/OffresAction';
+import { OffreGetAllOffre, OffreGetByCategory, OffreGetByTypeContrat } from '../../action/api/offres/OffresAction';
 import JobCard2 from '../../components/job/JobCard2';
 import LoadingCompo1 from '../../components/loading/LoadingCompo1';
-
+import Select from "react-select";
 const ListEmploisWebPage = () => {
     const navigate = useNavigate();
 
-    const { isLoading, error, offres, offres2 } = OffreGetAll();
+    const [offres, setoffres] = useState([]);
+    const [offres2, setoffres2] = useState([]);
+    const [isLoading, setisLoading] = useState(true);
+
+    const [category, setcategory] = useState([]);
+    const [categoryOptions, setcategoryOptions] = useState([]);
+
+    const [contrats, setcontrats] = useState([])
+    const [contratsOptions, setcontratsOptions] = useState([])
+
+    useEffect(() => {
+        setisLoading(true);
+
+        OffreGetByTypeContrat(setcontrats, setcontratsOptions)
+        OffreGetAllOffre(setoffres, setoffres2).then(() => {
+            setisLoading(false)
+        })
+        OffreGetByCategory(setcategory, setcategoryOptions).then((item) => {
+            setisLoading(false)
+        })
+    }, [])
 
     const [modalApply, setmodalApply] = useState(false);
-    const handleShow = (item) => {
-        setmodalApply(true)
-    }
+
     const handleClose = (item) => {
         setmodalApply(false)
     }
-
-
-
-
-
     const handleDetailItem = (job) => {
         setWithExpiration(localvalue.JobID, job._id, dureeDeVie);
         navigate(`/${routing.job_details}`, { state: { job } });
     }
 
 
+    // filtrer
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const handleChange = selectedOptions => {
+        setSelectedOptions(selectedOptions);
+        // Filtrer les offres ici
+        if (selectedOptions) {
+            const selectedCategories = selectedOptions.map(option => option.value);
+            if (selectedCategories.length === 0) {
+                // Aucune catégorie sélectionnée, afficher toutes les offres
+                setoffres(offres2);
+            } else {
+                const filteredOffers = offres2.filter(offer => {
+                    return selectedCategories.some(category => offer.areaOffre.includes(category));
+                });
+                setoffres(filteredOffers);
+            }
+        } else {
+            setoffres(offres2);
+        }
+    };
+
+
+
+    const [selectedOptionsContract, setSelectedOptionsContract] = useState([]);
+    const handleChangeContrat = selectedOptions => {
+        setSelectedOptionsContract(selectedOptions);
+        // Filtrer les offres ici
+        if (selectedOptions && selectedOptions.length > 0) {
+            const selectedContrats = selectedOptions.map(option => option.value);
+
+            const filteredOffers = offres2.filter(offer => {
+                return selectedContrats.some(contract => offer.typeContrat.includes(contract));
+            });
+
+            setoffres(filteredOffers);
+        } else {
+            setoffres(offres2);
+        }
+    };
+
 
 
     return (
         <div class="main-content">
-
             <div class="page-content">
-
-
-
-
-
-
-
-
-
-
                 <div className='w-full bg-gray-50 mt-24 gap-3 rounded-[10px] p-5'>
-
                     <form action=''>
-
                         <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center items-center py-3 rounded-[8px] gap-5 bg-white p-5 shadow-greyIsh-700'>
-
-                            <div className='flex gap-2 items-center'>
+                            <div className='flex flex-wrap gap-2 items-center'>
                                 <AiOutlineSearch className='text-[25px] icon' />
-                                <input type='text' className='bg-transparent text-blue-500 focus:outline-none w-[100%]' placeholder='Search Job Here...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
+                                <Select
+                                    placeholder={"plus de catefories"}
+                                    isMulti
+                                    options={categoryOptions.map(item => ({ value: item, label: item }))}
+                                    value={selectedOptions}
+                                    onChange={handleChange}
+                                />
+                                <Select
+                                    placeholder={"Disponibilité"}
+                                    isMulti
+                                    options={contratsOptions.map(item => ({ value: item, label: item }))}
+                                    value={selectedOptionsContract}
+                                    onChange={handleChangeContrat}
+                                />
                             </div>
-
-                            <div className='flex gap-2 items-center'>
-                                <BsHouseDoor className='text-[25px] icon' />
-                                <input type='text' className='bg-transparent text-blue-500 focus:outline-none w-[100%]' placeholder='Search by Company...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
-                            </div>
-
-                            <div className='flex gap-2 items-center'>
-                                <CiLocationOn className='text-[25px] icon' />
-                                <input type='text' className='bg-transparent text-blue-500 focus:outline-none w-[100%]' placeholder='Search by Location...' />
-                                {/* <AiOutlineCloseCircle className='text-[30px] text-[#a5a6a6] hover:text-textColor icon'/> */}
-                            </div>
-
-                            <div className='flex gap-2 items-center'>
-                                <MdWorkOutline className='text-[25px] icon' />
-                                <select name="" id='type' className='bg-white rounded-[3px] px-4 py-1'>
-                                    <option >--choix de contrat --</option>
-                                    {
-                                        typeContrats.map((item) => {
-                                            return (
-                                                <option value={item.label}>{item.label}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                            </div>
-
-                            <div>
-                                <button type="button" className=' h-full p-5 px-10 py-2 rounded-[10px] btn btn-primary text-white cursor-pointer bg-blue-600 hover:bg-blue-500'>
-                                    rechercher
-                                </button>
-                                <button type="reset" className='text-[#a1a1a1] btn btn-danger cursor-pointer'>
-                                    Effacer
-                                </button>
-                            </div>
-
-
                         </div>
                     </form>
-
-
-
                 </div>
 
-                <main class="flex min-h-[200px]  w-full items-start mt-10 justify-center bg-white px-5">
-
-
+                <main class="flex min-h-[500px]  w-full items-start mt-10 justify-center bg-white px-5">
                     <div className=" grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
                         {
                             isLoading ?
                                 <LoadingCompo1 text={"Des offres d'emplois fait pour vous ...."} />
                                 :
-                                error ?
-                                    <p>Une errue est suvenue</p>
-                                    :
+                                offres && offres.length > 0 ?
                                     offres.map((item) => {
                                         return (
                                             <JobCard2 data={item} />
                                         )
                                     })
+                                    :
+                                    <div class="h-min-[500px] flex justify-center">
+                                        <p>Aunces offres trouvés</p>
+                                    </div>
 
                         }
                     </div>
                 </main>
+            </div>
+        </div >
+    )
+}
+export default ListEmploisWebPage;
 
 
 
-
-
-                {
+{/* 
                     modalApply &&
                     (
                         <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
@@ -176,13 +184,4 @@ const ListEmploisWebPage = () => {
                             </div>
                         </div>
                     )
-                }
-
-
-
-            </div>
-        </div >
-    )
-}
-
-export default ListEmploisWebPage;
+                    */}

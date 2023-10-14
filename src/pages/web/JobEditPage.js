@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
+import LoadinButton from '../../components/loading/LoadinButton';
 
 const JobEditPage = () => {
 
@@ -319,15 +320,20 @@ const JobEditPage = () => {
                                                 }
                                                 <div class="cq38v">
                                                     {
-                                                        loading ? 
-                                                        <p class="text-gray-500 animate-pulse"> Mise ajour en cours</p>
-                                                        :
-                                                        <button type='submit' class=" bg-blue-500 cd99b croe6 cday3 c8dh7 coz82 ct2sf">Appliquer</button>
+                                                        LoadingPhoto ?
+                                                            <LoadinButton text={"photo de téléchargement ..."} />
+                                                            :
+                                                            loading ?
+                                                                <LoadinButton text={"En cours ..."} />
+                                                                :
+                                                                <button type='submit' class=" bg-blue-500 cd99b croe6 cday3 c8dh7 coz82 ct2sf">Appliquer</button>
                                                     }
                                                 </div>
-                                                <div class="cixlf">
+                                                {
+                                                    /*<div class="cixlf">
                                                     <div class="clvg0 cwe8x">By clicking pay you agree to our <a class="c5xyh" href="#0">Terms of Service</a> and <a class="c5xyh" href="#0">Privacy Policy</a>.</div>
-                                                </div>
+                                                </div> */
+                                                }
                                             </div>
                                         </div>
                                     </form>

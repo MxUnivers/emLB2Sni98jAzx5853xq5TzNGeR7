@@ -8,10 +8,18 @@ import { baseurl } from '../../utlis/url/baseurl';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { OffreCreate } from '../../action/api/offres/OffresAction';
+import LoadinButton from '../../components/loading/LoadinButton';
+import { useEffect } from 'react';
+import { useFetchEntreprise } from '../../action/api/employeur/EmployeurAction';
+import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { localvalue } from '../../utlis/storage/localvalue';
+import { statusPACKS } from '../../utlis/config';
 
 const JobPostPage = () => {
 
 
+    var idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
+    const { isLoading, errorEntreprise, entreprise } = useFetchEntreprise(idEntreprise)
     const [company, setCompany] = useState('');
     const [title, setTitle] = useState('');
     const [email, setEmail] = useState();
@@ -87,14 +95,14 @@ const JobPostPage = () => {
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
-    const handleSumit = (event)=>{
+    const handleSumit = (event) => {
         event.preventDefault();
 
         const requiredFields = [
             // boc 1
-            "company","title","email","telephone",
-            "salaire","coverPicture","areaOffre",
-            "typeContrat","description","addresse"
+            "company", "title", "email", "telephone",
+            "salaire", "coverPicture", "areaOffre",
+            "typeContrat", "description", "addresse"
         ];
 
         // Vérifiez chaque champ requis.
@@ -108,11 +116,21 @@ const JobPostPage = () => {
             }
         }
 
-        dispatch(OffreCreate(company,title,email,telephone,
-            salaire,coverPicture,title_post,areaOffre,expireDispobility,
-            typeContrat,description,addresse,toast
-            )
-        )
+
+        if (entreprise &&
+            (entreprise.account.pack == statusPACKS[0] ||
+                entreprise.account.pack == statusPACKS[1] ||
+                entreprise.account.pack == statusPACKS[2]
+            )) {
+            dispatch(OffreCreate(company, title, email, telephone,
+                salaire, coverPicture, title_post, areaOffre, expireDispobility,
+                typeContrat, description, addresse, toast
+            ))
+        } else {
+            toast.error("Votre pack ne nous authorise pas ")
+        }
+
+
     }
 
 
@@ -156,7 +174,7 @@ const JobPostPage = () => {
                                     </div>
 
 
-                                    <form class="caact"  onSubmit={handleSumit}>
+                                    <form class="caact" onSubmit={handleSumit}>
                                         <div class="c5cvj cmw6a cfqhd">
 
 
@@ -168,16 +186,16 @@ const JobPostPage = () => {
                                                         <input id="name" value={company} onChange={(e) => { setCompany(e.target.value) }} class="cvac0 coz82" type="text" required={true} placeholder="" />
                                                     </div>
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Email <span class="ctgjb">*</span></label>
-                                                        <input  value={email} onChange={(e) => { setEmail(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email <span class="ctgjb">*</span></label>
+                                                        <input value={email} onChange={(e) => { setEmail(e.target.value) }} class="cvac0 coz82" type="email" required={true} />
                                                     </div>
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Contact Telehpone <span class="ctgjb">*</span></label>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telehpone <span class="ctgjb">*</span></label>
                                                         <input id="email" value={telephone} onChange={(e) => { setTelephone(e.target.value) }} class="cvac0 coz82" type="number" required={true} />
                                                     </div>
 
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="">Addresse de l{"'"} entreprise<span class="ctgjb">*</span></label>
+                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="">Addresse de {"localisation"}<span class="ctgjb">*</span></label>
                                                         <input id="email" value={addresse} onChange={(e) => { setAddresse(e.target.value) }} class="cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                     <div>
@@ -232,11 +250,11 @@ const JobPostPage = () => {
                                                     </div>
                                                     <div>
                                                         <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description du job <span class="cvmpf">*</span></label>
-                                                        <textarea id="description" value={description} onChange={(e)=>{setDescription(e.target.value)}}  class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                                        <textarea id="description" value={description} onChange={(e) => { setDescription(e.target.value) }} class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                                     </div>
                                                     <div>
                                                         <label class="ckncn c9csv cfkm3 ckcgr" for="salary">Salaire (FCFA/ mois) <span class="clvg0">(optional)</span></label>
-                                                        <select onChange={(e) => {setSalaire(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
+                                                        <select onChange={(e) => { setSalaire(e.target.value) }} id="commitment" class="c033a c9csv coz82 cxa4q" required="">
                                                             <option >-- Choix du Salaire --</option>
                                                             {
                                                                 salaires_School.map((item) => {
@@ -246,7 +264,7 @@ const JobPostPage = () => {
                                                                 })
                                                             }
                                                         </select>
-                                                        <div class="clvg0 cwe8x cqaaz c8nfh">Example: “100,000 - $170,000 USD”</div>
+                                                        <div class="clvg0 cwe8x cqaaz c8nfh">Example: “100,000 - 170,000 / mois”</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -293,16 +311,24 @@ const JobPostPage = () => {
                                                 </div> */
                                                 }
                                                 <div class="cq38v">
+                                                    {
+                                                        isLoading ?
+                                                            <LoadinButton text={"..."} />
+                                                            :
+                                                            LoadingPhoto ?
+                                                                <LoadinButton text={"photo de téléchargement ..."} />
+                                                                :
+                                                                loading ?
+                                                                    <LoadinButton text={"En cours ..."} />
+                                                                    :
+                                                                    <button type='submit' class=" bg-blue-500 cd99b croe6 cday3 c8dh7 coz82 ct2sf">Appliquer</button>
+                                                    }
+                                                </div>
                                                 {
-                                                    loading ? 
-                                                    <p class="text-gray-500 animate-pulse"> Publier</p>
-                                                    :
-                                                    <button type='submit' class=" bg-blue-500 cd99b croe6 cday3 c8dh7 coz82 ct2sf">Appliquer</button>
+                                                    /*<div class="cixlf">
+                                                    <div class="clvg0 cwe8x">Condition <a class="c5xyh" href="#0">Terms of Service</a> and <a class="c5xyh" href="#0">Privacy Policy</a>.</div>
+                                                </div> */
                                                 }
-                                                </div>
-                                                <div class="cixlf">
-                                                    <div class="clvg0 cwe8x">By clicking pay you agree to our <a class="c5xyh" href="#0">Terms of Service</a> and <a class="c5xyh" href="#0">Privacy Policy</a>.</div>
-                                                </div>
                                             </div>
                                         </div>
                                     </form>

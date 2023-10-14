@@ -75,7 +75,8 @@ const JobCard2 = ({data}) => {
                     <div class="col-md-3">
                     <div class="text-md-end btn ">
                         <a href={`/${routing.job_details}`} onClick={() => {
-                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
+                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
+                            navigate(`/${routing.job_edit}`,{state:{data}});
                         }} class="primary-link">Edit
                             <i class="mdi mdi-chevron-double-right"></i></a>
                     </div>

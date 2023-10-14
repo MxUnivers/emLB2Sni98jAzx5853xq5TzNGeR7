@@ -27,7 +27,7 @@ export const OffreCreate = (
 ) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        if (getAndCheckLocalStorage(localvalue.recruteurID)) {
+        if (getAndCheckLocalStorage(localvalue.recruteurID)!== null) {
             await axios
                 .post(`${baseurl.url}/api/v1/offre/post/${getAndCheckLocalStorage(localvalue.recruteurID)}`,
                     {
@@ -164,10 +164,27 @@ export const OffreGetAllById = async (id, setState, setState2) => {
 }
 
 
+export const OffreGetAllOffre = async ( setState, setState2) => {
+
+    await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+    })
+        .then((response) => {
+            setState(response.data.data);
+            setState2(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
+
+
 // 
 export const OffreGetById = async (id, setState,setisLoading,setentreprise) => {
-
-    
     setisLoading(true);
         await axios.get(`${baseurl.url}/api/v1/offre/get_offre/${id}`,
             {
@@ -186,9 +203,76 @@ export const OffreGetById = async (id, setState,setisLoading,setentreprise) => {
                 setisLoading(false);
                 console.log(error);
             });
-
 }
 
+
+//  Par catégory
+export const OffreGetByCategory = async (setcategory,setcategory2 ) => {
+        await axios.get(`${baseurl.url}/api/v1/offre/get_offres`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }
+        )
+            .then((response) => {
+                let liste = response.data.data;
+                    let obj = {};
+                    let result = [];
+                    for (let i = 0; i < liste.length; i++) {
+                        let element = liste[i];
+                        let key = element.areaOffre;
+                        if (!obj[key]) {
+                            obj[key] = true;
+                            result.push(key);
+                        }
+                    }
+                    console.log(result); // Output: ["ok", "Supr"]
+                    setcategory(result);
+                    setcategory2(result);
+            })
+            .catch((error) => {
+                // console.log(error);
+                var a =  error;
+                console.log(a)
+            });
+}
+
+
+
+// par contrat
+export const OffreGetByTypeContrat = async (setcategory,setcategory2 ) => {
+    await axios.get(`${baseurl.url}/api/v1/offre/get_offres`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        }
+    )
+        .then((response) => {
+            let liste = response.data.data;
+                let obj = {};
+                let result = [];
+                for (let i = 0; i < liste.length; i++) {
+                    let element = liste[i];
+                    let key = element.typeContrat;
+                    if (!obj[key]) {
+                        obj[key] = true;
+                        result.push(key);
+                    }
+                }
+                console.log(result); // Output: ["ok", "Supr"]
+                setcategory(result);
+                setcategory2(result);
+        })
+        .catch((error) => {
+            // console.log(error);
+            var a =  error;
+
+        });
+}
 
 
 

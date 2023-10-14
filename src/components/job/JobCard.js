@@ -36,12 +36,12 @@ const JobCard = ({ data }) => {
                         <div class="mb-2 mb-md-0">
                             <h5 class="mb-1 fs-18"><a href={`/${routing.job_details}`}
                                 onClick={() => {
-                                    setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
-                                    navigate(`/${routing.job_details}`, { state: { data } })
+                                    // setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
+                                    navigate(`/${routing.job_details}`, { state: { data } });
                                 }}
                                 class="text-gray-900 text-xl font-bold line-clamp-3 dark:text-gray-50">{data.title}</a>
                             </h5>
-                            <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{data.entreprise}</p>
+                            <p class="mb-0 text-gray-500 fs-14 dark:text-gray-300">{data.company}</p>
                         </div>
                     </div>
 
@@ -117,11 +117,12 @@ const JobCard = ({ data }) => {
                                 <div class="text-start text-md-end dark:text-gray-50">
                                     <button type="button"
                                         onClick={() => {
-                                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
+                                            // setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
                                             navigate(`/${routing.job_edit}`, { state: { data } })
                                         }}
                                         data-bs-toggle="modal">Modifier
-                                        <i class="mdi mdi-chevron-double-right"></i></button>
+                                        <i class="mdi mdi-chevron-double-right"></i>
+                                    </button>
                                 </div>
                                 : null
                         }
