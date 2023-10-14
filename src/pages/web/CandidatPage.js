@@ -3,16 +3,25 @@ import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsHouseDoor } from 'react-icons/bs';
 import { CiLocationOn } from 'react-icons/ci';
-import { useFetchCandidatAll } from '../../action/api/candidat/CandidatAction';
 import LoadingCompo1 from '../../components/loading/LoadingCompo1';
+import { useEffect } from 'react';
+import { CandidatGetAll } from '../../action/api/candidat/CandidatAction';
 
 const CandidatPage = () => {
 
 
-    const { isLoading, error, candidatAll } = useFetchCandidatAll();
+    const [isLoading, setisLoading] = useState(true)
+    const [candidatAll, setcandidatAll] = useState([])
+    const [candidatAll2, setcandidatAll2] = useState([])
     const [showMsg, setshowMsg] = useState(false);
     const handleShowMsg = () => setshowMsg(true);
     const handleCloseMsg = () => setshowMsg(false);
+    useEffect(() => {
+        CandidatGetAll(setcandidatAll, setcandidatAll2)
+            .finally(() => {
+                setisLoading(false);
+            })
+    }, [])
 
 
 
@@ -71,18 +80,18 @@ const CandidatPage = () => {
 
 
 
-                        <div class="w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10 ">
 
 
 
-                            {
-                                isLoading ?
-                                    (<LoadingCompo1 text={"Candidats trouver les candidats qui vous conviennent le mieux ..."} />)
-                                    :
-                                    error ?
-                                        <LoadingCompo1 text={"Veillez recharger la page"} />
-                                        :
-                                        candidatAll && candidatAll.length > 0 ?
+                        {
+                            isLoading ?
+                                (<LoadingCompo1 text={"Candidats trouver les candidats qui vous conviennent le mieux ..."} />)
+                                :
+
+                                candidatAll && candidatAll.length > 0 ?
+                                    <div class="w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10 ">
+
+                                        {
                                             candidatAll.map((item) => {
                                                 return (
                                                     <div class="w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -112,29 +121,33 @@ const CandidatPage = () => {
                                                             <img class="w-10 h-10 mb-3 rounded-full shadow-lg"
                                                                 src={item.coverPicture}
                                                                 alt="Bonnie image" />
-                                                            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{`${item.firstname} ${item.lastname}`}</h5>
-                                                            <span class="text-sm text-gray-500 dark:text-gray-400">{item.title_post}</span>
+                                                            <h5 class="mb-1 text-sm font-medium text-gray-900 dark:text-white">{`${item.firstname} ${item.lastname}`}</h5>
+                                                            <span class="text-xs text-gray-500 dark:text-gray-400">{item.title_post}</span>
                                                             <div class="flex mt-4 space-x-3 md:mt-6">
-                                                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Profile</a>
+                                                                <button href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                                    Profile
+                                                                </button>
                                                                 <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 )
                                             })
-                                            :
-                                            <div class="h-screen p-5">
-                                                <div class="border p-5 flex justify-center">
-                                                    <p>Aucun candidats dans la recommandation</p>
-                                                </div>
+                                        }
+                                    </div>
 
-                                            </div>
-                            }
-                        </div>
+                                    :
+                                    <div class="h-screen p-5">
+                                        <div class="border p-5 flex justify-center">
+                                            <p>Aucun candidats dans la recommandation</p>
+                                        </div>
 
-
-
+                                    </div>
+                        }
                     </div>
+
+
+
                 </section>
 
 
