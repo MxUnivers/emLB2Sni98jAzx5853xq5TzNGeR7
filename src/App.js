@@ -36,6 +36,7 @@ import FormationAddPage from "./pages/web/FormationAddPage";
 import FormationdetailPage from "./pages/web/FormationdetailPage";
 import CandidatEditProfilePage from "./pages/web/CandidatEditProfilePage";
 import CompanyEditProfilePage from "./pages/web/CompanyEditProfilePage";
+import CandidatDetailViewPage from "./pages/web/CandidatDetailViewPage";
 
 
 
@@ -72,7 +73,7 @@ function App() {
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />
             <Route path={`${routing.candidat_details}`} element={<CandidatDetailPage />} />
-            <Route path={`${routing.candidat_details_view}`} element={<CandidatDetailPage />} />
+            <Route path={`${routing.candidat_details_view}`} element={<CandidatDetailViewPage />} />
 
 
             {/*Blog */}

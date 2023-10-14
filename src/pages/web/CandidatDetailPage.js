@@ -58,9 +58,6 @@ const CandidatDetailPage = () => {
     const [description_project, setdescription_project] = useState();
 
 
-    useEffect(() => {
-        CandidatureAllOfCandidat(idCandidat, setcandidatures, setcandidatures2);
-    }, []);
 
 
 
@@ -180,7 +177,7 @@ const CandidatDetailPage = () => {
 
                                             <div class="mt-5 mb-5 flex justify-center">
                                                 {
-                                                    candidat && candidat._id ?
+                                                    candidat && candidat._id == getAndCheckLocalStorage(localvalue.candidatID) ?
                                                         <button
                                                             onClick={() => {
                                                                 handleCandidatEditRouting();
@@ -192,7 +189,8 @@ const CandidatDetailPage = () => {
                                                         null
                                                 }
                                             </div>
-                                            <div class="mt-1 mb-1 flex justify-center">
+                                            {
+                                                /*<div class="mt-1 mb-1 flex justify-center">
                                                 <Link to={`/${routing.candidat_applied}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.length : null}</span>
                                                 </Link>
@@ -201,7 +199,8 @@ const CandidatDetailPage = () => {
                                                 <Link to={`/${routing.candidature_list}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Candidature ({candidatures.length})</span>
                                                 </Link>
-                                            </div>
+                                            </div> */
+                                            }
                                         </div>
 
 
@@ -239,10 +238,19 @@ const CandidatDetailPage = () => {
                                         </ul> */
                                         }
                                         <div class="mt-3">
-                                            <a href="javascript:void(0)" class="btn btn-danger btn-hover w-100"><i
-                                                class="uil uil-phone"></i> Me contacter</a>
-                                            <a href="javascript:void(0)" class="btn btn-primary btn-hover w-100 mt-2"><i
-                                                class="uil uil-import"></i> Telecharger mon cv</a>
+                                            {
+                                                candidat && candidat.telephone ?
+
+                                                    <a href={`tel:${candidat.telephone}`} class="btn btn-danger btn-hover w-100"><i
+                                                        class="uil uil-phone"></i> Me contacter</a>
+                                                    : null
+                                            }
+                                            {
+                                                candidat && candidat.cv ?
+                                                    <a href="javascript:void(0)" class="btn btn-primary btn-hover w-100 mt-2"><i
+                                                        class="uil uil-import"></i> Telecharger cv</a>
+                                                    : null
+                                            }
                                         </div>
 
                                     </div>
@@ -273,13 +281,13 @@ const CandidatDetailPage = () => {
                                             {
                                                 candidat && candidat.email ?
                                                     <li>
-                                                        <div class="d-flex align-items-center mt-4">
+                                                        <a href={`mailto:${candidat.email}`} class="d-flex align-items-center mt-4">
 
                                                             <div class="ms-3">
                                                                 <h6 class="fs-14 mb-1"><MdEmail /></h6>
                                                                 <p class="text-muted mb-0">{candidat.email}</p>
                                                             </div>
-                                                        </div>
+                                                        </a>
                                                     </li> :
                                                     <li>
                                                         <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
@@ -303,13 +311,13 @@ const CandidatDetailPage = () => {
                                             {
                                                 candidat && candidat.telephone ?
                                                     <li>
-                                                        <div class="d-flex align-items-center mt-4">
+                                                        <a href={`tel:${candidat.telephone}`} class="d-flex align-items-center mt-4">
 
                                                             <div class="ms-3">
                                                                 <h6 class="fs-14 mb-1"><MdPhone /></h6>
                                                                 <p class="text-muted mb-0">{candidat.telephone}</p>
                                                             </div>
-                                                        </div>
+                                                        </a>
                                                     </li> :
                                                     <li>
                                                         <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
@@ -318,15 +326,15 @@ const CandidatDetailPage = () => {
 
 
                                             {
-                                                candidat && candidat.telephone !== "#" ?
+                                                candidat && candidat.site_web !== "#" ?
                                                     <li>
                                                         <div class="d-flex align-items-center mt-4">
-                                                            <div class="ms-3">
+                                                            <a href={`${candidat.site_web}`} target='_blank' class="ms-3">
                                                                 <h6 class="fs-14 mb-1"><MdWeb /> site web :</h6>
                                                                 <a href={`${candidat.site_web}`} target="_blank" >
                                                                     <p class="text-muted mb-0">{candidat.site_web}</p>
                                                                 </a>
-                                                            </div>
+                                                            </a>
                                                         </div>
                                                     </li> :
                                                     <li>
@@ -342,31 +350,37 @@ const CandidatDetailPage = () => {
                                 </div>
                             </div>
 
-                            <div class="col-lg-8">
-                                <div class="card candidate-details ms-lg-4 mt-4 mt-lg-0">
-                                    <div class="card-body p-4 candidate-personal-detail mx-1">
+                            <div class="w-full col-lg-8">
+                                <div class="card w-full candidate-details ms-lg-4 mt-4 mt-lg-0">
+                                    <div class="w-full card-body p-4 candidate-personal-detail mx-1">
                                         {
                                             candidat && candidat.description ?
-                                                <div class="rounded-xl shadow-sm px-2 py-2 border ">
+                                                <div class=" w-fullrounded-xl shadow-sm px-2 py-2 border ">
                                                     <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
                                                     <p class="text-muted mb-2">{candidat.description}</p>
                                                 </div> :
                                                 <div class="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
                                         }
-                                        <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            <div class="flex flex-row justify-between items-center">
-                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                <button onClick={() => { handleShow(0) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + Education
-                                                </button>
-                                            </div>
+                                        <div class="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                            {
+                                                candidatEducation ?
+                                                    <div class="flex flex-row justify-between items-center">
+                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
+                                                        <button onClick={() => { handleShow(0) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                            + Education
+                                                        </button>
+                                                    </div>
+                                                    :
+                                                    null
+                                            }
                                             {
                                                 isLoadingEducation ?
                                                     (<p education en cours>...</p>) :
-                                                    (
-                                                        candidatEducation &&
+
+                                                    candidatEducation &&
                                                         candidatEducation.length > 0
-                                                        && candidatEducation.map((item) => {
+                                                        ?
+                                                        candidatEducation.map((item) => {
                                                             return (
                                                                 <div class="candidate-education-content mt-4 flex space-x-3">
                                                                     <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
@@ -382,24 +396,28 @@ const CandidatDetailPage = () => {
                                                                 </div>
                                                             )
                                                         })
-                                                    )
+                                                        : null
+
                                             }
 
                                         </div>
-                                        <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
+                                        <div class="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
-                                            <div class="flex flex-row justify-between items-center  ">
-                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                <button onClick={() => { handleShow(1) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + experience
-                                                </button>
-                                            </div>
+                                            {
+                                                candidatExperience ?
+                                                    <div class="flex flex-row justify-between items-center  ">
+                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
+                                                        <button onClick={() => { handleShow(1) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                            + experience
+                                                        </button>
+                                                    </div> : null
+                                            }
                                             {
                                                 isLoadingExperience ?
                                                     <p>Chargement...</p> :
                                                     errorExperience ?
                                                         <p>une erreur est survevue</p> :
-                                                        (
+                                                        candidatExperience && candidatExperience.length > 0 ?
                                                             candidatExperience.map((item) => {
                                                                 return (
                                                                     <div class="candidate-education-content mt-4 flex space-x-3">
@@ -415,24 +433,31 @@ const CandidatDetailPage = () => {
                                                                     </div>
                                                                 )
                                                             })
-                                                        )
+                                                            : null
                                             }
 
                                         </div>
-                                        <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            <div class="flex flex-row justify-between items-center">
-                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                <button onClick={() => { handleShow(2) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                    + projet
-                                                </button>
-                                            </div>
+                                        <div class="w-full candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                            {
+                                                candidatProject ?
+                                                    <div class="flex flex-row justify-between items-center">
+                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
+                                                        {
+                                                            /*<button onClick={() => { handleShow(2) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                            + projet
+                                                        </button> */
+                                                        }
+                                                    </div>
+                                                    :
+                                                    null
+                                            }
                                             {
                                                 isLoadingProject ?
                                                     <p>En cours ...</p> :
                                                     errorProject ?
                                                         <p>Une erreur est survenue</p>
                                                         :
-                                                        (
+                                                        candidatProject && candidatProject.length > 0 ?
                                                             candidatProject.map((item) => {
                                                                 return (
                                                                     <div class="row">
@@ -455,7 +480,7 @@ const CandidatDetailPage = () => {
                                                                     </div>
                                                                 )
                                                             })
-                                                        )
+                                                            : null
                                             }
                                         </div>
                                         {

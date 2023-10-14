@@ -26,7 +26,7 @@ import useFetchProject, { ProjectCandidatPost } from '../../action/api/candidat/
 const CandidatDetailViewPage = () => {
 
 
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatDetailID);
 
     const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
 
@@ -179,7 +179,7 @@ const CandidatDetailViewPage = () => {
                                             </ul>
 
                                             <div class="mt-5 mb-5 flex justify-center">
-                                                {
+                                                {/* 
                                                     candidat && candidat._id ?
                                                         <button
                                                             onClick={() => {
@@ -190,9 +190,11 @@ const CandidatDetailViewPage = () => {
                                                             <span>Mettre à jour</span>
                                                         </button> :
                                                         null
+                                                         */
                                                 }
                                             </div>
-                                            <div class="mt-1 mb-1 flex justify-center">
+                                            {
+                                                /*<div class="mt-1 mb-1 flex justify-center">
                                                 <Link to={`/${routing.candidat_applied}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.length : null}</span>
                                                 </Link>
@@ -201,7 +203,8 @@ const CandidatDetailViewPage = () => {
                                                 <Link to={`/${routing.candidature_list}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Candidature ({candidatures.length})</span>
                                                 </Link>
-                                            </div>
+                                            </div> */
+                                            }
                                         </div>
 
 
@@ -239,10 +242,19 @@ const CandidatDetailViewPage = () => {
                                         </ul> */
                                         }
                                         <div class="mt-3">
-                                            <a href="javascript:void(0)" class="btn btn-danger btn-hover w-100"><i
-                                                class="uil uil-phone"></i> Me contacter</a>
-                                            <a href="javascript:void(0)" class="btn btn-primary btn-hover w-100 mt-2"><i
-                                                class="uil uil-import"></i> Telecharger mon cv</a>
+                                            {
+                                                candidat && candidat.telephone ?
+                                                    <a href={`tel:${candidat.telephone}`} class="btn btn-danger btn-hover w-100"><i
+                                                        class="uil uil-phone"></i> Me contacter</a>
+                                                    : null
+
+                                            }
+                                            {
+                                                candidat && candidat.cv ?
+                                                    <a href={`${candidat.cv}`} target='_blank' class="btn btn-primary btn-hover w-100 mt-2"><i
+                                                        class="uil uil-import"></i> Telecharger cv</a>
+                                                    : null
+                                            }
                                         </div>
 
                                     </div>
@@ -275,10 +287,10 @@ const CandidatDetailViewPage = () => {
                                                     <li>
                                                         <div class="d-flex align-items-center mt-4">
 
-                                                            <div class="ms-3">
+                                                            <a href={`mailto:${candidat.email}`} class="ms-3">
                                                                 <h6 class="fs-14 mb-1"><MdEmail /></h6>
                                                                 <p class="text-muted mb-0">{candidat.email}</p>
-                                                            </div>
+                                                            </a>
                                                         </div>
                                                     </li> :
                                                     <li>
@@ -304,11 +316,10 @@ const CandidatDetailViewPage = () => {
                                                 candidat && candidat.telephone ?
                                                     <li>
                                                         <div class="d-flex align-items-center mt-4">
-
-                                                            <div class="ms-3">
+                                                            <a href={`tel:${candidat.telephone}`} class="ms-3">
                                                                 <h6 class="fs-14 mb-1"><MdPhone /></h6>
                                                                 <p class="text-muted mb-0">{candidat.telephone}</p>
-                                                            </div>
+                                                            </a>
                                                         </div>
                                                     </li> :
                                                     <li>
@@ -342,7 +353,7 @@ const CandidatDetailViewPage = () => {
                                 </div>
                             </div>
 
-                            <div class="col-lg-8">
+                            <div class="w-full col-lg-8">
                                 <div class="card candidate-details ms-lg-4 mt-4 mt-lg-0">
                                     <div class="card-body p-4 candidate-personal-detail mx-1">
                                         {
@@ -354,42 +365,49 @@ const CandidatDetailViewPage = () => {
                                                 <div class="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
                                         }
                                         <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            <div class="flex flex-row justify-between items-center">
-                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                
-                                            </div>
+                                            {
+                                                candidatEducation && candidatEducation.length > 0 ?
+                                                    <div class="flex flex-row justify-between items-center">
+                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
+                                                    </div>
+                                                    : null
+                                            }
                                             {
                                                 isLoadingEducation ?
                                                     (<p education en cours>...</p>) :
                                                     (
                                                         candidatEducation &&
-                                                        candidatEducation.length > 0
-                                                        && candidatEducation.map((item) => {
-                                                            return (
-                                                                <div class="candidate-education-content mt-4 flex space-x-3">
-                                                                    <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
-                                                                        {String(item.title).charAt(1)}
+                                                            candidatEducation.length > 0
+                                                            ? candidatEducation.map((item) => {
+                                                                return (
+                                                                    <div class="candidate-education-content mt-4 flex space-x-3">
+                                                                        <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
+                                                                            {String(item.title).charAt(1)}
+                                                                        </div>
+                                                                        <div class="ms-4">
+                                                                            <h6 class="fs-16 mb-1">{item.title}</h6>
+                                                                            <p class="mb-2 text-muted">
+                                                                                {item.entreprise}
+                                                                            </p>
+                                                                            <p class="text-muted">{item.description}</p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="ms-4">
-                                                                        <h6 class="fs-16 mb-1">{item.title}</h6>
-                                                                        <p class="mb-2 text-muted">
-                                                                            {item.entreprise}
-                                                                        </p>
-                                                                        <p class="text-muted">{item.description}</p>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        })
+                                                                )
+                                                            })
+                                                            : null
                                                     )
                                             }
 
                                         </div>
                                         <div class="candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
-                                            <div class="flex flex-row justify-between items-center  ">
-                                                <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                
-                                            </div>
+                                            {
+                                                candidatExperience && candidatExperience.length > 0 ?
+                                                    <div class="flex flex-row justify-between items-center  ">
+                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
+                                                    </div>
+                                                    : null
+                                            }
                                             {
                                                 isLoadingExperience ?
                                                     <p>Chargement...</p> :
@@ -416,10 +434,13 @@ const CandidatDetailViewPage = () => {
 
                                         </div>
                                         <div class="candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            <div class="flex flex-row justify-between items-center">
+                                            {
+                                                candidatProject && candidatProject.length > 0 ?
+                                                <div class="flex flex-row justify-between items-center">
                                                 <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                
                                             </div>
+                                             : null
+                                            }
                                             {
                                                 isLoadingProject ?
                                                     <p>En cours ...</p> :
@@ -553,7 +574,7 @@ const CandidatDetailViewPage = () => {
 
 
 
-                
+
 
 
 

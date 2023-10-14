@@ -6,9 +6,12 @@ import { packsItemsList, statusPACKS } from '../../../utlis/config'
 import { toast } from 'react-toastify'
 import { routing } from '../../../utlis/routing'
 
-const CandidatCard = ({ item }) => {
+const CandidatCard = ({ item, entreprise }) => {
     var idEntreprise = getAndCheckLocalStorage(localvalue.recruteurDetailID);
-    const { isLoading, errorEnreprise, entreprise } = useFetchEntreprise(idEntreprise)
+
+
+
+
     return (
         <div class="w-full  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div class="flex justify-end px-4 pt-4">
@@ -43,13 +46,13 @@ const CandidatCard = ({ item }) => {
                     <div
                         type='button'
                         onClick={() => {
-                            if (
-                                
-                                entreprise.account.pack == statusPACKS[0] || 
-                                entreprise.account.pack == statusPACKS[1] || 
+                            if (entreprise &&
+
+                                entreprise.account.pack == statusPACKS[0] ||
+                                entreprise.account.pack == statusPACKS[1] ||
                                 entreprise.account.pack == statusPACKS[2]
                             ) {
-                                setWithExpiration(localvalue.candidatDetailID, item._id, dureeDeVie)
+                                setWithExpiration(localvalue.candidatDetailID, item._id, dureeDeVie);
                                 window.location.href = `/${routing.candidat_details_view}`
                             } else {
                                 toast.error("Votre pack ne vous authorise pas !")
