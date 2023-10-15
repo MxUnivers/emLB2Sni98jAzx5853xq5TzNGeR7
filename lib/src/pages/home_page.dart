@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
+import 'package:offre_emplois_mobile_candidat/src/model/CandidatModel.dart';
 import 'package:offre_emplois_mobile_candidat/src/model/JobModel.dart';
 import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
 import 'package:offre_emplois_mobile_candidat/src/widgets/home/CategoryJobHome.dart';
 import 'package:offre_emplois_mobile_candidat/src/widgets/home/JobListHome.dart';
 
+import '../utils/storage.dart';
 import '../widgets/home/AppBarHome.dart';
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, this.title}) : super(key: key);
@@ -16,13 +18,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
+    SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
+      setState(() {
+        this.candidat = candidat;
+      });
+    });
   }
-
+  late CandidatModel candidat ;
   @override
   Widget build(BuildContext context) {
     return PageView(physics: NeverScrollableScrollPhysics(), children: [

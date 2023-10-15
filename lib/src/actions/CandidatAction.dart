@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:offre_emplois_mobile_candidat/src/pages/home_page.dart';
+import 'package:offre_emplois_mobile_candidat/src/pages/mainPage.dart';
 import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
 
 import '../model/CandidatModel.dart';
@@ -44,7 +44,7 @@ Future<void> connectCandidat(
     SharedPreferencesService.saveCandidatDataToSharedPreferences(candidat);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage()),
+      MaterialPageRoute(builder: (context) => MainPage()),
     );
   } else {
     // La connexion a échoué, vous pouvez gérer les différentes réponses d'erreur ici.
