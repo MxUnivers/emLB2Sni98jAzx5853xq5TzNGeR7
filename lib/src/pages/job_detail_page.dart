@@ -22,7 +22,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "detail offre",
+          "Detail offre",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -66,42 +66,63 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 ),
               ),
               SizedBox(
-                height: 32,
+                height: 10,
               ),
               Center(
-                child: Text(
+                child: Container(
+                    child: Flexible(
+                        child: Text(
                   widget.job!.title.toString(),
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                ))),
               ),
               SizedBox(
-                height: 16,
+                height: 5,
               ),
               Center(
-                child: Text(
-                  widget.job!.addresse.toString(),
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
+                child: Container(
+                  child: Flexible(
+                      child: Text(
+                    widget.job!.addresse.toString(),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
               ),
               SizedBox(
-                height: 32,
+                height: 5,
+              ),
+              Center(
+                child: Container(
+                  child: Flexible(
+                      child: Text(
+                        "${widget.job?.candidats?.length} candidat${widget.job!.candidats!.length > 0 ? "s":""}",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      )),
+                ),
+              ),
+              SizedBox(
+                height: 3,
               ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      height: 45,
+                      height: 25,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                          Radius.circular(5),
                         ),
                       ),
                       child: Center(
@@ -109,19 +130,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                           widget.job!.typeContrat.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          widget.job!.salaire.toString(),
-                          style: TextStyle(
-                            fontSize: 36,
+                            fontSize: 12,
                           ),
                         ),
                       ),
@@ -130,17 +139,29 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 ],
               ),
               SizedBox(
-                height: 32,
+                height: 0,
+              ),
+              Expanded(
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      "${widget.job!.salaire.toString()} / mois",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               Text(
-                "description",
+                "Description",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 5,
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -153,48 +174,26 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 5,
               ),
               Row(
                 children: [
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                            widget.job!.is_favorite = !widget.job!.is_favorite!;
-                        });
-                      },
-                      child: Container(
-                        height: 60,
-                        width: 60,
-                        child: Center(
-                          child: widget.job!.is_favorite!
-                              ? Icon(
-                                  Icons.favorite,
-                                  size: 28,
-                                  color: AppTheme_App.favoriteColor,
-                                )
-                              : Icon(
-                                  Icons.favorite_border,
-                                  size: 28,
-                                ),
-                        ),
-                      )),
                   SizedBox(
                     width: 16,
                   ),
                   Expanded(
-
-                    child:GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  JobConfirmPage(job: widget.job,)),
-                        );
-                      },
-                      child: Container(
-                      height: 35,
+                      child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => JobConfirmPage(
+                                  job: widget.job,
+                                )),
+                      );
+                    },
+                    child: Container(
+                      height: 30,
                       decoration: BoxDecoration(
                         color: AppTheme_App.primaryColor,
                         borderRadius: BorderRadius.all(
@@ -212,8 +211,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         ),
                       ),
                     ),
-                    )
-                  ),
+                  )),
                 ],
               ),
             ],

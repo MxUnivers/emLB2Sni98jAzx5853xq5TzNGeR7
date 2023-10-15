@@ -1,6 +1,5 @@
 import  "package:flutter/material.dart";
 import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/profile_edit_page.dart";
 
 
 class ProfilePage extends StatefulWidget {
@@ -20,10 +19,10 @@ class _ProfilePageState extends State<ProfilePage> {
           setState(() {
             counter = counter + 1;
           });
-          Navigator.push(
+          /*Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ProfileEditPage()),
-          );
+          );*/
         },
         child: Container(
           width: 60,

@@ -7,6 +7,7 @@ import 'package:offre_emplois_mobile_candidat/src/pages/sigup_page.dart';
 import 'package:offre_emplois_mobile_candidat/src/themes/constants.dart';
 import 'package:offre_emplois_mobile_candidat/src/themes/theme.dart';
 //import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import '../actions/CandidatAction.dart';
 import '../widgets/widget.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,7 +16,25 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  bool isLoading = false;
   bool isPasswordVisible = true;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   void onTapRedirectHome() {
     Navigator.push(
@@ -74,16 +93,85 @@ class _SignInPageState extends State<SignInPage> {
                               SizedBox(
                                 height: 60,
                               ),
-                              MyTextField(
-                                  hintText: 'Phone, email or username',
-                                  inputType: TextInputType.text),
-                              MyPasswordField(
-                                  isPasswordVisible: isPasswordVisible,
-                                  onTap: () {
-                                    setState(() {
-                                      isPasswordVisible = !isPasswordVisible;
-                                    });
-                                  }),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: TextField(
+                                  controller: emailController,
+                                  style: kBodyText.copyWith(
+                                      color: AppTheme_App.TextGray),
+                                  keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(15),
+                                    hintText: "email",
+                                    hintStyle: kBodyText,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: AppTheme_App.withGreyOrginal,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: TextField(
+                                  controller: passwordController,
+                                  style: kBodyText.copyWith(
+                                    color: AppTheme_App.TextGray,
+                                  ),
+                                  obscureText: false,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    suffixIcon: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: IconButton(
+                                        splashColor: AppTheme_App.primaryColor,
+                                        highlightColor:
+                                            AppTheme_App.primaryColor,
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          isPasswordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.all(15),
+                                    hintText: 'Password',
+                                    hintStyle: kBodyText,
+                                    enabled: true,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: AppTheme_App.primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -115,27 +203,44 @@ class _SignInPageState extends State<SignInPage> {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          height: 40,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryColor,
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          child: TextButton(
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.resolveWith(
-                                (states) => Colors.black12,
+                        isLoading == true
+                            ? Container(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Container(
+                                height: 35,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primaryColor,
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                    overlayColor:
+                                        MaterialStateProperty.resolveWith(
+                                      (states) => Colors.black12,
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    setState((){
+                                      isLoading = true;
+                                    });
+                                    String email = emailController.text;
+                                    String password = passwordController.text;
+                                    await connectCandidat(
+                                            context, email, password)
+                                        .then((value) {
+                                      isLoading = false;
+                                    });
+                                    // Appeler la fonction de connexion ici
+                                  },
+                                  child: Text(
+                                    "Connexion",
+                                    style: kButtonText.copyWith(
+                                        color: AppTheme_App.withPrimary),
+                                  ),
+                                ),
                               ),
-                            ),
-                            onPressed: onTapRedirectHome,
-                            child: Text(
-                              "Connexion",
-                              style: kButtonText.copyWith(
-                                  color: AppTheme_App.withPrimary),
-                            ),
-                          ),
-                        ),
                         SizedBox(
                           height: 150,
                         )
