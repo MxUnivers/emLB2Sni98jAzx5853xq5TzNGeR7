@@ -3,6 +3,7 @@ import "package:offre_emplois_mobile_candidat/src/model/JobModel.dart";
 import "package:offre_emplois_mobile_candidat/src/widgets/JobComponent.dart";
 
 import "../../themes/theme.dart";
+import "../../utils/baseurl.dart";
 
 class JobListHome extends StatefulWidget {
   const JobListHome({Key? key}) : super(key: key);
@@ -12,23 +13,23 @@ class JobListHome extends StatefulWidget {
 }
 
 class _JobListHomeState extends State<JobListHome> {
-  List<JobModel> jobList = [
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchAllJobList(
+            "${baseurl.url.toString()+baseurl.apiV1.toString()}/offre/get_offres",
+            )
+        .then((jobs) {
+      setState(() {
+        // Mettre à jour la liste des offres récupérées
+        jobList = jobs;
+        print(jobList);
+      });
+    });
+  }
 
-    JobModel(
-        coverPicture:
-        "https://upload.wikimedia.org/wikipedia/fr/1/1c/Logo_SGBCI_2014.png",
-        title: "Senior developpeur",
-        addresse: "Abidjan",
-        dateNow: "30/08/2023",
-        is_favorite: false,
-        areaOffre: "Informatique",
-        experience: "1-2",
-        typeContrat: "freelance",
-      description: "En tant que Développeur Front-End au sein de notre équipe, vous serez responsable de la création et de la mise en œuvre d'interfaces utilisateur attrayantes et fonctionnelles pour nos applications web. Vous travaillerez en étroite collaboration avec les concepteurs, les développeurs back-end et les chefs de projet pour garantir que nos produits offrent une expérience utilisateur exceptionnelle."
-
-    ),
-
-  ];
+  List<JobModel> jobList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,6 @@ class _JobListHomeState extends State<JobListHome> {
           ],
         ),
       ),
-    )
-    ;
+    );
   }
 }

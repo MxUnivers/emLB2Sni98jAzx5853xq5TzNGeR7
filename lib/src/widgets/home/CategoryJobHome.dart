@@ -3,6 +3,7 @@ import "package:google_fonts/google_fonts.dart";
 import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
 import "package:offre_emplois_mobile_candidat/src/model/JobCategoryModel.dart";
 import "package:offre_emplois_mobile_candidat/src/pages/search_job_category.dart";
+import "package:offre_emplois_mobile_candidat/src/utils/baseurl.dart";
 
 import "../../Animation/skeleton_model.dart";
 
@@ -17,38 +18,26 @@ class CategoryJobHome extends StatefulWidget {
 class _CategoryJobHomeState extends State<CategoryJobHome> {
 
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchAllCategoriesOffres(
+      "${baseurl.url.toString()+baseurl.apiV1.toString()}/offre/get_offres",
+    )
+        .then((jobs) {
+      setState(() {
+        // Mettre à jour la liste des offres récupérées
+        jobCategoryList = jobs;
+        print(jobCategoryList);
+      });
+    });
+  }
 
-  List<JobCategoryModel> jobCategoryList = [
-    JobCategoryModel(
-      id: "1090290291",
-      title: "Informatique"
-    ),
-    JobCategoryModel(
-        id: "1090290292",
-        title: "Developpeur"
-    ),
-    JobCategoryModel(
-        id: "1090290293",
-        title: "Batiment"
-    ),
-    JobCategoryModel(
-        id: "1090290291",
-        title: "Informatique"
-    ),
-    JobCategoryModel(
-        id: "1090290292",
-        title: "Developpeur"
-    ),
-    JobCategoryModel(
-        id: "1090290291",
-        title: "Informatique"
-    ),
-    JobCategoryModel(
-        id: "1090290292",
-        title: "Developpeur"
-    ),
 
-  ];
+
+
+  List<JobCategoryModel> jobCategoryList = [];
 
 
 

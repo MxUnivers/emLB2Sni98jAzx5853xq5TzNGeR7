@@ -6,6 +6,7 @@ import "package:offre_emplois_mobile_candidat/src/pages/profile_edit_page.dart";
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
+  
 }
 
 class _ProfilePageState extends State<ProfilePage> {

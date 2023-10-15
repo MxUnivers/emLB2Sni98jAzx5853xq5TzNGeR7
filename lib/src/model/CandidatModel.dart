@@ -26,8 +26,8 @@ class CandidatModel {
   final String? linkedinUrl;
   final String? twitterUrl;
   final String? instagramUrl;
-  final List<JobModel>? offres;
-  final List<dynamic>? bookmarks;
+  final List<String>? offres;
+  final List<String>? bookmarks;
   final int? likes;
   final bool? access;
 

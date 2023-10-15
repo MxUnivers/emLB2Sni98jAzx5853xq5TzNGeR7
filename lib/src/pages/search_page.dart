@@ -36,7 +36,6 @@ class _SearchPageState extends State<SearchPage> {
         dateNow: "30/08/2023",
         is_favorite: false,
         areaOffre: "Informatique",
-        experience: "1-2",
         typeContrat: "freelance",
         description: "En tant que Développeur Front-End au sein de notre équipe, vous serez responsable de la création et de la mise en œuvre d'interfaces utilisateur attrayantes et fonctionnelles pour nos applications web. Vous travaillerez en étroite collaboration avec les concepteurs, les développeurs back-end et les chefs de projet pour garantir que nos produits offrent une expérience utilisateur exceptionnelle."
 

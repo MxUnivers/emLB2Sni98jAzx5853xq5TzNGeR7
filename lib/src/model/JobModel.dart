@@ -1,41 +1,38 @@
-import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/model/CandidatModel.dart";
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
 
 class JobModel {
-   String? idEntreprise;
-   String? title;
-   String? email;
-   String? coverPicture;
-   String? titlePost;
-   String? areaOffre;
-   String? dispobility;
-   String? typeContrat;
-   String? addresse;
-   String? description;
-   String? experience;
-   String? dateNow;
-   String? salaire;
-   bool? access;
-   bool? is_favorite = false;
-   List<CandidatModel>? candidats;
+  String? idEntreprise;
+  String? title;
+  String? email;
+  String? coverPicture;
+  String? titlePost;
+  String? areaOffre;
+  String? typeContrat;
+  String? addresse;
+  String? description;
+  String? dateNow;
+  String? salaire;
+  bool? access;
+  bool? is_favorite = false;
+  List<dynamic>? candidats;
 
   JobModel({
-     this.idEntreprise,
-     this.title,
-     this.email,
-     this.coverPicture,
-     this.titlePost,
-     this.areaOffre,
+    this.idEntreprise,
+    this.title,
+    this.email,
+    this.coverPicture,
+    this.titlePost,
+    this.areaOffre,
     this.addresse,
     this.dateNow,
-     this.dispobility,
     this.typeContrat,
     this.description,
-    this.experience,
-     this.salaire,
+    this.salaire,
     this.access,
     this.is_favorite,
-     this.candidats,
+    this.candidats,
   });
 
   factory JobModel.fromJson(Map<String, dynamic> json) {
@@ -46,14 +43,52 @@ class JobModel {
       coverPicture: json['coverPicture'],
       titlePost: json['title_post'],
       areaOffre: json['areaOffre'],
-      dispobility: json['dispobility'],
       description: json['description'],
+      typeContrat: json['typeContrat'],
+      addresse: json['addresse'],
       salaire: json['salaire'],
       access: json['access'],
-      is_favorite: json['is_favorite'],
       candidats: json['candidats'],
     );
   }
-
 }
+
+Future<List<JobModel>> fetchAllJobList(String apiUrl) async {
+  print(apiUrl);
+  var headers = {
+    'Authorization': 'Bearer ${baseurl.token}',
+  };
+
+  var request = http.Request('GET', Uri.parse(apiUrl));
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(response.statusCode);
+    var responseBody = await response.stream.bytesToString();
+    var jsonData = jsonDecode(responseBody);
+    print(jsonData["data"]);
+
+    List<JobModel> jobList = [];
+
+    if (jsonData["data"] is List) {
+      for (var item in jsonData["data"]) {
+        if (item is Map<String, dynamic>) {
+          jobList.add(JobModel.fromJson(item));
+        } else {
+          // Gérer le cas où un élément n'est pas un objet JSON valide, par exemple, en sautant cet élément ou en lançant une exception.
+        }
+      }
+    }
+
+    return jobList;
+  } else {
+    print(response.statusCode);
+    throw Exception('Failed to load job data');
+  }
+}
+
+
+
 

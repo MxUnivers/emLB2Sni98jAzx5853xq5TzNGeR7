@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
+import 'package:offre_emplois_mobile_candidat/src/model/JobModel.dart';
+import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
 import 'package:offre_emplois_mobile_candidat/src/widgets/home/CategoryJobHome.dart';
 import 'package:offre_emplois_mobile_candidat/src/widgets/home/JobListHome.dart';
 
@@ -18,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
   }
 
   @override
