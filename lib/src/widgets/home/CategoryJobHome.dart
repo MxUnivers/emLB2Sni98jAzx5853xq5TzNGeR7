@@ -33,14 +33,7 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
       });
     });
   }
-
-
-
-
   List<JobCategoryModel> jobCategoryList = [];
-
-
-
 
   @override
   Widget build(BuildContext context) {
