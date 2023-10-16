@@ -1,44 +1,57 @@
+
 import "package:flutter/material.dart";
 
 
 import 'package:flutter/material.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
 import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
 
 import '../actions/JobAction.dart';
 import '../model/JobModel.dart';
+import '../utils/storage.dart';
 import '../widgets/JobComponent.dart';
 import '../widgets/home/AppBarHome.dart';
-class SearchPage extends StatefulWidget {
-  SearchPage({Key? key, this.title}) : super(key: key);
+class OffrePostulesPage extends StatefulWidget {
+  OffrePostulesPage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _OffrePostulesPageState createState() => _OffrePostulesPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _OffrePostulesPageState extends State<OffrePostulesPage> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchAllJobList(
-      "${baseurl.url.toString()+baseurl.apiV1.toString()}/offre/get_offres",
-    ).then((jobs) {
+
+    SharedPreferencesService.getCandidatDataFromSharedPreferences()
+        .then((candidat) {
       setState(() {
-        // Mettre à jour la liste des offres récupérées
-        jobList = jobs;
-        print(jobList);
+        this.candidat = candidat;
       });
-    }).then((s){
-      setState(() {
-        isLoading=false;
+
+      fetchAllJobList(
+        "${baseurl.url.toString() + baseurl.apiV1.toString()}/offre/get_offres",
+      ).then((jobs) {
+        setState(() {
+          // Mettre à jour la liste des offres récupérées
+          jobList = jobs;
+          print(jobList);
+        });
+      }).then((s) {
+        setState(() {
+          isLoading = false;
+        });
       });
-    } );
+    });
+
   }
+  late CandidatModel candidat;
   bool isLoading   =  true;
 
 

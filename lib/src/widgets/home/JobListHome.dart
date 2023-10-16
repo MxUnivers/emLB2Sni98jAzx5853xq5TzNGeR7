@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 import "package:jouman_mobile_mobile/src/widgets/JobComponent.dart";
 
+import "../../actions/JobAction.dart";
 import "../../themes/theme.dart";
 import "../../utils/baseurl.dart";
 
@@ -17,9 +18,7 @@ class _JobListHomeState extends State<JobListHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchAllJobList(
-            "${baseurl.url.toString()+baseurl.apiV1.toString()}/offre/get_offres",
-            )
+    fetchAllJobList( "${baseurl.url.toString()+baseurl.apiV1.toString()}/offre/get_offres")
         .then((jobs) {
       setState(() {
         // Mettre à jour la liste des offres récupérées

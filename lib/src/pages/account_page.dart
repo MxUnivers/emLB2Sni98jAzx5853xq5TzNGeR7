@@ -1,4 +1,9 @@
+import "package:flutter/cupertino.dart";
 import  "package:flutter/material.dart";
+
+import "candidatures_page.dart";
+import "message_page.dart";
+import "offre_postules.dart";
 
 
 class ProfileCard extends StatelessWidget {
@@ -19,6 +24,14 @@ class ApplicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: (){
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => CandidaturesPage(),
+            ),
+          );
+        },
         leading: Icon(Icons.assignment),
         title: Text('Candidatures'),
         subtitle: Text('Voir vos candidatures'),
@@ -32,6 +45,14 @@ class MessageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: (){
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => ReceivedMessagesPage(),
+            ),
+          );
+        },
         leading: Icon(Icons.message),
         title: Text('Messages'),
         subtitle: Text('Voir vos messages'),
@@ -45,6 +66,14 @@ class PostulatedAnnouncementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: (){
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => OffrePostulesPage(),
+            ),
+          );
+        },
         leading: Icon(Icons.post_add),
         title: Text('Annonces Postulées'),
         subtitle: Text('Voir les annonces auxquelles vous avez postulé'),
