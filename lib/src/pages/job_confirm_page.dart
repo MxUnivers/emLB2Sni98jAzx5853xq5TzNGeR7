@@ -6,6 +6,7 @@ import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import 'package:fluttertoast/fluttertoast.dart';
 
+import "../actions/CandidatureAction.dart";
 import "../utils/storage.dart";
 
 class JobConfirmPage extends StatefulWidget {
@@ -17,11 +18,11 @@ class JobConfirmPage extends StatefulWidget {
 }
 
 class _JobConfirmPageState extends State<JobConfirmPage> {
-
   @override
   void initState() {
     super.initState();
-    SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
+    SharedPreferencesService.getCandidatDataFromSharedPreferences()
+        .then((candidat) {
       setState(() {
         this.candidat = candidat;
         firstnameController.text = this.candidat.firstname!;
@@ -30,7 +31,10 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
       });
     });
   }
-  late CandidatModel candidat ;
+
+  bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  late CandidatModel candidat;
 
 // Créez des contrôleurs pour chaque champ
   final firstnameController = TextEditingController();
@@ -38,36 +42,6 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
   final emailController = TextEditingController();
   final telephoneController = TextEditingController();
   final descriptionController = TextEditingController();
-
-  triggleNofication() {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-      id: 10,
-      bigPicture: "assets/logo_antigaspi.png",
-      channelKey: "basic_channel",
-      title:
-          "candidature pour le poste ${widget.job?.title.toString()} à été prise en compte , Regarder dans la liste de vos candidatures",
-      body: "Merci de faire confiance 😁 . ",
-    ));
-  }
-
-  void PostCandidature() {
-    triggleNofication();
-    Fluttertoast.showToast(
-      msg:
-          "Candidature pour le poste ${widget.job?.title.toString()} a été prise en compte. Regardez dans la liste de vos candidatures",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.green.shade200,
-      textColor: Colors.grey.shade700,
-      fontSize: 16.0,
-    );
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MainPage()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +104,7 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                 ),
               ),
               Form(
+                key: _formKey,
                 child: Column(
                   children: <Widget>[
                     Padding(
@@ -208,20 +183,32 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: ElevatedButton(
+                      child: isLoading == true ?
+                      CircularProgressIndicator()
+                          :
+                      ElevatedButton(
                         onPressed: () {
                           if (Form.of(context).validate()) {
-                            // Valider le formulaire et soumettre les données
-                          } else {
-                            print("Veillez remplir tout les champ");
-                            Fluttertoast.showToast(
-                            msg: "veillez remplir tous les champ"
+                            postCandidature(
+                                context,
+                                candidat.id!,
+                                widget.job!.idEntreprise.toString(),
+                                widget.job!.id.toString(),
+                                firstnameController.text,
+                                lastnameController.text,
+                                emailController.text,
+                                telephoneController.text,
+                                descriptionController.text,
+                                widget.job!.title.toString()
                             );
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: "veillez remplir tous les champ");
                           }
                         },
                         style: ButtonStyle(
                           shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7.0),
                             ),
@@ -236,7 +223,8 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                             ),
                           ),
                         ),
-                      ),
+                      )
+                      ,
                     ),
                   ],
                 ),

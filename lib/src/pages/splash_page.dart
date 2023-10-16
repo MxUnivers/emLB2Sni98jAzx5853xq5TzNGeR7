@@ -54,11 +54,14 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppTheme_App.primaryColor,
       body: Center(
         child: Container(
+          height: 105, width: 105,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(52.5),
             color: AppTheme_App.withPrimary,
+            image: DecorationImage(image: AssetImage(
+              "assets/ic_launcher.png"
+            ))
           ),
-          child: Image.asset('assets/logo_antigaspi.png',height: 105,width: 105,)
         ) // Remplacez le chemin par le chemin vers votre icône
       ),
     );
