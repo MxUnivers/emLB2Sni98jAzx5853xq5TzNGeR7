@@ -77,7 +77,7 @@ class CandidatModel {
 
   factory CandidatModel.fromJson(Map<String, dynamic> json) {
     return CandidatModel(
-      id: json['id'],
+      id: json['_id'],
       username: json['username'],
       firstname: json['firstname'],
       lastname: json['lastname'],

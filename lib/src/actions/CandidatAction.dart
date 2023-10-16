@@ -31,6 +31,7 @@ Future<void> connectCandidat(
     var jsonData = json.decode(await response.stream.bytesToString());
     print(jsonData["data"]);
     CandidatModel candidat = CandidatModel(
+      id: jsonData["data"]["_id"],
         email: jsonData["data"]["email"],
         telephone: jsonData["data"]["telephone"],
         username: jsonData["data"]["username"],

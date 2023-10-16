@@ -49,7 +49,7 @@ Future<void> postCandidature(
 
   http.StreamedResponse response = await request.send();
 
-  print('${baseurl.url + baseurl.apiV1}/auth/candidat/login/');
+  print("${baseurl.url + baseurl.apiV1}/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}");
 
   if (response.statusCode == 200) {
     // La requête a réussi
@@ -78,7 +78,6 @@ Future<void> postCandidature(
   else if (response.statusCode==409) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
-    print(jsonData["data"]);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
@@ -90,10 +89,9 @@ Future<void> postCandidature(
   else if (response.statusCode==410) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
-    print(jsonData["data"]);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.red,
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
@@ -101,7 +99,6 @@ Future<void> postCandidature(
   else if (response.statusCode==500) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
-    print(jsonData["data"]);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,

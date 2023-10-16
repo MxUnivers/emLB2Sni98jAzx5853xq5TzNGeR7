@@ -230,7 +230,7 @@ class _SignInPageState extends State<SignInPage> {
                                     });
                                     String email = emailController.text;
                                     String password = passwordController.text;
-                                    await connectCandidat(
+                                    connectCandidat(
                                             context, email, password)
                                         .then((value) {
                                       isLoading = false;

@@ -188,7 +188,10 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                           :
                       ElevatedButton(
                         onPressed: () {
-                          if (Form.of(context).validate()) {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              isLoading= true ;
+                            });
                             postCandidature(
                                 context,
                                 candidat.id!,
@@ -200,7 +203,11 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                                 telephoneController.text,
                                 descriptionController.text,
                                 widget.job!.title.toString()
-                            );
+                            ).then((value){
+                              setState(() {
+                                isLoading =  false;
+                              });
+                            });
                           } else {
                             Fluttertoast.showToast(
                                 msg: "veillez remplir tous les champ");

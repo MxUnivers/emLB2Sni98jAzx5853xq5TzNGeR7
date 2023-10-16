@@ -1,11 +1,13 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:jouman_mobile_mobile/src/pages/help_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
 import 'package:jouman_mobile_mobile/src/themes/theme.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/locallvalue.dart';
+import 'account_page.dart';
 import 'app_step_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -29,10 +31,9 @@ class _MainPageState extends State<MainPage> {
 
   bool isVisited=false;
 
-
   final List<Widget> _screens = [MyHomePage(),
-    Container(child: Center(child: Text("Page de compte"))),
-    Container(child: Center(child: Text("Page d'aide")))
+    AccountPage(),
+    HelpPage()
   ];
 
 
