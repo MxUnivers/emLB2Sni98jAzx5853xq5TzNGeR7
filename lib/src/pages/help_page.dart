@@ -1,4 +1,5 @@
 import  "package:flutter/material.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
 
 
 class HelpPage extends StatefulWidget {
@@ -13,7 +14,9 @@ class _HelpPageState extends State<HelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aide'),
+      backgroundColor: AppTheme_App.withPrimary,
+        elevation: 0.2,
+        title: Text('Aide',style: TextStyle(color: AppTheme_App.TextGray),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
