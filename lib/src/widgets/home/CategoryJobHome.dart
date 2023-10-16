@@ -1,9 +1,9 @@
 import  "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
-import "package:offre_emplois_mobile_candidat/src/model/JobCategoryModel.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/search_job_category.dart";
-import "package:offre_emplois_mobile_candidat/src/utils/baseurl.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/model/JobCategoryModel.dart";
+import "package:jouman_mobile_mobile/src/pages/search_job_category.dart";
+import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
 
 import "../../Animation/skeleton_model.dart";
 

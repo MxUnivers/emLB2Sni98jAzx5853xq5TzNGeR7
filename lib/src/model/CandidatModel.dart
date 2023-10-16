@@ -1,7 +1,7 @@
 import "dart:ffi";
 
 import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/model/JobModel.dart";
+import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 
 class CandidatModel {
   String? id;

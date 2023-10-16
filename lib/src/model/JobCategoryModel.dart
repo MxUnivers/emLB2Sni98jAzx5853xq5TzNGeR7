@@ -1,7 +1,7 @@
 import "dart:convert";
 
 import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/utils/baseurl.dart";
+import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
 
 import "package:http/http.dart" as http;
 

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
+import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
 
 class JobModel {
+  String?id;
   String? idEntreprise;
   String? title;
   String? email;
@@ -19,6 +20,7 @@ class JobModel {
   List<dynamic>? candidats;
 
   JobModel({
+    this.id,
     this.idEntreprise,
     this.title,
     this.email,
@@ -37,6 +39,7 @@ class JobModel {
 
   factory JobModel.fromJson(Map<String, dynamic> json) {
     return JobModel(
+      id: json['_id'],
       idEntreprise: json['idEntreprise'],
       title: json['title'],
       email: json['email'],

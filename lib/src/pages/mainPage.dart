@@ -1,7 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:offre_emplois_mobile_candidat/src/pages/home_page.dart';
-import 'package:offre_emplois_mobile_candidat/src/themes/theme.dart';
+import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
+import 'package:jouman_mobile_mobile/src/themes/theme.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

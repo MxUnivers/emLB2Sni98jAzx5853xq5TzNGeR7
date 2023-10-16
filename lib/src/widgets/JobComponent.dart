@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/job_detail_page.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/pages/job_detail_page.dart";
 
 import "../model/JobModel.dart";
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
-import 'package:offre_emplois_mobile_candidat/src/model/CandidatModel.dart';
-import 'package:offre_emplois_mobile_candidat/src/model/JobModel.dart';
-import 'package:offre_emplois_mobile_candidat/src/utils/baseurl.dart';
-import 'package:offre_emplois_mobile_candidat/src/widgets/home/CategoryJobHome.dart';
-import 'package:offre_emplois_mobile_candidat/src/widgets/home/JobListHome.dart';
+import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
+import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
+import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
+import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
 
 import '../utils/storage.dart';
 import '../widgets/home/AppBarHome.dart';

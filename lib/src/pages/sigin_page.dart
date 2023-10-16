@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
-import 'package:offre_emplois_mobile_candidat/src/pages/mainPage.dart';
-import 'package:offre_emplois_mobile_candidat/src/pages/sigup_page.dart';
-import 'package:offre_emplois_mobile_candidat/src/themes/constants.dart';
-import 'package:offre_emplois_mobile_candidat/src/themes/theme.dart';
+import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
+import 'package:jouman_mobile_mobile/src/pages/sigup_page.dart';
+import 'package:jouman_mobile_mobile/src/themes/constants.dart';
+import 'package:jouman_mobile_mobile/src/themes/theme.dart';
 //import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import '../actions/CandidatAction.dart';
 import '../widgets/widget.dart';
@@ -182,6 +182,9 @@ class _SignInPageState extends State<SignInPage> {
                               "Si vous n'avez pas de compte ? ",
                               style: kBodyText,
                             ),
+                            isLoading ?
+                                Text("")
+                                :
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(

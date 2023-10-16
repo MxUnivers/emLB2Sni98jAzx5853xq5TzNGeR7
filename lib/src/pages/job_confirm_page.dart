@@ -1,9 +1,12 @@
 import "package:awesome_notifications/awesome_notifications.dart";
 import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
-import "package:offre_emplois_mobile_candidat/src/model/JobModel.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/mainPage.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman_mobile_mobile/src/model/JobModel.dart";
+import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+
+import "../utils/storage.dart";
 
 class JobConfirmPage extends StatefulWidget {
   final JobModel? job;
@@ -14,6 +17,21 @@ class JobConfirmPage extends StatefulWidget {
 }
 
 class _JobConfirmPageState extends State<JobConfirmPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
+      setState(() {
+        this.candidat = candidat;
+        firstnameController.text = this.candidat.firstname!;
+        lastnameController.text = this.candidat.lastname!;
+        emailController.text = this.candidat.email!;
+      });
+    });
+  }
+  late CandidatModel candidat ;
+
 // Créez des contrôleurs pour chaque champ
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();

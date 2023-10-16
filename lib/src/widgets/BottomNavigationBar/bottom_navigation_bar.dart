@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:offre_emplois_mobile_candidat/src/themes/light_color.dart';
-import 'package:offre_emplois_mobile_candidat/src/widgets/BottomNavigationBar/bottom_curved_Painter.dart';
+import 'package:jouman_mobile_mobile/src/themes/light_color.dart';
+import 'package:jouman_mobile_mobile/src/widgets/BottomNavigationBar/bottom_curved_Painter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final Function(int)? onIconPresedCallback;

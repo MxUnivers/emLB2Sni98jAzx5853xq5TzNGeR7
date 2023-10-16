@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:offre_emplois_mobile_candidat/src/widgets/BottomNavigationBar/centered_elasticIn_curve.dart';
+import 'package:jouman_mobile_mobile/src/widgets/BottomNavigationBar/centered_elasticIn_curve.dart';
 
 class BackgroundCurvePainter extends CustomPainter {
   static const _radiusTop = 50.0;

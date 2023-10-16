@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:offre_emplois_mobile_candidat/src/config/theme.dart';
-import 'package:offre_emplois_mobile_candidat/src/model/JobModel.dart';
-import 'package:offre_emplois_mobile_candidat/src/pages/job_confirm_page.dart';
+import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
+import 'package:jouman_mobile_mobile/src/pages/job_confirm_page.dart';
 
 class JobDetailPage extends StatefulWidget {
   final JobModel? job;

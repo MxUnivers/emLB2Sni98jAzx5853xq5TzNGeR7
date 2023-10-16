@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:offre_emplois_mobile_candidat/src/config/theme.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/profile_page.dart";
-import "package:offre_emplois_mobile_candidat/src/pages/search_page.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/pages/profile_page.dart";
+import "package:jouman_mobile_mobile/src/pages/search_page.dart";
 
 class AppBarHome extends StatefulWidget implements PreferredSizeWidget {
   const AppBarHome({Key? key}) : super(key: key);
