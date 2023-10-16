@@ -33,7 +33,6 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
       setState(() {
         this.candidat = candidat;
       });
-
       fetchAllJobList(
         "${baseurl.url.toString() + baseurl.apiV1.toString()}/offre/get_offres",
       ).then((jobs) {
