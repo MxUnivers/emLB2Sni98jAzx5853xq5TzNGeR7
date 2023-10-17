@@ -46,8 +46,6 @@ const HomeBlog = () => {
                 </div>
                 <Carousel responsive={responsive} infinite transitionDuration={5} autoPlay class="grid grid-cols-12 gap-5 justify-center items-center">
 
-
-
                     {
                         blogs.map((item) => {
                             return (
