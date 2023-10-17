@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/pages/account_page.dart';
+import 'package:jouman_mobile_mobile/src/widgets/messages/MessageCardItem.dart';
 
 import '../actions/MessageAction.dart';
 import '../model/CandidatModel.dart';
@@ -40,6 +42,10 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
     });
   }
 
+
+
+
+
   late CandidatModel candidat;
 
   bool isLoading = true;
@@ -58,6 +64,9 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
       ),
       body: Container(
           height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            color: AppTheme_App.withPrimary
+          ),
           child: isLoading == true
               ? Center(
                   child: CircularProgressIndicator(
@@ -66,31 +75,8 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
               : receivedMessages.length > 0
                   ? ListView(
                       scrollDirection: Axis.vertical,
-                      children: receivedMessages.map((message) {
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => MessageDetailPage(
-                                  message: message,
-                                ),
-                              ),
-                            );
-                          },
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(message.coverPicture!),
-                          ),
-                          title: Text(message.subject!),
-                          subtitle: Text(message.createdAt.toString()),
-                          trailing: message.read!
-                              ? Icon(
-                                  Icons.check,
-                                  color: Colors.blue,
-                                )
-                              : Icon(Icons.circle),
-                        );
+                      children: receivedMessages.map((item) {
+                        return MessageCardItem(message:item ,);
                       }).toList(),
                     )
                   : Center(

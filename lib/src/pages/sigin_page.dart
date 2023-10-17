@@ -233,7 +233,9 @@ class _SignInPageState extends State<SignInPage> {
                                     connectCandidat(
                                             context, email, password)
                                         .then((value) {
-                                      isLoading = false;
+                                      setState(() {
+                                        isLoading = false;
+                                      });
                                     });
                                     // Appeler la fonction de connexion ici
                                   },
