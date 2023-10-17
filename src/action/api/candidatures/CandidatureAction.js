@@ -73,7 +73,7 @@ export const CandidatureById = async (idCandidature, setState) => {
 
 
 // Accepter pour les premium
-export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip, title, content, toast) => {
+export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip,coverPicture, title, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -93,7 +93,8 @@ export const CandidatureAuthorizedAndMessage = (idCandidature, idSend, idReceip,
                 await axios.post(`${baseurl.url}/api/v1/message/send/${idSend}/receip/${idReceip}`,
                     {
                         "subject": title,
-                        "content": content
+                        "content": content,
+                        "coverPicture":coverPicture
                     },
                     {
                         headers:

@@ -101,7 +101,7 @@ const CandidatureRecruteurListPage = () => {
             CandidatureAuthorizedAndMessage(
                 candidatureDetail._id,
                 candidatureDetail.idEntreprise,
-                candidatureDetail.idCandidat, titleCandidature, contentCandidature, toast
+                candidatureDetail.idCandidat,candidatureDetail.coverPicture, titleCandidature, contentCandidature, toast
             )
         )
     }
