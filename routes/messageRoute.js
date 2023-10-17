@@ -15,14 +15,17 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
 
         const idSend = req.params.idSender;
         const idRecep = req.params.idReceip;
-        const message = await MessageModel(req.body);
-        message.idSender = idSend;
-        message.idRecipient = idRecep;
+        const newMessage = new MessageModel(req.body);
+        newMessage.idSender = idSend;
+        newMessage.idRecipient = idRecep;
+        await newMessage.save();
+
+        
 
 
-        const candidatExist =  await CandidatModel.findById({_id:idRecep});
-        if(!candidatExist){
-            return res.status(408).json({message:"Candidate non trouvé"})
+        const candidatExist = await CandidatModel.findById({ _id: idRecep });
+        if (!candidatExist) {
+            return res.status(408).json({ message: "Candidate non trouvé" })
         }
 
         // await message.save();
@@ -36,9 +39,34 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
         const authToken = 'aa3657a62060817b4765df4372758656';
         const client = require('twilio')(accountSid, authToken);
 
+
+        sendEmail(
+            "aymarbly559@gmail.com",
+            "a g c t x y x c o x s k v a g k",
+            `${candidatExist.email}`,
+            `Candidature  '${newMessage.subject}'`,
+            `
+            <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+            <div class="header" style="text-align: center;">
+                <img class="logo" src="${newMessage.coverPicture}"
+                 style="max-width: 100px; height: auto;">
+            </div>
+            <div class="subject" style="font-size: 24px; margin-top: 20px;">
+                ${newMessage.subject}
+            </div>
+            <div class="message" style="margin-top: 20px;">
+                <p>${newMessage.content}</p>
+            </div>
+            <a class="button" href="https://urielle-group-job.com" target="_blank" style="display: block; width: 100%; padding: 10px; background-color: #007BFF; color: #fff; text-align: center; text-decoration: none; border-radius: 5px; margin-top: 20px;">redirection</a>
+        </div>
+            `
+        );
+
+
+
         client.messages
             .create({
-                body: `${message.content}`,
+                body: `${newMessage.content}`,
                 from: '+12564483104',
                 to: `+${candidatureExist.telephone}`
             })
@@ -47,35 +75,15 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
                 console.error(error);
             });
 
-            
-
-            sendEmail(
-                "aymarbly559@gmail.com",
-                "a g c t x y x c o x s k v a g k",
-                `${newCandidat.email}`,
-                `Candidature  '${message.subject}'`,
-                `
-                <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                <div class="header" style="text-align: center;">
-                    <img class="logo" src="https://urielle-group-job.com/assets/images/logo-dark.png"
-                     style="max-width: 100px; height: auto;">
-                </div>
-                <div class="subject" style="font-size: 24px; margin-top: 20px;">
-                    ${message.subject}
-                </div>
-                <div class="message" style="margin-top: 20px;">
-                    <p>${message.content}</p>
-                </div>
-                <a class="button" href="https://urielle-group-job.com/" target="_blank" style="display: block; width: 100%; padding: 10px; background-color: #007BFF; color: #fff; text-align: center; text-decoration: none; border-radius: 5px; margin-top: 20px;">redirection</a>
-            </div>
-                `
-              );
+        
 
 
 
 
-        return res.status(200).json({ data: message, message: "Message envoyé" });
+
+        return res.status(200).json({ data: newMessage, message: "Message envoyé" });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ error: 'Erreur lors de la récupération des messages' });
     }
 });
