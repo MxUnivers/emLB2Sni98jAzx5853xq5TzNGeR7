@@ -3,6 +3,7 @@ const CandidatModel = require("../models/CandidatModel");
 const CandidatureModel = require("../models/CandidatureModel");
 const EntrepriseModel = require("../models/EntrepriseModel");
 const MessageModel = require("../models/MessageModel");
+const sendEmail = require("../utils/emailSender");
 const { envoyerSMS } = require("../utils/sms");
 
 const router = require("express").Router();
@@ -30,7 +31,6 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
         if (!candidatureExist) {
             return res.status(409).json({ message: "Candidature non trouvé" });
         }
-        
 
         const accountSid = 'AC0ac2e1c72b9b25dcdae2e346f59326c2';
         const authToken = 'aa3657a62060817b4765df4372758656';
@@ -47,8 +47,15 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
                 console.error(error);
             });
 
-            envoyerSMS(
-                `<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+            
+
+            sendEmail(
+                "aymarbly559@gmail.com",
+                "a g c t x y x c o x s k v a g k",
+                `${newCandidat.email}`,
+                `Candidature  '${message.subject}'`,
+                `
+                <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                 <div class="header" style="text-align: center;">
                     <img class="logo" src="https://urielle-group-job.com/assets/images/logo-dark.png"
                      style="max-width: 100px; height: auto;">
@@ -61,9 +68,8 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
                 </div>
                 <a class="button" href="https://urielle-group-job.com/" target="_blank" style="display: block; width: 100%; padding: 10px; background-color: #007BFF; color: #fff; text-align: center; text-decoration: none; border-radius: 5px; margin-top: 20px;">redirection</a>
             </div>
-            `,
-            candidatExist.email
-            )
+                `
+              );
 
 
 
