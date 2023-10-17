@@ -1,6 +1,7 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:intl/intl.dart";
 import "package:jouman_mobile_mobile/src/actions/CandidatureAction.dart";
 
 import "../config/theme.dart";
@@ -43,6 +44,18 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
 
   bool isLoading = true;
   List<CandidatureModel> candidaturesList = [];
+
+
+  String formatDateTime(String dateTimeString) {
+    final dateTime = DateTime.parse(dateTimeString);
+    final dateFormat = DateFormat.yMMMMd();
+    final timeFormat = DateFormat.Hm();
+
+    final formattedDate = dateFormat.format(dateTime);
+    final formattedTime = timeFormat.format(dateTime);
+
+    return '$formattedDate à $formattedTime';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +103,7 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
                                   candidature.description.toString(),
                                   maxLines: 1,
                                 ),
-                                Text(candidature.createdAt.toString()),
+                                Text(formatDateTime(candidature.createdAt.toString())),
                               ],
                             ),
                           ),
