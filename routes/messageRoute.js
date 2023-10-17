@@ -19,6 +19,10 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
         message.idRecipient = idRecep;
 
 
+        const candidatExist =  await CandidatModel.findById({_id:idRecep});
+        if(!candidatExist){
+            return res.status(408).json({message:"Candidate non trouvé"})
+        }
 
         // await message.save();
 
@@ -26,6 +30,7 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
         if (!candidatureExist) {
             return res.status(409).json({ message: "Candidature non trouvé" });
         }
+        
 
         const accountSid = 'AC0ac2e1c72b9b25dcdae2e346f59326c2';
         const authToken = 'aa3657a62060817b4765df4372758656';
@@ -42,6 +47,23 @@ router.post('/send/:idSender/receip/:idReceip', AuthorizationMiddleware, async (
                 console.error(error);
             });
 
+            envoyerSMS(
+                `<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                <div class="header" style="text-align: center;">
+                    <img class="logo" src="https://urielle-group-job.com/assets/images/logo-dark.png"
+                     style="max-width: 100px; height: auto;">
+                </div>
+                <div class="subject" style="font-size: 24px; margin-top: 20px;">
+                    ${message.subject}
+                </div>
+                <div class="message" style="margin-top: 20px;">
+                    <p>${message.content}</p>
+                </div>
+                <a class="button" href="https://urielle-group-job.com/" target="_blank" style="display: block; width: 100%; padding: 10px; background-color: #007BFF; color: #fff; text-align: center; text-decoration: none; border-radius: 5px; margin-top: 20px;">redirection</a>
+            </div>
+            `,
+            candidatExist.email
+            )
 
 
 
