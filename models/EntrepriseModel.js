@@ -29,8 +29,6 @@ const EntrepriseSchema = new mongoose.Schema({
     required: false,
     unique:true
   },
-  
-
   employers_count: {
     type: String, require: false
   },
@@ -40,7 +38,6 @@ const EntrepriseSchema = new mongoose.Schema({
   dateNaissance_entreprise: {
     type: String, require: false
   },
-
   telephone: {
     type: String,
     required: false
@@ -69,7 +66,6 @@ const EntrepriseSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-
   typeStatut: { type: String, default: "STARTER", enum: ["PREMIUM", "NORMAL", "STARTER"] },
   comptePaiement: {
     solde: {
