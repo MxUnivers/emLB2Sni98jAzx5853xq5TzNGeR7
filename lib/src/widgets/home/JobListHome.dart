@@ -36,7 +36,7 @@ class _JobListHomeState extends State<JobListHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height/1.1,
       margin: EdgeInsets.only(top: 5),
       child: isLoading == true
           ?
