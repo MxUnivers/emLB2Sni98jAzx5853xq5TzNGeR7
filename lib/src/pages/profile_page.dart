@@ -7,12 +7,14 @@ import "package:jouman_mobile_mobile/src/actions/CandidatAction.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
 import "package:jouman_mobile_mobile/src/utils/storage.dart";
+import "package:jouman_mobile_mobile/src/widgets/profile/profile_sociaux.dart";
 
 import "../themes/constants.dart";
 import "../themes/theme.dart";
 import "dart:async";
 
-import "../widgets/profile_compte.dart";
+import "../widgets/profile/profile_competences.dart";
+import '../widgets/profile/profile_compte.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -31,17 +33,22 @@ class _ProfilePageState extends State<ProfilePage>
         .then((candi) {
       setState(() {
         candidat = candi;
-        CandidatGetProfile(context, candidat.id.toString()).then((value) {
+      });
+      CandidatGetProfile(context, candidat.id.toString()).then((value) {
+        setState(() {
           candidatDetail = value;
+          isLoading = false;
         });
-        isLoading = false;
+        print(value);
       });
     });
   }
 
   bool isLoading = true;
   late CandidatModel candidat = CandidatModel();
-  late CandidatModel candidatDetail = CandidatModel();
+  late CandidatModel candidatDetail = CandidatModel(
+    coverPicture: "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png"
+  );
 
   @override
   void dispose() {
@@ -89,7 +96,8 @@ class _ProfilePageState extends State<ProfilePage>
                                   child: CircleAvatar(
                                     radius: 50,
                                     backgroundImage: NetworkImage(
-                                        "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png"),
+                                            "${candidatDetail.coverPicture}"
+                                    ),
                                   )),
                             )
                           ]),
@@ -101,14 +109,14 @@ class _ProfilePageState extends State<ProfilePage>
                             SizedBox(height: 5),
                             Container(
                               child: Text(
-                                "Nom complet",
+                                "${candidatDetail.username}",
                                 style: GoogleFonts.nunito(
                                     color: AppTheme_App.TextGray, fontSize: 20),
                               ),
                             ),
                             SizedBox(height: 5),
                             Container(
-                              child: Text("Email@gmail.com",
+                              child: Text("${candidatDetail.email}",
                                   style: GoogleFonts.nunito(
                                       color: AppTheme_App.TextGray,
                                       fontSize: 12)),
@@ -180,13 +188,33 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                       ),
                       // Onglet 2 - Compétences
-                      Container(
-                        child: Text("Contenu de l'onglet Compétences"),
-                      ),
+                      isLoading?
+                      Center(
+                        child: CircularProgressIndicator(),
+                      )
+                          :
+                      candidatDetail.id.toString().length> 0 ?
+                      ProfileCompetences(candidat: candidatDetail,):Center(
+                        child: Container(
+                          child: Text(
+                            "Profile vide",
+                          ),
+                        ),
+                      ) ,
                       // Onglet 3 - Sociaux
-                      Container(
-                        child: Text("Contenu de l'onglet Sociaux"),
-                      ),
+                      isLoading?
+                      Center(
+                        child: CircularProgressIndicator(),
+                      )
+                          :
+                      candidatDetail.id.toString().length> 0 ?
+                      ProfileSociaux(candidat: candidatDetail,):Center(
+                        child: Container(
+                          child: Text(
+                            "Profile vide",
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -194,24 +222,6 @@ class _ProfilePageState extends State<ProfilePage>
             ),
           ),
         ));
-  }
-
-  Widget buildCompteView() {
-    return Container(
-      child: Text("Contenu de l'onglet Compte"),
-    );
-  }
-
-  Widget buildCompetencesView() {
-    return Container(
-      child: Text("Contenu de l'onglet Compétences"),
-    );
-  }
-
-  Widget buildSociauxView() {
-    return Container(
-      child: Text("Contenu de l'onglet Sociaux"),
-    );
   }
 
   void _afficherFeuilleModale(BuildContext context) {
