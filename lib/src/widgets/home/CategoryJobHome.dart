@@ -30,9 +30,11 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
         // Mettre à jour la liste des offres récupérées
         jobCategoryList = jobs;
         print(jobCategoryList);
+        isLoading =  false;
       });
     });
   }
+  bool isLoading =  true ;
   List<JobCategoryModel> jobCategoryList = [];
 
   @override
@@ -45,6 +47,8 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
           SizedBox(
             height: 20,
           ),
+          isLoading == true ?
+          Container():
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +91,8 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
                 )
               ],
             ),
-          ),
+          )
+          ,
           jobCategoryList.length > 0
               ? Container(
               margin: EdgeInsets.symmetric(vertical: 10),

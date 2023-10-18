@@ -22,11 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
-    SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
-      setState(() {
-        this.candidat = candidat;
-      });
-    });
   }
   late CandidatModel candidat = CandidatModel(account: AccountCandidatModel(),
       is_active: false
@@ -43,6 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 4), () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
+        setState(() {
+          this.candidat = candidat;
+        });
+      });
       if(candidat.is_active==false){
         Navigator.pushReplacement(
           context,

@@ -35,19 +35,23 @@ class _JobListHomeState extends State<JobListHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height/1.1,
-      margin: EdgeInsets.only(top: 5),
-      child: isLoading == true
+    return isLoading == true
           ?
+          Container(
+            child:
           Center(
             child: CircularProgressIndicator(
               color: AppTheme_App.TextGray,
             )
           )
+          )
           :
           jobList.length > 0 ?
-          SingleChildScrollView(
+          Container(
+              height: MediaQuery.of(context).size.height/1.1,
+              margin: EdgeInsets.only(top: 5),
+              child:
+              SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
@@ -65,9 +69,9 @@ class _JobListHomeState extends State<JobListHome> {
                 ),
               ],
             ),
-          ): Center(
+          )): Center(
             child: Text("Aucunes offres"),
           )
-    );
+    ;
   }
 }

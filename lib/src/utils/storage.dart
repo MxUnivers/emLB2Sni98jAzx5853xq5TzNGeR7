@@ -24,7 +24,7 @@ class SharedPreferencesService {
   static Future<void> saveCandidatDataToSharedPreferences(CandidatModel candidat) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(StorageUser.idKey, candidat.id ?? "");
-    prefs.setBool(StorageUser.idKey, candidat.is_active);
+    prefs.setBool(StorageUser.is_activeKey, candidat.is_active);
     prefs.setString(StorageUser.firstNameKey, candidat.firstname ?? "");
     prefs.setString(StorageUser.lastNameKey, candidat.lastname ?? "");
     prefs.setString(StorageUser.emailKey, candidat.email ?? "");
