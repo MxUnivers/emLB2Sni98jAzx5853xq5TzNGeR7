@@ -78,11 +78,12 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
                       child: Row(
                         children: [
                           Text(
-                            "Voire plus ",
+                            "Voire plus",
                             style: GoogleFonts.nunito(
                                 textBaseline: TextBaseline.alphabetic,
                                 fontWeight: FontWeight.w800,
-                                color: AppTheme_App.primaryColor),
+                                color: AppTheme_App.primaryColor
+                            ),
                           ),
                           Icon(Icons.chevron_right_rounded,
                               color: AppTheme_App.primaryColor, size: 15)
