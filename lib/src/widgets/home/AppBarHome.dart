@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/pages/profile_page.dart";
@@ -32,7 +33,9 @@ class _AppBarHomeState extends State<AppBarHome> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                    CupertinoPageRoute(
+                      builder: (context) => SearchPage(),
+                    ),
                   );
                 },
                 child: Container(

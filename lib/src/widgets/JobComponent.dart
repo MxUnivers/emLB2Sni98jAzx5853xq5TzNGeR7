@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/pages/job_detail_page.dart";
@@ -33,10 +34,11 @@ class _JobComponentState extends State<JobComponent> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => JobDetailPage(
-                        job: widget.job,
-                      )),
+              CupertinoPageRoute(
+                builder: (context) => JobDetailPage(
+                  job: widget.job,
+                ),
+              ),
             );
           },
           child: Column(

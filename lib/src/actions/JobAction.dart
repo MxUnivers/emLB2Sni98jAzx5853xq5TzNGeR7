@@ -38,7 +38,6 @@ Future<List<JobModel>> fetchAllJobList(String apiUrl) async {
         }
       }
     }
-
     return jobList;
   } else {
     print(response.statusCode);

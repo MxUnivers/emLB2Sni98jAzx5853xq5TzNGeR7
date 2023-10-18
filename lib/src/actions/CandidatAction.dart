@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -46,14 +47,16 @@ Future<void> connectCandidat(
           pack: jsonData["data"]["account"]["pack"],
         ));
     SharedPreferencesService.saveCandidatDataToSharedPreferences(candidat);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => MainPage()),
-    );
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
+      ),
+    );
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => MainPage(),
       ),
     );
   } else if (response.statusCode == 402) {

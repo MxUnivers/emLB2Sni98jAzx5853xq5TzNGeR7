@@ -21,6 +21,7 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

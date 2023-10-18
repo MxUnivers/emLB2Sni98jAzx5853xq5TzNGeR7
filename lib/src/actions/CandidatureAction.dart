@@ -1,9 +1,11 @@
 import "dart:convert";
 
 import "package:awesome_notifications/awesome_notifications.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:fluttertoast/fluttertoast.dart";
 import "package:http/http.dart" as http;
+import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
 
 import "../model/CandidatureModel.dart";
@@ -63,6 +65,12 @@ Future<void> postCandidature(
       SnackBar(
         backgroundColor: Colors.green,
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
+      ),
+    );
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => MainPage(),
       ),
     );
     // Vous pouvez gérer la réponse ici si nécessaire

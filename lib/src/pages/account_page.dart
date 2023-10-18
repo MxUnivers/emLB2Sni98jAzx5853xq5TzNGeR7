@@ -40,6 +40,9 @@ class ApplicationCard extends StatelessWidget {
   }
 }
 
+
+
+
 class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
