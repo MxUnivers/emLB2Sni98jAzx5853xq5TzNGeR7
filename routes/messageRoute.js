@@ -100,7 +100,7 @@ router.get('/get_message/candidat/:idCandidat/messages', AuthorizationMiddleware
             return res.status(406).json({ message: "Candidat introuvable !" }); // Utilisez return pour arrêter l'exécution ici
         }
         const messages = await MessageModel.find({ idRecipient: id });
-        res.status(200).json({ data: messages, message: "Messages du candidat récupérés" });
+        res.status(200).json({ data: messages.reverse(), message: "Messages du candidat récupérés" });
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de la récupération des messages " + error.message }); // Utilisez error.message pour obtenir le message d'erreur précis
     }
@@ -118,7 +118,7 @@ router.get('/get_message/entreprise/:idEntreprise/messages', AuthorizationMiddle
             return res.status(407).json({ message: "le employeur introuvable ! " })
         }
         const messages = await MessageModel.find({ idSender: id });
-        return res.status(200).json({ message: "Message de l'entreprise recupérer", data: messages });
+        return res.status(200).json({ message: "Message de l'entreprise recupérer", data: messages.reverse() });
     } catch (error) {
         return res.status(500).json({ message: 'Erreur lors de la récupération des messages' });
     }

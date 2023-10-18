@@ -118,15 +118,7 @@ router.get("/get_candidature/:id", AuthorizationMiddleware, async (req, res) => 
 
 
 
-router.get("/get_candidature/:IdCandidautre", AuthorizationMiddleware, async (req, res) => {
-    try {
-        const id = req.params.IdCandidautre;
-        const candidatures = await CandidatureModel.findById({ _id: id });
-        res.json({ message: "Candidature récupérer", data: candidatures })
-    } catch (error) {
-        res.status(500).send({ message: "Impossible de recupérer la candidature" + error })
-    }
-});
+
 
 
 
