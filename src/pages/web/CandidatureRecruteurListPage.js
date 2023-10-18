@@ -166,12 +166,12 @@ const CandidatureRecruteurListPage = () => {
                                                     <div className="flex items-start justify-between w-full">
                                                         <div className="pl-3 w-full">
                                                             <p className="text-sm font-medium leading-5 text-gray-800">{item.title}</p>
-                                                            <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                            <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")} à {moment(item.createdAt).format("HH:MM")}</p>
                                                         </div>
                                                         <div className={`
-                                                            ${item.status == "PENDING" ? "bg-orange-200" : ""}
-                                                            ${item.status == "VALIDATE" ? "bg-green-500" : ""}
-                                                            ${item.status == "CANCEL" ? "bg-red-500" : ""} 
+                                                            ${item.status == "PENDING" ? "bg-orange-200 " : ""}
+                                                            ${item.status == "VALIDATE" ? "bg-green-500 text-white" : ""}
+                                                            ${item.status == "CANCEL" ? "bg-red-500 text-white" : ""} 
                                                             py-1 px-4 ml-3 text-xs text-gray-700 rounded-full `}>
                                                             {
                                                                 item.status == "PENDING" ? "ENvoyé".toUpperCase() : ""
@@ -218,7 +218,7 @@ const CandidatureRecruteurListPage = () => {
                                                 <div className="flex items-start justify-between w-full">
                                                     <div className="pl-3 w-full">
                                                         <p className="text-sm font-bold font-medium leading-5 text-gray-800">{item.subject}</p>
-                                                        <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
+                                                        <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")} à {moment(item.createdAt).format("HH:MM")}</p>
                                                     </div>
                                                     <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z" stroke="#2C3E50" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
@@ -342,7 +342,8 @@ const CandidatureRecruteurListPage = () => {
 
                                                 {
                                                     <div>
-                                                        <div class="chva6">
+                                                        {
+                                                            /*<div class="chva6">
                                                             <div>
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span class="cvmpf"></span></label>
                                                                 <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setsmsChecked(e.target.checked) }} type="checkbox" checked={smsChecked} required={false} />
@@ -353,7 +354,8 @@ const CandidatureRecruteurListPage = () => {
                                                                 <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span class="cvmpf"></span></label>
                                                                 <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setemailChecked(e.target.checked) }} type="checkbox" checked={emailChecked} required={false} />
                                                             </div>
-                                                        </div>
+                                                        </div> */
+                                                        }
                                                     </div>
                                                 }
                                             </form>
