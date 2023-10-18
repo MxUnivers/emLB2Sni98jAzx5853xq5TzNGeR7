@@ -8,6 +8,7 @@ import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/locallvalue.dart';
+import '../utils/storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,12 +20,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
 
-  @override
   void initState() {
     super.initState();
+    SharedPreferencesService.getCandidatDataFromSharedPreferences().then((candidat) {
+      setState(() {
+        this.candidat = candidat;
+      });
+    });
   }
+  late CandidatModel candidat = CandidatModel(account: AccountCandidatModel(),
+      is_active: false
+  ) ;
 
-  late CandidatModel accountUser;
   bool isConnect = false;
   bool isVisited = true;
 
@@ -36,16 +43,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 4), () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      if(isVisited==true){
+      if(candidat.is_active==false){
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => SignInPage()),
         );// Naviguer vers la page d'accueil
-      }if(isVisited==false){
+      }else if (candidat.is_active==true){
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AppStepScreen()),
+          MaterialPageRoute(builder: (context) => MainPage()),
         );
       }
     });

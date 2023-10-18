@@ -72,7 +72,6 @@ class CandidatModel {
     this.is_active = false,
     this.access = true,
     this.token,
-    required isTokenActive,
   });
 
   factory CandidatModel.fromJson(Map<String, dynamic> json) {
@@ -111,7 +110,7 @@ class CandidatModel {
       likes: json['likes'],
       account: AccountCandidatModel.fromJson(json['account']),
       password: json['password'],
-      isTokenActive: json['is_active'],
+      is_active: json['is_active'],
       access: json['access'],
       token: json['token'],
     );
@@ -153,18 +152,18 @@ class LangueModel {
 }
 
 class AccountCandidatModel {
-  int solde;
-  String pack;
-  String dateNow;
+  int? solde;
+  String? pack;
+  String? dateNow;
   String? dateEnd;
-  int countSms;
+  int? countSms;
 
   AccountCandidatModel({
-    required this.solde,
-    required this.pack,
-    required this.dateNow,
-    required this.dateEnd,
-    required this.countSms,
+     this.solde,
+     this.pack,
+     this.dateNow,
+     this.dateEnd,
+     this.countSms,
   });
   factory AccountCandidatModel.fromJson(Map<String, dynamic> json) {
     return AccountCandidatModel(

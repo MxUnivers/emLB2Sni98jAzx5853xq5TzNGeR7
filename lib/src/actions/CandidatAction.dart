@@ -37,7 +37,7 @@ Future<void> connectCandidat(
         username: jsonData["data"]["username"],
         firstname: jsonData["data"]["firstname"],
         lastname: jsonData["data"]["lastname"],
-        isTokenActive: null,
+        is_active: jsonData["data"]["is_active"],
         account: AccountCandidatModel(
           solde: jsonData["data"]["account"]["solde"],
           countSms: jsonData["data"]["account"]["count_sms"],

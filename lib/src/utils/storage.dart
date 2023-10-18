@@ -12,6 +12,7 @@ class StorageUser {
   static const String emailKey = "email";
   static const String usernameKey = "username";
   static const String descriptionKey = "description";
+  static const String is_activeKey = "connected";
   static const String accountPackKey = "account.pack";
   static const String accountSoldeKey = "account.solde";
   static const String accountCountSmsKey = "account.count_sms";
@@ -23,6 +24,7 @@ class SharedPreferencesService {
   static Future<void> saveCandidatDataToSharedPreferences(CandidatModel candidat) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(StorageUser.idKey, candidat.id ?? "");
+    prefs.setBool(StorageUser.idKey, candidat.is_active);
     prefs.setString(StorageUser.firstNameKey, candidat.firstname ?? "");
     prefs.setString(StorageUser.lastNameKey, candidat.lastname ?? "");
     prefs.setString(StorageUser.emailKey, candidat.email ?? "");
@@ -39,6 +41,7 @@ class SharedPreferencesService {
     final prefs = await SharedPreferences.getInstance();
     final id = prefs.getString(StorageUser.idKey) ?? "";
     final firstname = prefs.getString(StorageUser.firstNameKey) ?? "";
+    final is_active = prefs.getBool(StorageUser.is_activeKey) ?? false;
     final lastname = prefs.getString(StorageUser.lastNameKey) ?? "";
     final email = prefs.getString(StorageUser.emailKey) ?? "";
     final username = prefs.getString(StorageUser.usernameKey) ?? "";
@@ -51,6 +54,7 @@ class SharedPreferencesService {
 
     return CandidatModel(
       id: id,
+      is_active: is_active,
       firstname: firstname,
       lastname: lastname,
       email: email,
@@ -62,7 +66,7 @@ class SharedPreferencesService {
         countSms: countSms,
         dateNow: dateNow,
         dateEnd: dateEnd,
-      ), isTokenActive: false,
+      )
     );
   }
 }
