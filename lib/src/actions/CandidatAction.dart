@@ -187,7 +187,7 @@ Future<CandidatModel> CandidatGetProfile(
     'Authorization': 'Bearer ${baseurl.token}'
   };
   var request = http.Request(
-      'POST',
+      'GET',
       Uri.parse(
           '${baseurl.url}${baseurl.apiV1}/candidat/get_candidat/${idCandidat}'));
   request.headers.addAll(headers);

@@ -164,9 +164,10 @@ class _ProfilePageState extends State<ProfilePage>
                     children: [
                       // Onglet 1 - Compte
                       Container(
+                        height: MediaQuery.sizeOf(context).height,
                         child: isLoading
                             ? Center(child: CircularProgressIndicator())
-                            : candidatDetail.id == ""
+                            : candidatDetail.id.toString().length > 0
                                 ? ProfileCompte(
                                     candidat: candidatDetail,
                                   )
