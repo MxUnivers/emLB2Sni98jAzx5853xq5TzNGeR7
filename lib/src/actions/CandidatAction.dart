@@ -32,7 +32,7 @@ Future<void> connectCandidat(
     var jsonData = json.decode(await response.stream.bytesToString());
     print(jsonData["data"]);
     CandidatModel candidat = CandidatModel(
-      id: jsonData["data"]["_id"],
+        id: jsonData["data"]["_id"],
         email: jsonData["data"]["email"],
         telephone: jsonData["data"]["telephone"],
         username: jsonData["data"]["username"],
@@ -172,7 +172,43 @@ Future<void> registerCandidat(
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
+    throw Exception('Failed to load job data');
     // L'inscription a échoué, vous pouvez gérer les différentes réponses d'erreur ici.
     // Par exemple, afficher un message d'erreur à l'utilisateur.
+  }
+}
+
+// recuprer le profile du candidat .
+
+Future<CandidatModel> CandidatGetProfile(
+    BuildContext context, String idCandidat) async {
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${baseurl.token}'
+  };
+  var request = http.Request(
+      'POST',
+      Uri.parse(
+          '${baseurl.url}${baseurl.apiV1}/candidat/get_candidat/${idCandidat}'));
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+  print('${baseurl.url}${baseurl.apiV1}/candidat/get_candidat/${idCandidat}');
+
+  if (response.statusCode == 200) {
+    print(response.statusCode);
+    var jsonData = json.decode(await response.stream.bytesToString());
+    print(jsonData["data"]);
+    CandidatModel candidat = CandidatModel.fromJson(jsonData["data"]);
+    SharedPreferencesService.saveCandidatDataToSharedPreferences(candidat);
+    return candidat;
+  } else {
+    print(response.statusCode);
+    SnackBar(
+      backgroundColor: Colors.red,
+      content: Text('Profile non charger',
+          textAlign: TextAlign.center),
+    );
+    throw Exception('Failed to load job data');
   }
 }

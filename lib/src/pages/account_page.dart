@@ -1,5 +1,6 @@
 import "package:flutter/cupertino.dart";
 import  "package:flutter/material.dart";
+import "package:jouman_mobile_mobile/src/pages/profile_page.dart";
 
 import "candidatures_page.dart";
 import "message_page.dart";
@@ -11,6 +12,14 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: (){
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+          );
+        },
         leading: Icon(Icons.person),
         title: Text('Profil'),
         subtitle: Text('Voir votre profil'),

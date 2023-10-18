@@ -30,11 +30,11 @@ class SharedPreferencesService {
     prefs.setString(StorageUser.emailKey, candidat.email ?? "");
     prefs.setString(StorageUser.usernameKey, candidat.username ?? "");
     prefs.setString(StorageUser.descriptionKey, candidat.description ?? "");
-    prefs.setString(StorageUser.accountPackKey, candidat.account.pack ?? "");
-    prefs.setInt(StorageUser.accountSoldeKey, candidat.account.solde ?? 0);
-    prefs.setInt(StorageUser.accountCountSmsKey, candidat.account.countSms ?? 0);
-    prefs.setString(StorageUser.accountDateNowKey, candidat.account.dateNow ?? "");
-    prefs.setString(StorageUser.accountDateEndKey, candidat.account.dateEnd ?? "");
+    prefs.setString(StorageUser.accountPackKey, candidat.account?.pack ?? "");
+    prefs.setInt(StorageUser.accountSoldeKey, candidat.account?.solde ?? 0);
+    prefs.setInt(StorageUser.accountCountSmsKey, candidat.account?.countSms ?? 0);
+    prefs.setString(StorageUser.accountDateNowKey, candidat.account?.dateNow ?? "");
+    prefs.setString(StorageUser.accountDateEndKey, candidat.account?.dateEnd ?? "");
   }
 
   static Future<CandidatModel> getCandidatDataFromSharedPreferences() async {

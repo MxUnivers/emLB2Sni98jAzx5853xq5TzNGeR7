@@ -1,305 +1,228 @@
-import  "package:flutter/material.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:flutter/material.dart";
 
+import "package:flutter/cupertino.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:jouman_mobile_mobile/src/actions/CandidatAction.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman_mobile_mobile/src/utils/storage.dart";
+
+import "../themes/constants.dart";
+import "../themes/theme.dart";
+import "dart:async";
+
+import "../widgets/profile_compte.dart";
 
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
-  
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    SharedPreferencesService.getCandidatDataFromSharedPreferences()
+        .then((candi) {
+      setState(() {
+        candidat = candi;
+        CandidatGetProfile(context, candidat.id.toString()).then((value) {
+          candidatDetail = value;
+        });
+        isLoading = false;
+      });
+    });
+  }
+
+  bool isLoading = true;
+  late CandidatModel candidat = CandidatModel();
+  late CandidatModel candidatDetail = CandidatModel();
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   int counter = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          setState(() {
-            counter = counter + 1;
-          });
-          /*Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ProfileEditPage()),
-          );*/
-        },
-        child: Container(
-          width: 60,
-          height: 60,
-          child: Icon(
-              Icons.edit_note
+        appBar: AppBar(
+          backgroundColor: AppTheme_App.withPrimary,
+          leading: BackButton(
+            color: AppTheme_App.TextGray,
           ),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [AppTheme_App.primaryColor,Colors.deepPurpleAccent],)),
+          elevation: 0.2,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.settings),
+              color: AppTheme_App.secondary,
+            )
+          ],
         ),
-      ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                flex:5,
-                child:Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [AppTheme_App.primaryColor,Colors.deepPurpleAccent],
-                    ),
-                  ),
+        body: Container(
+          decoration: BoxDecoration(color: AppTheme_App.withPrimary),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: DefaultTabController(
+            length: 3,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(color: AppTheme_App.withPrimary),
                   child: Column(
-                      children: [
-                        SizedBox(height: 100.0,),
-                        CircleAvatar(
-                          radius: 65.0,
-                          backgroundImage: NetworkImage(
-                              "https://img.freepik.com/vecteurs-premium/attrayant-garcon-afro-americain-tete-personnage-vecteur-semi-plat-coupe-cheveux-courte-icone-avatar-dessin-anime-modifiable-emotion-visage-illustration-point-colore-pour-animation-conception-graphique-web_151150-16474.jpg?w=360"
-                          ),
-                          backgroundColor: AppTheme_App.withPrimary,
-                        ),
-                        SizedBox(height: 10.0,),
-                        Text('Erza Scarlet',
-                            style: TextStyle(
-                              color:Colors.white,
-                              fontSize: 20.0,
-                            )),
-                        SizedBox(height: 10.0,),
-                        Text('S Class Mage',
-                          style: TextStyle(
-                            color:Colors.white,
-                            fontSize: 15.0,
-                          ),)
-                      ]
-                  ),
-                ),
-              ),
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Card(
+                                  elevation: 0.1,
+                                  child: CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: NetworkImage(
+                                        "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png"),
+                                  )),
+                            )
+                          ]),
 
-              Expanded(
-                flex:5,
-                child: Container(
-                  color: Colors.grey[200],
-                  child: Center(
-                      child:Card(
-                          margin: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-                          child: Container(
-                              width: 310.0,
-                              height:290.0,
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Information",
-                                      style: TextStyle(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w800,
-                                      ),),
-                                    Divider(color: Colors.grey[300],),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.home,
-                                          color: Colors.blueAccent[400],
-                                          size: 35,
-                                        ),
-                                        SizedBox(width: 20.0,),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Guild",
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                              ),),
-                                            Text("FairyTail, Magnolia",
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.grey[400],
-                                              ),)
-                                          ],
-                                        )
-
-                                      ],
-                                    ),
-                                    SizedBox(height: 20.0,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.auto_awesome,
-                                          color: Colors.yellowAccent[400],
-                                          size: 35,
-                                        ),
-                                        SizedBox(width: 20.0,),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Magic",
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                              ),),
-                                            Text("Spatial & Sword Magic, Telekinesis",
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.grey[400],
-                                              ),)
-                                          ],
-                                        )
-
-                                      ],
-                                    ),
-                                    SizedBox(height: 20.0,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.favorite,
-                                          color: Colors.pinkAccent[400],
-                                          size: 35,
-                                        ),
-                                        SizedBox(width: 20.0,),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Loves",
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                              ),),
-                                            Text("Eating cakes",
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.grey[400],
-                                              ),)
-                                          ],
-                                        )
-
-                                      ],
-                                    ),
-                                    SizedBox(height: 20.0,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.work,
-                                          color: Colors.lightGreen[400],
-                                          size: 35,
-                                        ),
-                                        SizedBox(width: 20.0,),
-                                        GestureDetector(
-                                          onTap : (){
-                                            _afficherFeuilleModale(context);
-                                          },
-                                          child:
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Offre d'emplois postuler",
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                              ),),
-                                            Text("0",
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.grey[400],
-                                              ),)
-                                          ],
-                                        )
-                                        )
-
-                                      ],
-                                    ),
-                                  ],
+                      // Container Button
+                      Container(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 5),
+                            Container(
+                              child: Text(
+                                "Nom complet",
+                                style: GoogleFonts.nunito(
+                                    color: AppTheme_App.TextGray, fontSize: 20),
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Container(
+                              child: Text("Email@gmail.com",
+                                  style: GoogleFonts.nunito(
+                                      color: AppTheme_App.TextGray,
+                                      fontSize: 12)),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                                child: Container(
+                              width: 150,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: AppTheme_App.primaryColor,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: MaterialButton(
+                                onPressed: () {},
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.edit_note,
+                                        color: AppTheme_App.withPrimary,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Mise à jour",
+                                        style: kButtonText.copyWith(
+                                            color: AppTheme_App.withPrimary),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              )
-                          )
+                              ),
+                            ))
+                          ],
+                        ),
                       )
+                    ],
                   ),
                 ),
-              ),
-
-            ],
+                Divider(),
+                TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: "Compte"),
+                    Tab(text: "Compétences"),
+                    Tab(text: "Sociaux"),
+                  ],
+                ),
+                // Ajoutez TabBarView pour afficher le contenu de chaque onglet
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      // Onglet 1 - Compte
+                      Container(
+                        child: isLoading
+                            ? Center(child: CircularProgressIndicator())
+                            : candidatDetail.id == ""
+                                ? ProfileCompte(
+                                    candidat: candidatDetail,
+                                  )
+                                : Center(
+                                    child: Container(
+                                      child: Text(
+                                        "Profile vide",
+                                      ),
+                                    ),
+                                  ),
+                      ),
+                      // Onglet 2 - Compétences
+                      Container(
+                        child: Text("Contenu de l'onglet Compétences"),
+                      ),
+                      // Onglet 3 - Sociaux
+                      Container(
+                        child: Text("Contenu de l'onglet Sociaux"),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          Positioned(
-              top:MediaQuery.of(context).size.height*0.45,
-              left: 20.0,
-              right: 20.0,
-              child: Card(
-                  child: Padding(
-                    padding:EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                            child:Column(
-                              children: [
-                                Text('Battles',
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontSize: 14.0
-                                  ),),
-                                SizedBox(height: 5.0,),
-                                Text("$counter",
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  ),)
-                              ],
-                            )
-                        ),
+        ));
+  }
 
-                        Container(
-                          child: Column(
-                              children: [
-                                Text('Birthday',
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontSize: 14.0
-                                  ),),
-                                SizedBox(height: 5.0,),
-                                Text('April 7th',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  ),)
-                              ]),
-                        ),
+  Widget buildCompteView() {
+    return Container(
+      child: Text("Contenu de l'onglet Compte"),
+    );
+  }
 
-                        Container(
-                            child:Column(
-                              children: [
-                                Text('Age',
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontSize: 14.0
-                                  ),),
-                                SizedBox(height: 5.0,),
-                                Text('19 yrs',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  ),)
-                              ],
-                            )
-                        ),
-                      ],
-                    ),
-                  )
-              )
-          )
-        ],
+  Widget buildCompetencesView() {
+    return Container(
+      child: Text("Contenu de l'onglet Compétences"),
+    );
+  }
 
-      ),
+  Widget buildSociauxView() {
+    return Container(
+      child: Text("Contenu de l'onglet Sociaux"),
     );
   }
 
   void _afficherFeuilleModale(BuildContext context) {
-    showModalBottomSheet(backgroundColor: Colors.transparent,
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-            color: AppTheme_App.withPrimary,
-            borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20))
-          ),
+              color: AppTheme_App.withPrimary,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20), topLeft: Radius.circular(20))),
           height: 500, // Ajustez la hauteur selon vos besoins
           child: Column(
             children: [
@@ -326,5 +249,6 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-
 }
+
+/**/

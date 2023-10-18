@@ -32,7 +32,7 @@ class CandidatModel {
   List<String>? bourses;
   List<String>? bookmarks;
   int likes;
-  AccountCandidatModel account;
+  AccountCandidatModel? account;
   String? password;
   bool is_active;
   bool access;
@@ -67,7 +67,7 @@ class CandidatModel {
     this.bourses,
     this.bookmarks,
     this.likes = 5,
-    required this.account,
+    this.account,
     this.password,
     this.is_active = false,
     this.access = true,
