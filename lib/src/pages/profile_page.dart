@@ -76,7 +76,8 @@ class _ProfilePageState extends State<ProfilePage>
             )
           ],
         ),
-        body: Container(
+        body:
+        Container(
           decoration: BoxDecoration(color: AppTheme_App.withPrimary),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
