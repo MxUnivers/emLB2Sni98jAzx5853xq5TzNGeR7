@@ -137,14 +137,14 @@ class _AccountPageState extends State<AccountPage> {
                     context,
                     CupertinoPageRoute(
                       builder: (context) => SignInPage(),
-                    ),
+                    )
                   );
                 }); // Ferme la boîte de dialogue.
-              },
-            ),
-          ],
+              }
+            )
+          ]
         );
-      },
+      }
     );
   }
 

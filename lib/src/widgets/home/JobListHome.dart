@@ -44,7 +44,8 @@ class _JobListHomeState extends State<JobListHome> {
               )))
             : jobList.length > 0
                 ? Container(
-                    height: MediaQuery.of(context).size.height / 1.1,
+                    padding: EdgeInsets.only(top: 5),
+                    height: MediaQuery.of(context).size.height / 1.9,
                     margin: EdgeInsets.only(top: 5),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
