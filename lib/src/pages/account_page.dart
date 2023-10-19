@@ -121,7 +121,9 @@ class _AccountPageState extends State<AccountPage> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                  backgroundColor: AppTheme_App.favoriteColor),
+                  backgroundColor: AppTheme_App.favoriteColor,
+                elevation: 0.5
+              ),
               child: Text(
                 'Autoriser',
                 style: GoogleFonts.nunito(color: AppTheme_App.withPrimary),
