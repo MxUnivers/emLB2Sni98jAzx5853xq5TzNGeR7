@@ -38,7 +38,7 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
       ).then((jobs) {
         setState(() {
           // Mettre à jour la liste des offres récupérées
-          jobList = jobs;
+          jobList = jobs.where((model) => model.candidats!.contains(candidat!.id.toString())).toList();
           print(jobList);
         });
       }).then((s) {

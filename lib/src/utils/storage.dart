@@ -69,4 +69,25 @@ class SharedPreferencesService {
       )
     );
   }
+
+
+  // Supprimer
+  static Future<void> removeCandidatDataFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(StorageUser.is_activeKey, false);
+    prefs.remove(StorageUser.idKey);
+    prefs.remove(StorageUser.is_activeKey);
+    prefs.remove(StorageUser.firstNameKey);
+    prefs.remove(StorageUser.lastNameKey);
+    prefs.remove(StorageUser.emailKey);
+    prefs.remove(StorageUser.usernameKey);
+    prefs.remove(StorageUser.descriptionKey);
+    prefs.remove(StorageUser.accountPackKey);
+    prefs.remove(StorageUser.accountSoldeKey);
+    prefs.remove(StorageUser.accountCountSmsKey);
+    prefs.remove(StorageUser.accountDateNowKey);
+    prefs.remove(StorageUser.accountDateEndKey);
+  }
+
+
 }

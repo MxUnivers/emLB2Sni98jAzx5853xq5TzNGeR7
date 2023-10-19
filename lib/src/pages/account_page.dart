@@ -1,18 +1,22 @@
 import "package:flutter/cupertino.dart";
-import  "package:flutter/material.dart";
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
+import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
 import "package:jouman_mobile_mobile/src/pages/profile_page.dart";
+import "package:jouman_mobile_mobile/src/pages/sigin_page.dart";
+import "package:jouman_mobile_mobile/src/utils/storage.dart";
 
 import "candidatures_page.dart";
 import "message_page.dart";
 import "offre_postules.dart";
-
 
 class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
             CupertinoPageRoute(
@@ -33,7 +37,7 @@ class ApplicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
             CupertinoPageRoute(
@@ -49,15 +53,12 @@ class ApplicationCard extends StatelessWidget {
   }
 }
 
-
-
-
 class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
             CupertinoPageRoute(
@@ -78,7 +79,7 @@ class PostulatedAnnouncementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
             CupertinoPageRoute(
@@ -94,23 +95,6 @@ class PostulatedAnnouncementCard extends StatelessWidget {
   }
 }
 
-class LogoutCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(Icons.exit_to_app),
-        title: Text('Déconnexion'),
-        subtitle: Text('Se déconnecter de l\'application'),
-      ),
-    );
-  }
-}
-
-
-
-
-
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
 
@@ -119,13 +103,59 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  late CandidatModel candidat;
+
+  void _showConnectedAuthDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Desconnexion'),
+          content: Text('Souhaiter vous vous deconnecter ?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Annuler'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  backgroundColor: AppTheme_App.favoriteColor),
+              child: Text(
+                'Autoriser',
+                style: GoogleFonts.nunito(color: AppTheme_App.withPrimary),
+              ),
+              onPressed: () {
+                // Ajoutez ici le code pour gérer l'autorisation.
+                Navigator.of(context).pop();
+                SharedPreferencesService.removeCandidatDataFromSharedPreferences()
+                    .then((cand) {
+                  Navigator.pushReplacement(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => SignInPage(),
+                    ),
+                  );
+                }); // Ferme la boîte de dialogue.
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.2,
-        title: Text('Compte',style: TextStyle(color: Colors.black),),
+        title: Text(
+          'Compte',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: ListView(
         children: [
@@ -133,7 +163,15 @@ class _AccountPageState extends State<AccountPage> {
           ApplicationCard(),
           MessageCard(),
           PostulatedAnnouncementCard(),
-          LogoutCard(),
+          Card(
+              child: ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Déconnexion'),
+            subtitle: Text('Se déconnecter de l\'application'),
+            onTap: (){
+              _showConnectedAuthDialog(context);
+            },
+          ))
         ],
       ),
     );
