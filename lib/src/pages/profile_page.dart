@@ -3,9 +3,11 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:jouman_mobile_mobile/src/Animation/skeleton_model.dart";
 import "package:jouman_mobile_mobile/src/actions/CandidatAction.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman_mobile_mobile/src/pages/profile_edit_page.dart";
 import "package:jouman_mobile_mobile/src/utils/storage.dart";
 import "package:jouman_mobile_mobile/src/widgets/profile/profile_sociaux.dart";
 
@@ -47,8 +49,8 @@ class _ProfilePageState extends State<ProfilePage>
   bool isLoading = true;
   late CandidatModel candidat = CandidatModel();
   late CandidatModel candidatDetail = CandidatModel(
-    coverPicture: "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png"
-  );
+      coverPicture:
+          "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png");
 
   @override
   void dispose() {
@@ -96,8 +98,7 @@ class _ProfilePageState extends State<ProfilePage>
                                   child: CircleAvatar(
                                     radius: 50,
                                     backgroundImage: NetworkImage(
-                                            "${candidatDetail.coverPicture}"
-                                    ),
+                                        "${candidatDetail.coverPicture}"),
                                   )),
                             )
                           ]),
@@ -130,25 +131,62 @@ class _ProfilePageState extends State<ProfilePage>
                                 color: AppTheme_App.primaryColor,
                                 borderRadius: BorderRadius.circular(18),
                               ),
-                              child: MaterialButton(
-                                onPressed: () {},
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.edit_note,
-                                        color: AppTheme_App.withPrimary,
-                                      ),
-                                      SizedBox(width: 5),
-                                      Text(
-                                        "Mise à jour",
-                                        style: kButtonText.copyWith(
-                                            color: AppTheme_App.withPrimary),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              child: isLoading
+                                  ? Skeleton(
+                                      width: 100,
+                                      height: 34,
+                                    )
+                                  : candidatDetail.id.toString().length > 0
+                                      ? MaterialButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    ProfileEditPage(candidatModel: candidatDetail),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.edit_note,
+                                                  color:
+                                                      AppTheme_App.withPrimary,
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  "Mise à jour",
+                                                  style: kButtonText.copyWith(
+                                                      color: AppTheme_App
+                                                          .withPrimary),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : MaterialButton(
+                                          onPressed: () {},
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.refresh,
+                                                  color:
+                                                      AppTheme_App.withPrimary,
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  "Recharger la page",
+                                                  style: kButtonText.copyWith(
+                                                      color: AppTheme_App
+                                                          .withPrimary),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                             ))
                           ],
                         ),
@@ -188,33 +226,40 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                       ),
                       // Onglet 2 - Compétences
-                      isLoading?
-                      Center(
-                        child: CircularProgressIndicator(),
-                      )
-                          :
-                      candidatDetail.id.toString().length> 0 ?
-                      ProfileCompetences(candidat: candidatDetail,):Center(
-                        child: Container(
-                          child: Text(
-                            "Profile vide",
-                          ),
-                        ),
-                      ) ,
+                      isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : candidatDetail.id.toString().length > 0
+                              ? ProfileCompetences(
+                                  candidat: candidatDetail,
+                                )
+                              : Center(
+                                  child: Container(
+                                    child: Text(
+                                      "Profile vide",
+                                    ),
+                                  ),
+                                ),
                       // Onglet 3 - Sociaux
-                      isLoading?
-                      Center(
-                        child: CircularProgressIndicator(),
-                      )
-                          :
-                      candidatDetail.id.toString().length> 0 ?
-                      ProfileSociaux(candidat: candidatDetail,):Center(
-                        child: Container(
-                          child: Text(
-                            "Profile vide",
-                          ),
-                        ),
-                      )
+                      isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : candidatDetail.id.toString().length > 0
+                              ? ProfileSociaux(
+                                  candidat: candidatDetail,
+                                )
+                              : Center(
+                                  child: Container(
+                                    child: TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                        child: Text(""),
+                                      ),
+                                    ),
+                                  ),
+                                )
                     ],
                   ),
                 ),
