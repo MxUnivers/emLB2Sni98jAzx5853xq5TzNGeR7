@@ -1,4 +1,6 @@
+import "package:cached_network_image/cached_network_image.dart";
 import "package:flutter/material.dart";
+import "package:intl/intl.dart";
 
 import "../../model/PostModel.dart";
 import 'package:html/parser.dart' show parse;
@@ -17,6 +19,16 @@ class _PostCardItemState extends State<PostCardItem> {
 
 
 
+  String formatDateTime(String dateTimeString) {
+    final dateTime = DateTime.parse(dateTimeString);
+    final dateFormat = DateFormat.yMMMMd();
+    final timeFormat = DateFormat.Hm();
+
+    final formattedDate = dateFormat.format(dateTime);
+    final formattedTime = timeFormat.format(dateTime);
+
+    return '$formattedDate à $formattedTime';
+  }
 
 
   @override
@@ -24,31 +36,76 @@ class _PostCardItemState extends State<PostCardItem> {
     return
       Container(
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(vertical: 1),
-        child: Card(
-          elevation: 0.5,
-          child: ListTile(
-            leading: Container(
-                height: 50 ,
-                width: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "${widget.post!.coverPicture.toString()}"
+        margin: EdgeInsets.symmetric(vertical: 5,),
+        child: Container(
+            padding: EdgeInsets.only(top: 5,bottom: 15),
+            child: Card(
+              elevation: 0.5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 200,
+                    child:CachedNetworkImage(
+                      imageUrl: widget.post!.coverPicture.toString(),
+                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                          Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.post!.title.toString(),style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18
+                        ),),
+                        SizedBox(height: 3,),
+                        Row(
+                          children: [
+                            Text(formatDateTime(widget.post!.createdAt.toString()),style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Colors.grey
+                            ),),
+                            SizedBox(width: 5,),
+                            Container(
+                              padding: EdgeInsets.only(left:5,right: 5,top: 3,bottom: 3),
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+
+                              child: Text(widget.post!.areaPost.toString(),style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: Colors.white
+                              ),),
+                            ),
+
+                          ],
                         ),
-                        fit: BoxFit.cover
+
+                        /*SizedBox(height: 10,),
+                        Text("${widget.post!.content.toString()}",maxLines: 2,style: TextStyle(
+                          fontSize: 14,
+                        ))*/
+
+                      ]
                     )
-                )
-            ),
-            title: Text("${widget.post!.title.toString()}",maxLines: 2,),
-            subtitle: Text("${parse(widget.post!.content).body!.text}",maxLines: 1,),
-            trailing: IconButton(
-                onPressed: (){},
-                icon: Icon(Icons.favorite_outline_rounded,size: 12)
-            ),
-          ),
-        ),
+                  )
+                ]
+              )
+            )
+
+        )
       );
     }
 
