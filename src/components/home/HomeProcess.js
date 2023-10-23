@@ -7,7 +7,7 @@ const HomeProcess = () => {
                     <div class="nav-tabs round-pill">
                         <div class="grid items-center grid-cols-12 gap-5">
                             <div class="col-span-12 lg:col-span-6">
-                                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Comment postuler en tant que étudiant</h3>
+                                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Comment postuler en tant qu{"'"}étudiant</h3>
                                 <p class="text-gray-500 dark:text-gray-300">
                                 {
                                     `Nous vous mettrons rapidement en relation avec les Entreprise adéquats.`

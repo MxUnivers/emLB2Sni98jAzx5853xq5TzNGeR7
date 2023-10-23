@@ -56,7 +56,7 @@ const BarnerHome = () => {
                 <div class="grid items-center grid-cols-12 gap-10">
                     <div class="col-span-12 lg:col-span-7">
                         <div class="mb-3 ltr:mr-14 rtl:ml-14">
-                            <h6 class="mb-3 text-sm text-gray-900 uppercase dark:text-gray-50">Nous vaons + 150,000 jobs disponibles</h6>
+                            <h6 class="mb-3 text-sm text-gray-900 uppercase dark:text-gray-50">Nous avons + 150,000 jobs disponibles</h6>
                             <h1 class="mb-3 text-5xl font-semibold leading-tight text-white dark:text-gray-50">
                                 Jouman , <br /> <span
                                     class="font-bold    group-data-[theme-color=blue]:text-blue-500">

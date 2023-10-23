@@ -13,7 +13,7 @@ const FooterWeb = () => {
                     <div class="grid grid-cols-12 lg:gap-10">
                         <div class="col-span-12 xl:col-span-4">
                             <div class="mr-12">
-                                <h4 class="text-white mb-6 text-[23px]">Juman</h4>
+                                <h4 class="text-white mb-6 text-[23px]">Jouman</h4>
                                 <p class="text-white/50 dark:text-gray-300">
                                     Decouvrez le monde de l{"'"}entreprise 
                                 </p>

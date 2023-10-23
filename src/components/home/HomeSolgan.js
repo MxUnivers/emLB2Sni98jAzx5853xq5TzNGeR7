@@ -31,7 +31,7 @@ const HomeSolgan = () => {
 
                     <h1 class="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl font-bold text-gray-900">
                         Votre Avenir Commence Ici ! Trouvez Votre Premier Emploi Étudiant   sur <span
-                            class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-blue-600 via-30% to-green-600">Joman</span>
+                            class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-blue-600 via-30% to-green-600">Jouman</span>
                     </h1>
                     <p class="mt-8 text-gray-700">
                         Transformez Votre Éducation en Expérience Pratique
