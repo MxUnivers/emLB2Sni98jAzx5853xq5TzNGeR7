@@ -1,7 +1,9 @@
 
 import axios from "axios";
-import { valueLocal } from "../../../utlis/storage/localvalue";
+import { localvalue, valueLocal } from "../../../utlis/storage/localvalue";
 import { redirect } from "react-router-dom";
+import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { baseurl } from "../../../utlis/url/baseurl";
 
 export const handleSubmitPaymentAuthorized = (toast) => {
   var transation_idC = Math.floor(Math.random() * 100000000).toString()
@@ -59,7 +61,7 @@ export const handleSubmitPaymentAuthorized = (toast) => {
         "apikey": valueLocal.api_key_cine_pay,
         "site_id": valueLocal.site_web_id_cinetpay,
         "transaction_id": response.data.data.payment_token
-        
+
         // "currency": "XOF",
         // "amount": 50,
         // "description": " TEST INTEGRATION "
@@ -82,7 +84,7 @@ export const handleSubmitPaymentAuthorized = (toast) => {
           .catch(function (error) {
             // Gérez les erreurs ici
             console.error('Erreur lors de la vérification de la transaction :', error);
-            toast.error("Paiement Echoué");            
+            toast.error("Paiement Echoué");
           });
       }, 60000);
 
@@ -91,5 +93,59 @@ export const handleSubmitPaymentAuthorized = (toast) => {
       console.log(error);
       alert("echoué")
     });
+
+}
+
+
+
+
+
+export const fetchProcessData = async (userId) => {
+  console.log(userId);
+  console.log(localStorage.getItem(localvalue.customer_transaction_id));
+
+  let data = JSON.stringify({
+    "apikey": `${valueLocal.api_key_cine_pay}`,
+    "site_id": valueLocal.site_web_id_cinetpay,
+    "transaction_id": String(localStorage.getItem(localvalue.customer_transaction_id))
+  });
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://api-checkout.cinetpay.com/v2/payment/check',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  };
+  await axios.request(config)
+    .then(async (response) => {
+      if (response.data.code == "00") {
+        await axios
+          .post(`${baseurl.url}/api/v1/packs/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}/${userId}/subscribe/${getAndCheckLocalStorage(localvalue.customer_pack_id)}`,
+          )
+          .then((response) => {
+            // confetti();
+            // console.log("");
+          })
+          .catch((error) => {
+            // toast.error("Soucription pack échoué !");
+            // console.log("");
+          });
+
+      } else if (response.data.code == "627") {
+        // setIsLoginpaymentUrl(false);
+        // console.log("");
+      }
+    })
+    .catch((error) => {
+      // console.log("");
+    });
+
+
+
+
+
 
 }

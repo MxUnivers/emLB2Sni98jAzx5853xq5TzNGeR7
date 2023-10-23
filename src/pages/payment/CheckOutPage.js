@@ -107,15 +107,15 @@ const CheckOutPage = () => {
     const [IsLoginpaymentUrl, setIsLoginpaymentUrl] = useState(false);
 
     const handleGeneratePaymentUrl = async () => {
-        if (userId !== null && firstname && lastname && emailUser && telephoneUser) {
+        if (userId !== null) {
             try {
                 setIsLoginpaymentUrl(true);
-                setWithExpiration(localvalue.customer_id,userId,dureeDeVie);
-                setWithExpiration(localvalue.customer_name,firstname,dureeDeVie);
-                setWithExpiration(localvalue.customer_surname,lastname,dureeDeVie);
-                setWithExpiration(localvalue.customer_email,emailUser,dureeDeVie);
-                setWithExpiration(localvalue.customer_pack_id,pack._id,dureeDeVie);
-                setWithExpiration(localvalue.customer_pack,pack.name,dureeDeVie);
+                localStorage.setItem(localvalue.customer_id,userId);
+                localStorage.setItem(localvalue.customer_name,firstname);
+                localStorage.setItem(localvalue.customer_surname,lastname);
+                localStorage.setItem(localvalue.customer_email,emailUser);
+                localStorage.setItem(localvalue.customer_pack_id,pack._id);
+                localStorage.setItem(localvalue.customer_pack,pack.pack);
 
 
                 const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url`, {
@@ -135,10 +135,10 @@ const CheckOutPage = () => {
                 if (response.status === 200) {
                     setPaymentUrl(response.data.data.payment_url);
                     // Redirigez l'utilisateur vers l'URL de paiement
+                    localStorage.setItem(localvalue.customer_transaction_id,response.data.transactionId);
                     window.open(response.data.data.payment_url, '_blank');
                     settransactionId(response.data.transactionId);
                     const transaction_id = response.data.transactionId;
-                    setWithExpiration(localvalue.customer_transaction_id,transactionId,dureeDeVie);
 
                     toast.info("Veillez entrer vos informations de paiement ");
                     handleStartTimer();
@@ -365,7 +365,7 @@ const CheckOutPage = () => {
                                                         PAYER AVEC CINEPAY
                                                     </button>
                                             }
-                                            {
+                                            {/*
                                                 paymentUrl && (
                                                     <div>
                                                         <p>URL de paiement générée :</p>
@@ -374,8 +374,10 @@ const CheckOutPage = () => {
                                                         </a>
                                                     </div>
                                                 )
+                                                 */
                                             }
                                             {
+                                                /*
                                                 transactionId && (
                                                     <div>
                                                         <p>Transaction id :</p>
@@ -384,6 +386,7 @@ const CheckOutPage = () => {
                                                         </div>
                                                     </div>
                                                 )
+                                                 */
                                             }
                                         </div>
                                     </div>

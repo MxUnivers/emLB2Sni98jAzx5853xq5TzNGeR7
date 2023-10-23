@@ -7,12 +7,13 @@ import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
 import { MdSchool, MdWork } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 
 
 
 const NavbarWeb = () => {
-    const navigate  =  useNavigate();
-    
+    const navigate = useNavigate();
+
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
 
@@ -40,8 +41,27 @@ const NavbarWeb = () => {
 
     useEffect(() => {
         EntrepriseGetById(idRecruteur, setrecruteur);
-        MessageAllCandidatById(idCandidat, setmessages, setmessages2)
+        MessageAllCandidatById(idCandidat, setmessages, setmessages2);
+        const candidatId = getAndCheckLocalStorage(localvalue.candidatID);
+        const recruteurId = getAndCheckLocalStorage(localvalue.recruteurID);
+        if (candidatId !== null) {
+            setUserId(candidatId);
+            fetchProcessData(userId)
+        } else if (recruteurId !== null) {
+            setUserId(candidatId);
+            fetchProcessData(userId);
+        } else {
+            // Gérer le cas où les deux valeurs sont nulles (ou autre logique selon vos besoins)
+            setUserId(null);
+        }
     }, []);
+
+
+    const [userId, setUserId] = useState();
+
+
+
+
 
 
 
@@ -326,7 +346,7 @@ const NavbarWeb = () => {
                                 >Coaching & Formations
                                 </a>
                             </li>
-                            
+
                             <li class="relative dropdown lg:mt-0">
                                 <button class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
                                     id="company" data-bs-toggle="dropdown">autres <i
