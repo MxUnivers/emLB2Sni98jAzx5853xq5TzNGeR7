@@ -47,7 +47,7 @@ const CandidatSchema = new mongoose.Schema({
         type: String, required: false, default:"#"
     },
     years_experience: {
-        type: String, required: false,require:"0-0"
+        type: String, required: false,require:"0-1"
     },
     competences: [{type:Object}],
     langues: {

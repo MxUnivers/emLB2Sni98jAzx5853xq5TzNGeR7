@@ -83,13 +83,13 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
             "currency": "XOF",
             "alternative_currency": "",
             "description": " TEST INTEGRATION ",
-            "customer_id": "172",
-            "customer_name": "KOUADIO",
-            "customer_surname": "Francisse",
-            "customer_email": "harrissylver@gmail.com",
-            "customer_phone_number": "+225004315545",
-            "customer_address": "Antananarivo",
-            "customer_city": "Antananarivo",
+            "customer_id": req.body.customer_id,
+            "customer_name": req.body.customer_name,
+            "customer_surname": req.body.customer_surname,
+            "customer_email": req.body.customer_email,
+            "customer_phone_number": req.body.customer_phone_number,
+            "customer_address": "Abidjan",
+            "customer_city": "Ville",
             "customer_country": "CM",
             "customer_state": "CM",
             "customer_zip_code": "065100",
@@ -167,6 +167,9 @@ router.post("/:type/:id/subscribe/:idPack", /*AuthorizationMiddleware */
             const packExist = await packModel.findById({ _id: idPack });
             if (!packExist) {
                 return res.status(408).json({ message: "Ce pack n'existe pas" });
+            }
+            if(packExist.pack ==  userExist.account.pack){
+                return res.status(409).json({message:"Vous avez déja souscrit à cet pack "});
             }
 
             const montant = packExist.solde;
