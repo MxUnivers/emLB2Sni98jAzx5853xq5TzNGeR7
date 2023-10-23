@@ -27,7 +27,21 @@ export const localvalue = {
 
     CANDIDATURE:"CandidatureId",
 
-    token:"token_authentification_de_connexion_encours"
+    token:"token_authentification_de_connexion_encours",
+
+
+
+    // Payment
+
+    customer_id:"customer_id",
+    customer_name:"customer_name",
+    customer_surname:"customer_surname",
+    customer_email:"customer_email",
+    customer_phone_number:"customer_phone_number",
+    customer_pack:"customer_pack",
+    customer_pack_id:"customer_pack_id",
+    customer_transaction_id :"customer_transaction_id"
+
 
 }
 

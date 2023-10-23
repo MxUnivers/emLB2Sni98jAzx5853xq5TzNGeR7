@@ -2,15 +2,17 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { baseurl } from "../../utlis/url/baseurl";
-import { localvalue, typePersonConnected, valueLocal } from "../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, typePersonConnected, valueLocal } from "../../utlis/storage/localvalue";
 import { toast } from "react-toastify";
 import { routing } from "../../utlis/routing";
 import LoadinButton from "../../components/loading/LoadinButton";
 import { VerificationPackPaiement } from "../../action/api/packs/PackAction";
 import confetti from "canvas-confetti";
-import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
+import { getAndCheckLocalStorage, setWithExpiration } from "../../utlis/storage/localvalueFunction";
 import { IconPack, packsItemsList } from "../../utlis/config";
 import { Retour } from "../../utlis/url/ListFunction";
+import useFetchCandidat from "../../action/api/candidat/CandidatAction";
+import { useFetchEntreprise } from "../../action/api/employeur/EmployeurAction";
 
 
 const CheckOutPage = () => {
@@ -20,6 +22,7 @@ const CheckOutPage = () => {
     // Miniuteurs
     const [timeRemaining, setTimeRemaining] = useState(240); // 180 secondes (3 minutes)
     const [timerActive, setTimerActive] = useState(false);
+
     useEffect(() => {
         if (timerActive && timeRemaining > 0) {
             const timerInterval = setInterval(() => {
@@ -42,14 +45,48 @@ const CheckOutPage = () => {
 
     const { pack } = location.state;
     const [userId, setUserId] = useState(null);
+    const [firstname, setfirstname] = useState();
+    const [lastname, setlastname] = useState();
+    const [emailUser, setemailUser] = useState();
+    const [telephoneUser, settelephoneUser] = useState();
+
+
+    const { isLoading, errorCandiat, candidat } = useFetchCandidat(getAndCheckLocalStorage(localvalue.candidatID));
+    const { isLoadingEntreprise, errorEntreprise, entreprise } = useFetchEntreprise(getAndCheckLocalStorage(localvalue.recruteurID));
+
+
     useEffect(() => {
         const candidatId = getAndCheckLocalStorage(localvalue.candidatID);
         const recruteurId = getAndCheckLocalStorage(localvalue.recruteurID);
         // Vérifier quelle valeur n'est pas null
         if (candidatId !== null) {
             setUserId(candidatId);
+            if (candidat && candidat.firstname) {
+                setfirstname(candidat.firstname);
+            }
+            if (candidat && candidat.lastname) {
+                setlastname(candidat.lastname);
+            }
+            if (candidat && candidat.email) {
+                setemailUser(candidat.email);
+            }
+            if (candidat && candidat.telephone) {
+                settelephoneUser(candidat.telephone);
+            }
         } else if (recruteurId !== null) {
             setUserId(recruteurId);
+            if (entreprise && entreprise.firstname) {
+                setfirstname(entreprise.firstname);
+            }
+            if (entreprise && entreprise.lastname) {
+                setlastname(entreprise.lastname);
+            }
+            if (entreprise && entreprise.email) {
+                setemailUser(entreprise.email);
+            }
+            if (entreprise && entreprise.telephone) {
+                settelephoneUser(entreprise.telephone);
+            }
         } else {
             // Gérer le cas où les deux valeurs sont nulles (ou autre logique selon vos besoins)
             setUserId(null);
@@ -70,82 +107,100 @@ const CheckOutPage = () => {
     const [IsLoginpaymentUrl, setIsLoginpaymentUrl] = useState(false);
 
     const handleGeneratePaymentUrl = async () => {
-        try {
-            setIsLoginpaymentUrl(true);
-            const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url`, {
-                "amount": pack.solde,
-                "invoice_data": {
-                    "UserID": getAndCheckLocalStorage(localvalue.candidatID),
-                    "PackID": pack._id,
-                    "TypePersonne": getAndCheckLocalStorage(localvalue.TYPEACCESS)
-                },
-            });
+        if (userId !== null && firstname && lastname && emailUser && telephoneUser) {
+            try {
+                setIsLoginpaymentUrl(true);
+                setWithExpiration(localvalue.customer_id,userId,dureeDeVie);
+                setWithExpiration(localvalue.customer_name,firstname,dureeDeVie);
+                setWithExpiration(localvalue.customer_surname,lastname,dureeDeVie);
+                setWithExpiration(localvalue.customer_email,emailUser,dureeDeVie);
+                setWithExpiration(localvalue.customer_pack_id,pack._id,dureeDeVie);
+                setWithExpiration(localvalue.customer_pack,pack.name,dureeDeVie);
 
-            if (response.status === 200) {
-                setPaymentUrl(response.data.data.payment_url);
-                // Redirigez l'utilisateur vers l'URL de paiement
-                window.open(response.data.data.payment_url, '_blank');
-                settransactionId(response.data.transactionId);
-                const transaction_id = response.data.transactionId;
 
-                toast.info("Veillez entrer vos informations de paiement ");
-                handleStartTimer();
-                setTimeout(async () => {
-                    let data = JSON.stringify({
-                        "apikey": `${valueLocal.api_key_cine_pay}`,
-                        "site_id": valueLocal.site_web_id_cinetpay,
-                        "transaction_id": String(transaction_id)
-                    });
+                const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url`, {
+                    "amount": pack.solde,
+                    "customer_id": `${userId}`,
+                    "customer_name": firstname,
+                    "customer_surname": lastname,
+                    "customer_email": emailUser,
+                    "customer_phone_number": `+${telephoneUser}`,
+                    "invoice_data": {
+                        "UserID": userId,
+                        "PackID": pack._id,
+                        "TypePersonne": getAndCheckLocalStorage(localvalue.TYPEACCESS)
+                    },
+                });
 
-                    let config = {
-                        method: 'post',
-                        maxBodyLength: Infinity,
-                        url: 'https://api-checkout.cinetpay.com/v2/payment/check',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        data: data
-                    };
-                    await axios.request(config)
-                        .then(async (response) => {
-                            if (response.data.code == "00") {
-                                setIsLoginpaymentUrl(false)
-                                await axios
-                                    .post(`${baseurl.url}/api/v1/packs/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}/${userId}/subscribe/${pack._id}`,
-                                    )
-                                    .then((response) => {
-                                        confetti();
-                                        toast.success("Votre Pack à été activer avec succès !");
-                                        setTimeout(() => {
-                                            window.location.href = `/`;
-                                        }, 2500);
-                                    })
-                                    .catch((error) => {
-                                        toast.error("Soucription pack échoué !");
-                                    });
+                if (response.status === 200) {
+                    setPaymentUrl(response.data.data.payment_url);
+                    // Redirigez l'utilisateur vers l'URL de paiement
+                    window.open(response.data.data.payment_url, '_blank');
+                    settransactionId(response.data.transactionId);
+                    const transaction_id = response.data.transactionId;
+                    setWithExpiration(localvalue.customer_transaction_id,transactionId,dureeDeVie);
 
-                            } else if (response.data.code == "627") {
-                                setIsLoginpaymentUrl(false);
-                                toast.error("Paiement non effectués Veillez Réesayer");
-                                console.log(response.data);
-                                window.location.reload()
-                            }
-                        })
-                        .catch((error) => {
-                            setIsLoginpaymentUrl(false);
-                            toast.error("Paiement imposible !")
-                            console.log(error);
-                            window.location.reload()
+                    toast.info("Veillez entrer vos informations de paiement ");
+                    handleStartTimer();
+                    setTimeout(async () => {
+                        let data = JSON.stringify({
+                            "apikey": `${valueLocal.api_key_cine_pay}`,
+                            "site_id": valueLocal.site_web_id_cinetpay,
+                            "transaction_id": String(transaction_id)
                         });
-                }, 4 * 60 * 1000)
+
+                        let config = {
+                            method: 'post',
+                            maxBodyLength: Infinity,
+                            url: 'https://api-checkout.cinetpay.com/v2/payment/check',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            data: data
+                        };
+                        await axios.request(config)
+                            .then(async (response) => {
+                                if (response.data.code == "00") {
+                                    setIsLoginpaymentUrl(false)
+                                    await axios
+                                        .post(`${baseurl.url}/api/v1/packs/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}/${userId}/subscribe/${pack._id}`,
+                                        )
+                                        .then((response) => {
+                                            confetti();
+                                            toast.success("Votre Pack à été activer avec succès !");
+                                            setTimeout(() => {
+                                                window.location.href = `/`;
+                                            }, 2500);
+                                        })
+                                        .catch((error) => {
+                                            toast.error("Soucription pack échoué !");
+                                        });
+
+                                } else if (response.data.code == "627") {
+                                    setIsLoginpaymentUrl(false);
+                                    toast.error("Paiement non effectué Veillez Réesayer");
+                                    console.log(response.data);
+                                    window.location.reload()
+                                }
+                            })
+                            .catch((error) => {
+                                setIsLoginpaymentUrl(false);
+                                toast.error("Paiement imposible !")
+                                console.log(error);
+                                window.location.reload()
+                            });
+                    }, 4 * 60 * 1000)
+                }
+            } catch (error) {
+                setIsLoginpaymentUrl(false);
+                // Gérer les erreurs ici
+                toast.error("url de paiement non générer  veliiez réessayer");
+                setTimeout(() => {
+                    window.location.href = `/${routing.pricing}`;
+                }, 2000);
             }
-        } catch (error) {
-            setIsLoginpaymentUrl(false);
-            // Gérer les erreurs ici
-            toast.error("url de paiement non générer  veliiez réessayer");
-            setTimeout(() => {
-                window.location.href = `/${routing.pricing}`;
-            }, 2000);
+        } else {
+            toast.error("Veillez vous connecter s'il vous plait");
         }
     };
 
