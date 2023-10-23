@@ -127,7 +127,7 @@ class _PostCardItemState extends State<PostCardItem> {
 
   String extractTextFromHTML(String htmlContent) {
     final document = parse(htmlContent);
-    final String text = document.body!.text;
+    final String text = document.body!.innerHtml;
     return text;
   }
 }
