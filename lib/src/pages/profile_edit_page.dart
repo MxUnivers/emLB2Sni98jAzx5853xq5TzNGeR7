@@ -36,6 +36,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
   // Compétences
   late TextEditingController levelSchoolController;
   late TextEditingController salaireController;
+  late TextEditingController descriptionController;
 
 
   // Reseau sociaux
@@ -67,6 +68,14 @@ class _ProfileEditPageState extends State<ProfileEditPage>
         TextEditingController(text: widget.candidatModel!.pays.toString());
     salaireController =  TextEditingController(text: widget.candidatModel!.salaire.toString());
     levelSchoolController =  TextEditingController(text: widget.candidatModel!.levelSchool.toString());
+    descriptionController =  TextEditingController(text: widget.candidatModel!.description.toString());
+
+    // Reseau sociaux
+    facebookController =  TextEditingController(text: widget.candidatModel!.facebookUrl.toString());
+    linkedinController =  TextEditingController(text: widget.candidatModel!.linkedinUrl.toString());
+    twitterController =  TextEditingController(text: widget.candidatModel!.twitterUrl.toString());
+    instagramController =  TextEditingController(text: widget.candidatModel!.instagramUrl.toString());
+
 
     competencesSelected = widget.candidatModel!.competences!;
     languesSelected = widget.candidatModel!.langues!;
@@ -145,7 +154,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                       : FontWeight.w400,
                   fontSize: competencesSelected.any(
                           (competence) => competence.value == formation.value)
-                      ? 15
+                      ? 20
                       : 12,
                 ),
               ),
@@ -192,7 +201,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                       : FontWeight.w400,
                   fontSize: languesSelected.any(
                           (competence) => competence.value == formation.value)
-                      ? 15
+                      ? 20
                       : 12,
                 ),
               ),
@@ -229,17 +238,14 @@ class _ProfileEditPageState extends State<ProfileEditPage>
               child: Text(
                 formation.toString(),
                 style: GoogleFonts.nunito(
-                  color: salairesSchool.any(
-                          (competence) => competence == salaireController.text)
+                  color:  salaireController.text == formation
                       ? AppTheme_App.primaryColor
                       : AppTheme_App.TextGray,
-                  fontWeight: salairesSchool.any(
-                          (competence) => competence == salaireController.text)
+                  fontWeight: salaireController.text == formation
                       ? FontWeight.bold
                       : FontWeight.w400,
-                  fontSize: salairesSchool.any(
-                          (competence) => competence == salaireController.text)
-                      ? 15
+                  fontSize: salaireController.text == formation
+                      ? 20
                       : 12,
                 ),
               ),
@@ -274,17 +280,14 @@ class _ProfileEditPageState extends State<ProfileEditPage>
               child: Text(
                 formation.label.toString(),
                 style: GoogleFonts.nunito(
-                  color: levelSchools.any(
-                          (competence) => competence.value == levelSchoolController.text)
+                  color: levelSchoolController.text==formation.value
                       ? AppTheme_App.primaryColor
                       : AppTheme_App.TextGray,
-                  fontWeight: levelSchools.any(
-                          (competence) => competence.value == levelSchoolController.text)
+                  fontWeight: levelSchoolController.text==formation.value
                       ? FontWeight.bold
                       : FontWeight.w400,
-                  fontSize: levelSchools.any(
-                          (competence) => competence.value == levelSchoolController.text)
-                      ? 15
+                  fontSize: levelSchoolController.text==formation.value
+                      ? 20
                       : 12,
                 ),
               ),
@@ -758,6 +761,9 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                           children: [
                             Container(
                               child: TextFormField(
+                                controller: descriptionController,
+                                autocorrect: true,
+                                maxLines: 300,
                                 decoration: InputDecoration(
                                   labelText:
                                       "Description sur sur votre profile ",
@@ -780,6 +786,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                   children: [
                     Container(
                       child: TextFormField(
+                        controller: facebookController,
                         decoration: InputDecoration(
                             icon: Icon(Icons.facebook_outlined),
                             labelText: "Lien facebook"),
@@ -792,6 +799,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                       children: [
                         Container(
                           child: TextFormField(
+                            controller: linkedinController,
                             decoration: InputDecoration(
                                 icon: Icon(Icons.facebook_outlined),
                                 labelText: "Lien Linkedin"),
@@ -803,6 +811,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                       children: [
                         Container(
                           child: TextFormField(
+                            controller: instagramController,
                             decoration: InputDecoration(
                                 icon: Icon(Icons.facebook_outlined),
                                 labelText: "Lien Instagram"),
@@ -814,6 +823,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                       children: [
                         Container(
                           child: TextFormField(
+                            controller: twitterController,
                             decoration: InputDecoration(
                                 icon: Icon(Icons.facebook_outlined),
                                 labelText: "Lien Twitter"),
@@ -826,6 +836,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
           ]),
         ));
   }
+
 }
 
 class DateInputFormatter extends TextInputFormatter {
