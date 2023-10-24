@@ -402,7 +402,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                             dateNaissanceController.text,
                             telephoneController.text,
                             titlePostController.text,
-                            titlePostController.text,
+                            paysController.text,
                             adresseController.text,
                             competenceMaps,
                             languesMaps,

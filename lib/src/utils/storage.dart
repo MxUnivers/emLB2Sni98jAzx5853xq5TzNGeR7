@@ -91,3 +91,10 @@ class SharedPreferencesService {
 
 
 }
+
+
+
+List<String> packsList = [
+  "SILVER", "GOLD", "DIAMOND"
+];
+
