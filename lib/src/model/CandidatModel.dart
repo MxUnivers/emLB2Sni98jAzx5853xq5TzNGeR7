@@ -175,3 +175,10 @@ class AccountCandidatModel {
     );
   }
 }
+
+class LevelSchoolModel {
+  final String? label;
+  final String? value;
+
+  LevelSchoolModel({this.label, this.value});
+}

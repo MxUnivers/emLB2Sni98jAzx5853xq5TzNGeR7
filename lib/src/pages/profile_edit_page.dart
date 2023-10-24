@@ -1,7 +1,14 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+
+import "../model/FormationModel.dart";
+import "../model/LanugesFormations.dart";
+import "../model/LevelSchoolModelList.dart";
+import "../model/PaysModel.dart";
+import "../model/SalireModel.dart";
 
 class ProfileEditPage extends StatefulWidget {
   final CandidatModel? candidatModel;
@@ -11,7 +18,8 @@ class ProfileEditPage extends StatefulWidget {
   State<ProfileEditPage> createState() => _ProfileEditPageState();
 }
 
-class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProviderStateMixin {
+class _ProfileEditPageState extends State<ProfileEditPage>
+    with SingleTickerProviderStateMixin {
   String selectedCode = '225';
 
   // Infos profile
@@ -22,17 +30,19 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
   late TextEditingController telephoneController;
   late TextEditingController titlePostController;
   late TextEditingController adresseController;
+  late TextEditingController dateNaissanceController;
+  late TextEditingController paysController;
 
   // Compétences
+  late TextEditingController levelSchoolController;
+  late TextEditingController salaireController;
+
 
   // Reseau sociaux
   late TextEditingController facebookController;
   late TextEditingController linkedinController;
   late TextEditingController twitterController;
   late TextEditingController instagramController;
-
-
-
 
   @override
   void initState() {
@@ -51,6 +61,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
         TextEditingController(text: widget.candidatModel!.titlePost.toString());
     adresseController =
         TextEditingController(text: widget.candidatModel!.adresse.toString());
+    dateNaissanceController = TextEditingController(
+        text: widget.candidatModel!.dateNaissance.toString());
+    paysController =
+        TextEditingController(text: widget.candidatModel!.pays.toString());
+    salaireController =  TextEditingController(text: widget.candidatModel!.salaire.toString());
+    levelSchoolController =  TextEditingController(text: widget.candidatModel!.levelSchool.toString());
+
+    competencesSelected = widget.candidatModel!.competences!;
+    languesSelected = widget.candidatModel!.langues!;
   }
 
   @override
@@ -59,54 +78,275 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
     super.dispose();
   }
 
+  List<CompetenceModel> competencesSelected = [];
+  List<LangueModel> languesSelected = [];
+
+  Future<void> showPays() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Sélectionnez un pays'),
+          children: optionPays.map((pays) {
+            return SimpleDialogOption(
+                onPressed: () {
+                  // Gérer la sélection du pays ici
+                  Navigator.pop(context, pays);
+                  setState(() {
+                    paysController.text = pays.value;
+                  });
+                },
+                child: paysController.text == pays.value
+                    ? Text(
+                        pays.label,
+                        style: GoogleFonts.nunito(
+                            color: AppTheme_App.primaryColor),
+                      )
+                    : Text(
+                        pays.label,
+                        style: GoogleFonts.nunito(color: AppTheme_App.TextGray),
+                      ));
+          }).toList(),
+        );
+      },
+    ).then((selectedPays) {
+      if (selectedPays != null) {
+        print('Pays sélectionné : ${selectedPays.label}');
+        // Vous pouvez faire ce que vous voulez avec le pays sélectionné
+      }
+    });
+  }
+
+  Future<void> showFormations() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Sélectionnez de compétences / Points fort'),
+          children: competenceModels.map((formation) {
+            return SimpleDialogOption(
+              onPressed: () {
+                // Gérer la sélection du pays ici
+                Navigator.pop(context, formation);
+                setState(() {
+                  competencesSelected.add(formation);
+                });
+              },
+              child: Text(
+                formation.label.toString(),
+                style: GoogleFonts.nunito(
+                  color: competencesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? AppTheme_App.primaryColor
+                      : AppTheme_App.TextGray,
+                  fontWeight: competencesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? FontWeight.bold
+                      : FontWeight.w400,
+                  fontSize: competencesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? 15
+                      : 12,
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    ).then((selectedFormation) {
+      if (selectedFormation != null) {
+        print('Pays sélectionné : ${selectedFormation.label}');
+        // Vous pouvez faire ce que vous voulez avec le pays sélectionné
+      }
+    });
+  }
+
+
+
+
+  Future<void> showLangues() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Sélectionnez des vos langues'),
+          children: languagesSchool.map((formation) {
+            return SimpleDialogOption(
+              onPressed: () {
+                // Gérer la sélection du pays ici
+                Navigator.pop(context, formation);
+                setState(() {
+                  languesSelected.add(formation);
+                });
+              },
+              child: Text(
+                formation.label.toString(),
+                style: GoogleFonts.nunito(
+                  color: languesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? AppTheme_App.primaryColor
+                      : AppTheme_App.TextGray,
+                  fontWeight: languesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? FontWeight.bold
+                      : FontWeight.w400,
+                  fontSize: languesSelected.any(
+                          (competence) => competence.value == formation.value)
+                      ? 15
+                      : 12,
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    ).then((selectedFormation) {
+      if (selectedFormation != null) {
+        print('Langue sélectionné : ${selectedFormation.label}');
+        // Vous pouvez faire ce que vous voulez avec le pays sélectionné
+      }
+    });
+  }
+
+
+
+
+  Future<void> showSalaires() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Choix de Salaire '),
+          children: salairesSchool.map((formation) {
+            return SimpleDialogOption(
+              onPressed: () {
+                // Gérer la sélection du pays ici
+                Navigator.pop(context, formation);
+                setState(() {
+                  salaireController.text=formation;
+                });
+              },
+              child: Text(
+                formation.toString(),
+                style: GoogleFonts.nunito(
+                  color: salairesSchool.any(
+                          (competence) => competence == salaireController.text)
+                      ? AppTheme_App.primaryColor
+                      : AppTheme_App.TextGray,
+                  fontWeight: salairesSchool.any(
+                          (competence) => competence == salaireController.text)
+                      ? FontWeight.bold
+                      : FontWeight.w400,
+                  fontSize: salairesSchool.any(
+                          (competence) => competence == salaireController.text)
+                      ? 15
+                      : 12,
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    ).then((selectedFormation) {
+      if (selectedFormation != null) {
+        print('Langue sélectionné : ${selectedFormation.label}');
+        // Vous pouvez faire ce que vous voulez avec le pays sélectionné
+      }
+    });
+  }
+
+
+  Future<void> showLevelShool() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text("Choix Niveau d'etude "),
+          children: levelSchools.map((formation) {
+            return SimpleDialogOption(
+              onPressed: () {
+                // Gérer la sélection du pays ici
+                Navigator.pop(context, formation);
+                setState(() {
+                  levelSchoolController.text=formation.value.toString();
+                });
+              },
+              child: Text(
+                formation.label.toString(),
+                style: GoogleFonts.nunito(
+                  color: levelSchools.any(
+                          (competence) => competence.value == levelSchoolController.text)
+                      ? AppTheme_App.primaryColor
+                      : AppTheme_App.TextGray,
+                  fontWeight: levelSchools.any(
+                          (competence) => competence.value == levelSchoolController.text)
+                      ? FontWeight.bold
+                      : FontWeight.w400,
+                  fontSize: levelSchools.any(
+                          (competence) => competence.value == levelSchoolController.text)
+                      ? 15
+                      : 12,
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    ).then((selectedFormation) {
+      if (selectedFormation != null) {
+        print('Langue sélectionné : ${selectedFormation.label}');
+        // Vous pouvez faire ce que vous voulez avec le pays sélectionné
+      }
+    });
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return
-      DefaultTabController(
+    return DefaultTabController(
         length: 3,
-      child :Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme_App.withPrimary,
-        elevation: 0.2,
-        leading: BackButton(
-          color: AppTheme_App.TextGray,
-        ),
-        title: Text(
-          "Modfication profile",
-          style: GoogleFonts.nunito(color: AppTheme_App.TextGray),
-        ),
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(70.0),
-              child:
-              TabBar(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                indicatorColor: AppTheme_App.primaryColor,
-                tabs: [
-                  Tab(
-                    text: "Infos profile",),
-                  Tab(text: 'Compténeces'),
-                  Tab(text: 'Réseaux sociaux'),
-                ],
-              )
-          )
-      ),
-      backgroundColor: AppTheme_App.withPrimary,
-      floatingActionButton: MaterialButton(
-        onPressed: () {},
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              color: AppTheme_App.primaryColor,
-              borderRadius: BorderRadius.circular(100)),
-          child: Icon(
-            Icons.save,
-            color: AppTheme_App.withPrimary,
+        child: Scaffold(
+          appBar: AppBar(
+              backgroundColor: AppTheme_App.withPrimary,
+              elevation: 0.2,
+              leading: BackButton(
+                color: AppTheme_App.TextGray,
+              ),
+              title: Text(
+                "Modfication profile",
+                style: GoogleFonts.nunito(color: AppTheme_App.TextGray),
+              ),
+              bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(70.0),
+                  child: TabBar(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    indicatorColor: AppTheme_App.primaryColor,
+                    tabs: [
+                      Tab(
+                        text: "Infos profile",
+                      ),
+                      Tab(text: 'Compténeces'),
+                      Tab(text: 'Réseaux sociaux'),
+                    ],
+                  ))),
+          backgroundColor: AppTheme_App.withPrimary,
+          floatingActionButton: MaterialButton(
+            onPressed: () {},
+            child: Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  color: AppTheme_App.primaryColor,
+                  borderRadius: BorderRadius.circular(100)),
+              child: Icon(
+                Icons.save,
+                color: AppTheme_App.withPrimary,
+              ),
+            ),
           ),
-        ),
-      ),
-      body:
-      TabBarView(
-          children: [
+          body: TabBarView(children: [
             Container(
               height: MediaQuery.of(context).size.height / 1.1,
               width: MediaQuery.of(context).size.width,
@@ -128,7 +368,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                 child: Text(
                                   "Infos Compte : ",
                                   style: GoogleFonts.nunito(
-                                      color: AppTheme_App.TextGray, fontSize: 20),
+                                      color: AppTheme_App.TextGray,
+                                      fontSize: 20),
                                 ),
                               ),
                               Container(
@@ -153,8 +394,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                           Container(
                                             child: TextFormField(
                                               controller: firstnameController,
-                                              decoration:
-                                              InputDecoration(labelText: "Nom "),
+                                              decoration: InputDecoration(
+                                                  labelText: "Nom "),
                                             ),
                                           )
                                         ],
@@ -179,29 +420,28 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                           Container(
                                             child: TextFormField(
                                               controller: emailController,
-                                              decoration:
-                                              InputDecoration(labelText: "Email"),
+                                              decoration: InputDecoration(
+                                                  labelText: "Email"),
                                             ),
                                           )
                                         ],
                                       ),
                                     ),
-
                                     Container(
                                       child: Column(
                                         children: [
                                           Container(
                                             child: TextFormField(
                                               controller: telephoneController,
-                                              decoration:
-                                              InputDecoration(labelText: "Code"),
+                                              decoration: InputDecoration(
+                                                  labelText: "Code"),
                                             ),
                                           ),
                                           Container(
                                             child: TextFormField(
                                               controller: telephoneController,
-                                              decoration:
-                                              InputDecoration(labelText: "Telehpone"),
+                                              decoration: InputDecoration(
+                                                  labelText: "Telehpone"),
                                             ),
                                           )
                                         ],
@@ -214,7 +454,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                             child: TextFormField(
                                               controller: titlePostController,
                                               decoration: InputDecoration(
-                                                  labelText: "Profession Actuelle"),
+                                                  labelText:
+                                                      "Profession Actuelle"),
                                             ),
                                           )
                                         ],
@@ -225,9 +466,17 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                         children: [
                                           Container(
                                             child: TextFormField(
-                                              decoration: InputDecoration(
-                                                  labelText: "Date de naissance"),
-                                            ),
+                                                controller:
+                                                    dateNaissanceController,
+                                                maxLength: 10,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                    labelText:
+                                                        "Date de naissance"),
+                                                inputFormatters: [
+                                                  DateInputFormatter()
+                                                ]),
                                           )
                                         ],
                                       ),
@@ -235,12 +484,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                                     Container(
                                       child: Column(
                                         children: [
-                                          Container(
-                                            child: TextFormField(
-                                              decoration:
-                                              InputDecoration(labelText: "Pays"),
-                                            ),
-                                          )
+                                          GestureDetector(
+                                              onTap: () {
+                                                showPays();
+                                              },
+                                              child: Container(
+                                                child: TextFormField(
+                                                  controller: paysController,
+                                                  enabled: false,
+                                                  decoration: InputDecoration(
+                                                      labelText: "Pays"),
+                                                ),
+                                              ))
                                         ],
                                       ),
                                     ),
@@ -274,158 +529,202 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
               ),
             ),
 
-
-
-
             // Compétences
             Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child:
-                SingleChildScrollView(
+                child: SingleChildScrollView(
                   child: Container(
                     child: Column(
                       children: [
-
                         // Compétences
                         Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: MaterialButton(
-                                onPressed: (){},
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width/2.5,
-                                  padding: EdgeInsets.symmetric(vertical: 5 ,horizontal: 10),
-                                  decoration: BoxDecoration(
-                                      color: AppTheme_App.primaryColor,
-                                      borderRadius: BorderRadius.all(Radius.circular(5))
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.add,color: AppTheme_App.withPrimary,),
-                                      SizedBox(width: 5,),
-                                      Text("Compétences ",style: GoogleFonts.nunito(color: AppTheme_App.withPrimary),)
-                                    ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    showFormations();
+                                  },
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        color: AppTheme_App.primaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5))),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.add,
+                                          color: AppTheme_App.withPrimary,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          "Compétences ",
+                                          style: GoogleFonts.nunito(
+                                              color: AppTheme_App.withPrimary),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 5,),
-                            Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: widget.candidatModel!.competences!.length >0 ?
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Container(
-                                    child: Row(
-                                      children: widget.candidatModel!.competences!.reversed.map((item){
-                                        return
-                                          Container(
-                                            margin: EdgeInsets.symmetric(horizontal: 5 , vertical: 4),
-                                            decoration: BoxDecoration(
-                                                color: AppTheme_App.secondary,
-                                                borderRadius: BorderRadius.circular(3)
-                                            ),
-                                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-                                            child: Text("${item.label}"),
-                                          );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ): Container(
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Aucune")
-                                    ],
-                                  ),
-                                )
-                            )
-                          ],
+                                  child: widget.candidatModel!.competences!
+                                              .length >
+                                          0
+                                      ? SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Container(
+                                            child: Row(
+                                              children: competencesSelected
+                                                  .reversed
+                                                  .map((item) {
+                                                return Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 4),
+                                                  decoration: BoxDecoration(
+                                                      color: AppTheme_App
+                                                          .secondary,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              3)),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 4),
+                                                  child: Text("${item.label}"),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [Text("Aucune")],
+                                          ),
+                                        ))
+                            ],
+                          ),
                         ),
+                        Divider(
+                          height: 10,
                         ),
-                        Divider(height: 10,),
 
                         Container(
                           child: Column(
                             children: [
                               Container(
                                 child: MaterialButton(
-                                  onPressed: (){},
+                                  onPressed: () {
+                                    showLangues();
+                                  },
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width/2.5,
-                                    padding: EdgeInsets.symmetric(vertical: 5 ,horizontal: 10),
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
                                     decoration: BoxDecoration(
                                         color: AppTheme_App.primaryColor,
-                                        borderRadius: BorderRadius.all(Radius.circular(5))
-                                    ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5))),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.add,color: AppTheme_App.withPrimary,),
-                                        SizedBox(width: 5,),
-                                        Text("Langues ",style: GoogleFonts.nunito(color: AppTheme_App.withPrimary),)
+                                        Icon(
+                                          Icons.add,
+                                          color: AppTheme_App.withPrimary,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          "Langues ",
+                                          style: GoogleFonts.nunito(
+                                              color: AppTheme_App.withPrimary),
+                                        )
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(
+                                height: 5,
+                              ),
                               Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: widget.candidatModel!.langues!.length >0 ?
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Container(
-                                      child: Row(
-                                        children: widget.candidatModel!.langues!.reversed.map((item){
-                                          return
-                                            Container(
-                                              margin: EdgeInsets.symmetric(horizontal: 5 , vertical: 4),
-                                              decoration: BoxDecoration(
-                                                  color: AppTheme_App.secondary,
-                                                  borderRadius: BorderRadius.circular(3)
-                                              ),
-                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-                                              child: Text("${item.label}"),
-                                            );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ): Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Aucune")
-                                      ],
-                                    ),
-                                  )
-                              )
+                                  child: languesSelected.length >
+                                          0
+                                      ? SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Container(
+                                            child: Row(
+                                              children: languesSelected.reversed
+                                                  .map((item) {
+                                                return Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 4),
+                                                  decoration: BoxDecoration(
+                                                      color: AppTheme_App
+                                                          .secondary,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              3)),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 4),
+                                                  child: Text("${item.label}"),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [Text("Aucune")],
+                                          ),
+                                        ))
                             ],
                           ),
                         ),
 
-
-
-
                         Container(
-                          child: Column(
-                            children: [
-                              Container(
+                            child: Column(
+                          children: [
+                            Container(
+                              child: GestureDetector(
+                                  onTap: (){
+                                    showLevelShool();
+                                  },
                                 child: TextFormField(
+                                  enabled: false,
+                                  controller: levelSchoolController,
                                   decoration: InputDecoration(
-                                    labelText: "Niveau d'étude"
-                                  ),
+                                      labelText: "Niveau d'étude"),
                                 ),
-                              )
-                            ],
-                          )
-                        ),
-
+                              ),
+                            )
+                          ],
+                        )),
 
                         SizedBox(
                           height: 5,
@@ -433,116 +732,131 @@ class _ProfileEditPageState extends State<ProfileEditPage> with SingleTickerProv
                         // Salaire percu
                         Container(
                             child: Column(
-                              children: [
-                                Container(
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        labelText: "Salaire percus / mois"
-                                    ),
-                                  ),
+                          children: [
+                            Container(
+                              child: GestureDetector(
+                                  onTap: (){
+                                    showSalaires();
+                                  },
+                                child: TextFormField(
+                                  controller: salaireController,
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                      labelText: "Salaire percus / mois"),
                                 )
-                              ],
+                              ),
                             )
-                        ),
-
-
-
+                          ],
+                        )),
 
                         SizedBox(
                           height: 5,
                         ),
                         // Description
                         Container(
-
                             child: Column(
-                              children: [
-                                Container(
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        labelText: "Description sur sur votre profile ",
-                                    ),
-                                  ),
-                                )
-                              ],
+                          children: [
+                            Container(
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  labelText:
+                                      "Description sur sur votre profile ",
+                                ),
+                              ),
                             )
-                        )
-
-
-
-
-
+                          ],
+                        ))
                       ],
                     ),
                   ),
-                )
-
-            ),
+                )),
 
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              height: MediaQuery.of(context).size.height,
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child:
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          icon: Icon(Icons.facebook_outlined),
-                        labelText: "Lien facebook"
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    Container(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.facebook_outlined),
+                            labelText: "Lien facebook"),
                       ),
                     ),
-                  ),
-                  SizedBox(height:10,),
-
-                  Column(
-                    children: [
-                      Container(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.facebook_outlined),
-                            labelText: "Lien Linkedin"
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.facebook_outlined),
+                                labelText: "Lien Linkedin"),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-
-
-                  Column(
-                    children: [
-                      Container(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.facebook_outlined),
-                              labelText: "Lien Instagram"
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.facebook_outlined),
+                                labelText: "Lien Instagram"),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  Column(
-                    children: [
-                      Container(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              icon: Icon(Icons.facebook_outlined),
-                              labelText: "Lien Twitter"
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                icon: Icon(Icons.facebook_outlined),
+                                labelText: "Lien Twitter"),
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            )
-            ),
+                        )
+                      ],
+                    )
+                  ],
+                ))),
           ]),
+        ));
+  }
+}
 
-
-    )
-      );
+class DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.length == 5) {
+      // Automatically add "-" after year and month
+      if (newValue.text.substring(4, 5) != '-') {
+        String newText =
+            '${newValue.text.substring(0, 4)}-${newValue.text.substring(4)}';
+        return TextEditingValue(
+          text: newText,
+          selection: TextSelection.fromPosition(
+            TextPosition(offset: newText.length),
+          ),
+        );
+      }
+    } else if (newValue.text.length > 8) {
+      // Automatically add "-" after year, month, and day
+      if (newValue.text.substring(7, 8) != '-') {
+        String newText =
+            '${newValue.text.substring(0, 7)}-${newValue.text.substring(7)}';
+        return TextEditingValue(
+          text: newText,
+          selection: TextSelection.fromPosition(
+            TextPosition(offset: newText.length),
+          ),
+        );
+      }
+    }
+    return newValue;
   }
 }

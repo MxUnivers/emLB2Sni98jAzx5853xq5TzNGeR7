@@ -1,8 +1,9 @@
 
 
-class PostModel {
-  String? id;
+
+class CommentModel {
   String? idcustomerId;
+  String? idPostId;
   String? customerPhoto;
   String? customerName;
   String? title;
@@ -11,15 +12,12 @@ class PostModel {
   String? content;
   bool? access;
   bool? visible;
-  List<dynamic>? comments;
-  num? position;
+  int? position;
   String? coverPicture;
-  String? createdAt;
-  String? updatedAt;
 
-  PostModel({
-    this.id,
+  CommentModel({
     this.idcustomerId,
+    this.idPostId,
     this.customerPhoto,
     this.customerName,
     this.title,
@@ -28,36 +26,31 @@ class PostModel {
     this.content,
     this.access,
     this.visible,
-    this.comments = const [],
     this.position,
     this.coverPicture,
-    this.createdAt,
-    this.updatedAt,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) {
-    return PostModel(
-      id: json['_id'],
+  factory CommentModel.fromJson(Map<String, dynamic> json) {
+    return CommentModel(
       idcustomerId: json['idcustomerId'],
+      idPostId: json['idPostId'],
       customerPhoto: json['customerPhoto'],
       customerName: json['customerName'],
       title: json['title'],
-      dateNow: json['dateNow'] ?? DateTime.now().toString(),
+      dateNow: json['dateNow'],
       areaPost: json['areaPost'],
       content: json['content'],
       access: json['access'],
       visible: json['visible'],
-      comments: json['comments'] ?? [],
-      position: json['position'] ?? 1,
+      position: json['position'],
       coverPicture: json['coverPicture'],
-      createdAt:json["createdAt"],
-      updatedAt:json["updatedAt"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'idcustomerId': idcustomerId,
+      'idPostId': idPostId,
       'customerPhoto': customerPhoto,
       'customerName': customerName,
       'title': title,
@@ -66,7 +59,6 @@ class PostModel {
       'content': content,
       'access': access,
       'visible': visible,
-      'comments': comments,
       'position': position,
       'coverPicture': coverPicture,
     };

@@ -1,10 +1,14 @@
 import "package:flutter/material.dart";
 import "package:cached_network_image/cached_network_image.dart";
 import "package:html/parser.dart" show parse;
+import "package:jouman_mobile_mobile/src/actions/CommentAction.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman_mobile_mobile/src/utils/storage.dart";
 import "package:webview_flutter/webview_flutter.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:intl/intl.dart";
+import "../model/CommentModel.dart";
 import "../model/PostModel.dart";
 import "dart:convert";
 import "dart:core";
@@ -20,6 +24,17 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
+  @override
+  void initState() {
+    // Assurez-vous de disposer du contrôleur quand vous n'en avez plus besoin.
+    super.initState();
+    fetchAllCommentList(widget.postdetail!.id.toString()).then((values) {
+      setState(() {
+        comments = values;
+      });
+    });
+  }
+
   String formatDateTime(String dateTimeString) {
     final dateTime = DateTime.parse(dateTimeString);
     final dateFormat = DateFormat.yMMMMd();
@@ -29,6 +44,52 @@ class _PostDetailPageState extends State<PostDetailPage> {
     final formattedTime = timeFormat.format(dateTime);
 
     return '$formattedDate à $formattedTime';
+  }
+
+  final TextEditingController commentController = TextEditingController();
+  @override
+  void dispose() {
+    commentController
+        .dispose(); // Assurez-vous de disposer du contrôleur quand vous n'en avez plus besoin.
+    super.dispose();
+  }
+
+  List<CommentModel> comments = [];
+  late CandidatModel candidat;
+
+  Future<void> _showCommentsDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Commentaires"),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              itemCount: comments.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(comments[index].customerPhoto.toString()),
+                  ),
+                  title: Text(comments[index].customerName.toString()),
+                  subtitle: Text(comments[index].content.toString()),
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Fermer'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -129,6 +190,72 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   ),
                 )
               ]))),
+        ),
+
+        // Floating Button
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Gérez l'envoi du commentaire ici en utilisant commentController.text
+            String commentText = commentController.text;
+            // Faites ce que vous souhaitez avec le commentaire (envoi au serveur, traitement, etc.)
+            print('Commentaire envoyé : $commentText');
+            // Effacez le champ de texte après l'envoi du commentaire
+            commentController.clear();
+            _showCommentsDialog();
+          },
+          child: Icon(Icons.comment),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: commentController,
+                    decoration: InputDecoration(
+                      hintText: 'Rédiger un commentaire...',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    // Gérez également l'envoi du commentaire ici si vous le souhaitez
+                    String commentText = commentController.text;
+                    // Faites ce que vous souhaitez avec le commentaire
+                    print('Commentaire envoyé : $commentText');
+                    if (commentController.text.length > "".length) {
+                      SharedPreferencesService
+                              .getCandidatDataFromSharedPreferences()
+                          .then((candidatValue) {
+                        setState(() {
+                          candidat = candidatValue;
+                        });
+                        postComment(
+                          context,
+                          candidat.id.toString(),
+                          widget.postdetail!.id.toString(),
+                          commentController.text,
+                          widget.postdetail!.areaPost.toString(),
+                        );
+                      });
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red.shade500,
+                          content: Text("Champ de commentaire est vide",style: GoogleFonts.nunito(color: AppTheme_App.withPrimary), textAlign: TextAlign.center),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ));
   }
 }
