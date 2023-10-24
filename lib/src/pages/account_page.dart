@@ -151,6 +151,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme_App.withPrimary,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.2,
@@ -160,6 +161,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
       ),
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         children: [
           ProfileCard(),
           ApplicationCard(),
