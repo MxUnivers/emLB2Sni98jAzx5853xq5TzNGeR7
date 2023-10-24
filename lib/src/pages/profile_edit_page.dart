@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:jouman_mobile_mobile/src/actions/CandidatAction.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman_mobile_mobile/src/utils/storage.dart";
 
 import "../model/FormationModel.dart";
 import "../model/LanugesFormations.dart";
@@ -21,6 +23,7 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditPageState extends State<ProfileEditPage>
     with SingleTickerProviderStateMixin {
   String selectedCode = '225';
+  bool isLoading = false;
 
   // Infos profile
   late TextEditingController usernameController;
@@ -38,8 +41,8 @@ class _ProfileEditPageState extends State<ProfileEditPage>
   late TextEditingController salaireController;
   late TextEditingController descriptionController;
 
-
   // Reseau sociaux
+  late TextEditingController sitewebController;
   late TextEditingController facebookController;
   late TextEditingController linkedinController;
   late TextEditingController twitterController;
@@ -66,19 +69,40 @@ class _ProfileEditPageState extends State<ProfileEditPage>
         text: widget.candidatModel!.dateNaissance.toString());
     paysController =
         TextEditingController(text: widget.candidatModel!.pays.toString());
-    salaireController =  TextEditingController(text: widget.candidatModel!.salaire.toString());
-    levelSchoolController =  TextEditingController(text: widget.candidatModel!.levelSchool.toString());
-    descriptionController =  TextEditingController(text: widget.candidatModel!.description.toString());
+    salaireController =
+        TextEditingController(text: widget.candidatModel!.salaire.toString());
+    levelSchoolController = TextEditingController(
+        text: widget.candidatModel!.levelSchool.toString());
+    descriptionController = TextEditingController(
+        text: widget.candidatModel!.description.toString());
 
     // Reseau sociaux
-    facebookController =  TextEditingController(text: widget.candidatModel!.facebookUrl.toString());
-    linkedinController =  TextEditingController(text: widget.candidatModel!.linkedinUrl.toString());
-    twitterController =  TextEditingController(text: widget.candidatModel!.twitterUrl.toString());
-    instagramController =  TextEditingController(text: widget.candidatModel!.instagramUrl.toString());
-
+    facebookController = TextEditingController(
+        text: widget.candidatModel!.facebookUrl.toString());
+    sitewebController =
+        TextEditingController(text: widget.candidatModel!.siteWeb.toString());
+    linkedinController = TextEditingController(
+        text: widget.candidatModel!.linkedinUrl.toString());
+    twitterController = TextEditingController(
+        text: widget.candidatModel!.twitterUrl.toString());
+    instagramController = TextEditingController(
+        text: widget.candidatModel!.instagramUrl.toString());
 
     competencesSelected = widget.candidatModel!.competences!;
     languesSelected = widget.candidatModel!.langues!;
+    competenceMaps = competencesSelected.map((competence) {
+      return {
+        'label': competence.label,
+        'value': competence.value,
+      };
+    }).toList();
+
+    languesMaps = languesSelected.map((langue) {
+      return {
+        'label': langue.label,
+        'value': langue.value,
+      };
+    }).toList();
   }
 
   @override
@@ -89,6 +113,9 @@ class _ProfileEditPageState extends State<ProfileEditPage>
 
   List<CompetenceModel> competencesSelected = [];
   List<LangueModel> languesSelected = [];
+
+  List<Map<String, String?>> competenceMaps = [];
+  List<Map<String, String?>> languesMaps = [];
 
   Future<void> showPays() async {
     return showDialog(
@@ -138,7 +165,24 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                 // Gérer la sélection du pays ici
                 Navigator.pop(context, formation);
                 setState(() {
-                  competencesSelected.add(formation);
+                  if (!competencesSelected.any(
+                      (competence) => competence.value == formation.value)) {
+                    competencesSelected.add(formation);
+                    competenceMaps = competencesSelected.map((competence) {
+                      return {
+                        'label': competence.label,
+                        'value': competence.value,
+                      };
+                    }).toList();
+                  } else {
+                    competencesSelected.remove(formation);
+                    competenceMaps = competencesSelected.map((competence) {
+                      return {
+                        'label': competence.label,
+                        'value': competence.value,
+                      };
+                    }).toList();
+                  }
                 });
               },
               child: Text(
@@ -170,9 +214,6 @@ class _ProfileEditPageState extends State<ProfileEditPage>
     });
   }
 
-
-
-
   Future<void> showLangues() async {
     return showDialog(
       context: context,
@@ -185,7 +226,24 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                 // Gérer la sélection du pays ici
                 Navigator.pop(context, formation);
                 setState(() {
-                  languesSelected.add(formation);
+                  if (!languesSelected.any(
+                      (competence) => competence.value == formation.value)) {
+                    languesSelected.add(formation);
+                    languesMaps = languesSelected.map((langue) {
+                      return {
+                        'label': langue.label,
+                        'value': langue.value,
+                      };
+                    }).toList();
+                  } else {
+                    languesSelected.remove(formation);
+                    languesMaps = languesSelected.map((langue) {
+                      return {
+                        'label': langue.label,
+                        'value': langue.value,
+                      };
+                    }).toList();
+                  }
                 });
               },
               child: Text(
@@ -217,9 +275,6 @@ class _ProfileEditPageState extends State<ProfileEditPage>
     });
   }
 
-
-
-
   Future<void> showSalaires() async {
     return showDialog(
       context: context,
@@ -232,21 +287,19 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                 // Gérer la sélection du pays ici
                 Navigator.pop(context, formation);
                 setState(() {
-                  salaireController.text=formation;
+                  salaireController.text = formation;
                 });
               },
               child: Text(
                 formation.toString(),
                 style: GoogleFonts.nunito(
-                  color:  salaireController.text == formation
+                  color: salaireController.text == formation
                       ? AppTheme_App.primaryColor
                       : AppTheme_App.TextGray,
                   fontWeight: salaireController.text == formation
                       ? FontWeight.bold
                       : FontWeight.w400,
-                  fontSize: salaireController.text == formation
-                      ? 20
-                      : 12,
+                  fontSize: salaireController.text == formation ? 20 : 12,
                 ),
               ),
             );
@@ -260,7 +313,6 @@ class _ProfileEditPageState extends State<ProfileEditPage>
       }
     });
   }
-
 
   Future<void> showLevelShool() async {
     return showDialog(
@@ -274,21 +326,20 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                 // Gérer la sélection du pays ici
                 Navigator.pop(context, formation);
                 setState(() {
-                  levelSchoolController.text=formation.value.toString();
+                  levelSchoolController.text = formation.value.toString();
                 });
               },
               child: Text(
                 formation.label.toString(),
                 style: GoogleFonts.nunito(
-                  color: levelSchoolController.text==formation.value
+                  color: levelSchoolController.text == formation.value
                       ? AppTheme_App.primaryColor
                       : AppTheme_App.TextGray,
-                  fontWeight: levelSchoolController.text==formation.value
+                  fontWeight: levelSchoolController.text == formation.value
                       ? FontWeight.bold
                       : FontWeight.w400,
-                  fontSize: levelSchoolController.text==formation.value
-                      ? 20
-                      : 12,
+                  fontSize:
+                      levelSchoolController.text == formation.value ? 20 : 12,
                 ),
               ),
             );
@@ -302,10 +353,6 @@ class _ProfileEditPageState extends State<ProfileEditPage>
       }
     });
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -336,19 +383,54 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                     ],
                   ))),
           backgroundColor: AppTheme_App.withPrimary,
-          floatingActionButton: MaterialButton(
-            onPressed: () {},
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
+          floatingActionButton: isLoading
+              ? CircularProgressIndicator(
                   color: AppTheme_App.primaryColor,
-                  borderRadius: BorderRadius.circular(100)),
-              child: Icon(
-                Icons.save,
-                color: AppTheme_App.withPrimary,
-              ),
-            ),
-          ),
+                )
+              : MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    UpdateCandidat(
+                            context,
+                            widget.candidatModel!.id.toString(),
+                            emailController.text,
+                            usernameController.text,
+                            firstnameController.text,
+                            lastnameController.text,
+                            dateNaissanceController.text,
+                            telephoneController.text,
+                            titlePostController.text,
+                            titlePostController.text,
+                            adresseController.text,
+                            competenceMaps,
+                            languesMaps,
+                            levelSchoolController.text,
+                            salaireController.text,
+                            descriptionController.text,
+                            sitewebController.text,
+                            facebookController.text,
+                            linkedinController.text,
+                            instagramController.text,
+                            twitterController.text)
+                        .then((valueUpdate) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        color: AppTheme_App.primaryColor,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Icon(
+                      Icons.save,
+                      color: AppTheme_App.withPrimary,
+                    ),
+                  ),
+                ),
           body: TabBarView(children: [
             Container(
               height: MediaQuery.of(context).size.height / 1.1,
@@ -670,8 +752,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                               ),
                               Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: languesSelected.length >
-                                          0
+                                  child: languesSelected.length > 0
                                       ? SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Container(
@@ -715,9 +796,9 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                           children: [
                             Container(
                               child: GestureDetector(
-                                  onTap: (){
-                                    showLevelShool();
-                                  },
+                                onTap: () {
+                                  showLevelShool();
+                                },
                                 child: TextFormField(
                                   enabled: false,
                                   controller: levelSchoolController,
@@ -738,20 +819,18 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                           children: [
                             Container(
                               child: GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     showSalaires();
                                   },
-                                child: TextFormField(
-                                  controller: salaireController,
-                                  enabled: false,
-                                  decoration: InputDecoration(
-                                      labelText: "Salaire percus / mois"),
-                                )
-                              ),
+                                  child: TextFormField(
+                                    controller: salaireController,
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                        labelText: "Salaire percus / mois"),
+                                  )),
                             )
                           ],
                         )),
-
                         SizedBox(
                           height: 5,
                         ),
@@ -765,8 +844,7 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                                 autocorrect: true,
                                 maxLines: 300,
                                 decoration: InputDecoration(
-                                  labelText:
-                                      "Description sur sur votre profile ",
+                                  labelText: "Description sur votre profile ",
                                 ),
                               ),
                             )
@@ -784,6 +862,17 @@ class _ProfileEditPageState extends State<ProfileEditPage>
                 child: SingleChildScrollView(
                     child: Column(
                   children: [
+                    Container(
+                      child: TextFormField(
+                        controller: sitewebController,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.facebook_outlined),
+                            labelText: "Site web"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       child: TextFormField(
                         controller: facebookController,
@@ -836,7 +925,6 @@ class _ProfileEditPageState extends State<ProfileEditPage>
           ]),
         ));
   }
-
 }
 
 class DateInputFormatter extends TextInputFormatter {

@@ -206,9 +206,117 @@ Future<CandidatModel> CandidatGetProfile(
     print(response.statusCode);
     SnackBar(
       backgroundColor: Colors.red,
-      content: Text('Profile non charger',
-          textAlign: TextAlign.center),
+      content: Text('Profile non charger', textAlign: TextAlign.center),
     );
     throw Exception('Failed to load job data');
+  }
+}
+
+// Edit Profile
+Future<void> UpdateCandidat(
+  BuildContext context,
+  String idCandidat,
+  //Info compte
+  String email,
+  String username,
+  String firstName,
+  String lastName,
+  String dateNaissance,
+  String telephone,
+  String titlePost,
+  String pays,
+  String addresse,
+
+  // Compétences
+  List<Map<String, String?>> competences,
+  List<Map<String, String?>> langues,
+  String level_school,
+  String salaire,
+  String description,
+
+  // Réseaux sociaux
+  String site_web,
+  String facebook_url,
+  String linkedin_url,
+  String instagram_url,
+  String twitter_url,
+) async {
+  var headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ${baseurl.token}'
+  };
+
+  print('${baseurl.url + baseurl.apiV1}/candidat/');
+
+  print({
+    "username": username,
+    "email": email,
+    "firstname": firstName,
+    "lastname": lastName,
+    "telephone": telephone,
+    "title_post": titlePost,
+    "dateNaissance": dateNaissance,
+    "pays": pays,
+    "adresse": addresse,
+    "competences": competences,
+    "langues": langues,
+    "level_school": level_school,
+    "salaire": salaire,
+    "description": description,
+    "site_web": site_web,
+    "facebook_url": facebook_url,
+    "linkedin_url": linkedin_url,
+    "twitter_url": twitter_url,
+    "instagram_url": instagram_url,
+  });
+  var request = http.Request('PUT',
+      Uri.parse('${baseurl.url + baseurl.apiV1}/candidat/edit/${idCandidat}'));
+  request.body = json.encode({
+    "username": username,
+    "email": email,
+    "firstname": firstName,
+    "lastname": lastName,
+    "telephone": telephone,
+    "title_post": titlePost,
+    "dateNaissance": dateNaissance,
+    "pays": pays,
+    "adresse": addresse,
+    "competences": competences,
+    "langues": langues,
+    "level_school": level_school,
+    "salaire": salaire,
+    "description": description,
+    "site_web": site_web,
+    "facebook_url": facebook_url,
+    "linkedin_url": linkedin_url,
+    "twitter_url": twitter_url,
+    "instagram_url": instagram_url,
+  });
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(response.statusCode);
+    var jsonData = json.decode(await response.stream.bytesToString());
+    print(jsonData["message"]);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: Text('Profile mis à jour', textAlign: TextAlign.center),
+      ),
+    );
+  } else if (response.statusCode == 500) {
+    print(response.statusCode);
+    var jsonData = json.decode(await response.stream.bytesToString());
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
+      ),
+    );
+    throw Exception('Failed to load job data');
+    // L'inscription a échoué, vous pouvez gérer les différentes réponses d'erreur ici.
+    // Par exemple, afficher un message d'erreur à l'utilisateur.
   }
 }
