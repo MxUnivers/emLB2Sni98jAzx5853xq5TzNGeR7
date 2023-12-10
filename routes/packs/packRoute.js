@@ -71,8 +71,9 @@ router.post('/check-cinepay-transaction', async (req, res) => {
 
 
 
-router.post('/generate-cinepay-payment-url', async (req, res) => {
+router.post('/generate-cinepay-payment-url/:type', async (req, res) => {
     try {
+        const type = req.params.type;
         const transactionId = Math.floor(Math.random() * 100000000).toString();
 
         const data = {
@@ -96,7 +97,7 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
             "notify_url": "https://webhook.site/d1dbbb89-52c7-49af-a689-b3c412df820d",
             "return_url": "https://webhook.site/d1dbbb89-52c7-49af-a689-b3c412df820d",
             "channels": "ALL",
-            "metadata": "user1",
+            "metadata": req.body.metadata,
             "lang": "FR",
             "invoice_data": {
                 "Donnee1": "",
@@ -118,9 +119,43 @@ router.post('/generate-cinepay-payment-url', async (req, res) => {
         };
 
         const paymentInfo = new PaymentInfoModel(data);
-
-
         await paymentInfo.save();
+
+
+        let userModel, packModel;
+        if (type === typePersonConnected[1]) {
+            userModel = CandidatModel;
+            packModel = PackCandidatModel;
+
+        } else if (type === typePersonConnected[0]) {
+            userModel = EntrepriseModel;
+            packModel = PackEntrepriseModel;
+        } else {
+            return res.status(406).json({ message: "Le type doit être 'candidat' ou 'entreprise'" });
+        }
+
+        const userExist = await userModel.findById({ _id: req.body.customer_id });
+        if (!userExist) {
+            return res.status(407).json({ message: "utilisateur Introuvable" });
+        }
+
+        const PackExist = await packModel.findById({ _id: req.body.metadata })
+        if (!PackExist) {
+            return res.status(408).json({ message: "Pack Introuvable" })
+        }
+        const utilisateurExist = await userModel.findByIdAndUpdate(
+            req.body.customer_id,
+            {
+                $push: { transactions: transactionId, packs: PackExist._id }
+            },
+            { new: true }
+        );
+
+        if (!utilisateurExist) {
+            return res.status(409).json({ message: "Utilisateur introuvable" });
+        }
+
+        await utilisateurExist.save();
 
         const response = await axios(config);
         console.log(JSON.stringify(response.data));
@@ -141,14 +176,11 @@ router.post("/:type/:id/subscribe/:idPack", /*AuthorizationMiddleware */
             const type = req.params.type; // Peut être "candidat" ou "entreprise"
             const id = req.params.id;
             const idPack = req.params.idPack;
-
             // Validation des paramètres
             if (!type || !id || !idPack) {
                 return res.status(400).json({ message: "Les paramètres type, id et idPack sont requis" });
             }
-
             let userModel, packModel;
-
             if (type === typePersonConnected[1]) {
                 userModel = CandidatModel;
                 packModel = PackCandidatModel;
@@ -163,13 +195,12 @@ router.post("/:type/:id/subscribe/:idPack", /*AuthorizationMiddleware */
             if (!userExist) {
                 return res.status(407).json({ message: "Cet utilisateur n'existe pas" });
             }
-
             const packExist = await packModel.findById({ _id: idPack });
             if (!packExist) {
                 return res.status(408).json({ message: "Ce pack n'existe pas" });
             }
-            if(packExist.pack ==  userExist.account.pack){
-                return res.status(409).json({message:"Vous avez déja souscrit à cet pack "});
+            if (packExist.pack == userExist.account.pack) {
+                return res.status(409).json({ message: "Vous avez déja souscrit à cet pack " });
             }
 
             const montant = packExist.solde;

@@ -39,7 +39,7 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
     const newEntreprise = new EntrepriseModel(req.body);
     newEntreprise.password = hashedPassword;
 
-    newEntreprise.is_active = false;
+    newEntreprise.is_active = true;
     await newEntreprise.save();
     sendEmail(
       "aymarbly559@gmail.com",
@@ -54,7 +54,7 @@ router.post("/", AuthorizationMiddleware, async (req, res) => {
   } catch (error) {
     // En cas d'erreur, renvoyer une réponse avec le message d'erreur correspondant
     console.error(error); // Ajoutez ceci pour voir l'erreur dans la console
-    return res.status(500).json({ message: 'Impossible de créer le compte du Recruteur' });
+    return res.status(500).json({ message: 'Impossible de créer le compte du Recruteur '+error });
   }
 });
 

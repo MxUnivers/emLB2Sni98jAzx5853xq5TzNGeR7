@@ -89,6 +89,7 @@ const EntrepriseSchema = new mongoose.Schema({
   offres: [
     { type: Object }
   ],
+  transactions:[{type:String}],
   secteur_activites: [{ type: Object }],
   langues: [{ type: Object }],
   site_web: {
