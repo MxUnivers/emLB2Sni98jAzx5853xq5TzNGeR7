@@ -1,8 +1,8 @@
 import React from 'react'
 
 const HomeBourses = () => {
-    const bgImg1 = "img/airplane.png";
-    const bgImg2 = "img/articles.png"
+    const bgImg1 = "img/etudiant-diplome-smiley-coup-moyen.jpg";
+    const bgImg2 = "img/coup-moyen-personnes-apprenant-ensemble-au-bureau.jpg"
     return (
         <section class="bg-white border-b py-8">
             <div class="container max-w-5xl mx-auto m-8">
@@ -32,12 +32,12 @@ const HomeBourses = () => {
                         </p>
                     </div>
                     <div class="w-full sm:w-1/2 p-6">
-                        <img src={bgImg1} class="img-fluid" />
+                        <img src={bgImg1} class="img-fluid rounded-2xl" />
                     </div>
                 </div>
-                <div class="flex w-full  flex-col-reverse sm:flex-col  md:flex-row lg:flex-row xl:md:flex-row">
+                <div class="flex w-full pt-32  flex-col-reverse sm:flex-col  md:flex-row lg:flex-row xl:md:flex-row">
                     <div class="w-full sm:w-1/2 p-6 mt-6">
-                        <img src={bgImg2} />
+                        <img src={bgImg2} class="rounded-2xl" />
                     </div>
                     <div class="w-full sm:w-1/2 p-6 mt-6">
                         <div class="align-middle">

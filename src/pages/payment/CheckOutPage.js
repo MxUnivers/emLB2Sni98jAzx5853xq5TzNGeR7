@@ -118,7 +118,7 @@ const CheckOutPage = () => {
                 localStorage.setItem(localvalue.customer_pack,pack.pack);
 
 
-                const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url`, {
+                const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}`, {
                     "amount": pack.solde,
                     "customer_id": `${userId}`,
                     "customer_name": firstname,
@@ -130,6 +130,7 @@ const CheckOutPage = () => {
                         "PackID": pack._id,
                         "TypePersonne": getAndCheckLocalStorage(localvalue.TYPEACCESS)
                     },
+                    "metadata":pack._id
                 });
 
                 if (response.status === 200) {
@@ -319,6 +320,8 @@ const CheckOutPage = () => {
 
                                     <div class="px-3 md:w-5/12">
                                         <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
+                                        <div>
+                                        </div>
                                             <div class="w-full flex mb-3 items-start justify-start border-b ">
                                                 <div class="w-32">
                                                     <span class="text-gray-600 font-semibold">Infos 1 :</span>
@@ -332,7 +335,7 @@ const CheckOutPage = () => {
                                                     <span class="text-gray-600 font-semibold">Infos 2 :</span>
                                                 </div>
                                                 <div class="flex-grow pl-3">
-                                                    <span>Lorsque votre le lien de votre paiement est généré ne payer sur le dernier lien générér , </span>
+                                                    <span>Lorsque votre le lien de votre paiement est généré , payer sur le dernier lien générér </span>
                                                 </div>
                                             </div>
                                             <div class="w-full flex mb-4 items-start justify-start border-b ">
@@ -341,6 +344,30 @@ const CheckOutPage = () => {
                                                 </div>
                                                 <div class="flex-grow pl-3">
                                                     <span>Veillez attendre la finalisation du paiement avant de sortir de la page</span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full flex mb-4 items-start justify-start border-b ">
+                                                <div class="w-32">
+                                                    <span class="text-gray-600 font-semibold">Infos 4 :</span>
+                                                </div>
+                                                <div class="flex-grow pl-3">
+                                                    <span>Assurer vous d{''}avoire une connexion internet lorsque vous le faite</span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full flex mb-4 items-start justify-start border-b ">
+                                                <div class="w-32">
+                                                    <span class="text-gray-600 font-semibold">Infos 5 :</span>
+                                                </div>
+                                                <div class="flex-grow pl-3">
+                                                    <span>Assurer vous d{"'"}avoir la somme disponilble sur votre compte frais 1%</span>
+                                                </div>
+                                            </div>
+                                            <div class="w-full flex mb-4 items-start justify-start border-b ">
+                                                <div class="w-32">
+                                                    <span class="text-gray-600 font-semibold">Infos 6 :</span>
+                                                </div>
+                                                <div class="flex-grow pl-3">
+                                                    <span>Ne quitter pas cette lors du paiement</span>
                                                 </div>
                                             </div>
                                         </div>

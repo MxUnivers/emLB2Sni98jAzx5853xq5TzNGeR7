@@ -71,10 +71,13 @@ const PrincingPage = () => {
 
                         {/*<!-- Plan  -->*/}
 
-
-
                         {
-                            pack ? <RecruteurPacks /> : <CandidatPacks />
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS)==typePersonConnected[1]&&
+                             <CandidatPacks />
+                        }
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS)==typePersonConnected[0]
+                            && <RecruteurPacks />
                         }
 
 

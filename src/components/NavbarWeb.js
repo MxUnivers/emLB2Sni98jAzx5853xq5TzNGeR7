@@ -5,14 +5,16 @@ import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/Candid
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
-import { MdSchool, MdWork } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { MdAlternateEmail, MdEmail, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
+import { statusPACKS } from '../utlis/config';
 
 
 
 const NavbarWeb = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
@@ -322,42 +324,42 @@ const NavbarWeb = () => {
                         <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center  lg:flex-row"
                             id="navigation-menu">
                             <li class="relative dropdown">
-                                <a href='/' class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href='/' class={` ${location.pathname === `/` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Accueil
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.job_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.job_list}`} class={` ${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Emplois
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.blog_list}`} class="py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.blog_list}`} class={` ${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Social
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.bourse_list}`} class="py-5  text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.bourse_list}`} class={` ${location.pathname === `/${routing.bourse_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Bourses
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.coaching_list}`} class="py-5  text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px]"
+                                <a href={`/${routing.coaching_list}`} class={` ${location.pathname === `/${routing.coaching_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Coaching & Formations
                                 </a>
                             </li>
 
                             <li class="relative dropdown lg:mt-0">
-                                <button class="py-5 text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
-                                    id="company" data-bs-toggle="dropdown">autres <i
-                                        class='align-middle bx bxs-chevron-down ltr:ml-1 rtl:mr-1'></i></button>
+                                <button class="py-5 active text-gray-800 lg:px-4 dropdown-toggle dark:text-gray-50 lg:h-[70px]"
+                                    id="company" data-bs-toggle="dropdown">Autres <i
+                                        class=' align-middle bx bxs-chevron-down ltr:ml-1 rtl:mr-1'></i></button>
 
                                 <ul class="relative top-auto z-50 py-2 list-none bg-white border-0 rounded dropdown-menu lg:border border-gray-500/20 lg:absolute ltr:-left-3 rtl:-right-3 lg:w-48 lg:shadow-lg dark:bg-neutral-800"
                                     aria-labelledby="company">
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
+                                    <li><a class={`${location.pathname === `/${routing.aboutus}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
                                         href={`${routing.aboutus}`}>A propos</a>
                                     </li>
-                                    <li><a class="block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50"
+                                    <li><a class={`${location.pathname === `/${routing.contact}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
                                         href={`${routing.contact}`}>Contact</a>
                                     </li>
                                 </ul>
@@ -464,31 +466,27 @@ const NavbarWeb = () => {
                                         </h2>
 
                                         {
-                                            candidat && candidat._id == getAndCheckLocalStorage(localvalue.candidatID) ?
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] &&
+                                                getAndCheckLocalStorage(localvalue.candidatID) != null ?
                                                 (
                                                     <ul>
-                                                        <li className="mb-2">
-                                                            <a href="/" className="text-blue-500 hover:text-blue-700">Accueil</a>
+                                                        <li className={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href="/" className={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</a>
                                                         </li>
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
+                                                        <li className={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.blog_post}`} className={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
                                                         </li>
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.candidat_details}`} className="text-blue-500 hover:text-blue-700">Profil</a>
+                                                        <li className={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidat_details}`} className={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</a>
                                                         </li>
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                        <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidature_list}`} className={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</a>
                                                         </li>
-                                                        {/*partie reservé au mobile */}
-                                                        {
-                                                            /* 
-                                                            <li className="mb-2">
-                                                          <a href={`/${routing.candidat_applied}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
-                                                        </li> */
-                                                        }
-
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700">Messages</a>
+                                                        <li className={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidat_applied}`} className={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </a>
+                                                        </li>
+                                                        <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`#logout`} className={`active font-bold text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
                                                         </li>
                                                     </ul>
                                                 ) : null
@@ -496,22 +494,35 @@ const NavbarWeb = () => {
 
 
                                         {
-                                            getAndCheckLocalStorage(localvalue.recruteurID) !== null ?
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] &&
+                                                getAndCheckLocalStorage(localvalue.recruteurID) !== null ?
                                                 (
                                                     <ul>
-                                                        <li className="mb-2">
-                                                            <a href="/" className="text-blue-500 hover:text-blue-700">Accueil</a>
-                                                        </li>
                                                         {
                                                             /*<li className="mb-2">
                                                             <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
                                                         </li> */
                                                         }
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.company_details}`} className="text-blue-500 hover:text-blue-700">Profil</a>
+                                                        <li className="mb-2 bg-blue-200">
+                                                            <a href={`/${routing.company_details}`} className="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></a>
                                                         </li>
                                                         <li className="mb-2">
-                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
+                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700"> <MdEmail /> <span>Messages</span></a>
+                                                        </li>
+                                                        {
+                                                            recruteur && recruteur.account.pack == statusPACKS[2] ?
+                                                                <li className="mb-2">
+                                                                    <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></a>
+                                                                </li> : null
+                                                        }
+                                                        <li className="mb-2">
+                                                            <a href={`/${routing.pricing}`} className="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
+                                                        </li>
+                                                        <li className="mb-2">
+                                                            <a href={`#logout`} onClick={() => { handleClearLocalStorage() }} className="text-blue-500 hover:text-blue-700">Deconnexion </a>
                                                         </li>
                                                         {/*partie reservé au mobile */}
                                                         {

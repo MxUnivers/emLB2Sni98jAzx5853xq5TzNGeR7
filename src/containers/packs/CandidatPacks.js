@@ -149,7 +149,7 @@ const CandidatPacks = () => {
                                         <form  >
                                             <button type="button"
                                                 onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
+                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
                                                 }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
@@ -213,7 +213,7 @@ const CandidatPacks = () => {
                                         <form >
                                             <button type="button"
                                                 onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
+                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
                                                 }}
 
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
@@ -282,7 +282,7 @@ const CandidatPacks = () => {
                                         <form >
                                             <button type="button"
                                                 onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
+                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
                                                 }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >

@@ -615,6 +615,7 @@ export default function useFetchCandidat(idCandidat) {
         twitter_url: "",
         instagram_url: "",
         bookmarks: [],
+        transactions:[],
         offres: [
             {
                 _id: ""
