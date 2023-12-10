@@ -324,17 +324,17 @@ const NavbarWeb = () => {
                         <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center  lg:flex-row"
                             id="navigation-menu">
                             <li class="relative dropdown">
-                                <a href='/' class={` ${location.pathname === `/` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
+                                <a href='/' class={` ${location.pathname === `/` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Accueil
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.job_list}`} class={` ${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
+                                <a href={`/${routing.job_list}`} class={` ${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Emplois
                                 </a>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.blog_list}`} class={` ${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
+                                <a href={`/${routing.blog_list}`} class={` ${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Social
                                 </a>
                             </li>
@@ -473,9 +473,12 @@ const NavbarWeb = () => {
                                                         <li className={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                             <a href="/" className={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</a>
                                                         </li>
-                                                        <li className={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.blog_post}`} className={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
-                                                        </li>
+                                                        {
+                                                            candidat && candidat.account.pack == statusPACKS[2] ?
+                                                                <li className={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                                    <a href={`/${routing.blog_post}`} className={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
+                                                                </li> : null
+                                                        }
                                                         <li className={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                             <a href={`/${routing.candidat_details}`} className={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</a>
                                                         </li>
@@ -485,9 +488,7 @@ const NavbarWeb = () => {
                                                         <li className={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                             <a href={`/${routing.candidat_applied}`} className={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </a>
                                                         </li>
-                                                        <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`#logout`} className={`active font-bold text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
-                                                        </li>
+
                                                     </ul>
                                                 ) : null
                                         }
@@ -503,36 +504,39 @@ const NavbarWeb = () => {
                                                             <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
                                                         </li> */
                                                         }
-                                                        <li className="mb-2 bg-blue-200">
+                                                        <li className={` ${location.pathname === `/${routing.company_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                             <a href={`/${routing.company_details}`} className="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></a>
                                                         </li>
-                                                        <li className="mb-2">
+                                                        <li className={` ${location.pathname === `/${routing.candidature_list_recruteur}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                             <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </a>
                                                         </li>
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700"> <MdEmail /> <span>Messages</span></a>
-                                                        </li>
+                                                        
                                                         {
                                                             recruteur && recruteur.account.pack == statusPACKS[2] ?
-                                                                <li className="mb-2">
+                                                                <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
                                                                     <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></a>
                                                                 </li> : null
                                                         }
-                                                        <li className="mb-2">
-                                                            <a href={`/${routing.pricing}`} className="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
-                                                        </li>
-                                                        <li className="mb-2">
-                                                            <a href={`#logout`} onClick={() => { handleClearLocalStorage() }} className="text-blue-500 hover:text-blue-700">Deconnexion </a>
-                                                        </li>
-                                                        {/*partie reservé au mobile */}
-                                                        {
-                                                            /* 
-                                                            <li className="mb-2">
-                                                          <a href={`/${routing.candidat_applied}`} className="text-blue-500 hover:text-blue-700">Candidatures</a>
-                                                        </li> */
-                                                        }
+
+
                                                     </ul>
                                                 ) : null
+                                        }
+                                        <ul>
+                                            <li className="mb-2">
+                                                <a href={`/${routing.pricing}`} className="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
+                                            </li>
+                                        </ul>
+                                        {
+                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
+                                                <ul>
+
+                                                    <li className={` " px-2 border-b mb-2`}>
+                                                        <a href={`#logout`} className={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
+                                                    </li>
+                                                </ul>
+                                                :
+                                                null
                                         }
 
                                     </div>

@@ -651,23 +651,23 @@ const JobDetailPage = () => {
                                 <form onSubmit={hanldeSubmitCandidat} class="">
                                     <div class="mb-1">
                                         <label for="fullName" class="block font-bold mb-1">Nom *</label>
-                                        <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">
                                         <label for="fullName" class="block font-bold mb-1">Prénoms *</label>
-                                        <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">
                                         <label for="email" class="block font-bold mb-1">Email *</label>
-                                        <input value={email} onChange={(e) => { setemail(e.target.value) }} type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={email} onChange={(e) => { setemail(e.target.value) }} type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">
                                         <label for="phone" class="block font-bold mb-1">Téléphone  , Ex: 225XXXXXXXX *</label>
-                                        <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" id="phone" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" id="phone" class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-1">
-                                        <label for="phone" class=" font-bold mb-1 flex space-x-2">Cv * {cv && <p class="text-green-600 "> ''Téléchager''</p>}</label>
-                                        <input onChange={HandleFileInputChange} type="file" class="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <label for="phone" class=" font-bold mb-1 flex space-x-2">Cv en pdf * {cv && <p class="text-green-600 "> ''Téléchager''</p>}</label>
+                                        <input required={true} onChange={HandleFileInputChange} type="file" accept='.PDF' class="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div class="mb-4">
                                         <label for="message" class="block font-bold mb-1">Motif *</label>

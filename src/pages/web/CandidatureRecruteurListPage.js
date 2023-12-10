@@ -11,6 +11,7 @@ import { OffreGetById } from '../../action/api/offres/OffresAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import toastNotification from '../../utlis/fonctions/toastNotification';
+import { MdPerson } from 'react-icons/md';
 
 const CandidatureRecruteurListPage = () => {
 
@@ -144,7 +145,7 @@ const CandidatureRecruteurListPage = () => {
 
 
                 {/* Les Candidats */}
-                <div className={`py-8 w-full ${buttonSelected == 0 ? "" : "hidden"}`}>
+                <div className={`py-8 w-full mb-40 ${buttonSelected == 0 ? "" : "hidden"}`}>
                     {
                         candidatures && candidatures.length ?
                             <div className="flex flex-wrap justify-center  w-full gap-1">
@@ -166,6 +167,7 @@ const CandidatureRecruteurListPage = () => {
                                                     <div className="flex items-start justify-between w-full">
                                                         <div className="pl-3 w-full">
                                                             <p className="text-sm font-medium leading-5 text-gray-800">{item.title}</p>
+                                                            <p className="text-sm font-bold leading-5  text-gray-800"> <MdPerson/>{item.firstname} {item.lastname}</p>
                                                             <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")} à {moment(item.createdAt).format("HH:MM")}</p>
                                                         </div>
                                                         <div className={`
@@ -203,7 +205,7 @@ const CandidatureRecruteurListPage = () => {
 
                 
 
-                <div className={`py-8 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
+                <div className={`py-8 mb-40 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
                     {messageList && messageList.length ?
                         <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
                             {
@@ -292,7 +294,7 @@ const CandidatureRecruteurListPage = () => {
                                         {
                                             candidatureDetail && candidatureDetail.cv ?
                                                 <p className="text-sm text-blue-500 mb-4">
-                                                    <a href={`${candidatureDetail.cv}`} target='_blank' >Télécharger CV du candidat</a>
+                                                    <a href={`${candidatureDetail.cv}`} download={true} target='_blank' >Télécharger CV du candidat</a>
                                                 </p> :
                                                 <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
@@ -335,7 +337,7 @@ const CandidatureRecruteurListPage = () => {
                                                             value={contentCandidature} onChange={(e) => { setcontentCandidature(e.target.value) }}
                                                             class="w-full cvac0 coz82"
                                                             rows={5}
-                                                            placeholder={`Nous comme heureux de vous annoncer que votre candidature à l'offre à "${candidatureDetail.title}" bien été selectioné par nos auteurs `}
+                                                            placeholder={`Nous comme heureux de vous annoncer que votre candidature à l'offre à "${candidatureDetail.title}" bien été selectionné par le recruteur  `}
                                                             type="password" required={true} />
                                                     </div>
                                                 </div>
