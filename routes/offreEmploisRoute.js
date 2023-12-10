@@ -107,11 +107,11 @@ router.get('/get_offre/:id', AuthorizationMiddleware, async (req, res) => {
         const offreId = req.params.id;
         const offre = await OffreEmploiModel.findById({ _id: offreId });
         if(!offre){
-            return res.status(402).json({message:"Offre not found"});
+            return res.status(402).json({message:"Offre non trouvé"});
         }
         const entrepriseExist = await EntrepriseModel.findById({_id:offre.idEntreprise});
         if(!entrepriseExist){
-            return res.status(406).json({message:"Entreprise not found"});
+            return res.status(406).json({message:"Entreprise non trouvé"});
         }
         return res.status(200).json({ data: offre ,entreprise:entrepriseExist, message:"Offre recupérer avce succès"});
     } catch (error) {
