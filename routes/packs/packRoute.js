@@ -144,7 +144,7 @@ router.post('/generate-cinepay-payment-url/:type', async (req, res) => {
             return res.status(408).json({ message: "Pack Introuvable" })
         }
         const utilisateurExist = await userModel.findByIdAndUpdate(
-            req.body.customer_id,
+            {_id:req.body.customer_id},
             {
                 $push: { transactions: transactionId, packs: PackExist._id }
             },
