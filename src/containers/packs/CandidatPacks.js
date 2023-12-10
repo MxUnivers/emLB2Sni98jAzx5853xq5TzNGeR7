@@ -11,6 +11,7 @@ import LoadinButton from '../../components/loading/LoadinButton';
 import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import CinepayPayment from './CinepayPayment';
+import { IconPack } from '../../utlis/config';
 
 const CandidatPacks = () => {
     const navigate = useNavigate();
@@ -124,14 +125,26 @@ const CandidatPacks = () => {
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
-                            <li class="text-gray-500 dark:text-gray-400">
-                                20 Sms
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">20 SMS</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                email
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1"> 20 Emails </span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Offres compétences
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">Offres Illimités</span
+                                >
                             </li>
                         </ul>
 
@@ -149,7 +162,7 @@ const CandidatPacks = () => {
                                         <form  >
                                             <button type="button"
                                                 onClick={() => {
-                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
                                                 }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
@@ -177,25 +190,41 @@ const CandidatPacks = () => {
                             <span
                                 class="pt-2 text-4xl font-bold text-gray-800 uppercase dark:text-gray-100"
                             >
-                                2000f
+                                5000 F
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
                                 /an
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
-                            <li class="text-gray-500 dark:text-gray-400">
-                                60 SMS
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">60 EMAILS</span
+                                >
                             </li>
 
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Email
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">60 EMAILS</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Recomandations entreprise
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">Priorité de Candidatures aux offre d{"'"}emplois</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Offre entreprise
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">20 EMAILS</span
+                                >
                             </li>
                         </ul>
 
@@ -213,7 +242,7 @@ const CandidatPacks = () => {
                                         <form >
                                             <button type="button"
                                                 onClick={() => {
-                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
                                                 }}
 
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
@@ -241,30 +270,55 @@ const CandidatPacks = () => {
                             <span
                                 class="pt-2 text-4xl font-bold text-gray-800 uppercase dark:text-gray-100"
                             >
-                                5000f
+                                8000 f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
                                 /an
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
-                            <li class="text-gray-500 dark:text-gray-400">
-                                100 SMS
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">100 EMAILS</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                100 EMAILS
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">100 SMS</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Coaching
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">COACHING & FORMATIONS</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Chat
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">Recommandation sprofiles auprès des entreprises</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Recomandation entreprise
+                            
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">Coaching & formations</span
+                                >
                             </li>
-                            <li class="text-gray-500 dark:text-gray-400">
-                                Suggestions
+                            <li class="flex items-center">
+                                <div class=" rounded-full p-2 fill-current text-green-700">
+                                    {IconPack}
+                                </div>
+                                <span class="text-gray-700 text-sm ml-1">Droit aux publications</span
+                                >
                             </li>
                         </ul>
 
@@ -282,7 +336,7 @@ const CandidatPacks = () => {
                                         <form >
                                             <button type="button"
                                                 onClick={() => {
-                                                    // navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
+                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
                                                 }}
                                                 class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
                                             >
