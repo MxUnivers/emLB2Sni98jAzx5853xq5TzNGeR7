@@ -9,7 +9,7 @@ const initialState = {
   posts2: [],
 };
 
-export default function postReducer(state = initialState, action) {
+export default function postsReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_SEND_POSTS:
       return { ...state, };
