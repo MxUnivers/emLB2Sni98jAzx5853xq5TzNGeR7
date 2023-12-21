@@ -20,7 +20,7 @@ const PrincingPage = () => {
             setpack(true);
         }
     },[pack])
-    alert(getAndCheckLocalStorage(localvalue.TYPEACCESS));
+    // alert(getAndCheckLocalStorage(localvalue.TYPEACCESS));
 
     return (
         <div class="main-content">

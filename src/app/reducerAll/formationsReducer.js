@@ -5,6 +5,7 @@ import { FETCH_FAILED_FORMATIONS, FETCH_SEND_FORMATIONS, FETCH_SUCCESS_FORMATION
 
 
 const initialState = {
+  formation:{},
   formations: [],
   formations2: [],
 };

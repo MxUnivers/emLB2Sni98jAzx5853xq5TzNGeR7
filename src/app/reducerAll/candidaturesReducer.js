@@ -9,7 +9,7 @@ const initialState = {
   candidatures2: [],
 };
 
-export default function candidatureReducer(state = initialState, action) {
+export default function candidaturesReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_SEND_CANDIDATURES:
       return { ...state, };
