@@ -5,6 +5,7 @@ import RecruteurPacks from '../../containers/packs/RecruteurPacks';
 import { MdSchool, MdWorkOutline } from 'react-icons/md';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
+import PackNoConnected from '../../containers/packs/PackNoConnected';
 
 const PrincingPage = () => {
     const [pack, setpack] = useState(false);
@@ -19,6 +20,7 @@ const PrincingPage = () => {
             setpack(true);
         }
     },[pack])
+    alert(getAndCheckLocalStorage(localvalue.TYPEACCESS));
 
     return (
         <div class="main-content">
@@ -79,6 +81,13 @@ const PrincingPage = () => {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS)==typePersonConnected[0]
                             && <RecruteurPacks />
                         }
+
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS)==null 
+                            && <PackNoConnected/>
+                        }
+
+                        
 
 
 
