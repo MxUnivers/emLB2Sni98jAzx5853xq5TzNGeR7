@@ -1,8 +1,8 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
+import { FETCH_FAILED_POSTS, FETCH_SEND_POSTS, FETCH_SUCCESS_POSTS, REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import confetti from 'canvas-confetti';
-import {useEffect , useState} from  "react";
+import { useEffect, useState } from "react";
 import { routing } from "../../../utlis/routing";
 
 
@@ -11,7 +11,7 @@ import { routing } from "../../../utlis/routing";
 // Créer un Candidat
 // Fonction pour ajouter des administrateurs à l'application
 export const BlogAdd = (
-    idCandidat,title,coverPicture,areaPost,content,toast) => {
+    idCandidat, title, coverPicture, areaPost, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
@@ -24,10 +24,10 @@ export const BlogAdd = (
                 //     }
                 // },
                 {
-                    "title":title,
-                    "coverPicture":coverPicture,
-                    "areaPost":areaPost,
-                    "content":content
+                    "title": title,
+                    "coverPicture": coverPicture,
+                    "areaPost": areaPost,
+                    "content": content
                 })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
@@ -47,30 +47,30 @@ export const BlogAdd = (
 
 
 export const BlogEditById = (
-    idCandidat,title,coverPicture,areaPost,content,toast) => {
+    idCandidat, title, coverPicture, areaPost, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .put(`${baseurl.url}/api/v1/blog/edit/${idCandidat}`,
-            
-            // {
-            //     headers:
-            //     {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-            //     }
-            // }
-            {
-                "title":title,
-                "coverPicture":coverPicture,
-                "areaPost":areaPost,
-                "content":content
-            })
+
+                // {
+                //     headers:
+                //     {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                //     }
+                // }
+                {
+                    "title": title,
+                    "coverPicture": coverPicture,
+                    "areaPost": areaPost,
+                    "content": content
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Mis à jour effectué");
                 setTimeout(() => {
-                    window.location.href=`/`;
+                    window.location.href = `/`;
                 }, 2500);
             })
             .catch((error) => {
@@ -83,6 +83,26 @@ export const BlogEditById = (
 
 
 
+export const fetchDataPostsAll = () => {
+    return async (dispatch) => {
+        dispatch({ type: FETCH_SEND_POSTS })
+        await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        }).then((response) => {
+            console.log(response.data.data)
+            dispatch({ type: FETCH_SUCCESS_POSTS, payload: response.data.data })
+        })
+            .catch((error) => {
+                console.log(error);
+
+            });
+
+    }
+}
+
 
 
 export default function BlogAll() {
@@ -93,30 +113,30 @@ export default function BlogAll() {
 
     useEffect(() => {
         async function fetchData() {
-            setIsLoading(true);
-            await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                }
-            }).then((response) => {
-                setblogs(response.data.data);
-                setblogs2(response.data.data);
-                setError(null);
-                console.log(response.data.data)
-            })
-                .catch((error) => {
-                    console.log(error);
-                    setError(error);
-                });
+                setIsLoading(true);
+                await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                }).then((response) => {
+                    setblogs(response.data.data);
+                    setblogs2(response.data.data);
+                    setError(null);
+                    console.log(response.data.data)
+                })
+                    .catch((error) => {
+                        console.log(error);
+                        setError(error);
+                    });
 
-            setIsLoading(false);
+                setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, blogs,blogs2 };
+    return { isLoading, error, blogs, blogs2 };
 }
 
 
@@ -153,7 +173,7 @@ export function BlogGetAllCategoryCandidat(idCandidat) {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
-            
+
             try {
                 const response = await axios.get(`${baseurl.url}/api/v1/blog/posts_candidat/${idCandidat}`, {
                     headers: {
@@ -161,7 +181,7 @@ export function BlogGetAllCategoryCandidat(idCandidat) {
                         'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
                     }
                 });
-        
+
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
                     console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
@@ -191,9 +211,9 @@ export function BlogGetAllCategoryCandidat(idCandidat) {
             setIsLoading(false);
         }
         fetchData();
-       
+
     }, []);
 
-    return { isLoading, error, category,category2 };
+    return { isLoading, error, category, category2 };
 }
 

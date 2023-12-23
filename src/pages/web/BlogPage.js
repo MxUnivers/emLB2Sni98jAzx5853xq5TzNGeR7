@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import BlogAll from '../../action/api/blog/BlogAction';
+import BlogAll, { fetchDataPostsAll } from '../../action/api/blog/BlogAction';
 import moment from 'moment';
 import BlogCard from '../../components/blog/BlogCard';
 import Carousel from 'react-multi-carousel';
 import LoadingBlogBarner from '../../components/loading/LoadingBlogBarner';
 import LoadingBlogContainer from '../../components/loading/LoadingBlogBarner2';
 import BlogBarnerCard from '../../components/blog/BlogBarnerCard';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BlogPage = () => {
 
     const { isLoading, error, blogs, blogs2 } = BlogAll();
 
+    const  dispatch =  useDispatch();
+
+    const posts = useSelector((state) => state.posts.posts);
 
 
     const responsive = {
@@ -31,6 +35,10 @@ const BlogPage = () => {
         }
     };
 
+    useEffect(()=>{
+        dispatch(fetchDataPostsAll())
+    },[])
+
 
     return (
 
@@ -48,7 +56,7 @@ const BlogPage = () => {
 
                     <main className="mt-10">
                         {
-                            isLoading ?
+                            posts && posts.length < 0 ?
                                 <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
                                     {
                                         [1, 1,1].map(() => {
@@ -67,7 +75,7 @@ const BlogPage = () => {
                                     (
                                         <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
                                             {
-                                                blogs.map((item) => {
+                                                posts.map((item) => {
                                                     return (
                                                         <div className="py-3 px-1 ">
                                                         <BlogBarnerCard data={item} />

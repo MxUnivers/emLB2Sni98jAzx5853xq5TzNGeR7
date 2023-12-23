@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
+import { FETCH_SEND_COMMENTS, FETCH_SEND_POSTS, REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from "react";
 import { routing } from "../../../utlis/routing";
@@ -66,3 +66,21 @@ export default function CommentAllPost(idBlog) {
   
     return { isLoading, error, comments };
   }
+
+
+  export const fetchDataComments = async (idBlog)=> {
+    return async (dispatch) => {
+      dispatch({ type: FETCH_SEND_COMMENTS })
+      await axios.get(`${baseurl.url}/api/v1/comment/blog/${idBlog}/comments`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+        }
+      }).then((response)=>{
+        dispatch({ type: FETCH_SEND_COMMENTS,payload:response.data.data });
+      }).catch ((error)=>{
+        console.log(error.message);
+        dispatch({ type: FETCH_SEND_COMMENTS })
+      })
+    }
+  } 

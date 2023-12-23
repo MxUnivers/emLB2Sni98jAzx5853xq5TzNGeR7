@@ -57,8 +57,8 @@ const CandidatCompetence = () => {
 
     // state de redux
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.loading);
-    const err = useSelector((state) => state.error);
+    const loading = useSelector((state) => state.reducer.loading);
+    const err = useSelector((state) => state.reducer.error);
 
     const handleSubmit = (event) => {
         event.preventDefault();

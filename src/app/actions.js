@@ -47,6 +47,11 @@ export const FETCH_SUCCESS_POSTS = "FETCH_SUCCESS_POSTS";
 export const FETCH_FAILED_POSTS = "FETCH_FAILED_POSTS";
 export const FETCH_SEND_POSTS = "FETCH_SEND_POSTS";
 
+// Pour les commentaires des postes
+export const FETCH_SUCCESS_COMMENTS = "FETCH_SUCCESS_COMMENTS";
+export const FETCH_FAILED_COMMENTS = "FETCH_FAILED_COMMENTS";
+export const FETCH_SEND_COMMENTS = "FETCH_SEND_COMMENTS";
+
 
 
 // Pour les formations

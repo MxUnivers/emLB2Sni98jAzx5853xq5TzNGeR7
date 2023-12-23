@@ -67,8 +67,8 @@ const CandidatureRecruteurListPage = () => {
 
     // Submit
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.loading);
-    const error = useSelector((state) => state.error);
+    const loading = useSelector((state) => state.reducer.loading);
+    const error = useSelector((state) => state.reducer.error);
 
     const showErrorToast = (message) => {
         toast.info(message, {

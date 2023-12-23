@@ -6,7 +6,7 @@ import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
 import { MdAlternateEmail, MdEmail, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 import { statusPACKS } from '../utlis/config';
 
@@ -73,10 +73,10 @@ const NavbarWeb = () => {
             id="navbar">
             <div class="mx-auto container-fluid">
                 <div class="flex flex-wrap items-center justify-between mx-auto">
-                    <a href="/" class="flex items-center">
+                    <Link to="/" class="flex items-center">
                         <img src="assets/images/logo-dark.png" alt="" class="logo-dark h-[42px] block dark:hidden" />
                         <img src="assets/images/logo-dark.png" alt="" class="logo-dark h-[42px] hidden dark:block" />
-                    </a>
+                    </Link>
                     <button onClick={() => { openModal() }} data-collapse-toggle="navbar-collapse" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg navbar-toggler group lg:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="navbar-sticky" aria-expanded="false">
@@ -125,7 +125,7 @@ const NavbarWeb = () => {
                                                                 {
                                                                     messages.map((item) => {
                                                                         return (() => {
-                                                                            <a href="#!">
+                                                                            <Link to="#!">
                                                                                 <div class="flex p-4 hover:bg-gray-50/30 dark:hover:bg-neutral-600/50">
                                                                                     <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
                                                                                         <div
@@ -143,7 +143,7 @@ const NavbarWeb = () => {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </a>
+                                                                            </Link>
                                                                         })
                                                                     })
                                                                 }
@@ -155,10 +155,10 @@ const NavbarWeb = () => {
                                                 }
                                                 <div
                                                     class="grid p-1 border-t border-gray-50 dark:border-zinc-600 justify-items-center bg-gray-50 dark:bg-neutral-700">
-                                                    <a class="border-0  text-gray-500"
-                                                        href={`/${routing.candidature_list}`}>
+                                                    <Link class="border-0  text-gray-500"
+                                                        to={`/${routing.candidature_list}`}>
                                                         <i class="mr-1 mdi mdi-arrow-right-circle"></i> <span>voire plus..</span>
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,7 +190,7 @@ const NavbarWeb = () => {
                                                     id="profile/log" aria-labelledby="navNotifications">
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
-                                                            href={`/${routing.candidature_list}`}>Connexion</div>
+                                                            to={`/${routing.candidature_list}`}>Connexion</div>
                                                     </li>
                                                 </ul>
 
@@ -198,20 +198,20 @@ const NavbarWeb = () => {
                                                 <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
                                                     id="profile/log" aria-labelledby="navNotifications">
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.candidat_details}`}>Profile </a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.candidat_details}`}>Profile </Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.candidat_details_blog}`}>publication </a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.candidat_details_blog}`}>publication </Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.candidature_list}`}>Candidatures & Messages</a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.candidature_list}`}>Candidatures & Messages</Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.pricing}`}>Abonement</a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.pricing}`}>Abonement</Link>
                                                     </li>
                                                     <li onClick={() => {
                                                         handleClearLocalStorage()
@@ -226,8 +226,8 @@ const NavbarWeb = () => {
                                             <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
                                                 id="profile/log" aria-labelledby="navNotifications">
                                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                    <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                        href={`/${routing.connexion}`}>Connexion</a>
+                                                    <Link class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                        to={`/${routing.connexion}`}>Connexion</Link>
                                                 </li>
                                             </ul>
                                     }
@@ -260,7 +260,7 @@ const NavbarWeb = () => {
                                                     id="profile/log" aria-labelledby="navNotifications">
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
                                                         <div class="text-15 font-medium  text-blue-700 underline hover:text-blue-700   "
-                                                            href={`/${routing.candidature_list}`}>Connexion</div>
+                                                            to={`/${routing.candidature_list}`}>Connexion</div>
                                                     </li>
                                                 </ul>
 
@@ -268,24 +268,24 @@ const NavbarWeb = () => {
                                                 <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
                                                     id="profile/log" aria-labelledby="navNotifications">
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.company_details}`}>Profile </a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.company_details}`}>Profile </Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.formation_list_entreprise}`}>Formations </a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.formation_list_entreprise}`}>Formations </Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.candidature_list_recruteur}`}>Candidatures & Messages</a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.candidature_list_recruteur}`}>Candidatures & Messages</Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.candidat_list}`}>Profiles Candidats </a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.candidat_list}`}>Profiles Candidats </Link>
                                                     </li>
                                                     <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                        <a class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                            href={`/${routing.pricing}`}>Abonement</a>
+                                                        <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                            to={`/${routing.pricing}`}>Abonement</Link>
                                                     </li>
                                                     {/*onClick={handleClearLocalStorage} */}
                                                     <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
@@ -299,8 +299,8 @@ const NavbarWeb = () => {
                                             <ul class="absolute top-auto z-50 hidden w-48 p-3 list-none bg-white border rounded shadow-lg dropdown-menu border-gray-500/20 xl:ltr:-left-3 ltr:-left-32 rtl:-right-3 dark:bg-neutral-800"
                                                 id="profile/log" aria-labelledby="navNotifications">
                                                 <li class="p-2 dropdown-item group/dropdown dark:text-gray-300">
-                                                    <a class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
-                                                        href={`/${routing.connexion}`}>Connexion</a>
+                                                    <Link class="text-15 font-medium  text-blue-700 underline:text-blue-700  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
+                                                        to={`/${routing.connexion}`}>Connexion</Link>
                                                 </li>
                                             </ul>
                                     }
@@ -324,29 +324,29 @@ const NavbarWeb = () => {
                         <ul class="flex flex-col items-start mt-5 mb-10 font-medium lg:mt-0 lg:mb-0 lg:items-center  lg:flex-row"
                             id="navigation-menu">
                             <li class="relative dropdown">
-                                <a href='/' class={` ${location.pathname === `/` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
+                                <Link to='/' class={` ${location.pathname === `/` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Accueil
-                                </a>
+                                </Link>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.job_list}`} class={` ${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
+                                <Link to={`/${routing.job_list}`} class={` ${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Emplois
-                                </a>
+                                </Link>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.blog_list}`} class={` ${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4   lg:h-[70px] `}
+                                <Link to={`/${routing.blog_list}`} class={` ${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg " : ""} py-5text-gray-800 lg:px-4   lg:h-[70px] `}
                                 >Social
-                                </a>
+                                </Link>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.bourse_list}`} class={` ${location.pathname === `/${routing.bourse_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
+                                <Link to={`/${routing.bourse_list}`} class={` ${location.pathname === `/${routing.bourse_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Bourses
-                                </a>
+                                </Link>
                             </li>
                             <li class="relative dropdown">
-                                <a href={`/${routing.coaching_list}`} class={` ${location.pathname === `/${routing.coaching_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
+                                <Link to={`/${routing.coaching_list}`} class={` ${location.pathname === `/${routing.coaching_list}` ? "active font-bold text-lg " : ""} py-5 text-gray-800 lg:px-4  dark:text-gray-50 lg:h-[70px] `}
                                 >Coaching & Formations
-                                </a>
+                                </Link>
                             </li>
 
                             <li class="relative dropdown lg:mt-0">
@@ -356,11 +356,11 @@ const NavbarWeb = () => {
 
                                 <ul class="relative top-auto z-50 py-2 list-none bg-white border-0 rounded dropdown-menu lg:border border-gray-500/20 lg:absolute ltr:-left-3 rtl:-right-3 lg:w-48 lg:shadow-lg dark:bg-neutral-800"
                                     aria-labelledby="company">
-                                    <li><a class={`${location.pathname === `/${routing.aboutus}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
-                                        href={`${routing.aboutus}`}>A propos</a>
+                                    <li><Link class={`${location.pathname === `/${routing.aboutus}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
+                                        to={`${routing.aboutus}`}>A propos</Link>
                                     </li>
-                                    <li><a class={`${location.pathname === `/${routing.contact}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
-                                        href={`${routing.contact}`}>Contact</a>
+                                    <li><Link class={`${location.pathname === `/${routing.contact}` ? "active font-bold " : ""} block w-full px-4 py-2 text-13 font-medium text-gray-700 duration-300 bg-transparent dropdown-item whitespace-nowrap hover:translate-x-1.5 group-data-[theme-color=violet]:hover:text-violet-500 group-data-[theme-color=sky]:hover:text-sky-500 group-data-[theme-color=red]:hover:text-red-500 group-data-[theme-color=green]:hover:text-green-500 group-data-[theme-color=pink]:hover:text-pink-500 group-data-[theme-color=blue]:hover:text-blue-500 uppercase group-data-[mode=dark]:text-gray-50`}
+                                        to={`${routing.contact}`}>Contact</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -425,15 +425,15 @@ const NavbarWeb = () => {
                                                         </p>
                                                     </div>
                                                     <div class="text-center mt-6 flex flex-col space-y-6 justify-center">
-                                                        <a href={`/${routing.connexion}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                        <Link to={`/${routing.connexion}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
                                                             <MdSchool class="h-7 w-7" /> <span>Candidat</span>
-                                                        </a>
+                                                        </Link>
                                                         <div class="text-center py-2 justify-center w-full text-md text-gray-500">
                                                             Ou
                                                         </div>
-                                                        <a href={`/${routing.connexion_recuteur}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
+                                                        <Link to={`/${routing.connexion_recuteur}`} class="py-1 w-full text-lg text-white bg-blue-400 rounded-2xl flex justify-center space-x-2">
                                                             <MdWork class="h-7 w-7" /><span>Recruteur</span>
-                                                        </a>
+                                                        </Link>
 
                                                     </div>
                                                 </div>
@@ -471,22 +471,22 @@ const NavbarWeb = () => {
                                                 (
                                                     <ul>
                                                         <li class={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href="/" class={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</a>
+                                                            <Link to="/" class={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</Link>
                                                         </li>
                                                         {
                                                             candidat && candidat.account.pack == statusPACKS[2] ?
                                                                 <li class={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <a href={`/${routing.blog_post}`} class={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
+                                                                    <Link to={`/${routing.blog_post}`} class={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</Link>
                                                                 </li> : null
                                                         }
                                                         <li class={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</a>
+                                                            <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</a>
+                                                            <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidat_applied}`} class={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </a>
+                                                            <Link to={`/${routing.candidat_applied}`} class={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </Link>
                                                         </li>
 
                                                     </ul>
@@ -501,20 +501,20 @@ const NavbarWeb = () => {
                                                     <ul>
                                                         {
                                                             /*<li class="mb-2">
-                                                            <a href={`/${routing.blog_post}`} class="text-blue-500 hover:text-blue-700">Publications</a>
+                                                            <Link to={`/${routing.blog_post}`} class="text-blue-500 hover:text-blue-700">Publications</Link>
                                                         </li> */
                                                         }
                                                         <li class={` ${location.pathname === `/${routing.company_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.company_details}`} class="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></a>
+                                                            <Link to={`/${routing.company_details}`} class="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidature_list_recruteur}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidature_list_recruteur}`} class="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </a>
+                                                            <Link to={`/${routing.candidature_list_recruteur}`} class="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </Link>
                                                         </li>
                                                         
                                                         {
                                                             recruteur && recruteur.account.pack == statusPACKS[2] ?
                                                                 <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <a href={`/${routing.candidature_list}`} class="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></a>
+                                                                    <Link to={`/${routing.candidature_list}`} class="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></Link>
                                                                 </li> : null
                                                         }
 
@@ -524,7 +524,7 @@ const NavbarWeb = () => {
                                         }
                                         <ul>
                                             <li class="mb-2">
-                                                <a href={`/${routing.pricing}`} class="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
+                                                <Link to={`/${routing.pricing}`} class="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </Link>
                                             </li>
                                         </ul>
                                         {
@@ -532,7 +532,7 @@ const NavbarWeb = () => {
                                                 <ul>
 
                                                     <li class={` " px-2 border-b mb-2`}>
-                                                        <a href={`#logout`} class={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
+                                                        <Link to={`#logout`} class={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</Link>
                                                     </li>
                                                 </ul>
                                                 :
