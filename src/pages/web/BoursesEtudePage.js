@@ -5,10 +5,10 @@ import BoursOthers from '../../components/bourses/BoursOthers';
 
 const BoursesEtudePage = () => {
     return (
-        <div class="main-content">
-            <div class="page-content mt-16">
+        <div className="main-content">
+            <div className="page-content mt-16">
 
-                <main class="space-y-40 mb-5">
+                <main className="space-y-40 mb-5">
 
                     <BourseBarner />
                     <BoursesAvantages />

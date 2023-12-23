@@ -35,8 +35,8 @@ const BlogPage = () => {
     return (
 
 
-        <div class="main-content">
-            <div class="page-content mt-16">
+        <div className="main-content">
+            <div className="page-content mt-16">
 
 
 
@@ -44,16 +44,16 @@ const BlogPage = () => {
 
 
 
-                <div class="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl mx-auto">
 
-                    <main class="mt-10">
+                    <main className="mt-10">
                         {
                             isLoading ?
                                 <Carousel autoPlay transitionDuration={5} infinite responsive={responsive}>
                                     {
                                         [1, 1,1].map(() => {
                                             return (
-                                                <div class="mx-3 my-2">
+                                                <div className="mx-3 my-2">
                                                     <LoadingBlogBarner />
                                                 </div>
                                             )
@@ -69,7 +69,7 @@ const BlogPage = () => {
                                             {
                                                 blogs.map((item) => {
                                                     return (
-                                                        <div class="py-3 px-1 ">
+                                                        <div className="py-3 px-1 ">
                                                         <BlogBarnerCard data={item} />
                                                         </div>
                                                     )
@@ -79,15 +79,15 @@ const BlogPage = () => {
                                     )
                         }
 
-                        <div class="w-full container-fluid flex flex-wrap  mt-10 mb-10">
+                        <div className="w-full container-fluid flex flex-wrap  mt-10 mb-10">
 
-                            <section class="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+                            <section className="container w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
                                 {
                                     isLoading ?
                                         (
                                             [1, 1, 1, 1, 1].map(() => {
                                                 return (
-                                                    <div class="mx-3 py-3">
+                                                    <div className="mx-3 py-3">
                                                         <LoadingBlogContainer />
                                                     </div>
                                                 )
@@ -106,8 +106,8 @@ const BlogPage = () => {
                             </section>
 
 
-                            <div class="w-full px-3">
-                                <div class="border border-dotted"></div>
+                            <div className="w-full px-3">
+                                <div className="border border-dotted"></div>
                             </div>
 
                         </div>

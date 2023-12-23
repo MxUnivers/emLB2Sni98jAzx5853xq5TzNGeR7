@@ -220,12 +220,12 @@ const FormationAddPage = () => {
 
 
     return (
-        <section class="mt-16 mb-56 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
-            <div class="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
-                <div class="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
+        <section className="mt-16 mb-56 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
+            <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
+                <div className="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
                 </div>
-                <div class="w-full px-5 py-20">
-                    <h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-white">Ajouter une formations</h3>
+                <div className="w-full px-5 py-20">
+                    <h3 className="text-center text-2xl font-semibold text-gray-800 dark:text-white">Ajouter une formations</h3>
 
 
 
@@ -443,17 +443,17 @@ const FormationAddPage = () => {
                                                                                 />
                                                                             </div>
 
-                                                                            <button type="button" class="btn bg-red-600 rounded-3xl text-white py-1 text-xs" onClick={() => removeLecon(leconIndex)}>Supprimer Leçon {leconIndex + 1}</button>
+                                                                            <button type="button" className="btn bg-red-600 rounded-3xl text-white py-1 text-xs" onClick={() => removeLecon(leconIndex)}>Supprimer Leçon {leconIndex + 1}</button>
                                                                         </div>
                                                                     ))}
-                                                                    <button type="button" class="btn bg-blue-600 rounded-3xl py-2 text-white text-xs" onClick={() => pushLecon({ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' })}> + Ajouter Leçon</button>
+                                                                    <button type="button" className="btn bg-blue-600 rounded-3xl py-2 text-white text-xs" onClick={() => pushLecon({ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' })}> + Ajouter Leçon</button>
                                                                 </div>
                                                             )}
                                                         </FieldArray>
-                                                        <button type="button" class="btn bg-red-600 rounded-3xl py-2 text-white text-xs" onClick={() => remove(moduleIndex)}>Supprimer Module {moduleIndex + 1}</button>
+                                                        <button type="button" className="btn bg-red-600 rounded-3xl py-2 text-white text-xs" onClick={() => remove(moduleIndex)}>Supprimer Module {moduleIndex + 1}</button>
                                                     </div>
                                                 ))}
-                                                <button type="button" class="btn bg-blue-700 rounded-3xl  text-white text-md" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>+ Ajouter Module</button>
+                                                <button type="button" className="btn bg-blue-700 rounded-3xl  text-white text-md" onClick={() => push({ moduleLabel: '', lecons: [{ leconTitle: '', leconContent: '', coverPicture: '', video: '', additionalInfo: '' }] })}>+ Ajouter Module</button>
                                             </div>
                                         )}
                                     </FieldArray>

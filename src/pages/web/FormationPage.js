@@ -4,8 +4,8 @@ import FormationListItem from '../../components/coachingAndFormation/formation/F
 
 const FormationPage = () => {
     return (
-        <div class="main-content">
-            <div class="page-content mt-28">
+        <div className="main-content">
+            <div className="page-content mt-28">
 
 
 

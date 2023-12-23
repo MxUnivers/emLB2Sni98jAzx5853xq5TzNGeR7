@@ -383,30 +383,30 @@ const NavbarWeb = () => {
                     {/*modal de connexion */}
                     {
                         show &&
-                        <div className="fixed z-50 inset-0 overflow-y-auto">
-                            <div className="flex items-center justify-center h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                <div className="fixed inset-0 transition-opacity">
-                                    <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                        <div class="fixed z-50 inset-0 overflow-y-auto">
+                            <div class="flex items-center justify-center h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                <div class="fixed inset-0 transition-opacity">
+                                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                 </div>
-                                <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
+                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                                 <div
-                                    className="inline-block mt-28 align-bottom bg-transparent rounded-lg text-left overflow-hidden transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
+                                    class="inline-block mt-28 align-bottom bg-transparent rounded-lg text-left overflow-hidden transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
                                     role="dialog"
                                     aria-modal="true"
                                     aria-labelledby="modal-title"
                                 >
 
-                                    <div className="bg-transparent  px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
-                                        <div className="sm:flex flex flex-col w-full sm:items-start">
-                                            <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
+                                    <div class="bg-transparent  px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
+                                        <div class="sm:flex flex flex-col w-full sm:items-start">
+                                            <div class="mt-3 w-full  text-center sm:mt-0 sm:text-left">
 
                                             </div>
                                             <div class="min-h-full bg-transparent flex justify-center items-center">
                                                 <div class="py-5 pl-10 px-12 justify-center bg-white rounded-2xl shadow-xl z-20">
-                                                    <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                         <button
                                                             type="button"
-                                                            className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                            class="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                                                             onClick={() => { handleClose() }}
                                                         >X
                                                         </button>
@@ -454,11 +454,11 @@ const NavbarWeb = () => {
 
                     {
                         isOpen && (
-                            <div className="fixed z-50 inset-0 overflow-y-auto">
-                                <div className="flex h-screen">
+                            <div class="fixed z-50 inset-0 overflow-y-auto">
+                                <div class="flex h-screen">
                                     {/* Sidebar */}
-                                    <div className="w-1/2 sm:w-1/4 md:w-1/4 lg:w-1/4 bg-white text-blue-700 p-4">
-                                        <h2 className="text-2xl font-bold mb-4">
+                                    <div class="w-1/2 sm:w-1/4 md:w-1/4 lg:w-1/4 bg-white text-blue-700 p-4">
+                                        <h2 class="text-2xl font-bold mb-4">
                                             <img
                                                 src="assets/images/logo-dark.png"
                                                 class="h-10 w-10 " alt=""
@@ -470,23 +470,23 @@ const NavbarWeb = () => {
                                                 getAndCheckLocalStorage(localvalue.candidatID) != null ?
                                                 (
                                                     <ul>
-                                                        <li className={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href="/" className={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</a>
+                                                        <li class={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href="/" class={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</a>
                                                         </li>
                                                         {
                                                             candidat && candidat.account.pack == statusPACKS[2] ?
-                                                                <li className={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <a href={`/${routing.blog_post}`} className={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
+                                                                <li class={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                                    <a href={`/${routing.blog_post}`} class={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</a>
                                                                 </li> : null
                                                         }
-                                                        <li className={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidat_details}`} className={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</a>
+                                                        <li class={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</a>
                                                         </li>
-                                                        <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidature_list}`} className={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</a>
+                                                        <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</a>
                                                         </li>
-                                                        <li className={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidat_applied}`} className={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </a>
+                                                        <li class={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidat_applied}`} class={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </a>
                                                         </li>
 
                                                     </ul>
@@ -500,21 +500,21 @@ const NavbarWeb = () => {
                                                 (
                                                     <ul>
                                                         {
-                                                            /*<li className="mb-2">
-                                                            <a href={`/${routing.blog_post}`} className="text-blue-500 hover:text-blue-700">Publications</a>
+                                                            /*<li class="mb-2">
+                                                            <a href={`/${routing.blog_post}`} class="text-blue-500 hover:text-blue-700">Publications</a>
                                                         </li> */
                                                         }
-                                                        <li className={` ${location.pathname === `/${routing.company_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.company_details}`} className="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></a>
+                                                        <li class={` ${location.pathname === `/${routing.company_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.company_details}`} class="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></a>
                                                         </li>
-                                                        <li className={` ${location.pathname === `/${routing.candidature_list_recruteur}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <a href={`/${routing.candidature_list_recruteur}`} className="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </a>
+                                                        <li class={` ${location.pathname === `/${routing.candidature_list_recruteur}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                            <a href={`/${routing.candidature_list_recruteur}`} class="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </a>
                                                         </li>
                                                         
                                                         {
                                                             recruteur && recruteur.account.pack == statusPACKS[2] ?
-                                                                <li className={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <a href={`/${routing.candidature_list}`} className="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></a>
+                                                                <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                                    <a href={`/${routing.candidature_list}`} class="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></a>
                                                                 </li> : null
                                                         }
 
@@ -523,16 +523,16 @@ const NavbarWeb = () => {
                                                 ) : null
                                         }
                                         <ul>
-                                            <li className="mb-2">
-                                                <a href={`/${routing.pricing}`} className="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
+                                            <li class="mb-2">
+                                                <a href={`/${routing.pricing}`} class="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </a>
                                             </li>
                                         </ul>
                                         {
                                             getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
                                                 <ul>
 
-                                                    <li className={` " px-2 border-b mb-2`}>
-                                                        <a href={`#logout`} className={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
+                                                    <li class={` " px-2 border-b mb-2`}>
+                                                        <a href={`#logout`} class={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</a>
                                                     </li>
                                                 </ul>
                                                 :
@@ -541,15 +541,15 @@ const NavbarWeb = () => {
 
                                     </div>
                                     {/* Contenu */}
-                                    <div className="w-3/4 bg-black p-4 opacity-25">
-                                        <div className="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
+                                    <div class="w-3/4 bg-black p-4 opacity-25">
+                                        <div class="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
                                             <button
                                                 type="button"
-                                                className="text-gray-900 hover:text-gray-700 focus:outline-none"
+                                                class="text-gray-900 hover:text-gray-700 focus:outline-none"
                                                 onClick={() => { closeModal() }}
                                             >
                                                 <svg
-                                                    className="h-6 w-6 text-black"
+                                                    class="h-6 w-6 text-black"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
@@ -565,7 +565,7 @@ const NavbarWeb = () => {
                                                 </svg>
                                             </button>
                                         </div>
-                                        <div className="px-4 pt-2">
+                                        <div class="px-4 pt-2">
                                             {/* Contenu principal de la page */}
                                         </div>
                                     </div>

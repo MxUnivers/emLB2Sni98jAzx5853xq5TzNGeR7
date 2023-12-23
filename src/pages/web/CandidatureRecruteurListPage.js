@@ -112,27 +112,27 @@ const CandidatureRecruteurListPage = () => {
             <div className="main-content">
 
 
-                <section class="bg-gray-50 mt-28">
+                <section className="bg-gray-50 mt-28">
                     <div
-                        class="mx-auto px-4 py-5 lg:flex  lg:items-center"
+                        className="mx-auto px-4 py-5 lg:flex  lg:items-center"
                     >
-                        <div class="mx-auto max-w-xl text-center">
-                            <h1 class="text-3xl font-extrabold sm:text-5xl">
+                        <div className="mx-auto max-w-xl text-center">
+                            <h1 className="text-3xl font-extrabold sm:text-5xl">
                                 Candiatutre recus
-                                <strong class="font-extrabold text-blue-700 sm:block">
+                                <strong className="font-extrabold text-blue-700 sm:block">
                                     Message envoyées
                                 </strong>
                             </h1>
-                            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                            <div className="mt-8 flex flex-wrap justify-center gap-4">
                                 <button onClick={() => { handleShowButton(0) }}
-                                    class={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
+                                    className={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
 
                                 >
                                     Candidatures ({candidatures.length})
                                 </button>
 
                                 <button onClick={() => { handleShowButton(1) }}
-                                    class={`block w-full rounded${buttonSelected == 1 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
+                                    className={`block w-full rounded${buttonSelected == 1 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
 
                                 >Messages ({messageList.length})
                                 </button>
@@ -192,9 +192,9 @@ const CandidatureRecruteurListPage = () => {
                                     })}
                             </div>
                             :
-                            <div class="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
-                                <div class="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
-                                    <h1 class="text-xl text-gray-500">Aucune candidature pour l{"'"}instant </h1>
+                            <div className="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
+                                <div className="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
+                                    <h1 className="text-xl text-gray-500">Aucune candidature pour l{"'"}instant </h1>
                                 </div>
                             </div>
                     }
@@ -242,9 +242,9 @@ const CandidatureRecruteurListPage = () => {
                             }
 
                         </div> :
-                        <div class="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
-                            <div class="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
-                                <h1 class="text-xl text-gray-500">Aucun message pour l{"'"}instant </h1>
+                        <div className="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
+                            <div className="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
+                                <h1 className="text-xl text-gray-500">Aucun message pour l{"'"}instant </h1>
                             </div>
                         </div>
                     }
@@ -281,7 +281,7 @@ const CandidatureRecruteurListPage = () => {
                                                 >
                                                     {candidatureDetail.title}
                                                 </h3> :
-                                                <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
 
                                         {
@@ -289,14 +289,14 @@ const CandidatureRecruteurListPage = () => {
                                                 <p className="text-sm text-gray-500 mb-4">
                                                     Date: 28/08/2023
                                                 </p> :
-                                                <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         {
                                             candidatureDetail && candidatureDetail.cv ?
                                                 <p className="text-sm text-blue-500 mb-4">
                                                     <a href={`${candidatureDetail.cv}`} download={true} target='_blank' >Télécharger CV du candidat</a>
                                                 </p> :
-                                                <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
 
                                         {
@@ -317,25 +317,25 @@ const CandidatureRecruteurListPage = () => {
                                                         candidatureDetail.status == "CANCEL" ? "REFUSE" : ""
                                                     }
                                                 </p> :
-                                                <div class="w-20 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-20 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
 
                                         }
                                     </div>
-                                    <div class=" mt-2  w-full ">
-                                        <div class=" flex justify-start rounded-lg w-full border-t ">
-                                            <form class="w-full">
-                                                <div class="chva6">
+                                    <div className=" mt-2  w-full ">
+                                        <div className=" flex justify-start rounded-lg w-full border-t ">
+                                            <form className="w-full">
+                                                <div className="chva6">
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" for="email">Titre du message <span class="cvmpf">*</span></label>
-                                                        <input value={titleCandidature} onChange={(e) => { settitleCandidature(e.target.value) }} class="w-full cvac0 coz82" type="text" required={true} />
+                                                        <label className="ckncn c9csv cfkm3 ckcgr" for="email">Titre du message <span className="cvmpf">*</span></label>
+                                                        <input value={titleCandidature} onChange={(e) => { settitleCandidature(e.target.value) }} className="w-full cvac0 coz82" type="text" required={true} />
                                                     </div>
                                                 </div>
-                                                <div class="chva6">
+                                                <div className="chva6">
                                                     <div>
-                                                        <label class="ckncn c9csv cfkm3 ckcgr" >Message <span class="cvmpf">*</span></label>
+                                                        <label className="ckncn c9csv cfkm3 ckcgr" >Message <span className="cvmpf">*</span></label>
                                                         <textarea
                                                             value={contentCandidature} onChange={(e) => { setcontentCandidature(e.target.value) }}
-                                                            class="w-full cvac0 coz82"
+                                                            className="w-full cvac0 coz82"
                                                             rows={5}
                                                             placeholder={`Nous comme heureux de vous annoncer que votre candidature à l'offre à "${candidatureDetail.title}" bien été selectionné par le recruteur  `}
                                                             type="password" required={true} />
@@ -345,16 +345,16 @@ const CandidatureRecruteurListPage = () => {
                                                 {
                                                     <div>
                                                         {
-                                                            /*<div class="chva6">
+                                                            /*<div className="chva6">
                                                             <div>
-                                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setsmsChecked(e.target.checked) }} type="checkbox" checked={smsChecked} required={false} />
+                                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span className="cvmpf"></span></label>
+                                                                <input className="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setsmsChecked(e.target.checked) }} type="checkbox" checked={smsChecked} required={false} />
                                                             </div>
                                                         </div>
-                                                        <div class="chva6">
+                                                        <div className="chva6">
                                                             <div>
-                                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span class="cvmpf"></span></label>
-                                                                <input class="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setemailChecked(e.target.checked) }} type="checkbox" checked={emailChecked} required={false} />
+                                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span className="cvmpf"></span></label>
+                                                                <input className="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setemailChecked(e.target.checked) }} type="checkbox" checked={emailChecked} required={false} />
                                                             </div>
                                                         </div> */
                                                         }
@@ -376,7 +376,7 @@ const CandidatureRecruteurListPage = () => {
 
                                 {
                                     loading ?
-                                        <p class="animate-pulse text-gray-400">Envois en cours</p> :
+                                        <p className="animate-pulse text-gray-400">Envois en cours</p> :
                                         <button
                                             type="submit"
                                             className="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-green-500 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -420,7 +420,7 @@ const CandidatureRecruteurListPage = () => {
                                                 >
                                                     {messageDetail.subject}
                                                 </h3> :
-                                                <div class="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         <div className="w-full py-3 px-1 space-y-3">
                                             {
@@ -428,7 +428,7 @@ const CandidatureRecruteurListPage = () => {
                                                     <p className="text-sm text-gray-500 mb-4">
                                                         Date: 28/08/2023
                                                     </p> :
-                                                    <div class="w-full  h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                    <div className="w-full  h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
 
                                             {
@@ -436,7 +436,7 @@ const CandidatureRecruteurListPage = () => {
                                                     <p className="w-full text-sm text-gray-500 mb-4">
                                                         {messageDetail.content}
                                                     </p> :
-                                                    <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                    <div className="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
 
                                         </div>

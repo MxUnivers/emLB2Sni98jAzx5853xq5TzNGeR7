@@ -57,68 +57,68 @@ const CompanyDetaiOffrelPage = () => {
 
     return (
 
-        <div class="main-content">
+        <div className="main-content">
 
-            <div class="page-content">
-
-
-                <section class="section mt-24">
-                    <div class="container-fluid px-7 ">
-                        <div class="flex  flex-col sm:flex-col md:flex-row lg:flex-row  justify-between">
+            <div className="page-content">
 
 
+                <section className="section mt-24">
+                    <div className="container-fluid px-7 ">
+                        <div className="flex  flex-col sm:flex-col md:flex-row lg:flex-row  justify-between">
 
 
-                            <div class="w-full col-span-4 px-5">
 
-                                <div class="side-bar ms-lg-4">
-                                    <div class="card border rounded-lg  shadow-sm job-overview">
-                                        <div class="card-body p-4 flex-col flex justify-center items-center">
 
-                                            <div class="w-fullflex flex-col justify-center">
+                            <div className="w-full col-span-4 px-5">
+
+                                <div className="side-bar ms-lg-4">
+                                    <div className="card border rounded-lg  shadow-sm job-overview">
+                                        <div className="card-body p-4 flex-col flex justify-center items-center">
+
+                                            <div className="w-fullflex flex-col justify-center">
                                                 {
                                                     company && company.logo ?
-                                                        <div class="">
+                                                        <div className="">
                                                             <img src={`${company.logo}`} alt=""
-                                                                class="img-fluid rounded-full  h-32 w-32" />
+                                                                className="img-fluid rounded-full  h-32 w-32" />
                                                         </div> :
-                                                        <div class="">
-                                                            <div class="rounded-full  h-32 w-32 animate-pulse bg-gray-300" />
+                                                        <div className="">
+                                                            <div className="rounded-full  h-32 w-32 animate-pulse bg-gray-300" />
                                                         </div>
 
                                                 }
                                                 
                                                 {
                                                     company && company.full_name ?
-                                                        <div class="flex mt-4 flex-col justify-center">
-                                                            <i class="uil uil-user icon bg-primary-subtle text-primary"></i>
-                                                            <div class="ms-3 flex ">
-                                                                <h6 class="fs-14 mb-2"></h6>
-                                                                <p class="text-muted mb-0 text-xl text-center ">{company.full_name}</p>
+                                                        <div className="flex mt-4 flex-col justify-center">
+                                                            <i className="uil uil-user icon bg-primary-subtle text-primary"></i>
+                                                            <div className="ms-3 flex ">
+                                                                <h6 className="fs-14 mb-2"></h6>
+                                                                <p className="text-muted mb-0 text-xl text-center ">{company.full_name}</p>
                                                             </div>
                                                         </div> :
-                                                        <div class="flex mt-4 flex-col justify-center w-full h-7 rounded-lg bg-gray-300 animate-pulse ">
+                                                        <div className="flex mt-4 flex-col justify-center w-full h-7 rounded-lg bg-gray-300 animate-pulse ">
                                                         </div>
                                                 }
                                             </div>
 
                                             {
-                                                /*<div class="mt-4">
+                                                /*<div className="mt-4">
                                                 <a href="#"
-                                                    class="btn btn-primary btn-hover w-100 rounded"><i
-                                                        class="mdi mdi-eye"></i> Modifier profile</a>
+                                                    className="btn btn-primary btn-hover w-100 rounded"><i
+                                                        className="mdi mdi-eye"></i> Modifier profile</a>
                                             </div> */
                                             }
 
 
-                                            <ul class="list-unstyled mt-4 mb-0">
+                                            <ul className="list-unstyled mt-4 mb-0">
                                                 {
                                                     /*<li>
-                                                    <div class="d-flex mt-4">
+                                                    <div className="d-flex mt-4">
                                                         <i
-                                                            class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
-                                                        <div class="ms-3 flex space-x-2 border border-blue-500 rounded-lg py-1 px-2">
-                                                            <a href={`/${routing.candidature_list_recruteur}`} class="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length >0 ? "s":""} {candidatures.length > 0 ? candidatures.length: ""} </a>
+                                                            className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                        <div className="ms-3 flex space-x-2 border border-blue-500 rounded-lg py-1 px-2">
+                                                            <a href={`/${routing.candidature_list_recruteur}`} className="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length >0 ? "s":""} {candidatures.length > 0 ? candidatures.length: ""} </a>
                                                         </div>
                                                     </div>
                                                 </li> */
@@ -127,17 +127,17 @@ const CompanyDetaiOffrelPage = () => {
                                                 {
                                                     company && company.employers_count ?
                                                         <li>
-                                                            <div class="d-flex mt-4">
+                                                            <div className="d-flex mt-4">
                                                                 <i
-                                                                    class="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
-                                                                <div class="ms-3 flex space-x-2">
-                                                                    <h6 class="fs-14 mb-2">Employés </h6>
-                                                                    <p class="text-muted mb-0"> {company.employers_count}</p>
+                                                                    className="uil uil-star-half-alt icon bg-primary-subtle text-primary"></i>
+                                                                <div className="ms-3 flex space-x-2">
+                                                                    <h6 className="fs-14 mb-2">Employés </h6>
+                                                                    <p className="text-muted mb-0"> {company.employers_count}</p>
                                                                 </div>
                                                             </div>
                                                         </li> :
                                                         <li>
-                                                            <div class="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
+                                                            <div className="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
                                                         </li>
 
                                                 }
@@ -145,32 +145,32 @@ const CompanyDetaiOffrelPage = () => {
                                                 {
                                                     company && company.addresse_entreprise ?
                                                         <li>
-                                                            <div class="d-flex mt-4">
+                                                            <div className="d-flex mt-4">
                                                                 <i
-                                                                    class="uil uil-location-point icon bg-primary-subtle text-primary"></i>
-                                                                <div class="ms-3 flex space-x-2">
-                                                                    <h6 class="fs-14 mb-2">Localisation </h6>
-                                                                    <p class="text-muted mb-0"> {company.addresse_entreprise}</p>
+                                                                    className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                                <div className="ms-3 flex space-x-2">
+                                                                    <h6 className="fs-14 mb-2">Localisation </h6>
+                                                                    <p className="text-muted mb-0"> {company.addresse_entreprise}</p>
                                                                 </div>
                                                             </div>
                                                         </li> :
                                                         <li>
-                                                            <div class="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
+                                                            <div className="d-flex mt-4 w-full bg-gray-300 animate-pulse" />
                                                         </li>
 
                                                 }
 
                                                 <li>
-                                                    <div class="d-flex mt-4">
+                                                    <div className="d-flex mt-4">
                                                         <i
-                                                            class="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
+                                                            className="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
 
-                                                        <h6 class="fs-14 mb-2">Secteurs d{"'"}activités</h6>
-                                                        <div class="ms-3 flex flex-wrap gap-2">
+                                                        <h6 className="fs-14 mb-2">Secteurs d{"'"}activités</h6>
+                                                        <div className="ms-3 flex flex-wrap gap-2">
 
                                                             {company && Array.isArray(company.secteur_activites) && company.secteur_activites.length > 0 ? (
                                                                 company.secteur_activites.map((item, index) => (
-                                                                    <p key={index} class="text-muted mb-0 bg-green-400 text-white px-2 py-1 rounded-lg">
+                                                                    <p key={index} className="text-muted mb-0 bg-green-400 text-white px-2 py-1 rounded-lg">
                                                                         {item.label}
                                                                     </p>
                                                                 ))
@@ -192,13 +192,13 @@ const CompanyDetaiOffrelPage = () => {
 
                                     {
                                         company && company.maps_entreprise ?
-                                            <div class="mt-4">
-                                                <h6 class="fs-16 mb-3 text-2xl">Carte</h6>
+                                            <div className="mt-4">
+                                                <h6 className="fs-16 mb-3 text-2xl">Carte</h6>
                                                 <iframe
                                                     src={`${company.maps_entreprise}`}
                                                     style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
                                             </div> :
-                                            <div class="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
+                                            <div className="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
                                             </div>
                                     }
                                 </div>
@@ -212,27 +212,27 @@ const CompanyDetaiOffrelPage = () => {
 
 
 
-                            <div class="col-span-8 w-full">
-                                <div class="card job-detail overflow-hidden">
+                            <div className="col-span-8 w-full">
+                                <div className="card job-detail overflow-hidden">
                                     {
                                         /*<div>
-                                        <div class="job-details-compnay-profile">
+                                        <div className="job-details-compnay-profile">
                                             <img src={`${company.logo}`} alt=""
-                                                class=" h-5 w-5 rounded-full" />
+                                                className=" h-5 w-5 rounded-full" />
                                         </div>
                                     </div> */
                                     }
 
 
-                                    <div class="w-full card-body p-4 shadow-lg rounded-lg border">
+                                    <div className="w-full card-body p-4 shadow-lg rounded-lg border">
 
 
                                         {
                                             company && company.description_entreprise ?
-                                                <div class="mt-4">
-                                                    <h5 class="mb-3 text-2xl">A propos de l{"'"}entreprise </h5>
-                                                    <div class="job-detail-desc">
-                                                        <p class="text-muted mb-0">
+                                                <div className="mt-4">
+                                                    <h5 className="mb-3 text-2xl">A propos de l{"'"}entreprise </h5>
+                                                    <div className="job-detail-desc">
+                                                        <p className="text-muted mb-0">
                                                             {
                                                                 company.description_entreprise
                                                             }
@@ -240,7 +240,7 @@ const CompanyDetaiOffrelPage = () => {
                                                     </div>
                                                 </div>
                                                 :
-                                                <div class="py-10 w-full rounded-xl mt-4 bg-gray-300 animate-none">
+                                                <div className="py-10 w-full rounded-xl mt-4 bg-gray-300 animate-none">
                                                 </div>
                                         }
 
@@ -249,14 +249,14 @@ const CompanyDetaiOffrelPage = () => {
                                     </div>
                                 </div>
 
-                                <div class=" px-2 py-4 shadow-sm mt-5 border">
-                                    <h5 class="text-3xl ">Offres d{"'"}emplois</h5>
-                                    <div class=" flex flex-row  justify-between items-center">
-                                        <input type="text" class="px-3 py-1 rounded-lg bg-gray-50 w-full " />
+                                <div className=" px-2 py-4 shadow-sm mt-5 border">
+                                    <h5 className="text-3xl ">Offres d{"'"}emplois</h5>
+                                    <div className=" flex flex-row  justify-between items-center">
+                                        <input type="text" className="px-3 py-1 rounded-lg bg-gray-50 w-full " />
                                     </div>
 
 
-                                    <main class="flex  w-full items-center mt-10 justify-center bg-white">
+                                    <main className="flex  w-full items-center mt-10 justify-center bg-white">
                                         <div className=" flex gap-5 justify-center flex-wrap items-center py-3">
                                             {
                                                 offres.map((item) => {
@@ -293,9 +293,9 @@ const CompanyDetaiOffrelPage = () => {
                                         </div>
                                     </main>
                                 </div>
-                                <div class="text-center mt-4">
-                                    <a href="#" class="btn btn bg-blue-300 btn-sm py-1 px-2 text-md text-white  primary-link form-text">Voire plus  <i
-                                        class="mdi mdi-arrow-right"></i></a>
+                                <div className="text-center mt-4">
+                                    <a href="#" className="btn btn bg-blue-300 btn-sm py-1 px-2 text-md text-white  primary-link form-text">Voire plus  <i
+                                        className="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
 

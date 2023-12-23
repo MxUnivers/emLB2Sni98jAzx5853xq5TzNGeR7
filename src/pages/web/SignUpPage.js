@@ -142,23 +142,23 @@ const SignUpPage = () => {
     }
 
     return (
-        <main class="crp1m">
+        <main className="crp1m">
 
 
-            <div class="cjiiw cdg1p coz82">
+            <div className="cjiiw cdg1p coz82">
 
-                <div class="cyzui">
+                <div className="cyzui">
 
-                    <div class="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
+                    <div className="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
 
 
-                        <header class="c62g5 cmdkn crp1m">
-                            <div class="c7kkg czlxp cf6y5 crp1m c7htb">
+                        <header className="c62g5 cmdkn crp1m">
+                            <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
-                                <a class="cfkm3 chkpc" href="/" aria-label="Cruip">
+                                <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                        <path class="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                        <path class="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
+                                        <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
+                                        <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
                                     </svg>
                                 </a>
                             </div>
@@ -168,11 +168,11 @@ const SignUpPage = () => {
 
                             toast.success('Opération réussie !');
                         }}  >Test</button>
-                        <div class="cmdkn cggc7">
+                        <div className="cmdkn cggc7">
 
-                            <div class="cjplb">
-                                <h1 class="cukoz c4q7l ca00q c7csb">Inscription </h1>
-                                <div class="clvg0">Veilleur suivre les etape pour vous inscrire</div>
+                            <div className="cjplb">
+                                <h1 className="cukoz c4q7l ca00q c7csb">Inscription </h1>
+                                <div className="clvg0">Veilleur suivre les etape pour vous inscrire</div>
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
@@ -181,13 +181,13 @@ const SignUpPage = () => {
                                 {
                                     step === 0
                                     &&
-                                    <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Compétences</div>
-                                        <div class="chva6">
+                                    <div className="cz2ao">
+                                        <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">.</span> Compétences</div>
+                                        <div className="chva6">
 
                                             <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span class="cvmpf">*</span></label>
-                                                <select required={false} onChange={(e) => { setlevel_school(e.currentTarget.value) }} class="c033a c9csv coz82 cxa4q">
+                                                <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Diplôme<span className="cvmpf">*</span></label>
+                                                <select required={false} onChange={(e) => { setlevel_school(e.currentTarget.value) }} className="c033a c9csv coz82 cxa4q">
                                                     <option>-- Choisir --</option>
                                                     {level_School.map((item) => {
                                                         return (
@@ -197,11 +197,11 @@ const SignUpPage = () => {
                                                 </select>
                                             </div>
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="position">Poste Occupé <span class="ctgjb">*</span></label>
-                                                <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} class="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="position">Poste Occupé <span className="ctgjb">*</span></label>
+                                                <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} className="cvac0 coz82" type="text" required="" placeholder="Ingenenieur" />
                                             </div>
                                             <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Compétences <span class="cvmpf">*</span></label>
+                                                <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="commitment">Compétences <span className="cvmpf">*</span></label>
                                                 <Select
                                                     isMulti
                                                     options={competences}
@@ -211,7 +211,7 @@ const SignUpPage = () => {
                                                 />
                                             </div>
                                             <div>
-                                                <label class="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span class="cvmpf">*</span></label>
+                                                <label className="cax0a ckncn c9csv cfkm3 ckcgr" >Langues <span className="cvmpf">*</span></label>
                                                 <Select
                                                     isMulti
                                                     options={languages_school}
@@ -234,16 +234,16 @@ const SignUpPage = () => {
                                 {
                                     step === 1
                                     &&
-                                    <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Votre profile</div>
+                                    <div className="cz2ao">
+                                        <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">.</span> Votre profile</div>
 
                                         <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span class="cvmpf">*</span></label>
-                                            <textarea value={description} onChange={(e) => { setdescription(e.target.value) }} id="description" class="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
+                                            <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="description">Description sur vous ( Importante pour les recuteurs ) <span className="cvmpf">*</span></label>
+                                            <textarea value={description} onChange={(e) => { setdescription(e.target.value) }} id="description" className="cg34q c9csv coz82 cxa4q" rows="4" required=""></textarea>
                                         </div>
                                         <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span class="cvmpf">*</span></label>
-                                            <select onChange={(e) => { setyears_experience(e.target.value) }} id="role" class="c033a c9csv coz82 cxa4q" required="">
+                                            <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Années d{"'"}expérience dans votre dommaine  <span className="cvmpf">*</span></label>
+                                            <select onChange={(e) => { setyears_experience(e.target.value) }} id="role" className="c033a c9csv coz82 cxa4q" required="">
                                                 <option>-- Choisir --</option>
                                                 {years_experience_school.map((item) => {
                                                     return (
@@ -254,8 +254,8 @@ const SignUpPage = () => {
                                         </div>
 
                                         <div>
-                                            <label class="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevez vous ? ( F CFA )  <span class="cvmpf">*</span></label>
-                                            <select required={false} onChange={(e) => { setsalaire(e.target.value) }} class="c033a c9csv coz82 cxa4q">
+                                            <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Quelle Salaire percevez vous ? ( F CFA )  <span className="cvmpf">*</span></label>
+                                            <select required={false} onChange={(e) => { setsalaire(e.target.value) }} className="c033a c9csv coz82 cxa4q">
                                                 <option>-- Choisir --</option>
                                                 {salaires_School.map((item) => {
                                                     return (
@@ -271,13 +271,13 @@ const SignUpPage = () => {
                                 {
                                     step === 2
                                     &&
-                                    <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span>Localisation </div>
+                                    <div className="cz2ao">
+                                        <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">.</span>Localisation </div>
 
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" >Pays <span class="cvmpf">*</span></label>
-                                                <select onChange={(e => { setpays(e.target.value) })} class="c033a c9csv coz82 cxa4q" required="">
+                                                <label className="ckncn c9csv cfkm3 ckcgr" >Pays <span className="cvmpf">*</span></label>
+                                                <select onChange={(e => { setpays(e.target.value) })} className="c033a c9csv coz82 cxa4q" required="">
                                                     <option>-- Choisir --</option>
                                                     {optionPays.map((item) => {
                                                         return (
@@ -287,10 +287,10 @@ const SignUpPage = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span class="cvmpf">*</span></label>
-                                                <input value={addresse} onChange={(e) => { setaddresse(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Addresse précise <span className="cvmpf">*</span></label>
+                                                <input value={addresse} onChange={(e) => { setaddresse(e.target.value) }} className="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
                                     </div>
@@ -300,38 +300,38 @@ const SignUpPage = () => {
                                 {
                                     step === 3
                                     &&
-                                    <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span>Réseaux Sociaux </div>
+                                    <div className="cz2ao">
+                                        <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">.</span>Réseaux Sociaux </div>
 
 
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span class="cvmpf"></span></label>
-                                                <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.site-web.com" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Site web <span className="cvmpf"></span></label>
+                                                <input value={site_web} onChange={(e) => { setsite_web(e.target.value) }} className="cvac0 coz82" type="text" required={false} placeholder="https://www.site-web.com" />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span class="cvmpf"></span></label>
-                                                <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.facebook.com" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Facebook  <span className="cvmpf"></span></label>
+                                                <input value={facebook_url} onChange={(e) => { setfacebook_url(e.target.value) }} className="cvac0 coz82" type="text" required={false} placeholder="https://www.facebook.com" />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span class="cvmpf"></span></label>
-                                                <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.linkedin.com" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Linkedine  <span className="cvmpf"></span></label>
+                                                <input value={linkedin_url} onChange={(e) => { setlinkedin_url(e.target.value) }} className="cvac0 coz82" type="text" required={false} placeholder="https://www.linkedin.com" />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span class="cvmpf"></span></label>
-                                                <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.instagram.com" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Instagram  <span className="cvmpf"></span></label>
+                                                <input value={instagram_url} onChange={(e) => { setinstagram_url(e.target.value) }} className="cvac0 coz82" type="text" required={false} placeholder="https://www.instagram.com" />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span class="cvmpf"></span></label>
-                                                <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} class="cvac0 coz82" type="text" required={false} placeholder="https://www.twitter.com" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Twitter  <span className="cvmpf"></span></label>
+                                                <input value={twitter_url} onChange={(e) => { settwitter_url(e.target.value) }} className="cvac0 coz82" type="text" required={false} placeholder="https://www.twitter.com" />
                                             </div>
                                         </div>
 
@@ -343,50 +343,50 @@ const SignUpPage = () => {
                                 {
                                     step === 4
                                     &&
-                                    <div class="cz2ao">
-                                        <div class="cax0a cqnva ckpvk cbs6c"><span class="c0ndj">.</span> Votre compte</div>
+                                    <div className="cz2ao">
+                                        <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">.</span> Votre compte</div>
 
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" >Nom Utilisateur <span class="cvmpf">*</span></label>
-                                                <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" >Nom Utilisateur <span className="cvmpf">*</span></label>
+                                                <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} className="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" >Nom <span class="cvmpf">*</span></label>
-                                                <input value={username} onChange={(e) => { setusername(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" >Nom <span className="cvmpf">*</span></label>
+                                                <input value={username} onChange={(e) => { setusername(e.target.value) }} className="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Prénoms <span class="cvmpf">*</span></label>
-                                                <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Prénoms <span className="cvmpf">*</span></label>
+                                                <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} className="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span class="cvmpf">*</span></label>
-                                                <input value={email} onChange={(e) => { setemail(e.target.value) }} class="cvac0 coz82" type="email" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span className="cvmpf">*</span></label>
+                                                <input value={email} onChange={(e) => { setemail(e.target.value) }} className="cvac0 coz82" type="email" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span class="cvmpf">*</span></label>
-                                                <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} class="cvac0 coz82" type="number" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Telephone valide <span className="cvmpf">*</span></label>
+                                                <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} className="cvac0 coz82" type="number" required={false} />
                                             </div>
                                         </div>
-                                        <div class="chva6">
+                                        <div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span class="cvmpf">*</span></label>
-                                                <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} class="cvac0 coz82" type="date" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span className="cvmpf">*</span></label>
+                                                <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} className="cvac0 coz82" type="date" required={false} />
                                             </div>
                                         </div>
                                         {
-                                            /*<div class="chva6">
+                                            /*<div className="chva6">
                                             <div>
-                                                <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span class="cvmpf">*</span></label>
-                                                <input value={password} onChange={(e) => { setpassword(e.target.value) }} class="cvac0 coz82" type="text" required={false} />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span className="cvmpf">*</span></label>
+                                                <input value={password} onChange={(e) => { setpassword(e.target.value) }} className="cvac0 coz82" type="text" required={false} />
                                             </div>
                                         </div> */
                                         }
@@ -395,33 +395,33 @@ const SignUpPage = () => {
                                 }
 
 
-                                <div class="flex justify-center space-x-3">
+                                <div className="flex justify-center space-x-3">
                                     {step > 0 && (
 
-                                        <div class="cq38v">
-                                            <button type="button" onClick={prevStep} class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                Précedent <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                        <div className="cq38v">
+                                            <button type="button" onClick={prevStep} className="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Précedent <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                             </button>
                                         </div>
                                     )}
                                     {step < steps.length - 1 && (
 
-                                        <div class="cq38v">
-                                            <button type="button" onClick={nextStep} class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                Suivant <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                        <div className="cq38v">
+                                            <button type="button" onClick={nextStep} className="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Suivant <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                             </button>
                                         </div>
                                     )}
                                     {step === steps.length - 1 && (
 
                                         loading ?
-                                            <div class="cq38v flex items-center">
+                                            <div className="cq38v flex items-center">
                                                 <LoadinButton text={"Inscription en cours ..."} />
                                             </div>
                                             :
-                                            <div class="cq38v">
-                                                <button type="submit" class="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                    Terminer <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            <div className="cq38v">
+                                                <button type="submit" className="bg-blue-700 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                    Terminer <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                                 </button>
                                             </div>
                                     )}
@@ -431,21 +431,21 @@ const SignUpPage = () => {
 
                             </form>
                             {
-                                error && <p class="text-red-300 mt-2 mb-1">Inscription impossible {error.message}</p>
+                                error && <p className="text-red-300 mt-2 mb-1">Inscription impossible {error.message}</p>
                             }
 
 
-                            <div class="czlxp cp545 crp1m">
-                                <div class="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
-                                <div class="clvg0 c9csv cqaaz">Or</div>
-                                <div class="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
+                            <div className="czlxp cp545 crp1m">
+                                <div className="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
+                                <div className="clvg0 c9csv cqaaz">Or</div>
+                                <div className="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
                             </div>
 
 
                             <a href={`/${routing.connexion}`}>
-                                <div class="cq38v">
-                                    <button class="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
-                                        Se connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                <div className="cq38v">
+                                    <button className="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
+                                        Se connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                     </button>
                                 </div>
                             </a>
@@ -461,21 +461,21 @@ const SignUpPage = () => {
 
 
 
-            <div class="c78an cdg1p cd3zq cptbr cn73e ca2z8 cv3zt cb3sj" aria-hidden="true">
+            <div className="c78an cdg1p cd3zq cptbr cn73e ca2z8 cv3zt cb3sj" aria-hidden="true">
 
 
-                <div class="cp8r2 c0wb5 ch30j c5u32 clp4d cdf7d cxio3" aria-hidden="true"></div>
+                <div className="cp8r2 c0wb5 ch30j c5u32 clp4d cdf7d cxio3" aria-hidden="true"></div>
 
 
-                <div class="cp8r2 c6bzk c5u32 cn73e ca2z8 cxio3" aria-hidden="true">
-                    <img src="images/auth-illustration.svg" class="cj4he" width="1440" height="900" alt="Page Illustration" />
+                <div className="cp8r2 c6bzk c5u32 cn73e ca2z8 cxio3" aria-hidden="true">
+                    <img src="images/auth-illustration.svg" className="cj4he" width="1440" height="900" alt="Page Illustration" />
                 </div>
 
 
-                <div class="chakn c5u32 cj2th cdf7d crp1m">
-                    <div class="c1dhf c6tf9">
-                        <div class="cq8kw cscbh coz82">
-                            <div class="cj473 chkpc">
+                <div className="chakn c5u32 cj2th cdf7d crp1m">
+                    <div className="c1dhf c6tf9">
+                        <div className="cq8kw cscbh coz82">
+                            <div className="cj473 chkpc">
 
 
 
@@ -483,19 +483,19 @@ const SignUpPage = () => {
                                 {
                                     candidats.map((item) => {
                                         return (
-                                            <div key={item._id} class="c7tiu ccnwv c04ox c94my ckgol caxg1 cd9g6 ciwnj cmlda">
-                                                <div class="czlxp calvf crp1m">
-                                                    <div class="cpsdf cyzlo">
-                                                        <img class="c59v3" src={item.coverPicture} width="88" height="88" alt="Testimonial 02" />
-                                                        <svg class="curhz c5u32 cn73e cb3sj" width="26" height="17" xmlns="http://www.w3.org/2000/svg">
+                                            <div key={item._id} className="c7tiu ccnwv c04ox c94my ckgol caxg1 cd9g6 ciwnj cmlda">
+                                                <div className="czlxp calvf crp1m">
+                                                    <div className="cpsdf cyzlo">
+                                                        <img className="c59v3" src={item.coverPicture} width="88" height="88" alt="Testimonial 02" />
+                                                        <svg className="curhz c5u32 cn73e cb3sj" width="26" height="17" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M0 16.026h8.092l6.888-16h-4.592L0 16.026Zm11.02 0h8.092L26 .026h-4.65l-10.33 16Z"></path>
                                                         </svg>
                                                     </div>
                                                     <figure>
-                                                        <blockquote class="cqnva cy3kw cu9ao">
+                                                        <blockquote className="cqnva cy3kw cu9ao">
                                                             <p>{item.description}</p>
                                                         </blockquote>
-                                                        <figcaption class="ckncn c9csv">{item.name}  , {item.profession} <a class="c91mf c29l8" href="#"> emplois</a></figcaption>
+                                                        <figcaption className="ckncn c9csv">{item.name}  , {item.profession} <a className="c91mf c29l8" href="#"> emplois</a></figcaption>
                                                     </figure>
                                                 </div>
                                             </div>

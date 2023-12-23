@@ -110,79 +110,79 @@ const CandidatDetailPage = () => {
 
 
     return (
-        <div class="main-content">
-            <div class="page-content">
-                <section class="section mt-28 mb-36">
-                    <div class=" px-5 container-fluid">
-                        <div class="row lg:flex md:lg:flex   lg:justify-between">
-                            <div class="col-lg-4">
-                                <div class="card border bg-white shadow rounded-lg">
-                                    <div class="card-body p-4 py-5  px-5">
-                                        <div class="border-b flex flex-col justify-center items-center">
+        <div className="main-content">
+            <div className="page-content">
+                <section className="section mt-28 mb-36">
+                    <div className=" px-5 container-fluid">
+                        <div className="row lg:flex md:lg:flex   lg:justify-between">
+                            <div className="col-lg-4">
+                                <div className="card border bg-white shadow rounded-lg">
+                                    <div className="card-body p-4 py-5  px-5">
+                                        <div className="border-b flex flex-col justify-center items-center">
                                             {
                                                 candidat && candidat.coverPicture ?
                                                     <img src={candidat.coverPicture} alt=""
-                                                        class="avatar-lg rounded-full  h-32 w-32" /> :
-                                                    <div class="h-32 w-32 rounded-full bg-gray-200 animate-pulse" />
+                                                        className="avatar-lg rounded-full  h-32 w-32" /> :
+                                                    <div className="h-32 w-32 rounded-full bg-gray-200 animate-pulse" />
                                             }
                                             {
                                                 candidat && candidat.firstname && candidat.lastname ?
-                                                    <h6 class="fs-18 mb-0 mt-4 text-center textxl font-semibold text-gray-600">{
+                                                    <h6 className="fs-18 mb-0 mt-4 text-center textxl font-semibold text-gray-600">{
                                                         `${candidat.firstname} ${candidat.lastname}`
                                                     }</h6> :
-                                                    <div class="my-2 bg-gray-200 animate-pulse w-full px-3 h-5 rounded-lg " />
+                                                    <div className="my-2 bg-gray-200 animate-pulse w-full px-3 h-5 rounded-lg " />
                                             }
                                             {
                                                 candidat && candidat.title_post ?
-                                                    <p class="text-muted mb-4 text-center">{candidat.title_post}</p> :
-                                                    <div class="bg-gray-200 animate my-1 h-6 w-full px-3 rounded-lg" />
+                                                    <p className="text-muted mb-4 text-center">{candidat.title_post}</p> :
+                                                    <div className="bg-gray-200 animate my-1 h-6 w-full px-3 rounded-lg" />
                                             }
 
 
-                                            <ul class=" inline-flex mb-5 space-x-4">
+                                            <ul className=" inline-flex mb-5 space-x-4">
 
                                                 {candidat && candidat.facebook_url ?
-                                                    <li class="inline-flex">
-                                                        <a href={candidat.facebook_url} target="_blank" class="social-link">
-                                                            <CiFacebook class="h-7 w-7" />
+                                                    <li className="inline-flex">
+                                                        <a href={candidat.facebook_url} target="_blank" className="social-link">
+                                                            <CiFacebook className="h-7 w-7" />
                                                         </a>
                                                     </li> :
-                                                    <li class="inline-flex">
-                                                        <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                    <li className="inline-flex">
+                                                        <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
                                                     </li>
                                                 }
                                                 {
                                                     candidat && candidat.twitter_url ?
-                                                        <li class="inline-flex">
-                                                            <a href={candidat.twitter_url} target="_blank" class="social-link">
-                                                                <BsTwitter class="h-7 w-7" />
+                                                        <li className="inline-flex">
+                                                            <a href={candidat.twitter_url} target="_blank" className="social-link">
+                                                                <BsTwitter className="h-7 w-7" />
                                                             </a>
                                                         </li> :
-                                                        <li class="inline-flex">
-                                                            <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                        <li className="inline-flex">
+                                                            <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
                                                         </li>
                                                 }
                                                 {
                                                     candidat && candidat.linkedin_url ?
-                                                        <li class="inline-flex">
-                                                            <a href={candidat.linkedin_url} target="_blank" class="social-link">
-                                                                <BsLinkedin class="h-7 w-7" />
+                                                        <li className="inline-flex">
+                                                            <a href={candidat.linkedin_url} target="_blank" className="social-link">
+                                                                <BsLinkedin className="h-7 w-7" />
                                                             </a>
                                                         </li> :
-                                                        <li class="inline-flex">
-                                                            <div class="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
+                                                        <li className="inline-flex">
+                                                            <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
                                                         </li>
                                                 }
                                             </ul>
 
-                                            <div class="mt-5 mb-5 flex justify-center">
+                                            <div className="mt-5 mb-5 flex justify-center">
                                                 {
                                                     candidat && candidat._id == getAndCheckLocalStorage(localvalue.candidatID) ?
                                                         <button
                                                             onClick={() => {
                                                                 handleCandidatEditRouting();
                                                             }}
-                                                            class="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
+                                                            className="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
                                                             <BiEdit />
                                                             <span>Mettre à jour</span>
                                                         </button> :
@@ -190,13 +190,13 @@ const CandidatDetailPage = () => {
                                                 }
                                             </div>
                                             {
-                                                /*<div class="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidat_applied}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
+                                                /*<div className="mt-1 mb-1 flex justify-center">
+                                                <Link to={`/${routing.candidat_applied}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.length : null}</span>
                                                 </Link>
                                             </div>
-                                            <div class="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidature_list}`} class=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
+                                            <div className="mt-1 mb-1 flex justify-center">
+                                                <Link to={`/${routing.candidature_list}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
                                                     <span>Candidature ({candidatures.length})</span>
                                                 </Link>
                                             </div> */
@@ -207,48 +207,48 @@ const CandidatDetailPage = () => {
                                     </div>
 
 
-                                    <div class="candidate-profile-overview  card-body border-top p-4">
-                                        <h6 class="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
+                                    <div className="candidate-profile-overview  card-body border-top p-4">
+                                        <h6 className="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
                                         {
-                                            /*<ul class=" mb-5">
+                                            /*<ul className=" mb-5">
                                             <li>
-                                                <div class="flex flex-col">
-                                                    <label class="text-dark text-gray-700 font-bold ">Categorie</label>
+                                                <div className="flex flex-col">
+                                                    <label className="text-dark text-gray-700 font-bold ">Categorie</label>
                                                     <div>
-                                                        <p class="text-muted mb-0">Account ou banque</p>
+                                                        <p className="text-muted mb-0">Account ou banque</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="flex flex-col">
-                                                    <label class="text-dark text-gray-700 font-bold ">Expérience</label>
+                                                <div className="flex flex-col">
+                                                    <label className="text-dark text-gray-700 font-bold ">Expérience</label>
                                                     <div>
-                                                        <p class="text-muted mb-0">0-3</p>
+                                                        <p className="text-muted mb-0">0-3</p>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="d-flex">
-                                                    <label class="text-dark  text-gray-700 font-bold">Vues</label>
+                                                <div className="d-flex">
+                                                    <label className="text-dark  text-gray-700 font-bold">Vues</label>
                                                     <div>
-                                                        <p class="text-muted mb-0">2574</p>
+                                                        <p className="text-muted mb-0">2574</p>
                                                     </div>
                                                 </div>
                                             </li>
                                         </ul> */
                                         }
-                                        <div class="mt-3">
+                                        <div className="mt-3">
                                             {
                                                 candidat && candidat.telephone ?
 
-                                                    <a href={`tel:${candidat.telephone}`} class="btn btn-danger btn-hover w-100"><i
-                                                        class="uil uil-phone"></i> Me contacter</a>
+                                                    <a href={`tel:${candidat.telephone}`} className="btn btn-danger btn-hover w-100"><i
+                                                        className="uil uil-phone"></i> Me contacter</a>
                                                     : null
                                             }
                                             {
                                                 candidat && candidat.cv ?
-                                                    <a href="javascript:void(0)" class="btn btn-primary btn-hover w-100 mt-2"><i
-                                                        class="uil uil-import"></i> Telecharger cv</a>
+                                                    <a href="javascript:void(0)" className="btn btn-primary btn-hover w-100 mt-2"><i
+                                                        className="uil uil-import"></i> Telecharger cv</a>
                                                     : null
                                             }
                                         </div>
@@ -257,14 +257,14 @@ const CandidatDetailPage = () => {
 
                                     {
                                         candidat && candidat.competences ?
-                                            <div class="card-body p-4 border-top">
-                                                <h6 class=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
-                                                <div class="flex flex-wrap justify-center gap-2">
+                                            <div className="card-body p-4 border-top">
+                                                <h6 className=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
+                                                <div className="flex flex-wrap justify-center gap-2">
                                                     {
                                                         candidat.competences.map((item) => {
                                                             return (
-                                                                <div class="space-y-3 flex flex-wrap space-x-3">
-                                                                    <span class="badge bg-blue-400 text-white py-1 text-xs px-3 rounded-lg mt-1">
+                                                                <div className="space-y-3 flex flex-wrap space-x-3">
+                                                                    <span className="badge bg-blue-400 text-white py-1 text-xs px-3 rounded-lg mt-1">
                                                                         {item.label}
                                                                     </span>
                                                                 </div>
@@ -273,54 +273,54 @@ const CandidatDetailPage = () => {
                                                     }
                                                 </div>
                                             </div> :
-                                            <div class="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
+                                            <div className="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
                                     }
-                                    <div class="candidate-contact-details card-body p-4 border-top">
-                                        <h6 class="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
-                                        <ul class="list-unstyled mb-0">
+                                    <div className="candidate-contact-details card-body p-4 border-top">
+                                        <h6 className="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
+                                        <ul className="list-unstyled mb-0">
                                             {
                                                 candidat && candidat.email ?
                                                     <li>
-                                                        <a href={`mailto:${candidat.email}`} class="d-flex align-items-center mt-4">
+                                                        <a href={`mailto:${candidat.email}`} className="d-flex align-items-center mt-4">
 
-                                                            <div class="ms-3">
-                                                                <h6 class="fs-14 mb-1"><MdEmail /></h6>
-                                                                <p class="text-muted mb-0">{candidat.email}</p>
+                                                            <div className="ms-3">
+                                                                <h6 className="fs-14 mb-1"><MdEmail /></h6>
+                                                                <p className="text-muted mb-0">{candidat.email}</p>
                                                             </div>
                                                         </a>
                                                     </li> :
                                                     <li>
-                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
                                                     </li>
                                             }
                                             {
                                                 candidat && candidat.pays && candidat.adresse ?
                                                     <li>
-                                                        <div class="d-flex align-items-center mt-4">
+                                                        <div className="d-flex align-items-center mt-4">
 
-                                                            <div class="ms-3">
-                                                                <h6 class="fs-14 mb-1"><MdLocationCity /></h6>
-                                                                <p class="text-muted mb-0">{candidat.pays}, {candidat.adresse}</p>
+                                                            <div className="ms-3">
+                                                                <h6 className="fs-14 mb-1"><MdLocationCity /></h6>
+                                                                <p className="text-muted mb-0">{candidat.pays}, {candidat.adresse}</p>
                                                             </div>
                                                         </div>
                                                     </li> :
                                                     <li>
-                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
                                                     </li>
                                             }
                                             {
                                                 candidat && candidat.telephone ?
                                                     <li>
-                                                        <a href={`tel:${candidat.telephone}`} class="d-flex align-items-center mt-4">
+                                                        <a href={`tel:${candidat.telephone}`} className="d-flex align-items-center mt-4">
 
-                                                            <div class="ms-3">
-                                                                <h6 class="fs-14 mb-1"><MdPhone /></h6>
-                                                                <p class="text-muted mb-0">{candidat.telephone}</p>
+                                                            <div className="ms-3">
+                                                                <h6 className="fs-14 mb-1"><MdPhone /></h6>
+                                                                <p className="text-muted mb-0">{candidat.telephone}</p>
                                                             </div>
                                                         </a>
                                                     </li> :
                                                     <li>
-                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
+                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
                                                     </li>
                                             }
 
@@ -328,17 +328,17 @@ const CandidatDetailPage = () => {
                                             {
                                                 candidat && candidat.site_web !== "#" ?
                                                     <li>
-                                                        <div class="d-flex align-items-center mt-4">
-                                                            <a href={`${candidat.site_web}`} target='_blank' class="ms-3">
-                                                                <h6 class="fs-14 mb-1"><MdWeb /> site web :</h6>
+                                                        <div className="d-flex align-items-center mt-4">
+                                                            <a href={`${candidat.site_web}`} target='_blank' className="ms-3">
+                                                                <h6 className="fs-14 mb-1"><MdWeb /> site web :</h6>
                                                                 <a href={`${candidat.site_web}`} target="_blank" >
-                                                                    <p class="text-muted mb-0">{candidat.site_web}</p>
+                                                                    <p className="text-muted mb-0">{candidat.site_web}</p>
                                                                 </a>
                                                             </a>
                                                         </div>
                                                     </li> :
                                                     <li>
-                                                        <div class="w-full rounded-xl bg-gray-200 animate-pulsemy-1 h-4 " />
+                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulsemy-1 h-4 " />
                                                     </li>
                                             }
 
@@ -350,23 +350,23 @@ const CandidatDetailPage = () => {
                                 </div>
                             </div>
 
-                            <div class="w-full col-lg-8">
-                                <div class="card w-full candidate-details ms-lg-4 mt-4 mt-lg-0">
-                                    <div class="w-full card-body p-4 candidate-personal-detail mx-1">
+                            <div className="w-full col-lg-8">
+                                <div className="card w-full candidate-details ms-lg-4 mt-4 mt-lg-0">
+                                    <div className="w-full card-body p-4 candidate-personal-detail mx-1">
                                         {
                                             candidat && candidat.description ?
-                                                <div class=" w-fullrounded-xl shadow-sm px-2 py-2 border ">
-                                                    <h6 class="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
-                                                    <p class="text-muted mb-2">{candidat.description}</p>
+                                                <div className=" w-fullrounded-xl shadow-sm px-2 py-2 border ">
+                                                    <h6 className="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
+                                                    <p className="text-muted mb-2">{candidat.description}</p>
                                                 </div> :
-                                                <div class="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
+                                                <div className="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
                                         }
-                                        <div class="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                        <div className="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             {
                                                 candidatEducation ?
-                                                    <div class="flex flex-row justify-between items-center">
-                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                        <button onClick={() => { handleShow(0) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                    <div className="flex flex-row justify-between items-center">
+                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
+                                                        <button onClick={() => { handleShow(0) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                             + Education
                                                         </button>
                                                     </div>
@@ -382,16 +382,16 @@ const CandidatDetailPage = () => {
                                                         ?
                                                         candidatEducation.map((item) => {
                                                             return (
-                                                                <div class="candidate-education-content mt-4 flex space-x-3">
-                                                                    <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
+                                                                <div className="candidate-education-content mt-4 flex space-x-3">
+                                                                    <div className="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
                                                                         {String(item.title).charAt(1)}
                                                                     </div>
-                                                                    <div class="ms-4">
-                                                                        <h6 class="fs-16 mb-1">{item.title}</h6>
-                                                                        <p class="mb-2 text-muted">
+                                                                    <div className="ms-4">
+                                                                        <h6 className="fs-16 mb-1">{item.title}</h6>
+                                                                        <p className="mb-2 text-muted">
                                                                             {item.entreprise}
                                                                         </p>
-                                                                        <p class="text-muted">{item.description}</p>
+                                                                        <p className="text-muted">{item.description}</p>
                                                                     </div>
                                                                 </div>
                                                             )
@@ -401,13 +401,13 @@ const CandidatDetailPage = () => {
                                             }
 
                                         </div>
-                                        <div class="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
+                                        <div className="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
                                             {
                                                 candidatExperience ?
-                                                    <div class="flex flex-row justify-between items-center  ">
-                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                        <button onClick={() => { handleShow(1) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                    <div className="flex flex-row justify-between items-center  ">
+                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
+                                                        <button onClick={() => { handleShow(1) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                             + experience
                                                         </button>
                                                     </div> : null
@@ -420,15 +420,15 @@ const CandidatDetailPage = () => {
                                                         candidatExperience && candidatExperience.length > 0 ?
                                                             candidatExperience.map((item) => {
                                                                 return (
-                                                                    <div class="candidate-education-content mt-4 flex space-x-3">
-                                                                        <div class="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
+                                                                    <div className="candidate-education-content mt-4 flex space-x-3">
+                                                                        <div className="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
                                                                             {String(item.title).charAt(0)}
                                                                         </div>
-                                                                        <div class="ms-4">
-                                                                            <h6 class="fs-16 mb-1">{item.title}</h6>
-                                                                            <p class="mb-2 text-muted">{item.entreperise}
+                                                                        <div className="ms-4">
+                                                                            <h6 className="fs-16 mb-1">{item.title}</h6>
+                                                                            <p className="mb-2 text-muted">{item.entreperise}
                                                                             </p>
-                                                                            <p class="text-muted">{item.description}</p>
+                                                                            <p className="text-muted">{item.description}</p>
                                                                         </div>
                                                                     </div>
                                                                 )
@@ -437,13 +437,13 @@ const CandidatDetailPage = () => {
                                             }
 
                                         </div>
-                                        <div class="w-full candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
+                                        <div className="w-full candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
                                             {
                                                 candidatProject ?
-                                                    <div class="flex flex-row justify-between items-center">
-                                                        <h6 class="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
+                                                    <div className="flex flex-row justify-between items-center">
+                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
                                                         {
-                                                            /*<button onClick={() => { handleShow(2) }} class="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
+                                                            /*<button onClick={() => { handleShow(2) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
                                                             + projet
                                                         </button> */
                                                         }
@@ -460,17 +460,17 @@ const CandidatDetailPage = () => {
                                                         candidatProject && candidatProject.length > 0 ?
                                                             candidatProject.map((item) => {
                                                                 return (
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8 mt-4">
-                                                                            <div class="candidate-portfolio-box card border-0 flex flex-row space-x-3">
+                                                                    <div className="row">
+                                                                        <div className="col-lg-8 mt-4">
+                                                                            <div className="candidate-portfolio-box card border-0 flex flex-row space-x-3">
                                                                                 <img src={item.coverPicture} alt=""
-                                                                                    class="img-fluid h-20 w-20 rounded-lg" />
-                                                                                <div class="bg-overlay"></div>
-                                                                                <div class="zoom-icon">
-                                                                                    <div class="text-lg font-semibold">
+                                                                                    className="img-fluid h-20 w-20 rounded-lg" />
+                                                                                <div className="bg-overlay"></div>
+                                                                                <div className="zoom-icon">
+                                                                                    <div className="text-lg font-semibold">
                                                                                         {item.project}
                                                                                     </div>
-                                                                                    <div class="text-xs">
+                                                                                    <div className="text-xs">
                                                                                         {item.description}
                                                                                     </div>
                                                                                 </div>
@@ -484,41 +484,41 @@ const CandidatDetailPage = () => {
                                             }
                                         </div>
                                         {
-                                            /*<form action="#" class="mt-4 pt-3 ">
-                                            <h6 class="fs-17 fw-semibold mb-2 text-2xl font-bold">Donner votre avis</h6>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        <label for="inputname" class="form-label">Your Name</label>
-                                                        <input type="text" class="form-control px-3 py-1 w-full rounded-lg bg-white" id="inputname"
+                                            /*<form action="#" className="mt-4 pt-3 ">
+                                            <h6 className="fs-17 fw-semibold mb-2 text-2xl font-bold">Donner votre avis</h6>
+                                            <div className="row">
+                                                <div className="col-lg-12">
+                                                    <div className="mb-3">
+                                                        <label for="inputname" className="form-label">Your Name</label>
+                                                        <input type="text" className="form-control px-3 py-1 w-full rounded-lg bg-white" id="inputname"
                                                             placeholder="Enter your name" />
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="inputemail" class="form-label">Email</label>
-                                                        <input type="email" class="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputemail"
+                                                <div className="col-lg-6">
+                                                    <div className="mb-3">
+                                                        <label for="inputemail" className="form-label">Email</label>
+                                                        <input type="email" className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputemail"
                                                             placeholder="Enter your email" />
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="inputsubject" class="form-label">Subject</label>
-                                                        <input type="text" class="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputsubject"
+                                                <div className="col-lg-6">
+                                                    <div className="mb-3">
+                                                        <label for="inputsubject" className="form-label">Subject</label>
+                                                        <input type="text" className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputsubject"
                                                             placeholder="Subject" />
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        <label for="inputcoment" class="form-label">Review</label>
-                                                        <textarea class="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputcoment" rows="3"
+                                                <div className="col-lg-12">
+                                                    <div className="mb-3">
+                                                        <label for="inputcoment" className="form-label">Review</label>
+                                                        <textarea className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputcoment" rows="3"
                                                             placeholder="Add your review"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="text-end">
-                                                <button type="submit" class="btn btn-primary bg-blue-300 btn-hover">Envoyer <i
-                                                    class="uil uil-angle-right-b"></i></button>
+                                            <div className="text-end">
+                                                <button type="submit" className="btn btn-primary bg-blue-300 btn-hover">Envoyer <i
+                                                    className="uil uil-angle-right-b"></i></button>
                                             </div>
                                         </form> 
                                         
@@ -526,24 +526,24 @@ const CandidatDetailPage = () => {
                                         
 
 
-                                        <div class="mt-4 pt-3">
-                                            <div class="flex space-x-3 align-text-top">
-                                                <div class="flex-shrink-0">
-                                                    <img class="rounded-circle avatar img-thumbnail rounded-lg h-10 w-10"
+                                        <div className="mt-4 pt-3">
+                                            <div className="flex space-x-3 align-text-top">
+                                                <div className="flex-shrink-0">
+                                                    <img className="rounded-circle avatar img-thumbnail rounded-lg h-10 w-10"
                                                         src="assets/images/user/img-04.jpg" alt="img" />
                                                 </div>
-                                                <div class="flex-grow-1 ms-sm-3">
+                                                <div className="flex-grow-1 ms-sm-3">
                                                     <div>
-                                                        <p class="text-muted float-end fs-14 mb-2">Jun 23, 2021</p>
-                                                        <h6 class="mt-sm-0 mt-3 mb-1">Michelle Durant</h6>
-                                                        <div class="text-warning review-rating mb-2">
-                                                            <i class="mdi mdi-star"></i>
-                                                            <i class="mdi mdi-star"></i>
-                                                            <i class="mdi mdi-star"></i>
-                                                            <i class="mdi mdi-star"></i>
-                                                            <i class="mdi mdi-star-half-full"></i>
+                                                        <p className="text-muted float-end fs-14 mb-2">Jun 23, 2021</p>
+                                                        <h6 className="mt-sm-0 mt-3 mb-1">Michelle Durant</h6>
+                                                        <div className="text-warning review-rating mb-2">
+                                                            <i className="mdi mdi-star"></i>
+                                                            <i className="mdi mdi-star"></i>
+                                                            <i className="mdi mdi-star"></i>
+                                                            <i className="mdi mdi-star"></i>
+                                                            <i className="mdi mdi-star-half-full"></i>
                                                         </div>
-                                                        <p class="text-muted fst-italic">" There are many variations of
+                                                        <p className="text-muted fst-italic">" There are many variations of
                                                             passages of Lorem Ipsum available, but the majority have
                                                             suffered alteration in some form, by injected humour "</p>
                                                     </div>
@@ -587,37 +587,37 @@ const CandidatDetailPage = () => {
                 {
                     modalApply &&
                     (
-                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
                             {
                                 step == 0 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
+                                <div className="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 className="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
                                     <form onSubmit={handleSumbitEducation} >
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block mb-1">Titre</label>
+                                        <div className="mb-4">
+                                            <label for="fullName" className="block mb-1">Titre</label>
                                             <input value={title_education} onChange={(e) => { settitle_education(e.target.value) }}
-                                                type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                                type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="message" class="block mb-1">Ecole</label>
+                                        <div className="mb-4">
+                                            <label for="message" className="block mb-1">Ecole</label>
                                             <input value={entreprise_education} onChange={(e) => { setentreprise_education(e.target.value) }}
-                                                class="w-full border border-gray-300 rounded px-3 py-2" />
+                                                className="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
+                                        <div className="mb-4">
+                                            <label for="resume" className="block font-bold mb-1">Description</label>
                                             <textarea value={description_education} onChange={(e) => { setdescription_education(e.target.value) }}
-                                                class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                                className="w-full border  border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="flex justify-end">
+                                        <div className="flex justify-end">
                                             {
                                                 isLoading ?
-                                                    <p class="animate-pulse">en cours ...</p>
+                                                    <p className="animate-pulse">en cours ...</p>
                                                     :
-                                                    <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                                    <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
                                                         Ajouter
                                                     </button>
                                             }
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
                                                 Annuler
                                             </button>
                                         </div>
@@ -630,26 +630,26 @@ const CandidatDetailPage = () => {
 
                             {
                                 step == 1 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-bold mb-4">Ajouter Expérience</h2>
+                                <div className="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 className="text-lg font-bold mb-4">Ajouter Expérience</h2>
                                     <form onClick={handleSumbitExeprience}>
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block font-bold mb-1">Metier poste Occupé dans </label>
-                                            <inputn value={title_experience} onChange={(e) => { settitle_experience(e.target.value) }} type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                        <div className="mb-4">
+                                            <label for="fullName" className="block font-bold mb-1">Metier poste Occupé dans </label>
+                                            <inputn value={title_experience} onChange={(e) => { settitle_experience(e.target.value) }} type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="message" class="block font-bold mb-1">entreprise</label>
-                                            <inputn value={entreprise_experience} onChange={(e) => { setentreprise_experience(e.target.value) }} class="w-full border border-gray-300 rounded px-3 py-2" />
+                                        <div className="mb-4">
+                                            <label for="message" className="block font-bold mb-1">entreprise</label>
+                                            <inputn value={entreprise_experience} onChange={(e) => { setentreprise_experience(e.target.value) }} className="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarean value={description_experience} onChange={(e) => { setdescription_education(e.target.value) }} class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                        <div className="mb-4">
+                                            <label for="resume" className="block font-bold mb-1">Description</label>
+                                            <textarean value={description_experience} onChange={(e) => { setdescription_education(e.target.value) }} className="w-full border  border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="flex justify-end">
-                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                        <div className="flex justify-end">
+                                            <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
                                                 Ajouter
                                             </button>
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
                                                 Annuler
                                             </button>
                                         </div>
@@ -659,22 +659,22 @@ const CandidatDetailPage = () => {
 
                             {
                                 step == 2 &&
-                                <div class="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 class="text-lg font-bold mb-4">Ajouter nouveau projet</h2>
+                                <div className="bg-white rounded-lg shadow-lg p-6">
+                                    <h2 className="text-lg font-bold mb-4">Ajouter nouveau projet</h2>
                                     <form onSubmit={handleSumbitProject}>
-                                        <div class="mb-4">
-                                            <label for="fullName" class="block font-bold mb-1">Nom du projet</label>
-                                            <input value={title_project} onChange={(e) => { settitle_project(e.target.value) }} type="text" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                        <div className="mb-4">
+                                            <label for="fullName" className="block font-bold mb-1">Nom du projet</label>
+                                            <input value={title_project} onChange={(e) => { settitle_project(e.target.value) }} type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="resume" class="block font-bold mb-1">Description</label>
-                                            <textarea value={description_project} onChange={(e) => { setdescription_project(e.target.value) }} class="w-full border  border-gray-300 rounded px-3 py-2" />
+                                        <div className="mb-4">
+                                            <label for="resume" className="block font-bold mb-1">Description</label>
+                                            <textarea value={description_project} onChange={(e) => { setdescription_project(e.target.value) }} className="w-full border  border-gray-300 rounded px-3 py-2" />
                                         </div>
-                                        <div class="flex justify-end">
-                                            <button type="submit" class="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                        <div className="flex justify-end">
+                                            <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
                                                 Ajouter
                                             </button>
-                                            <button type="button" onClick={handleClose} class="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
+                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
                                                 Annuler
                                             </button>
                                         </div>

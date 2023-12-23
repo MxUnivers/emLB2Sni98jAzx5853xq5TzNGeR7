@@ -43,37 +43,37 @@ const JobAppliedWebPage = () => {
 
 
     return (
-        <div class="main-content">
+        <div className="main-content">
 
-            <div class="page-content">
+            <div className="page-content">
 
 
-                <section class="bg-gray-50 mt-28">
+                <section className="bg-gray-50 mt-28">
                     <div
-                        class="mx-auto px-4 py-5 lg:flex  lg:items-center"
+                        className="mx-auto px-4 py-5 lg:flex  lg:items-center"
                     >
-                        <div class="mx-auto max-w-xl text-center">
-                            <h1 class="text-3xl font-extrabold sm:text-5xl">
+                        <div className="mx-auto max-w-xl text-center">
+                            <h1 className="text-3xl font-extrabold sm:text-5xl">
                                 Offres postuler
-                                <strong class="font-extrabold text-blue-700 sm:block">
+                                <strong className="font-extrabold text-blue-700 sm:block">
                                     Increase Conversion.
                                 </strong>
                             </h1>
 
-                            <p class="mt-4 sm:text-xl/relaxed">
+                            <p className="mt-4 sm:text-xl/relaxed">
                                 La liste de vos offre aux quelle vous avez postuler
                             </p>
 
-                            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                            <div className="mt-8 flex flex-wrap justify-center gap-4">
                                 <Link
-                                    class="block w-full rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+                                    className="block w-full rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
                                     to={`/${routing.job_list}`}
                                 >
                                     Postuler à plus d{"'"}offres
                                 </Link>
 
                                 <a
-                                    class="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
+                                    className="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
                                     href="/about"
                                 >
                                     Learn More
@@ -88,7 +88,7 @@ const JobAppliedWebPage = () => {
                 }
 
                 
-                        <main class="flex  w-screen items-center mt-10 justify-center bg-white">
+                        <main className="flex  w-screen items-center mt-10 justify-center bg-white">
                             <div className=" flex gap-10 justify-center flex-wrap items-center py-3">
                                 {
                                     isLoading ?
@@ -115,35 +115,35 @@ const JobAppliedWebPage = () => {
                 {
                     modalApply &&
                     (
-                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
-                            <div class="bg-white rounded-lg shadow-lg p-6">
-                                <h2 class="text-lg font-bold mb-4">Postuler à l'offre d'emploi</h2>
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h2 className="text-lg font-bold mb-4">Postuler à l'offre d'emploi</h2>
                                 <form>
-                                    <div class="mb-4">
-                                        <label for="fullName" class="block font-bold mb-1">Nom complet :</label>
-                                        <input type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="fullName" className="block font-bold mb-1">Nom complet :</label>
+                                        <input type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="email" class="block font-bold mb-1">Email :</label>
-                                        <input type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="email" className="block font-bold mb-1">Email :</label>
+                                        <input type="email" id="email" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="phone" class="block font-bold mb-1">Téléphone :</label>
-                                        <input type="tel" id="phone" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="phone" className="block font-bold mb-1">Téléphone :</label>
+                                        <input type="tel" id="phone" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="message" class="block font-bold mb-1">Message :</label>
-                                        <textarea id="message" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                                    <div className="mb-4">
+                                        <label for="message" className="block font-bold mb-1">Message :</label>
+                                        <textarea id="message" className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="resume" class="block font-bold mb-1">CV :</label>
-                                        <input type="file" id="resume" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="resume" className="block font-bold mb-1">CV :</label>
+                                        <input type="file" id="resume" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="flex justify-end">
-                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <div className="flex justify-end">
+                                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                             Envoyer
                                         </button>
-                                        <button onClick={handleClose} class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
+                                        <button onClick={handleClose} className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
                                             Annuler
                                         </button>
                                     </div>

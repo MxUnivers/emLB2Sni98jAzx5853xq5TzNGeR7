@@ -23,31 +23,31 @@ const PrincingPage = () => {
     // alert(getAndCheckLocalStorage(localvalue.TYPEACCESS));
 
     return (
-        <div class="main-content">
-            <div class="page-content mt-28">
-                <div class="container mx-auto antialiased text-gray-900 bg-white">
+        <div className="main-content">
+            <div className="page-content mt-28">
+                <div className="container mx-auto antialiased text-gray-900 bg-white">
                     {/*<!-- Navbar -->*/}
 
 
-                    <main class="mx-4 my-16">
-                        <div class="text-center">
-                            <h1 class="mb-4 text-2xl font-normal md:text-3xl lg:text-4xl">
-                                Nos <span class="font-semibold">Plans </span>pour vos  <span class="font-semibold">stratégies</span>
+                    <main className="mx-4 my-16">
+                        <div className="text-center">
+                            <h1 className="mb-4 text-2xl font-normal md:text-3xl lg:text-4xl">
+                                Nos <span className="font-semibold">Plans </span>pour vos  <span className="font-semibold">stratégies</span>
                             </h1>
-                            <p class="text-sm font-normal text-gray-400">
+                            <p className="text-sm font-normal text-gray-400">
 
                                 Vous trouverez ci-dessous nos trois principaux plans qui corresponde à vos attentes .
                             </p>
-                            <p class="text-sm font-normal text-gray-400">
+                            <p className="text-sm font-normal text-gray-400">
                                 It start from here! You can teach yourself what you really like.
                             </p>
                         </div>
 
-                        <div class="flex justify-center mt-5 space-x-4">
+                        <div className="flex justify-center mt-5 space-x-4">
 
                             {
                                 getAndCheckLocalStorage(localvalue.TYPEACCESS == typePersonConnected[1]) ?
-                                <button class={`${pack == false ?
+                                <button className={`${pack == false ?
                                     "flex space-x-2 btn btn-sm  btn-success bg-blue-700 text-white text-md" :
                                     "flex space-x-2 btn btn-sm  btn-success bg-white text-blue-700 text-md"}`}
                                     onClick={() => { handleClosePack() }}>
@@ -58,7 +58,7 @@ const PrincingPage = () => {
 
                             {
                                 getAndCheckLocalStorage(localvalue.TYPEACCESS)== typePersonConnected[0] ?
-                                <button class={`${pack == true ?
+                                <button className={`${pack == true ?
                                     "flex space-x-2 btn btn-sm  btn-success bg-blue-700 text-white text-md" :
                                     "flex space-x-2 btn btn-sm  btn-success bg-white text-blue-700 text-md"
     

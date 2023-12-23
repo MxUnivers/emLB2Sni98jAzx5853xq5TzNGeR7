@@ -54,11 +54,11 @@ const CandidatPage = () => {
 
 
     return (
-        <div class="main-content">
+        <div className="main-content">
 
 
 
-            <div class="main-content">
+            <div className="main-content">
 
 
                 <div className='bg-white mt-24 grid gap-10 bg-greyIsh rounded-[10px] p-[3rem] m-5 max-h-screen'>
@@ -92,15 +92,15 @@ const CandidatPage = () => {
 
 
 
-                <section class="section">
-                    <div class="container-fluid px-5">
+                <section className="section">
+                    <div className="container-fluid px-5">
                         {
                             isLoading ?
                                 (<LoadingCompo1 text={"Candidats trouver les candidats qui vous conviennent le mieux ..."} />)
                                 :
 
                                 candidatAll && candidatAll.length > 0 ?
-                                    <div class="w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10 ">
+                                    <div className="w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10 ">
 
                                         {
                                             candidatAll.map((item) => {
@@ -112,8 +112,8 @@ const CandidatPage = () => {
                                     </div>
 
                                     :
-                                    <div class="">
-                                        <div class="h-screen p-5 border p-5 flex justify-center">
+                                    <div className="">
+                                        <div className="h-screen p-5 border p-5 flex justify-center">
                                             <p>Aucun candidats dans la recommandation</p>
                                         </div>
 

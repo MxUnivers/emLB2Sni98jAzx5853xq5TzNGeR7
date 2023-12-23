@@ -101,60 +101,60 @@ const SignInRecuteurPage = () => {
 
 
     return (
-        <main class="crp1m">
+        <main className="crp1m">
 
 
-            <div class="cjiiw cdg1p coz82">
+            <div className="cjiiw cdg1p coz82">
 
-                <div class="cyzui">
+                <div className="cyzui">
 
-                    <div class="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
+                    <div className="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
 
 
-                        <header class="c62g5 cmdkn crp1m">
-                            <div class="c7kkg czlxp cf6y5 crp1m c7htb">
+                        <header className="c62g5 cmdkn crp1m">
+                            <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
-                                <a class="cfkm3 chkpc" href="/" aria-label="Cruip">
+                                <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                        <path class="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                        <path class="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
+                                        <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
+                                        <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
                                     </svg>
                                 </a>
                             </div>
                         </header>
 
-                        <div class="cmdkn cggc7">
+                        <div className="cmdkn cggc7">
 
-                            <div class="cjplb">
-                                <h1 class="cukoz c4q7l ca00q c7csb">Connexion Employeur </h1>
-                                <div class="clvg0">Veilleur renseigner vos information pour vous connectez</div>
+                            <div className="cjplb">
+                                <h1 className="cukoz c4q7l ca00q c7csb">Connexion Employeur </h1>
+                                <div className="clvg0">Veilleur renseigner vos information pour vous connectez</div>
                             </div>
                             <form onSubmit={hanldeSubmitCandidat}>
 
-                                <div class="cz2ao">
+                                <div className="cz2ao">
 
-                                    <div class="chva6">
+                                    <div className="chva6">
                                         <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Email de votre entreprise <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" value={email} onChange={(e) => { setemail(e.target.value) }} type="email" required={true} />
+                                            <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email de votre entreprise <span className="cvmpf">*</span></label>
+                                            <input className="cvac0 coz82" value={email} onChange={(e) => { setemail(e.target.value) }} type="email" required={true} />
                                         </div>
                                     </div>
-                                    <div class="chva6">
+                                    <div className="chva6">
                                         <div>
-                                            <label class="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe entreprise <span class="cvmpf">*</span></label>
-                                            <input class="cvac0 coz82" value={password} onChange={(e) => { setpassword(e.target.value) }} type="password" required={true} />
+                                            <label className="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe entreprise <span className="cvmpf">*</span></label>
+                                            <input className="cvac0 coz82" value={password} onChange={(e) => { setpassword(e.target.value) }} type="password" required={true} />
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="cq38v">
+                                <div className="cq38v">
                                     {
                                         loading ?
                                         <LoadinButton text={"Inscription en cours ..."} />
                                             :
-                                            <button type="submit" class="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                Se Connecter <span class="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                            <button type="submit" className="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                                Se Connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
                                             </button>
                                     }
                                 </div>
@@ -162,18 +162,18 @@ const SignInRecuteurPage = () => {
                             </form>
 
 
-                            <div class="czlxp cp545 crp1m">
-                                <div class="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
-                                <div class="clvg0 c9csv cqaaz">Or</div>
-                                <div class="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
+                            <div className="czlxp cp545 crp1m">
+                                <div className="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
+                                <div className="clvg0 c9csv cqaaz">Or</div>
+                                <div className="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
                             </div>
 
 
                             <a href={`/${routing.inscription_recruteur}`}>
-                                <button class="c6hhw c9dke cf8q3 cday3 cpsdf c9csv co11h coz82 chkpc crp1m">
-                                    <span class="cp8dt cupxg ca92d">
+                                <button className="c6hhw c9dke cf8q3 cday3 cpsdf c9csv co11h coz82 chkpc crp1m">
+                                    <span className="cp8dt cupxg ca92d">
                                         S{"'"}inscire
-                                        <span class="cls93 cv1su cwp6w c52y5 c04ox ctziu c94my cg4yh">-&gt;</span>
+                                        <span className="cls93 cv1su cwp6w c52y5 c04ox ctziu c94my cg4yh">-&gt;</span>
                                     </span>
                                 </button>
                             </a>
@@ -189,21 +189,21 @@ const SignInRecuteurPage = () => {
 
 
 
-            <div class="c78an cdg1p cd3zq cptbr cn73e ca2z8 cv3zt cb3sj" aria-hidden="true">
+            <div className="c78an cdg1p cd3zq cptbr cn73e ca2z8 cv3zt cb3sj" aria-hidden="true">
 
 
-                <div class="cp8r2 c0wb5 ch30j c5u32 clp4d cdf7d cxio3" aria-hidden="true"></div>
+                <div className="cp8r2 c0wb5 ch30j c5u32 clp4d cdf7d cxio3" aria-hidden="true"></div>
 
 
-                <div class="cp8r2 c6bzk c5u32 cn73e ca2z8 cxio3" aria-hidden="true">
-                    <img src="images/auth-illustration.svg" class="cj4he" width="1440" height="900" alt="Page Illustration" />
+                <div className="cp8r2 c6bzk c5u32 cn73e ca2z8 cxio3" aria-hidden="true">
+                    <img src="images/auth-illustration.svg" className="cj4he" width="1440" height="900" alt="Page Illustration" />
                 </div>
 
 
-                <div class="chakn c5u32 cj2th cdf7d crp1m">
-                    <div class="c1dhf c6tf9">
-                        <div class="cq8kw cscbh coz82">
-                            <div class="cj473 chkpc">
+                <div className="chakn c5u32 cj2th cdf7d crp1m">
+                    <div className="c1dhf c6tf9">
+                        <div className="cq8kw cscbh coz82">
+                            <div className="cj473 chkpc">
 
 
 
@@ -211,19 +211,19 @@ const SignInRecuteurPage = () => {
                                 {
                                     candidats.map((item) => {
                                         return (
-                                            <div key={item._id} class="c7tiu ccnwv c04ox c94my ckgol caxg1 cd9g6 ciwnj cmlda">
-                                                <div class="czlxp calvf crp1m">
-                                                    <div class="cpsdf cyzlo">
-                                                        <img class="c59v3" src={item.coverPicture} width="88" height="88" alt="Testimonial 02" />
-                                                        <svg class="curhz c5u32 cn73e cb3sj" width="26" height="17" xmlns="http://www.w3.org/2000/svg">
+                                            <div key={item._id} className="c7tiu ccnwv c04ox c94my ckgol caxg1 cd9g6 ciwnj cmlda">
+                                                <div className="czlxp calvf crp1m">
+                                                    <div className="cpsdf cyzlo">
+                                                        <img className="c59v3" src={item.coverPicture} width="88" height="88" alt="Testimonial 02" />
+                                                        <svg className="curhz c5u32 cn73e cb3sj" width="26" height="17" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M0 16.026h8.092l6.888-16h-4.592L0 16.026Zm11.02 0h8.092L26 .026h-4.65l-10.33 16Z"></path>
                                                         </svg>
                                                     </div>
                                                     <figure>
-                                                        <blockquote class="cqnva cy3kw cu9ao">
+                                                        <blockquote className="cqnva cy3kw cu9ao">
                                                             <p>{item.description}</p>
                                                         </blockquote>
-                                                        <figcaption class="ckncn c9csv">{item.name}  , {item.profession} <a class="c91mf c29l8" href="#"> emplois</a></figcaption>
+                                                        <figcaption className="ckncn c9csv">{item.name}  , {item.profession} <a className="c91mf c29l8" href="#"> emplois</a></figcaption>
                                                     </figure>
                                                 </div>
                                             </div>

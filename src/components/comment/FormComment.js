@@ -108,18 +108,18 @@ const FormComment = ({ data }) => {
             {isOpen &&
 
                 (
-                    <div className="fixed z-50 inset-0 overflow-y-auto">
-                        <div className="flex items-center justify-center h-screen">
-                            <div className="fixed inset-0 transition-opacity">
-                                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                    <div class="fixed z-50 inset-0 overflow-y-auto">
+                        <div class="flex items-center justify-center h-screen">
+                            <div class="fixed inset-0 transition-opacity">
+                                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                             </div>
-                            <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-                            <div className="inline-block w-full sm:w-1/2 mx-auto align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8">
-                                <div className="bg-gray-50 px-4 py-3 sm:px-6">
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900">Liste de Commentaires</h3>
+                            <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
+                            <div class="inline-block w-full sm:w-1/2 mx-auto align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8">
+                                <div class="bg-gray-50 px-4 py-3 sm:px-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900">Liste de Commentaires</h3>
                                 </div>
-                                <div className="px-4 py-4">
-                                    <div className="max-h-60 overflow-y-auto">
+                                <div class="px-4 py-4">
+                                    <div class="max-h-60 overflow-y-auto">
 
                                         {
                                             isLoading ?
@@ -130,25 +130,25 @@ const FormComment = ({ data }) => {
                                                 ) :
                                                 errorBlog ?
                                                     <div class="flex justify-center py-5"> Une erreur est survene </div> :
-                                                    <ul className="divide-y divide-gray-200">
+                                                    <ul class="divide-y divide-gray-200">
                                                         {comments && comments.length > 0 ?
                                                             comments.map((comment) => {
                                                                 return (
-                                                                    <li className="py-4">
-                                                                        <div className="flex space-x-3">
-                                                                            <div className="flex-shrink-0">
+                                                                    <li class="py-4">
+                                                                        <div class="flex space-x-3">
+                                                                            <div class="flex-shrink-0">
                                                                                 <img
-                                                                                    className="h-6 w-6 rounded-full"
+                                                                                    class="h-6 w-6 rounded-full"
                                                                                     src={comment.customerPhoto}
                                                                                     alt="Photo du commentateur"
                                                                                 />
                                                                             </div>
-                                                                            <div className="space-y-1">
-                                                                                <div className="text-sm leading-5 font-medium text-gray-900">{comment.customerName}</div>
-                                                                                <div className="text-xs leading-5 text-gray-500">
+                                                                            <div class="space-y-1">
+                                                                                <div class="text-sm leading-5 font-medium text-gray-900">{comment.customerName}</div>
+                                                                                <div class="text-xs leading-5 text-gray-500">
                                                                                     {moment(comment.createdAt).format("DD/MM/YYYY")} {moment(comment.createdAt).format("HH:MM")}
                                                                                 </div>
-                                                                                <p className="text-sm leading-5 text-gray-700">{comment.content}</p>
+                                                                                <p class="text-sm leading-5 text-gray-700">{comment.content}</p>
                                                                             </div>
                                                                         </div>
                                                                     </li>
@@ -163,11 +163,11 @@ const FormComment = ({ data }) => {
                                         }
                                     </div>
                                 </div>
-                                <div className="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                                <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring-blue-500 active:bg-blue-700 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                            class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring-blue-500 active:bg-blue-700 transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                                             onClick={() => { handleClose() }}
                                         >
                                             Fermer

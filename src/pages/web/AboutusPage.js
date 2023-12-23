@@ -4,8 +4,8 @@ import AboutBarner from '../../components/aboutus/AboutBarner';
 
 const AboutusPage = () => {
     return (
-        <div class="main-content">
-            <div class="page-content mt-24">
+        <div className="main-content">
+            <div className="page-content mt-24">
 
 
             <AboutStart/>

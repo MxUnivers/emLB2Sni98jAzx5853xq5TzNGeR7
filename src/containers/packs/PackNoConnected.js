@@ -9,10 +9,13 @@ const PackNoConnected = () => {
 
     const navigate = useNavigate();
     const hanleConnected = () => {
-        toast.info("Veillez vous connecter ");
+        if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
+            toast.info("Veillez vous connecter ");
+        }
+        return;
     }
 
-    
+
     return (
         <div class="antialiased max-w-6xl mx-auto my-12 px-8">
 
@@ -103,19 +106,19 @@ const PackNoConnected = () => {
                         <ul>
                             <li class="flex items-center">
                                 <div class="bg-green-200 rounded-full p-2 fill-current text-green-700">
-                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-umbrella"><path class="primary" d="M11 3.05V2a1 1 0 0 1 2 0v1.05A10 10 0 0 1 22 13c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a10 10 0 0 1 9-9.95z" /><path class="secondary" d="M11 14a1 1 0 0 1 2 0v5a3 3 0 0 1-6 0 1 1 0 0 1 2 0 1 1 0 0 0 2 0v-5z" /></svg>
+                                    <svg class="w-4 h-4 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path class="primary" d="M11 3.05V2a1 1 0 0 1 2 0v1.05A10 10 0 0 1 22 13c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a2 2 0 1 0-4 0c0 1.33-2 1.33-2 0a10 10 0 0 1 9-9.95z" /><path class="secondary" d="M11 14a1 1 0 0 1 2 0v5a3 3 0 0 1-6 0 1 1 0 0 1 2 0 1 1 0 0 0 2 0v-5z" /></svg>
                                 </div>
                                 <span class="text-gray-700 text-lg ml-3">Offre emplois Illimités</span>
                             </li>
                             <li class="flex items-center mt-3">
                                 <div class="bg-green-200 rounded-full p-2 fill-current text-green-700">
-                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-shopping-bag"><path class="primary" d="M5 8h14a1 1 0 0 1 1 .92l1 12A1 1 0 0 1 20 22H4a1 1 0 0 1-1-1.08l1-12A1 1 0 0 1 5 8z" /><path class="secondary" d="M9 10a1 1 0 0 1-2 0V7a5 5 0 1 1 10 0v3a1 1 0 0 1-2 0V7a3 3 0 0 0-6 0v3z" /></svg>
+                                    <svg class="w-4 h-4 icon-shopping-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path class="primary" d="M5 8h14a1 1 0 0 1 1 .92l1 12A1 1 0 0 1 20 22H4a1 1 0 0 1-1-1.08l1-12A1 1 0 0 1 5 8z" /><path class="secondary" d="M9 10a1 1 0 0 1-2 0V7a5 5 0 1 1 10 0v3a1 1 0 0 1-2 0V7a3 3 0 0 0-6 0v3z" /></svg>
                                 </div>
                                 <span class="text-gray-700 text-lg ml-3">Notiifcation sur les Offres </span>
                             </li>
                             <li class="flex items-center mt-3">
                                 <div class="bg-green-200 rounded-full p-2 fill-current text-green-700">
-                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-pie-chart"><path class="primary" d="M14 13h6.78a1 1 0 0 1 .97 1.22A10 10 0 1 1 9.78 2.25a1 1 0 0 1 1.22.97V10a3 3 0 0 0 3 3z" /><path class="secondary" d="M20.78 11H14a1 1 0 0 1-1-1V3.22a1 1 0 0 1 1.22-.97c3.74.85 6.68 3.79 7.53 7.53a1 1 0 0 1-.97 1.22z" /></svg>
+                                    <svg class="w-4 h-4 icon-pie-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path class="primary" d="M14 13h6.78a1 1 0 0 1 .97 1.22A10 10 0 1 1 9.78 2.25a1 1 0 0 1 1.22.97V10a3 3 0 0 0 3 3z" /><path class="secondary" d="M20.78 11H14a1 1 0 0 1-1-1V3.22a1 1 0 0 1 1.22-.97c3.74.85 6.68 3.79 7.53 7.53a1 1 0 0 1-.97 1.22z" /></svg>
                                 </div>
                                 <span class="text-gray-700 text-lg ml-3">Bourse d{"'"}etude à l{"'"}étranger</span>
                             </li>

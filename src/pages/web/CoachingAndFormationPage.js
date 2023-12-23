@@ -5,8 +5,8 @@ import FormationCoaching from '../../components/coachingAndFormation/FormationCo
 
 const CoachingAndFormationPage = () => {
     return (
-        <div class="main-content">
-            <div class="page-content mt-16">
+        <div className="main-content">
+            <div className="page-content mt-16">
 
 
             <BarnerCoachingAndFormation/>

@@ -55,32 +55,32 @@ const CandidatureListPage = () => {
             <div className="main-content">
 
 
-                <section class="bg-gray-50 mt-28">
+                <section className="bg-gray-50 mt-28">
                     <div
-                        class="mx-auto px-4 py-5 lg:flex  lg:items-center"
+                        className="mx-auto px-4 py-5 lg:flex  lg:items-center"
                     >
-                        <div class="mx-auto max-w-xl text-center">
-                            <h1 class="text-3xl font-extrabold sm:text-5xl">
+                        <div className="mx-auto max-w-xl text-center">
+                            <h1 className="text-3xl font-extrabold sm:text-5xl">
                                 Vos candidatures
-                                <strong class="font-extrabold text-blue-700 sm:block">
+                                <strong className="font-extrabold text-blue-700 sm:block">
                                     Candidature
                                 </strong>
                             </h1>
 
-                            <p class="mt-4 sm:text-xl/relaxed">
+                            <p className="mt-4 sm:text-xl/relaxed">
                                 Candidatures aux offres d{"'"}emplois
                             </p>
 
-                            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                            <div className="mt-8 flex flex-wrap justify-center gap-4">
                                 <button onClick={() => { handleShowButton(0) }}
-                                    class={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
+                                    className={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
 
                                 >
                                     Candidatures ({candidatures.length})
                                 </button>
 
                                 <button onClick={() => { handleShowButton(1) }}
-                                    class={`block w-full rounded${buttonSelected == 1 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
+                                    className={`block w-full rounded${buttonSelected == 1 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
 
                                 >Messages ({messageList.length})
                                 </button>
@@ -207,14 +207,14 @@ const CandidatureListPage = () => {
                                                 >
                                                     {candidatureDetail.title}
                                                 </h3> :
-                                                <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         {
                                             candidatureDetail && candidatureDetail.createdAt ?
                                                 <p className="text-sm text-gray-500 mb-4">
                                                     Date: 28/08/2023
                                                 </p> :
-                                                <div class="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
 
                                         {
@@ -235,18 +235,18 @@ const CandidatureListPage = () => {
                                                         candidatureDetail.status == "CANCEL" ? "REFUSE" : ""
                                                     }
                                                 </p> :
-                                                <div class="w-20 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-20 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
 
                                         }
                                     </div>
-                                    <div class=" mt-2  w-full ">
-                                        <div class=" flex justify-start rounded-lg w-full border-t ">
+                                    <div className=" mt-2  w-full ">
+                                        <div className=" flex justify-start rounded-lg w-full border-t ">
                                             {
-                                                /*<div class="w-full space-y-3 flex flex-col ">
+                                                /*<div className="w-full space-y-3 flex flex-col ">
                                                 {
                                                     offreDetail && offreDetail.coverPicture ?
-                                                        <img class="h-10 w-10 rounded-lg" src={offreDetail.coverPicture} /> :
-                                                        <div class="h-10 w-10 rounded-lg bg-gray-200 animate-pulse" />
+                                                        <img className="h-10 w-10 rounded-lg" src={offreDetail.coverPicture} /> :
+                                                        <div className="h-10 w-10 rounded-lg bg-gray-200 animate-pulse" />
                                                 }
                                             </div> */
                                             }
@@ -255,9 +255,9 @@ const CandidatureListPage = () => {
                                                 {
                                                     offreDetail && offreDetail.title
                                                         ?
-                                                        <h2 class="text-xl font-semibold">{offreDetail.title}</h2>
+                                                        <h2 className="text-xl font-semibold">{offreDetail.title}</h2>
                                                         :
-                                                        <div class="h-10 w-full rounded-lg bg-gray-200 animate-pulse" />
+                                                        <div className="h-10 w-full rounded-lg bg-gray-200 animate-pulse" />
                                                 }
                                             </div> */
                                             }
@@ -309,7 +309,7 @@ const CandidatureListPage = () => {
                                                 >
                                                     {messageDetail.subject}
                                                 </h3> :
-                                                <div class="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                <div className="w-full  h-14 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
                                         <div className="w-full py-3 px-1 space-y-3">
                                             {
@@ -317,7 +317,7 @@ const CandidatureListPage = () => {
                                                     <p className="text-sm text-gray-500 mb-4">
                                                         {moment(messageDetail.createdAt).format("DD/MM/YYYY HH:MM")}
                                                     </p> :
-                                                    <div class="w-full  h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                    <div className="w-full  h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
 
                                             {
@@ -325,7 +325,7 @@ const CandidatureListPage = () => {
                                                     <p className="w-full text-sm text-gray-500 mb-4">
                                                         {messageDetail.content}
                                                     </p> :
-                                                    <div class="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
+                                                    <div className="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                             }
 
                                         </div>

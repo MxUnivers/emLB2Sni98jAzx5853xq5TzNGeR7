@@ -14,8 +14,8 @@ import HomeBourses from '../components/home/HomeBourses';
 
 const HomePage = () => {
   return (
-    <div class="main-content">
-      <div class="page-content">
+    <div className="main-content">
+      <div className="page-content">
 
 
         <BarnerHome />

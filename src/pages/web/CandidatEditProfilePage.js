@@ -19,8 +19,8 @@ const CandidatEditProfilePage = () => {
 
 
     return (
-        <div class="main-content">
-            <div class="page-content mt-28">
+        <div className="main-content">
+            <div className="page-content mt-28">
 
 
 
@@ -40,20 +40,20 @@ const CandidatEditProfilePage = () => {
                 <main>
 
                     <div
-                        class="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3 sIk4Wc5VFaQpncPF5Sx4 AWLGIryfLKwkSeUZd4O6 h8KYXnua2NT4kTVzieom">
-                        <div class=" border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
+                        className="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3 sIk4Wc5VFaQpncPF5Sx4 AWLGIryfLKwkSeUZd4O6 h8KYXnua2NT4kTVzieom">
+                        <div className=" border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
 
                             <h1
-                                class="text-lg vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
+                                className="text-lg vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
                                 Mise a jour profile</h1>
                         </div>
-                        <div class=" flex justify-start  border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
+                        <div className=" flex justify-start  border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
                             {
                                 button_list.map((item) => {
                                     return (
                                         <button
                                         onClick={()=>{setstep(item.id)}}
-                                        class={`btn mx-2 my-2 btn-sm py-2 text-xs ${step==item.id ?"bg-white font-bold text-blue-500":"bg-blue-500 text-white"} `}>
+                                        className={`btn mx-2 my-2 btn-sm py-2 text-xs ${step==item.id ?"bg-white font-bold text-blue-500":"bg-blue-500 text-white"} `}>
                                             {item.label}
                                         </button>
                                     )
@@ -61,7 +61,7 @@ const CandidatEditProfilePage = () => {
                             }
                         </div>
                         {/*<!-- Right Content -->*/}
-                        <div class="w-full  lg:w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40 ">
+                        <div className="w-full  lg:w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40 ">
                             {/*photo de profile */}
                             {
                                 step == 1 &&

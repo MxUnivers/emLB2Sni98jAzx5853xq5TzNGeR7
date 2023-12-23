@@ -91,8 +91,8 @@ const ListEmploisWebPage = () => {
 
 
     return (
-        <div class="main-content">
-            <div class="page-content">
+        <div className="main-content">
+            <div className="page-content">
                 <div className='w-full bg-gray-50 mt-24 gap-3 rounded-[10px] p-5'>
                     <form action=''>
                         <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center items-center py-3 rounded-[8px] gap-5 bg-white p-5 shadow-greyIsh-700'>
@@ -117,7 +117,7 @@ const ListEmploisWebPage = () => {
                     </form>
                 </div>
 
-                <main class="flex min-h-[500px]  w-full items-start mt-10 justify-center bg-white px-5">
+                <main className="flex min-h-[500px]  w-full items-start mt-10 justify-center bg-white px-5">
                     <div className=" grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
                         {
                             isLoading ?
@@ -130,7 +130,7 @@ const ListEmploisWebPage = () => {
                                         )
                                     })
                                     :
-                                    <div class="h-min-[500px] flex justify-center">
+                                    <div className="h-min-[500px] flex justify-center">
                                         <p>Aunces offres trouvés</p>
                                     </div>
 
@@ -148,35 +148,35 @@ export default ListEmploisWebPage;
 {/* 
                     modalApply &&
                     (
-                        <div class="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
-                            <div class="bg-white rounded-lg shadow-lg p-6">
-                                <h2 class="text-lg font-bold mb-4">Postuler à l'offre d'emploi</h2>
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                            <div className="bg-white rounded-lg shadow-lg p-6">
+                                <h2 className="text-lg font-bold mb-4">Postuler à l'offre d'emploi</h2>
                                 <form>
-                                    <div class="mb-4">
-                                        <label for="fullName" class="block font-bold mb-1">Nom complet :</label>
-                                        <input type="text" id="fullName" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="fullName" className="block font-bold mb-1">Nom complet :</label>
+                                        <input type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="email" class="block font-bold mb-1">Email :</label>
-                                        <input type="email" id="email" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="email" className="block font-bold mb-1">Email :</label>
+                                        <input type="email" id="email" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="phone" class="block font-bold mb-1">Téléphone :</label>
-                                        <input type="tel" id="phone" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="phone" className="block font-bold mb-1">Téléphone :</label>
+                                        <input type="tel" id="phone" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="message" class="block font-bold mb-1">Message :</label>
-                                        <textarea id="message" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                                    <div className="mb-4">
+                                        <label for="message" className="block font-bold mb-1">Message :</label>
+                                        <textarea id="message" className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="resume" class="block font-bold mb-1">CV :</label>
-                                        <input type="file" id="resume" class="w-full border border-gray-300 rounded px-3 py-2" />
+                                    <div className="mb-4">
+                                        <label for="resume" className="block font-bold mb-1">CV :</label>
+                                        <input type="file" id="resume" className="w-full border border-gray-300 rounded px-3 py-2" />
                                     </div>
-                                    <div class="flex justify-end">
-                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <div className="flex justify-end">
+                                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                             Envoyer
                                         </button>
-                                        <button onClick={handleClose} class="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
+                                        <button onClick={handleClose} className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
                                             Annuler
                                         </button>
                                     </div>
