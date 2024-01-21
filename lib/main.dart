@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
+import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
 import 'package:jouman_mobile_mobile/src/pages/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: MainPage(),
       // Affiche l'écran de lancement au démarrage de l'application
 
     );

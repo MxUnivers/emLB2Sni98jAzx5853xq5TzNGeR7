@@ -11,5 +11,4 @@ class baseurl{
   static const String apiV1 ="/api/v1";
   static const String url_site_web ="https://plateforme-offres-emplois.web.app";
 
-
 }
