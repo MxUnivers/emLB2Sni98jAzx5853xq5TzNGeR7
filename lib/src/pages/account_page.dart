@@ -11,6 +11,32 @@ import "candidatures_page.dart";
 import "message_page.dart";
 import "offre_postules.dart";
 
+
+/*
+*class PostAddCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => PostAddPage(),
+            ),
+          );
+        },
+        leading: Icon(CupertinoIcons.bubble_left_bubble_right_fill),
+        title: Text('Poster '),
+        subtitle: Text('Voir votre profil'),
+      ),
+    );
+  }
+}
+
+* */
+
+
 class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,9 +50,9 @@ class ProfileCard extends StatelessWidget {
             ),
           );
         },
-        leading: Icon(Icons.person),
+        leading: Icon(CupertinoIcons.person_alt_circle),
         title: Text('Profil'),
-        subtitle: Text('Voir votre profil'),
+        subtitle: Text('Voire votre profil'),
       ),
     );
   }
@@ -45,7 +71,7 @@ class ApplicationCard extends StatelessWidget {
             ),
           );
         },
-        leading: Icon(Icons.assignment),
+        leading: Icon(CupertinoIcons.square_list_fill),
         title: Text('Candidatures'),
         subtitle: Text('Voir vos candidatures'),
       ),
@@ -66,7 +92,7 @@ class MessageCard extends StatelessWidget {
             ),
           );
         },
-        leading: Icon(Icons.message),
+        leading: Icon(CupertinoIcons.bubble_left_bubble_right_fill),
         title: Text('Messages'),
         subtitle: Text('Voir vos messages'),
       ),
@@ -87,7 +113,7 @@ class PostulatedAnnouncementCard extends StatelessWidget {
             ),
           );
         },
-        leading: Icon(Icons.post_add),
+        leading: Icon(CupertinoIcons.plus_rectangle_fill_on_rectangle_fill),
         title: Text('Annonces Postulées'),
         subtitle: Text('Voir les annonces auxquelles vous avez postulé'),
       ),
@@ -104,13 +130,12 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   late CandidatModel candidat;
-
   void _showConnectedAuthDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Desconnexion'),
+          title: Text('Deconnexion'),
           content: Text('Souhaiter vous vous deconnecter ?'),
           actions: <Widget>[
             TextButton(
@@ -163,13 +188,14 @@ class _AccountPageState extends State<AccountPage> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10),
         children: [
+          /*PostAddCard(),*/
           ProfileCard(),
           ApplicationCard(),
           MessageCard(),
           PostulatedAnnouncementCard(),
           Card(
-              child: ListTile(
-            leading: Icon(Icons.exit_to_app),
+              child: ListTile(iconColor: Colors.red.shade900,
+            leading: Icon(CupertinoIcons.exclamationmark_bubble_fill),
             title: Text('Déconnexion'),
             subtitle: Text('Se déconnecter de l\'application'),
             onTap: (){

@@ -45,7 +45,6 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   awesome_notifications: ^0.8.2
   ionicons: ^0.2.2
-  image_picker: ^1.0.1
   sqflite: ^2.3.0
   path: ^1.8.3
   cached_network_image: ^3.2.3
@@ -59,7 +58,11 @@ dependencies:
   webview_flutter: ^3.0.0
   flutter_html: ^3.0.0-beta.2
   url_launcher: ^6.1.14
-  flutter_quill: ^8.1.1
+  quill_delta: ^3.0.0-nullsafety.2
+  zefyr: ^1.0.0-rc.5
+  flutter_markdown: ^0.6.18+3
+  rich_editor: ^0.0.5
+  image_picker: ^0.8.3+1
 
 
 dev_dependencies:
