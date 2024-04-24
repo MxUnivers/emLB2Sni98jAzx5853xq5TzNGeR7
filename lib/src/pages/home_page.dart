@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
 import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
@@ -9,12 +10,16 @@ import 'package:jouman_mobile_mobile/src/pages/search_page.dart';
 import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
+import 'package:redux/redux.dart';
 
+import '../../main.dart';
 import '../Animation/skeleton_model.dart';
 import '../actions/JobAction.dart';
 import '../actions/PostAction.dart';
 import '../model/JobCategoryModel.dart';
 import '../model/PostModel.dart';
+import '../store/jobCategoriesReducer.dart';
+import '../store/jobReducer.dart';
 import '../utils/storage.dart';
 import '../widgets/JobComponent.dart';
 import '../widgets/blog/PostCardItem.dart';
@@ -23,7 +28,8 @@ import '../widgets/home/AppBarHome.dart';
 import 'job_detail_page.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+  final Store<AppState> store;
+  MyHomePage({Key? key, this.title, required this.store}) : super(key: key);
 
   final String? title;
 
@@ -53,16 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         // Mettre à jour la liste des offres récupérées
         jobCategoryList = jobs;
+        StoreProvider.of<AppState>(context)
+            .dispatch(SetJobCategoryListAction(jobs));
         print(jobCategoryList);
         isLoading = false;
       });
     });
     fetchAllJobList(
-        "${baseurl.url.toString() + baseurl.apiV1.toString()}/offre/get_offres")
+            "${baseurl.url.toString() + baseurl.apiV1.toString()}/offre/get_offres")
         .then((jobs) {
       setState(() {
         // Mettre à jour la liste des offres récupérées
         jobList = jobs;
+        StoreProvider.of<AppState>(context).dispatch(SetJobListAction(jobs));
         print(jobList);
         isLoading = false;
       });
@@ -186,10 +195,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           isLoading
                               ? Container()
                               : Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                /*Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      /*Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
                                   child: Text(
                                     "Categrorie Job",
@@ -226,62 +236,56 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ],
                                       )),
                                 )*/
-                              ],
-                            ),
-                          ),
-                          jobCategoryList.length > 0
-                              ? Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              //width: AppTheme.fullWidth(context),
-                              height: 30,
-                              child: ListView.builder(
-                                itemCount: jobCategoryList.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var item = jobCategoryList[index];
-                                  return GestureDetector(
+                                    ],
+                                  ),
+                                ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            height: 30,
+                            child: StoreConnector<AppState,
+                                List<JobCategoryModel>>(
+                              converter: (store) => store.state.jobCategorys,
+                              builder: (BuildContext context,
+                                  List<JobCategoryModel> jobCategoryList) {
+                                return ListView.builder(
+                                  itemCount: jobCategoryList.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    var item = jobCategoryList[index];
+                                    return GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => SearchCategoryJobPage(
-                                                title: item.title,
-                                              )),
+                                            builder: (context) =>
+                                                SearchCategoryJobPage(
+                                              title: item.title,
+                                            ),
+                                          ),
                                         );
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 5),
                                         padding: EdgeInsets.symmetric(
                                             vertical: 8, horizontal: 15),
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(12),
-                                            color: Colors.grey.shade200),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          color: Colors.grey.shade200,
+                                        ),
                                         child: Text(
                                           item.title.toString(),
                                           style: TextStyle(color: Colors.black),
                                         ),
-                                      ));
-                                },
-                              ))
-                              : Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              //width: AppTheme.fullWidth(context),
-                              height: 100,
-                              child: ListView.builder(
-                                itemCount: jobCategoryList.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    padding:
-                                    EdgeInsets.symmetric(vertical: 2, horizontal: 1),
-                                    margin: EdgeInsets.symmetric(horizontal: 2),
-                                    child: Skeleton(
-                                      height: 45,
-                                      width: 70,
-                                    ),
-                                  );
-                                },
-                              ))
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -293,39 +297,40 @@ class _MyHomePageState extends State<MyHomePage> {
                         scrollDirection: Axis.vertical,
                         child: Container(
                           child: Container(
-                              child: isLoading == true
-                                  ? Container(
-                                  child: Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppTheme_App.TextGray,
-                                      )))
-                                  : jobList.length > 0
-                                  ? Container(
-                                  padding: EdgeInsets.only(top: 5),
-                                  height: MediaQuery.of(context).size.height / 1.9,
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 3),
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount: jobList.length,
-                                            itemBuilder: (context, index) {
-                                              var item = jobList[index];
-                                              return JobComponent(job: item);
-                                            },
-                                          ),
-                                        ),
-                                      ],
+                              child: Container(
+                            padding: EdgeInsets.only(top: 5),
+                            height: MediaQuery.of(context).size.height / 1.9,
+                            margin: EdgeInsets.only(top: 5),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 3),
+                                    child: StoreConnector<AppState,
+                                        List<JobModel>>(
+                                      converter: (store) => store.state.jobs,
+                                      builder: (BuildContext context,
+                                          List<JobModel> jobs) {
+                                        return ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: jobs.length,
+                                          itemBuilder: (context, index) {
+                                            var item = jobs[index];
+                                            return JobComponent(
+                                                job: item, store: widget.store);
+                                          },
+                                        );
+                                      },
                                     ),
-                                  ))
-                                  : Center(
-                                child: Text("Aucunes offres"),
-                              )), // La liste de jobs
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )), // La liste de jobs
                         ),
                       ),
                     ),
@@ -343,11 +348,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Column(
-                                      children: postModelList.map((item) {
-                                    return PostCardItem(
-                                      post: item,
-                                    );
-                                  }).toList()))
+                                  children: postModelList.map((item) {
+                                return PostCardItem(
+                                  post: item,
+                                );
+                              }).toList()))
                           : Center(child: Text("Aucun post ")))
             ])));
   }

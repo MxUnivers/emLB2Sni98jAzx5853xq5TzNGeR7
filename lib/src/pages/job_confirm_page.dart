@@ -7,14 +7,17 @@ import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
+import "package:redux/redux.dart";
 import "package:url_launcher/url_launcher.dart";
 import 'package:flutter/services.dart';
+import "../../main.dart";
 import "../actions/CandidatureAction.dart";
 import "../utils/storage.dart";
 
 class JobConfirmPage extends StatefulWidget {
+  final Store<AppState> store;
   final JobModel? job;
-  const JobConfirmPage({super.key, this.job});
+  const JobConfirmPage({super.key, this.job, required this.store});
 
   @override
   State<JobConfirmPage> createState() => _JobConfirmPageState();
@@ -207,6 +210,7 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                                         });
                                         postCandidature(
                                                 context,
+                                                widget.store,
                                                 candidat.id!,
                                                 widget.job!.idEntreprise
                                                     .toString(),

@@ -2,13 +2,16 @@ import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 import "package:jouman_mobile_mobile/src/widgets/JobComponent.dart";
+import "package:redux/redux.dart";
 
+import "../../../main.dart";
 import "../../actions/JobAction.dart";
 import "../../themes/theme.dart";
 import "../../utils/baseurl.dart";
 
 class JobListHome extends StatefulWidget {
-  const JobListHome({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const JobListHome({Key? key, required this.store}) : super(key: key);
 
   @override
   State<JobListHome> createState() => _JobListHomeState();
@@ -59,7 +62,7 @@ class _JobListHomeState extends State<JobListHome> {
                               itemCount: jobList.length,
                               itemBuilder: (context, index) {
                                 var item = jobList[index];
-                                return JobComponent(job: item);
+                                return JobComponent(job: item, store: widget.store, );
                               },
                             ),
                           ),

@@ -6,7 +6,9 @@ import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
 import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
+import 'package:redux/redux.dart';
 
+import '../../main.dart';
 import '../actions/JobAction.dart';
 import '../model/JobModel.dart';
 import '../utils/storage.dart';
@@ -14,6 +16,7 @@ import '../widgets/JobComponent.dart';
 import '../widgets/home/AppBarHome.dart';
 
 class OffrePostulesPage extends StatefulWidget {
+  late final Store<AppState> store;
   OffrePostulesPage({Key? key, this.title}) : super(key: key);
 
   final String? title;
@@ -110,7 +113,7 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
                                   itemCount: jobList.length,
                                   itemBuilder: (context, index) {
                                     var item = jobList[index];
-                                    return JobComponent(job: item);
+                                    return JobComponent(job: item, store: widget.store,);
                                   },
                                 ),
                               ),

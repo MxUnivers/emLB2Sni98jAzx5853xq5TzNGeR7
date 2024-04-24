@@ -1,36 +1,44 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jouman_mobile_mobile/src/pages/help_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
+import 'package:redux/redux.dart';
 
+import '../../main.dart';
 import '../config/locallvalue.dart';
 import 'account_page.dart';
 import 'app_step_page.dart';
 
+
+
 class MainPage extends StatefulWidget {
+  final Store<AppState> store;
+
+  MainPage({required this.store});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
+  late final Store<AppState> store;
+  late final List<Widget> _screens;
+  late final PageController _pageController;
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
+    store = widget.store;
+    _screens = [
+      MyHomePage(store: store),
+      AccountPage(),
+      HelpPage(),
+    ];
+    _pageController = PageController(initialPage: 0);
   }
-
-  final List<Widget> _screens = [
-    MyHomePage(),
-    AccountPage(),
-    HelpPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +62,7 @@ class _MainPageState extends State<MainPage> {
             });
           },
           children: _screens,
-          physics: NeverScrollableScrollPhysics(), // Désactive le défilement par glissement
+          physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar: CupertinoTabBar(
           currentIndex: _currentIndex,
@@ -86,6 +94,4 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
-  final _pageController = PageController(initialPage: 0);
 }

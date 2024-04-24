@@ -5,13 +5,16 @@ import 'package:jouman_mobile_mobile/src/pages/app_step_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
 import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
+import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../main.dart';
 import '../config/locallvalue.dart';
 import '../utils/storage.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const SplashScreen({Key? key, required this.store}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -51,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }else if (candidat.is_active==true){
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MainPage()),
+          MaterialPageRoute(builder: (context) => MainPage(store: widget.store,)),
         );
       }
     });

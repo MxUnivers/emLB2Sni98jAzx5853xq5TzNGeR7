@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
 import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
 import 'package:jouman_mobile_mobile/src/pages/job_confirm_page.dart';
+import 'package:redux/redux.dart';
+
+import '../../main.dart';
 
 class JobDetailPage extends StatefulWidget {
+  final Store<AppState> store;
   final JobModel? job;
 
-  const JobDetailPage({Key? key, this.job}) : super(key: key);
+  const JobDetailPage({Key? key, this.job, required this.store}) : super(key: key);
 
   @override
   State<JobDetailPage> createState() => _JobDetailPageState();
@@ -188,7 +192,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => JobConfirmPage(
-                                  job: widget.job,
+                                  job: widget.job, store: widget.store,
                                 )),
                       );
                     },

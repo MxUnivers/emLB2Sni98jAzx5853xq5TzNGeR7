@@ -6,12 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
+import 'package:redux/redux.dart';
 
+import '../../main.dart';
 import '../model/JobModel.dart';
 import '../widgets/JobComponent.dart';
 import '../widgets/home/AppBarHome.dart';
 class JobBookmarkPage extends StatefulWidget {
-  JobBookmarkPage({Key? key, this.title}) : super(key: key);
+  final Store<AppState> store;
+  JobBookmarkPage({Key? key, this.title, required this.store}) : super(key: key);
 
   final String? title;
 
@@ -88,7 +91,7 @@ class _JobBookmarkPageState extends State<JobBookmarkPage> {
                                 itemCount: jobList.length,
                                 itemBuilder: (context, index) {
                                   var item = jobList[index];
-                                  return JobComponent(job: item);
+                                  return JobComponent(job: item, store: widget.store,);
                                 },
                               ),
                             ),

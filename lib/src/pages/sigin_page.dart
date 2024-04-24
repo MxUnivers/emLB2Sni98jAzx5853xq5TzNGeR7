@@ -6,16 +6,21 @@ import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
 import 'package:jouman_mobile_mobile/src/pages/sigup_page.dart';
 import 'package:jouman_mobile_mobile/src/themes/constants.dart';
 import 'package:jouman_mobile_mobile/src/themes/theme.dart';
+import 'package:redux/redux.dart';
 //import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import '../../main.dart';
 import '../actions/CandidatAction.dart';
 import '../widgets/widget.dart';
 
 class SignInPage extends StatefulWidget {
+  late final Store<AppState> store;
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
+  
   bool isLoading = false;
   bool isPasswordVisible = true;
   late TextEditingController emailController;
@@ -39,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
   void onTapRedirectHome() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MainPage()),
+      MaterialPageRoute(builder: (context) => MainPage(store: widget.store,)),
     );
   }
 
@@ -231,7 +236,7 @@ class _SignInPageState extends State<SignInPage> {
                                     String email = emailController.text;
                                     String password = passwordController.text;
                                     connectCandidat(
-                                            context, email, password)
+                                            context,widget.store, email, password)
                                         .then((value) {
                                       setState(() {
                                         isLoading = false;

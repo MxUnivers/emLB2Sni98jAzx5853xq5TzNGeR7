@@ -7,12 +7,14 @@ import 'package:jouman_mobile_mobile/src/config/theme.dart';
 import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
 import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
 import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:redux/redux.dart';
 
+import '../../main.dart';
 import '../model/CandidatModel.dart';
 import '../utils/storage.dart';
 
 Future<void> connectCandidat(
-    BuildContext context, String email, String password) async {
+    BuildContext context,Store<AppState> store, String email, String password) async {
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ${baseurl.token}'
@@ -56,7 +58,7 @@ Future<void> connectCandidat(
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => MainPage(),
+        builder: (context) => MainPage(store: store,),
       ),
     );
   } else if (response.statusCode == 402) {

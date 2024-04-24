@@ -4,13 +4,16 @@ import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
 import "package:jouman_mobile_mobile/src/pages/home_page.dart";
 import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
+import "package:redux/redux.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
+import "../../main.dart";
 import "../config/locallvalue.dart";
 import "../widgets/step_compo.dart";
 
 
 class AppStepScreen extends StatefulWidget {
+  late final Store<AppState> store;
   @override
   _AppStepScreenState createState() => _AppStepScreenState();
 }
@@ -118,7 +121,7 @@ class _AppStepScreenState extends State<AppStepScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainPage(),
+                    builder: (context) => MainPage(store: widget.store,),
                   ),
                 );
                 setDataProfileConnexion();

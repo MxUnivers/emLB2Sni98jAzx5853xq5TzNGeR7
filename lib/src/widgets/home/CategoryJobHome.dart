@@ -6,12 +6,15 @@ import "package:jouman_mobile_mobile/src/model/JobCategoryModel.dart";
 import "package:jouman_mobile_mobile/src/pages/search_job_category.dart";
 import "package:jouman_mobile_mobile/src/pages/search_page.dart";
 import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
+import "package:redux/redux.dart";
 
+import "../../../main.dart";
 import "../../Animation/skeleton_model.dart";
 import "../../pages/job_detail_page.dart";
 
 class CategoryJobHome extends StatefulWidget {
-  const CategoryJobHome({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const CategoryJobHome({Key? key, required this.store}) : super(key: key);
 
   @override
   State<CategoryJobHome> createState() => _CategoryJobHomeState();
@@ -68,7 +71,7 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => JobDetailPage()));
+                                  builder: (context) => JobDetailPage(store: widget.store,)));
                         },
                         child: Container(
                             padding: EdgeInsets.symmetric(

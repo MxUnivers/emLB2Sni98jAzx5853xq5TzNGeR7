@@ -7,7 +7,9 @@ import "package:fluttertoast/fluttertoast.dart";
 import "package:http/http.dart" as http;
 import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
+import "package:redux/redux.dart";
 
+import "../../main.dart";
 import "../model/CandidatureModel.dart";
 
 triggleNofication(String jobTitle) {
@@ -26,6 +28,7 @@ triggleNofication(String jobTitle) {
 
 Future<void> postCandidature(
     BuildContext context,
+    Store<AppState> store,
     String idCandidat,
     String idEntreprise,
     String idOffre,
@@ -70,7 +73,7 @@ Future<void> postCandidature(
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => MainPage(),
+        builder: (context) => MainPage(store: store,),
       ),
     );
     // Vous pouvez gérer la réponse ici si nécessaire
