@@ -623,7 +623,7 @@ export default function useFetchCandidat(idCandidat) {
         ],
         account: {
             solde: 0,
-            pack: "",
+            pack: "DIAMOUND" || "",
             count_sms: 0
         }
     });

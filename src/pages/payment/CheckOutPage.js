@@ -135,6 +135,7 @@ const CheckOutPage = () => {
 
                 if (response.status === 200) {
                     setPaymentUrl(response.data.data.payment_url);
+                    console.log(response.data.data.payment_url);
                     // Redirigez l'utilisateur vers l'URL de paiement
                     localStorage.setItem(localvalue.customer_transaction_id,response.data.transactionId);
                     window.open(response.data.data.payment_url, '_blank');

@@ -1,6 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { routing } from '../../utlis/routing';
 
 const FormationCoaching = () => {
+
+    const  navigate  =  useNavigate();
+
 
     const formations = [
         {
@@ -40,7 +45,11 @@ const FormationCoaching = () => {
                                         <div class="space-y-6">
                                             <h3 class="text-2xl font-semibold text-gray-800 transition dark:text-white">{item.title} </h3>
                                             <p class="text-gray-600 dark:text-gray-300 line-clamp-6">{item.description}</p>
-                                            <a aria-label="read more" href="#" class="group relative mx-auto flex h-12 w-12 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800">
+                                            <a aria-label="read more" href="#"
+                                            onClick={()=>{
+                                                navigate(`/${routing.formation_list}`)
+                                            }}
+                                            class="group relative mx-auto flex h-12 w-12 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="relative h-5 w-5 text-gray-600 transition duration-300 group-hover:translate-x-1 dark:text-white">
                                                     <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
                                                 </svg>
@@ -57,7 +66,11 @@ const FormationCoaching = () => {
             </div>
 
             <div class="w-full flex flex-row justify-center mt-5 ">
-                    <button type="submit" title="Start buying" class=" h-12   bg-blue-800 active:bg-blue-900 px-6 rounded-3xl">
+                    <button type="submit"
+                    onClick={()=>{
+                        navigate(`/${routing.formation_list}`)
+                    }}
+                    title="Start buying" class=" h-12   bg-blue-800 active:bg-blue-900 px-6 rounded-3xl">
                         <span class="relative w-max font-semibold text-white  md:block"> Voire plus </span>
                     </button>
                 </div>

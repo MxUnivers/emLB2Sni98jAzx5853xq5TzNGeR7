@@ -22,8 +22,8 @@ const FormationdetailPage = () => {
         <div className="main-content">
             <div className="page-content mt-28">
 
-                {
-                    candidat && candidat.account.pack == statusPACKS[2] ?
+            {
+                     candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2] ? 
                         <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
                             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                                 <div className="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
@@ -193,7 +193,7 @@ const FormationdetailPage = () => {
                         </section>
                         :
                         <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} ` } message={"Cette Fonctionnalité est reservé au premuim"} route={`${routing.pricing}`} />
-                }
+                } 
 
 
 

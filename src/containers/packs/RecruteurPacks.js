@@ -111,7 +111,7 @@ const RecruteurPacks = () => {
                                 1000f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
@@ -184,7 +184,7 @@ const RecruteurPacks = () => {
                                 2000f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
@@ -264,7 +264,7 @@ const RecruteurPacks = () => {
                                 5000f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">

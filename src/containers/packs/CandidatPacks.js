@@ -121,7 +121,7 @@ const CandidatPacks = () => {
                                 1000f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
@@ -193,7 +193,7 @@ const CandidatPacks = () => {
                                 5000 F
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">
@@ -273,7 +273,7 @@ const CandidatPacks = () => {
                                 8000 f
                             </span>
                             <span class="text-gray-500 dark:text-gray-400">
-                                /an
+                                
                             </span>
                         </div>
                         <ul class="flex-1 space-y-4">

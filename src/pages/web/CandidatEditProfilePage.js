@@ -19,29 +19,14 @@ const CandidatEditProfilePage = () => {
 
 
     return (
-        <div className="main-content">
-            <div className="page-content mt-28">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <div className="main-content dark:bg-white">
+            <div className="page-content mt-28 w-full dark:bg-white">
 
                 <main>
 
                     <div
-                        className="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3 sIk4Wc5VFaQpncPF5Sx4 AWLGIryfLKwkSeUZd4O6 h8KYXnua2NT4kTVzieom">
-                        <div className=" border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r">
+                        className="xCPtuxM4_gihvpPwv9bX Nu4HUn5EQpnNJ1itNkrd RZmKBZs1E1eXw8vkE6jY mlwbuv_bMkMhzTA3msA3 sIk4Wc5VFaQpncPF5Sx4 AWLGIryfLKwkSeUZd4O6 h8KYXnua2NT4kTVzieom dark:bg-white">
+                        <div className=" border shadow-md rounded py-2 px-3 EWLTGduHCjFnjN6tLCXV hD0sTTDgbxakubcHVW2X QzGxlDe4W0Kn6V1Dkd6r dark:bg-white">
 
                             <h1
                                 className="text-lg vyo_A8gnQD1QWDPglr3h yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl NdexIDe6BTJXjtSnppoV OyABRrnTV_kvHV7dJ0uE">
@@ -61,7 +46,7 @@ const CandidatEditProfilePage = () => {
                             }
                         </div>
                         {/*<!-- Right Content -->*/}
-                        <div className="w-full  lg:w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40 ">
+                        <div className="w-full EWLTGduHCjFnjN6tLCXV Atl0coQVHTfJeIp5DBNr mb-40  dark:bg-white">
                             {/*photo de profile */}
                             {
                                 step == 1 &&
