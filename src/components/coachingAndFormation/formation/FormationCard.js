@@ -35,7 +35,7 @@ const FormationCard = ({ item }) => {
                                 class="absolute inset-0 m-auto h-px w-full border-t border-dashed dark:border-gray-600">
                             </div>
                             <div class="relative flex items-center justify-between pl-12 pr-6">
-                                <div
+                                {/*<div
                                     class="relative flex items-center before:absolute before:inset-y-0 before:-right-0.5 before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-red-400 dark:bg-gray-800">
                                     <span
                                         class="rounded-full border border-red-100 bg-red-50 px-2.5 py-1 text-sm tracking-wider text-red-900 dark:border-red-300/40 dark:bg-red-500/10 dark:text-red-300">132k</span>
@@ -44,15 +44,15 @@ const FormationCard = ({ item }) => {
                                     class="relative flex items-center before:absolute before:inset-y-0 before:-left-0.5 before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-green-400 dark:bg-gray-800">
                                     <span
                                         class="rounded-full border border-green-100 bg-green-50 px-2.5 py-1 text-sm tracking-wider text-green-900 dark:border-green-300/40 dark:bg-green-500/10 dark:text-green-300">396k</span>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
-                        {item && item.candidats ?
+                        {/*{item && item.candidats ?
                             <p class="text-gray-600 dark:text-gray-400">
                                 Candidat inscrit {item.candidats.length}
                             </p> :
-                            null}
+                            null} */}
 
                     </div>
                 </div>

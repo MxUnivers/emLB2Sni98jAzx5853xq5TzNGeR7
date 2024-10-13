@@ -62,26 +62,7 @@ const JobCard2 = ({data}) => {
         </div>
         <div class="p-3 bg-light">
             <div class="flex justify-between datas-center">
-                <div class="col-md-3">
-                    <div class="text-md-end btn ">
-                        <a href={`/${routing.job_details}`} onClick={() => {
-                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie)
-                        }} class="primary-link">Details
-                            <i class="mdi mdi-chevron-double-right"></i></a>
-                    </div>
-                </div>
-                {
-                    data && data.idEntreprise == employeurId  ?
-                    <div class="col-md-3">
-                    <div class="text-md-end btn ">
-                        <a href={`/${routing.job_details}`} onClick={() => {
-                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
-                            navigate(`/${routing.job_edit}`,{state:{data}});
-                        }} class="primary-link">Edit
-                            <i class="mdi mdi-chevron-double-right"></i></a>
-                    </div>
-                </div>: null
-                }
+                
 
             </div>
 

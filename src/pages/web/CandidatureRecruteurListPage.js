@@ -15,13 +15,12 @@ import { MdPerson } from 'react-icons/md';
 
 const CandidatureRecruteurListPage = () => {
 
-
     var idRecruteur = getAndCheckLocalStorage(localvalue.recruteurID);
     var typRecruteur = getAndCheckLocalStorage(localvalue.TYPEACCESS);
-
+    
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
-
+    
     const [offreDetail, setoffreDetail] = useState();
     const [candidatures, setcandidatures] = useState([]);
     const [candidatures2, setcandidatures2] = useState([]);
@@ -29,47 +28,78 @@ const CandidatureRecruteurListPage = () => {
     const [messageLis2, setmessageLis2] = useState([]);
     const [candidatureDetail, setcandidatureDetail] = useState();
     const [messageDetail, setmessageDetail] = useState();
-
+    
     // state pour message pour les candidatures
     const [titleCandidature, settitleCandidature] = useState();
     const [contentCandidature, setcontentCandidature] = useState()
     const [smsChecked, setsmsChecked] = useState(false);
     const [emailChecked, setemailChecked] = useState(false);
-
+    
     const [buttonSelected, setbuttonSelected] = useState(0);
-
+    
     const [show, setShow] = useState(false);
-
-
-
-
+    
+    const [currentPageCandidatures, setCurrentPageCandidatures] = useState(1);
+    const [currentPageMessages, setCurrentPageMessages] = useState(1);
+    const itemsPerPage = 10;
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleShowButton = (item) => setbuttonSelected(item);
-
-
-
-
+    
     const [showMsg, setshowMsg] = useState(false);
     const handleShowMsg = () => { setshowMsg(true) };
     const handleCloseMsg = () => { setshowMsg(false) };
-
-
+    
     const [candidature, setcandidature] = useState();
     const [message, setmessage] = useState();
-
+    
     useEffect(() => {
         CandidaturesALLOfEntreprises(idRecruteur, setcandidatures, setcandidatures2);
         MessageAllEntrepriseById(idRecruteur, setmessageList, setmessageLis2);
     }, []);
-
-
-
+    
+    // Pagination handlers
+    const handlePageChangeCandidatures = (pageNumber) => {
+        setCurrentPageCandidatures(pageNumber);
+    };
+    
+    const handlePageChangeMessages = (pageNumber) => {
+        setCurrentPageMessages(pageNumber);
+    };
+    
+    const indexOfLastCandidature = currentPageCandidatures * itemsPerPage;
+    const indexOfFirstCandidature = indexOfLastCandidature - itemsPerPage;
+    const currentCandidatures = candidatures.slice(indexOfFirstCandidature, indexOfLastCandidature);
+    
+    const indexOfLastMessage = currentPageMessages * itemsPerPage;
+    const indexOfFirstMessage = indexOfLastMessage - itemsPerPage;
+    const currentMessages = messageList.slice(indexOfFirstMessage, indexOfLastMessage);
+    
+    const totalPagesCandidatures = Math.ceil(candidatures.length / itemsPerPage);
+    const totalPagesMessages = Math.ceil(messageList.length / itemsPerPage);
+    
+    const renderPagination = (totalPages, currentPage, handlePageChange) => {
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <button
+                    key={i}
+                    onClick={() => handlePageChange(i)}
+                    className={`px-3 py-1 mx-1 ${i === currentPage ? 'bg-blue-600 text-white' : 'bg-gray-200 text-black'}`}
+                >
+                    {i}
+                </button>
+            );
+        }
+        return pages;
+    };
+    
     // Submit
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.reducer.loading);
     const error = useSelector((state) => state.reducer.error);
-
+    
     const showErrorToast = (message) => {
         toast.info(message, {
             position: "top-right",
@@ -80,14 +110,13 @@ const CandidatureRecruteurListPage = () => {
             draggable: true,
         });
     };
-
+    
     const handleSumitCandidatureMessage = (event) => {
-
+    
         event.preventDefault();
-
-
+    
         const requiredFields = ["titleCandidature", "contentCandidature"];
-
+    
         for (const field of requiredFields) {
             if (!eval(field)) {
                 showErrorToast(
@@ -97,7 +126,7 @@ const CandidatureRecruteurListPage = () => {
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
-
+    
         dispatch(
             CandidatureAuthorizedAndMessage(
                 candidatureDetail._id,
@@ -106,12 +135,11 @@ const CandidatureRecruteurListPage = () => {
             )
         )
     }
-
+    
     return (
         <div className="main-content">
             <div className="main-content">
-
-
+    
                 <section className="bg-gray-50 mt-28">
                     <div
                         className="mx-auto px-4 py-5 lg:flex  lg:items-center"
@@ -126,31 +154,28 @@ const CandidatureRecruteurListPage = () => {
                             <div className="mt-8 flex flex-wrap justify-center gap-4">
                                 <button onClick={() => { handleShowButton(0) }}
                                     className={`block w-full rounded${buttonSelected == 0 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
-
+    
                                 >
                                     Candidatures ({candidatures.length})
                                 </button>
-
+    
                                 <button onClick={() => { handleShowButton(1) }}
                                     className={`block w-full rounded${buttonSelected == 1 ? " bg-blue-600 text-white" : ""} hover:bg-blue-700 active:bg-blue-500 text-blue-500 px-12 py-3 text-sm font-medium  shadow  focus:outline-none focus:ring  sm:w-auto`}
-
+    
                                 >Messages ({messageList.length})
                                 </button>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
-
-
+    
                 {/* Les Candidats */}
                 <div className={`py-8 w-full mb-40 ${buttonSelected == 0 ? "" : "hidden"}`}>
                     {
                         candidatures && candidatures.length ?
                             <div className="flex flex-wrap justify-center  w-full gap-1">
                                 {
-                                    candidatures.map((item) => {
+                                    currentCandidatures.map((item) => {
                                         return (
                                             <div onClick={() => {
                                                 OffreGetById(item.idOffre, setoffreDetail, setisLoading, setentreprise);
@@ -158,8 +183,7 @@ const CandidatureRecruteurListPage = () => {
                                                 setcandidatureDetail(item);
                                                 settitleCandidature(`${item.title}`);
                                                 setcontentCandidature(`Nous comme heureux de vous annoncer que votre candidature à l'offre à '${item.title}' bien été selectioné par nos auteurs `);
-
-
+    
                                             }} className="  w-[350px] sm:w-[450px] md:w-[350px] lg:w-[350px]  lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow rounded cursor-pointer">
                                                 <div className="flex items-center border-b border-gray-200 pb-6">
                                                     <img src={item.coverPicture}
@@ -198,18 +222,16 @@ const CandidatureRecruteurListPage = () => {
                                 </div>
                             </div>
                     }
+                    <div className="flex justify-center mt-4">
+                        {renderPagination(totalPagesCandidatures, currentPageCandidatures, handlePageChangeCandidatures)}
+                    </div>
                 </div>
-
-
-
-
-                
-
+    
                 <div className={`py-8 mb-40 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
                     {messageList && messageList.length ?
                         <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
                             {
-                                messageList.map((item) => {
+                                currentMessages.map((item) => {
                                     return (
                                         <div onClick={()=>{
                                             handleShowMsg();
@@ -227,20 +249,12 @@ const CandidatureRecruteurListPage = () => {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            {
-                                                /*<div className="px-2">
-                                                <p className="text-sm leading-5 py-4 text-gray-600 line-clamp-2">{item.content}</p>
-                                                <div className="flex">
-                                                    <div className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#dogecoin</div>
-                                                    <div className="py-2 px-4 ml-3 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#crypto</div>
-                                                </div>
-                                            </div> */
-                                            }
+                                            
                                         </div>
                                     )
                                 })
                             }
-
+    
                         </div> :
                         <div className="bg-gray-50  p-5 w-full h-screen flex justify-center items-center">
                             <div className="bg-white w-full h-screen rounded-lg shadow-lg flex justify-center items-center ">
@@ -248,15 +262,12 @@ const CandidatureRecruteurListPage = () => {
                             </div>
                         </div>
                     }
-
+                    <div className="flex justify-center mt-4">
+                        {renderPagination(totalPagesMessages, currentPageMessages, handlePageChangeMessages)}
+                    </div>
                 </div>
             </div>
-
-
-
-
-
-
+    
             {show && (
                 <div className="fixed z-50 inset-0 overflow-y-auto">
                     <div className="flex items-center justify-center h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -283,7 +294,7 @@ const CandidatureRecruteurListPage = () => {
                                                 </h3> :
                                                 <div className="w-full h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
-
+    
                                         {
                                             candidatureDetail && candidatureDetail.createdAt ?
                                                 <p className="text-sm text-gray-500 mb-4">
@@ -298,7 +309,7 @@ const CandidatureRecruteurListPage = () => {
                                                 </p> :
                                                 <div className="w-10 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
                                         }
-
+    
                                         {
                                             candidatureDetail && candidatureDetail.status ?
                                                 <p className={`text-sm text-gray-500 mb-4 
@@ -318,7 +329,7 @@ const CandidatureRecruteurListPage = () => {
                                                     }
                                                 </p> :
                                                 <div className="w-20 h-9 bg-gray-200 animate-pulse my-3 rounded-xl" />
-
+    
                                         }
                                     </div>
                                     <div className=" mt-2  w-full ">
@@ -341,25 +352,8 @@ const CandidatureRecruteurListPage = () => {
                                                             type="password" required={true} />
                                                     </div>
                                                 </div>
-
-                                                {
-                                                    <div>
-                                                        {
-                                                            /*<div className="chva6">
-                                                            <div>
-                                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">SMS (Envois par message)<span className="cvmpf"></span></label>
-                                                                <input className="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setsmsChecked(e.target.checked) }} type="checkbox" checked={smsChecked} required={false} />
-                                                            </div>
-                                                        </div>
-                                                        <div className="chva6">
-                                                            <div>
-                                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email (Envois par Email) <span className="cvmpf"></span></label>
-                                                                <input className="w-[20px] h-[20px] cvac0 coz82" onChange={(e) => { setemailChecked(e.target.checked) }} type="checkbox" checked={emailChecked} required={false} />
-                                                            </div>
-                                                        </div> */
-                                                        }
-                                                    </div>
-                                                }
+    
+                                               
                                             </form>
                                         </div>
                                     </div>
@@ -373,7 +367,7 @@ const CandidatureRecruteurListPage = () => {
                                 >
                                     retour
                                 </button>
-
+    
                                 {
                                     loading ?
                                         <p className="animate-pulse text-gray-400">Envois en cours</p> :
@@ -389,12 +383,6 @@ const CandidatureRecruteurListPage = () => {
                     </div>
                 </div>
             )}
-
-
-
-
-
-
 
             {showMsg && (
                 <div className="fixed z-50 inset-0 overflow-y-auto">
