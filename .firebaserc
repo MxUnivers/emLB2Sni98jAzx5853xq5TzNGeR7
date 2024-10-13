@@ -2,7 +2,8 @@
   "projects": {
     "default": "plateforme-offres-emplois",
     "project": "plateforme-offres-emplois",
-    "urielle-group-job": "plateforme-offres-emplois"
+    "urielle-group-job": "plateforme-offres-emplois",
+    "Y": "plateforme-offres-emplois"
   },
   "targets": {},
   "etags": {}

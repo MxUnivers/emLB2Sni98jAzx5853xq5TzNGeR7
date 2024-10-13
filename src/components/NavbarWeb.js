@@ -5,7 +5,7 @@ import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/Candid
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
-import { MdAlternateEmail, MdEmail, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
+import { MdAlternateEmail, MdClose, MdEmail, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 import { statusPACKS } from '../utlis/config';
@@ -406,7 +406,7 @@ const NavbarWeb = () => {
                                                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                         <button
                                                             type="button"
-                                                            class="w-full inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                            class=" inline-flex justify-center px-3 py-1  rounded-md border border-transparent shadow-sm text-xs bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                                                             onClick={() => { handleClose() }}
                                                         >X
                                                         </button>
@@ -454,7 +454,7 @@ const NavbarWeb = () => {
 
                     {
                         isOpen && (
-                            <div class="fixed z-50 inset-0 overflow-y-auto">
+                            <div class="fixed z-50 inset-0 overflow-y-auto w-full">
                                 <div class="flex h-screen">
                                     {/* Sidebar */}
                                     <div class="w-1/2 sm:w-1/4 md:w-1/4 lg:w-1/4 bg-white text-blue-700 p-4">
@@ -465,28 +465,50 @@ const NavbarWeb = () => {
                                             />
                                         </h2>
 
+
+                                        <ul>
+                                            <li class={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to="/" class={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Accueil</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.job_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Emplois</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.blog_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Social</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.bourse_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Bourses</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.coaching_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.coaching_list}`} class={`${location.pathname === `/${routing.coaching_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Coaching & formations</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.aboutus}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> A propos de nous</Link>
+                                            </li>
+                                            <li class={` ${location.pathname === `/${routing.contact}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
+                                                <Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Contact</Link>
+                                            </li>
+                                        </ul>
+
                                         {
                                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] &&
                                                 getAndCheckLocalStorage(localvalue.candidatID) != null ?
                                                 (
                                                     <ul>
-                                                        <li class={` ${location.pathname === `/` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to="/" class={`${location.pathname === `/` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdHome /> Accueil</Link>
-                                                        </li>
                                                         {
                                                             candidat && candidat.account.pack == statusPACKS[2] ?
                                                                 <li class={` ${location.pathname === `/${routing.blog_post}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <Link to={`/${routing.blog_post}`} class={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPostAdd /> Publications</Link>
+                                                                    <Link to={`/${routing.blog_post}`} class={`${location.pathname === `/${routing.blog_post}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Publications</Link>
                                                                 </li> : null
                                                         }
                                                         <li class={` ${location.pathname === `/${routing.candidat_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdPortrait /> Profil</Link>
+                                                            <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Profil</Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdMessage /> Messages & Candidatures</Link>
+                                                            <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidat_list}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Messages & Candidatures</Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidat_applied}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to={`/${routing.candidat_applied}`} class={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}><MdWorkOutline /> Offres </Link>
+                                                            <Link to={`/${routing.candidat_applied}`} class={`${location.pathname === `/${routing.candidat_applied}` ? "active font-bold text-lg" : ""} text-blue-400 hover:text-blue-700`}> Offres </Link>
                                                         </li>
 
                                                     </ul>
@@ -499,22 +521,17 @@ const NavbarWeb = () => {
                                                 getAndCheckLocalStorage(localvalue.recruteurID) !== null ?
                                                 (
                                                     <ul>
-                                                        {
-                                                            /*<li class="mb-2">
-                                                            <Link to={`/${routing.blog_post}`} class="text-blue-500 hover:text-blue-700">Publications</Link>
-                                                        </li> */
-                                                        }
                                                         <li class={` ${location.pathname === `/${routing.company_details}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to={`/${routing.company_details}`} class="text-blue-500 hover:text-blue-700"><MdSupervisedUserCircle /> <span>Profil</span></Link>
+                                                            <Link to={`/${routing.company_details}`} class="text-blue-500 hover:text-blue-700"> <span>Profil</span></Link>
                                                         </li>
                                                         <li class={` ${location.pathname === `/${routing.candidature_list_recruteur}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                            <Link to={`/${routing.candidature_list_recruteur}`} class="text-blue-500 hover:text-blue-700"><MdAlternateEmail /> <span>Candidatures</span> </Link>
+                                                            <Link to={`/${routing.candidature_list_recruteur}`} class="text-blue-500 hover:text-blue-700"> <span>Candidatures</span> </Link>
                                                         </li>
-                                                        
+
                                                         {
                                                             recruteur && recruteur.account.pack == statusPACKS[2] ?
                                                                 <li class={` ${location.pathname === `/${routing.candidature_list}` ? "bg-blue-50 px-2 rounded-lg" : "border-b border-blue-200"} mb-2`}>
-                                                                    <Link to={`/${routing.candidature_list}`} class="text-blue-500 hover:text-blue-700"> <MdPerson2 /> <span>Meilleurs Profiles Candidats</span></Link>
+                                                                    <Link to={`/${routing.candidature_list}`} class="text-blue-500 hover:text-blue-700">  <span>Meilleurs Profiles Candidats</span></Link>
                                                                 </li> : null
                                                         }
 
@@ -524,7 +541,7 @@ const NavbarWeb = () => {
                                         }
                                         <ul>
                                             <li class="mb-2">
-                                                <Link to={`/${routing.pricing}`} class="text-blue-500 hover:text-blue-700"><p><MdPriceCheck /><span> Abonement</span></p> </Link>
+                                                <Link to={`/${routing.pricing}`} class="text-blue-500 hover:text-blue-700"><p><span> Abonement</span></p> </Link>
                                             </li>
                                         </ul>
                                         {
@@ -532,7 +549,7 @@ const NavbarWeb = () => {
                                                 <ul>
 
                                                     <li class={` " px-2 border-b mb-2`}>
-                                                        <Link to={`#logout`} class={` text-lg" text-red-400 hover:text-red-700`}><MdLogout /> Deconnexion</Link>
+                                                        <Link to={`#logout`} class={` text-lg" text-red-400 hover:text-red-700`}> Deconnexion</Link>
                                                     </li>
                                                 </ul>
                                                 :
@@ -548,25 +565,10 @@ const NavbarWeb = () => {
                                                 class="text-gray-900 hover:text-gray-700 focus:outline-none"
                                                 onClick={() => { closeModal() }}
                                             >
-                                                <svg
-                                                    class="h-6 w-6 text-black"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth="2"
-                                                        d="M6 18L18 6M6 6l12 12"
-                                                    />
-                                                </svg>
+                                                <MdClose class="text-black" size={50} />
                                             </button>
                                         </div>
                                         <div class="px-4 pt-2">
-                                            {/* Contenu principal de la page */}
                                         </div>
                                     </div>
                                 </div>
