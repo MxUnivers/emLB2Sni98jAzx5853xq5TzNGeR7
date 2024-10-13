@@ -106,13 +106,13 @@ const CompanyDetailPage = () => {
 
                                             <div className="mt-4">
                                                 {
-                                                    company && ( company._id == getAndCheckLocalStorage(localvalue.recruteurID)) ?
-                                                    <button  type="button"
-                                                onClick={()=>{
-                                                    window.location.href=`/${routing.company_edit}`
-                                                }}
-                                                    className="btn btn-primary btn-hover w-100 rounded"><i
-                                                        className="mdi mdi-eye"></i> Modifier profile</button>:
+                                                    company && (company._id == getAndCheckLocalStorage(localvalue.recruteurID)) ?
+                                                        <button type="button"
+                                                            onClick={() => {
+                                                                window.location.href = `/${routing.company_edit}`
+                                                            }}
+                                                            className="btn btn-primary btn-hover w-100 rounded"><i
+                                                                className="mdi mdi-eye"></i> Modifier profile</button> :
                                                         null
                                                 }
                                             </div>
@@ -124,7 +124,7 @@ const CompanyDetailPage = () => {
                                                         <i
                                                             className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
                                                         <div className="ms-3 flex space-x-2 border border-blue-500 rounded-lg py-1 px-2">
-                                                            <a href={`/${routing.candidature_list_recruteur}`} className="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length >0 ? "s":""} {candidatures.length > 0 ? candidatures.length: ""} </a>
+                                                            <a href={`/${routing.candidature_list_recruteur}`} className="fs-14 mb-2 text-blue-600 font-bold text-xl">Candidature{candidatures.length > 0 ? "s" : ""} {candidatures.length > 0 ? candidatures.length : ""} </a>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -185,33 +185,10 @@ const CompanyDetailPage = () => {
                                                     </div>
                                                 </li>
                                             </ul>
-
-
-
-
-
                                         </div>
                                     </div>
-
-
-
-                                    {
-                                        company && company.maps_entreprise ?
-                                            <div className="mt-4">
-                                                <h6 className="fs-16 mb-3 text-2xl">Carte</h6>
-                                                <iframe
-                                                    src={`${company.maps_entreprise}`}
-                                                    style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
-                                                    
-                                            </div> :
-                                            <div className="mt-4 rounded-xl bg-gray-300 animate-pulse w-full py-10">
-                                            </div>
-                                    }
                                 </div>
-
                             </div>
-
-
 
 
 
@@ -220,14 +197,7 @@ const CompanyDetailPage = () => {
 
                             <div className="col-span-8 w-full">
                                 <div className="card job-detail overflow-hidden">
-                                    {
-                                        /*<div>
-                                        <div className="job-details-compnay-profile">
-                                            <img src={`${company.logo}`} alt=""
-                                                className=" h-5 w-5 rounded-full" />
-                                        </div>
-                                    </div> */
-                                    }
+
 
 
                                     <div className="w-full card-body p-4 shadow-lg rounded-lg border">
@@ -275,33 +245,8 @@ const CompanyDetailPage = () => {
                                             {
                                                 offres.map((item) => {
                                                     return (
-                                                        /*<div key={item.id} className="group  relative group/item singleJob w-[250px] p-[20px] bg-white rounded-[10px] border  hover:bg-blueColor shadow-lg  hover:shadow-3xl ">
-                                                            <span className="flex justify-between items-center gap-4">
-                                                                <h1 className="text-[16px] font-semibold text-textColor line-clamp-2 ">{item.title}</h1>
-                                                                <span className="flex items-center gap-1 text-gray-400 text-xs"><BiTimeFive />{moment(item.createdAt).format("DD-MM-YYYY")}</span>
-                                                            </span>
-                                                            <h6 className="text-gray-400">{item.location}</h6>
-                                                            <p className="text-[13px] text-gray-500 pt-[20px] border-t-[2px] mt-[20px] line-clamp-3 ">
-                                                                {item.description}
-                                                            </p>
-                                                            <div className="company flex items-center gap-2">
-                                                                <img src={item.coverPicture} alt="Company Logo" className="w-[10%]" />
-                                                                <span className="text-[14px] py-[1rem] block ">
-                                                                    {item.company}
-                                                                </span>
-                                                            </div>
-                                                            <div >
-                                                                <button onClick={() => { handleEditItem(item) }}
-                                                                    className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-white group-hover/item:text-textColor " >Modifier
-                                                                </button>
-                                                            </div>
-                                                            <div >
-                                                                <button type='button' onClick={() => { handleDetailItem(item) }}
-                                                                    className="border-[2px] btn btn-success rounded-[10px] block p-[10px] w-full text-[14px] font-semibold text-textColor hover:bg-bleu-300 bg-blue-200 group-hover/item:text-textColor " >Details
-                                                                </button>
-                                                            </div>
-                                                        </div> */
-                                                        <JobCard data={item}/>
+                                                        
+                                                        <JobCard data={item} />
                                                     )
                                                 })}
                                         </div>

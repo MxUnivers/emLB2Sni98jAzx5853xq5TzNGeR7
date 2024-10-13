@@ -14,7 +14,7 @@ import LoadinButton from '../../components/loading/LoadinButton';
 const SignInPage = () => {
 
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
     const [candidats, setcandidats] = useState([
         {
@@ -71,7 +71,7 @@ const SignInPage = () => {
             return toast.error("Mot de passe  requis !");
         }
         event.preventDefault();
-        dispatch(CandidatConnexion(email, password,navigate, toast));
+        dispatch(CandidatConnexion(email, password, navigate, toast));
 
     }
 
@@ -91,10 +91,7 @@ const SignInPage = () => {
                             <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
                                 <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
-                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                        <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                        <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
-                                    </svg>
+                                    <img src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full" />
                                 </a>
                             </div>
                         </header>
@@ -127,7 +124,7 @@ const SignInPage = () => {
                                 <div className="cq38v">
                                     {
                                         loading ?
-                                        <LoadinButton text={"Connexion en cours ..."} />
+                                            <LoadinButton text={"Connexion en cours ..."} />
                                             :
                                             <button type="submit" className="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
                                                 Se Connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>

@@ -30,28 +30,20 @@ const JobDetailPage = () => {
     // Candidat connecté
     var candidatId = getAndCheckLocalStorage(localvalue.candidatID);
 
-    const { isLoadingO, erroro, offres , offres2} = OffreGetAll();
-
-
-
+    const { isLoadingO, erroro, offres, offres2 } = OffreGetAll();
 
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
     const error = useSelector((state) => state.error);
 
-
     const location = useLocation();
     const { job } = location.state;
-
 
     const [idJobDetail, setidJobDetail] = useState(jobId);
     const [jobDetail, setjobDetail] = useState();
 
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
-    //const [idEntreprise, setidEntreprise] = useState();
-
-
 
     useEffect(() => {
         OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
@@ -63,11 +55,6 @@ const JobDetailPage = () => {
         navigate(`/${routing.company_details}`);
     }
 
-
-
-
-
-
     const [modalApply, setmodalApply] = useState()
     const [firstname, setfirstname] = useState();
     const [lastname, setlastname] = useState();
@@ -75,8 +62,6 @@ const JobDetailPage = () => {
     const [telephone, settelephone] = useState();
     const [description, setdescription] = useState();
     const [cv, setcv] = useState();
-
-
 
     const handleShow = () => {
         setmodalApply(true);
@@ -88,7 +73,7 @@ const JobDetailPage = () => {
     const showErrorToast = (message) => {
         toast.error(message, {
             position: "top-right",
-            autoClose: 3000, // Durée d'affichage du toast en millisecondes
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -106,7 +91,6 @@ const JobDetailPage = () => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setcv(reader.result);
-            // console.log(previewSource)
         }
     }
     const hanldeSubmitCandidat = (event) => {
@@ -121,10 +105,9 @@ const JobDetailPage = () => {
         for (const field of requiredFields) {
             if (!eval(field)) {
                 showErrorToast(
-                    //`${field.replace("_", " ")} requis !`
                     `les champs avec * obligatoire`
                 );
-                return; // Arrêtez le traitement si un champ est vide.
+                return;
             }
         }
 
@@ -141,27 +124,25 @@ const JobDetailPage = () => {
         }
     }
 
-
-
-
+    // Pagination
+    const itemsPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(0);
+    const handlePageClick = (pageIndex) => {
+        setCurrentPage(pageIndex);
+    };
+    const offset = currentPage * itemsPerPage;
+    const currentItems = offres.slice(offset, offset + itemsPerPage);
+    const pageCount = Math.ceil(offres.length / itemsPerPage);
 
     return (
-
         <div className="main-content">
-
             <div className="page-content">
-
-
-
-
-
                 <section className="section mt-24">
                     <div className="container-fluid px-7">
                         <div className="flex flex-row justify-between">
-                            <div className="col-lg-8">
-                                <div className="card job-detail overflow-hidden">
+                            <div className=" row-auto">
+                                <div className="col-lg-8 card job-detail overflow-hidden">
                                     <div>
-
                                         <div className="job-details-compnay-profile">
                                             {
                                                 jobDetail && jobDetail.coverPicture ?
@@ -171,8 +152,6 @@ const JobDetailPage = () => {
                                             }
                                         </div>
                                     </div>
-
-
                                     <div className="card-body p-4">
                                         <div>
                                             <div className="row">
@@ -190,16 +169,15 @@ const JobDetailPage = () => {
                                                                     <i className="mdi mdi-account"></i> {jobDetail.candidats.length} Candidats
                                                                 </li> :
                                                                 <div className="h-7 w-full bg-gray-200 animate-pulse rounded-lg" />
-
                                                         }
-                                                        <li className="list-inline-item text-warning review-rating">
+                                                        {/*<li className="list-inline-item text-warning review-rating">
                                                             <span className="badge bg-warning">4.8</span> <i
                                                                 className="mdi mdi-star align-middle"></i><i
                                                                     className="mdi mdi-star align-middle"></i><i
                                                                         className="mdi mdi-star align-middle"></i><i
                                                                             className="mdi mdi-star align-middle"></i><i
                                                                                 className="mdi mdi-star-half-full align-middle"></i>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </div>
                                                 <div className="col-lg-4">
@@ -220,38 +198,6 @@ const JobDetailPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {
-                                            /*<div className="mt-4">
-                                            <div className="grid grid-cols-4 gap-4">
-                                                <div className="col-lg-3">
-                                                    <div className="border rounded-start p-3">
-                                                        <p className="text-muted mb-0 fs-13">Experience</p>
-                                                        <p className="fw-medium fs-15 mb-0">Minimum 1 Year</p>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-3">
-                                                    <div className="border p-3">
-                                                        <p className="text-muted fs-13 mb-0">Employee type</p>
-                                                        <p className="fw-medium mb-0">Full Time</p>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-3">
-                                                    <div className="border p-3">
-                                                        <p className="text-muted fs-13 mb-0">Position</p>
-                                                        <p className="fw-medium mb-0">Senior</p>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-3">
-                                                    <div className="border rounded-end p-3">
-                                                        <p className="text-muted fs-13 mb-0">Offer Salary</p>
-                                                        <p className="fw-medium mb-0">$2150/ Month</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */
-                                        }
-
                                         <div className="mt-4">
                                             <h5 className="mb-3 text-2xl">Description sur le job </h5>
                                             {
@@ -264,73 +210,9 @@ const JobDetailPage = () => {
                                                     <div className="w-full h-36 bg-gray-300 animate-pulse rounded-xl" />
                                             }
                                         </div>
-
-                                        {
-                                            /*<div className="mt-4">
-                                            <h5 className="mb-3 text-2xl">Responsibilities</h5>
-                                            <div className="job-detail-desc mt-2">
-                                                <p className="text-muted">As a Product Designer, you will work within a
-                                                    Product Delivery Team fused with UX, engineering, product and data
-                                                    talent.</p>
-                                                <ul className="job-detail-list list-unstyled mb-0 text-muted">
-                                                    <li><i className="uil uil-circle"></i> Have sound knowledge of
-                                                        commercial activities.</li>
-                                                    <li><i className="uil uil-circle"></i> Build next-generation web
-                                                        applications with a focus on the client side</li>
-                                                    <li><i className="uil uil-circle"></i> Work on multiple projects at
-                                                        once, and consistently meet draft deadlines</li>
-                                                    <li><i className="uil uil-circle"></i> have already graduated or are
-                                                        currently in any year of study</li>
-                                                    <li><i className="uil uil-circle"></i> Revise the work of previous
-                                                        designers to create a unified aesthetic for our brand materials
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-4">
-                                            <h5 className="mb-3 text-2xl">Qualifications</h5>
-                                            <div className="job-detail-desc mt-2">
-                                                <ul className="job-detail-list list-unstyled mb-0 text-muted">
-                                                    <li><i className="uil uil-circle"></i> B.C.A / M.C.A under National
-                                                        University course complete.</li>
-                                                    <li><i className="uil uil-circle"></i> 3 or more years of professional
-                                                        design experience</li>
-                                                    <li><i className="uil uil-circle"></i> have already graduated or are
-                                                        currently in any year of study</li>
-                                                    <li><i className="uil uil-circle"></i> Advanced degree or equivalent
-                                                        experience in graphic and web design</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-4">
-                                            <h5 className="mb-3 text-2xl">Skill & Experience</h5>
-                                            <div className="job-details-desc">
-                                                <ul className="job-detail-list list-unstyled mb-0 text-muted">
-                                                    <li><i className="uil uil-circle"></i> Understanding of key Design
-                                                        Principal</li>
-                                                    <li><i className="fa fa-circle" aria-hidden="true"></i> Proficiency With HTML, CSS,
-                                                        Bootstrap</li>
-                                                </ul>
-                                            </div>
-                                        </div> */
-                                        }
-
-                                        <div className="mt-4">
-                                            <h5 className="mb-3 text-2xl">Compétences</h5>
-                                            <div className="job-details-desc">
-                                                <ul className="job-detail-list list-unstyled mb-0 text-muted">
-                                                    <li className="rounde-lg btn btn-success bg-blue-300 btn-sm">BootStrap</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-
                                         <div className="mt-4 pt-3">
                                             <ul className="list-inline mb-0  flex flex-wrap space-x-2">
                                                 <li className="list-inline-item mt-1">
-                                                    Reseaux sociaux
                                                 </li>
                                                 {
                                                     entreprise && entreprise.facebook_url && entreprise.facebook_url !== "#" ?
@@ -356,101 +238,12 @@ const JobDetailPage = () => {
                                                         </li> :
                                                         null
                                                 }
-
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="mt-4">
-                                    <h5 className="text-3xl ">Autres Jobs </h5>
-
-                                    {
-                                        offres.map((item) => {
-                                            return (
-                                                <div onClick={() => {
-                                                    setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                }}
-                                                    className="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
-
-                                                    <div className="p-4">
-
-                                                        <div className="row flex justify-between space-x-2">
-                                                            <div className="col-lg-1">
-                                                                <img src={item.coverPicture} alt=""
-                                                                    className="img-fluid h-10 w-10 rounded-xl" />
-                                                            </div>
-                                                            <div className="col-lg-10">
-                                                                <div className="mt-3 mt-lg-0">
-                                                                    <h5 className="fs-17 mb-1"><a href={`/${routing.job_details}`}
-                                                                        onClick={() => {
-                                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                                        }}
-                                                                        className="text-dark text-lg font-semibold">{item.title}</a></h5>
-                                                                    <ul className="list-inline mb-0 flex space-x-2">
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0">{item.company}</p>
-                                                                        </li>
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0"><i
-                                                                                className="mdi mdi-map-marker"></i> {item.addresse}</p>
-                                                                        </li>
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0"><i
-                                                                                className="uil uil-wallet"></i> {item.salaire} / mois
-                                                                            </p>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div className="mt-2">
-                                                                        {
-                                                                            item.typeContrat ?
-                                                                                <span className="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
-                                                                                null
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="favorite-icon">
-                                                            <a href="javascript:void(0)"><i className="uil uil-heart-alt fs-18"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="p-3 bg-light">
-                                                        <div className="flex justify-between items-center">
-                                                            <div className="col-md-3">
-                                                                <div className="text-md-end btn ">
-                                                                    <a href={`/${routing.job_details}`} onClick={() => {
-                                                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                                    }} className="primary-link">Details
-                                                                        <i className="mdi mdi-chevron-double-right"></i></a>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-
-
-
-
-
-
-
-                                </div>
-
-                                <div className="text-center mt-4">
-                                    <a href={`/${routing.job_list}`} className="primary-link form-text">Voire plus <i
-                                        className="mdi mdi-arrow-right"></i></a>
-                                </div>
-
-                            </div>
-
-                            <div className="col-lg-4 mt-4 mt-lg-0">
-
+                                
+                                <div className="col-lg-4 mt-4 mt-lg-0">
                                 <div className="side-bar ms-lg-4">
                                     <div className="card border rounded-lg  shadow-sm job-overview">
                                         <div className="card-body p-4 flex flex-col justify-center ">
@@ -531,25 +324,13 @@ const JobDetailPage = () => {
                                                         <li><div className="bg-gray-200 rounded-xl animate-pulse w-full h-7" /></li>
                                                 }
                                                 {
-                                                    /*<li>
-                                                    <div className="d-flex mt-4">
-                                                        <i
-                                                            className="uil uil-graduation-cap icon bg-primary-subtle text-primary"></i>
-                                                        <div className="ms-3 flex space-x-2">
-                                                            <h6 className="fs-14 mb-2">Qualification</h6>
-                                                            <p className="text-muted mb-0">Bachelor Degree</p>
-                                                        </div>
-                                                    </div>
-                                                </li> */
-                                                }
-                                                {
                                                     jobDetail && jobDetail.typeContrat ?
                                                         <li>
                                                             <div className="d-flex mt-4 flex space-x-2">
                                                                 <i
                                                                     className="uil uil-building icon bg-primary-subtle text-primary"></i>
                                                                 <div className="ms-3">
-                                                                    <h6 className="fs-14 mb-2">Type Comptrat</h6>
+                                                                    <h6 className="fs-14 mb-2"></h6>
                                                                     <div className={`text-muted mb-0 bg-green-500 rounded-xl text-center py-2 text-white`}>{jobDetail.typeContrat}</div>
                                                                 </div>
                                                             </div>
@@ -586,62 +367,104 @@ const JobDetailPage = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                     <div className="card company-profile mt-4">
                                         <div className="card-body p-4">
-                                            {
-                                                entreprise && entreprise.full_name && entreprise.logo ?
-                                                    <div className="text-center">
-                                                        <img src="assets/images/featured-job/img-02.png" alt=""
-                                                            className="img-fluid rounded-3" />
-
-                                                        <div className="mt-4 flex space-x-2">
-                                                            <h6 className="fs-17 mb-1">Jobcy Technology Pvt.Ltd</h6>
-                                                            <p className="text-muted">Since July 2017</p>
-                                                        </div>
-                                                    </div> :
-                                                    <div className="flex flex-col w-full  justify-center">
-                                                        <div className="bg-gray-200 rounded-full h-20 w-20 my-2  " />
-                                                        <div className="bg-gray-200 w-full h-7  my-2 " />
-                                                    </div>
-                                            }
                                             <ul className="list-unstyled mt-4 w-full">
                                             </ul>
-                                            {
-                                                entreprise && entreprise._id ?
-                                                    <div className="mt-4">
-                                                        <a href={`/${routing.company_details}`}
-                                                            onClick={() => {
-                                                                setWithExpiration(entreprise._id, localvalue.recruteurID, dureeDeVie)
-                                                            }}
-                                                            className="btn btn-primary btn-hover w-100 rounded"><i className="mdi mdi-eye"></i>
-                                                            Profile
-                                                        </a>
-                                                    </div> :
-                                                    null
-                                            }
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div className="mt-4">
-                                        <h6 className="fs-16 mb-3">Job location</h6>
-                                        <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin"
-                                            style={{ width: "100%" }} height="250" allowfullscreen="" loading="lazy"></iframe>
+
+
+                                <div className="col-lg-12 mt-4">
+                                    <h5 className="text-2xl ">Autres Jobs </h5>
+                                    {
+                                        currentItems.map((item) => {
+                                            return (
+                                                <div onClick={() => {
+                                                    setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                }}
+                                                    className="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
+                                                    <div className="p-4">
+                                                        <div className="row flex justify-between space-x-2">
+                                                            <div className="col-lg-1">
+                                                                <img src={item.coverPicture} alt=""
+                                                                    className="img-fluid h-10 w-10 rounded-xl" />
+                                                            </div>
+                                                            <div className="col-lg-10">
+                                                                <div className="mt-3 mt-lg-0">
+                                                                    <h5 className="fs-17 mb-1"><a href={`/${routing.job_details}`}
+                                                                        onClick={() => {
+                                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                        }}
+                                                                        className="text-dark text-lg font-semibold">{item.title}</a></h5>
+                                                                    <ul className="list-inline mb-0 flex space-x-2">
+                                                                        <li className="list-inline-item">
+                                                                            <p className="text-muted fs-14 mb-0">{item.company}</p>
+                                                                        </li>
+                                                                        <li className="list-inline-item">
+                                                                            <p className="text-muted fs-14 mb-0"><i
+                                                                                className="mdi mdi-map-marker"></i> {item.addresse}</p>
+                                                                        </li>
+                                                                        <li className="list-inline-item">
+                                                                            <p className="text-muted fs-14 mb-0"><i
+                                                                                className="uil uil-wallet"></i> {item.salaire} / mois
+                                                                            </p>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <div className="mt-2">
+                                                                        {
+                                                                            item.typeContrat ?
+                                                                                <span className="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
+                                                                                null
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="favorite-icon">
+                                                            <a href="javascript:void(0)"><i className="uil uil-heart-alt fs-18"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div className="p-3 bg-light">
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="col-md-3">
+                                                                <div className="text-md-end btn ">
+                                                                    <a href={`/${routing.job_details}`} onClick={() => {
+                                                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
+                                                                    }} className="primary-link">Details
+                                                                        <i className="mdi mdi-chevron-double-right"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    <div className="flex justify-center mt-4">
+                                        {Array.from({ length: pageCount }, (_, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => handlePageClick(index)}
+                                                className={`mx-1 px-3 py-1 ${index === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-md`}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
-
+                                <div className="text-center mt-4">
+                                    <a href={`/${routing.job_list}`} className="primary-link form-text">Voire plus <i
+                                        className="mdi mdi-arrow-right"></i></a>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 </section>
-
-
-
-
-
-
-
                 {
                     modalApply &&
                     (
@@ -673,10 +496,6 @@ const JobDetailPage = () => {
                                         <label for="message" className="block font-bold mb-1">Motif *</label>
                                         <textarea id="message" value={description} onChange={(e) => { setdescription(e.target.value) }} className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
                                     </div>
-                                    {/*<div className="mb-4">
-                                        <label for="resume" className="block font-bold mb-1">CV :</label>
-                                        <input type="file" id="resume" className="w-full border     border-gray-300 rounded px-3 py-2" />
-                                    </div> */}
                                     <div className="flex justify-end">
                                         {
                                             loading ?
@@ -695,18 +514,8 @@ const JobDetailPage = () => {
                         </div>
                     )
                 }
-
-
-
-
-
-
-
-
             </div>
         </div>
-
-
     )
 }
 

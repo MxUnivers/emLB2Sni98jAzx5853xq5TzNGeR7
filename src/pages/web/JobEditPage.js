@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import LoadinButton from '../../components/loading/LoadinButton';
+import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 
 const JobEditPage = () => {
 
@@ -64,34 +65,18 @@ const JobEditPage = () => {
 
     // Uploader photo de profile
     const [LoadingPhoto, setLoadingPhoto] = useState(false);
-    const convertBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
-            fileReader.onerror = (error) => { reject(error); };
-        });
-    }
-    function uploadSinglePhoto(base64) {
-        setLoadingPhoto(true);
-        axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
-            .then((res) => {
-                setCoverPicture(res.data);
-                toast.dark("Photo télécharger avec succès")
-            })
-            .then(() => setLoadingPhoto(false))
-            .catch(() => {
-                console.log("Photo ,on uploder"); toast.error("Photo non télécharger !")
-                setLoadingPhoto(false);
-            });
-    }
+    
     const HandleFileInputChangePhoto = async (event) => {
-        const files = event.target.files;
+        const files = event.target.files[0];
         console.log(files.length);
-        if (files.length === 1) {
-            const base64 = await convertBase64(files[0]);
-            uploadSinglePhoto(base64); return;
+        setLoadingPhoto(true)
+        const url = await handleImageUploadCloudOnly(files, toast);
+        if (url) {
+            setCoverPicture(url);
+            setLoadingPhoto(false)
+            // Tu peux maintenant utiliser l'URL, par exemple l'envoyer dans une requête pour sauvegarder l'image dans ta base de données
         }
-        const base64s = [];
-        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+        setLoadingPhoto(false)
     };
 
 

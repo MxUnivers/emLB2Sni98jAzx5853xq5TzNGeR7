@@ -115,10 +115,7 @@ const SignInRecuteurPage = () => {
                             <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
                                 <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
-                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                        <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                        <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
-                                    </svg>
+                                <img  src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full"/>
                                 </a>
                             </div>
                         </header>
