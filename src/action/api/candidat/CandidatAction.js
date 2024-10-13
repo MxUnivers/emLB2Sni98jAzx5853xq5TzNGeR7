@@ -623,12 +623,14 @@ export default function useFetchCandidat(idCandidat) {
         ],
         account: {
             solde: 0,
-            pack: "DIAMOUND" || "",
+            pack: "DIAMOND" || "",
             count_sms: 0
         }
     });
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    
 
     useEffect(() => {
         async function fetchData() {
