@@ -1,26 +1,28 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
+import { localvalueStorage } from "../../../utlis/storage/localvalue";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 
 // Envois de message de l'entreprise vers un candidat
-export const Entreprise_Send_Message = (idEntreprise,idCandidat,subject,content,toast) => {
+export const Entreprise_Send_Message = (idEntreprise, idCandidat, subject, content, toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
             .post(`${baseurl.url}/api/v1/message/send/${idEntreprise}/receip/${idCandidat}`,
-            {
-                "subject":subject,
-                "content":content
-            }
-            , {
-                headers:
                 {
-                    "Content-Type": "application/json",
-                    "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
+                    "subject": subject,
+                    "content": content
                 }
-            })
+                , {
+                    headers:
+                    {
+                        "Content-Type": "application/json",
+                        "Authorization": `${baseurl.TypeToken} ${baseurl.token}`
+                    }
+                })
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success("Message envoyé avec succès ");
@@ -30,7 +32,7 @@ export const Entreprise_Send_Message = (idEntreprise,idCandidat,subject,content,
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
-                toast.error("Message non envoyée ! ");
+                toast.error("Message non envoyé ");
             });
     };
 }
@@ -40,8 +42,12 @@ export const Entreprise_Send_Message = (idEntreprise,idCandidat,subject,content,
 
 // Recuprer tout les message du candidats
 
-export const MessageAllCandidatById = async (id, setState,setState2) => {
+export const MessageAllCandidatById = async (id, setState, setState2) => {
     try {
+        const messagsget = getDataFromFile(localvalueStorage.MESSAGE);
+        setState(messagsget);
+        setState2(messagsget);
+
         const response = await axios.get(`${baseurl.url}/api/v1/message/get_message/candidat/${id}/messages`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -52,6 +58,7 @@ export const MessageAllCandidatById = async (id, setState,setState2) => {
             console.log(response.data.data)
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile(response.data.data, localvalueStorage.MESSAGE)
         } else {
             console.log('La structure de la réponse est incorrecte');
             alert("la La tsructure de donnée est increect")
@@ -64,8 +71,12 @@ export const MessageAllCandidatById = async (id, setState,setState2) => {
 
 
 
-export const MessageAllEntrepriseById = async (id, setState,setState2) => {
+export const MessageAllEntrepriseById = async (id, setState, setState2) => {
     try {
+        const messagsget = getDataFromFile(localvalueStorage.MESSAGE);
+        setState(messagsget);
+        setState2(messagsget);
+
         const response = await axios.get(`${baseurl.url}/api/v1/message/get_message/entreprise/${id}/messages`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -76,6 +87,7 @@ export const MessageAllEntrepriseById = async (id, setState,setState2) => {
             console.log(response.data.data)
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile(response.data.data, localvalueStorage.MESSAGE)
         } else {
             console.log('La structure de la réponse est incorrecte');
             alert("la La tsructure de donnée est increect")

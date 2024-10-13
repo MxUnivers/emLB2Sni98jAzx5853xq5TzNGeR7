@@ -48,6 +48,23 @@ export const localvalue = {
 
 
 
+export const localvalueStorage = {
+
+    PROFILE:"CANDIDAT",
+    COMPANY:"COMPANY",
+    CANDIDAT:"CANDIDAT",
+    BLOGLIST:"BLOGLIST",
+    FORMATIONLIST:"FORMATIONLIST",
+    EMPLOISLIST:"EMPLOISLIST",
+    EMPLOISLISTGET:"EMPLOISLISTGET",
+    EMPLOISRECRUTEUR:"EMPLOISRECRUTEUR",
+    CANIDATURESLIST:"CANIDATURESLIST",
+    MESSAGE:"MESSAGE",
+}
+
+
+
+
 
 export const dureeDeVie = 30 * 24 * 60 * 60 * 1000; // 30 jours * 24 heures * 60 minutes * 60 secondes * 1000 millisecondes
 

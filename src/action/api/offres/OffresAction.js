@@ -1,10 +1,11 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
-import { localvalue } from "../../../utlis/storage/localvalue";
+import { localvalue, localvalueStorage } from "../../../utlis/storage/localvalue";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../employeur/EmployeurAction";
 import { routing } from "../../../utlis/routing";
 import { useEffect, useState } from "react";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 
@@ -147,6 +148,10 @@ export const OffreEditById = (
 // spécialement pour les entreprises
 export const OffreGetAllById = async (id, setState, setState2) => {
 
+    const offresget = getDataFromFile(localvalueStorage.EMPLOISRECRUTEUR)
+    setState(offresget)
+    setState2(offresget);
+
     await axios.get(`${baseurl.url}/api/v1/offre/get_offres/${id}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -156,6 +161,7 @@ export const OffreGetAllById = async (id, setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile(response.data.data,localvalueStorage.EMPLOISRECRUTEUR)
         })
         .catch((error) => {
             console.log(error);
@@ -166,6 +172,9 @@ export const OffreGetAllById = async (id, setState, setState2) => {
 
 export const OffreGetAllOffre = async ( setState, setState2) => {
 
+    const offresget = getDataFromFile(localvalueStorage.EMPLOISLIST)
+    setState(offresget)
+    setState2(offresget)
     await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
         headers: {
             'Content-Type': 'application/json',
@@ -175,6 +184,7 @@ export const OffreGetAllOffre = async ( setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile(response.data.data,localvalueStorage.EMPLOISLIST)
         })
         .catch((error) => {
             console.log(error);
@@ -395,6 +405,9 @@ export default function OffreGetAll() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        const offresget = getDataFromFile(localvalueStorage.EMPLOISLIST)
+        setoffres(offresget)
+        setoffres2(offresget)
         async function fetchData() {
             setIsLoading(true);
             await axios.get(`${baseurl.url}/api/v1/offre/get_offres`, {
@@ -405,6 +418,7 @@ export default function OffreGetAll() {
             }).then((response) => {
                 setoffres(response.data.data);
                 setoffres2(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.EMPLOISLIST)
                 setError(null);
                 console.log(response.data.data)
             })

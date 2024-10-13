@@ -41,7 +41,7 @@ const HomePacks = () => {
                                                 >
                                                     {item.titre}
                                                 </h1>
-                                                <h2 class="text-sm text-gray-500 text-center pb-6">{item.prix} /an</h2>
+                                                <h2 class="text-sm text-gray-500 text-center pb-6">{/*{item.prix} /an*/}</h2>
 
                                                 {item.description}
                                             </div>
