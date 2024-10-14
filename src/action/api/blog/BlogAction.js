@@ -4,6 +4,8 @@ import { FETCH_FAILED_POSTS, FETCH_SEND_POSTS, FETCH_SUCCESS_POSTS, REQUEST_FAIL
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from "react";
 import { routing } from "../../../utlis/routing";
+import { localvalueStorage } from "../../../utlis/storage/localvalue";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 
@@ -85,6 +87,10 @@ export const BlogEditById = (
 
 export const fetchDataPostsAll = () => {
     return async (dispatch) => {
+
+        const blogList = getDataFromFile(localvalueStorage.BLOGLIST) || [];
+        dispatch({ type: FETCH_SUCCESS_POSTS, payload: blogList });
+
         dispatch({ type: FETCH_SEND_POSTS })
         await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
             headers: {
@@ -94,6 +100,7 @@ export const fetchDataPostsAll = () => {
         }).then((response) => {
             console.log(response.data.data)
             dispatch({ type: FETCH_SUCCESS_POSTS, payload: response.data.data })
+            saveDataToFile(response.data.data, localvalueStorage.BLOGLIST)
         })
             .catch((error) => {
                 console.log(error);
@@ -111,26 +118,33 @@ export default function BlogAll() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        async function fetchData() {
-                setIsLoading(true);
-                await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
-                    }
-                }).then((response) => {
-                    setblogs(response.data.data);
-                    setblogs2(response.data.data);
-                    setError(null);
-                    console.log(response.data.data)
-                })
-                    .catch((error) => {
-                        console.log(error);
-                        setError(error);
-                    });
 
-                setIsLoading(false);
+
+    useEffect(() => {
+        const blogList = getDataFromFile(localvalueStorage.BLOGLIST) || [];
+        setblogs(blogList);
+        setblogs2(blogList);
+
+        async function fetchData() {
+            setIsLoading(true);
+            await axios.get(`${baseurl.url}/api/v1/blog/get_posts`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setblogs(response.data.data);
+                setblogs2(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.BLOGLIST)
+                setError(null);
+                console.log(response.data.data)
+            })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error);
+                });
+
+            setIsLoading(false);
         }
         fetchData();
 

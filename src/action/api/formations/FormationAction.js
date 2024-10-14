@@ -1,10 +1,11 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
-import { localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
+import { localvalue, localvalueStorage, typePersonConnected } from "../../../utlis/storage/localvalue";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../employeur/EmployeurAction";
 import { routing } from "../../../utlis/routing";
 import { useEffect, useState } from "react";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 
@@ -122,6 +123,9 @@ export const FormationEditById = (
 // spécialement pour les entreprises
 export const FormationGetAllById = async (id, setState, setState2) => {
 
+    const formationList   =  getDataFromFile(localvalueStorage.FORMATIONLISTGET)||[];
+    setState(formationList);
+    setState2(formationList);
     await axios.get(`${baseurl.url}/api/v1/offre/get_offres/${id}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -131,6 +135,7 @@ export const FormationGetAllById = async (id, setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile(response.data.data, localvalueStorage.FORMATIONLISTGET)
         })
         .catch((error) => {
             console.log(error);
@@ -262,7 +267,14 @@ export function FormationGetAllEntrepriseById(idEntreprise) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+   
+
+    setformations()
     useEffect(() => {
+        const  formationList =  getDataFromFile(localvalueStorage.FORMATIONLISTGET)||[];
+
+        setformations(formationList);
+        setformations2(formationList);
         async function fetchData() {
             setIsLoading(true);
             await axios.get(`${baseurl.url}/api/v1/formation/get_formations/${idEntreprise}`, {
@@ -273,6 +285,7 @@ export function FormationGetAllEntrepriseById(idEntreprise) {
             }).then((response) => {
                 setformations(response.data.data);
                 setformations2(response.data.data);
+                saveDataToFile(response.data.data, localvalueStorage.FORMATIONLISTGET)
                 setError(null);
                 console.log(response.data.data)
             })
@@ -299,7 +312,12 @@ export default function FormationGetAll() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+   
+
     useEffect(() => {
+        const  formationList  =  getDataFromFile(localvalueStorage.FORMATIONLIST)||[];
+        setformations(formationList)
+        setformations2(formationList)
         async function fetchData() {
             setIsLoading(true);
             await axios.get(`${baseurl.url}/api/v1/formation/get_formations`, {
@@ -310,6 +328,7 @@ export default function FormationGetAll() {
             }).then((response) => {
                 setformations(response.data.data);
                 setformations2(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.FORMATIONLIST)
                 setError(null);
                 console.log(response.data.data)
             })

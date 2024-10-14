@@ -6,13 +6,17 @@ import { baseurl } from "../../../utlis/url/baseurl";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import { routing } from "../../../utlis/routing";
 import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
-import { localvalue } from "../../../utlis/storage/localvalue";
+import { localvalue, localvalueStorage } from "../../../utlis/storage/localvalue";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setState2) => {
 
+    const  candidattureList  =  getDataFromFile(localvalueStorage.CANIDATURESLIST)||[];
+    setState(candidattureList)
+    setState2(candidattureList)
     await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/entreprise/${idEntreprise}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -23,6 +27,7 @@ export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setSt
             setState(response.data.data)
             setState2(response.data.data);
             console.log(response.data.data);
+            saveDataToFile(response.data.data,localvalueStorage.CANIDATURESLIST)
         })
         .catch((error) => {
             console.log(error);
@@ -33,6 +38,9 @@ export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setSt
 
 export const CandidatureAllOfCandidat = async (idCandidat, setState, setState2) => {
 
+    const  candidattureList  =  getDataFromFile(localvalueStorage.CANIDATURESLIST)||[];
+    setState(candidattureList)
+    setState2(candidattureList)
     await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/candidat/${idCandidat}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -42,6 +50,7 @@ export const CandidatureAllOfCandidat = async (idCandidat, setState, setState2) 
         .then((response) => {
             setState(response.data.data)
             setState2(response.data.data);
+            saveDataToFile(response.data.data,localvalueStorage.CANIDATURESLIST)
             console.log(response.data.data);
         })
         .catch((error) => {

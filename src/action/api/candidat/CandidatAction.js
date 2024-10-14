@@ -1,11 +1,12 @@
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { routing } from "../../../utlis/routing";
-import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, localvalueStorage, typePersonConnected } from "../../../utlis/storage/localvalue";
 import { getAndCheckLocalStorage, handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/actions";
 import { useState } from "react";
 import { useEffect } from "react";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
@@ -630,9 +631,49 @@ export default function useFetchCandidat(idCandidat) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+
+    const formatCandidat =  getDataFromFile(localvalueStorage.CANDIDAT)||{coverPicture: "",
+    username: "",
+    email: "",
+    telephone: "",
+    firstname: "",
+    lastname: "",
+    addresse: "",
+    competences: [],
+    langues: [],
+    pays: "",
+    adresse: "",
+    salaire: "",
+    title_post: "",
+    description: "",
+    dateNaissance: "",
+    level_school: "",
+    site_web: "",
+    years_experience: "",
+    facebook_url: "",
+    linkedin_url: "",
+    twitter_url: "",
+    instagram_url: "",
+    bookmarks: [],
+    transactions:[],
+    offres: [
+        {
+            _id: ""
+        }
+    ],
+    account: {
+        solde: 0,
+        pack: "DIAMOND" || "",
+        count_sms: 0
+    }};
+
+   
+
+
     
 
     useEffect(() => {
+        setCandidat(formatCandidat)
         async function fetchData() {
             setIsLoading(true);
             console.log(idCandidat);
@@ -643,6 +684,7 @@ export default function useFetchCandidat(idCandidat) {
                 }
             }).then((response) => {
                 setCandidat(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.CANDIDAT)
                 setError(null);
                 console.log(response.data.data)
             })
@@ -671,8 +713,11 @@ export function useFetchCandidatAll() {
     const [candidatAll, setCandidatAll] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const candidatGetAll =  getDataFromFile(localvalueStorage.CANDIDATS)||[]
+    
 
     useEffect(() => {
+        setCandidatAll(candidatGetAll)
         async function fetchData() {
             setIsLoading(true);
             console.log(idCandidat);
@@ -683,6 +728,7 @@ export function useFetchCandidatAll() {
                 }
             }).then((response) => {
                 setCandidatAll(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.CANDIDATS)
                 setError(null);
                 console.log(response.data.data)
             })
