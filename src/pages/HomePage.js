@@ -11,6 +11,8 @@ import HomeSubscrible from '../components/home/HomeSubscrible';
 import HomeSolgan from '../components/home/HomeSolgan';
 import HomePacks from '../components/home/HomePacks';
 import HomeBourses from '../components/home/HomeBourses';
+import TrainingSection from '../components/home/TrainingSection';
+import Testimonials from '../components/home/Testimonials';
 
 const HomePage = () => {
   return (
@@ -21,6 +23,8 @@ const HomePage = () => {
         <BarnerHome />
         <HomeSolgan/>
         <HomeBourses/>
+        <TrainingSection/>
+        <Testimonials/>
         <HomePacks/>
         
         {
