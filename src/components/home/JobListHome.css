@@ -1,74 +1,70 @@
-/* General Section Styling */
-.job-offer-section {
-    padding: 50px;
-    background-color: #f9f9f9;
+/* Job Section Styling */
+.job-section {
+    padding: 40px 0;
 }
 
-.slider-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
-.slider {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.slide {
-    flex: 0 0 30%;
-    margin: 0 10px;
-}
-
-.prev-slide, .next-slide {
-    background-color: #4d23e8;
-    color: white;
-    border: none;
+.btn {
     padding: 10px 20px;
-    font-size: 24px;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
-.prev-slide {
-    left: 0;
+/* Job Card Styling */
+.job-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.next-slide {
-    right: 0;
+.job-card:hover {
+    transform: scale(1.05);
 }
 
-.prev-slide:hover, .next-slide:hover {
-    background-color: #3b1bb3;
+.job-image-wrapper {
+    height: 180px;
+    overflow: hidden;
 }
 
-.job-offer-section h2 {
-    font-size: 32px;
+.job-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.job-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.job-title {
+    font-size: 18px;
     font-weight: bold;
     color: #4d23e8;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.job-offer-section p {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 30px;
+.job-company, .job-address, .job-salary, .job-contract {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
 }
 
-/* Postuler Button */
-.job-offer-section a {
-    background-color: #4d23e8;
-    color: white;
-    padding: 10px 20px;
+.job-details-link a {
+    color: #4d23e8;
     text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
 }
 
-.job-offer-section a:hover {
-    background-color: #3b1bb3;
+.job-details-link a:hover {
+    text-decoration: underline;
 }

@@ -1,93 +1,43 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
-// import { AnnonceGetAll } from '../../action/api/annonces/AnnoncesAction';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import JobCard from '../job/JobCard';
 import OffreGetAll, { OffreGetAllContrat } from '../../action/api/offres/OffresAction';
-import { routing } from '../../utlis/routing';
 import LoadingCompo1 from '../loading/LoadingCompo1';
+import './JobListHome.css';
+import { routing } from '../../utlis/routing';
 
 const JobListHome = () => {
-
-    const { isLoading, error, offres, offres2 } = OffreGetAll();
-
-    const { isLoadingCategorie, errorCategrorie, category, category2 } = OffreGetAllContrat()
-
+    const { isLoading, error, offres } = OffreGetAll();
+    const { category } = OffreGetAllContrat();
 
     return (
-        <section class="py-20 bg-gray-50 dark:bg-neutral-700">
-            <div class="container mx-auto">
-                <div class="grid grid-cols-1 gap-5">
-                    <div class="mb-5 text-center">
-                        <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Récentes offres</h3>
-                        <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300">
-                            <br /> STAGE, CDI , CDD etc </p>
+        <section className="job-section py-20 bg-gray-50 dark:bg-neutral-700">
+            <div className="container mx-auto">
+                <div className="grid grid-cols-1 gap-5">
+                    <div className="mb-5 text-center">
+                        <h3 className="mb-3 text-3xl text-gray-900 dark:text-gray-50">Récentes Offres d'Emploi</h3>
+                        <p className="mb-5 text-gray-500 dark:text-gray-300">Trouvez votre prochain emploi : STAGE, CDI, CDD</p>
                     </div>
                 </div>
-                <div class="nav-tabs chart-tabpill">
-                    <div class="grid grid-cols-12">
-                        <div class="col-span-12 lg:col-span-8 lg:col-start-3">
-                            <div
-                                class="p-1.5 bg-white dark:bg-neutral-900 shadow-lg shadow-gray-100/30 rounded-lg dark:shadow-neutral-700">
-                                <ul class="items-center text-sm font-medium text-center text-gray-700 nav md:flex">
-                                    
-                                    {
-                                        category.map((item) => {
-                                            return (
-                                                <li class="w-full">
-                                                    <a href="javascript:void(0);" data-tw-toggle="tab"
-                                                        data-tw-target="featured-jobs-tab"
-                                                        class="inline-block w-full py-[12px] px-[18px] dark:text-gray-50">
-                                                        {item}
-                                                    </a>
-                                                </li>
-                                            )
-                                        })
-                                    }
 
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="block w-full tab-pane" id="recent-job">
-                            <div class="pt-8 ">
-                                <div class="space-y-8">
-
-                                    {
-                                        isLoading ?
-                                            <LoadingCompo1 text={"Loading ..."} />
-                                            :
-                                            error ?
-                                                (<p>Une errue rest suvenue</p>) :
-                                                offres.slice(0, 10).map((item) => {
-                                                    return (
-                                                        <JobCard data={item} />
-                                                    )
-                                                })
-                                    }
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="job-grid">
+                    {isLoading ? (
+                        <LoadingCompo1 text="Chargement des offres..." />
+                    ) : error ? (
+                        <p>Une erreur est survenue lors de la récupération des offres</p>
+                    ) : (
+                        offres.slice(0, 10).map((job) => <JobCard key={job._id} data={job} />)
+                    )}
                 </div>
-                <div class="mt-8">
-                    <div class="grid grid-cols-1">
-                        <div class="text-center">
-                            <a href={`/${routing.job_list}`}
-                                class="text-white border-transparent bg-blue-800/70 btn focus:ring focus:ring-custom-500/20">
-                                Postuler à plus d{"'"}offres ... <i class="uil uil-arrow-right ms-1">
-                                </i>
-                            </a>
-                        </div>
-                    </div>
+
+                <div className="text-center mt-8">
+                    <a href={`/${routing.job_list}`} className="btn text-white bg-blue-800/70 focus:ring focus:ring-blue-300">
+                        Voir Plus d'Offres <i className="uil uil-arrow-right ms-1"></i>
+                    </a>
                 </div>
             </div>
         </section>
-
-    )
-}
+    );
+};
 
 export default JobListHome;
