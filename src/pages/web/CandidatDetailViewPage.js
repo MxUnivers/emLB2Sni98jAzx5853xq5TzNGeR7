@@ -180,32 +180,9 @@ const CandidatDetailViewPage = () => {
                                             </ul>
 
                                             <div className="mt-5 mb-5 flex justify-center">
-                                                {/* 
-                                                    candidat && candidat._id ?
-                                                        <button
-                                                            onClick={() => {
-                                                                handleCandidatEditRouting();
-                                                            }}
-                                                            className="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
-                                                            <BiEdit />
-                                                            <span>Mettre à jour</span>
-                                                        </button> :
-                                                        null
-                                                         */
-                                                }
+                                               
                                             </div>
-                                            {
-                                                /*<div className="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidat_applied}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.length : null}</span>
-                                                </Link>
-                                            </div>
-                                            <div className="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidature_list}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Candidature ({candidatures.length})</span>
-                                                </Link>
-                                            </div> */
-                                            }
+                                            
                                         </div>
 
 
@@ -214,34 +191,7 @@ const CandidatDetailViewPage = () => {
 
                                     <div className="candidate-profile-overview  card-body border-top p-4">
                                         <h6 className="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
-                                        {
-                                            /*<ul className=" mb-5">
-                                            <li>
-                                                <div className="flex flex-col">
-                                                    <label className="text-dark text-gray-700 font-bold ">Categorie</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">Account ou banque</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="flex flex-col">
-                                                    <label className="text-dark text-gray-700 font-bold ">Expérience</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">0-3</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="d-flex">
-                                                    <label className="text-dark  text-gray-700 font-bold">Vues</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">2574</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul> */
-                                        }
+                                        
                                         <div className="mt-3">
                                             {
                                                 candidat && candidat.telephone ?
@@ -283,50 +233,7 @@ const CandidatDetailViewPage = () => {
                                     <div className="candidate-contact-details card-body p-4 border-top">
                                         <h6 className="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
                                         <ul className="list-unstyled mb-0">
-                                            {
-                                                candidat && candidat.email ?
-                                                    <li>
-                                                        <div className="d-flex align-items-center mt-4">
-
-                                                            <a href={`mailto:${candidat.email}`} className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdEmail /></h6>
-                                                                <p className="text-muted mb-0">{candidat.email}</p>
-                                                            </a>
-                                                        </div>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
-                                            {
-                                                candidat && candidat.pays && candidat.adresse ?
-                                                    <li>
-                                                        <div className="d-flex align-items-center mt-4">
-
-                                                            <div className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdLocationCity /></h6>
-                                                                <p className="text-muted mb-0">{candidat.pays}, {candidat.adresse}</p>
-                                                            </div>
-                                                        </div>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
-                                            {
-                                                candidat && candidat.telephone ?
-                                                    <li>
-                                                        <div className="d-flex align-items-center mt-4">
-                                                            <a href={`tel:${candidat.telephone}`} className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdPhone /></h6>
-                                                                <p className="text-muted mb-0">{candidat.telephone}</p>
-                                                            </a>
-                                                        </div>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
+                                            
 
 
                                             {

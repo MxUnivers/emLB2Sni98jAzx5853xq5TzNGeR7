@@ -1,0 +1,102 @@
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.intervention-section {
+    padding: 50px;
+    background-color: #f9f9f9;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #4d23e8;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.vision-objectives {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.vision, .objectives {
+    width: 48%;
+}
+
+.section-title {
+    font-size: 24px;
+    color: #4d23e8;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+p strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.signature {
+    font-style: italic;
+    font-size: 16px;
+    color: #333;
+    margin-top: 30px;
+}
+
+/* Apply list style to the objectives section only */
+.objectives ul {
+    list-style: none;
+    padding-left: 0;
+    color: #333;
+}
+
+.objectives ul li {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+    padding-left: 30px;
+    position: relative;
+}
+
+/* Custom checkmark for the objectives section only */
+.objectives ul li:before {
+    content: '✓'; /* Customize this checkmark or icon */
+    position: absolute;
+    left: 0;
+    color: #4d23e8;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .vision-objectives {
+        flex-direction: column;
+    }
+
+    .vision, .objectives {
+        width: 100%;
+    }
+}

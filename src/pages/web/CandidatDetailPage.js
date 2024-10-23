@@ -189,18 +189,7 @@ const CandidatDetailPage = () => {
                                                         null
                                                 }
                                             </div>
-                                            {
-                                                /*<div className="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidat_applied}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Offres Postulés {candidat && candidat.offres ? candidat.offres.length : null}</span>
-                                                </Link>
-                                            </div>
-                                            <div className="mt-1 mb-1 flex justify-center">
-                                                <Link to={`/${routing.candidature_list}`} className=" space-x-2 text-blue-700 font-bold py-2 px-3 rounded-lg">
-                                                    <span>Candidature ({candidatures.length})</span>
-                                                </Link>
-                                            </div> */
-                                            }
+                                            
                                         </div>
 
 
@@ -209,47 +198,20 @@ const CandidatDetailPage = () => {
 
                                     <div className="candidate-profile-overview  card-body border-top p-4">
                                         <h6 className="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
-                                        {
-                                            /*<ul className=" mb-5">
-                                            <li>
-                                                <div className="flex flex-col">
-                                                    <label className="text-dark text-gray-700 font-bold ">Categorie</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">Account ou banque</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="flex flex-col">
-                                                    <label className="text-dark text-gray-700 font-bold ">Expérience</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">0-3</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="d-flex">
-                                                    <label className="text-dark  text-gray-700 font-bold">Vues</label>
-                                                    <div>
-                                                        <p className="text-muted mb-0">2574</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul> */
-                                        }
+                                        
                                         <div className="mt-3">
                                             {
                                                 candidat && candidat.telephone ?
 
                                                     <a href={`tel:${candidat.telephone}`} className="btn btn-danger btn-hover w-100"><i
                                                         className="uil uil-phone"></i> Me contacter</a>
-                                                    : null
+                                                    : ""
                                             }
                                             {
                                                 candidat && candidat.cv ?
                                                     <a href="javascript:void(0)" className="btn btn-primary btn-hover w-100 mt-2"><i
                                                         className="uil uil-import"></i> Telecharger cv</a>
-                                                    : null
+                                                    : ""
                                             }
                                         </div>
 
@@ -273,56 +235,12 @@ const CandidatDetailPage = () => {
                                                     }
                                                 </div>
                                             </div> :
-                                            <div className="bg-gray-200 rounded-lg animate-pulse h-16 w-full " />
+                                            ""
                                     }
                                     <div className="candidate-contact-details card-body p-4 border-top">
                                         <h6 className="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
                                         <ul className="list-unstyled mb-0">
-                                            {
-                                                candidat && candidat.email ?
-                                                    <li>
-                                                        <a href={`mailto:${candidat.email}`} className="d-flex align-items-center mt-4">
-
-                                                            <div className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdEmail /></h6>
-                                                                <p className="text-muted mb-0">{candidat.email}</p>
-                                                            </div>
-                                                        </a>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
-                                            {
-                                                candidat && candidat.pays && candidat.adresse ?
-                                                    <li>
-                                                        <div className="d-flex align-items-center mt-4">
-
-                                                            <div className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdLocationCity /></h6>
-                                                                <p className="text-muted mb-0">{candidat.pays}, {candidat.adresse}</p>
-                                                            </div>
-                                                        </div>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
-                                            {
-                                                candidat && candidat.telephone ?
-                                                    <li>
-                                                        <a href={`tel:${candidat.telephone}`} className="d-flex align-items-center mt-4">
-
-                                                            <div className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdPhone /></h6>
-                                                                <p className="text-muted mb-0">{candidat.telephone}</p>
-                                                            </div>
-                                                        </a>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulse my-1 h-4" />
-                                                    </li>
-                                            }
+                                            
 
 
                                             {

@@ -32,7 +32,7 @@ const FooterWeb = () => {
                             </div>
                         </div>
                         <div class="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
-                            <p class="mb-6 text-white text-16">Scoial</p>
+                            <p class="mb-6 text-white text-16">Social</p>
                             <ul class="space-y-4">
                                 <li
                                     class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
@@ -44,7 +44,7 @@ const FooterWeb = () => {
                             </ul>
                         </div>
                         <div class="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
-                            <p class="mb-6 text-white text-16">Jobs</p>
+                            <p class="mb-6 text-white text-16">Emplois</p>
                             <ul class="space-y-4">
                                 <li class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
                                     <a href={`/${routing.job_list}`}>
@@ -67,7 +67,7 @@ const FooterWeb = () => {
                             </ul>
                         </div>
                         <div class="col-span-12 mt-8 md:col-span-6 xl:col-span-2 md:mt-0">
-                            <p class="mb-6 text-white text-16">Support</p>
+                            <p class="mb-6 text-white text-16">Contact</p>
                             <ul class="space-y-4">
                                 <li
                                     class="text-sm transition-all duration-500 ease-in-out text-white/50 hover:text-gray-50 hover:text-base dark:text-gray-300 dark:hover:text-gray-50">
@@ -87,7 +87,7 @@ const FooterWeb = () => {
                     <div class="text-center">
                         <p class="mb-0 text-center text-white/50">
                             <script>document.write(new Date().getFullYear())</script>
-                            © Copy Right by
+                            © Copy 2024 par
                             <a href="https://mon-portfolio-mxunivers.web.app" target="_blank"
                                 class="underline transition-all duration-300 hover:text-gray-50"> Dev Aymar Bly</a>
                         </p>

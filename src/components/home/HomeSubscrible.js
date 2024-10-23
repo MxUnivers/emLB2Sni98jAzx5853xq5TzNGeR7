@@ -7,7 +7,7 @@ const HomeSubscrible = () => {
                 <div class="grid items-center grid-cols-12 gap-5">
                     <div class="col-span-12 lg:col-span-7">
                         <div class="text-center lg:text-start">
-                            <h4 class="text-white">Obtenire les notification de jobs</h4>
+                            <h4 class="text-white">Obtenir les notifications d{"'"}emplois</h4>
                             <p class="mt-1 mb-0 text-white/50 dark:text-gray-300">
                             Souscire au forfait au notification pour en être informé</p>
                         </div>

@@ -1,0 +1,74 @@
+/* General Section Styling */
+.job-offer-section {
+    padding: 50px;
+    background-color: #f9f9f9;
+}
+
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    flex: 0 0 30%;
+    margin: 0 10px;
+}
+
+.prev-slide, .next-slide {
+    background-color: #4d23e8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.prev-slide {
+    left: 0;
+}
+
+.next-slide {
+    right: 0;
+}
+
+.prev-slide:hover, .next-slide:hover {
+    background-color: #3b1bb3;
+}
+
+.job-offer-section h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4d23e8;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.job-offer-section p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Postuler Button */
+.job-offer-section a {
+    background-color: #4d23e8;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.job-offer-section a:hover {
+    background-color: #3b1bb3;
+}

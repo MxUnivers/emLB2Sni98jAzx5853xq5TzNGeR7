@@ -9,6 +9,7 @@ import { MdAlternateEmail, MdClose, MdEmail, MdHome, MdLogout, MdMessage, MdPers
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 import { statusPACKS } from '../utlis/config';
+import './NavbarWeb.css';
 
 
 
@@ -63,13 +64,91 @@ const NavbarWeb = () => {
 
 
 
+    const [sidebar, setSidebar] = useState(false);
+    const [loginModal, setLoginModal] = useState(false);
+
+    const toggleSidebar = () => {
+        setSidebar(!sidebar);
+    };
+
+    const toggleLoginModal = () => {
+        setLoginModal(!loginModal);
+    };
+
 
 
 
 
 
     return (
-        <nav class="navbar fixed right-0 left-0 top-0 lg:top-[0px] px-5 lg:px-24 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900"
+        <>
+            <header>
+               {/* <div className="top-bar">
+                    <div className="contact-info">
+                        📞 0247732731 | ✉️ contact@artus-rh.com | 🏠 72 Av. Marcel Dassault, 37200 Tours
+                    </div>
+                    <div className="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div> */}
+                <nav className="navbar">
+                    <div className="logo">
+                        <img src="assets/images/logo-dark.png" alt="Artus RH Logo" />
+                    </div>
+                    <ul className="nav-links">
+                        <li><Link to="#">Accueil</Link></li>
+                        <li><Link to="#">Emplois</Link></li>
+                        <li><Link to="#">Formations</Link></li>
+                        <li><Link to="#">Bourse</Link></li>
+                        <li><Link to="#">Abonnement</Link></li>
+                        <li><Link to="#">A propos</Link></li>
+                        <li><Link to="#">Contact</Link></li>
+                    </ul>
+                    <div className="profile-login">
+                        <Link to="#" className="profile-link" onClick={toggleSidebar}>👤 Mon Profil</Link>
+                        <Link to="#" className="login-link" onClick={toggleLoginModal}>Connexion</Link>
+                    </div>
+                    <button className="menu-btn" onClick={toggleSidebar}>
+                        ☰
+                    </button>
+                </nav>
+            </header>
+
+            {/* Sidebar for Profile */}
+            <div className={`sidebar ${sidebar ? 'active' : ''}`}>
+                <button className="close-btn" onClick={toggleSidebar}>✖</button>
+                <ul className="sidebar-links">
+                    <li><Link href="#">Profile</Link></li>
+                    <li><Link href="#">Historique</Link></li>
+                    <li><Link href="#">Paramètres</Link></li>
+                    <li><Link href="#">Déconnexion</Link></li>
+                </ul>
+            </div>
+
+            {/* Login Modal */}
+            {loginModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Connexion</h2>
+                        <p>Choisissez votre type de connexion :</p>
+                        <button className="login-option">Recruteur</button>
+                        <button className="login-option">Candidat</button>
+                        <button className="close-modal" onClick={toggleLoginModal}>✖</button>
+                    </div>
+                </div>
+            )}
+        </>
+
+    )
+}
+
+export default NavbarWeb
+
+
+
+
+/*<nav class="navbar fixed right-0 left-0 top-0 lg:top-[0px] px-5 lg:px-24 transition-all duration-500 ease shadow-lg shadow-gray-200/20 bg-white border-gray-200 dark:bg-neutral-800 z-40 dark:shadow-neutral-900"
             id="navbar">
             <div class="mx-auto container-fluid">
                 <div class="flex flex-wrap items-center justify-between mx-auto">
@@ -111,11 +190,7 @@ const NavbarWeb = () => {
                                                 <div class="grid grid-cols-1 ">
                                                     <div class="p-4 bg-gray-50 dark:bg-neutral-700">
                                                         <h6 class="mb-1 text-gray-800 dark:text-gray-50"> Messages </h6>
-                                                        {
-                                                            /*<p class="mb-0 text-gray-500 text-13 dark:text-gray-300">
-                                                            vous avez 4 messages
-                                                        </p> */
-                                                        }
+                                                        
                                                     </div>
                                                 </div>
                                                 {
@@ -234,7 +309,7 @@ const NavbarWeb = () => {
 
 
 
-                                    {/*recurteur */}
+                                    
                                     {
                                         getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
                                             <div class="relative dropdown ltr:mr-4 rtl:ml-4">
@@ -287,7 +362,6 @@ const NavbarWeb = () => {
                                                         <Link class="text-15 font-medium text-gray-800  group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                             to={`/${routing.pricing}`}>Abonement</Link>
                                                     </li>
-                                                    {/*onClick={handleClearLocalStorage} */}
                                                     <li onClick={handleClearLocalStorage} class="p-2 cursor-pointer dropdown-item group/dropdown dark:text-gray-300">
                                                         <div class="text-15 font-medium text-gray-800 group-data-[theme-color=violet]:group-hover/dropdown:text-violet-500 group-data-[theme-color=sky]:group-hover/dropdown:text-sky-500 group-data-[theme-color=red]:group-hover/dropdown:text-red-500 group-data-[theme-color=green]:group-hover/dropdown:text-green-500 group-data-[theme-color=pink]:group-hover/dropdown:text-pink-500 group-data-[theme-color=blue]:group-hover/dropdown:text-blue-500 group-hover:pl-1.5 transition-all duration-300 ease-in dark:text-gray-50"
                                                         >Deconnexion</div>
@@ -380,7 +454,6 @@ const NavbarWeb = () => {
 
 
 
-                    {/*modal de connexion */}
                     {
                         show &&
                         <div class="fixed z-50 inset-0 overflow-y-auto">
@@ -446,7 +519,6 @@ const NavbarWeb = () => {
                             </div>
                         </div>
                     }
-                    {/*modal de connexion fin  */}
 
 
 
@@ -456,7 +528,7 @@ const NavbarWeb = () => {
                         isOpen && (
                             <div class="fixed z-50 inset-0 overflow-y-auto w-full">
                                 <div class="flex h-screen">
-                                    {/* Sidebar */}
+                                    
                                     <div class="w-1/2 sm:w-1/4 md:w-1/4 lg:w-1/4 bg-white text-blue-700 p-4">
                                         <h2 class="text-2xl font-bold mb-4">
                                             <img
@@ -557,7 +629,6 @@ const NavbarWeb = () => {
                                         }
 
                                     </div>
-                                    {/* Contenu */}
                                     <div class="w-3/4 bg-black p-4 opacity-25">
                                         <div class="bg-gray-50  px-4 py-3 sm:px-6 opacity-100">
                                             <button
@@ -582,8 +653,4 @@ const NavbarWeb = () => {
 
                 </div>
             </div>
-        </nav>
-    )
-}
-
-export default NavbarWeb
+        </nav> */

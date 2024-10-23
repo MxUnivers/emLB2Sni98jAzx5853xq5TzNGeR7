@@ -19,9 +19,9 @@ const JobListHome = () => {
             <div class="container mx-auto">
                 <div class="grid grid-cols-1 gap-5">
                     <div class="mb-5 text-center">
-                        <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Job Récement postées</h3>
+                        <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Récentes offres</h3>
                         <p class="mb-5 text-gray-500 whitespace-pre-line dark:text-gray-300">
-                            Trouver des offres <br /> ,stage , Freelancer , Cdd etc ...</p>
+                            <br /> STAGE, CDI , CDD etc </p>
                     </div>
                 </div>
                 <div class="nav-tabs chart-tabpill">
