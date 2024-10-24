@@ -1,0 +1,80 @@
+.footer {
+    background-color: #1a1a1a; /* Matches the dark footer background */
+    color: white;
+    padding: 40px 0;
+}
+
+.footer h4 {
+    color: white;
+    font-size: 23px;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.7); /* Lighter text color */
+    margin-bottom: 15px;
+}
+
+.footer a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer ul li a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer ul li a:hover {
+    color: white;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+}
+
+.footer .grid-cols-12 {
+    grid-column: span 12 / span 12;
+}
+
+.footer .lg\:col-span-4 {
+    grid-column: span 4 / span 4;
+}
+
+.footer .lg\:col-span-2 {
+    grid-column: span 2 / span 2;
+}
+
+.footer .py-12 {
+    padding: 3rem 0;
+}
+
+.footer .py-6 {
+    padding: 1.5rem 0;
+}
+
+.footer .border-t {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

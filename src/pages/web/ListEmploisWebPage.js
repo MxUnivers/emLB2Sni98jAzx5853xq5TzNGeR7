@@ -8,6 +8,7 @@ import { OffreGetAllOffre, OffreGetByCategory, OffreGetByTypeContrat } from '../
 import JobCard2 from '../../components/job/JobCard2';
 import LoadingCompo1 from '../../components/loading/LoadingCompo1';
 import Select from "react-select";
+import JobCard from '../../components/job/JobCard';
 
 const ListEmploisWebPage = () => {
     const navigate = useNavigate();
@@ -126,7 +127,7 @@ const ListEmploisWebPage = () => {
                                 :
                                 currentItems && currentItems.length > 0 ?
                                     currentItems.map((item, index) => (
-                                        <JobCard2 key={index} data={item} />
+                                        <JobCard key={index} data={item} />
                                     ))
                                     :
                                     <div className="h-min-[500px] flex justify-center">

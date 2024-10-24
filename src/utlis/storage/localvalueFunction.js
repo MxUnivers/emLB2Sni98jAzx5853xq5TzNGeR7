@@ -3,6 +3,7 @@
 // }
 
 
+
 export const handleClearLocalStorage = () => {
     localStorage.clear(); // Effacer toutes les données du localStorage
     console.log('Deconnexion de la pplication ');

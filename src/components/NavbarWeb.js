@@ -5,7 +5,7 @@ import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/Candid
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
-import { MdAlternateEmail, MdClose, MdEmail, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
+import { MdAlternateEmail, MdClose, MdEmail, MdExitToApp, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 import { statusPACKS } from '../utlis/config';
@@ -83,7 +83,7 @@ const NavbarWeb = () => {
     return (
         <>
             <header>
-               {/* <div className="top-bar">
+                {/* <div className="top-bar">
                     <div className="contact-info">
                         📞 0247732731 | ✉️ contact@artus-rh.com | 🏠 72 Av. Marcel Dassault, 37200 Tours
                     </div>
@@ -97,17 +97,23 @@ const NavbarWeb = () => {
                         <img src="assets/images/logo-dark.png" alt="Artus RH Logo" />
                     </div>
                     <ul className="nav-links">
-                        <li><Link to="#">Accueil</Link></li>
-                        <li><Link to="#">Emplois</Link></li>
-                        <li><Link to="#">Formations</Link></li>
-                        <li><Link to="#">Bourse</Link></li>
-                        <li><Link to="#">Abonnement</Link></li>
-                        <li><Link to="#">A propos</Link></li>
-                        <li><Link to="#">Contact</Link></li>
+                        <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active" : ""}`} >Accueil</Link></li>
+                        <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active" : ""}`} >Emplois</Link></li>
+                        <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active" : ""}`}>Formations</Link></li>
+                        <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active" : ""}`}>Bourses</Link></li>
+                        <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active" : ""}`}>Activités</Link></li>
+                        <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active" : ""}`}>Qui somme nous</Link></li>
+                        <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active" : ""}`}>Contact</Link></li>
                     </ul>
                     <div className="profile-login">
-                        <Link to="#" className="profile-link" onClick={toggleSidebar}>👤 Mon Profil</Link>
-                        <Link to="#" className="login-link" onClick={toggleLoginModal}>Connexion</Link>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
+                                <Link to="#" className="profile-link" onClick={toggleSidebar}>👤 Mon Profil</Link>
+                                :
+                                <Link to="#" className="login-link" onClick={toggleLoginModal}>Connexion</Link>
+                        }
+
+
                     </div>
                     <button className="menu-btn" onClick={toggleSidebar}>
                         ☰
@@ -119,10 +125,71 @@ const NavbarWeb = () => {
             <div className={`sidebar ${sidebar ? 'active' : ''}`}>
                 <button className="close-btn" onClick={toggleSidebar}>✖</button>
                 <ul className="sidebar-links">
-                    <li><Link href="#">Profile</Link></li>
-                    <li><Link href="#">Historique</Link></li>
-                    <li><Link href="#">Paramètres</Link></li>
-                    <li><Link href="#">Déconnexion</Link></li>
+                    <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active" : ""}`} >Accueil</Link></li>
+                    <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active" : ""}`} >Emplois</Link></li>
+                    <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active" : ""}`}>Formations</Link></li>
+                    <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active" : ""}`}>Bourses</Link></li>
+                    <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active" : ""}`}>Activités</Link></li>
+                    <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active" : ""}`}>Qui somme nous</Link></li>
+                    <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active" : ""}`}>Contact</Link></li>
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                <Link to={`/${routing.company_details}`} class={`${location.pathname === `/${routing.company_details}` ? "nav-links-active" : ""}`}>Profile</Link>
+                                :
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                    <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "nav-links-active" : ""}`}>Profile</Link>
+                                    : ""
+                        }
+                    </li>
+
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                <Link to={`/${routing.candidature_list_recruteur}`} class={`${location.pathname === `/${routing.candidature_list_recruteur}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
+                                :
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                    <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidature_list}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
+                                    : ""
+                        }
+                    </li>
+
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                "" :
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                    <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
+                                    : ""
+                        }
+                    </li>
+
+
+
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                "" :
+                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                    <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
+                                    : ""
+                        }
+                    </li>
+
+
+
+
+
+
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
+                                <Link to={`#`} ><span class="flex-row " onClick={handleClearLocalStorage()}><MdExitToApp /> <span>Déconnexion</span></span></Link>
+                                : ""
+                        }
+                    </li>
+
+
                 </ul>
             </div>
 
@@ -131,9 +198,13 @@ const NavbarWeb = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <h2>Connexion</h2>
-                        <p>Choisissez votre type de connexion :</p>
-                        <button className="login-option">Recruteur</button>
-                        <button className="login-option">Candidat</button>
+                        <p> Profile de connexion </p>
+                        <button className="login-option"
+                            onClick={() => { navigate(`/${routing.connexion_recuteur}`) }}
+                        >Recruteur</button>
+                        <button className="login-option"
+                            onClick={() => { navigate(`/${routing.connexion}`) }}
+                        >Candidat</button>
                         <button className="close-modal" onClick={toggleLoginModal}>✖</button>
                     </div>
                 </div>
