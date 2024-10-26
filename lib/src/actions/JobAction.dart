@@ -1,14 +1,8 @@
-
-
-
-
-
 import 'dart:convert';
 
-import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
-import  "package:http/http.dart" as http;
-
+import 'package:jouman/src/model/JobModel.dart';
+import 'package:jouman/src/utils/baseurl.dart';
+import "package:http/http.dart" as http;
 
 Future<List<JobModel>> fetchAllJobList(String apiUrl) async {
   print(apiUrl);
@@ -44,7 +38,3 @@ Future<List<JobModel>> fetchAllJobList(String apiUrl) async {
     throw Exception('Failed to load job data');
   }
 }
-
-
-
-

@@ -1,20 +1,18 @@
-
-
-
 // recupérer toutes les candidatures du candidats
 import 'dart:convert';
-import 'package:jouman_mobile_mobile/src/model/MessageModel.dart';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman/src/model/MessageModel.dart';
+import 'package:jouman/src/utils/baseurl.dart';
 import "package:http/http.dart" as http;
-
-
 
 Future<List<MessageModel>> fetchAllMessageList(String idCandidat) async {
   print(idCandidat);
   var headers = {
     'Authorization': 'Bearer ${baseurl.token}',
   };
-  var request = http.Request('GET', Uri.parse('${baseurl.url+baseurl.apiV1}/message/get_message/candidat/${idCandidat}/messages'));
+  var request = http.Request(
+      'GET',
+      Uri.parse(
+          '${baseurl.url + baseurl.apiV1}/message/get_message/candidat/${idCandidat}/messages'));
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
@@ -38,7 +36,3 @@ Future<List<MessageModel>> fetchAllMessageList(String idCandidat) async {
     throw Exception('Failed to load job data');
   }
 }
-
-
-
-

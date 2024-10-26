@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jouman_mobile_mobile/src/model/CandidatureModel.dart';
-import 'package:jouman_mobile_mobile/src/model/JobCategoryModel.dart';
-import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
-import 'package:jouman_mobile_mobile/src/model/MessageModel.dart';
-import 'package:jouman_mobile_mobile/src/model/PostModel.dart';
+import 'package:jouman/src/model/CandidatureModel.dart';
+import 'package:jouman/src/model/JobCategoryModel.dart';
+import 'package:jouman/src/model/JobModel.dart';
+import 'package:jouman/src/model/MessageModel.dart';
+import 'package:jouman/src/model/PostModel.dart';
 import 'package:redux/redux.dart';
-import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
-import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
-import 'package:jouman_mobile_mobile/src/store/reducers.dart';
+import 'package:jouman/src/model/CandidatModel.dart';
+import 'package:jouman/src/pages/mainPage.dart';
+import 'package:jouman/src/store/reducers.dart';
 import 'src/themes/theme.dart';
 
 class AppState {

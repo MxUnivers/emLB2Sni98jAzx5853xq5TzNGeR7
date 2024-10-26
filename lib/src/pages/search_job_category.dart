@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jouman_mobile_mobile/src/actions/JobAction.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
-import 'package:jouman_mobile_mobile/src/widgets/JobComponent.dart';
+import 'package:jouman/src/actions/JobAction.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/utils/baseurl.dart';
+import 'package:jouman/src/widgets/JobComponent.dart';
 
 import '../model/JobModel.dart';
 

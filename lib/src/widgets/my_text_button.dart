@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/themes/constants.dart';
-import 'package:jouman_mobile_mobile/src/themes/theme.dart';
+import 'package:jouman/src/themes/constants.dart';
+import 'package:jouman/src/themes/theme.dart';
 
 class MyTextButton extends StatelessWidget {
   const MyTextButton({
-    Key, key,
+    Key,
+    key,
     required this.buttonName,
     required this.onTap,
     required this.bgColor,
@@ -27,10 +28,10 @@ class MyTextButton extends StatelessWidget {
       child: TextButton(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.resolveWith(
-                (states) => Colors.black12,
+            (states) => Colors.black12,
           ),
         ),
-        onPressed: ()=>onTap,
+        onPressed: () => onTap,
         child: Text(
           buttonName,
           style: kButtonText.copyWith(color: textColor),

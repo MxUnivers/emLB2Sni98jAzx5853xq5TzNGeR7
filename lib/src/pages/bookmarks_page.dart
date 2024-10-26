@@ -2,9 +2,9 @@ import "package:flutter/material.dart";
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
-import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/widgets/home/CategoryJobHome.dart';
+import 'package:jouman/src/widgets/home/JobListHome.dart';
 import 'package:redux/redux.dart';
 
 import '../../main.dart';

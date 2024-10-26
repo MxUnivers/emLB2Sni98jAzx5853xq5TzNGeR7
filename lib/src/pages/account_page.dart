@@ -1,11 +1,11 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
-import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
-import "package:jouman_mobile_mobile/src/pages/profile_page.dart";
-import "package:jouman_mobile_mobile/src/pages/sigin_page.dart";
-import "package:jouman_mobile_mobile/src/utils/storage.dart";
+import "package:jouman/src/config/theme.dart";
+import "package:jouman/src/model/CandidatModel.dart";
+import "package:jouman/src/pages/profile_page.dart";
+import "package:jouman/src/pages/sigin_page.dart";
+import "package:jouman/src/utils/storage.dart";
 
 import "candidatures_page.dart";
 import "message_page.dart";

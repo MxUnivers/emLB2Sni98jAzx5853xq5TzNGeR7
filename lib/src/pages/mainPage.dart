@@ -2,12 +2,12 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jouman_mobile_mobile/src/actions/CandidatAction.dart';
-import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
-import 'package:jouman_mobile_mobile/src/pages/help_page.dart';
-import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
-import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
-import 'package:jouman_mobile_mobile/src/utils/storage.dart';
+import 'package:jouman/src/actions/CandidatAction.dart';
+import 'package:jouman/src/model/CandidatModel.dart';
+import 'package:jouman/src/pages/help_page.dart';
+import 'package:jouman/src/pages/home_page.dart';
+import 'package:jouman/src/pages/sigin_page.dart';
+import 'package:jouman/src/utils/storage.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

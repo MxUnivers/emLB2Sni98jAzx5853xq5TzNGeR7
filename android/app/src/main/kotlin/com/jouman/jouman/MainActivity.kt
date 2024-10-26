@@ -1,4 +1,4 @@
-package com.example.ureille_group.jouman_mobile_mobile
+package com.jouman.jouman
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,13 +1,9 @@
 import "dart:convert";
 
 import "package:http/http.dart" as http;
-import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
+import "package:jouman/src/utils/baseurl.dart";
 
 import "../model/EntrepriseModel.dart";
-
-
-
-
 
 Future<EnterpriseModel> fetchEntrepriseByMessage(String idEntrepise) async {
   print("${baseurl.url + baseurl.apiV1}");
@@ -15,8 +11,10 @@ Future<EnterpriseModel> fetchEntrepriseByMessage(String idEntrepise) async {
     'Authorization': 'Bearer ${baseurl.token}',
   };
 
-  var request = http.Request('GET',
-      Uri.parse("${baseurl.url + baseurl.apiV1}/entreprise/get_entreprise/${idEntrepise}"));
+  var request = http.Request(
+      'GET',
+      Uri.parse(
+          "${baseurl.url + baseurl.apiV1}/entreprise/get_entreprise/${idEntrepise}"));
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
@@ -35,11 +33,3 @@ Future<EnterpriseModel> fetchEntrepriseByMessage(String idEntrepise) async {
     throw Exception('Failed to load job data');
   }
 }
-
-
-
-
-
-
-
-

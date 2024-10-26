@@ -2,7 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:intl/intl.dart";
-import "package:jouman_mobile_mobile/src/actions/CandidatureAction.dart";
+import "package:jouman/src/actions/CandidatureAction.dart";
 
 import "../config/theme.dart";
 import "../model/CandidatModel.dart";

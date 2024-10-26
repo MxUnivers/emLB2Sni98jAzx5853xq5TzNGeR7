@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
-import 'package:jouman_mobile_mobile/src/pages/app_step_page.dart';
-import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
-import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
-import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/model/CandidatModel.dart';
+import 'package:jouman/src/pages/app_step_page.dart';
+import 'package:jouman/src/pages/home_page.dart';
+import 'package:jouman/src/pages/mainPage.dart';
+import 'package:jouman/src/pages/sigin_page.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

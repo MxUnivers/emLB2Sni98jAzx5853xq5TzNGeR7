@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman/src/utils/baseurl.dart';
 
 class JobModel {
-  String?id;
+  String? id;
   String? idEntreprise;
   String? title;
   String? email;

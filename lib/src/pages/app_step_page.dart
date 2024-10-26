@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
-import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
-import "package:jouman_mobile_mobile/src/pages/home_page.dart";
-import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
+import "package:jouman/src/config/theme.dart";
+import "package:jouman/src/model/CandidatModel.dart";
+import "package:jouman/src/pages/home_page.dart";
+import "package:jouman/src/pages/mainPage.dart";
 import "package:redux/redux.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

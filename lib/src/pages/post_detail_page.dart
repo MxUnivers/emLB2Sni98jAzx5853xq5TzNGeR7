@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:cached_network_image/cached_network_image.dart";
 import "package:html/parser.dart" show parse;
-import "package:jouman_mobile_mobile/src/actions/CommentAction.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
-import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
-import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
-import "package:jouman_mobile_mobile/src/utils/storage.dart";
+import "package:jouman/src/actions/CommentAction.dart";
+import "package:jouman/src/config/theme.dart";
+import "package:jouman/src/model/CandidatModel.dart";
+import "package:jouman/src/utils/baseurl.dart";
+import "package:jouman/src/utils/storage.dart";
 import "package:url_launcher/url_launcher.dart";
 import "package:webview_flutter/webview_flutter.dart";
 import "package:google_fonts/google_fonts.dart";

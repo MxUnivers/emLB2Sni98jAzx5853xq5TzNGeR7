@@ -3,10 +3,10 @@ import "package:flutter/material.dart";
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
-import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/pages/mainPage.dart';
+import 'package:jouman/src/pages/sigin_page.dart';
+import 'package:jouman/src/utils/baseurl.dart';
 import 'package:redux/redux.dart';
 
 import '../../main.dart';

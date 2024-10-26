@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
+import "package:jouman/src/config/theme.dart";
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);

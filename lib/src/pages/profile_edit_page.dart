@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:jouman_mobile_mobile/src/actions/CandidatAction.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
-import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
-import "package:jouman_mobile_mobile/src/utils/storage.dart";
+import "package:jouman/src/actions/CandidatAction.dart";
+import "package:jouman/src/config/theme.dart";
+import "package:jouman/src/model/CandidatModel.dart";
+import "package:jouman/src/utils/storage.dart";
 
 import "../model/FormationModel.dart";
 import "../model/LanugesFormations.dart";

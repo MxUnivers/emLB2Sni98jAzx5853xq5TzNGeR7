@@ -1,6 +1,6 @@
-import 'package:jouman_mobile_mobile/src/store/postReducer.dart';
+import 'package:jouman/src/store/postReducer.dart';
 import 'package:redux/redux.dart';
-import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
+import 'package:jouman/src/model/CandidatModel.dart';
 
 import '../model/CandidatureModel.dart';
 import '../model/CommentModel.dart';
@@ -15,14 +15,15 @@ import 'jobCategoriesReducer.dart';
 import 'jobReducer.dart';
 import 'messageReducer.dart';
 
-
 CandidatModel candidatReducer(CandidatModel state, dynamic action) {
   if (action is SetCandidatAction) {
     return action.candidat;
   }
   return state;
 }
-List<CandidatModel> candidatListReducer(List<CandidatModel> state, dynamic action) {
+
+List<CandidatModel> candidatListReducer(
+    List<CandidatModel> state, dynamic action) {
   if (action is SetCandidatListAction) {
     return action.candidats;
   }
@@ -35,13 +36,14 @@ CandidatureModel candidatureReducer(CandidatureModel state, dynamic action) {
   }
   return state;
 }
-List<CandidatureModel> candidatureListReducer(List<CandidatureModel> state, dynamic action) {
+
+List<CandidatureModel> candidatureListReducer(
+    List<CandidatureModel> state, dynamic action) {
   if (action is SetCandidatureListAction) {
     return action.candidatures;
   }
   return state;
 }
-
 
 // reducer pour les job
 JobModel jobReducer(JobModel state, dynamic action) {
@@ -50,6 +52,7 @@ JobModel jobReducer(JobModel state, dynamic action) {
   }
   return state;
 }
+
 List<JobModel> jobListReducer(List<JobModel> state, dynamic action) {
   if (action is SetJobListAction) {
     return action.jobs;
@@ -64,15 +67,14 @@ JobCategoryModel jobCategoryReducer(JobCategoryModel state, dynamic action) {
   }
   return state;
 }
-List<JobCategoryModel> jobCategoryListReducer(List<JobCategoryModel> state, dynamic action) {
+
+List<JobCategoryModel> jobCategoryListReducer(
+    List<JobCategoryModel> state, dynamic action) {
   if (action is SetJobCategoryListAction) {
     return action.jobCategorys;
   }
   return state;
 }
-
-
-
 
 // messages
 MessageModel messageReducer(MessageModel state, dynamic action) {
@@ -81,13 +83,14 @@ MessageModel messageReducer(MessageModel state, dynamic action) {
   }
   return state;
 }
-List<MessageModel> messageListReducer(List<MessageModel> state, dynamic action) {
+
+List<MessageModel> messageListReducer(
+    List<MessageModel> state, dynamic action) {
   if (action is SetMessageListAction) {
     return action.messages;
   }
   return state;
 }
-
 
 // Post articles
 PostModel postReducer(PostModel state, dynamic action) {
@@ -96,15 +99,13 @@ PostModel postReducer(PostModel state, dynamic action) {
   }
   return state;
 }
+
 List<PostModel> postListReducer(List<PostModel> state, dynamic action) {
   if (action is SetPostListAction) {
     return action.posts;
   }
   return state;
 }
-
-
-
 
 //Commentaires
 CommentModel commentReducer(CommentModel state, dynamic action) {
@@ -113,7 +114,9 @@ CommentModel commentReducer(CommentModel state, dynamic action) {
   }
   return state;
 }
-List<CommentModel> commentListReducer(List<CommentModel> state, dynamic action) {
+
+List<CommentModel> commentListReducer(
+    List<CommentModel> state, dynamic action) {
   if (action is SetCommentListAction) {
     return action.comments;
   }

@@ -5,8 +5,8 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:fluttertoast/fluttertoast.dart";
 import "package:http/http.dart" as http;
-import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
-import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
+import "package:jouman/src/pages/mainPage.dart";
+import "package:jouman/src/utils/baseurl.dart";
 import "package:redux/redux.dart";
 
 import "../../main.dart";

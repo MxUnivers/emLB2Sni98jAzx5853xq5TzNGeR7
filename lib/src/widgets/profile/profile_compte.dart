@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
+import "package:jouman/src/model/CandidatModel.dart";
 
 class ProfileCompte extends StatefulWidget {
   final CandidatModel? candidat;

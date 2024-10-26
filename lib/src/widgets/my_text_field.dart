@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman/src/config/theme.dart';
 
-import 'package:jouman_mobile_mobile/src/themes/constants.dart';
+import 'package:jouman/src/themes/constants.dart';
 
 class MyTextField extends StatelessWidget {
   final String hintText;
   final TextInputType inputType;
   const MyTextField({
-     Key, key,
-     required this.hintText,
-     required this.inputType,
+    Key,
+    key,
+    required this.hintText,
+    required this.inputType,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {

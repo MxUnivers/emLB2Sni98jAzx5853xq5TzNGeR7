@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/model/CommentModel.dart';
-import 'package:jouman_mobile_mobile/src/model/JobModel.dart';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman/src/model/CommentModel.dart';
+import 'package:jouman/src/model/JobModel.dart';
+import 'package:jouman/src/utils/baseurl.dart';
 import "package:http/http.dart" as http;
 
 Future<List<CommentModel>> fetchAllCommentList(String idBlog) async {

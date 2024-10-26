@@ -1,23 +1,18 @@
-
-
-
-
-
 import 'dart:convert';
-import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
-import  "package:http/http.dart" as http;
-import 'package:jouman_mobile_mobile/src/model/PostModel.dart';
-
+import 'package:jouman/src/utils/baseurl.dart';
+import "package:http/http.dart" as http;
+import 'package:jouman/src/model/PostModel.dart';
 
 Future<List<PostModel>> fetchAllPostList() async {
   var headers = {
     'Authorization': 'Bearer ${baseurl.token}',
   };
-  var request = http.Request('GET', Uri.parse("${baseurl.url+baseurl.apiV1}/blog/get_posts"));
+  var request = http.Request(
+      'GET', Uri.parse("${baseurl.url + baseurl.apiV1}/blog/get_posts"));
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
-  print("${baseurl.url+baseurl.apiV1}/blog/get_posts");
+  print("${baseurl.url + baseurl.apiV1}/blog/get_posts");
 
   if (response.statusCode == 200) {
     print(response.statusCode);
@@ -42,7 +37,3 @@ Future<List<PostModel>> fetchAllPostList() async {
     throw Exception('Failed to load job data');
   }
 }
-
-
-
-

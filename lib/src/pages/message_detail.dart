@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jouman_mobile_mobile/src/actions/EntrepriseAction.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman/src/actions/EntrepriseAction.dart';
+import 'package:jouman/src/config/theme.dart';
 import 'package:intl/intl.dart'; // Importez la bibliothèque intl
 
 import '../model/EntrepriseModel.dart';

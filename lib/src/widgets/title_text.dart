@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/themes/light_color.dart';
+import 'package:jouman/src/themes/light_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TitleText extends StatelessWidget {
@@ -8,7 +8,7 @@ class TitleText extends StatelessWidget {
   final Color? color;
   final FontWeight? fontWeight;
   const TitleText(
-      {Key ?key,
+      {Key? key,
       this.text,
       this.fontSize = 18,
       this.color = LightColor.titleTextColor,

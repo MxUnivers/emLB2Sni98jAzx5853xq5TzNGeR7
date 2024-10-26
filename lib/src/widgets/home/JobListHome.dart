@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:jouman_mobile_mobile/src/config/theme.dart";
-import "package:jouman_mobile_mobile/src/model/JobModel.dart";
-import "package:jouman_mobile_mobile/src/store/reducers.dart";
-import "package:jouman_mobile_mobile/src/widgets/JobComponent.dart";
+import "package:jouman/src/config/theme.dart";
+import "package:jouman/src/model/JobModel.dart";
+import "package:jouman/src/store/reducers.dart";
+import "package:jouman/src/widgets/JobComponent.dart";
 import "package:redux/redux.dart";
 
 import "../../../main.dart";

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/pages/account_page.dart';
-import 'package:jouman_mobile_mobile/src/widgets/messages/MessageCardItem.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/pages/account_page.dart';
+import 'package:jouman/src/widgets/messages/MessageCardItem.dart';
 
 import '../actions/MessageAction.dart';
 import '../model/CandidatModel.dart';

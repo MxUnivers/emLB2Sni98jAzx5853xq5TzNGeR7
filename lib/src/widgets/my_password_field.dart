@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/themes/constants.dart';
+import 'package:jouman/src/config/theme.dart';
+import 'package:jouman/src/themes/constants.dart';
 
 class MyPasswordField extends StatelessWidget {
   const MyPasswordField({
-     Key, key,
+    Key,
+    key,
     required this.isPasswordVisible,
     required this.onTap,
   }) : super(key: key);
@@ -29,7 +30,7 @@ class MyPasswordField extends StatelessWidget {
             child: IconButton(
               splashColor: AppTheme_App.primaryColor,
               highlightColor: AppTheme_App.primaryColor,
-              onPressed: (){
+              onPressed: () {
                 onTap;
               },
               icon: Icon(
