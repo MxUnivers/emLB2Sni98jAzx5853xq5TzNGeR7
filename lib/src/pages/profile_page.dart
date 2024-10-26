@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage>
   late CandidatModel candidat = CandidatModel();
   late CandidatModel candidatDetail = CandidatModel(
       coverPicture:
-          "https://img.freepik.com/vecteurs-libre/cercle-utilisateurs-defini_78370-4704.jpg?t=st=1729958792~exp=1729962392~hmac=9d5955e38939e28c315087e8fd1f0ff92f840f9530f26ff8f8f5ac8497e894fb&w=740",
+          "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png",
       username: "",
       firstname: "",
       lastname: "",
@@ -72,13 +72,6 @@ class _ProfilePageState extends State<ProfilePage>
             color: AppTheme_App.TextGray,
           ),
           elevation: 0.2,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.settings),
-              color: AppTheme_App.secondary,
-            )
-          ],
         ),
         body: Container(
           decoration: BoxDecoration(color: AppTheme_App.withPrimary),

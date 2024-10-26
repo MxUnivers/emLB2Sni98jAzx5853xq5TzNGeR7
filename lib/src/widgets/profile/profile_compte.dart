@@ -43,7 +43,8 @@ class _ProfileCompteState extends State<ProfileCompte> {
                         child: Row(
                           children: [
                             Icon(Icons.person),
-                            Text("${widget.candidat!.username}}")
+                            Text(
+                                "${widget.candidat!.firstname} ${widget.candidat!.lastname}")
                           ],
                         ))),
 
@@ -70,7 +71,7 @@ class _ProfileCompteState extends State<ProfileCompte> {
                         child: Row(
                           children: [
                             Icon(Icons.phone_android_outlined),
-                            Text("${widget.candidat!.telephone}}")
+                            Text("${widget.candidat!.telephone}")
                           ],
                         ))),
 
