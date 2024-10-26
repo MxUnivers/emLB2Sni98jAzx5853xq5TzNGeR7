@@ -6,6 +6,7 @@ import "package:jouman_mobile_mobile/src/model/CandidatModel.dart";
 import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 import "package:jouman_mobile_mobile/src/pages/mainPage.dart";
 import 'package:fluttertoast/fluttertoast.dart';
+import "package:jouman_mobile_mobile/src/store/reducers.dart";
 import "package:jouman_mobile_mobile/src/utils/baseurl.dart";
 import "package:redux/redux.dart";
 import "package:url_launcher/url_launcher.dart";
@@ -15,15 +16,29 @@ import "../actions/CandidatureAction.dart";
 import "../utils/storage.dart";
 
 class JobConfirmPage extends StatefulWidget {
-  final Store<AppState> store;
   final JobModel? job;
-  const JobConfirmPage({super.key, this.job, required this.store});
+  const JobConfirmPage({super.key, this.job});
 
   @override
   State<JobConfirmPage> createState() => _JobConfirmPageState();
 }
 
 class _JobConfirmPageState extends State<JobConfirmPage> {
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
+
   @override
   void initState() {
     super.initState();
@@ -171,20 +186,19 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
                             child: TextFormField(
-                              controller: telephoneController,
-                              maxLines: 10,
-                              minLines: 1,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'telephone 2250595387052',
-                              ),
+                                controller: telephoneController,
+                                maxLines: 10,
+                                minLines: 1,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'telephone 2250595387052',
+                                ),
                                 onChanged: (text) {
                                   if (!text.startsWith('225')) {
                                     telephoneController.text = '225$text';
                                   }
-                                }
-                            ),
+                                }),
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
@@ -210,7 +224,7 @@ class _JobConfirmPageState extends State<JobConfirmPage> {
                                         });
                                         postCandidature(
                                                 context,
-                                                widget.store,
+                                                store,
                                                 candidat.id!,
                                                 widget.job!.idEntreprise
                                                     .toString(),

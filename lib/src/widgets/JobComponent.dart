@@ -2,22 +2,36 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/pages/job_detail_page.dart";
+import "package:jouman_mobile_mobile/src/store/reducers.dart";
 import "package:redux/redux.dart";
 
 import "../../main.dart";
 import "../model/JobModel.dart";
 
 class JobComponent extends StatefulWidget {
-  final Store<AppState> store;
   final JobModel? job;
-  const JobComponent({Key? key, this.job, required this.store})
-      : super(key: key);
+  const JobComponent({Key? key, this.job}) : super(key: key);
 
   @override
   State<JobComponent> createState() => _JobComponentState();
 }
 
 class _JobComponentState extends State<JobComponent> {
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +55,6 @@ class _JobComponentState extends State<JobComponent> {
               CupertinoPageRoute(
                 builder: (context) => JobDetailPage(
                   job: widget.job,
-                  store: widget.store,
                 ),
               ),
             );
@@ -80,37 +93,6 @@ class _JobComponentState extends State<JobComponent> {
                       )
                     ]),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (widget.job != null) {
-                          widget.job!.is_favorite =
-                              !(widget.job!.is_favorite ?? false);
-                        }
-                      });
-                    },
-                    child: AnimatedContainer(
-                      height: 35,
-                      padding: EdgeInsets.all(5),
-                      duration: Duration(milliseconds: 300),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: (widget.job?.is_favorite ?? false)
-                                ? Colors.red.shade100
-                                : Colors.grey.shade300),
-                      ),
-                      child: Center(
-                        child: (widget.job?.is_favorite ?? false)
-                            ? Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                            : Icon(Icons.favorite_outline,
-                                color: Colors.grey.shade600),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ],

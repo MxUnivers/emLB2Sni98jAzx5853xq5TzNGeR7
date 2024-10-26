@@ -13,8 +13,7 @@ import "../../Animation/skeleton_model.dart";
 import "../../pages/job_detail_page.dart";
 
 class CategoryJobHome extends StatefulWidget {
-  final Store<AppState> store;
-  const CategoryJobHome({Key? key, required this.store}) : super(key: key);
+  const CategoryJobHome({Key? key}) : super(key: key);
 
   @override
   State<CategoryJobHome> createState() => _CategoryJobHomeState();
@@ -67,14 +66,7 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
                         ),
                       ),
                       MaterialButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => JobDetailPage(
-                                        store: widget.store,
-                                      )));
-                        },
+                        onPressed: () {},
                         child: Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 5),

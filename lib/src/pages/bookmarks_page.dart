@@ -94,7 +94,6 @@ class _JobBookmarkPageState extends State<JobBookmarkPage> {
                                 var item = jobList[index];
                                 return JobComponent(
                                   job: item,
-                                  store: widget.store,
                                 );
                               },
                             ),

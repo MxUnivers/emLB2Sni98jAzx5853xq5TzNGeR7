@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
 import "package:jouman_mobile_mobile/src/model/JobModel.dart";
+import "package:jouman_mobile_mobile/src/store/reducers.dart";
 import "package:jouman_mobile_mobile/src/widgets/JobComponent.dart";
 import "package:redux/redux.dart";
 
@@ -18,6 +19,21 @@ class JobListHome extends StatefulWidget {
 }
 
 class _JobListHomeState extends State<JobListHome> {
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +80,6 @@ class _JobListHomeState extends State<JobListHome> {
                                 var item = jobList[index];
                                 return JobComponent(
                                   job: item,
-                                  store: widget.store,
                                 );
                               },
                             ),

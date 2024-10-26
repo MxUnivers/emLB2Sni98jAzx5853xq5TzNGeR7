@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
+import 'package:jouman_mobile_mobile/src/store/reducers.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
 import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
 import 'package:redux/redux.dart';
@@ -13,7 +14,6 @@ import '../widgets/JobComponent.dart';
 import '../widgets/home/AppBarHome.dart';
 
 class SearchCategoryJobPage extends StatefulWidget {
-  late final Store<AppState> store;
   final String? title;
   SearchCategoryJobPage({Key? key, this.title}) : super(key: key);
 
@@ -22,6 +22,20 @@ class SearchCategoryJobPage extends StatefulWidget {
 }
 
 class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
   @override
   void initState() {
     // TODO: implement initState
@@ -123,7 +137,6 @@ class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
                                 var item = jobList[index];
                                 return JobComponent(
                                   job: item,
-                                  store: widget.store,
                                 );
                               },
                             ),

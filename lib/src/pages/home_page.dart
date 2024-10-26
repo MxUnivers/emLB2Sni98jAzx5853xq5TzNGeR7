@@ -322,8 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           itemCount: jobs.length,
                                           itemBuilder: (context, index) {
                                             var item = jobs[index];
-                                            return JobComponent(
-                                                job: item, store: widget.store);
+                                            return JobComponent(job: item);
                                           },
                                         );
                                       },
