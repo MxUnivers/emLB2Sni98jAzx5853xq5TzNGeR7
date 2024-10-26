@@ -53,15 +53,15 @@ void main() {
 
   final store = Store<AppState>(
     combineReducers<AppState>([
-          (state, action) => AppState(
-              jobs: jobListReducer(state.jobs, action),
-              jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
-            candidats: candidatListReducer(state.candidats, action),
-            candidat: candidatReducer(state.candidat, action),
-            job: jobReducer(state.job, action), messages: [],
-            posts:postListReducer(state.posts, action),
-            candidatures:candidatureListReducer(state.candidatures, action)
-      ),
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
       // Ajoutez d'autres réducteurs pour d'autres parties de l'état global ici
     ]),
     initialState: AppState.initialState(),

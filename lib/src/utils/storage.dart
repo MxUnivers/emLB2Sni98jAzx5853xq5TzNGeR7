@@ -1,6 +1,3 @@
-
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/CandidatModel.dart';
@@ -21,7 +18,8 @@ class StorageUser {
 }
 
 class SharedPreferencesService {
-  static Future<void> saveCandidatDataToSharedPreferences(CandidatModel candidat) async {
+  static Future<void> saveCandidatDataToSharedPreferences(
+      CandidatModel candidat) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(StorageUser.idKey, candidat.id ?? "");
     prefs.setBool(StorageUser.is_activeKey, candidat.is_active);
@@ -32,9 +30,12 @@ class SharedPreferencesService {
     prefs.setString(StorageUser.descriptionKey, candidat.description ?? "");
     prefs.setString(StorageUser.accountPackKey, candidat.account?.pack ?? "");
     prefs.setInt(StorageUser.accountSoldeKey, candidat.account?.solde ?? 0);
-    prefs.setInt(StorageUser.accountCountSmsKey, candidat.account?.countSms ?? 0);
-    prefs.setString(StorageUser.accountDateNowKey, candidat.account?.dateNow ?? "");
-    prefs.setString(StorageUser.accountDateEndKey, candidat.account?.dateEnd ?? "");
+    prefs.setInt(
+        StorageUser.accountCountSmsKey, candidat.account?.countSms ?? 0);
+    prefs.setString(
+        StorageUser.accountDateNowKey, candidat.account?.dateNow ?? "");
+    prefs.setString(
+        StorageUser.accountDateEndKey, candidat.account?.dateEnd ?? "");
   }
 
   static Future<CandidatModel> getCandidatDataFromSharedPreferences() async {
@@ -53,23 +54,21 @@ class SharedPreferencesService {
     final dateEnd = prefs.getString(StorageUser.accountDateEndKey) ?? "";
 
     return CandidatModel(
-      id: id,
-      is_active: is_active,
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      username: username,
-      description: description,
-      account: AccountCandidatModel(
-        pack: pack,
-        solde: solde,
-        countSms: countSms,
-        dateNow: dateNow,
-        dateEnd: dateEnd,
-      )
-    );
+        id: id,
+        is_active: is_active,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        username: username,
+        description: description,
+        account: AccountCandidatModel(
+          pack: pack,
+          solde: solde,
+          countSms: countSms,
+          dateNow: dateNow,
+          dateEnd: dateEnd,
+        ));
   }
-
 
   // Supprimer
   static Future<void> removeCandidatDataFromSharedPreferences() async {
@@ -88,13 +87,6 @@ class SharedPreferencesService {
     prefs.remove(StorageUser.accountDateNowKey);
     prefs.remove(StorageUser.accountDateEndKey);
   }
-
-
 }
 
-
-
-List<String> packsList = [
-  "SILVER", "GOLD", "DIAMOND"
-];
-
+List<String> packsList = ["SILVER", "GOLD", "DIAMOND"];

@@ -9,6 +9,7 @@ import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
 import 'package:jouman_mobile_mobile/src/utils/storage.dart';
 import 'package:redux/redux.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 import '../config/locallvalue.dart';
@@ -16,9 +17,9 @@ import 'account_page.dart';
 import 'app_step_page.dart';
 
 class MainPage extends StatefulWidget {
-  final Store<AppState> store;
+  final Store<AppState>? store;
 
-  MainPage({required this.store});
+  MainPage({this.store});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    store = widget.store;
+    store = widget.store!;
     _screens = [
       MyHomePage(store: store),
       AccountPage(),
@@ -43,22 +44,31 @@ class _MainPageState extends State<MainPage> {
     ];
     _pageController = PageController(initialPage: 0);
 
-    SharedPreferencesService.getCandidatDataFromSharedPreferences()
-        .then((candi) {
-      setState(() {
-        candidat = candi;
-      });
-      if (candidat.id != null) {
+    // Appel de la fonction pour vérifier l'ID utilisateur
+    _checkUserId();
+  }
+
+  Future<void> _checkUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getString(StorageUser.idKey) ?? "";
+
+    if (id.isNotEmpty) {
+      SharedPreferencesService.getCandidatDataFromSharedPreferences()
+          .then((candi) {
+        setState(() {
+          candidat = candi;
+        });
         CandidatGetProfile(context, candidat.id.toString());
-      } else {
-        Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (context) => SignInPage(),
-          ),
-        );
-      }
-    });
+      });
+    } else {
+      // Redirige vers la page de connexion si l'ID est vide
+      Navigator.pushReplacement(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => SignInPage(),
+        ),
+      );
+    }
   }
 
   @override

@@ -44,15 +44,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme_App.withPrimary,
-        elevation: 0,
-        leading: Image(
-          width: 24,
-          color: Colors.white,
-          image: AssetImage("assets/ic_launcher.png"),
-        ),
-      ),
       body: SafeArea(
         //to make page scrollable
         child: CustomScrollView(
@@ -72,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             Flexible(
                               fit: FlexFit.loose,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
                                     height: 10,
@@ -445,7 +436,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     height: 40,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.primaryColor,
+                                      color: AppTheme_App.primaryColor,
                                       borderRadius: BorderRadius.circular(18),
                                     ),
                                     child: TextButton(
@@ -457,24 +448,63 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
+                                          // Vérification manuelle des champs importants avant d'envoyer les données
+                                          if (emailController.text.isEmpty ||
+                                              usernameController.text.isEmpty ||
+                                              firstNameController
+                                                  .text.isEmpty ||
+                                              lastNameController.text.isEmpty ||
+                                              dateNaissanceController
+                                                  .text.isEmpty ||
+                                              telephoneController
+                                                  .text.isEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                  content: Text(
+                                                      "Tous les champs sont requis.")),
+                                            );
+                                            return; // Arrête l'exécution si un champ est vide
+                                          }
+
                                           setState(() {
                                             isLoading = true;
                                           });
+
                                           registerCandidat(
-                                                  context,
-                                                  emailController.text,
-                                                  usernameController.text,
-                                                  firstNameController.text,
-                                                  lastNameController.text,
-                                                  dateNaissanceController.text,
-                                                  telephoneController.text,
-                                                  descriptionController.text)
-                                              .then((value) {
+                                            context,
+                                            emailController.text,
+                                            usernameController.text,
+                                            firstNameController.text,
+                                            lastNameController.text,
+                                            dateNaissanceController.text,
+                                            telephoneController.text,
+                                            descriptionController.text,
+                                          ).then((value) {
                                             setState(() {
                                               isLoading = false;
                                             });
+                                          }).catchError((error) {
+                                            // Gérer les erreurs d'inscription
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                  content: Text(
+                                                      "Erreur lors de l'inscription")),
+                                            );
                                           });
-                                        } else {}
+                                        } else {
+                                          // Message si le formulaire n'est pas valide
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    "Veuillez vérifier les champs du formulaire.")),
+                                          );
+                                        }
                                       },
                                       child: Text(
                                         "S'inscrire",
@@ -484,7 +514,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                   ),
                             SizedBox(
-                              height: 150,
+                              height: 10,
                             )
                           ],
                         )),

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
 import 'package:jouman_mobile_mobile/src/pages/mainPage.dart';
 import 'package:jouman_mobile_mobile/src/pages/sigup_page.dart';
+import 'package:jouman_mobile_mobile/src/store/reducers.dart';
 import 'package:jouman_mobile_mobile/src/themes/constants.dart';
 import 'package:jouman_mobile_mobile/src/themes/theme.dart';
 import 'package:redux/redux.dart';
@@ -13,13 +15,26 @@ import '../actions/CandidatAction.dart';
 import '../widgets/widget.dart';
 
 class SignInPage extends StatefulWidget {
-  late final Store<AppState> store;
-
   @override
   _SignInPageState createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
+
   bool isLoading = false;
   bool isPasswordVisible = true;
   late TextEditingController emailController;
@@ -44,7 +59,7 @@ class _SignInPageState extends State<SignInPage> {
       context,
       MaterialPageRoute(
           builder: (context) => MainPage(
-                store: widget.store,
+                store: store,
               )),
     );
   }
@@ -214,7 +229,7 @@ class _SignInPageState extends State<SignInPage> {
                                 height: 35,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.primaryColor,
+                                  color: AppTheme_App.primaryColor,
                                   borderRadius: BorderRadius.circular(18),
                                 ),
                                 child: TextButton(
@@ -225,19 +240,42 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   ),
                                   onPressed: () async {
+                                    // Vérifiez que les champs email et password ne sont pas vides
+                                    if (emailController.text.isEmpty ||
+                                        passwordController.text.isEmpty) {
+                                      // Affiche un message d'erreur si un champ est vide
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "Veuillez remplir tous les champs.")),
+                                      );
+                                      return;
+                                    }
+
                                     setState(() {
                                       isLoading = true;
                                     });
+
                                     String email = emailController.text;
                                     String password = passwordController.text;
-                                    connectCandidat(context, widget.store,
-                                            email, password)
-                                        .then((value) {
+
+                                    try {
+                                      await connectCandidat(
+                                          context, store, email, password);
+                                    } catch (error) {
+                                      // Affiche un message d'erreur si la connexion échoue
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text("Échec de la connexion ")),
+                                      );
+                                    } finally {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                    });
-                                    // Appeler la fonction de connexion ici
+                                    }
                                   },
                                   child: Text(
                                     "Connexion",
