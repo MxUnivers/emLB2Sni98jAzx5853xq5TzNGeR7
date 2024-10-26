@@ -54,11 +54,25 @@ android {
         versionName flutterVersionName
     }
 
-    buildTypes {
+
+    signingConfigs {
         release {
-            signingConfig signingConfigs.debug
+            keyAlias 'my-key-alias'
+            keyPassword '3i78EdkK6zE9Wa'
+            storeFile file('C:/Users/PC MARKET CI/my-key.jks') // Remplacez par le chemin vers votre clé
+            storePassword '3i78EdkK6zE9Wa'
         }
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    
 }
 
 flutter {

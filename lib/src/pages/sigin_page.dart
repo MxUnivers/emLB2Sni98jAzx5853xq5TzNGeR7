@@ -36,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
   );
 
   bool isLoading = false;
-  bool isPasswordVisible = true;
+  bool isPasswordVisible = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
@@ -85,6 +85,7 @@ class _SignInPageState extends State<SignInPage> {
                           fit: FlexFit.loose,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                 height: 10,
@@ -110,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.all(15),
-                                    hintText: "email",
+                                    hintText: "Email",
                                     hintStyle: kBodyText,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -137,7 +138,8 @@ class _SignInPageState extends State<SignInPage> {
                                   style: kBodyText.copyWith(
                                     color: AppTheme_App.TextGray,
                                   ),
-                                  obscureText: false,
+                                  obscureText:
+                                      !isPasswordVisible, // Masque le texte si isPasswordVisible est false
                                   keyboardType: TextInputType.text,
                                   textInputAction: TextInputAction.done,
                                   decoration: InputDecoration(
@@ -148,7 +150,12 @@ class _SignInPageState extends State<SignInPage> {
                                         splashColor: AppTheme_App.primaryColor,
                                         highlightColor:
                                             AppTheme_App.primaryColor,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            isPasswordVisible =
+                                                !isPasswordVisible; // Inverse la visibilité
+                                          });
+                                        },
                                         icon: Icon(
                                           isPasswordVisible
                                               ? Icons.visibility
@@ -185,7 +192,7 @@ class _SignInPageState extends State<SignInPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Aucun compte ",
+                              "",
                               style: kBodyText,
                             ),
                             isLoading

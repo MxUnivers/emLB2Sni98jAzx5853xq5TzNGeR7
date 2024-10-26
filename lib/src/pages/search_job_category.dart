@@ -32,9 +32,12 @@ class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
         .then((jobs) {
       setState(() {
         jobList = jobs;
+
+        // Filtre initial basé sur areaOffre et widget.title
         filteredJobList = jobList.where((job) {
           return job.areaOffre == widget.title;
         }).toList();
+
         isLoading = false;
       });
     });
@@ -57,10 +60,7 @@ class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
       filteredJobList = jobList
           .where((job) =>
               job.areaOffre == widget.title &&
-              job.titlePost
-                  .toString()
-                  .toLowerCase()
-                  .contains(query.toLowerCase()))
+              job.title.toString().toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -89,14 +89,14 @@ class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                   borderSide: BorderSide.none),
-              hintText: "Recherche emplois",
+              hintText: "recherche ...",
               hintStyle: TextStyle(fontSize: 14),
             ),
           ),
         ),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator()) // Affiche le chargement
           : Container(
               padding: EdgeInsets.only(top: 10, left: 5, right: 5),
               child: Column(

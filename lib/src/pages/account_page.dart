@@ -153,6 +153,13 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     onPressed: () {
                       // Ajoutez ici le code pour gérer l'autorisation.
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          content:
+                              Text('Déconnexion', textAlign: TextAlign.center),
+                        ),
+                      );
                       SharedPreferencesService
                               .removeCandidatDataFromSharedPreferences()
                           .then((cand) {
