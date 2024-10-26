@@ -292,15 +292,35 @@ class _SignUpPageState extends State<SignUpPage> {
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 5),
                                     child: TextFormField(
+                                      controller: dateNaissanceController,
+                                      readOnly:
+                                          true, // Empêche la saisie manuelle
                                       style: kBodyText.copyWith(
                                           color: AppTheme_App.TextGray),
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.datetime,
                                       textInputAction: TextInputAction.next,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return "Date de naissance requis";
+                                          return "Date de naissance requise";
                                         }
-                                        return null; // La validation a réussi
+                                        return null;
+                                      },
+                                      onTap: () async {
+                                        // Affiche le DatePicker lorsque le champ est tapé
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          lastDate: DateTime.now(),
+                                        );
+                                        if (pickedDate != null) {
+                                          // Format en 'yyyy-MM-dd' pour le stockage conforme à l'input HTML
+                                          String formattedDate =
+                                              "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                                          dateNaissanceController.text =
+                                              formattedDate;
+                                        }
                                       },
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.all(15),
@@ -374,7 +394,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Si vous avez un compte ? ",
+                                  "Déja un compte ? ",
                                   style: kBodyText,
                                 ),
                                 isLoading
@@ -410,7 +430,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   },
                                 ),
                                 Text(
-                                  "J'accepte les condition utilisation ? ",
+                                  "J'accepte de m'inscrire ",
                                   style: GoogleFonts.nunito(
                                       color: AppTheme_App.primaryColor),
                                 ),

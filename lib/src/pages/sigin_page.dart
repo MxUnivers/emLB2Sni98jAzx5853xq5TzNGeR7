@@ -79,7 +79,7 @@ class _SignInPageState extends State<SignInPage> {
                         Flexible(
                           fit: FlexFit.loose,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
                                 height: 10,
