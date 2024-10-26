@@ -192,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           isLoading
                               ? Container()
@@ -243,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
-                            height: 30,
+                            height: 40,
                             child: StoreConnector<AppState,
                                 List<JobCategoryModel>>(
                               converter: (store) => store.state.jobCategorys,

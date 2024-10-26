@@ -67,16 +67,6 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme_App.withPrimary,
-        elevation: 0,
-        leading: Image(
-          width: 24,
-          color: Colors.white,
-          image: NetworkImage(
-              'https://img.freepik.com/vecteurs-libre/concept-entretien-embauche-idee-emploi-procedure-embauche-recruteur-recherche-candidat-emploi-illustration-vectorielle-plane-isolee_613284-2727.jpg?w=740&t=st=1693512229~exp=1693512829~hmac=4f36a10e99a81aad89069960bc26f0f1c90c45ebbb2c10baa3bcfe279cfdf0e7'),
-        ),
-      ),
       body: SafeArea(
         //to make page scrollable
         child: CustomScrollView(

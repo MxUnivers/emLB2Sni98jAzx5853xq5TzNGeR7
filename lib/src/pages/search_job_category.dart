@@ -1,17 +1,12 @@
-import "package:flutter/material.dart";
-
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jouman_mobile_mobile/src/actions/JobAction.dart';
 import 'package:jouman_mobile_mobile/src/config/theme.dart';
-import 'package:jouman_mobile_mobile/src/store/reducers.dart';
-import 'package:jouman_mobile_mobile/src/widgets/home/CategoryJobHome.dart';
-import 'package:jouman_mobile_mobile/src/widgets/home/JobListHome.dart';
-import 'package:redux/redux.dart';
+import 'package:jouman_mobile_mobile/src/utils/baseurl.dart';
+import 'package:jouman_mobile_mobile/src/widgets/JobComponent.dart';
 
-import '../../main.dart';
 import '../model/JobModel.dart';
-import '../widgets/JobComponent.dart';
-import '../widgets/home/AppBarHome.dart';
 
 class SearchCategoryJobPage extends StatefulWidget {
   final String? title;
@@ -22,135 +17,125 @@ class SearchCategoryJobPage extends StatefulWidget {
 }
 
 class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
-  late final Store<AppState> store = Store<AppState>(
-    combineReducers<AppState>([
-      (state, action) => AppState(
-          jobs: jobListReducer(state.jobs, action),
-          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
-          candidats: candidatListReducer(state.candidats, action),
-          candidat: candidatReducer(state.candidat, action),
-          job: jobReducer(state.job, action),
-          messages: [],
-          posts: postListReducer(state.posts, action),
-          candidatures: candidatureListReducer(state.candidatures, action)),
-    ]),
-    initialState: AppState.initialState(),
-  );
+  List<JobModel> jobList = [];
+  List<JobModel> filteredJobList = [];
+  bool isLoading = true;
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    // Récupère toutes les offres depuis l'API
+    fetchAllJobList(
+            "${baseurl.url.toString() + baseurl.apiV1.toString()}/offre/get_offres")
+        .then((jobs) {
+      setState(() {
+        jobList = jobs;
+        filteredJobList = jobList.where((job) {
+          return job.areaOffre == widget.title;
+        }).toList();
+        isLoading = false;
+      });
+    });
+
+    // Ajoute un écouteur pour la recherche
+    searchController.addListener(() {
+      filterJobs(searchController.text);
+    });
   }
 
-  List<JobModel> jobList = [
-    JobModel(
-        coverPicture:
-            "https://upload.wikimedia.org/wikipedia/fr/1/1c/Logo_SGBCI_2014.png",
-        title: "Senior developpeur",
-        addresse: "Abidjan",
-        dateNow: "30/08/2023",
-        is_favorite: false,
-        areaOffre: "Informatique",
-        typeContrat: "freelance",
-        description:
-            "En tant que Développeur Front-End au sein de notre équipe, vous serez responsable de la création et de la mise en œuvre d'interfaces utilisateur attrayantes et fonctionnelles pour nos applications web. Vous travaillerez en étroite collaboration avec les concepteurs, les développeurs back-end et les chefs de projet pour garantir que nos produits offrent une expérience utilisateur exceptionnelle."),
-  ];
+  @override
+  void dispose() {
+    searchController.dispose(); // Libère le contrôleur de recherche
+    super.dispose();
+  }
+
+  // Fonction pour filtrer les offres en fonction de la recherche
+  void filterJobs(String query) {
+    setState(() {
+      filteredJobList = jobList
+          .where((job) =>
+              job.areaOffre == widget.title &&
+              job.titlePost
+                  .toString()
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return PageView(physics: NeverScrollableScrollPhysics(), children: [
-      Scaffold(
+    return Scaffold(
+      backgroundColor: AppTheme_App.withPrimary,
+      appBar: AppBar(
         backgroundColor: AppTheme_App.withPrimary,
-        appBar: AppBar(
-          backgroundColor: AppTheme_App.withPrimary,
-          elevation: 0.5,
-          leadingWidth: 40,
-          leading: BackButton(
-            color: AppTheme_App.withGreyOrginal,
-          ),
-          title: Container(
-            height: 45,
-            child: TextField(
-              cursorColor: Colors.grey,
-              decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    borderSide: BorderSide.none),
-                hintText: "recherche emplois",
-                hintStyle: TextStyle(fontSize: 14),
-              ),
+        elevation: 0.5,
+        leadingWidth: 40,
+        leading: BackButton(
+          color: AppTheme_App.withGreyOrginal,
+        ),
+        title: Container(
+          height: 45,
+          child: TextField(
+            controller: searchController,
+            cursorColor: Colors.grey,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              filled: true,
+              fillColor: Colors.grey.shade200,
+              prefixIcon: Icon(Icons.search, color: Colors.grey),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none),
+              hintText: "Recherche emplois",
+              hintStyle: TextStyle(fontSize: 14),
             ),
           ),
         ),
-        body: Container(
-          padding: EdgeInsets.only(top: 10, left: 5, right: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              // areOffre title
-
-              Container(
-                  child: Row(
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              padding: EdgeInsets.only(top: 10, left: 5, right: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  // Titre areaOffre
+                  Container(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        "${widget.title}",
-                        style: GoogleFonts.nunito(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: AppTheme_App.withGreyOrginal),
-                      ),
-                    )
-                  ])),
-
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                      child:
-                          // listes des offre
-                          Container(
-                    height: MediaQuery.of(context).size.height,
-                    margin: EdgeInsets.only(top: 5),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 3),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: jobList.length,
-                              itemBuilder: (context, index) {
-                                var item = jobList[index];
-                                return JobComponent(
-                                  job: item,
-                                );
-                              },
-                            ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            "${widget.title}",
+                            style: GoogleFonts.nunito(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme_App.withGreyOrginal),
                           ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  )),
-                ),
+                  ),
+                  SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredJobList.length,
+                      itemBuilder: (context, index) {
+                        var item = filteredJobList[index];
+                        return JobComponent(
+                          job: item,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-      )
-    ]);
+            ),
+    );
   }
 }

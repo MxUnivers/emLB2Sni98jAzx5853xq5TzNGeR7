@@ -82,28 +82,23 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
       Scaffold(
           backgroundColor: AppTheme_App.withPrimary,
           appBar: AppBar(
-            backgroundColor: AppTheme_App.withPrimary,
-            elevation: 0.5,
-            leadingWidth: 40,
-            leading: BackButton(
-              color: AppTheme_App.withGreyOrginal,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            centerTitle: true,
+            title: Text(
+              "Offres postulés",
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ),
-            title: Container(
-              height: 45,
-              child: TextField(
-                cursorColor: Colors.grey,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide.none),
-                  hintText: "Offre d'emplois postultés",
-                  hintStyle: TextStyle(fontSize: 14),
-                ),
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 20,
+                color: Colors.black,
               ),
             ),
           ),
