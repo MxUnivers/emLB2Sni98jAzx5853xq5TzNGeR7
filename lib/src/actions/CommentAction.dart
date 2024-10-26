@@ -41,24 +41,23 @@ Future<List<CommentModel>> fetchAllCommentList(String idBlog) async {
   }
 }
 
-
-
 // Poster votre commenataire
 
 Future<void> postComment(
-    BuildContext context,
-    String idCandidat,
-    String idBlog,
-    String content,
-    String areaPost,
-    ) async {
-
+  BuildContext context,
+  String idCandidat,
+  String idBlog,
+  String content,
+  String areaPost,
+) async {
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ${baseurl.token}'
   };
   var request = http.Request(
-      'POST', Uri.parse("${baseurl.url + baseurl.apiV1}/comment/post/${idCandidat}/blog/${idBlog}"));
+      'POST',
+      Uri.parse(
+          "${baseurl.url + baseurl.apiV1}/comment/post/${idCandidat}/blog/${idBlog}"));
   request.body = json.encode({
     "content": content,
     "areaPost": areaPost,
@@ -67,7 +66,8 @@ Future<void> postComment(
 
   http.StreamedResponse response = await request.send();
 
-  print("${baseurl.url + baseurl.apiV1}/comment/post/${idCandidat}/blog/${idBlog}");
+  print(
+      "${baseurl.url + baseurl.apiV1}/comment/post/${idCandidat}/blog/${idBlog}");
 
   if (response.statusCode == 200) {
     // La requête a réussi
@@ -81,7 +81,7 @@ Future<void> postComment(
       ),
     );
     // Vous pouvez gérer la réponse ici si nécessaire
-  } else if (response.statusCode==407) {
+  } else if (response.statusCode == 407) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     print(jsonData["data"]);
@@ -91,8 +91,7 @@ Future<void> postComment(
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
-  }
-  else if (response.statusCode==409) {
+  } else if (response.statusCode == 409) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     ScaffoldMessenger.of(context).showSnackBar(
@@ -101,8 +100,7 @@ Future<void> postComment(
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
-  }
-  else if (response.statusCode==500) {
+  } else if (response.statusCode == 500) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     ScaffoldMessenger.of(context).showSnackBar(

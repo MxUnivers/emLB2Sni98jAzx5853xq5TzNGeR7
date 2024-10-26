@@ -13,8 +13,8 @@ import '../../main.dart';
 import '../model/CandidatModel.dart';
 import '../utils/storage.dart';
 
-Future<void> connectCandidat(
-    BuildContext context,Store<AppState> store, String email, String password) async {
+Future<void> connectCandidat(BuildContext context, Store<AppState> store,
+    String email, String password) async {
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ${baseurl.token}'
@@ -58,7 +58,9 @@ Future<void> connectCandidat(
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => MainPage(store: store,),
+        builder: (context) => MainPage(
+          store: store,
+        ),
       ),
     );
   } else if (response.statusCode == 402) {

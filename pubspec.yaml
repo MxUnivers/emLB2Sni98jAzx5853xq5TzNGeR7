@@ -35,6 +35,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  win32: ^5.0.10 # Assurez-vous d'avoir la dernière version compatible
   cupertino_icons: ^1.0.6
   google_fonts: ^6.1.0
   animated_theme_switcher: ^2.0.1-nullsafety.0

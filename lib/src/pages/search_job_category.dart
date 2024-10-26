@@ -17,7 +17,6 @@ class SearchCategoryJobPage extends StatefulWidget {
   final String? title;
   SearchCategoryJobPage({Key? key, this.title}) : super(key: key);
 
-
   @override
   _SearchCategoryJobPageState createState() => _SearchCategoryJobPageState();
 }
@@ -122,7 +121,10 @@ class _SearchCategoryJobPageState extends State<SearchCategoryJobPage> {
                               itemCount: jobList.length,
                               itemBuilder: (context, index) {
                                 var item = jobList[index];
-                                return JobComponent(job: item, store: widget.store,);
+                                return JobComponent(
+                                  job: item,
+                                  store: widget.store,
+                                );
                               },
                             ),
                           ),

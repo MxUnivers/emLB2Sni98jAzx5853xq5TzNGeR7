@@ -11,7 +11,6 @@ import "candidatures_page.dart";
 import "message_page.dart";
 import "offre_postules.dart";
 
-
 /*
 *class PostAddCard extends StatelessWidget {
   @override
@@ -35,7 +34,6 @@ import "offre_postules.dart";
 }
 
 * */
-
 
 class ProfileCard extends StatelessWidget {
   @override
@@ -132,45 +130,42 @@ class _AccountPageState extends State<AccountPage> {
   late CandidatModel candidat;
   void _showConnectedAuthDialog(BuildContext context) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Deconnexion'),
-          content: Text('Souhaiter vous vous deconnecter ?'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Annuler'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                  backgroundColor: AppTheme_App.favoriteColor,
-                elevation: 0.5
-              ),
-              child: Text(
-                'Autoriser',
-                style: GoogleFonts.nunito(color: AppTheme_App.withPrimary),
-              ),
-              onPressed: () {
-                // Ajoutez ici le code pour gérer l'autorisation.
-                Navigator.of(context).pop();
-                SharedPreferencesService.removeCandidatDataFromSharedPreferences()
-                    .then((cand) {
-                  Navigator.pushReplacement(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => SignInPage(),
-                    )
-                  );
-                }); // Ferme la boîte de dialogue.
-              }
-            )
-          ]
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text('Deconnexion'),
+              content: Text('Souhaiter vous vous deconnecter ?'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Annuler'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: AppTheme_App.favoriteColor,
+                        elevation: 0.5),
+                    child: Text(
+                      'Autoriser',
+                      style:
+                          GoogleFonts.nunito(color: AppTheme_App.withPrimary),
+                    ),
+                    onPressed: () {
+                      // Ajoutez ici le code pour gérer l'autorisation.
+                      Navigator.of(context).pop();
+                      SharedPreferencesService
+                              .removeCandidatDataFromSharedPreferences()
+                          .then((cand) {
+                        Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => SignInPage(),
+                            ));
+                      }); // Ferme la boîte de dialogue.
+                    })
+              ]);
+        });
   }
 
   @override
@@ -194,11 +189,12 @@ class _AccountPageState extends State<AccountPage> {
           MessageCard(),
           PostulatedAnnouncementCard(),
           Card(
-              child: ListTile(iconColor: Colors.red.shade900,
+              child: ListTile(
+            iconColor: Colors.red.shade900,
             leading: Icon(CupertinoIcons.exclamationmark_bubble_fill),
             title: Text('Déconnexion'),
             subtitle: Text('Se déconnecter de l\'application'),
-            onTap: (){
+            onTap: () {
               _showConnectedAuthDialog(context);
             },
           ))

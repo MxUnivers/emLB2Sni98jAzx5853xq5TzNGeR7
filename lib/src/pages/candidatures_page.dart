@@ -45,7 +45,6 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
   bool isLoading = true;
   List<CandidatureModel> candidaturesList = [];
 
-
   String formatDateTime(String dateTimeString) {
     final dateTime = DateTime.parse(dateTimeString);
     final dateFormat = DateFormat.yMMMMd();
@@ -65,13 +64,12 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
           color: AppTheme_App.TextGray,
         ),
         backgroundColor: AppTheme_App.withPrimary,
-        title: Text("Candidatures", style: GoogleFonts.nunito(color: AppTheme_App.TextGray)),
+        title: Text("Candidatures",
+            style: GoogleFonts.nunito(color: AppTheme_App.TextGray)),
         elevation: 0.2,
       ),
-      body: Container(decoration:
-          BoxDecoration(
-            color: AppTheme_App.withPrimary
-          ),
+      body: Container(
+          decoration: BoxDecoration(color: AppTheme_App.withPrimary),
           height: MediaQuery.of(context).size.height,
           child: isLoading == true
               ? Center(
@@ -85,11 +83,12 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
                         return Card(
                           margin: EdgeInsets.all(8),
                           child: ListTile(
-                            onTap: (){
+                            onTap: () {
                               Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                  builder: (context) => CandidatureDetailPage(candidature: candidature),
+                                  builder: (context) => CandidatureDetailPage(
+                                      candidature: candidature),
                                 ),
                               );
                             },
@@ -103,7 +102,8 @@ class _CandidaturesPageState extends State<CandidaturesPage> {
                                   candidature.description.toString(),
                                   maxLines: 1,
                                 ),
-                                Text(formatDateTime(candidature.createdAt.toString())),
+                                Text(formatDateTime(
+                                    candidature.createdAt.toString())),
                               ],
                             ),
                           ),

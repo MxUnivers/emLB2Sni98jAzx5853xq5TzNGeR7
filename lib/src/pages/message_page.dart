@@ -42,12 +42,6 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
     });
   }
 
-
-
-
-
-
-
   late CandidatModel candidat;
 
   bool isLoading = true;
@@ -66,9 +60,7 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
       ),
       body: Container(
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: AppTheme_App.withPrimary
-          ),
+          decoration: BoxDecoration(color: AppTheme_App.withPrimary),
           child: isLoading == true
               ? Center(
                   child: CircularProgressIndicator(
@@ -78,11 +70,15 @@ class _ReceivedMessagesPageState extends State<ReceivedMessagesPage> {
                   ? ListView(
                       scrollDirection: Axis.vertical,
                       children: receivedMessages.map((item) {
-                        return MessageCardItem(message:item ,);
+                        return MessageCardItem(
+                          message: item,
+                        );
                       }).toList(),
                     )
                   : Center(
-                      child: Text("Aucun message recues",style:GoogleFonts.nunito(color: AppTheme_App.TextGray)),
+                      child: Text("Aucun message recues",
+                          style:
+                              GoogleFonts.nunito(color: AppTheme_App.TextGray)),
                     )),
     );
   }

@@ -16,9 +16,6 @@ class MessageCardItem extends StatefulWidget {
 }
 
 class _MessageCardItemState extends State<MessageCardItem> {
-
-
-
   String formatDateTime(String dateTimeString) {
     final dateTime = DateTime.parse(dateTimeString);
     final dateFormat = DateFormat.yMMMMd();
@@ -29,10 +26,6 @@ class _MessageCardItemState extends State<MessageCardItem> {
 
     return '$formattedDate à $formattedTime';
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +45,13 @@ class _MessageCardItemState extends State<MessageCardItem> {
           backgroundColor: Colors.transparent,
         ),
         title: Text(widget.message!.subject!),
-        subtitle: Text( formatDateTime(widget.message!.createdAt.toString())),
+        subtitle: Text(formatDateTime(widget.message!.createdAt.toString())),
         trailing: widget.message!.read!
             ? Icon(Icons.check, color: Colors.blue)
-            : Icon(Icons.circle, size: 10,color: AppTheme_App.secondary
-          ,)
-    );
+            : Icon(
+                Icons.circle,
+                size: 10,
+                color: AppTheme_App.secondary,
+              ));
   }
 }

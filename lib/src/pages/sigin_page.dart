@@ -20,7 +20,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  
   bool isLoading = false;
   bool isPasswordVisible = true;
   late TextEditingController emailController;
@@ -33,7 +32,6 @@ class _SignInPageState extends State<SignInPage> {
     passwordController = TextEditingController();
   }
 
-
   @override
   void dispose() {
     emailController.dispose();
@@ -44,7 +42,10 @@ class _SignInPageState extends State<SignInPage> {
   void onTapRedirectHome() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MainPage(store: widget.store,)),
+      MaterialPageRoute(
+          builder: (context) => MainPage(
+                store: widget.store,
+              )),
     );
   }
 
@@ -187,25 +188,24 @@ class _SignInPageState extends State<SignInPage> {
                               "Si vous n'avez pas de compte ? ",
                               style: kBodyText,
                             ),
-                            isLoading ?
-                                Text("")
-                                :
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (context) => SignUpPage(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "S'inscrire",
-                                style: kBodyText.copyWith(
-                                  color: AppTheme_App.primaryColor,
-                                ),
-                              ),
-                            )
+                            isLoading
+                                ? Text("")
+                                : GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (context) => SignUpPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "S'inscrire",
+                                      style: kBodyText.copyWith(
+                                        color: AppTheme_App.primaryColor,
+                                      ),
+                                    ),
+                                  )
                           ],
                         ),
                         SizedBox(
@@ -230,13 +230,13 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    setState((){
+                                    setState(() {
                                       isLoading = true;
                                     });
                                     String email = emailController.text;
                                     String password = passwordController.text;
-                                    connectCandidat(
-                                            context,widget.store, email, password)
+                                    connectCandidat(context, widget.store,
+                                            email, password)
                                         .then((value) {
                                       setState(() {
                                         isLoading = false;

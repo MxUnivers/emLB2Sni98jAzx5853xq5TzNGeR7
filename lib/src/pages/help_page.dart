@@ -1,6 +1,5 @@
-import  "package:flutter/material.dart";
+import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/config/theme.dart";
-
 
 class HelpPage extends StatefulWidget {
   const HelpPage({Key? key}) : super(key: key);
@@ -14,9 +13,12 @@ class _HelpPageState extends State<HelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: AppTheme_App.withPrimary,
+        backgroundColor: AppTheme_App.withPrimary,
         elevation: 0.2,
-        title: Text('Aide',style: TextStyle(color: AppTheme_App.TextGray),),
+        title: Text(
+          'Aide',
+          style: TextStyle(color: AppTheme_App.TextGray),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,8 +45,6 @@ class _HelpPageState extends State<HelpPage> {
   }
 }
 
-
-
 class HelpCard extends StatelessWidget {
   final String title;
   final String description;
@@ -68,7 +68,9 @@ class HelpCardWithButton extends StatelessWidget {
   final String buttonText;
 
   HelpCardWithButton(
-      {required this.title, required this.description, required this.buttonText});
+      {required this.title,
+      required this.description,
+      required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
@@ -90,5 +92,3 @@ class HelpCardWithButton extends StatelessWidget {
     );
   }
 }
-
-

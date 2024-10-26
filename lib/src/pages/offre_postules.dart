@@ -41,7 +41,10 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
       ).then((jobs) {
         setState(() {
           // Mettre à jour la liste des offres récupérées
-          jobList = jobs.where((model) => model.candidats!.contains(candidat!.id.toString())).toList();
+          jobList = jobs
+              .where(
+                  (model) => model.candidats!.contains(candidat!.id.toString()))
+              .toList();
           print(jobList);
         });
       }).then((s) {
@@ -113,7 +116,10 @@ class _OffrePostulesPageState extends State<OffrePostulesPage> {
                                   itemCount: jobList.length,
                                   itemBuilder: (context, index) {
                                     var item = jobList[index];
-                                    return JobComponent(job: item, store: widget.store,);
+                                    return JobComponent(
+                                      job: item,
+                                      store: widget.store,
+                                    );
                                   },
                                 ),
                               ),

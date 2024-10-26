@@ -106,7 +106,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
             begin: Curves.easeInExpo.transform(_yController.value),
             end: inCurve.transform(_yController.value),
           ).transform(_yController.velocity.sign * 0.5 + 0.5),
-          Theme.of(context).backgroundColor),
+          Theme.of(context).colorScheme.background),
     );
   }
 

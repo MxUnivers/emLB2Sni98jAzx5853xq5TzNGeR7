@@ -38,13 +38,14 @@ Future<void> postCandidature(
     String telephone,
     String motif,
     String jobTtile) async {
-
   var headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ${baseurl.token}'
   };
   var request = http.Request(
-      'POST', Uri.parse("${baseurl.url + baseurl.apiV1}/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}"));
+      'POST',
+      Uri.parse(
+          "${baseurl.url + baseurl.apiV1}/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}"));
   request.body = json.encode({
     "firstname": firstname,
     "lastname": lastname,
@@ -56,7 +57,8 @@ Future<void> postCandidature(
 
   http.StreamedResponse response = await request.send();
 
-  print("${baseurl.url + baseurl.apiV1}/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}");
+  print(
+      "${baseurl.url + baseurl.apiV1}/candidature/add/${idCandidat}/entreprise/${idEntreprise}/offre/${idOffre}");
 
   if (response.statusCode == 200) {
     // La requête a réussi
@@ -73,22 +75,24 @@ Future<void> postCandidature(
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => MainPage(store: store,),
+        builder: (context) => MainPage(
+          store: store,
+        ),
       ),
     );
     // Vous pouvez gérer la réponse ici si nécessaire
-  } else if (response.statusCode==407) {
+  } else if (response.statusCode == 407) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     print(jsonData["data"]);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
-        content: Text('Veillez vous reconnecter pour poster votre candidature', textAlign: TextAlign.center),
+        content: Text('Veillez vous reconnecter pour poster votre candidature',
+            textAlign: TextAlign.center),
       ),
     );
-  }
-  else if (response.statusCode==409) {
+  } else if (response.statusCode == 409) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     ScaffoldMessenger.of(context).showSnackBar(
@@ -99,7 +103,7 @@ Future<void> postCandidature(
     );
   }
   // les candidat à deja postuler à l'offre
-  else if (response.statusCode==410) {
+  else if (response.statusCode == 410) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     ScaffoldMessenger.of(context).showSnackBar(
@@ -108,8 +112,7 @@ Future<void> postCandidature(
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
-  }
-  else if (response.statusCode==500) {
+  } else if (response.statusCode == 500) {
     print(response.statusCode);
     var jsonData = json.decode(await response.stream.bytesToString());
     ScaffoldMessenger.of(context).showSnackBar(
@@ -121,16 +124,18 @@ Future<void> postCandidature(
   }
 }
 
-
-
 // recupérer toutes les candidatures du candidats
 
-Future<List<CandidatureModel>> fetchAllCandidatureList(String idCandidat) async {
+Future<List<CandidatureModel>> fetchAllCandidatureList(
+    String idCandidat) async {
   print(idCandidat);
   var headers = {
     'Authorization': 'Bearer ${baseurl.token}',
   };
-  var request = http.Request('GET', Uri.parse('${baseurl.url+baseurl.apiV1}/candidature/get_candidatures/candidat/${idCandidat}'));
+  var request = http.Request(
+      'GET',
+      Uri.parse(
+          '${baseurl.url + baseurl.apiV1}/candidature/get_candidatures/candidat/${idCandidat}'));
   request.headers.addAll(headers);
   http.StreamedResponse response = await request.send();
   if (response.statusCode == 200) {
@@ -154,7 +159,3 @@ Future<List<CandidatureModel>> fetchAllCandidatureList(String idCandidat) async 
     throw Exception('Failed to load job data');
   }
 }
-
-
-
-

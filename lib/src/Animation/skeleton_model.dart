@@ -39,19 +39,14 @@ class Loading_skeleton {
     );
   }
 
-
-  Widget CategoryLoading(){
+  Widget CategoryLoading() {
     return Skeleton(height: 50, width: 80);
   }
-
-
 }
 
 class Skeleton extends StatelessWidget {
   final double? height, width;
   const Skeleton({Key? key, this.height, this.width}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {

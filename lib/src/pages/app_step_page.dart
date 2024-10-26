@@ -11,7 +11,6 @@ import "../../main.dart";
 import "../config/locallvalue.dart";
 import "../widgets/step_compo.dart";
 
-
 class AppStepScreen extends StatefulWidget {
   late final Store<AppState> store;
   @override
@@ -21,8 +20,6 @@ class AppStepScreen extends StatefulWidget {
 class _AppStepScreenState extends State<AppStepScreen> {
   final _pageController = PageController(initialPage: 0);
 
-
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +27,6 @@ class _AppStepScreenState extends State<AppStepScreen> {
 
   late CandidatModel accountUser;
   bool isVisited = false;
-
 
   Future<void> setDataProfileConnexion() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,31 +58,34 @@ class _AppStepScreenState extends State<AppStepScreen> {
           StepPage(
             imagePath: 'assets/welcome.png',
             title: "Bienvenue ",
-            description: "Bienvenue dans Hantigaspi ! Découvrez une nouvelle façon de faire des économies ",
+            description:
+                "Bienvenue dans Hantigaspi ! Découvrez une nouvelle façon de faire des économies ",
           ),
           StepPage(
             imagePath: 'assets/petis_prix.png',
             title: 'Achetez à petit prix ',
-            description: " Parcourez notre catalogue d'invendus et découvrez des offres imbattables sur une variété de produits alimentaires et non alimentaires.",
+            description:
+                " Parcourez notre catalogue d'invendus et découvrez des offres imbattables sur une variété de produits alimentaires et non alimentaires.",
           ),
-
 
           StepPage(
             imagePath: 'assets/livraison.png',
             title: 'Paiement et livraison pratiques',
-            description: "Simplifiez votre expérience d'achat avec nos options de paiement sécurisé et nos services de livraison à domicile. Plus besoin de vous déplacer, nous vous apportons vos achats directement chez vous !",
+            description:
+                "Simplifiez votre expérience d'achat avec nos options de paiement sécurisé et nos services de livraison à domicile. Plus besoin de vous déplacer, nous vous apportons vos achats directement chez vous !",
           ),
-
 
           StepPage(
             imagePath: 'assets/boutique.png',
             title: 'Retrait en boutique',
-            description: "Vous préférez récupérer vos achats en personne ? Optez pour notre service de retrait en boutique et récupérez vos produits à votre convenance.",
+            description:
+                "Vous préférez récupérer vos achats en personne ? Optez pour notre service de retrait en boutique et récupérez vos produits à votre convenance.",
           ),
           StepPage(
             imagePath: 'assets/monde.png',
             title: 'Contribuez à un monde meilleur',
-            description: "En achetant les invendus, vous participez activement à la lutte contre le gaspillage alimentaire et à la préservation de l'environnement. Ensemble, faisons une différence !",
+            description:
+                "En achetant les invendus, vous participez activement à la lutte contre le gaspillage alimentaire et à la préservation de l'environnement. Ensemble, faisons une différence !",
           ),
 
           // Ajoutez autant de pages que nécessaire pour chaque étape
@@ -102,32 +101,41 @@ class _AppStepScreenState extends State<AppStepScreen> {
                   duration: Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                 );
-                print(_pageController.page!.toInt().toString()+" position "+ (_pageController.page!).toString());
+                print(_pageController.page!.toInt().toString() +
+                    " position " +
+                    (_pageController.page!).toString());
               }
             },
-            child: Text('Précédent',style: GoogleFonts.nunito(color: AppTheme_App.primaryColor),),
+            child: Text(
+              'Précédent',
+              style: GoogleFonts.nunito(color: AppTheme_App.primaryColor),
+            ),
           ),
           TextButton(
             onPressed: () {
-
-              if (_pageController.page!.toInt() < 4 ) {
+              if (_pageController.page!.toInt() < 4) {
                 _pageController.nextPage(
                   duration: Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                 );
-                print(_pageController.page!.toInt().toString() + " position"+ (_pageController.positions.length +1).toString());
+                print(_pageController.page!.toInt().toString() +
+                    " position" +
+                    (_pageController.positions.length + 1).toString());
               } else {
                 // L'utilisateur a terminé le "step", vous pouvez naviguer vers l'écran principal de l'application ici
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainPage(store: widget.store,),
+                    builder: (context) => MainPage(
+                      store: widget.store,
+                    ),
                   ),
                 );
                 setDataProfileConnexion();
               }
             },
-            child: Text('Suivant',style: GoogleFonts.nunito(color: AppTheme_App.primaryColor)),
+            child: Text('Suivant',
+                style: GoogleFonts.nunito(color: AppTheme_App.primaryColor)),
           ),
         ],
       ),

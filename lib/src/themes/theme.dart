@@ -5,15 +5,33 @@ import 'light_color.dart';
 class AppTheme {
   const AppTheme();
   static ThemeData lightTheme = ThemeData(
-      backgroundColor: LightColor.background,
-      primaryColor: LightColor.background,
-      cardTheme: CardTheme(color: LightColor.background),
-      textTheme: TextTheme(bodyText1: TextStyle(color: LightColor.black)),
-      iconTheme: IconThemeData(color: LightColor.iconColor),
-      bottomAppBarColor: LightColor.background,
-      dividerColor: LightColor.lightGrey,
-      primaryTextTheme:
-          TextTheme(bodyText1: TextStyle(color: LightColor.titleTextColor)));
+    primaryColor:
+        LightColor.lightBlue, // Utilisation de la couleur principale bleu clair
+    cardTheme: CardTheme(color: LightColor.background),
+    textTheme: TextTheme(
+      bodyLarge: TextStyle(color: LightColor.black),
+      titleMedium: TextStyle(color: LightColor.titleTextColor),
+    ),
+    iconTheme: IconThemeData(color: LightColor.skyBlue),
+    dividerColor: LightColor.lightGrey,
+    primaryTextTheme: TextTheme(
+      bodyLarge: TextStyle(color: LightColor.titleTextColor),
+    ),
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      background: LightColor.background,
+      onBackground: LightColor.titleTextColor,
+      primary: LightColor.lightBlue,
+      onPrimary: LightColor.background,
+      error: LightColor.red,
+      onError: LightColor.background,
+      secondary: LightColor.skyBlue,
+      onSecondary: LightColor.background,
+      surface: LightColor.lightGrey,
+      onSurface: LightColor.black,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(color: LightColor.lightBlue),
+  );
 
   static TextStyle titleStyle =
       const TextStyle(color: LightColor.titleTextColor, fontSize: 16);

@@ -10,7 +10,8 @@ class JobDetailPage extends StatefulWidget {
   final Store<AppState> store;
   final JobModel? job;
 
-  const JobDetailPage({Key? key, this.job, required this.store}) : super(key: key);
+  const JobDetailPage({Key? key, this.job, required this.store})
+      : super(key: key);
 
   @override
   State<JobDetailPage> createState() => _JobDetailPageState();
@@ -106,13 +107,13 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 child: Container(
                   child: Flexible(
                       child: Text(
-                        "${widget.job?.candidats?.length} candidat${widget.job!.candidats!.length > 0 ? "s":""}",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
-                      )),
+                    "${widget.job?.candidats?.length} candidat${widget.job!.candidats!.length > 0 ? "s" : ""}",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  )),
                 ),
               ),
               SizedBox(
@@ -192,7 +193,8 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => JobConfirmPage(
-                                  job: widget.job, store: widget.store,
+                                  job: widget.job,
+                                  store: widget.store,
                                 )),
                       );
                     },
