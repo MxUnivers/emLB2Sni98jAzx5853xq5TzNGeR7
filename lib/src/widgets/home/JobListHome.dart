@@ -62,7 +62,10 @@ class _JobListHomeState extends State<JobListHome> {
                               itemCount: jobList.length,
                               itemBuilder: (context, index) {
                                 var item = jobList[index];
-                                return JobComponent(job: item, store: widget.store, );
+                                return JobComponent(
+                                  job: item,
+                                  store: widget.store,
+                                );
                               },
                             ),
                           ),

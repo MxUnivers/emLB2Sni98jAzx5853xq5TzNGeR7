@@ -10,7 +10,8 @@ import "../model/JobModel.dart";
 class JobComponent extends StatefulWidget {
   final Store<AppState> store;
   final JobModel? job;
-  const JobComponent({Key? key, this.job, required this.store}) : super(key: key);
+  const JobComponent({Key? key, this.job, required this.store})
+      : super(key: key);
 
   @override
   State<JobComponent> createState() => _JobComponentState();
@@ -39,7 +40,8 @@ class _JobComponentState extends State<JobComponent> {
               context,
               CupertinoPageRoute(
                 builder: (context) => JobDetailPage(
-                  job: widget.job, store: widget.store,
+                  job: widget.job,
+                  store: widget.store,
                 ),
               ),
             );
@@ -111,46 +113,6 @@ class _JobComponentState extends State<JobComponent> {
                   )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.grey.shade200),
-                          child: Text(
-                            widget.job!.areaOffre.toString(),
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: AppTheme_App.secondary),
-                          child: Text(
-                            widget.job!.typeContrat.toString(),
-                            style: TextStyle(color: AppTheme_App.withPrimary),
-                          ),
-                        )
-                      ],
-                    ),
-
-                  ],
-                ),
-              )
             ],
           ),
         ));

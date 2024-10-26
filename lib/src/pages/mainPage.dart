@@ -11,8 +11,6 @@ import '../config/locallvalue.dart';
 import 'account_page.dart';
 import 'app_step_page.dart';
 
-
-
 class MainPage extends StatefulWidget {
   final Store<AppState> store;
 
@@ -35,7 +33,7 @@ class _MainPageState extends State<MainPage> {
     _screens = [
       MyHomePage(store: store),
       AccountPage(),
-      HelpPage(),
+      // HelpPage(),
     ];
     _pageController = PageController(initialPage: 0);
   }
@@ -85,10 +83,10 @@ class _MainPageState extends State<MainPage> {
               icon: Icon(CupertinoIcons.person),
               label: 'Compte',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.question_circle),
-              label: 'Aide',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(CupertinoIcons.question_circle),
+            //   label: 'Aide',
+            // ),
           ],
         ),
       ),

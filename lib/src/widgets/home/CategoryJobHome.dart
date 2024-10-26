@@ -71,7 +71,9 @@ class _CategoryJobHomeState extends State<CategoryJobHome> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => JobDetailPage(store: widget.store,)));
+                                  builder: (context) => JobDetailPage(
+                                        store: widget.store,
+                                      )));
                         },
                         child: Container(
                             padding: EdgeInsets.symmetric(
