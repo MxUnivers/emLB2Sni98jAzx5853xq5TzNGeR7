@@ -153,15 +153,15 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     onPressed: () {
                       // Ajoutez ici le code pour gérer l'autorisation.
-                      Navigator.of(context).pop();
                       SharedPreferencesService
                               .removeCandidatDataFromSharedPreferences()
                           .then((cand) {
-                        Navigator.pushReplacement(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => SignInPage(),
-                            ));
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => SignInPage()),
+                          (Route<dynamic> route) => false,
+                        );
                       }); // Ferme la boîte de dialogue.
                     })
               ]);

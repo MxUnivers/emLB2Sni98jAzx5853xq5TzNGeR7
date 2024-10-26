@@ -112,13 +112,6 @@ class _ProfilePageState extends State<ProfilePage>
                                     color: AppTheme_App.TextGray, fontSize: 20),
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Container(
-                              child: Text("${candidatDetail.email.toString()}",
-                                  style: GoogleFonts.nunito(
-                                      color: AppTheme_App.TextGray,
-                                      fontSize: 12)),
-                            ),
                             SizedBox(height: 10),
                             Container(
                                 child: Container(

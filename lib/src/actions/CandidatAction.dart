@@ -55,13 +55,14 @@ Future<void> connectCandidat(BuildContext context, Store<AppState> store,
         content: Text('${jsonData["message"]}', textAlign: TextAlign.center),
       ),
     );
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       CupertinoPageRoute(
         builder: (context) => MainPage(
           store: store,
         ),
       ),
+      (Route<dynamic> route) => false,
     );
   } else if (response.statusCode == 402) {
     print(response.statusCode);

@@ -53,20 +53,15 @@ class _MainPageState extends State<MainPage> {
     final id = prefs.getString(StorageUser.idKey) ?? "";
 
     if (id.isNotEmpty) {
-      SharedPreferencesService.getCandidatDataFromSharedPreferences()
-          .then((candi) {
-        setState(() {
-          candidat = candi;
-        });
-        CandidatGetProfile(context, candidat.id.toString());
-      });
+      CandidatGetProfile(context, candidat.id.toString());
     } else {
       // Redirige vers la page de connexion si l'ID est vide
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         context,
         CupertinoPageRoute(
           builder: (context) => SignInPage(),
         ),
+        (Route<dynamic> route) => false,
       );
     }
   }
