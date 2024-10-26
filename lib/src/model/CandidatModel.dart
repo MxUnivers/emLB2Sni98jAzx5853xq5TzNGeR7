@@ -4,39 +4,40 @@ import "package:flutter/material.dart";
 import "package:jouman_mobile_mobile/src/model/JobModel.dart";
 
 class CandidatModel {
-  String? id="";
-  String? username="";
-  String? firstname="";
-  String? lastname="";
-  String? description="";
-  String? coverPicture="";
-  String? dateNaissance="";
-  String? email="";
-  String? titlePost="";
-  String? salaire="";
-  String? telephone="";
-  String? adresse="";
-  String? pays="";
-  String? levelSchool="";
-  String? siteWeb="";
-  String? yearsExperience="";
-  List<CompetenceModel>? competences=[]; // Utilisez le bon modèle pour competences
-  List<LangueModel>? langues=[]; // Utilisez le bon modèle pour langues
-  String? cv="";
-  bool isActive=false;
-  String? facebookUrl="";
-  String? linkedinUrl="";
-  String? twitterUrl="";
-  String? instagramUrl="";
-  List<String>? offres=[];
-  List<String>? bourses=[];
-  List<String>? bookmarks=[];
-  int likes=0;
+  String? id = "";
+  String? username = "";
+  String? firstname = "";
+  String? lastname = "";
+  String? description = "";
+  String? coverPicture = "";
+  String? dateNaissance = "";
+  String? email = "";
+  String? titlePost = "";
+  String? salaire = "";
+  String? telephone = "";
+  String? adresse = "";
+  String? pays = "";
+  String? levelSchool = "";
+  String? siteWeb = "";
+  String? yearsExperience = "";
+  List<CompetenceModel>? competences =
+      []; // Utilisez le bon modèle pour competences
+  List<LangueModel>? langues = []; // Utilisez le bon modèle pour langues
+  String? cv = "";
+  bool isActive = false;
+  String? facebookUrl = "";
+  String? linkedinUrl = "";
+  String? twitterUrl = "";
+  String? instagramUrl = "";
+  List<String>? offres = [];
+  List<String>? bourses = [];
+  List<String>? bookmarks = [];
+  int likes = 0;
   AccountCandidatModel? account;
-  String? password="";
-  bool is_active=false;
-  bool access=true;
-  String? token="";
+  String? password = "";
+  bool is_active = false;
+  bool access = true;
+  String? token = "";
 
   CandidatModel({
     this.id,
@@ -159,11 +160,11 @@ class AccountCandidatModel {
   int? countSms;
 
   AccountCandidatModel({
-     this.solde,
-     this.pack,
-     this.dateNow,
-     this.dateEnd,
-     this.countSms,
+    this.solde,
+    this.pack,
+    this.dateNow,
+    this.dateEnd,
+    this.countSms,
   });
   factory AccountCandidatModel.fromJson(Map<String, dynamic> json) {
     return AccountCandidatModel(

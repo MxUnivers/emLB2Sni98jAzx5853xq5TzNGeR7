@@ -2,8 +2,12 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jouman_mobile_mobile/src/actions/CandidatAction.dart';
+import 'package:jouman_mobile_mobile/src/model/CandidatModel.dart';
 import 'package:jouman_mobile_mobile/src/pages/help_page.dart';
 import 'package:jouman_mobile_mobile/src/pages/home_page.dart';
+import 'package:jouman_mobile_mobile/src/pages/sigin_page.dart';
+import 'package:jouman_mobile_mobile/src/utils/storage.dart';
 import 'package:redux/redux.dart';
 
 import '../../main.dart';
@@ -26,6 +30,8 @@ class _MainPageState extends State<MainPage> {
   late final PageController _pageController;
   int _currentIndex = 0;
 
+  late CandidatModel candidat = CandidatModel();
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +42,23 @@ class _MainPageState extends State<MainPage> {
       // HelpPage(),
     ];
     _pageController = PageController(initialPage: 0);
+
+    SharedPreferencesService.getCandidatDataFromSharedPreferences()
+        .then((candi) {
+      setState(() {
+        candidat = candi;
+      });
+      if (candidat.id != null) {
+        CandidatGetProfile(context, candidat.id.toString());
+      } else {
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => SignInPage(),
+          ),
+        );
+      }
+    });
   }
 
   @override

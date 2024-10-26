@@ -81,16 +81,11 @@ class _SignInPageState extends State<SignInPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Bienvenue sur l'application offre enmplois",
-                                style: GoogleFonts.nunito(
-                                    color: AppTheme.primaryColor),
-                              ),
                               SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Connexion!",
+                                "Se Connecter",
                                 style: GoogleFonts.nunito(
                                     fontSize: 28,
                                     fontWeight: FontWeight.w500,
@@ -185,7 +180,7 @@ class _SignInPageState extends State<SignInPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Si vous n'avez pas de compte ? ",
+                              "Aucun compte ",
                               style: kBodyText,
                             ),
                             isLoading

@@ -50,8 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
         leading: Image(
           width: 24,
           color: Colors.white,
-          image: NetworkImage(
-              'https://img.freepik.com/vecteurs-libre/concept-entretien-embauche-idee-emploi-procedure-embauche-recruteur-recherche-candidat-emploi-illustration-vectorielle-plane-isolee_613284-2727.jpg?w=740&t=st=1693512229~exp=1693512829~hmac=4f36a10e99a81aad89069960bc26f0f1c90c45ebbb2c10baa3bcfe279cfdf0e7'),
+          image: AssetImage("assets/ic_launcher.png"),
         ),
       ),
       body: SafeArea(
@@ -75,16 +74,12 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Bienvenue sur l'application offre enmplois",
-                                    style: GoogleFonts.nunito(
-                                        color: AppTheme.primaryColor),
-                                  ),
                                   SizedBox(
                                     height: 10,
                                   ),
                                   Text(
-                                    "Créer votre compte !",
+                                    "S'inscrire",
+                                    textAlign: TextAlign.center,
                                     style: GoogleFonts.nunito(
                                         fontSize: 28,
                                         fontWeight: FontWeight.w500,

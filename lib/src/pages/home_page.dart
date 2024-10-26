@@ -99,36 +99,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.only(left: 1),
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => SearchPage(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   CupertinoPageRoute(
+                          //     builder: (context) => SearchPage(),
+                          //   ),
+                          // );
                         },
                         child: Container(
-                            height: 110,
-                            width: 110,
+                            height: 100,
+                            width: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(70),
                             ),
                             child: CircleAvatar(
                               radius: 10,
-                              backgroundImage: AssetImage('assets/user.png')
-                                  as ImageProvider,
+                              backgroundImage:
+                                  AssetImage('assets/ic_launcher.png')
+                                      as ImageProvider,
                             )))),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                        iconSize: 30,
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.notifications_none,
-                          color: Colors.grey.shade400,
-                        )),
-                  )
-                ],
+                // actions: [
+                //   Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: IconButton(
+                //         iconSize: 30,
+                //         onPressed: () {},
+                //         icon: Icon(
+                //           Icons.notifications_none,
+                //           color: Colors.grey.shade400,
+                //         )),
+                //   )
+                // ]
+
                 title: Container(
                   height: 45,
                   child: GestureDetector(

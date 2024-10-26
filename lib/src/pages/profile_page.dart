@@ -50,7 +50,11 @@ class _ProfilePageState extends State<ProfilePage>
   late CandidatModel candidat = CandidatModel();
   late CandidatModel candidatDetail = CandidatModel(
       coverPicture:
-          "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png");
+          "https://res.cloudinary.com/dt6ammifo/image/upload/v1697641010/kdnhjuh1wywnevo9huy8.png",
+      username: "",
+      firstname: "",
+      lastname: "",
+      email: "");
 
   @override
   void dispose() {
@@ -110,14 +114,14 @@ class _ProfilePageState extends State<ProfilePage>
                             SizedBox(height: 5),
                             Container(
                               child: Text(
-                                "${candidatDetail.username}",
+                                "${candidatDetail.username.toString()}",
                                 style: GoogleFonts.nunito(
                                     color: AppTheme_App.TextGray, fontSize: 20),
                               ),
                             ),
                             SizedBox(height: 5),
                             Container(
-                              child: Text("${candidatDetail.email}",
+                              child: Text("${candidatDetail.email.toString()}",
                                   style: GoogleFonts.nunito(
                                       color: AppTheme_App.TextGray,
                                       fontSize: 12)),
