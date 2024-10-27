@@ -44,7 +44,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Detail offre",
+          "Detail ",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -68,7 +68,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
               topRight: Radius.circular(50),
             )),
         child: Padding(
-          padding: EdgeInsets.all(40),
+          padding: EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -96,7 +96,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         child: Text(
                   widget.job!.title.toString(),
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ))),
@@ -140,7 +140,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 children: [
                   Expanded(
                     child: Container(
-                      height: 25,
+                      height: 20,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.all(
@@ -178,7 +178,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
               Text(
                 "Description",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),

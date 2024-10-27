@@ -118,19 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   AssetImage('assets/ic_launcher.png')
                                       as ImageProvider,
                             )))),
-                // actions: [
-                //   Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: IconButton(
-                //         iconSize: 30,
-                //         onPressed: () {},
-                //         icon: Icon(
-                //           Icons.notifications_none,
-                //           color: Colors.grey.shade400,
-                //         )),
-                //   )
-                // ]
-
                 title: Container(
                   height: 45,
                   child: GestureDetector(
@@ -162,7 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     preferredSize: Size.fromHeight(70.0),
                     child: TabBar(
                       padding: EdgeInsets.symmetric(horizontal: 5),
-                      indicatorColor: AppTheme_App.primaryColor,
                       tabs: [
                         Tab(
                             text: "Emplois",

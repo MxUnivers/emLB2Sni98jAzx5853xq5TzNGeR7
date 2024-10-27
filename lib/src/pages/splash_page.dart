@@ -1,75 +1,103 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jouman/main.dart';
+import 'package:jouman/src/actions/CandidatAction.dart';
 import 'package:jouman/src/config/theme.dart';
 import 'package:jouman/src/model/CandidatModel.dart';
-import 'package:jouman/src/pages/app_step_page.dart';
-import 'package:jouman/src/pages/home_page.dart';
 import 'package:jouman/src/pages/mainPage.dart';
 import 'package:jouman/src/pages/sigin_page.dart';
+import 'package:jouman/src/store/reducers.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../main.dart';
 import '../config/locallvalue.dart';
 import '../utils/storage.dart';
 
 class SplashScreen extends StatefulWidget {
-  final Store<AppState> store;
-  const SplashScreen({Key? key, required this.store}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void initState() {
-    super.initState();
-  }
+  late final Store<AppState> store = Store<AppState>(
+    combineReducers<AppState>([
+      (state, action) => AppState(
+          jobs: jobListReducer(state.jobs, action),
+          jobCategorys: jobCategoryListReducer(state.jobCategorys, action),
+          candidats: candidatListReducer(state.candidats, action),
+          candidat: candidatReducer(state.candidat, action),
+          job: jobReducer(state.job, action),
+          messages: [],
+          posts: postListReducer(state.posts, action),
+          candidatures: candidatureListReducer(state.candidatures, action)),
+    ]),
+    initialState: AppState.initialState(),
+  );
 
   late CandidatModel candidat =
       CandidatModel(account: AccountCandidatModel(), is_active: false);
 
-  bool isConnect = false;
-  bool isVisited = true;
-
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 4), () async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  void checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final id = prefs.getString(StorageUser.idKey) ?? "";
+
+    if (id.isNotEmpty) {
+      // Récupération des données du profil du candidat
       SharedPreferencesService.getCandidatDataFromSharedPreferences()
           .then((candidat) {
         setState(() {
           this.candidat = candidat;
         });
+        // Vérifie si le candidat est actif
+        if (candidat.is_active) {
+          // Redirection vers la page principale
+          Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoPageRoute(builder: (context) => MainPage(store: store)),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          // Si le candidat n'est pas actif, redirection vers SignInPage
+          navigateToSignIn();
+        }
       });
-      if (candidat.is_active == false) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => SignInPage()),
-        ); // Naviguer vers la page d'accueil
-      } else if (candidat.is_active == true) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => MainPage(
-                    store: widget.store,
-                  )),
-        );
-      }
-    });
+    } else {
+      // Si aucun utilisateur n'est connecté, redirection vers SignInPage
+      navigateToSignIn();
+    }
+  }
 
+  void navigateToSignIn() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      CupertinoPageRoute(builder: (context) => SignInPage()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme_App.primaryColor,
       body: Center(
-          child: Container(
-        height: 105,
-        width: 105,
-        decoration: BoxDecoration(
+        child: Container(
+          height: 105,
+          width: 105,
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(52.5),
             color: AppTheme_App.withPrimary,
-            image:
-                DecorationImage(image: AssetImage("assets/ic_launcher.png"))),
-      ) // Remplacez le chemin par le chemin vers votre icône
+            image: DecorationImage(image: AssetImage("assets/ic_launcher.png")),
           ),
+        ),
+      ),
     );
   }
 }
