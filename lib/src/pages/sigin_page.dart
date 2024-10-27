@@ -11,7 +11,6 @@ import 'package:jouman/src/themes/theme.dart';
 import 'package:redux/redux.dart';
 import '../../main.dart';
 import '../actions/CandidatAction.dart';
-import '../widgets/widget.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -56,184 +55,148 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Image de fond en haut de la page
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SizedBox(height: 50),
+              Text(
+                "Se Connecter",
+                style: GoogleFonts.nunito(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme_App.primaryColor,
+                ),
+              ),
+              SizedBox(height: 30),
+              // Champ email
+              TextField(
+                controller: emailController,
+                style: kBodyText.copyWith(color: AppTheme_App.TextGray),
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  hintStyle: kBodyText,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(color: AppTheme_App.primaryColor),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15),
+              // Champ mot de passe avec visibilité toggle
+              TextField(
+                controller: passwordController,
+                style: kBodyText.copyWith(color: AppTheme_App.TextGray),
+                obscureText: !isPasswordVisible,
+                decoration: InputDecoration(
+                  hintText: "Mot de passe",
+                  hintStyle: kBodyText,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide(color: AppTheme_App.primaryColor),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20), // Espace pour l'image de fond
-                  Expanded(
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Se Connecter",
-                              style: GoogleFonts.nunito(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: AppTheme_App.primaryColor,
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            // Champ email
-                            TextField(
-                              controller: emailController,
-                              style: kBodyText.copyWith(
-                                  color: AppTheme_App.TextGray),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                hintStyle: kBodyText,
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: BorderSide(
-                                      color: AppTheme_App.primaryColor),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            // Champ mot de passe avec visibilité toggle
-                            TextField(
-                              controller: passwordController,
-                              style: kBodyText.copyWith(
-                                  color: AppTheme_App.TextGray),
-                              obscureText: !isPasswordVisible,
-                              decoration: InputDecoration(
-                                hintText: "Mot de passe",
-                                hintStyle: kBodyText,
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    isPasswordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      isPasswordVisible = !isPasswordVisible;
-                                    });
-                                  },
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  borderSide: BorderSide(
-                                      color: AppTheme_App.primaryColor),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                        builder: (context) => SignUpPage(),
-                                      ),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Pas encore inscrit ? S'inscrire",
-                                    style: kBodyText.copyWith(
-                                      color: AppTheme_App.primaryColor,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            isLoading
-                                ? CircularProgressIndicator()
-                                : SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 12),
-                                        backgroundColor:
-                                            AppTheme_App.primaryColor,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18),
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        if (emailController.text.isEmpty ||
-                                            passwordController.text.isEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  "Veuillez remplir tous les champs."),
-                                            ),
-                                          );
-                                          return;
-                                        }
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-
-                                        try {
-                                          await connectCandidat(
-                                              context,
-                                              store,
-                                              emailController.text,
-                                              passwordController.text);
-                                        } catch (error) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content:
-                                                  Text("Échec de la connexion"),
-                                              backgroundColor: Colors.red,
-                                            ),
-                                          );
-                                        } finally {
-                                          setState(() {
-                                            isLoading = false;
-                                          });
-                                        }
-                                      },
-                                      child: Text(
-                                        "Connexion",
-                                        style: kButtonText.copyWith(
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                          ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => SignUpPage(),
                         ),
+                      );
+                    },
+                    child: Text(
+                      "Pas encore inscrit ? S'inscrire",
+                      style: kBodyText.copyWith(
+                        color: AppTheme_App.primaryColor,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
+              Spacer(),
+              isLoading
+                  ? CircularProgressIndicator()
+                  : SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          backgroundColor: AppTheme_App.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ),
+                        onPressed: () async {
+                          if (emailController.text.isEmpty ||
+                              passwordController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text("Veuillez remplir tous les champs."),
+                              ),
+                            );
+                            return;
+                          }
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          try {
+                            await connectCandidat(context, store,
+                                emailController.text, passwordController.text);
+                          } catch (error) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Échec de la connexion"),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } finally {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
+                        },
+                        child: Text(
+                          "Connexion",
+                          style: kButtonText.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+              SizedBox(height: 30),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
