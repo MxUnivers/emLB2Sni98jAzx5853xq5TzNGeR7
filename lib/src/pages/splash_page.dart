@@ -39,9 +39,17 @@ class _SplashScreenState extends State<SplashScreen> {
   late CandidatModel candidat =
       CandidatModel(account: AccountCandidatModel(), is_active: false);
 
+  bool isLoading = true;
+  bool isImageVisible = false; // Pour gérer l'opacité de l'image
+
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        isImageVisible = true; // Déclenche l’apparition après 5 secondes
+      });
+    });
     checkLoginStatus();
   }
 
@@ -50,27 +58,26 @@ class _SplashScreenState extends State<SplashScreen> {
     final id = prefs.getString(StorageUser.idKey) ?? "";
 
     if (id.isNotEmpty) {
-      // Récupération des données du profil du candidat
       SharedPreferencesService.getCandidatDataFromSharedPreferences()
           .then((candidat) {
         setState(() {
           this.candidat = candidat;
+          isLoading = false;
         });
-        // Vérifie si le candidat est actif
         if (candidat.is_active) {
-          // Redirection vers la page principale
           Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (context) => MainPage(store: store)),
             (Route<dynamic> route) => false,
           );
         } else {
-          // Si le candidat n'est pas actif, redirection vers SignInPage
           navigateToSignIn();
         }
       });
     } else {
-      // Si aucun utilisateur n'est connecté, redirection vers SignInPage
+      setState(() {
+        isLoading = false;
+      });
       navigateToSignIn();
     }
   }
@@ -88,15 +95,23 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppTheme_App.primaryColor,
       body: Center(
-        child: Container(
-          height: 105,
-          width: 105,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(52.5),
-            color: AppTheme_App.withPrimary,
-            image: DecorationImage(image: AssetImage("assets/ic_launcher.png")),
-          ),
-        ),
+        child: isLoading
+            ? CircularProgressIndicator(color: Colors.white)
+            : AnimatedOpacity(
+                opacity: isImageVisible ? 1.0 : 0.0,
+                duration: Duration(seconds: 2),
+                child: Container(
+                  height: 105,
+                  width: 105,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(52.5),
+                    color: AppTheme_App.withPrimary,
+                    image: DecorationImage(
+                      image: AssetImage("assets/ic_launcher.png"),
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }

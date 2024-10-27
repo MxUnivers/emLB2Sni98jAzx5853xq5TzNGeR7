@@ -109,9 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Container(
                             height: 100,
                             width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(70),
-                            ),
+                            decoration: BoxDecoration(),
                             child: CircleAvatar(
                               radius: 10,
                               backgroundImage:

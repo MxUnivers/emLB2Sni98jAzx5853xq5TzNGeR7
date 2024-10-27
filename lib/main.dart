@@ -7,6 +7,7 @@ import 'package:jouman/src/model/JobCategoryModel.dart';
 import 'package:jouman/src/model/JobModel.dart';
 import 'package:jouman/src/model/MessageModel.dart';
 import 'package:jouman/src/model/PostModel.dart';
+import 'package:jouman/src/pages/splash_page.dart';
 import 'package:redux/redux.dart';
 import 'package:jouman/src/model/CandidatModel.dart';
 import 'package:jouman/src/pages/mainPage.dart';
@@ -93,7 +94,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: MainPage(store: store),
+        home: SplashScreen(),
       ),
     );
   }
