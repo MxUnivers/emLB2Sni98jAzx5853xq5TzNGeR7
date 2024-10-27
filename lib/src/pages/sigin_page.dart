@@ -55,6 +55,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme_App.withPrimary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -143,7 +144,9 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ],
               ),
+              SizedBox(height: 3),
               Spacer(),
+              SizedBox(height: 3),
               isLoading
                   ? CircularProgressIndicator()
                   : SizedBox(
