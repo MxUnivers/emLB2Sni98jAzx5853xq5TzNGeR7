@@ -26,7 +26,7 @@ const FormComment = ({ data }) => {
     };
 
     return (
-        <div className="max-w-screen flex flex-col mx-auto items-center justify-center shadow-lg mt-6 mb-4 ">
+        <div className="max-w-screen flex flex-col mx-auto items-center justify-center  mt-6 mb-4 ">
             {/* Comment Form */}
             <form onSubmit={handleSumbitComment} className="max-w-screen bg-white rounded-lg px-4 pt-2">
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -64,7 +64,7 @@ const FormComment = ({ data }) => {
             </form>
 
             {/* Display Comments */}
-            <div className="w-full bg-white shadow-lg rounded-lg p-6 mt-4">
+            <div className="w-full bg-white shadow-sm rounded-lg p-6 mt-4">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">Commentaires</h3>
                 {isLoading ? (
                     <div className="flex justify-center py-5">

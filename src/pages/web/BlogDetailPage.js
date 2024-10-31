@@ -70,7 +70,8 @@ const BlogDetailPage = () => {
                                 )}
                             </div>
 
-                            <div className="mt-1 max-w-screen mx-auto">
+                            <div className="mt-1 mb-[100px] max-w-screen mx-auto">
+                            <hr/>
                                 <FormComment data={item} />
                             </div>
 
