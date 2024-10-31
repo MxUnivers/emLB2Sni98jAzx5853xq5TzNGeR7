@@ -15,14 +15,16 @@ const FormComment = ({ data }) => {
     const loading = useSelector((state) => state.reducer.loading);
     const { isLoading, errorBlog, comments } = CommentAllPost(data._id);
 
-    const handleSumbitComment = (event) => {
+    const handleSumbitComment = async (event) => {
         event.preventDefault();
         if (!content) {
             toast.error("Votre commentaire est vide.");
             return;
         }
         dispatch(AddComment(idCandidat, data._id, data._areaPost, data.title, content, toast));
-        setContent(''); // Clear the comment field after submission
+
+        const updatedComments = await CommentAllPost(data._id); // Fetch updated comments
+        setContent(''); // Clear the comment field
     };
 
     return (
@@ -87,9 +89,9 @@ const FormComment = ({ data }) => {
                                     <div className="space-y-1">
                                         <div className="text-sm font-semibold text-gray-900">{comment.customerName}</div>
                                         <div className="text-xs text-gray-500">
-                                        {
-                                            <RelativeTime date={comment.createdAt}/>
-                                        }
+                                            {
+                                                <RelativeTime date={comment.createdAt} />
+                                            }
                                         </div>
                                         <p className="text-sm text-gray-700 mt-1">{comment.content}</p>
                                     </div>

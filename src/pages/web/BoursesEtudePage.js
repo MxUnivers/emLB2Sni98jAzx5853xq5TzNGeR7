@@ -2,6 +2,8 @@ import React from 'react'
 import BourseBarner from '../../components/bourses/BourseBarner';
 import BoursesAvantages from '../../components/bourses/BoursesAvantages';
 import BoursOthers from '../../components/bourses/BoursOthers';
+import HomeBourses from '../../components/home/HomeBourses';
+import BourseScholarshipBenefitsPage from '../../components/bourses/BourseScholarshipBenefitsPage';
 
 const BoursesEtudePage = () => {
     return (
@@ -10,8 +12,8 @@ const BoursesEtudePage = () => {
 
                 <main className="space-y-40 mb-5">
 
-                    <BourseBarner />
-                    <BoursesAvantages />
+                    <HomeBourses />
+                    <BourseScholarshipBenefitsPage/>
                     <BoursOthers />
 
                 </main>

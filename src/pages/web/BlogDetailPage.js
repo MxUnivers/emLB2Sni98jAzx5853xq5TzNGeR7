@@ -28,7 +28,7 @@ const BlogDetailPage = () => {
                     <div className="w-full">
                         <main className="mt-10">
                             {item && item.customerName && item.customerPhoto && item.areaPost ? (
-                                <div className="mb-4 md:mb-0 w-full max-w-screen relative" style={{ height: '28em' }}>
+                                <div className="mb-4 md:mb-0 w-full h-[500px] max-w-screen relative" style={{ height: '28em' }}>
                                     <div
                                         className="absolute left-0 bottom-0 w-full h-full z-10 bg-gradient-to-t from-black to-transparent"
                                     ></div>

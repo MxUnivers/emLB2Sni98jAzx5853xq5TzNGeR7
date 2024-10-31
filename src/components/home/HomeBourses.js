@@ -10,7 +10,7 @@ const HomeBourses = () => {
             <div className="container mx-auto text-white">
                 <div className="content-wrapper">
                     <div className="text-section">
-                        <h2 className="text-4xl font-bold">Plateforme de Bourses d'Études à l'Étranger</h2>
+                        <h2 className="text-4xl font-bold">Des Opportunités d'Études à l'Étranger</h2>
                         <ul className="features-list">
                             <li>Opportunités pour les étudiants internationaux</li>
                             <li>Bourses complètes et partielles</li>

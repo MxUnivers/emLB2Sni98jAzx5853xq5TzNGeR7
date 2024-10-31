@@ -23,9 +23,9 @@ export const AddComment = (idCandidat, idBlog, areaPost, title, content, toast) 
             dispatch({ type: REQUEST_SUCCESS, payload: response.data });
             confetti();
             toast.success('Votre commentaire a été ajouté avec succès');
-            setTimeout(() => {
-                window.location.reload();
-            }, 2500);
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 2500);
         } catch (error) {
             dispatch({ type: REQUEST_FAILURE, payload: error.message });
             toast.error('Erreur lors de l\'ajout du commentaire');
