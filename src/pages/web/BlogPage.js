@@ -52,7 +52,7 @@ return (
                 {/* Main Content - Blog Posts */}
                 <section className="lg:w-2/3">
                     <div className="w-full">
-                        <h2 className="text-3xl font-semibold mb-6">Derniers Articles</h2>
+                        <h2 className="text-3xl font-semibold mb-6">Derniers Activités</h2>
                         <hr />
                     </div>
                     <div className="w-full container-fluid flex flex-wrap justify-items-center mt-10 mb-10">
@@ -77,7 +77,7 @@ return (
                 {/* Sidebar */}
                 <aside className="lg:w-1/3 space-y-10">
                     {/* Email Subscription Section */}
-                    <div className="bg-blue-100 py-6 px-6 rounded-lg shadow-lg">
+                    <div className="bg-indigo-100 py-6 px-6 rounded-lg shadow-lg">
                         <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                             Abonnez-vous pour recevoir nos derniers articles
                         </h2>
@@ -88,7 +88,7 @@ return (
                             required
                             />
                             <button type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">
                                 S{"'"}abonner
                             </button>
                         </form>
