@@ -120,7 +120,7 @@ const ListEmploisWebPage = () => {
                 </div>
 
                 <main className="flex min-h-[500px] w-full items-start mt-10 justify-center bg-white px-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-center flex-wrap items-center py-3">
+                    <div className="grid grid-cols-4 gap-10 justify-center flex-wrap items-center py-3">
                         {
                             isLoading ?
                                 <LoadingCompo1 text={"Des offres d'emplois fait pour vous ...."} />
