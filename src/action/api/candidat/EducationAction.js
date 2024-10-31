@@ -2,6 +2,8 @@ import axios from "axios";
 import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../employeur/EmployeurAction";
 import { baseurl } from "../../../utlis/url/baseurl";
 import { useEffect, useState } from "react";
+import { getAndCheckLocalStorage } from "../../../utlis/storage/localvalueFunction";
+import { localvalue } from "../../../utlis/storage/localvalue";
 
 
 
@@ -13,13 +15,14 @@ export const EducationCandidatPost = (
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         await axios
-            .post(`${baseurl.url}/api/v1/education/post/${idCandidat}`,
-                {
-                    "idPerson":idCandidat,
-                    "title": title,
-                    "entreprise": entreprise,
-                    "description": description,
-                }, {
+            .post(`${baseurl.url}/api/v1/education/post/${idCandidat}`, 
+            {
+                "idPerson":idCandidat,
+                "title": title,
+                "entreprise": entreprise,
+                "description": description,
+            },
+            {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
@@ -28,10 +31,38 @@ export const EducationCandidatPost = (
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                 toast.success(" Education ajouté ")
+                window.location.reload();
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
                 toast.error("Education non prise en charge !")
+            });
+    };
+}
+
+
+
+export const EducationCandidatDelete = (
+    idEducation, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios
+            .put(`${baseurl.url}/api/v1/education/hide_education/${idEducation}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success(" Element Supprimer avec succès ");
+                window.location.reload();
+                // useFetchEducation(getAndCheckLocalStorage(localvalue.candidatID))
+                
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Element non supprimé")
             });
     };
 }

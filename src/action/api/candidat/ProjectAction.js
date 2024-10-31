@@ -36,6 +36,34 @@ export const ProjectCandidatPost = (
     };
 }
 
+// ProjectCandidatDelete
+
+
+export const ProjectCandidatDelete = (
+    idProject, toast) => {
+    return async (dispatch) => {
+        dispatch({ type: SEND_REQUEST });
+        await axios.put(`${baseurl.url}/api/v1/project/hide_education/${idProject}`,
+        {}, // Empty object since no data is being sent
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+            }
+        })
+            .then((response) => {
+                dispatch({ type: REQUEST_SUCCESS, payload: response.data });
+                toast.success("Element supprimé avec succès");
+            })
+            .catch((error) => {
+                dispatch({ type: REQUEST_FAILURE, payload: error.message });
+                toast.error("Element non supprimé");
+            });
+    };
+};
+
+
+
 
 
 

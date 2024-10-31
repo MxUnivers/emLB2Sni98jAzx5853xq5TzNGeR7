@@ -5,7 +5,7 @@ import useFetchCandidat, { CandidatGetById } from '../action/api/candidat/Candid
 import { localvalue, typePersonConnected } from '../utlis/storage/localvalue';
 import { MessageAllCandidatById } from '../action/api/messages/MessageAction';
 import { EntrepriseGetById } from '../action/api/employeur/EmployeurAction';
-import { MdAlternateEmail, MdClose, MdEmail, MdExitToApp, MdHome, MdLogout, MdMessage, MdPerson2, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
+import { MdAlternateEmail, MdClose, MdEmail, MdExitToApp, MdHome, MdLogout, MdMessage, MdPerson, MdPerson2, MdPerson4, MdPortrait, MdPostAdd, MdPriceCheck, MdSchool, MdSupervisedUserCircle, MdWork, MdWorkOutline } from "react-icons/md";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchProcessData } from '../action/api/QWBw8T76ht2P8tAm8ccum7FAWE55w93y/TX2uXh99585i3ft2ACwV4ASisan5MBm4';
 import { statusPACKS } from '../utlis/config';
@@ -107,10 +107,10 @@ const NavbarWeb = () => {
                     </ul>
                     <div className="profile-login">
                         {
-                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
-                                <Link to="#" className="profile-link" onClick={toggleSidebar}>👤 Mon Profil</Link>
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) ?
+                                <Link to="#" className=" bg-indigo-600 txt-white py-3 px-4 rounded-2xl hover:bg-indigo-700 text-white profile-link space-x-2 row-auto " style={{ display: "flex", alignContent: "center" }} onClick={toggleSidebar}><MdPerson4 /> <span>Mon Profil</span></Link>
                                 :
-                                <Link to="#" className="login-link" onClick={toggleLoginModal}>Connexion</Link>
+                                <Link to="#" className=" bg-indigo-600 txt-white py-3 px-4 rounded-2xl hover:bg-indigo-700 text-white login-link" onClick={toggleLoginModal}>Connexion</Link>
                         }
 
 
@@ -136,10 +136,12 @@ const NavbarWeb = () => {
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
                                 <Link to={`/${routing.company_details}`} class={`${location.pathname === `/${routing.company_details}` ? "nav-links-active" : ""}`}>Profile</Link>
-                                :
-                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                    <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "nav-links-active" : ""}`}>Profile</Link>
-                                    : ""
+                                : ""
+                        }
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                <Link to={`/${routing.candidat_details}`} class={`${location.pathname === `/${routing.candidat_details}` ? "nav-links-active" : ""}`}>Profile</Link>
+                                : ""
                         }
                     </li>
 
@@ -147,49 +149,30 @@ const NavbarWeb = () => {
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
                                 <Link to={`/${routing.candidature_list_recruteur}`} class={`${location.pathname === `/${routing.candidature_list_recruteur}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
-                                :
-                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                    <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidature_list}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
-                                    : ""
+                                : ""
                         }
-                    </li>
-
-                    <li>
                         {
-                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
-                                "" :
-                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                    <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
-                                    : ""
-                        }
-                    </li>
-
-
-
-                    <li>
-                        {
-                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
-                                "" :
-                                getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                    <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
-                                    : ""
-                        }
-                    </li>
-
-
-
-
-
-
-                    <li>
-                        {
-                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== null ?
-                                <Link to={`#`} ><span class="flex-row " onClick={handleClearLocalStorage()}><MdExitToApp /> <span>Déconnexion</span></span></Link>
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidature_list}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
                                 : ""
                         }
                     </li>
 
-
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
+                                : ""
+                        }
+                    </li>
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) ?
+                                <Link to={`#`} className="w-full bg-indigo-600 txt-white py-3 px-4 rounded-2xl hover:bg-indigo-700 text-white login-link" onClick={() => { handleClearLocalStorage() }}>Déconnexion</Link>
+                                :
+                                <Link to="#" className="w-full bg-indigo-600 txt-white py-3 px-4 rounded-2xl hover:bg-indigo-700 text-white login-link" onClick={toggleLoginModal}>Connexion</Link>
+                        }
+                    </li>
                 </ul>
             </div>
 
@@ -199,12 +182,12 @@ const NavbarWeb = () => {
                     <div className="modal-content">
                         <h2>Connexion</h2>
                         <p> Profile de connexion </p>
-                        <button className="login-option"
+                        <button className="px-3 rounded-xl bg-indigo-700 text-white py-3 login-option"
                             onClick={() => { navigate(`/${routing.connexion_recuteur}`) }}
-                        >Recruteur</button>
-                        <button className="login-option"
+                        > <MdWork /> Recruteur</button>
+                        <button className="px-3 rounded-xl bg-indigo-700 text-white py-3 login-option"
                             onClick={() => { navigate(`/${routing.connexion}`) }}
-                        >Candidat</button>
+                        ><MdPerson /> Candidat</button>
                         <button className="close-modal" onClick={toggleLoginModal}>✖</button>
                     </div>
                 </div>

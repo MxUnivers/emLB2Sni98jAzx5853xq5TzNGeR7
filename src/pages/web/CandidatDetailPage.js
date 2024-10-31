@@ -1,490 +1,220 @@
-import React from 'react'
-import { BiEdit } from 'react-icons/bi';
+import React, { useState, useEffect } from 'react';
+import { BiEdit, BiTrash } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter, BsWhatsapp } from 'react-icons/bs';
 import { CiFacebook } from 'react-icons/ci';
 import { MdEmail, MdLocationCity, MdPhone, MdWeb } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
-import { useState } from 'react';
-import useFetchCandidat, { CandidatGetById } from '../../action/api/candidat/CandidatAction';
-import { useEffect } from 'react';
-import Stepper from "react-stepper-horizontal";
-import { CandidatureAllOfCandidat } from '../../action/api/candidatures/CandidatureAction';
-import { handleCandidatEditRouting } from '../../utlis/url/ListFunction';
-import useFetchEducation, { EducationCandidatPost } from '../../action/api/candidat/EducationAction';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
+import useFetchEducation, { EducationCandidatPost , EducationCandidatDelete } from '../../action/api/candidat/EducationAction';
+import useFetchExperience, { ExperienceCandidatPost , ExperienceCandidatDelete } from '../../action/api/candidat/ExperienceAction';
+import useFetchProject, { ProjectCandidatPost , ProjectCandidatDelete } from '../../action/api/candidat/ProjectAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import useFetchExperience, { ExperienceCandidatPost } from '../../action/api/candidat/ExperienceAction';
-import useFetchProject, { ProjectCandidatPost } from '../../action/api/candidat/ProjectAction';
-
-
-
-
 
 const CandidatDetailPage = () => {
+    const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    const { isLoading, candidat } = useFetchCandidat(idCandidat);
+    const { isLoadingEducation, candidatEducation } = useFetchEducation(idCandidat);
+    const { isLoadingExperience, candidatExperience } = useFetchExperience(idCandidat);
+    const { isLoadingProject, candidatProject } = useFetchProject(idCandidat);
 
-
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
-
-    const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
-
-    const { isLoadingEducation, errorEducation, candidatEducation } = useFetchEducation(idCandidat);
-
-    const { isLoadingExperience, errorExperience, candidatExperience } = useFetchExperience(idCandidat);
-
-    const { isLoadingProject, errorProject, candidatProject } = useFetchProject(idCandidat);
-
-
-    var typeAccess = getAndCheckLocalStorage(localvalue.candidatTYPE);
-
-    const [candidatures, setcandidatures] = useState([]);
-    const [candidatures2, setcandidatures2] = useState([]);
-
-
-    const [title_education, settitle_education] = useState();
-    const [entreprise_education, setentreprise_education] = useState();
-    const [description_education, setdescription_education] = useState();
-
-
-    const [title_experience, settitle_experience] = useState();
-    const [entreprise_experience, setentreprise_experience] = useState();
-    const [description_experience, setdescription_experience] = useState();
-
-
-    const [title_project, settitle_project] = useState();
-    const [entreprise_project, setentreprise_project] = useState();
-    const [description_project, setdescription_project] = useState();
-
-
-
-
-
-    // handle Modal 
-    // position modal state
+    const [modalApply, setModalApply] = useState(false);
     const [step, setStep] = useState(0);
-    const [stepEdit, setStepEdit] = useState(0);
-
-    const [modalApply, setModalApply] = useState(false);// 
-    const [modalApplyEdit, setModalApplyEdit] = useState(false);//
-
-    const handleShow = (item) => { setModalApply(true); setStep(item) }
-    const handleClose = (item) => { setModalApply(false) }
-
-
-    const handleShowEdit = (item) => { setModalApplyEdit(true); setStepEdit(item) }
-    const handleCloseEdit = (item) => { setModalApplyEdit(false) }
-
-
-
-
-    const steps = [
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-    ];
-
-
-    // state de redux
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.loading);
-    const errore = useSelector((state) => state.error);
+    const navigate = useNavigate();
 
-    const handleSumbitEducation = (event) => {
+    // State for form inputs
+    const [title_education, setTitleEducation] = useState('');
+    const [entreprise_education, setEntrepriseEducation] = useState('');
+    const [description_education, setDescriptionEducation] = useState('');
+    
+    const [title_experience, setTitleExperience] = useState('');
+    const [entreprise_experience, setEntrepriseExperience] = useState('');
+    const [description_experience, setDescriptionExperience] = useState('');
+
+    const [title_project, setTitleProject] = useState('');
+    const [description_project, setDescriptionProject] = useState('');
+
+    // Handle show and close modal
+    const handleShow = (item) => { setModalApply(true); setStep(item) };
+    const handleClose = () => { setModalApply(false) };
+
+    // Submit functions
+    const handleSubmitEducation = (event) => {
         event.preventDefault();
-        dispatch(EducationCandidatPost(idCandidat, title_education, entreprise_education, description_education, toast))
-    }
+        dispatch(EducationCandidatPost(idCandidat, title_education, entreprise_education, description_education, toast));
+        handleClose();
+    };
 
-    const handleSumbitExeprience = (event) => {
+    const handleSubmitExperience = (event) => {
         event.preventDefault();
-        dispatch(ExperienceCandidatPost(idCandidat, title_experience, entreprise_experience, description_experience, toast))
-    }
+        dispatch(ExperienceCandidatPost(idCandidat, title_experience, entreprise_experience, description_experience, toast));
+        handleClose();
+    };
 
-    const handleSumbitProject = (event) => {
+    const handleSubmitProject = (event) => {
         event.preventDefault();
-        dispatch(ProjectCandidatPost(idCandidat, title_project, entreprise_project, description_project, toast))
-    }
+        dispatch(ProjectCandidatPost(idCandidat, title_project, description_project, toast));
+        handleClose();
+    };
 
+    // Delete functions
+    const handleDeleteEducation = (educationId) => {
+        dispatch(EducationCandidatDelete(educationId, toast));
+    };
+
+    const handleDeleteExperience = (experienceId) => {
+        dispatch(ExperienceCandidatDelete(experienceId, toast));
+    };
+
+    const handleDeleteProject = (projectId) => {
+        dispatch(ProjectCandidatDelete(projectId, toast));
+    };
 
     return (
         <div className="main-content">
             <div className="page-content">
                 <section className="section mt-28 mb-36">
-                    <div className=" px-5 container-fluid">
-                        <div className="row lg:flex md:lg:flex   lg:justify-between">
+                    <div className="px-5 container-fluid">
+                        <div className="lg:flex md:lg:flex lg:justify-between">
+                            {/* Left Column */}
                             <div className="col-lg-4">
                                 <div className="card border bg-white shadow rounded-lg">
-                                    <div className="card-body p-4 py-5  px-5">
-                                        <div className="border-b flex flex-col justify-center items-center">
-                                            {
-                                                candidat && candidat.coverPicture ?
-                                                    <img src={candidat.coverPicture} alt=""
-                                                        className="avatar-lg rounded-full  h-32 w-32" /> :
-                                                    <div className="h-32 w-32 rounded-full bg-gray-200 animate-pulse" />
-                                            }
-                                            {
-                                                candidat && candidat.firstname && candidat.lastname ?
-                                                    <h6 className="fs-18 mb-0 mt-4 text-center textxl font-semibold text-gray-600">{
-                                                        `${candidat.firstname} ${candidat.lastname}`
-                                                    }</h6> :
-                                                    <div className="my-2 bg-gray-200 animate-pulse w-full px-3 h-5 rounded-lg " />
-                                            }
-                                            {
-                                                candidat && candidat.title_post ?
-                                                    <p className="text-muted mb-4 text-center">{candidat.title_post}</p> :
-                                                    <div className="bg-gray-200 animate my-1 h-6 w-full px-3 rounded-lg" />
-                                            }
+                                    <div className="card-body p-4">
+                                        <div className="text-center">
+                                            {candidat?.coverPicture ? (
+                                                <img src={candidat.coverPicture} alt="" className="avatar-lg rounded-full h-32 w-32" />
+                                            ) : (
+                                                <div className="h-32 w-32 bg-gray-200 animate-pulse rounded-full"></div>
+                                            )}
 
+                                            <h6 className="fs-18 mt-4 text-xl font-semibold">{candidat?.firstname} {candidat?.lastname}</h6>
+                                            <p className="text-muted">{candidat?.title_post}</p>
 
-                                            <ul className=" inline-flex mb-5 space-x-4">
-
-                                                {candidat && candidat.facebook_url ?
-                                                    <li className="inline-flex">
+                                            <ul className="inline-flex mb-5 space-x-4">
+                                                {candidat?.facebook_url && (
+                                                    <li>
                                                         <a href={candidat.facebook_url} target="_blank" className="social-link">
                                                             <CiFacebook className="h-7 w-7" />
                                                         </a>
-                                                    </li> :
-                                                    <li className="inline-flex">
-                                                        <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
                                                     </li>
-                                                }
-                                                {
-                                                    candidat && candidat.twitter_url ?
-                                                        <li className="inline-flex">
-                                                            <a href={candidat.twitter_url} target="_blank" className="social-link">
-                                                                <BsTwitter className="h-7 w-7" />
-                                                            </a>
-                                                        </li> :
-                                                        <li className="inline-flex">
-                                                            <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
-                                                        </li>
-                                                }
-                                                {
-                                                    candidat && candidat.linkedin_url ?
-                                                        <li className="inline-flex">
-                                                            <a href={candidat.linkedin_url} target="_blank" className="social-link">
-                                                                <BsLinkedin className="h-7 w-7" />
-                                                            </a>
-                                                        </li> :
-                                                        <li className="inline-flex">
-                                                            <div className="bg-gray-200 animate my-1 h-7  w-7 px-3 rounded-lg" />
-                                                        </li>
-                                                }
+                                                )}
+                                                {candidat?.twitter_url && (
+                                                    <li>
+                                                        <a href={candidat.twitter_url} target="_blank" className="social-link">
+                                                            <BsTwitter className="h-7 w-7" />
+                                                        </a>
+                                                    </li>
+                                                )}
+                                                {candidat?.linkedin_url && (
+                                                    <li>
+                                                        <a href={candidat.linkedin_url} target="_blank" className="social-link">
+                                                            <BsLinkedin className="h-7 w-7" />
+                                                        </a>
+                                                    </li>
+                                                )}
                                             </ul>
 
-                                            <div className="mt-5 mb-5 flex justify-center">
-                                                {
-                                                    candidat && candidat._id == getAndCheckLocalStorage(localvalue.candidatID) ?
-                                                        <button
-                                                            onClick={() => {
-                                                                handleCandidatEditRouting();
-                                                            }}
-                                                            className="btn btn-blue-400 space-x-2 flex text-white bg-gray-600 py-2 px-3 rounded-lg">
-                                                            <BiEdit />
-                                                            <span>Mettre à jour</span>
-                                                        </button> :
-                                                        null
-                                                }
-                                            </div>
-                                            
+                                            {candidat && candidat._id === idCandidat && (
+                                                <button onClick={() => navigate(routing.candidat_edit)} className="btn bg-blue-500 text-white py-2 px-4 rounded-lg">
+                                                    <BiEdit /> Modifier
+                                                </button>
+                                            )}
                                         </div>
-
-
-                                    </div>
-
-
-                                    <div className="candidate-profile-overview  card-body border-top p-4">
-                                        <h6 className="fs-17 fw-semibold mb-3 text-2xl">Info Profile</h6>
-                                        
-                                        <div className="mt-3">
-                                            {
-                                                candidat && candidat.telephone ?
-
-                                                    <a href={`tel:${candidat.telephone}`} className="btn btn-danger btn-hover w-100"><i
-                                                        className="uil uil-phone"></i> Me contacter</a>
-                                                    : ""
-                                            }
-                                            {
-                                                candidat && candidat.cv ?
-                                                    <a href="javascript:void(0)" className="btn btn-primary btn-hover w-100 mt-2"><i
-                                                        className="uil uil-import"></i> Telecharger cv</a>
-                                                    : ""
-                                            }
-                                        </div>
-
-                                    </div>
-
-                                    {
-                                        candidat && candidat.competences ?
-                                            <div className="card-body p-4 border-top">
-                                                <h6 className=" fw-semibold mb-3  text-gray-700 font-bold">Compétences</h6>
-                                                <div className="flex flex-wrap justify-center gap-2">
-                                                    {
-                                                        candidat.competences.map((item) => {
-                                                            return (
-                                                                <div className="space-y-3 flex flex-wrap space-x-3">
-                                                                    <span className="badge bg-blue-400 text-white py-1 text-xs px-3 rounded-lg mt-1">
-                                                                        {item.label}
-                                                                    </span>
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            </div> :
-                                            ""
-                                    }
-                                    <div className="candidate-contact-details card-body p-4 border-top">
-                                        <h6 className="fs-17 fw-semibold mb-3  text-gray-700 font-bold">Infos Contact</h6>
-                                        <ul className="list-unstyled mb-0">
-                                            
-
-
-                                            {
-                                                candidat && candidat.site_web !== "#" ?
-                                                    <li>
-                                                        <div className="d-flex align-items-center mt-4">
-                                                            <a href={`${candidat.site_web}`} target='_blank' className="ms-3">
-                                                                <h6 className="fs-14 mb-1"><MdWeb /> site web :</h6>
-                                                                <a href={`${candidat.site_web}`} target="_blank" >
-                                                                    <p className="text-muted mb-0">{candidat.site_web}</p>
-                                                                </a>
-                                                            </a>
-                                                        </div>
-                                                    </li> :
-                                                    <li>
-                                                        <div className="w-full rounded-xl bg-gray-200 animate-pulsemy-1 h-4 " />
-                                                    </li>
-                                            }
-
-
-
-
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
 
+                            {/* Right Column */}
                             <div className="w-full col-lg-8">
-                                <div className="card w-full candidate-details ms-lg-4 mt-4 mt-lg-0">
-                                    <div className="w-full card-body p-4 candidate-personal-detail mx-1">
-                                        {
-                                            candidat && candidat.description ?
-                                                <div className=" w-fullrounded-xl shadow-sm px-2 py-2 border ">
-                                                    <h6 className="fs-17 fw-semibold mb-3 text-2xl font-semibold">A propos de moi</h6>
-                                                    <p className="text-muted mb-2">{candidat.description}</p>
-                                                </div> :
-                                                <div className="bg-gray-200 w-full h-40 animate-pulse rounded-xl" />
-                                        }
-                                        <div className="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            {
-                                                candidatEducation ?
-                                                    <div className="flex flex-row justify-between items-center">
-                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Education</h6>
-                                                        <button onClick={() => { handleShow(0) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                            + Education
-                                                        </button>
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
-                                            {
-                                                isLoadingEducation ?
-                                                    (<p education en cours>...</p>) :
-
-                                                    candidatEducation &&
-                                                        candidatEducation.length > 0
-                                                        ?
-                                                        candidatEducation.map((item) => {
-                                                            return (
-                                                                <div className="candidate-education-content mt-4 flex space-x-3">
-                                                                    <div className="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
-                                                                        {String(item.title).charAt(1)}
-                                                                    </div>
-                                                                    <div className="ms-4">
-                                                                        <h6 className="fs-16 mb-1">{item.title}</h6>
-                                                                        <p className="mb-2 text-muted">
-                                                                            {item.entreprise}
-                                                                        </p>
-                                                                        <p className="text-muted">{item.description}</p>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        })
-                                                        : null
-
-                                            }
-
+                                <div className="card shadow-lg w-full">
+                                    <div className="card-body p-4">
+                                        {/* About Me Section */}
+                                        <div className="mb-4">
+                                            <h6 className="text-2xl font-semibold">À propos de moi</h6>
+                                            {candidat?.description ? (
+                                                <p>{candidat.description}</p>
+                                            ) : (
+                                                <div className="bg-gray-200 h-20 animate-pulse rounded-lg"></div>
+                                            )}
                                         </div>
-                                        <div className="w-full candidate-education-details mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border">
 
-                                            {
-                                                candidatExperience ?
-                                                    <div className="flex flex-row justify-between items-center  ">
-                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Expériences</h6>
-                                                        <button onClick={() => { handleShow(1) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                            + experience
-                                                        </button>
-                                                    </div> : null
-                                            }
-                                            {
-                                                isLoadingExperience ?
-                                                    <p>Chargement...</p> :
-                                                    errorExperience ?
-                                                        <p>une erreur est survevue</p> :
-                                                        candidatExperience && candidatExperience.length > 0 ?
-                                                            candidatExperience.map((item) => {
-                                                                return (
-                                                                    <div className="candidate-education-content mt-4 flex space-x-3">
-                                                                        <div className="rounded-full p-3 h-10 text-center w-10 bg-blue-500 text-white flex-shrink-0  text-primary">
-                                                                            {String(item.title).charAt(0)}
-                                                                        </div>
-                                                                        <div className="ms-4">
-                                                                            <h6 className="fs-16 mb-1">{item.title}</h6>
-                                                                            <p className="mb-2 text-muted">{item.entreperise}
-                                                                            </p>
-                                                                            <p className="text-muted">{item.description}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                            : null
-                                            }
-
-                                        </div>
-                                        <div className="w-full candidate-portfolio mt-4 pt-3 rounded-xl shadow-sm px-2 py-2 border ">
-                                            {
-                                                candidatProject ?
-                                                    <div className="flex flex-row justify-between items-center">
-                                                        <h6 className="fs-17 fw-bold mb-0 text-2xl font-semibold">Projets</h6>
-                                                        {
-                                                            /*<button onClick={() => { handleShow(2) }} className="flex flex-row space-x-2 px-2 py-1 btn bg-blue-500 text-white text-xs">
-                                                            + projet
-                                                        </button> */
-                                                        }
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
-                                            {
-                                                isLoadingProject ?
-                                                    <p>En cours ...</p> :
-                                                    errorProject ?
-                                                        <p>Une erreur est survenue</p>
-                                                        :
-                                                        candidatProject && candidatProject.length > 0 ?
-                                                            candidatProject.map((item) => {
-                                                                return (
-                                                                    <div className="row">
-                                                                        <div className="col-lg-8 mt-4">
-                                                                            <div className="candidate-portfolio-box card border-0 flex flex-row space-x-3">
-                                                                                <img src={item.coverPicture} alt=""
-                                                                                    className="img-fluid h-20 w-20 rounded-lg" />
-                                                                                <div className="bg-overlay"></div>
-                                                                                <div className="zoom-icon">
-                                                                                    <div className="text-lg font-semibold">
-                                                                                        {item.project}
-                                                                                    </div>
-                                                                                    <div className="text-xs">
-                                                                                        {item.description}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                )
-                                                            })
-                                                            : null
-                                            }
-                                        </div>
-                                        {
-                                            /*<form action="#" className="mt-4 pt-3 ">
-                                            <h6 className="fs-17 fw-semibold mb-2 text-2xl font-bold">Donner votre avis</h6>
-                                            <div className="row">
-                                                <div className="col-lg-12">
-                                                    <div className="mb-3">
-                                                        <label for="inputname" className="form-label">Your Name</label>
-                                                        <input type="text" className="form-control px-3 py-1 w-full rounded-lg bg-white" id="inputname"
-                                                            placeholder="Enter your name" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-6">
-                                                    <div className="mb-3">
-                                                        <label for="inputemail" className="form-label">Email</label>
-                                                        <input type="email" className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputemail"
-                                                            placeholder="Enter your email" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-6">
-                                                    <div className="mb-3">
-                                                        <label for="inputsubject" className="form-label">Subject</label>
-                                                        <input type="text" className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputsubject"
-                                                            placeholder="Subject" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-12">
-                                                    <div className="mb-3">
-                                                        <label for="inputcoment" className="form-label">Review</label>
-                                                        <textarea className="form-control px-3 py-1 w-full rounded-lg bg-white " id="inputcoment" rows="3"
-                                                            placeholder="Add your review"></textarea>
-                                                    </div>
-                                                </div>
+                                        {/* Education Section */}
+                                        <div className="mb-4">
+                                            <div className="flex justify-between items-center">
+                                                <h6 className="text-2xl font-semibold">Éducation</h6>
+                                                <button onClick={() => handleShow(0)} className="btn bg-blue-500 text-white text-xs py-1 px-2">+ Ajouter</button>
                                             </div>
-                                            <div className="text-end">
-                                                <button type="submit" className="btn btn-primary bg-blue-300 btn-hover">Envoyer <i
-                                                    className="uil uil-angle-right-b"></i></button>
-                                            </div>
-                                        </form> 
-                                        
-                                        
-                                        
-
-
-                                        <div className="mt-4 pt-3">
-                                            <div className="flex space-x-3 align-text-top">
-                                                <div className="flex-shrink-0">
-                                                    <img className="rounded-circle avatar img-thumbnail rounded-lg h-10 w-10"
-                                                        src="assets/images/user/img-04.jpg" alt="img" />
-                                                </div>
-                                                <div className="flex-grow-1 ms-sm-3">
-                                                    <div>
-                                                        <p className="text-muted float-end fs-14 mb-2">Jun 23, 2021</p>
-                                                        <h6 className="mt-sm-0 mt-3 mb-1">Michelle Durant</h6>
-                                                        <div className="text-warning review-rating mb-2">
-                                                            <i className="mdi mdi-star"></i>
-                                                            <i className="mdi mdi-star"></i>
-                                                            <i className="mdi mdi-star"></i>
-                                                            <i className="mdi mdi-star"></i>
-                                                            <i className="mdi mdi-star-half-full"></i>
+                                            {isLoadingEducation ? (
+                                                <p>Chargement...</p>
+                                            ) : (
+                                                candidatEducation?.map((edu) => (
+                                                    <div key={edu._id} className="flex justify-between mt-4">
+                                                        <div>
+                                                            <h6>{edu.title}</h6>
+                                                            <p>{edu.entreprise}</p>
+                                                            <p>{edu.description}</p>
                                                         </div>
-                                                        <p className="text-muted fst-italic">" There are many variations of
-                                                            passages of Lorem Ipsum available, but the majority have
-                                                            suffered alteration in some form, by injected humour "</p>
+                                                        <div className="flex space-x-2">
+                                                            <button onClick={() => handleShow(0)} className="text-blue-500"><BiEdit /></button>
+                                                            <button onClick={() => handleDeleteEducation(edu._id)} className="text-red-500"><BiTrash /></button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-
+                                                ))
+                                            )}
                                         </div>
-                                        
-                                        
-                                        */
-                                        }
 
+                                        {/* Experience Section */}
+                                        <div className="mb-4">
+                                            <div className="flex justify-between items-center">
+                                                <h6 className="text-2xl font-semibold">Expériences</h6>
+                                                <button onClick={() => handleShow(1)} className="btn bg-blue-500 text-white text-xs py-1 px-2">+ Ajouter</button>
+                                            </div>
+                                            {isLoadingExperience ? (
+                                                <p>Chargement...</p>
+                                            ) : (
+                                                candidatExperience?.map((exp) => (
+                                                    <div key={exp._id} className="flex justify-between mt-4">
+                                                        <div>
+                                                            <h6>{exp.title}</h6>
+                                                            <p>{exp.entreprise}</p>
+                                                            <p>{exp.description}</p>
+                                                        </div>
+                                                        <div className="flex space-x-2">
+                                                            <button onClick={() => handleShow(1)} className="text-blue-500"><BiEdit /></button>
+                                                            <button onClick={() => handleDeleteExperience(exp._id)} className="text-red-500"><BiTrash /></button>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
 
-
-
-
-
-
-
-
-
-
-
+                                        {/* Projects Section */}
+                                        <div className="mb-4">
+                                            <div className="flex justify-between items-center">
+                                                <h6 className="text-2xl font-semibold">Projets</h6>
+                                                <button onClick={() => handleShow(2)} className="btn bg-blue-500 text-white text-xs py-1 px-2">+ Ajouter</button>
+                                            </div>
+                                            {isLoadingProject ? (
+                                                <p>Chargement...</p>
+                                            ) : (
+                                                candidatProject?.map((proj) => (
+                                                    <div key={proj._id} className="flex justify-between mt-4">
+                                                        <div>
+                                                            <h6>{proj.title}</h6>
+                                                            <p>{proj.description}</p>
+                                                        </div>
+                                                        <div className="flex space-x-2">
+                                                            <button onClick={() => handleShow(2)} className="text-blue-500"><BiEdit /></button>
+                                                            <button onClick={() => handleDeleteProject(proj._id)} className="text-red-500"><BiTrash /></button>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -492,143 +222,57 @@ const CandidatDetailPage = () => {
                     </div>
                 </section>
 
+                {/* Modal for adding/updating */}
+                {modalApply && (
+                    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+                        {step === 0 && (
+                            <div className="bg-white p-6 rounded-lg shadow-lg">
+                                <h2 className="text-lg font-bold mb-4">Ajouter une Éducation</h2>
+                                <form onSubmit={handleSubmitEducation}>
+                                    <input type="text" placeholder="Titre" value={title_education} onChange={(e) => setTitleEducation(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <input type="text" placeholder="Entreprise/École" value={entreprise_education} onChange={(e) => setEntrepriseEducation(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <textarea placeholder="Description" value={description_education} onChange={(e) => setDescriptionEducation(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <div className="flex justify-end">
+                                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+                                        <button type="button" onClick={handleClose} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
 
+                        {step === 1 && (
+                            <div className="bg-white p-6 rounded-lg shadow-lg">
+                                <h2 className="text-lg font-bold mb-4">Ajouter une Expérience</h2>
+                                <form onSubmit={handleSubmitExperience}>
+                                    <input type="text" placeholder="Titre" value={title_experience} onChange={(e) => setTitleExperience(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <input type="text" placeholder="Entreprise" value={entreprise_experience} onChange={(e) => setEntrepriseExperience(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <textarea placeholder="Description" value={description_experience} onChange={(e) => setDescriptionExperience(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <div className="flex justify-end">
+                                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+                                        <button type="button" onClick={handleClose} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
 
-
-
-
-
-
-
-
-
-                {
-                    modalApply &&
-                    (
-                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
-                            {
-                                step == 0 &&
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 className="text-lg font-semibold mb-4">Ajouter niveau Education</h2>
-                                    <form onSubmit={handleSumbitEducation} >
-                                        <div className="mb-4">
-                                            <label for="fullName" className="block mb-1">Titre</label>
-                                            <input value={title_education} onChange={(e) => { settitle_education(e.target.value) }}
-                                                type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="mb-4">
-                                            <label for="message" className="block mb-1">Ecole</label>
-                                            <input value={entreprise_education} onChange={(e) => { setentreprise_education(e.target.value) }}
-                                                className="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="mb-4">
-                                            <label for="resume" className="block font-bold mb-1">Description</label>
-                                            <textarea value={description_education} onChange={(e) => { setdescription_education(e.target.value) }}
-                                                className="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="flex justify-end">
-                                            {
-                                                isLoading ?
-                                                    <p className="animate-pulse">en cours ...</p>
-                                                    :
-                                                    <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                        Ajouter
-                                                    </button>
-                                            }
-                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            }
-
-
-
-                            {
-                                step == 1 &&
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 className="text-lg font-bold mb-4">Ajouter Expérience</h2>
-                                    <form onClick={handleSumbitExeprience}>
-                                        <div className="mb-4">
-                                            <label for="fullName" className="block font-bold mb-1">Metier poste Occupé dans </label>
-                                            <inputn value={title_experience} onChange={(e) => { settitle_experience(e.target.value) }} type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="mb-4">
-                                            <label for="message" className="block font-bold mb-1">entreprise</label>
-                                            <inputn value={entreprise_experience} onChange={(e) => { setentreprise_experience(e.target.value) }} className="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="mb-4">
-                                            <label for="resume" className="block font-bold mb-1">Description</label>
-                                            <textarean value={description_experience} onChange={(e) => { setdescription_education(e.target.value) }} className="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="flex justify-end">
-                                            <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                Ajouter
-                                            </button>
-                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            }
-
-                            {
-                                step == 2 &&
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 className="text-lg font-bold mb-4">Ajouter nouveau projet</h2>
-                                    <form onSubmit={handleSumbitProject}>
-                                        <div className="mb-4">
-                                            <label for="fullName" className="block font-bold mb-1">Nom du projet</label>
-                                            <input value={title_project} onChange={(e) => { settitle_project(e.target.value) }} type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="mb-4">
-                                            <label for="resume" className="block font-bold mb-1">Description</label>
-                                            <textarea value={description_project} onChange={(e) => { setdescription_project(e.target.value) }} className="w-full border  border-gray-300 rounded px-3 py-2" />
-                                        </div>
-                                        <div className="flex justify-end">
-                                            <button type="submit" className="text-xs btn py-1 px-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
-                                                Ajouter
-                                            </button>
-                                            <button type="button" onClick={handleClose} className="text-xs btn py-1 px-2 bg-gray-300 hover:bg-gray-400 text-black font-bold ml-2 rounded" id="closeModal">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            }
-                        </div>
-                    )
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        {step === 2 && (
+                            <div className="bg-white p-6 rounded-lg shadow-lg">
+                                <h2 className="text-lg font-bold mb-4">Ajouter un Projet</h2>
+                                <form onSubmit={handleSubmitProject}>
+                                    <input type="text" placeholder="Nom du projet" value={title_project} onChange={(e) => setTitleProject(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <textarea placeholder="Description" value={description_project} onChange={(e) => setDescriptionProject(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
+                                    <div className="flex justify-end">
+                                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+                                        <button type="button" onClick={handleClose} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Annuler</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CandidatDetailPage;

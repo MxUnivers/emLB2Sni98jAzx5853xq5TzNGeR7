@@ -2,9 +2,12 @@
 //     localStorage.setItem(String(name), item)
 // }
 
+import { localvalue } from "./localvalue";
+
 
 
 export const handleClearLocalStorage = () => {
+    localStorage.removeItem(localvalue.TYPEACCESS); // Effacer toutes les données du localStorage
     localStorage.clear(); // Effacer toutes les données du localStorage
     console.log('Deconnexion de la pplication ');
     window.location.href="/";
