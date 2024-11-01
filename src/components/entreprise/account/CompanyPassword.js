@@ -13,7 +13,7 @@ import { EntrepriseEditPassword } from '../../../action/api/employeur/EmployeurA
 
 const CompanyPassword = () => {
 
-    var idEntreprise = getAndCheckLocalStorage(localvalue.candidatID);
+    var idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
 
     const [password, setpassword] = useState();
     const [confirmPassword, setconfirmPassword] = useState();
