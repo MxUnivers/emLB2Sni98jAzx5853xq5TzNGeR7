@@ -11,9 +11,9 @@ const JobCard = ({ data }) => {
 
     return (
         <div className="job-card">
-            <div className="job-image-wrapper">
+            {/*<div className="job-image-wrapper">
                 <img src={data.coverPicture} alt={data.title} className="job-image object-cover" />
-            </div>
+            </div> */}
             <div className="job-content">
                 <h5 className="job-title text-gray-700">{data.title}</h5>
                 <p className="job-company text-gray-600">{data.company}</p>
