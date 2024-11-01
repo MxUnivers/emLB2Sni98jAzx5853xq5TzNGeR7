@@ -1,91 +1,85 @@
-import React from 'react'
+import React from 'react';
 
 const ContactPage = () => {
     return (
-        <div className="main-content">
-            <div className="page-content mt-28">
-                <section className="w-full py-10 ">
-                    <div className="w-full mx-10 px-4 sm:px-12 xl:max-w-5xl xl:px-0">
-                        <div className="w-full relative z-10 text-center md:mx-auto md:w-5/6 lg:w-4/6">
-                            <h1 className="relative text-center text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-                            Donner votre avis
-                             <span className="opacity-80"></span></h1>
-                            <p className="mt-6 text-gray-700 dark:text-gray-300">Nous vous aiderons à trouver le bon plan et la tarification pour votre entreprise.</p>
+        <div className="main-content bg-gray-50 dark:bg-gray-900 py-16">
+            <div className="page-content">
+                <section className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
+                            Donnez votre avis
+                        </h1>
+                        <p className="mt-4 text-gray-600 dark:text-gray-300">
+                            Aidez-nous à améliorer nos services en partageant vos retours et vos suggestions.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        {/* Form Section */}
+                        <div className="p-8 bg-white rounded-3xl shadow-lg dark:bg-gray-800">
+                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
+                                Que devons-nous savoir ?
+                            </h2>
+                            <form action="#" className="space-y-6">
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300">
+                                        Nom <span className="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="name" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300">
+                                        Email professionnel <span className="text-red-500">*</span>
+                                    </label>
+                                    <input type="email" name="email" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300">
+                                        Téléphone <span className="text-red-500">*</span>
+                                    </label>
+                                    <input type="tel" name="phone" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300">
+                                        Entreprise <span className="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="company" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-700 dark:text-gray-300">
+                                        Message
+                                    </label>
+                                    <textarea name="message" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" rows="4"></textarea>
+                                </div>
+                                <button type="submit" className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700">
+                                    Envoyer
+                                </button>
+                            </form>
                         </div>
-
-                        <div className="w-full mt-12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                            <div className="relative w-full">
-                                <form action="#" className="relative rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none sm:p-12">
-                                    <div className="absolute inset-0 hidden scale-105 rounded-3xl bg-gradient-to-b from-transparent dark:block dark:to-gray-900/80"></div>
-                                    <div className="relative">
-                                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Que devons-nous savoir ?</h2>
-                                        <div className="mt-8 mb-6 space-y-4">
-                                            <div>
-                                                <label for="name" className="mb-2 block text-gray-600 dark:text-gray-300">Votre nom <span className="text-xl text-red-500 dark:text-red-400">*</span></label>
-                                                <input type="text" name="name" id="name" autocomplete="name" className="peer block w-full rounded-lg border border-gray-200 bg-transparent px-4 py-2 text-gray-600 transition-shadow duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 dark:border-gray-700" />
-                                                <span className="mt-1 hidden text-sm text-red-500 peer-invalid:block">Ce champ est requis.</span>
-                                            </div>
-                                            <div>
-                                                <label for="email" className="mb-2 block text-gray-600 dark:text-gray-300">Email professionnel <span className="text-xl text-red-500 dark:text-red-400">*</span></label>
-                                                <input type="email" name="email" id="email" autocomplete="email" className="peer block w-full rounded-lg border border-gray-200 bg-transparent px-4 py-2 text-gray-600 transition-shadow duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 dark:border-gray-700" />
-                                                <span className="mt-1 hidden text-sm text-red-500 peer-invalid:block">Ce champ est requis.</span>
-                                            </div>
-                                            <div>
-                                                <label for="phone" className="mb-2 block text-gray-600 dark:text-gray-300">Téléphone <span className="text-xl text-red-500 dark:text-red-400">*</span></label>
-                                                <input type="tel" name="phone" id="phone" autocomplete="tel" className="peer block w-full rounded-lg border border-gray-200 bg-transparent px-4 py-2 text-gray-600 transition-shadow duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 dark:border-gray-700" />
-                                                <span className="mt-1 hidden text-sm text-red-500 peer-invalid:block">Ce champ est requis.</span>
-                                            </div>
-                                            <div>
-                                                <label for="company" className="mb-2 block text-gray-600 dark:text-gray-300">Nom de l{"'"}entreprise <span className="text-xl text-red-500 dark:text-red-400">*</span></label>
-                                                <input type="text" name="company" id="company" autocomplete="organization" className="peer block w-full rounded-lg border border-gray-200 bg-transparent px-4 py-2 text-gray-600 transition-shadow duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 dark:border-gray-700" />
-                                                <span className="mt-1 hidden text-sm text-red-500 peer-invalid:block">Ce champ est requis.</span>
-                                            </div>
-                                            <div>
-                                                <label for="message" className="mb-2 block text-gray-600 dark:text-gray-300">Message</label>
-                                                <textarea name="message" id="message" className="peer block h-28 w-full rounded-lg border border-gray-200 bg-transparent px-4 py-2 text-gray-600 transition-shadow duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 dark:border-gray-700"></textarea>
-                                                <span className="mt-1 hidden text-sm text-red-500 peer-invalid:block">Ce champ est requis.</span>
-                                            </div>
-                                        </div>
-                                        <p className="mb-8 text-sm text-gray-600 dark:text-gray-300">En cliquant sur Soumettre ci-dessous, vous acceptez le traitement de vos informations personnelles par PlanetScale conformément à la Politique de confidentialité.</p>
-                                        <button type="submit" className="relative ml-auto flex h-11 w-max items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition-transform before:duration-300 active:duration-75 active:before:scale-95 dark:before:bg-primaryLight">
-                                            <span className="relative text-base font-semibold text-white dark:text-gray-900">Commencer</span>
-                                        </button>
-                                    </div>
-                                </form>
+                        
+                        {/* Testimonial and Partners Section */}
+                        <div className="p-8 bg-white rounded-3xl shadow-lg dark:bg-gray-800">
+                            <img src="img/uvci.png" alt="UVCI Logo" className="h-12 w-auto mx-auto mb-8" />
+                            <p className="text-gray-600 dark:text-gray-300 text-center mb-8">
+                                Rejoignez des milliers d{"'"}entreprises qui nous font confiance pour optimiser leurs processus et collaborer efficacement.
+                            </p>
+                            <div className="flex items-center mb-8">
+                                <img className="h-12 w-12 rounded-full mr-4" src="img/avatar-user.jpg" alt="User Avatar" />
+                                <div>
+                                    <h3 className="text-lg font-medium text-gray-800 dark:text-white">Randy Doe</h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Développeur Backend</p>
+                                </div>
                             </div>
-                            <div className="w-full">
-                                <div className="w-full relative rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:px-12">
-                                    <div className="absolute inset-0 hidden scale-105 rounded-3xl bg-gradient-to-b from-transparent dark:block dark:to-gray-900/80"></div>
-                                    <div className="relative">
-                                        <img className="h-12 w-auto dark:contrast-100 dark:grayscale dark:invert" 
-                                        src="img/uvci.png" alt="Microsoft" width="" height="" />
-                                        <p className="mt-2 mb-8 text-gray-600 dark:text-gray-300">Rejoignez des milliers d'entreprises qui ont transformé leur manière de travailler grâce à nos solutions. Maximisez l'efficacité et la collaboration dans votre équipe.</p>
-                                        <div className="flex gap-4">
-                                            <img className="h-12 w-12 rounded-full" src="../images/avatars/avatar-2.webp" alt="Avatar de l'utilisateur" width="200" height="200" loading="lazy" />
-                                            <div>
-                                                <h2 className="leading-0 text-lg font-medium text-gray-700 dark:text-white">Randy Doe</h2>
-                                                <p className="leading-0 -mt-0.5 text-sm text-gray-500 dark:text-gray-400">Développeur Backend</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mt-12 text-center">
-                                    <a className='text-sm font-semibold tracking-widest dark:text-white' href='#'>FAIT CONFIANCE PAR LES MEILLEURES PARTENAIRES </a>
-                                    <div className="mt-8 flex flex-wrap justify-center gap-6  contrast-200  dark:brightness-200 dark:contrast-0 lg:gap-x-24">
-                                        <img className="h-8 w-auto lg:h-10 lg:w-auto" src="img/uvci.png" loading="lazy" alt="Airbnb" width="" height="" />
-                                        <img className="h-8 w-auto lg:h-10 lg:w-auto" src="img/esatic.jpg" loading="lazy" alt="Coty" width="" height="" />
-                                        
-                                    </div>
-                                </div>
+                            <h3 className="text-center text-sm font-semibold text-gray-800 dark:text-white mb-4">PARTENAIRES DE CONFIANCE</h3>
+                            <div className="flex justify-center gap-6">
+                                <img src="img/uvci.png" alt="UVCI" className="h-10" />
+                                <img src="img/esatic.jpg" alt="ESATIC" className="h-10" />
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-
-
-    )
-}
+    );
+};
 
 export default ContactPage;

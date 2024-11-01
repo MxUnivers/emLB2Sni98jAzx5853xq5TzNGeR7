@@ -4,7 +4,7 @@ import AboutBarner from '../../components/aboutus/AboutBarner';
 
 const AboutusPage = () => {
 return (
-<div className= "mt-[70px] bg-gray-50 min-h-screen text-gray-800">
+<div className="mt-[70px] bg-gray-50 min-h-screen text-gray-800">
     {/* Section de présentation */}
     <header className="bg-indigo-600 text-white py-10">
         <div className="max-w-7xl mx-auto px-6 text-center">
@@ -31,7 +31,7 @@ return (
             <FeatureCard title="Mise en Avant des Talents"
                 description="Affichez vos compétences et projets pour attirer les recruteurs." icon="🌟" />
 
-                <FeatureCard title="Decouverte du monde de l'entreprise"
+            <FeatureCard title="Decouverte du monde de l'entreprise"
                 description="Affichez vos compétences et projets pour attirer les recruteurs." icon="🌟" />
         </div>
     </section>
@@ -39,7 +39,7 @@ return (
     {/* Section Vidéo de Présentation */}
     <section className="bg-gray-200 py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-semibold mb-6">Vidéo de Présentation</h2>
+            <h2 className="text-3xl font-semibold mb-6">Présentation</h2>
             <p className="mb-6">Découvrez les fonctionnalités de Jouman en vidéo.</p>
             <div className="relative pt-[56.25%] overflow-hidden">
                 <iframe className="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -52,11 +52,14 @@ return (
 
     {/* Section Captures d'Écran */}
     <section className="py-16 max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-semibold mb-8 text-center">Captures d{"'"}Écran et Images</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ScreenshotCard title="Accueil et Interface Profil" src="image1.jpg" />
-            <ScreenshotCard title="Page des Formations" src="image2.jpg" />
-            <ScreenshotCard title="Interface de Recherche d'Emploi" src="image3.jpg" />
+        <h2 className="text-3xl font-semibold mb-8 text-center">Solutions Apportées par Jouman</h2>
+        <div className="grid grid-cols-3 gap-6">
+            <ScreenshotCard title="Plateforme d'Accueil et Espace Personnel" src="img/Plateforme_d_Accueil_et_Espace_Personnel.jpg" />
+            <ScreenshotCard title="Catalogue de Formations Professionnelles" src="img/online_education.jpg" />
+            <ScreenshotCard title="Recherche d'Emploi et de Stages" src="img/job search.jpg" />
+            <ScreenshotCard title="Opportunités de Bourses d'Études à l'Étranger" src="img/scholarship_opportunity.jpg" />
+            <ScreenshotCard title="Mise en Relation Directe avec les Recruteurs" src="img/networking_with_recruiter.jpg" />
+            <ScreenshotCard title="Visibilité et Réseau pour Talents Jeunes" src="img/talent_networking.jpg" />
         </div>
     </section>
 
