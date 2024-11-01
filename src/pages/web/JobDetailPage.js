@@ -19,6 +19,7 @@ import { CandidaturePost } from '../../action/api/candidatures/CandidatureAction
 import { toast } from 'react-toastify';
 import { getDataFromFile } from '../../action/storage/DataLocal';
 import RelativeTime from '../../components/dateTime/RelativeTime';
+import JobCard2 from '../../components/job/JobCard2';
 
 const JobDetailPage = () => {
 
@@ -145,7 +146,7 @@ const JobDetailPage = () => {
     return (
         <div className="main-content">
             <div className="page-content">
-                <section className="section mt-24  ">
+                <section className="section mt-14 mb-24  ">
                     <div className="container-fluid px-7">
                         <div className="flex flex-row justify-between">
 
@@ -253,30 +254,32 @@ const JobDetailPage = () => {
                                                                     setWithExpiration(localvalue.recruteurDetailID, jobDetail.idEntreprise,
                                                                         dureeDeVie)
                                                                 }}
-                                                                    className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                                    className="w-full justify-center bg-white border-b-1 rounded-lg py-2 px-3">
                                                                     <div className="flex flex-col justify-center space-y-2">
                                                                         <img src={`${entreprise.logo}`} alt=""
                                                                             className="img-fluid  rounded-3xl h-12 w-12" />
                                                                         <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
+                                                                        <hr/>
                                                                     </div>
                                                                 </Link> :
                                                                 <div className="flex felx-col space-y-3">
-                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
-                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                                    <div className="bg-gray-100 animate-pulse rounded-xl h-16 w-16" />
+                                                                    <div className="bg-gray-100 animate-pulse rounded-xl h-10 w-full" />
                                                                 </div>
                                                             :
                                                             entreprise && entreprise.logo && entreprise.full_name ?
                                                                 <Link to={`/${routing.company_details}`}
-                                                                    className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                                    className="w-full justify-center  bg-gray-50 shadow-lg rounded-lg py-2 px-3">
                                                                     <div className="flex flex-col justify-center space-y-2">
                                                                         <img src={`${entreprise.logo}`} alt=""
                                                                             className="img-fluid  rounded-3xl h-12 w-12" />
                                                                         <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
                                                                     </div>
+                                                                    <hr/>
                                                                 </Link> :
                                                                 <div className="flex felx-col space-y-3">
-                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
-                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                                    <div className="bg-gray-100 animate-pulse rounded-xl h-16 w-16" />
+                                                                    <div className="bg-gray-100 animate-pulse rounded-xl h-10 w-full" />
                                                                 </div>
                                                     }
                                                     <ul className="list-unstyled mt-4 mb-0">
@@ -393,68 +396,7 @@ const JobDetailPage = () => {
                                     {
                                         currentItems.map((item) => {
                                             return (
-                                                <div onClick={() => {
-                                                    setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                }}
-                                                    className="job-box card cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg
-                                border ">
-                                                    <div className="p-4">
-                                                        <div className="row flex justify-between space-x-2">
-                                                            <div className="col-lg-1">
-                                                                <img src={item.coverPicture} alt=""
-                                                                    className="img-fluid h-10 w-10 rounded-xl" />
-                                                            </div>
-                                                            <div className="col-lg-10">
-                                                                <div className="mt-3 mt-lg-0">
-                                                                    <h5 className="fs-17 mb-1"><a href={`/${routing.job_details}`}
-                                                                        onClick={() => {
-                                                                            setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                                        }}
-                                                                        className="text-dark text-lg font-semibold">{item.title}</a>
-                                                                    </h5>
-                                                                    <ul className="list-inline mb-0 flex space-x-2">
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0">{item.company}</p>
-                                                                        </li>
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0"><i
-                                                                                className="mdi mdi-map-marker"></i> {item.addresse}</p>
-                                                                        </li>
-                                                                        <li className="list-inline-item">
-                                                                            <p className="text-muted fs-14 mb-0"><i
-                                                                                className="uil uil-wallet"></i> {item.salaire} / mois
-                                                                            </p>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div className="mt-2">
-                                                                        {
-                                                                            item.typeContrat ?
-                                                                                <span
-                                                                                    className="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span>
-                                                                                :
-                                                                                null
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="favorite-icon">
-                                                            <a href="javascript:void(0)"><i className="uil uil-heart-alt fs-18"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="p-3 bg-light">
-                                                        <div className="flex justify-between items-center">
-                                                            <div className="col-md-3">
-                                                                <div className="text-md-end btn ">
-                                                                    <a href={`/${routing.job_details}`} onClick={() => {
-                                                                        setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
-                                                                    }} className="primary-link">Details
-                                                                        <i className="mdi mdi-chevron-double-right"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <JobCard2 data={item} />
                                             )
                                         })
                                     }
