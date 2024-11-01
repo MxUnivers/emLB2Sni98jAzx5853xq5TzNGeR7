@@ -24,7 +24,7 @@ const ListEmploisWebPage = () => {
     const itemsPerPage = 10;
 
     useEffect(() => {
-        setisLoading(true);
+        setisLoading(false);
         OffreGetByTypeContrat(setcontrats, setcontratsOptions);
         OffreGetAllOffre(setoffres, setoffres2).then(() => {
             setisLoading(false);

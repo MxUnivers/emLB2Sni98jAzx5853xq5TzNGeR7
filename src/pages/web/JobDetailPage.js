@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import OffreGetAll, { OffreGetById } from '../../action/api/offres/OffresAction';
 import { useState } from 'react';
 import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
-import { dureeDeVie, localvalue, typePersonConnected } from '../../utlis/storage/localvalue';
+import { dureeDeVie, localvalue, localvalueStorage, typePersonConnected } from '../../utlis/storage/localvalue';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import JobEditPage from './JobEditPage';
@@ -17,6 +17,7 @@ import { typeContrats } from '../../utlis/options/optionDivers';
 import moment from 'moment/moment';
 import { CandidaturePost } from '../../action/api/candidatures/CandidatureAction';
 import { toast } from 'react-toastify';
+import { getDataFromFile } from '../../action/storage/DataLocal';
 
 
 const JobDetailPage = () => {
@@ -45,6 +46,9 @@ const JobDetailPage = () => {
     const [entreprise, setentreprise] = useState();
 
     useEffect(() => {
+        const offresget = getDataFromFile(localvalueStorage.EMPLOISLIST) || []
+        const offreGet =  [...offresget].find((offre)=>offre._id == jobId) || {}
+        setjobDetail(offreGet);
         OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
     }, []);
 
