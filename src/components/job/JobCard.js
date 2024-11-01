@@ -1,7 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './JobCard.css';
+import { setWithExpiration , getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { routing } from '../../utlis/routing';
+
 
 const JobCard = ({ data }) => {
     const navigate = useNavigate();
@@ -23,7 +26,10 @@ const JobCard = ({ data }) => {
                 <div className="job-details-link">
                     <a
                         href={`/${routing.job_details}`}
-                        onClick={() => navigate(`/${routing.job_details}`, { state: { data } })}
+                        onClick={() => {
+                            setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
+                            navigate(`/${routing.job_details}`, { state: { data } })}
+                        }
                     >
                         Voir Détails
                     </a>

@@ -37,7 +37,6 @@ const JobDetailPage = () => {
     const error = useSelector((state) => state.error);
 
     const location = useLocation();
-    const { job } = location.state;
 
     const [idJobDetail, setidJobDetail] = useState(jobId);
     const [jobDetail, setjobDetail] = useState();
