@@ -86,7 +86,7 @@ return (
                     <div className="col-lg-4">
                         <div className="card border bg-white rounded-lg">
                             <div className="card-body p-4">
-                                <div className="text-center">
+                                <div className="w-full text-center justify-items-center">
                                     {candidat?.coverPicture ? (
                                     <img src={candidat.coverPicture} alt=""
                                         className="avatar-lg rounded-full h-32 w-32" />
@@ -97,30 +97,6 @@ return (
                                     <h6 className="fs-18 mt-4 text-xl font-semibold">{candidat?.firstname}
                                         {candidat?.lastname}</h6>
                                     <p className="text-muted">{candidat?.title_post}</p>
-
-                                    {/*<ul className="inline-flex mb-5 space-x-4">
-                                        {candidat?.facebook_url && (
-                                        <li>
-                                            <a href={candidat.facebook_url} target="_blank" className="social-link">
-                                                <CiFacebook className="h-7 w-7" />
-                                            </a>
-                                        </li>
-                                        )}
-                                        {candidat?.twitter_url && (
-                                        <li>
-                                            <a href={candidat.twitter_url} target="_blank" className="social-link">
-                                                <BsTwitter className="h-7 w-7" />
-                                            </a>
-                                        </li>
-                                        )}
-                                        {candidat?.linkedin_url && (
-                                        <li>
-                                            <a href={candidat.linkedin_url} target="_blank" className="social-link">
-                                                <BsLinkedin className="h-7 w-7" />
-                                            </a>
-                                        </li>
-                                        )}
-                                    </ul> */}
 
                                     {candidat && candidat._id === idCandidat && (
                                     <div>
@@ -142,7 +118,7 @@ return (
                                 {/* About Me Section */}
                                 <div className="mb-4">
                                     <h6 className="text-2xl font-semibold">Description</h6>
-                                    <hr/>
+                                    <hr />
                                     {candidat?.description ? (
                                     <p>{candidat.description}</p>
                                     ) : (
@@ -153,7 +129,7 @@ return (
                                 {/* Education Section */}
                                 <div className="mb-4">
                                     <div className="flex justify-between items-center">
-                                        <h6 className="text-2xl font-semibold">Éducation</h6>
+                                        <h6 className="text-2xl font-semibold">Expérience</h6>
                                         <button onClick={()=> handleShow(0)} className="btn bg-blue-500 text-white
                                             text-xs py-1 px-2">+ Ajouter</button>
                                     </div>
@@ -161,15 +137,14 @@ return (
                                     <p>Chargement...</p>
                                     ) : (
                                     candidatEducation?.map((edu) => (
-                                    <div key={edu._id} className="flex justify-between mt-4">
+                                    <div key={edu._id} className=" card p-3 rounded-lg border flex justify-between mt-4">
                                         <div>
                                             <h6>{edu.title}</h6>
+                                            <hr class="w-full"/>
                                             <p>{edu.entreprise}</p>
                                             <p>{edu.description}</p>
                                         </div>
                                         <div className="flex space-x-2">
-                                            <button onClick={()=> handleShow(0)} className="text-blue-500">
-                                                <BiEdit /></button>
                                             <button onClick={()=> handleDeleteEducation(edu._id)}
                                                 className="text-red-500">
                                                 <BiTrash /></button>
@@ -178,61 +153,7 @@ return (
                                     )))}
                                 </div>
 
-                                {/* Experience Section */}
-                                <div className="mb-4">
-                                    <div className="flex justify-between items-center">
-                                        <h6 className="text-2xl font-semibold">Expériences</h6>
-                                        <button onClick={()=> handleShow(1)} className="btn bg-blue-500 text-white text-xs py-1 px-2">+ Ajouter</button>
-                                    </div>
-                                    {isLoadingExperience ? (
-                                    <p>Chargement...</p>
-                                    ) : (
-                                    candidatExperience?.map((exp) => (
-                                    <div key={exp._id} className="flex justify-between mt-4">
-                                        <div>
-                                            <h6>{exp.title}</h6>
-                                            <p>{exp.entreprise}</p>
-                                            <p>{exp.description}</p>
-                                        </div>
-                                        <div className="flex space-x-2">
-                                            <button onClick={()=> handleShow(1)} className="text-blue-500">
-                                                <BiEdit /></button>
-                                            <button onClick={()=> handleDeleteExperience(exp._id)}
-                                                className="text-red-500">
-                                                <BiTrash /></button>
-                                        </div>
-                                    </div>
-                                    ))
-                                    )}
-                                </div>
-
-                                {/* Projects Section */}
-                                <div className="mb-4">
-                                    <div className="flex justify-between items-center">
-                                        <h6 className="text-2xl font-semibold">Projets</h6>
-                                        <button onClick={()=> handleShow(2)} className="btn bg-blue-500 text-white
-                                            text-xs py-1 px-2">+ Ajouter</button>
-                                    </div>
-                                    {isLoadingProject ? (
-                                    <p>Chargement...</p>
-                                    ) : (
-                                    candidatProject?.map((proj) => (
-                                    <div key={proj._id} className="flex justify-between mt-4">
-                                        <div>
-                                            <h6>{proj.title}</h6>
-                                            <p>{proj.description}</p>
-                                        </div>
-                                        <div className="flex space-x-2">
-                                            <button onClick={()=> handleShow(2)} className="text-blue-500">
-                                                <BiEdit /></button>
-                                            <button onClick={()=> handleDeleteProject(proj._id)}
-                                                className="text-red-500">
-                                                <BiTrash /></button>
-                                        </div>
-                                    </div>
-                                    ))
-                                    )}
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -246,6 +167,7 @@ return (
             {step === 0 && (
             <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-lg font-bold mb-4">Ajouter une Éducation</h2>
+                <hr />
                 <form onSubmit={handleSubmitEducation}>
                     <input type="text" placeholder="Titre" value={title_education} onChange={(e)=>
                     setTitleEducation(e.target.value)} className="w-full border rounded mb-4 px-3 py-2" />
