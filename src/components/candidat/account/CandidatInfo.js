@@ -1,204 +1,105 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useFetchCandidat, { CandidatEditGenerale } from '../../../action/api/candidat/CandidatAction';
 import { localvalue } from '../../../utlis/storage/localvalue';
 import { getAndCheckLocalStorage } from '../../../utlis/storage/localvalueFunction';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { optionPays } from '../../../utlis/options/optionDivers';
 import { toast } from 'react-toastify';
 
 const CandidatInfo = () => {
-
-    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
-
+    const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     const { isLoading, error, candidat } = useFetchCandidat(idCandidat);
-
-
-    const [username, setusername] = useState();
-    const [firstname, setfirstname] = useState();
-    const [lastname, setlastname] = useState();
-    const [email, setemail] = useState();
-    const [telephone, settelephone] = useState();
-    const [title_post, settitle_post] = useState();
-    const [dateNaissance, setdateNaissance] = useState();
-    const [adresse, setadresse] = useState();
-    const [pays, setpays] = useState();
-
-    useEffect(() => {
-
-        if (candidat && candidat.username) {
-            setusername(candidat.username)
-        }
-        if (candidat && candidat.firstname) {
-            setfirstname(candidat.firstname)
-        }
-        if (candidat && candidat.lastname) {
-            setlastname(candidat.lastname)
-        }
-        if (candidat && candidat.email) {
-            setemail(candidat.email)
-        }
-        if (candidat && candidat.telephone) {
-            settelephone(candidat.telephone)
-        }
-        if (candidat && candidat.title_post) {
-            settitle_post(candidat.title_post)
-        }
-        if (candidat && candidat.dateNaissance) {
-            setdateNaissance(candidat.dateNaissance)
-        }
-        if (candidat && candidat.adresse) {
-            setadresse(candidat.adresse)
-        }
-        if (candidat && candidat.pays) {
-            setpays(candidat.pays)
-        }
-    }, [candidat])
-
-
-
-
-    // state de redux
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.reducer.loading);
-    const err = useSelector((state) => state.reducer.error);
 
-    const handleSumit = (event) => {
+    const [username, setUsername] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [titlePost, setTitlePost] = useState('');
+    const [dateNaissance, setDateNaissance] = useState('');
+    const [adresse, setAdresse] = useState('');
+    const [pays, setPays] = useState('');
+
+    useEffect(() => {
+        if (candidat) {
+            setUsername(candidat.username || '');
+            setFirstname(candidat.firstname || '');
+            setLastname(candidat.lastname || '');
+            setEmail(candidat.email || '');
+            setTelephone(candidat.telephone || '');
+            setTitlePost(candidat.title_post || '');
+            setDateNaissance(candidat.dateNaissance || '');
+            setAdresse(candidat.adresse || '');
+            setPays(candidat.pays || '');
+        }
+    }, [candidat]);
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(CandidatEditGenerale(idCandidat,
-            username, firstname, lastname, dateNaissance, email,
-            title_post, telephone, adresse, pays, toast));
-    }
+        dispatch(
+            CandidatEditGenerale(idCandidat, username, firstname, lastname, dateNaissance, email, titlePost, telephone, adresse, pays, toast)
+        );
+    };
 
     return (
-        <div class="NM7Z1HBVjN_86WhEcXan">
-            <div
-                class="_Ybd3WwuTVljUT4vEaM3 mngKhi_Rv06PF57lblDI mveJTCIb2WII7J4sY22F _wYiJGbRZyFZeCc8y7Sf _YxZw_O8dWkTljptcO7z SWDELhWFjL8JxEtm91_o _1jTZ8KXRZul60S6czNi hD0sTTDgbxakubcHVW2X">
-                <h3 class=" text-xl font-semibold hD0sTTDgbxakubcHVW2X vyo_A8gnQD1QWDPglr3h IOPhczRgtphv6NdNBDjj OyABRrnTV_kvHV7dJ0uE">
-                    Information génerale
-                </h3>
-                <form onSubmit={handleSumit}>
-                    <div class="xCPtuxM4_gihvpPwv9bX xcwgeeZbzBfzbYbc32HH Bcw8VuwRWYxPGjWjS6Ig">
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="first-name"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Nom d{"'"}utilisateur</label>
-                            <input value={username} onChange={(e) => { setusername(e.target.value) }} type="text" name="first-name" id="first-name"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Bonnie" required="" />
-                        </div>
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="first-name"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Nom</label>
-                            <input value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" name="first-name" id="first-name"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Bonnie" required="" />
-                        </div>
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="last-name"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Prénoms</label>
-                            <input value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" name="last-name" id="last-name"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Green" required="" />
-                        </div>
-
-
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="address"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Telephone
-                            </label>
-                            <input value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" name="address" id="address"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="e.g. California" required="" />
-                        </div>
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="email"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Email
-                            </label>
-                            <input value={email} onChange={(e) => { setemail(e.target.value) }} type="email" name="email" id="email"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="example@company.com" required="" />
-                        </div>
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="phone-number"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Naissance
-                            </label>
-                            <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} type="date" name="phone-number" id="phone-number"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="e.g. +(12)3456 789" required="" />
-                        </div>
-
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="organization"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Titre du poste
-                            </label>
-                            <input value={title_post} onChange={(e) => { settitle_post(e.target.value) }} type="text" name="organization" id="organization"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="Company Name" required="" />
-                        </div>
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="country"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Addresse</label>
-                            <input value={adresse} onChange={(e) => { setadresse(e.target.value) }} type="text" name="country" id="country"
-                                class="fzhbbDQ686T8arwvi_bJ jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5"
-                                placeholder="United States" required="" />
-                        </div>
-
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-                            <label for="country"
-                                class="_Vb9igHms0hI1PQcvp_S TR_P65x9ie7j6uxFo_Cs c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">
-                                Addresse</label>
-                            <select onChange={(e) => { setpays(e.target.value) }} id="settings-timezone" name="countries"
-                                class="jtAJHOc7mn7b4IKRO59D vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5">
-                                <option>-- Choix --</option>
-                                {
-                                    isLoading ? (<div class="animate-pulse w-36 h-8 rounded-sm" />)
-                                        : error ? (<div>...</div>) :
-                                            candidat ?
-                                                optionPays.map((item) => {
-                                                    return (
-                                                        <option selected={item.value == candidat.pays ? true : false} value={item.value} >{item.label}</option>
-                                                    )
-                                                })
-                                                : null
-                                }
-                            </select>
-                        </div>
-
-                        <div class="_P4crYcwEj3d10LO5o8N DlUdveMmz1SkMYd217vD">
-
-                            <div class="_P4crYcwEj3d10LO5o8N sm:col-full">
-                                {
-                                    loading ?
-                                        <p class="animate-pulse">en cours ...</p>
-                                        :
-                                        <button
-                                            class="py-1 bg-blue-700 y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T ezMFUVl744lvw6ht0lFe mveJTCIb2WII7J4sY22F c8dCx6gnV43hTOLV6ks5 ZjWEEmDsdPvU2GdH53LK cexDVMRjens2nRrMcG96 ijrOHNoSVGATsWYKl4Id d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM"
-                                            type="submit">Mise a jour
-                                        </button>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-
-
-
-
-            {/*Password */}
-            
+        <div className="w-full bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-6">Informations du compte</h3>
+            <form onSubmit={handleSubmit} className="w-full space-y-5">
+                <TextInput label="Nom d'utilisateur" value={username} onChange={setUsername} placeholder="Nom d'utilisateur" />
+                <TextInput label="Nom" value={firstname} onChange={setFirstname} placeholder="Nom" />
+                <TextInput label="Prénoms" value={lastname} onChange={setLastname} placeholder="Prénoms" />
+                <TextInput label="Téléphone" value={telephone} onChange={setTelephone} type="tel" placeholder="Numéro de téléphone" />
+                <TextInput label="Email" value={email} onChange={setEmail} type="email" placeholder="Email" />
+                <TextInput label="Date de Naissance" value={dateNaissance} onChange={setDateNaissance} type="date" placeholder="Date de naissance" />
+                <TextInput label="Titre du Poste" value={titlePost} onChange={setTitlePost} placeholder="Titre du poste" />
+                <TextInput label="Adresse" value={adresse} onChange={setAdresse} placeholder="Adresse" />
+                <SelectInput label="Pays" value={pays} onChange={setPays} options={optionPays} />
+                
+                <div className="mt-6 text-right">
+                    {loading ? (
+                        <p className="text-gray-500 animate-pulse">En cours...</p>
+                    ) : (
+                        <button type="submit" className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                            Mettre à jour
+                        </button>
+                    )}
+                </div>
+            </form>
         </div>
-    )
-}
+    );
+};
+
+const TextInput = ({ label, value, onChange, type = 'text', placeholder }) => (
+    <div className="flex flex-col">
+        <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
+        <input
+            type={type}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder={placeholder}
+        />
+    </div>
+);
+
+const SelectInput = ({ label, value, onChange, options }) => (
+    <div className="flex flex-col">
+        <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>
+        <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+            <option value="">-- Choix --</option>
+            {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                    {option.label}
+                </option>
+            ))}
+        </select>
+    </div>
+);
 
 export default CandidatInfo;
