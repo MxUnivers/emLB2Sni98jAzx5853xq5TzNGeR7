@@ -336,7 +336,7 @@ const JobDetailPage = () => {
                                                                             className="uil uil-building icon bg-primary-subtle text-primary"></i>
                                                                         <div className="ms-3">
                                                                             <h6 className="fs-14 mb-2"></h6>
-                                                                            <div className={`text-muted mb-0 bg-green-500 rounded-xl
+                                                                            <div className={`text-muted mb-0 px-3 bg-green-500 rounded-xl
                                                                 text-center py-2 text-white`}>{jobDetail.typeContrat}
                                                                             </div>
                                                                         </div>
@@ -371,7 +371,7 @@ const JobDetailPage = () => {
                                                             getAndCheckLocalStorage(localvalue.TYPEACCESS) !== typePersonConnected[0]
                                                                 ?
                                                                 <button onClick={handleShow}
-                                                                    className="btn btn-hover w-full mt-2 bg-indigo-500 hover:bg-indigo-50 active:bg-indigo-600"><i
+                                                                    className="btn btn-hover px-5 mt-2 text-white bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700"><i
                                                                         className="uil uil-bookmark"></i> Postuler</button>
                                                                 : null
                                                         }
