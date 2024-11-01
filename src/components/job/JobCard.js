@@ -12,19 +12,19 @@ const JobCard = ({ data }) => {
     return (
         <div className="job-card">
             <div className="job-image-wrapper">
-                <img src={data.coverPicture} alt={data.title} className="job-image" />
+                <img src={data.coverPicture} alt={data.title} className="job-image object-cover" />
             </div>
             <div className="job-content">
-                <h5 className="job-title">{data.title}</h5>
-                <p className="job-company">{data.company}</p>
+                <h5 className="job-title text-gray-700">{data.title}</h5>
+                <p className="job-company text-gray-600">{data.company}</p>
                 {data.addresse && (
                     <p className="job-address">
-                        <i className="mdi mdi-map-marker"></i> {data.addresse}
+                        <i className="mdi mdi-map-marker text-gray-700"></i> {data.addresse}
                     </p>
                 )}
                 <p className="job-contract">{data.typeContrat}</p>
                 <div className="job-details-link">
-                    <a
+                    <a className="text-gray-700"
                         href={`/${routing.job_details}`}
                         onClick={() => {
                             setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
