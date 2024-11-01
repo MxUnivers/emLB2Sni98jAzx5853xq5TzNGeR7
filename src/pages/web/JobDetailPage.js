@@ -18,7 +18,7 @@ import moment from 'moment/moment';
 import { CandidaturePost } from '../../action/api/candidatures/CandidatureAction';
 import { toast } from 'react-toastify';
 import { getDataFromFile } from '../../action/storage/DataLocal';
-
+import RelativeTime from '../../components/dateTime/RelativeTime';
 
 const JobDetailPage = () => {
 
@@ -47,7 +47,7 @@ const JobDetailPage = () => {
 
     useEffect(() => {
         const offresget = getDataFromFile(localvalueStorage.EMPLOISLIST) || []
-        const offreGet =  [...offresget].find((offre)=>offre._id == jobId) || {}
+        const offreGet = [...offresget].find((offre) => offre._id == jobId) || {}
         setjobDetail(offreGet);
         OffreGetById(jobId, setjobDetail, setisLoading, setentreprise);
     }, []);
@@ -67,7 +67,12 @@ const JobDetailPage = () => {
     const [cv, setcv] = useState();
 
     const handleShow = () => {
-        setmodalApply(true);
+        if(getAndCheckLocalStorage(localvalue.TYPEACCESS) !==typePersonConnected[1]){
+            toast.error("Veillez vous connecté s'il vous plais",{position:"bottom-right"})
+        }else{
+            setmodalApply(true);
+        }
+       
     }
     const handleClose = () => {
         setmodalApply(false);
@@ -140,256 +145,259 @@ const JobDetailPage = () => {
     return (
         <div className="main-content">
             <div className="page-content">
-                <section className="section mt-24">
+                <section className="section mt-24  ">
                     <div className="container-fluid px-7">
                         <div className="flex flex-row justify-between">
-                            <div className=" row-auto">
-                                <div className="col-lg-8 card job-detail overflow-hidden">
-                                    <div>
-                                        <div className="job-details-compnay-profile">
-                                            {
-                                                jobDetail && jobDetail.coverPicture ?
-                                                    <img src={`${jobDetail.coverPicture}`} alt=""
-                                                        className="img-fluid h-24 w-24 rounded-xl rounded-3" /> :
-                                                    <div className="h-24 w-24 rounded-full animate-pulse bg-gray-300" />
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="card-body p-4">
+
+                            <div className="max-w-screen">
+                                <main className="mt-16 flex flex-col lg:flex-row gap-10">
+
+                                    <div className="w-full lg:w-2/3 card job-detail overflow-hidden">
                                         <div>
-                                            <div className="row">
-                                                <div className="col-md-4">
-                                                    {
-                                                        jobDetail && jobDetail.title ?
-                                                            <h5 className="mb-1 text-3xl">{jobDetail.title}</h5>
-                                                            :
-                                                            <div className="h-7 w-full bg-gray-300 animate-pulse rounded-lg" />
-                                                    }
-                                                    <ul className="list-inline text-muted mb-0">
-                                                        {
-                                                            jobDetail && jobDetail.candidats ?
-                                                                <li className="list-inline-item">
-                                                                    <i className="mdi mdi-account"></i> {jobDetail.candidats.length} Candidats
-                                                                </li> :
-                                                                <div className="h-7 w-full bg-gray-200 animate-pulse rounded-lg" />
-                                                        }
-                                                        {/*<li className="list-inline-item text-warning review-rating">
-                                                            <span className="badge bg-warning">4.8</span> <i
-                                                                className="mdi mdi-star align-middle"></i><i
-                                                                    className="mdi mdi-star align-middle"></i><i
-                                                                        className="mdi mdi-star align-middle"></i><i
-                                                                            className="mdi mdi-star align-middle"></i><i
-                                                                                className="mdi mdi-star-half-full align-middle"></i>
-                                                        </li> */}
-                                                    </ul>
-                                                </div>
-                                                <div className="col-lg-4">
-                                                    <ul className="list-inline mb-0 text-lg-end mt-3 mt-lg-0">
-                                                        <li className="list-inline-item">
-                                                            <div className="favorite-icon">
-                                                                <a href="javascript:void(0)"><i
-                                                                    className="uil uil-heart-alt"></i></a>
-                                                            </div>
-                                                        </li>
-                                                        <li className="list-inline-item">
-                                                            <div className="favorite-icon">
-                                                                <a href="javascript:void(0)"><i
-                                                                    className="uil uil-setting"></i></a>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                            <div className="job-details-compnay-profile">
+                                                {
+                                                    jobDetail && jobDetail.coverPicture ?
+                                                        <img src={`${jobDetail.coverPicture}`} alt=""
+                                                            className="img-fluid h-24 w-24 rounded-xl rounded-3" /> :
+                                                        <div className="h-24 w-24 rounded-full animate-pulse bg-gray-300" />
+                                                }
                                             </div>
                                         </div>
-                                        <div className="mt-4">
-                                            <h5 className="mb-3 text-2xl">Description sur le job </h5>
-                                            {
-                                                jobDetail && jobDetail.description ?
-                                                    <div className="job-detail-desc">
-                                                        <p className="text-muted mb-0">
-                                                            {jobDetail.description}
-                                                        </p>
-                                                    </div> :
-                                                    <div className="w-full h-36 bg-gray-300 animate-pulse rounded-xl" />
-                                            }
-                                        </div>
-                                        <div className="mt-4 pt-3">
-                                            <ul className="list-inline mb-0  flex flex-wrap space-x-2">
-                                                <li className="list-inline-item mt-1">
-                                                </li>
-                                                {
-                                                    entreprise && entreprise.facebook_url && entreprise.facebook_url !== "#" ?
-                                                        <li className="list-inline-item mt-1">
-                                                            <a href={`${entreprise.facebook_url}`} target="_blank" className="btn py-1 px-2 btn-primary bg-blue-700 text-white btn-hover"><i
-                                                                className="uil uil-facebook-f"></i> Facebook</a>
-                                                        </li> :
-                                                        null
-                                                }
-                                                {
-                                                    entreprise && entreprise.site_web && entreprise.site_web !== "#" ?
-                                                        <li className="list-inline-item mt-1">
-                                                            <a href={`${entreprise.site_web}`} target="_blank" className="btn py-1 px-2 btn-danger bg-red-400 text-white btn-hover"><i
-                                                                className="uil uil-google"></i>site web + </a>
-                                                        </li> :
-                                                        null
-                                                }
-                                                {
-                                                    entreprise && entreprise.linkedin_url && entreprise.linkedin_url !== "#" ?
-                                                        <li className="list-inline-item mt-1">
-                                                            <a href={`${entreprise.linkedin_url}`} target="_blank" className="btn py-1 px-2 btn-success bg-white text-blue-700 btn-hover"><i
-                                                                className="uil uil-linkedin-alt"></i>Linkedine </a>
-                                                        </li> :
-                                                        null
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="col-lg-4 mt-4 mt-lg-0">
-                                <div className="side-bar ms-lg-4">
-                                    <div className="card border rounded-lg  shadow-sm job-overview">
-                                        <div className="card-body p-4 flex flex-col justify-center ">
-                                            {
-                                                recurteur == JobDetailPage.idEntreprise ?
-                                                    entreprise && entreprise.logo && entreprise.full_name ?
-                                                        <Link to={`/${routing.company_details_view}`}
-                                                            onClick={() => {
-                                                                setWithExpiration(localvalue.recruteurDetailID, jobDetail.idEntreprise, dureeDeVie)
-                                                            }}
-                                                            className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
-                                                            <div className="flex flex-col justify-center space-y-2">
-                                                                <img src={`${entreprise.logo}`} alt=""
-                                                                    className="img-fluid  rounded-3xl h-12 w-12" />
-                                                                <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
-                                                            </div>
-                                                        </Link> :
-                                                        <div className="flex felx-col space-y-3" >
-                                                            <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
-                                                            <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
-                                                        </div>
-                                                    :
-                                                    entreprise && entreprise.logo && entreprise.full_name ?
-                                                        <Link to={`/${routing.company_details}`} className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
-                                                            <div className="flex flex-col justify-center space-y-2">
-                                                                <img src={`${entreprise.logo}`} alt=""
-                                                                    className="img-fluid  rounded-3xl h-12 w-12" />
-                                                                <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
-                                                            </div>
-                                                        </Link> :
-                                                        <div className="flex felx-col space-y-3" >
-                                                            <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
-                                                            <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
-                                                        </div>
-                                            }
-                                            <ul className="list-unstyled mt-4 mb-0">
-                                                <li>
-                                                    <div className="d-flex mt-4">
-                                                        <i className="uil uil-user icon bg-primary-subtle text-primary"></i>
-                                                        <div className="ms-3 flex ">
-                                                            <h6 className="fs-14 mb-2"></h6>
+                                        <div className="card-body p-4">
+                                            <div className="w-full ">
+
+                                                <div>
+                                                    <div className="row">
+                                                        <div className="col-md-4">
                                                             {
                                                                 jobDetail && jobDetail.title ?
-                                                                    <p className="text-muted mb-0 text-xl ">{jobDetail.title}</p> :
-                                                                    <div className="w-full h-6 rounded-xl bg-gray-200 animate-pulse " />
+                                                                    <h5 className="mb-1 text-3xl">{jobDetail.title}</h5>
+                                                                    :
+                                                                    <div className="h-7 w-full bg-gray-300 animate-pulse rounded-lg" />
                                                             }
+                                                            <ul className="list-inline text-muted mb-0">
+                                                                {
+                                                                    jobDetail && jobDetail.candidats ?
+                                                                        <li className="list-inline-item">
+                                                                            <i className="mdi mdi-account"></i>
+                                                                            {jobDetail.candidats.length}
+                                                                            Candidats
+                                                                        </li> :
+                                                                        <div
+                                                                            className="h-7 w-full bg-gray-200 animate-pulse rounded-lg" />
+                                                                }
+                                                            </ul>
                                                         </div>
+
                                                     </div>
-                                                </li>
-                                                {
-                                                    jobDetail && jobDetail.addresse ?
-                                                        <li>
-                                                            <div className="d-flex mt-4">
-                                                                <i
-                                                                    className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
-                                                                <div className="ms-3 flex space-x-2">
-                                                                    <h6 className="fs-14 mb-2">Lieu :  </h6>
-                                                                    <p className="text-muted mb-0">{jobDetail.addresse} </p>
-                                                                </div>
-                                                            </div>
-                                                        </li> :
-                                                        <li>
-                                                            <div className="bg-gray-200 rounded-xl animate-pulse w-full h-7" />
-                                                        </li>
-                                                }
-                                                {
-                                                    jobDetail && jobDetail.salaire ?
-                                                        <li>
-                                                            <div className="d-flex mt-4">
-                                                                <i
-                                                                    className="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
-                                                                <div className="ms-3 flex space-x-2">
-                                                                    <h6 className="fs-14 mb-2">Salaire / mois (Fcfa) : </h6>
-                                                                    <p className="text-muted mb-0">{jobDetail.salaire}</p>
-                                                                </div>
-                                                            </div>
-                                                        </li> :
-                                                        <li><div className="bg-gray-200 rounded-xl animate-pulse w-full h-7" /></li>
-                                                }
-                                                {
-                                                    jobDetail && jobDetail.typeContrat ?
-                                                        <li>
-                                                            <div className="d-flex mt-4 flex space-x-2">
-                                                                <i
-                                                                    className="uil uil-building icon bg-primary-subtle text-primary"></i>
-                                                                <div className="ms-3">
-                                                                    <h6 className="fs-14 mb-2"></h6>
-                                                                    <div className={`text-muted mb-0 bg-green-500 rounded-xl text-center py-2 text-white`}>{jobDetail.typeContrat}</div>
-                                                                </div>
-                                                            </div>
-                                                        </li> :
-                                                        <li>
-                                                            <div className="bg-gray-200 animate-pulse w-full h-7 rounded-xl" />
-                                                        </li>
-                                                }
-                                                {
-                                                    jobDetail && jobDetail.createdAt ?
-                                                        <li>
-                                                            <div className="d-flex mt-4">
-                                                                <i
-                                                                    className="uil uil-history icon bg-primary-subtle text-primary"></i>
-                                                                <div className="ms-3 flex space-x-2">
-                                                                    <h6 className="fs-14 mb-2">Date Posté</h6>
-                                                                    <p className="text-muted mb-0">{moment(jobDetail.createdAt).format("DD/MM/YYYY à HH:MM")}</p>
-                                                                </div>
-                                                            </div>
-                                                        </li> :
-                                                        <li>
-                                                            <div className="h-7 rounded-lg w-full bg-gray-200 animate-pulse" />
-                                                        </li>
-                                                }
-                                            </ul>
-                                            <div className="mt-3 flex space-x-2 ">
-                                                {
-                                                    getAndCheckLocalStorage(localvalue.TYPEACCESS) !==typePersonConnected[0] ?
-                                                    <button onClick={handleShow}
-                                                    className="btn btn-hover w-full mt-2 bg-gray-100 hover:bg-gray-50 active:bg-gray-200"><i
-                                                        className="uil uil-bookmark"></i> Postuler</button>
-                                                        : null
-                                                }
+                                                </div>
+                                                <div className="mt-4">
+                                                    <h5 className="mb-3 text-xl">Description </h5>
+                                                    <hr />
+                                                    {
+                                                        jobDetail && jobDetail.description ?
+                                                            <div className="job-detail-desc p">
+                                                                <p className="text-muted mb-0">
+                                                                    {jobDetail.description}
+                                                                </p>
+                                                            </div> :
+                                                            <div className="w-full h-36 bg-gray-300 animate-pulse rounded-xl" />
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div className="mt-4 pt-3">
+                                                <ul className="list-inline mb-0  flex flex-wrap space-x-2">
+                                                    <li className="list-inline-item mt-1">
+                                                    </li>
+                                                    {
+                                                        entreprise && entreprise.facebook_url && entreprise.facebook_url !== "#" ?
+                                                            <li className="list-inline-item mt-1">
+                                                                <a href={`${entreprise.facebook_url}`} target="_blank"
+                                                                    className="btn py-1 px-2 btn-primary bg-blue-700 text-white btn-hover"><i
+                                                                        className="uil uil-facebook-f"></i> Facebook</a>
+                                                            </li> :
+                                                            null
+                                                    }
+                                                    {
+                                                        entreprise && entreprise.site_web && entreprise.site_web !== "#" ?
+                                                            <li className="list-inline-item mt-1">
+                                                                <a href={`${entreprise.site_web}`} target="_blank"
+                                                                    className="btn py-1 px-2 btn-danger bg-red-400 text-white btn-hover"><i
+                                                                        className="uil uil-google"></i>site web + </a>
+                                                            </li> :
+                                                            null
+                                                    }
+                                                    {
+                                                        entreprise && entreprise.linkedin_url && entreprise.linkedin_url !== "#" ?
+                                                            <li className="list-inline-item mt-1">
+                                                                <a href={`${entreprise.linkedin_url}`} target="_blank"
+                                                                    className="btn py-1 px-2 btn-success bg-white text-blue-700 btn-hover"><i
+                                                                        className="uil uil-linkedin-alt"></i>Linkedine </a>
+                                                            </li> :
+                                                            null
+                                                    }
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="card company-profile mt-4">
-                                        <div className="card-body p-4">
-                                            <ul className="list-unstyled mt-4 w-full">
-                                            </ul>
+
+                                    <div className="lg:w-1/3 col-lg-4 mt-4 mt-lg-0">
+                                        <div className="side-bar ms-lg-4">
+                                            <div className="card border rounded-lg  shadow-sm job-overview">
+                                                <div className="card-body p-4 flex flex-col justify-center ">
+                                                    {
+                                                        recurteur == JobDetailPage.idEntreprise ?
+                                                            entreprise && entreprise.logo && entreprise.full_name ?
+                                                                <Link to={`/${routing.company_details_view}`} onClick={() => {
+                                                                    setWithExpiration(localvalue.recruteurDetailID, jobDetail.idEntreprise,
+                                                                        dureeDeVie)
+                                                                }}
+                                                                    className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                                    <div className="flex flex-col justify-center space-y-2">
+                                                                        <img src={`${entreprise.logo}`} alt=""
+                                                                            className="img-fluid  rounded-3xl h-12 w-12" />
+                                                                        <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
+                                                                    </div>
+                                                                </Link> :
+                                                                <div className="flex felx-col space-y-3">
+                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
+                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                                </div>
+                                                            :
+                                                            entreprise && entreprise.logo && entreprise.full_name ?
+                                                                <Link to={`/${routing.company_details}`}
+                                                                    className="w-full justify-center bg-gray-50 shadow-lg rounded-lg py-2 px-3">
+                                                                    <div className="flex flex-col justify-center space-y-2">
+                                                                        <img src={`${entreprise.logo}`} alt=""
+                                                                            className="img-fluid  rounded-3xl h-12 w-12" />
+                                                                        <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
+                                                                    </div>
+                                                                </Link> :
+                                                                <div className="flex felx-col space-y-3">
+                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-16 w-16" />
+                                                                    <div className="bg-gray-200 animate-pulse rounded-xl h-10 w-full" />
+                                                                </div>
+                                                    }
+                                                    <ul className="list-unstyled mt-4 mb-0">
+                                                        <li>
+                                                            <div className="d-flex mt-4">
+                                                                <i
+                                                                    className="uil uil-user icon bg-primary-subtle text-primary"></i>
+                                                                <div className="ms-3 flex ">
+                                                                    <h6 className="fs-14 mb-2"></h6>
+                                                                    {
+                                                                        jobDetail && jobDetail.title ?
+                                                                            <p className="text-muted mb-0 text-xl ">{jobDetail.title}
+                                                                            </p> :
+                                                                            <div
+                                                                                className="w-full h-6 rounded-xl bg-gray-200 animate-pulse " />
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        {
+                                                            jobDetail && jobDetail.addresse ?
+                                                                <li>
+                                                                    <div className="d-flex mt-4">
+                                                                        <i
+                                                                            className="uil uil-location-point icon bg-primary-subtle text-primary"></i>
+                                                                        <div className="ms-3 flex space-x-2">
+                                                                            <h6 className="fs-14 mb-2">Lieu : </h6>
+                                                                            <p className="text-muted mb-0">{jobDetail.addresse} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li> :
+                                                                <li>
+                                                                    <div className="bg-gray-200 rounded-xl animate-pulse w-full h-7" />
+                                                                </li>
+                                                        }
+                                                        {
+                                                            jobDetail && jobDetail.salaire ?
+                                                                <li>
+                                                                    <div className="d-flex mt-4">
+                                                                        <i
+                                                                            className="uil uil-usd-circle icon bg-primary-subtle text-primary"></i>
+                                                                        <div className="ms-3 flex space-x-2">
+                                                                            <h6 className="fs-14 mb-2">Salaire / mois (Fcfa) : </h6>
+                                                                            <p className="text-muted mb-0">{jobDetail.salaire}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li> :
+                                                                <li>
+                                                                    <div className="bg-gray-200 rounded-xl animate-pulse w-full h-7" />
+                                                                </li>
+                                                        }
+                                                        {
+                                                            jobDetail && jobDetail.typeContrat ?
+                                                                <li>
+                                                                    <div className="d-flex mt-4 flex space-x-2">
+                                                                        <i
+                                                                            className="uil uil-building icon bg-primary-subtle text-primary"></i>
+                                                                        <div className="ms-3">
+                                                                            <h6 className="fs-14 mb-2"></h6>
+                                                                            <div className={`text-muted mb-0 bg-green-500 rounded-xl
+                                                                text-center py-2 text-white`}>{jobDetail.typeContrat}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li> :
+                                                                <li>
+                                                                    <div className="bg-gray-200 animate-pulse w-full h-7 rounded-xl" />
+                                                                </li>
+                                                        }
+                                                        {
+                                                            jobDetail && jobDetail.createdAt ?
+                                                                <li>
+                                                                    <div className="d-flex mt-4">
+                                                                        <i
+                                                                            className="uil uil-history icon bg-primary-subtle text-primary"></i>
+                                                                        <div className="ms-3 flex space-x-2">
+                                                                            <h6 className="fs-14 mb-2">Date Posté</h6>
+                                                                            <p className="text-muted mb-0">
+                                                                                <RelativeTime date={jobDetail.createdAt} />
+
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li> :
+                                                                <li>
+                                                                    <div className="h-7 rounded-lg w-full bg-gray-200 animate-pulse" />
+                                                                </li>
+                                                        }
+                                                    </ul>
+                                                    <div className="mt-3 flex space-x-2 ">
+                                                        {
+                                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) !== typePersonConnected[0]
+                                                                ?
+                                                                <button onClick={handleShow}
+                                                                    className="btn btn-hover w-full mt-2 bg-indigo-500 hover:bg-indigo-50 active:bg-indigo-600"><i
+                                                                        className="uil uil-bookmark"></i> Postuler</button>
+                                                                : null
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="card company-profile mt-4">
+                                                <div className="card-body p-4">
+                                                    <ul className="list-unstyled mt-4 w-full">
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-
+                                </main>
 
                                 <div className="col-lg-12 mt-4">
-                                    <h5 className="text-2xl ">Autres Jobs </h5>
+                                    <h5 className="text-2xl ">Offres interessantes </h5>
                                     {
                                         currentItems.map((item) => {
                                             return (
                                                 <div onClick={() => {
                                                     setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
                                                 }}
-                                                    className="job-box card  cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg border ">
+                                                    className="job-box card cursor-pointer mt-4 flex flex-wrap justify-between rounded-lg
+                                border ">
                                                     <div className="p-4">
                                                         <div className="row flex justify-between space-x-2">
                                                             <div className="col-lg-1">
@@ -402,7 +410,8 @@ const JobDetailPage = () => {
                                                                         onClick={() => {
                                                                             setWithExpiration(localvalue.JobID, item._id, dureeDeVie)
                                                                         }}
-                                                                        className="text-dark text-lg font-semibold">{item.title}</a></h5>
+                                                                        className="text-dark text-lg font-semibold">{item.title}</a>
+                                                                    </h5>
                                                                     <ul className="list-inline mb-0 flex space-x-2">
                                                                         <li className="list-inline-item">
                                                                             <p className="text-muted fs-14 mb-0">{item.company}</p>
@@ -420,7 +429,9 @@ const JobDetailPage = () => {
                                                                     <div className="mt-2">
                                                                         {
                                                                             item.typeContrat ?
-                                                                                <span className="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span> :
+                                                                                <span
+                                                                                    className="badge bg-success-subtle bg-green-600 py-1 px-2 rounded-lg text-white mt-1">{item.typeContrat}</span>
+                                                                                :
                                                                                 null
                                                                         }
                                                                     </div>
@@ -449,10 +460,9 @@ const JobDetailPage = () => {
                                     }
                                     <div className="flex justify-center mt-4">
                                         {Array.from({ length: pageCount }, (_, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => handlePageClick(index)}
-                                                className={`mx-1 px-3 py-1 ${index === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} rounded-md`}
+                                            <button key={index} onClick={() => handlePageClick(index)}
+                                                className={`mx-1 px-3 py-1 ${index === currentPage ? 'bg-blue-500 text-white' :
+                                                    'bg-gray-200 text-black'} rounded-md`}
                                             >
                                                 {index + 1}
                                             </button>
@@ -464,51 +474,62 @@ const JobDetailPage = () => {
                                         className="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </section>
                 {
                     modalApply &&
                     (
-                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 " id="modal">
+                        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 "
+                            id="modal">
                             <div className="bg-white w-full m-10 my-10 rounded-lg shadow-lg p-6">
                                 <h2 className="text-lg font-bold mb-4">Postuler à l'offre d'emploi {candidatId} </h2>
                                 <form onSubmit={hanldeSubmitCandidat} className="">
                                     <div className="mb-1">
                                         <label for="fullName" className="block font-bold mb-1">Nom *</label>
-                                        <input required={true} value={firstname} onChange={(e) => { setfirstname(e.target.value) }} type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={firstname} onChange={(e) => { setfirstname(e.target.value) }}
+                                            type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div className="mb-1">
                                         <label for="fullName" className="block font-bold mb-1">Prénoms *</label>
-                                        <input required={true} value={lastname} onChange={(e) => { setlastname(e.target.value) }} type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={lastname} onChange={(e) => { setlastname(e.target.value) }}
+                                            type="text" id="fullName" className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div className="mb-1">
                                         <label for="email" className="block font-bold mb-1">Email *</label>
-                                        <input required={true} value={email} onChange={(e) => { setemail(e.target.value) }} type="email" id="email" className="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <input required={true} value={email} onChange={(e) => { setemail(e.target.value) }} type="email"
+                                            id="email" className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div className="mb-1">
-                                        <label for="phone" className="block font-bold mb-1">Téléphone  , Ex: 225XXXXXXXX *</label>
-                                        <input required={true} value={telephone} onChange={(e) => { settelephone(e.target.value) }} type="number" id="phone" className="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <label for="phone" className="block font-bold mb-1">Téléphone , Ex: 225XXXXXXXX *</label>
+                                        <input required={true} value={telephone} onChange={(e) => { settelephone(e.target.value) }}
+                                            type="number" id="phone" className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div className="mb-1">
-                                        <label for="phone" className=" font-bold mb-1 flex space-x-2">Cv en pdf * {cv && <p className="text-green-600 "> ''Téléchager''</p>}</label>
-                                        <input required={true} onChange={HandleFileInputChange} type="file" accept='.PDF' className="w-full border border-gray-300 rounded px-3 py-1" />
+                                        <label for="phone" className=" font-bold mb-1 flex space-x-2">Cv en pdf * {cv && <p
+                                            className="text-green-600 "> ''Téléchager''</p>}</label>
+                                        <input required={true} onChange={HandleFileInputChange} type="file" accept='.PDF'
+                                            className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>
                                     <div className="mb-4">
                                         <label for="message" className="block font-bold mb-1">Motif *</label>
-                                        <textarea id="message" value={description} onChange={(e) => { setdescription(e.target.value) }} className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+                                        <textarea id="message" value={description}
+                                            onChange={(e) => { setdescription(e.target.value) }} className="w-full border border-gray-300 rounded px-3 py-2"></textarea>
                                     </div>
                                     <div className="flex justify-end">
                                         {
                                             loading ?
                                                 <p className="text-gray-600 animate-pulse">Envois en cours</p>
                                                 :
-                                                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                <button type="submit"
+                                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                     Envoyer
                                                 </button>
                                         }
-                                        <button type="button" onClick={handleClose} className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded" id="closeModal">
+                                        <button type="button" onClick={handleClose}
+                                            className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 ml-2 rounded"
+                                            id="closeModal">
                                             Annuler
                                         </button>
                                     </div>
