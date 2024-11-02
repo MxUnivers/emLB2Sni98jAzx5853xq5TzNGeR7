@@ -51,6 +51,13 @@ const ScholarshipApplicationFormPage = () => {
         });
     };
 
+    // const handleRemoveReference = () => {
+    //     setFormData({
+    //         ...formData,
+    //         references: [...formData.references, { name: '', contactInfo: '', relationship: '' }],
+    //     });
+    // };
+
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files).map((file) => file.name);
         setFormData({ ...formData, documents: files });
@@ -69,7 +76,7 @@ const ScholarshipApplicationFormPage = () => {
     };
 
     return (
-        <div className="container mt-20 mb-20  mx-auto p-6 bg-white shadow-md rounded-lg">
+        <div className="container mt-20 pb-[100px]  mx-auto p-6 bg-white shadow-md rounded-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Formulaire de soumision de bourse</h2>
             <hr className="my-5"/>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -173,7 +180,7 @@ const ScholarshipApplicationFormPage = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-left">City</label>
+                            <label className="block text-sm font-medium mb-1 text-left">Ville</label>
                             <input
                                 type="text"
                                 name="city"
