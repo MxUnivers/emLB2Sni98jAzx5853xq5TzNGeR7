@@ -97,13 +97,13 @@ const NavbarWeb = () => {
                         <img src="assets/images/logo-dark.png" alt="Artus RH Logo" />
                     </div>
                     <ul className="nav-links">
-                        <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active" : ""}`} >Accueil</Link></li>
-                        <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active" : ""}`} >Emplois</Link></li>
-                        <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active" : ""}`}>Formations</Link></li>
-                        <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active" : ""}`}>Bourses</Link></li>
-                        <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active" : ""}`}>Activités</Link></li>
-                        <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active" : ""}`}>Qui somme nous</Link></li>
-                        <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active" : ""}`}>Contact</Link></li>
+                        <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active text-indigo-600" : ""}`} >Accueil</Link></li>
+                        <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active text-indigo-600" : ""}`} >Emplois</Link></li>
+                        <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active text-indigo-600" : ""}`}>Formations</Link></li>
+                        <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active text-indigo-600" : ""}`}>Bourses</Link></li>
+                        <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active text-indigo-600" : ""}`}>Activités</Link></li>
+                        <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active text-indigo-600" : ""}`}>Qui somme nous</Link></li>
+                        <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active text-indigo-600" : ""}`}>Contact</Link></li>
                     </ul>
                     <div className="profile-login">
                         {
@@ -125,13 +125,13 @@ const NavbarWeb = () => {
             <div className={`sidebar ${sidebar ? 'active' : ''}`}>
                 <button className="close-btn" onClick={toggleSidebar}>✖</button>
                 <ul className="sidebar-links">
-                    <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active" : ""}`} >Accueil</Link></li>
-                    <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active" : ""}`} >Emplois</Link></li>
-                    <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active" : ""}`}>Formations</Link></li>
-                    <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active" : ""}`}>Bourses</Link></li>
-                    <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active" : ""}`}>Activités</Link></li>
-                    <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active" : ""}`}>Qui somme nous</Link></li>
-                    <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active" : ""}`}>Contact</Link></li>
+                    <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active text-indigo-600" : ""}`} >Accueil</Link></li>
+                    <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active text-indigo-600" : ""}`} >Emplois</Link></li>
+                    <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active text-indigo-600" : ""}`}>Formations</Link></li>
+                    <li><Link to={`/${routing.bourse_list}`} class={`${location.pathname === `/${routing.bourse_list}` ? "nav-links-active text-indigo-600" : ""}`}>Bourses</Link></li>
+                    <li><Link to={`/${routing.blog_list}`} class={`${location.pathname === `/${routing.blog_list}` ? "nav-links-active text-indigo-600" : ""}`}>Activités</Link></li>
+                    <li><Link to={`/${routing.aboutus}`} class={`${location.pathname === `/${routing.aboutus}` ? "nav-links-active text-indigo-600" : ""}`}>Qui somme nous</Link></li>
+                    <li><Link to={`/${routing.contact}`} class={`${location.pathname === `/${routing.contact}` ? "nav-links-active text-indigo-600" : ""}`}>Contact</Link></li>
                     <li>
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?

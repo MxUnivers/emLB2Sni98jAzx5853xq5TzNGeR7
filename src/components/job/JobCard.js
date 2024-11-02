@@ -10,7 +10,10 @@ const JobCard = ({ data }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="job-card">
+        <div className="job-card" onClick={()=>{
+            setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
+                            navigate(`/${routing.job_details}`, { state: { data } })
+        }}>
             {/*<div className="job-image-wrapper">
                 <img src={data.coverPicture} alt={data.title} className="job-image object-cover" />
             </div> */}
@@ -25,7 +28,7 @@ const JobCard = ({ data }) => {
                 <p className="job-contract">{data.typeContrat}</p>
                 <div className="job-details-link">
                     <a className="text-gray-700"
-                        href={`/${routing.job_details}`}
+                        href={`#`}
                         onClick={() => {
                             setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
                             navigate(`/${routing.job_details}`, { state: { data } })}
