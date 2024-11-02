@@ -39,6 +39,7 @@ import CompanyEditProfilePage from "./pages/web/CompanyEditProfilePage";
 import CandidatDetailViewPage from "./pages/web/CandidatDetailViewPage";
 import AboutusPage from "./pages/web/AboutusPage";
 import ContactPage from "./pages/web/ContactPage";
+import ScholarshipApplicationFormPage from "./pages/web/ScholarshipApplicationFormPage";
 
 
 
@@ -71,6 +72,7 @@ function App() {
             <Route path={`${routing.job_post}`} element={<JobPostPage />} />
             <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
 
+            <Route path={`${routing.bourse_add_request}`} element={<ScholarshipApplicationFormPage />} />
 
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />

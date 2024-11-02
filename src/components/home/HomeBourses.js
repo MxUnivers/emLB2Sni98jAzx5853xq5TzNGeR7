@@ -1,8 +1,13 @@
 import React from 'react';
 import './HomeBourses.css';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { routing } from '../../utlis/routing';
 
 const HomeBourses = () => {
+
+    const navigate=  useNavigate();
+
     const bgImg = "img/scholarship-background.jpg"; // Use your own background image path
 
     return (
@@ -18,7 +23,7 @@ const HomeBourses = () => {
                             <li>Support et accompagnement tout au long du processus</li>
                         </ul>
 
-                        <Button size="md" variant='primary'>Soumettre</Button>
+                        <Button size="md" variant='primary' onClick={()=>{navigate(`/${routing.bourse_add_request}`)}}>Soumettre</Button>
                     </div>
 
                     <div className="stats-section">

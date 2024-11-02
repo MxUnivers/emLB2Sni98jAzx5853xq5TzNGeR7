@@ -10,6 +10,8 @@ export const routing = {
     contact:"contact_us",
     privacy_policy:"condition_utilisation",
 
+    bourse_add_request:"demande-de-bourse",
+
 
     blog_list:"post-blog-list",
     blog_details:"post-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
