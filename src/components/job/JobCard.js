@@ -10,7 +10,7 @@ const JobCard = ({ data }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="job-card" onClick={()=>{
+        <div className="job-card cursor-pointer" onClick={()=>{
             setWithExpiration(localvalue.JobID, data._id, dureeDeVie);
                             navigate(`/${routing.job_details}`, { state: { data } })
         }}>

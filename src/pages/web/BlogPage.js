@@ -27,7 +27,7 @@ const BlogPage = () => {
     const handleEmailSubmit = (e) => {
         e.preventDefault();
         if (email) {
-            toast.success("Vous êtes maintenant abonné !");
+            toast.success("Merci de vous email été envoyer !");
             setEmail(""); // Reset the input
         } else {
             toast.error("Veuillez entrer un email valide.");
