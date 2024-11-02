@@ -69,13 +69,13 @@ const ScholarshipApplicationFormPage = () => {
     };
 
     return (
-        <div className="container mt-20 mx-auto p-6 bg-white shadow-md rounded-lg">
+        <div className="container mt-20 mb-20  mx-auto p-6 bg-white shadow-md rounded-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Formulaire de soumision de bourse</h2>
             <hr className="my-5"/>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-left">First Name</label>
+                        <label className="block text-sm font-medium mb-1 text-left">Nom</label>
                         <input
                             type="text"
                             name="firstName"
@@ -87,7 +87,7 @@ const ScholarshipApplicationFormPage = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-left">Last Name</label>
+                        <label className="block text-sm font-medium mb-1 text-left">Prénoms</label>
                         <input
                             type="text"
                             name="lastName"
@@ -100,7 +100,7 @@ const ScholarshipApplicationFormPage = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-left">Profile Picture (URL)</label>
+                    <label className="block text-sm font-medium mb-1 text-left">Photo</label>
                     <input
                         type="text"
                         name="profilePicture"
@@ -112,7 +112,7 @@ const ScholarshipApplicationFormPage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-left">Postal Code</label>
+                        <label className="block text-sm font-medium mb-1 text-left">Indicatif Pays</label>
                         <input
                             type="text"
                             name="codePostal"
@@ -123,7 +123,7 @@ const ScholarshipApplicationFormPage = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-left">Date of Birth</label>
+                        <label className="block text-sm font-medium mb-1 text-left">Date de naissance</label>
                         <input
                             type="date"
                             name="dateOfBirth"
@@ -147,7 +147,7 @@ const ScholarshipApplicationFormPage = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1 text-left">Phone Number</label>
+                    <label className="block text-sm font-medium mb-1 text-left">Téléphone</label>
                     <input
                         type="text"
                         name="phoneNumber"
@@ -195,7 +195,7 @@ const ScholarshipApplicationFormPage = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-left">Postal Code</label>
+                            <label className="block text-sm font-medium mb-1 text-left">Indicatif Pays</label>
                             <input
                                 type="text"
                                 name="postalCode"
@@ -205,7 +205,7 @@ const ScholarshipApplicationFormPage = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-left">Country</label>
+                            <label className="block text-sm font-medium mb-1 text-left">Pays d{"'"}origine</label>
                             <input
                                 type="text"
                                 name="country"
@@ -218,7 +218,7 @@ const ScholarshipApplicationFormPage = () => {
                 </fieldset>
 
                 <div>
-                <label className="block text-sm font-medium mb-1 text-left">Education Level</label>
+                <label className="block text-sm font-medium mb-1 text-left">Niveau d{"'"}etude</label>
                 <select
                     name="educationLevel"
                     value={formData.educationLevel}
@@ -251,7 +251,7 @@ const ScholarshipApplicationFormPage = () => {
                 {formData.references.map((reference, index) => (
                     <div key={index} className="mb-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-left">Name</label>
+                            <label className="block text-sm font-medium mb-1 text-left">Nom</label>
                             <input
                                 type="text"
                                 value={reference.name}
@@ -269,7 +269,7 @@ const ScholarshipApplicationFormPage = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1 text-left">Relationship</label>
+                            <label className="block text-sm font-medium mb-1 text-left">Type de relation</label>
                             <input
                                 type="text"
                                 value={reference.relationship}
@@ -284,12 +284,12 @@ const ScholarshipApplicationFormPage = () => {
                     onClick={handleAddReference}
                     className="mt-2 p-2 bg-blue-500 text-white rounded"
                 >
-                    Add Reference
+                    Ajouter Personne à contacter
                 </button>
             </fieldset>
 
             <div>
-                <label className="block text-sm font-medium mb-1 text-left">Télécharger Documents</label>
+                <label className="block text-sm font-medium mb-1 text-left">Télécharger vos Documents (Pièce identité , Diplôme , niveau d{"'"} études)</label>
                 <input
                     type="file"
                     multiple
@@ -298,12 +298,14 @@ const ScholarshipApplicationFormPage = () => {
                 />
             </div>
 
-            <button
-                type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition"
-            >
-                Soumetre
-            </button>
+           <div class="text-left">
+           <button
+           type="submit"
+           className="px-4 bg-blue-600 text-white py-1 rounded hover:bg-blue-700 transition"
+       >
+           Soumetre
+       </button>
+           </div>
         </form>
     </div>
 );
