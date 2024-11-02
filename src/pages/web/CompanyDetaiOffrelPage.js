@@ -17,6 +17,8 @@ import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import { CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
 
 const CompanyDetaiOffrelPage = () => {
+
+
     const navigate = useNavigate();
     const [company, setCompany] = useState(null);
     const [offres, setOffres] = useState([]);
@@ -25,7 +27,7 @@ const CompanyDetaiOffrelPage = () => {
     const itemsPerPage = 10;
 
     const idCompany = getAndCheckLocalStorage(localvalue.recruteurDetailID);
-    
+
     useEffect(() => {
         OffreGetAllById(idCompany, setOffres);
         EntrepriseGetById(idCompany, setCompany);
@@ -52,12 +54,7 @@ const CompanyDetaiOffrelPage = () => {
                             <p className="text-gray-600 mt-2">
                                 {company?.addresse_entreprise || 'Location not available'}
                             </p>
-                            <button
-                                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-full"
-                                onClick={() => navigate(`/${routing.company_edit}`)}
-                            >
-                                Mettre à jour profile
-                            </button>
+
                         </div>
 
                         {/* Additional Info and Job Listings */}
@@ -71,70 +68,73 @@ const CompanyDetaiOffrelPage = () => {
                             </div>
 
                             {/* Job Listings */}
-                            <div className="bg-white  rounded-lg p-6">
-                                <div className="flex justify-between items-center">
-                                    <h3 className="text-xl font-semibold">Offres d{"'"}emploi</h3>
-                                    {getAndCheckLocalStorage(localvalue.TYPEACCESS) === typePersonConnected[0] && (
-                                        <Link to={`/${routing.job_post}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                                            Poster un emploi
-                                        </Link>
-                                    )}
-                                </div>
-                                
-                                <div className="mt-4 overflow-x-auto">
-                                    <table className="w-full bg-white rounded-lg">
-                                        <thead className="bg-gray-100">
-                                            <tr>
-                                                <th className="py-2 px-4 text-left">Titre</th>
-                                                <th className="py-2 px-4 text-left">Entreprise</th>
-                                                <th className="py-2 px-4 text-left">Localisation</th>
-                                                <th className="py-2 px-4 text-left">Salaire</th>
-                                                <th className="py-2 px-4 text-left">Type de Contrat</th>
-                                                <th className="py-2 px-4">Détails</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {currentItems.map((item, index) => (
-                                                <tr key={index} className="border-b">
-                                                    <td className="py-2 px-4">{item.title}</td>
-                                                    <td className="py-2 px-4">{item.company}</td>
-                                                    <td className="py-2 px-4">{item.addresse}</td>
-                                                    <td className="py-2 px-4">{item.salaire} / mois</td>
-                                                    <td className="py-2 px-4">{item.typeContrat}</td>
-                                                    <td className="py-2 px-4 text-right">
-                                                        <button
-                                                            onClick={() => navigate(`/${routing.job_details}`, { state: { job: item } })}
-                                                            className="text-blue-600"
-                                                        >
-                                                            Détails
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
+                            {
+                                currentItems && currentItems.length > 0 && (
+                                    <div className="bg-white  rounded-lg p-6">
+                                        <div className="flex justify-between items-center">
+                                            <h3 className="text-xl font-semibold">Offres d{"'"}emploi</h3>
 
-                                {/* Pagination */}
-                                <div className="flex justify-center mt-4">
-                                    {[...Array(totalPages)].map((_, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => setCurrentPage(index + 1)}
-                                            className={`px-3 py-1 mx-1 rounded ${
-                                                currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                                            }`}
-                                        >
-                                            {index + 1}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                                        </div>
+
+
+
+                                        <div className="mt-4 overflow-x-auto">
+                                            <table className="w-full bg-white rounded-lg">
+                                                <thead className="bg-gray-100">
+                                                    <tr>
+                                                        <th className="py-2 px-4 text-left">Titre</th>
+                                                        <th className="py-2 px-4 text-left">Entreprise</th>
+                                                        <th className="py-2 px-4 text-left">Localisation</th>
+                                                        <th className="py-2 px-4 text-left">Salaire</th>
+                                                        <th className="py-2 px-4 text-left">Type de Contrat</th>
+                                                        <th className="py-2 px-4">Détails</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {currentItems.map((item, index) => (
+                                                        <tr key={index} className="border-b">
+                                                            <td className="py-2 px-4">{item.title}</td>
+                                                            <td className="py-2 px-4">{item.company}</td>
+                                                            <td className="py-2 px-4">{item.addresse}</td>
+                                                            <td className="py-2 px-4">{item.salaire} / mois</td>
+                                                            <td className="py-2 px-4">{item.typeContrat}</td>
+                                                            <td className="py-2 px-4 text-right">
+                                                                <button
+                                                                    onClick={() => navigate(`/${routing.job_details}`, { state: { job: item } })}
+                                                                    className="text-indigo-600"
+                                                                >
+                                                                    Détails
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {/* Pagination */}
+                                        <div className="flex justify-center mt-4">
+                                            {[...Array(totalPages)].map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => setCurrentPage(index + 1)}
+                                                    className={`px-3 py-1 mx-1 rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                                                        }`}
+                                                >
+                                                    {index + 1}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )
+                            }
+
                         </div>
                     </div>
                 </section>
             </div>
         </div>
+
     );
 };
 
