@@ -54,7 +54,7 @@ const BlogProfilePage = () => {
                     <div className="bg-white shadow-lg rounded-lg p-6">
                         <div className="flex flex-col items-center">
                             <img className="w-full h-48 object-cover rounded-lg" src={userInfo.coverPicture} alt="Profile Cover" />
-                            <h2 className="text-2xl font-bold mt-4">{userInfo.username}</h2>
+                            <h2 className="text-2xl font-bold mt-4">{userInfo.firstname} {userInfo.lastname}</h2>
                             <ul className="list-none mt-2">
                                 <li className="flex items-center">
                                     <svg className="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -73,33 +73,11 @@ const BlogProfilePage = () => {
                                     {userInfo.adresse}
                                 </li>
                             </ul>
+                            
                         </div>
-                        <div className="mt-6">
-                            <h3 className="text-lg font-semibold">Contact Information</h3>
-                            <address className="mt-2">
-                                <div>Email: <a href={`mailto:${userInfo.email}`} className="text-indigo-600">{userInfo.email}</a>
-                                </div>
-                                <div>Pays: {userInfo.pays}</div>
-                                <div>Téléphone: {userInfo.telephone}</div>
-                            </address>
-                        </div>
-                        <div className="mt-6">
-                            <h3 className="text-lg font-semibold">About</h3>
-                            <p className="mt-2">
-                                Dedicated, passionate, and accomplished Full Stack Developer with 9+ years of progressive
-                                experience...
-                            </p>
-                        </div>
-                        {/*category && category.length > 0 && (
-            <div className="mt-6">
-                <h3 className="text-lg font-semibold">Catégories de Publications</h3>
-                <ul className="list-disc ml-5 mt-2">
-                    {category.map((item) => (
-                    <li key={item} className="text-gray-700">{item}</li>
-                    ))}
-                </ul>
-            </div>
-            )*/}
+
+                        <hr/>
+                       
                         <div className="mt-6">
                             <form className="flex items-center gap-3">
                                 {/* <div className="relative flex-grow">
@@ -107,6 +85,7 @@ const BlogProfilePage = () => {
                                     <input type="text" placeholder="Recherche..."
                                         className="pl-8 w-full py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                                 </div> */}
+                                
                                 {
                                     idCandidat == getAndCheckLocalStorage(localvalue.candidatDetailID) &&
                                     (
