@@ -75,7 +75,7 @@ export default function useFetchProject(idCandidat) {
     useEffect(() => {
         async function fetchData() {
             setIsLoadingProject(true);
-            console.log(idCandidat);
+            // console.log(idCandidat);
             await axios.get(`${baseurl.url}/api/v1/project/get_educations/candidat/${idCandidat}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,10 +84,10 @@ export default function useFetchProject(idCandidat) {
             }).then((response) => {
                 setCandidatProject(response.data.data);
                 setErrorProject(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setErrorProject(error);
                 });
 

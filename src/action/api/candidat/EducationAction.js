@@ -78,7 +78,7 @@ export default function useFetchEducation(idCandidat) {
     useEffect(() => {
         async function fetchData() {
             setIsLoadingEducation(true);
-            console.log(idCandidat);
+            // console.log(idCandidat);
             await axios.get(`${baseurl.url}/api/v1/education/get_educations/candidat/${idCandidat}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export default function useFetchEducation(idCandidat) {
             }).then((response) => {
                 setCandidatEducation(response.data.data);
                 setErrorEducation(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setErrorEducation(error);
                 });
 

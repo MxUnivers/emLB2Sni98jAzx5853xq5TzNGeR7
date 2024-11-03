@@ -26,11 +26,11 @@ export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setSt
         .then((response) => {
             setState(response.data.data)
             setState2(response.data.data);
-            console.log(response.data.data);
+            // console.log(response.data.data);
             saveDataToFile(response.data.data,localvalueStorage.CANIDATURESLIST)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -51,10 +51,10 @@ export const CandidatureAllOfCandidat = async (idCandidat, setState, setState2) 
             setState(response.data.data)
             setState2(response.data.data);
             saveDataToFile(response.data.data,localvalueStorage.CANIDATURESLIST)
-            console.log(response.data.data);
+            // console.log(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -71,10 +71,10 @@ export const CandidatureById = async (idCandidature, setState) => {
     })
         .then((response) => {
             setState(response.data.data)
-            console.log(response.data.data);
+            // console.log(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 }
 

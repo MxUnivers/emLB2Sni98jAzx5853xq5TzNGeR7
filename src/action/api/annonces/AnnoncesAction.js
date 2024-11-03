@@ -19,15 +19,15 @@ export const AnnonceGetAll = async (setState, setState2) => {
         });
 
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             setState(response.data.data);
             setState2(response.data.data);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la Structure des données est incorrecte")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -45,14 +45,14 @@ export const AnnonceGetById = async (id, setState) => {
         });
 
         if (response.status == 200 || response.status == 300) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             setState(response.data.data);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la Structure des données est incorrecte")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -69,14 +69,14 @@ export const AnnonceGetAllByCategories = async (id, setState) => {
         });
 
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data);
+            // console.log(response.data.data);
             setState(response.data.data);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la Structure des données est incorrecte")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -94,7 +94,7 @@ export const CategorieGetAllAnnonces = async (setState) => {
         });
 
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
             let liste = response.data.data;
             let obj = {};
@@ -107,14 +107,14 @@ export const CategorieGetAllAnnonces = async (setState) => {
                     result.push(key);
                 }
             }
-            console.log(result); // Output: ["ok", "Supr"]
+            // console.log(result); // Output: ["ok", "Supr"]
             setState(result);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la Structure des données est incorrecte")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -133,7 +133,7 @@ export const LocationGetAllAnnonces = async (setState) => {
         });
 
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
             let liste = response.data.data;
             let obj = {};
@@ -146,14 +146,14 @@ export const LocationGetAllAnnonces = async (setState) => {
                     result.push(key);
                 }
             }
-            console.log(result); // Output: ["ok", "Supr"]
+            // console.log(result); // Output: ["ok", "Supr"]
             setState(result);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la Structure des données est incorrecte")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -221,13 +221,13 @@ export const AnnoncesOfEntreprisesId = async (id, setState, setState2) => {
             }
         });
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data);
+            // console.log(response.data.data);
             setState(response.data.data);
             setState2(response.data.data);
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };

@@ -36,7 +36,7 @@ export const handleSubmitPaymentAuthorized = (toast) => {
       "Donnee3": ""
     }
   });
-  console.log(data)
+  // console.log(data)
 
   var config = {
     method: 'post',
@@ -49,12 +49,12 @@ export const handleSubmitPaymentAuthorized = (toast) => {
 
   axios(config)
     .then(async function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
       toast.info("Veillez payer votre pack via ce lien dans le naigateur")
       setTimeout(() => {
         window.open(`${response.data.data.payment_url}`, '_blank');
       }, 500);
-      console.log(transation_idC);
+      // console.log(transation_idC);
 
       // Créez un objet JSON avec les informations requises
       const requestData = {
@@ -68,7 +68,7 @@ export const handleSubmitPaymentAuthorized = (toast) => {
 
       };
 
-      console.log(requestData);
+      // console.log(requestData);
 
       // Effectuez la requête Axios dans la fonction useEffect
       setTimeout(async () => {
@@ -77,8 +77,8 @@ export const handleSubmitPaymentAuthorized = (toast) => {
           .then(function (response) {
             // Traitez la réponse ici
             const status = response.data.code;
-            console.log(status); // Vous pouvez ajuster cela en fonction de la structure de la réponse
-            console.log(response.data.data); // Vous pouvez ajuster cela en fonction de la structure de la réponse
+            // console.log(status); // Vous pouvez ajuster cela en fonction de la structure de la réponse
+            // console.log(response.data.data); // Vous pouvez ajuster cela en fonction de la structure de la réponse
             toast.success("Paiement Réussi");
           })
           .catch(function (error) {
@@ -90,7 +90,7 @@ export const handleSubmitPaymentAuthorized = (toast) => {
 
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
       alert("echoué")
     });
 
@@ -101,8 +101,8 @@ export const handleSubmitPaymentAuthorized = (toast) => {
 
 
 export const fetchProcessData = async (userId) => {
-  console.log(userId);
-  console.log(localStorage.getItem(localvalue.customer_transaction_id));
+  // console.log(userId);
+  // console.log(localStorage.getItem(localvalue.customer_transaction_id));
 
   let data = JSON.stringify({
     "apikey": `${valueLocal.api_key_cine_pay}`,
@@ -127,20 +127,20 @@ export const fetchProcessData = async (userId) => {
           )
           .then((response) => {
             // confetti();
-            // console.log("");
+            // // console.log("");
           })
           .catch((error) => {
             // toast.error("Soucription pack échoué !");
-            // console.log("");
+            // // console.log("");
           });
 
       } else if (response.data.code == "627") {
         // setIsLoginpaymentUrl(false);
-        // console.log("");
+        // // console.log("");
       }
     })
     .catch((error) => {
-      // console.log("");
+      // // console.log("");
     });
 
 

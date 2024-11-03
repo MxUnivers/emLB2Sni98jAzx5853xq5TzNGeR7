@@ -138,7 +138,7 @@ export const FormationGetAllById = async (id, setState, setState2) => {
             saveDataToFile(response.data.data, localvalueStorage.FORMATIONLISTGET)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -169,7 +169,7 @@ export function FormationGetAllCategory() {
                 });
 
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
                     let liste = response.data.data;
                     let obj = {};
@@ -182,15 +182,15 @@ export function FormationGetAllCategory() {
                             result.push(key);
                         }
                     }
-                    console.log(result); // Output: ["ok", "Supr"]
+                    // console.log(result); // Output: ["ok", "Supr"]
                     setcategory(result);
                     setcategory2(result);
                 } else {
-                    console.log('La structure de la réponse est incorrecte');
+                    // console.log('La structure de la réponse est incorrecte');
                     alert("la Structure des données est incorrecte")
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 setError(error);
             }
 
@@ -225,7 +225,7 @@ export function FormationGetAllContrat() {
                 });
 
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
                     let liste = response.data.data;
                     let obj = {};
@@ -238,15 +238,15 @@ export function FormationGetAllContrat() {
                             result.push(key);
                         }
                     }
-                    console.log(result); // Output: ["ok", "Supr"]
+                    // console.log(result); // Output: ["ok", "Supr"]
                     setcategory(result);
                     setcategory2(result);
                 } else {
-                    console.log('La structure de la réponse est incorrecte');
+                    // console.log('La structure de la réponse est incorrecte');
                     alert("la Structure des données est incorrecte")
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 setError(error);
             }
 
@@ -287,10 +287,10 @@ export function FormationGetAllEntrepriseById(idEntreprise) {
                 setformations2(response.data.data);
                 saveDataToFile(response.data.data, localvalueStorage.FORMATIONLISTGET)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 
@@ -330,10 +330,10 @@ export default function FormationGetAll() {
                 setformations2(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.FORMATIONLIST)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 
@@ -390,7 +390,7 @@ export function FormationGetById(idFormation) {
                 setError(null);
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 

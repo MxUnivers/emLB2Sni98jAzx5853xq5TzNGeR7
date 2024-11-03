@@ -81,7 +81,7 @@ export default function useFetchExperience(idCandidat) {
     useEffect(() => {
         async function fetchData() {
             setIsLoadingExperience(true);
-            console.log(idCandidat);
+            // console.log(idCandidat);
             await axios.get(`${baseurl.url}/api/v1/experience/get_educations/candidat/${idCandidat}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,10 +91,10 @@ export default function useFetchExperience(idCandidat) {
                 setCandidatExperience(response.data.data);
                 setErrorExperience(null);
                 
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setErrorExperience(error);
                 });
 

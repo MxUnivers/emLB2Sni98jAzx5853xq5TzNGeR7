@@ -79,7 +79,7 @@ export default function CommentAllPost(idBlog) {
       }).then((response)=>{
         dispatch({ type: FETCH_SEND_COMMENTS,payload:response.data.data });
       }).catch ((error)=>{
-        console.log(error.message);
+        // console.log(error.message);
         dispatch({ type: FETCH_SEND_COMMENTS })
       })
     }

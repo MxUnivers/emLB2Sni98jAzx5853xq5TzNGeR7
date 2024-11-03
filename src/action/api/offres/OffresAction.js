@@ -164,7 +164,7 @@ export const OffreGetAllById = async (id, setState, setState2) => {
             saveDataToFile(response.data.data, localvalueStorage.EMPLOISRECRUTEUR)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -187,7 +187,7 @@ export const OffreGetAllOffre = async (setState, setState2) => {
             saveDataToFile(response.data.data, localvalueStorage.EMPLOISLIST)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -211,7 +211,7 @@ export const OffreGetById = async (id, setState, setisLoading, setentreprise) =>
         })
         .catch((error) => {
             setisLoading(false);
-            console.log(error);
+            // console.log(error);
         });
 }
 
@@ -238,14 +238,14 @@ export const OffreGetByCategory = async (setcategory, setcategory2) => {
                     result.push(key);
                 }
             }
-            console.log(result); // Output: ["ok", "Supr"]
+            // console.log(result); // Output: ["ok", "Supr"]
             setcategory(result);
             setcategory2(result);
         })
         .catch((error) => {
-            // console.log(error);
+            // // console.log(error);
             var a = error;
-            console.log(a)
+            // console.log(a)
         });
 }
 
@@ -273,12 +273,12 @@ export const OffreGetByTypeContrat = async (setcategory, setcategory2) => {
                     result.push(key);
                 }
             }
-            console.log(result); // Output: ["ok", "Supr"]
+            // console.log(result); // Output: ["ok", "Supr"]
             setcategory(result);
             setcategory2(result);
         })
         .catch((error) => {
-            // console.log(error);
+            // // console.log(error);
             var a = error;
 
         });
@@ -306,7 +306,7 @@ export function OffreGetAllCategory() {
                 });
 
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
                     let liste = response.data.data;
                     let obj = {};
@@ -319,15 +319,15 @@ export function OffreGetAllCategory() {
                             result.push(key);
                         }
                     }
-                    console.log(result); // Output: ["ok", "Supr"]
+                    // console.log(result); // Output: ["ok", "Supr"]
                     setcategory(result);
                     setcategory2(result);
                 } else {
-                    console.log('La structure de la réponse est incorrecte');
+                    // console.log('La structure de la réponse est incorrecte');
                     alert("la Structure des données est incorrecte")
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 setError(error);
             }
 
@@ -362,7 +362,7 @@ export function OffreGetAllContrat() {
                 });
 
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
                     let liste = response.data.data;
                     let obj = {};
@@ -375,15 +375,15 @@ export function OffreGetAllContrat() {
                             result.push(key);
                         }
                     }
-                    console.log(result); // Output: ["ok", "Supr"]
+                    // console.log(result); // Output: ["ok", "Supr"]
                     setcategory(result);
                     setcategory2(result);
                 } else {
-                    console.log('La structure de la réponse est incorrecte');
+                    // console.log('La structure de la réponse est incorrecte');
                     alert("la Structure des données est incorrecte")
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 setError(error);
             }
 
@@ -421,10 +421,10 @@ export default function OffreGetAll() {
                 setoffres2(response.data.data);
                 saveDataToFile(response.data.data, localvalueStorage.EMPLOISLIST)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 

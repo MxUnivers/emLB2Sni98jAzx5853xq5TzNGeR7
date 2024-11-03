@@ -30,11 +30,11 @@ export const VerificationPackPaiement = (
                     setLoading(false);
                     confetti();
                     toast.success("Paiement valide avec succès")
-                    console.log(response.data)
+                    // console.log(response.data)
                 } else if (response.data.code === "627") {
                     setLoading(false);
                     toast.error("Paiement non effectués")
-                    console.log(response.data)
+                    // console.log(response.data)
                 }
             })
             .catch((error) => {
@@ -124,7 +124,7 @@ export const PackAllEntreprise = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -146,7 +146,7 @@ export const PackAllCandidat = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }

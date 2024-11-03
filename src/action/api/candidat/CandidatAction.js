@@ -448,7 +448,7 @@ export const CandidatDeconnexion = async (id) => {
             window.location.reload();
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -470,7 +470,7 @@ export const CandidatGetAll = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -491,7 +491,7 @@ export const CandidatGetCvById = async (id, setState) => {
             setState(response.data.data.cv);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -510,11 +510,12 @@ export const CandidatGetCandidatpostulesByOffre = async (id, setState) => {
         }
     })
         .then((response) => { setState(response.data.data.candidatPostulees); })
-        .catch((error) => { console.log(error); });
+        .catch((error) => { 
+            // console.log(error);
+         });
 }
 
 
-// Recupérer tout les candiats qui ont postulés à l'offre
 export const CandidatGetCandidatpostulesByAnnonce = async (id, setState) => {
     await axios.get(`${baseurl.url}/api/v1/annonce/get_annonce/${id}`, {
         headers: {
@@ -523,7 +524,9 @@ export const CandidatGetCandidatpostulesByAnnonce = async (id, setState) => {
         }
     })
         .then((response) => { setState(response.data.data.candidats); })
-        .catch((error) => { console.log(error); });
+        .catch(() => {
+            // console.log(error); 
+        });
 }
 
 
@@ -539,8 +542,8 @@ export const CandidatGetById = async (id, setState) => {
         .then((response) => {
             setState(response.data.data);
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(() => {
+            // console.log(error);
         });
 
 }
@@ -561,7 +564,7 @@ export const CandidatGetAllOffrePostulees = async (candidatId, setState, setStat
             setState2(response.data.data)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -581,7 +584,7 @@ export const CandidatGetAllAnnoncesPostulees = async (candidatId, setState, setS
             setState2(response.data.data)
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         })
 
 
@@ -676,7 +679,7 @@ export default function useFetchCandidat(idCandidat) {
         setCandidat(formatCandidat)
         async function fetchData() {
             setIsLoading(true);
-            console.log(idCandidat);
+            // console.log(idCandidat);
             await axios.get(`${baseurl.url}/api/v1/candidat/get_candidat/${idCandidat}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -686,10 +689,10 @@ export default function useFetchCandidat(idCandidat) {
                 setCandidat(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.CANDIDAT)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 
@@ -720,7 +723,7 @@ export function useFetchCandidatAll() {
         setCandidatAll(candidatGetAll)
         async function fetchData() {
             setIsLoading(true);
-            console.log(idCandidat);
+            // console.log(idCandidat);
             await axios.get(`${baseurl.url}/api/v1/candidat/get_candidats`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -730,10 +733,10 @@ export function useFetchCandidatAll() {
                 setCandidatAll(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.CANDIDATS)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 

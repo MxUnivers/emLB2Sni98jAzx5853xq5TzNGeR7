@@ -99,12 +99,12 @@ export const fetchDataPostsAll = () => {
                 'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
             }
         }).then((response) => {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             dispatch({ type: FETCH_SUCCESS_POSTS, payload: response.data.data })
             saveDataToFile(response.data.data, localvalueStorage.BLOGLIST)
         })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
 
             });
 
@@ -138,10 +138,10 @@ export default function BlogAll() {
                 setblogs2(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.BLOGLIST)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 
@@ -170,7 +170,7 @@ export const BlogAllById = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -198,7 +198,7 @@ export function BlogGetAllCategoryCandidat(idCandidat) {
                 });
 
                 if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                     // j'ai juste besoin d'une lisete qui peut filtrer les elemnts
                     let liste = response.data.data;
                     let obj = {};
@@ -211,15 +211,15 @@ export function BlogGetAllCategoryCandidat(idCandidat) {
                             result.push(key);
                         }
                     }
-                    console.log(result); // Output: ["ok", "Supr"]
+                    // console.log(result); // Output: ["ok", "Supr"]
                     setcategory(result);
                     setcategory2(result);
                 } else {
-                    console.log('La structure de la réponse est incorrecte');
+                    // console.log('La structure de la réponse est incorrecte');
                     alert("la Structure des données est incorrecte")
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 setError(error);
             }
 

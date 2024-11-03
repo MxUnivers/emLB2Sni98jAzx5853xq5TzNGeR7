@@ -55,16 +55,16 @@ export const MessageAllCandidatById = async (id, setState, setState2) => {
             }
         });
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             setState(response.data.data);
             setState2(response.data.data);
             saveDataToFile(response.data.data, localvalueStorage.MESSAGE)
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la La tsructure de donnée est increect")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 
@@ -84,16 +84,16 @@ export const MessageAllEntrepriseById = async (id, setState, setState2) => {
             }
         });
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             setState(response.data.data);
             setState2(response.data.data);
             saveDataToFile(response.data.data, localvalueStorage.MESSAGE)
         } else {
-            console.log('La structure de la réponse est incorrecte');
+            // console.log('La structure de la réponse est incorrecte');
             alert("la La tsructure de donnée est increect")
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 };
 

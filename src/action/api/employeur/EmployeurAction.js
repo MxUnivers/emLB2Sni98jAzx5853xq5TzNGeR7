@@ -506,7 +506,7 @@ export const EntrepriseGetAll = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error.body);
+            // console.log(error.body);
         });
 
 }
@@ -527,7 +527,7 @@ export const EntrepriseGetById = async (id, setState) => {
             setState(response.data.data);
         })
         .catch((error) => {
-            console.log(error.body);
+            // console.log(error.body);
         });
 
 }
@@ -550,7 +550,7 @@ export const EntrepriseGetAllAnnonces = async (id, setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            console.log(error.body);
+            // console.log(error.body);
         });
 
 }
@@ -568,10 +568,10 @@ export const EntrepriseGetAllOffres = async (id, setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
-            // console.log(JSON.stringify(response.data.data));
+            // // console.log(JSON.stringify(response.data.data));
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
         });
 
 }
@@ -615,7 +615,7 @@ export function useFetchEntreprise(idEntreprise) {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
-            // console.log(idEntreprise);
+            // // console.log(idEntreprise);
             await axios.get(`${baseurl.url}/api/v1/entreprise/get_entreprise/${idEntreprise}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -624,10 +624,10 @@ export function useFetchEntreprise(idEntreprise) {
             }).then((response) => {
                 setCompany(response.data.data);
                 setError(null);
-                // console.log(response.data.data)
+                // // console.log(response.data.data)
             })
                 .catch((error) => {
-                    // console.log(error);
+                    // // console.log(error);
                     setError(error);
                 });
 

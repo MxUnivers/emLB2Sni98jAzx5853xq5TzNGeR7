@@ -93,7 +93,7 @@ const CandidatureListPage = () => {
 
 
                 {/* Les Candidats */}
-                <div className={`py-8 w-full ${buttonSelected == 0 ? "" : "hidden"}`}>
+                <div className={`py-8 mt-[100px] mb-[100px] w-full ${buttonSelected == 0 ? "" : "hidden"}`}>
                     <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
                         {
                             candidatures.map((item) => {
@@ -138,7 +138,7 @@ const CandidatureListPage = () => {
 
 
 
-                <div className={`py-8 w-full ${buttonSelected == 1 ? "" : "hidden"}`}>
+                <div className={`py-8 w-full mt-[100px] mb-[100px] ${buttonSelected == 1 ? "" : "hidden"}`}>
                     <div className="lg:flex flex-wrap items-center justify-center w-full gap-5">
                         {
                             messageList.map((item) => {
@@ -159,15 +159,7 @@ const CandidatureListPage = () => {
                                                 </svg>
                                             </div>
                                         </div>
-                                        {
-                                            /*<div className="px-2">
-                                            <p className="text-sm leading-5 py-4 text-gray-600 line-clamp-2">{item.content}</p>
-                                            <div className="flex">
-                                                <div className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#dogecoin</div>
-                                                <div className="py-2 px-4 ml-3 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">#crypto</div>
-                                            </div>
-                                        </div> */
-                                        }
+                                        
                                     </div>
                                 )
                             })
@@ -191,12 +183,12 @@ const CandidatureListPage = () => {
                         </div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                         <div
-                            className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
+                            className="inline-block align-bottom bg-white mt-20 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="modal-title"
                         >
-                            <div className="bg-white px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
+                            <div className="bg-white px-4 w-full  mt-20 pb-4 sm:p-1 sm:pb-1">
                                 <div className="sm:flex flex flex-col w-full sm:items-start">
                                     <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
                                         {
@@ -241,26 +233,7 @@ const CandidatureListPage = () => {
                                     </div>
                                     <div className=" mt-2  w-full ">
                                         <div className=" flex justify-start rounded-lg w-full border-t ">
-                                            {
-                                                /*<div className="w-full space-y-3 flex flex-col ">
-                                                {
-                                                    offreDetail && offreDetail.coverPicture ?
-                                                        <img className="h-10 w-10 rounded-lg" src={offreDetail.coverPicture} /> :
-                                                        <div className="h-10 w-10 rounded-lg bg-gray-200 animate-pulse" />
-                                                }
-                                            </div> */
-                                            }
-                                            {
-                                                /*<div>
-                                                {
-                                                    offreDetail && offreDetail.title
-                                                        ?
-                                                        <h2 className="text-xl font-semibold">{offreDetail.title}</h2>
-                                                        :
-                                                        <div className="h-10 w-full rounded-lg bg-gray-200 animate-pulse" />
-                                                }
-                                            </div> */
-                                            }
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -293,12 +266,12 @@ const CandidatureListPage = () => {
                         </div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                         <div
-                            className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                            className="inline-block align-bottom bg-white mt-20 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="modal-title"
                         >
-                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full ">
+                            <div className="bg-white px-4 pt-5 mt-20 pb-4 sm:p-6 sm:pb-4 w-full ">
                                 <div className="sm:flex sm:items-start">
                                     <div className="w-full mt-3 text-center sm:mt-0 sm:text-left">
                                         {
