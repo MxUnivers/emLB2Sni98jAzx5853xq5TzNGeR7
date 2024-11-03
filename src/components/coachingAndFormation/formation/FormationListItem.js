@@ -31,33 +31,26 @@ const FormationListItem = () => {
                 <div className="w-full mx-5 py-20 lg:w-3/5">
                     <h3 className="text-center text-2xl font-semibold text-gray-800 dark:text-white">Nos formations</h3>
                     {
-                        isLoading ?
-                            <LoadingCompo1 text={"Meilleurs coaching et formations pour vous"} />
-                            :
-                            error ?
-                                <LoadingCompo1 text={"Impossible de voir les formations, veuillez recharger la page"} />
-                                :
-                                (
-                                    <div className="w-full px-5 mt-8 grid gap-5">
-                                        {
-                                            currentItems.map((item, index) => (
-                                                <FormationCard key={index} item={item} />
-                                            ))
-                                        }
-                                    </div>
-                                )
+
+                        <div className="w-full px-5 mt-8 grid gap-5">
+                            {
+                                currentItems.map((item, index) => (
+                                    <FormationCard key={index} item={item} />
+                                ))
+                            }
+                        </div>
                     }
                     <div className="flex justify-center mt-8 space-x-4">
-                        <button 
-                            onClick={handlePreviousPage} 
-                            disabled={currentPage === 1} 
+                        <button
+                            onClick={handlePreviousPage}
+                            disabled={currentPage === 1}
                             className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
                         >
                             Précédent
                         </button>
-                        <button 
-                            onClick={handleNextPage} 
-                            disabled={currentPage === totalPages} 
+                        <button
+                            onClick={handleNextPage}
+                            disabled={currentPage === totalPages}
                             className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
                         >
                             Suivant

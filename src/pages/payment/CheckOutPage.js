@@ -110,12 +110,12 @@ const CheckOutPage = () => {
         if (userId !== null) {
             try {
                 setIsLoginpaymentUrl(true);
-                localStorage.setItem(localvalue.customer_id,userId);
-                localStorage.setItem(localvalue.customer_name,firstname);
-                localStorage.setItem(localvalue.customer_surname,lastname);
-                localStorage.setItem(localvalue.customer_email,emailUser);
-                localStorage.setItem(localvalue.customer_pack_id,pack._id);
-                localStorage.setItem(localvalue.customer_pack,pack.pack);
+                localStorage.setItem(localvalue.customer_id, userId);
+                localStorage.setItem(localvalue.customer_name, firstname);
+                localStorage.setItem(localvalue.customer_surname, lastname);
+                localStorage.setItem(localvalue.customer_email, emailUser);
+                localStorage.setItem(localvalue.customer_pack_id, pack._id);
+                localStorage.setItem(localvalue.customer_pack, pack.pack);
 
 
                 const response = await axios.post(`${baseurl.url}/api/v1/packs/generate-cinepay-payment-url/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}`, {
@@ -130,14 +130,14 @@ const CheckOutPage = () => {
                         "PackID": pack._id,
                         "TypePersonne": getAndCheckLocalStorage(localvalue.TYPEACCESS)
                     },
-                    "metadata":pack._id
+                    "metadata": pack._id
                 });
 
                 if (response.status === 200) {
                     setPaymentUrl(response.data.data.payment_url);
                     console.log(response.data.data.payment_url);
                     // Redirigez l'utilisateur vers l'URL de paiement
-                    localStorage.setItem(localvalue.customer_transaction_id,response.data.transactionId);
+                    localStorage.setItem(localvalue.customer_transaction_id, response.data.transactionId);
                     window.open(response.data.data.payment_url, '_blank');
                     settransactionId(response.data.transactionId);
                     const transaction_id = response.data.transactionId;
@@ -286,21 +286,7 @@ const CheckOutPage = () => {
                                                 null
                                         }
 
-                                        {
-                                            /*<div class="mb-6 pb-6 border-b border-gray-200">
-                                            <div class="-mx-2 flex items-end justify-end">
-                                                <div class="flex-grow px-2 lg:max-w-xs">
-                                                    <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Discount code</label>
-                                                    <div>
-                                                        <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text" />
-                                                    </div>
-                                                </div>
-                                                <div class="px-2">
-                                                    <button class="block w-full max-w-xs mx-auto border border-transparent bg-gray-400 hover:bg-gray-500 focus:bg-gray-500 text-white rounded-md px-5 py-2 font-semibold">APPLY</button>
-                                                </div>
-                                            </div>
-                                        </div> */
-                                        }
+
 
                                         <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
                                             <div class="w-full flex items-center">
@@ -321,8 +307,8 @@ const CheckOutPage = () => {
 
                                     <div class="px-3 md:w-5/12">
                                         <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
-                                        <div>
-                                        </div>
+                                            <div>
+                                            </div>
                                             <div class="w-full flex mb-3 items-start justify-start border-b ">
                                                 <div class="w-32">
                                                     <span class="text-gray-600 font-semibold">Infos 1 :</span>
@@ -393,47 +379,11 @@ const CheckOutPage = () => {
                                                         PAYER AVEC CINEPAY
                                                     </button>
                                             }
-                                            {/*
-                                                paymentUrl && (
-                                                    <div>
-                                                        <p>URL de paiement générée :</p>
-                                                        <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
-                                                            {paymentUrl}
-                                                        </a>
-                                                    </div>
-                                                )
-                                                 */
-                                            }
-                                            {
-                                                /*
-                                                transactionId && (
-                                                    <div>
-                                                        <p>Transaction id :</p>
-                                                        <div >
-                                                            {transactionId}
-                                                        </div>
-                                                    </div>
-                                                )
-                                                 */
-                                            }
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {/*<div class="p-5">
-                            <div class="text-center text-gray-400 text-sm">
-                                <a href="https://www.buymeacoffee.com/scottwindon" target="_blank" class="focus:outline-none underline text-gray-400"><i class="mdi mdi-beer-outline"></i>Buy me a beer</a> and help support open-resource
-                            </div>
-                        </div> */}
-                    </div>
-
-                    {/*<!-- BUY ME A BEER AND HELP SUPPORT OPEN-SOURCE RESOURCES -->*/}
-                    <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
-                        <div>
-                            <a title="Buy me a beer" href="https://www.buymeacoffee.com/scottwindon" target="_blank" class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
-                                <img class="object-cover object-center w-full h-full rounded-full" src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg" />
-                            </a>
                         </div>
                     </div>
 
