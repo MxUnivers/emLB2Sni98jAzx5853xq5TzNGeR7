@@ -146,7 +146,7 @@ export const PackAllCandidat = async (setState, setState2) => {
             setState2(response.data.data);
         })
         .catch((error) => {
-            // console.log(error);
+            console.log(error);
         });
 
 }
