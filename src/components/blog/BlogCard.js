@@ -22,9 +22,9 @@ const BlogCard = ({ item }) => {
     return (
         <div
             className=" bg-white shadow-md rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105"
-            onClick={handleClick}
+           
         >
-            <div className="relative">
+            <div className="relative"  onClick={handleClick}>
                 <div className="absolute top-2 left-2 bg-indigo-500 text-white px-3 py-1 text-xs rounded-full uppercase">
                     {item.areaPost || 'Actualités'}
                 </div>
@@ -34,8 +34,8 @@ const BlogCard = ({ item }) => {
             </div>
 
             <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 line-clamp-2 hover:underline">{item.title}</h2>
-                <div className="flex items-center mt-2 text-gray-600 text-sm">
+                <h2 className="text-lg font-semibold text-gray-800 line-clamp-2 hover:underline"  onClick={handleClick}>{item.title}</h2>
+                <div className="flex items-center mt-2 text-gray-600 text-sm"  onClick={handleClick}>
                     <img src={item.customerPhoto} alt={item.customerName} className="w-8 h-8 rounded-full mr-2" />
                     <div>
                         <p className="font-medium">{item.customerName}</p>
@@ -44,11 +44,13 @@ const BlogCard = ({ item }) => {
                 </div>
                 {
                     getAndCheckLocalStorage(localvalue.candidatID) == item.idcustomerId && (
-                        <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline">
-                            <MdEdit /> <span> Modifier</span>
+                        <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline"
+                        onClick={()=>{navigate(`/${routing.blog_edit}`,{state:{item}})}}
+                        >
+                            <span> Modifier</span>
                         </div>)
                 }
-                <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline">
+                <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline"  onClick={handleClick}>
                     Découvrir &raquo;
                 </div>
             </div>

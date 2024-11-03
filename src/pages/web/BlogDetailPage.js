@@ -51,7 +51,7 @@ const BlogDetailPage = () => {
                                                 alt={item.customerName}
                                             />
                                             <div>
-                                                <p className="font-semibold text-gray-200 text-sm">{item.customerName}</p>
+                                                <p className="font-semibold text-gray-200 text-sm">{item && item.firstname && item.lastname ?`${item.fistname} ${item.lastname}`:`${item.customerName}`}</p>
                                                 <p className="text-gray-400 text-xs">
                                                     {moment(item.createdAt).format('DD/MM/YYYY')} at{' '}
                                                     {moment(item.createdAt).format('HH:mm')}

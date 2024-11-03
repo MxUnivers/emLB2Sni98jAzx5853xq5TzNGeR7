@@ -13,6 +13,7 @@ import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
 import { useLocation } from 'react-router-dom';
+import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 
 
 
@@ -20,18 +21,18 @@ import { useLocation } from 'react-router-dom';
 
 const BogPostEditPage = () => {
     const location = useLocation();
-    const {item}= location.state;
+    const { item } = location.state;
     var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
     const [title, settitle] = useState();
     const [areaPost, setareaPost] = useState();
     const [content, setcontent] = useState();
-    const [coverPicture, setcoverPicture] = useState("https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740");
+    const [coverPicture, setcoverPicture] = useState();
 
     const { quill, quillRef } = useQuill();
 
     useEffect(() => {
-        if(item){
+        if (item) {
             settitle(item.title);
             setcontent(item.content);
             setareaPost(item.areaPost);
@@ -79,7 +80,7 @@ const BogPostEditPage = () => {
 
         // Liste des champs obligatoires
         const requiredFields = [
-            "title", "content", "areaPost", "content"
+            "title", "content", "coverPicture", "areaPost", "content"
         ];
 
         // Vérifiez chaque champ requis.
@@ -98,34 +99,13 @@ const BogPostEditPage = () => {
 
 
     const [LoadingPhoto, setLoadingPhoto] = useState(false);
-    const convertBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader(); fileReader.readAsDataURL(file); fileReader.onload = () => { resolve(fileReader.result); };
-            fileReader.onerror = (error) => { reject(error); };
-        });
-    }
-    function uploadSinglePhoto(base64) {
-        setLoadingPhoto(true);
-        axios.post(`${baseurl.url}/uploadImage`, { image: base64 })
-            .then((res) => {
-                setcoverPicture(res.data);
-                toast.dark("Photo télécharger avec succès")
-            })
-            .then(() => setLoadingPhoto(false))
-            .catch(() => {
-                console.log("Photo ,on uploder"); toast.error("Photo non télécharger !")
-                setLoadingPhoto(false);
-            });
-    }
+
     const HandleFileInputChangePhoto = async (event) => {
-        const files = event.target.files;
-        console.log(files.length);
-        if (files.length === 1) {
-            const base64 = await convertBase64(files[0]);
-            uploadSinglePhoto(base64); return;
-        }
-        const base64s = [];
-        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+        setLoadingPhoto(true);
+        const files = event.target.files[0];
+        const photoUpload = await handleImageUploadCloudOnly(files, toast);
+        setcoverPicture(photoUpload);
+        setLoadingPhoto(false)
     }
 
     return (
@@ -184,7 +164,7 @@ const BogPostEditPage = () => {
                                 loading ?
                                     <p>en cours ...</p> :
                                     <button type="submit" className="btn text-white border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
-                                        Poster
+                                        Mise à jour
                                     </button>
                         }
                     </div>

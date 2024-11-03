@@ -61,7 +61,7 @@ const BogPostPage = () => {
 
         // Liste des champs obligatoires
         const requiredFields = [
-            "title", "content", "areaPost", "content"
+            "title", "content","coverPicture", "areaPost", "content"
         ];
 
         // Vérifiez chaque champ requis.
@@ -69,7 +69,7 @@ const BogPostPage = () => {
             if (!eval(field)) {
                 showErrorToast(
                     //`${field.replace("_", " ")} requis !`
-                    `les champs avec * obligatoire`
+                    `Tous les champs sont obigatoire`
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
@@ -85,11 +85,8 @@ const BogPostPage = () => {
         setLoadingPhoto(true);
         const files = event.target.files[0];
         console.log(files.length);
-        if (files.length === 1) {
-            const photoUplaod = handleImageUploadCloudOnly(files, toast);
-            setcoverPicture(photoUplaod);
-            setLoadingPhoto(false);
-        }
+        const photoUplaod = await handleImageUploadCloudOnly(files, toast);
+        setcoverPicture(photoUplaod);
         setLoadingPhoto(false);
     }
 
