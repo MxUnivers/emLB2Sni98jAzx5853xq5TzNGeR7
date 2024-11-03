@@ -1,359 +1,91 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { PackAllCandidat, PackAllEntreprise, SubscriblePackCandidat } from '../../action/api/packs/PackAction';
+import { CandidatGetById } from '../../action/api/candidat/CandidatAction';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { PackAllEntreprise, SubscriblePackCandidat } from '../../action/api/packs/PackAction';
-import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { routing } from '../../utlis/routing';
-import { useEffect } from 'react';
 import LoadinButton from '../../components/loading/LoadinButton';
-import { IconPack } from '../../utlis/config';
+import { routing } from '../../utlis/routing';
+import { IconPack, packsItemsList } from '../../utlis/config';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 
-const RecruteurPacks = () => {
-
-
+const CandidatPacks = () => {
     const navigate = useNavigate();
-    var idCandidat = getAndCheckLocalStorage(localvalue.recruteurID);
-
-
-    const [candidatDetail, setcandidatDetail] = useState();
-
-    const [packs, setpacks] = useState([]);
-    const [packs2, setpacks2] = useState([]);
-
-    useEffect(() => {
-        PackAllEntreprise(setpacks, setpacks2);
-        EntrepriseGetById(idCandidat, setcandidatDetail);
-    }, []);
-
-    // handleSumbit pack
-    const [idPack, setidPack] = useState();
-    const [idPack2, setidPack2] = useState();
-    const [idPack3, setidPack3] = useState();
-
+    const idCandidat = getAndCheckLocalStorage(localvalue.recruteurID);
     const dispatch = useDispatch();
     const loading = useSelector((state) => state.loading);
-    const error = useSelector((state) => state.error);
 
-    // handleSubmit
-    const handleSubmitPack1 = (event) => {
-        event.preventDefault();
-        if (packs.length > 0) {
-            const id = packs[0]._id;
-            setidPack(id);
-            console.log(idPack)
-            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
-        }
+    const [candidatDetail, setCandidatDetail] = useState();
+    const [packs, setPacks] = useState([]);
+    const [packs2, setPacks2] = useState([]);
 
-    }
+    useEffect(() => {
+        PackAllEntreprise(setPacks);
+        EntrepriseGetById(idCandidat, setCandidatDetail);
+    }, [idCandidat]);
 
-    const handleSubmitPack2 = (event) => {
-        event.preventDefault();
-
-        if (packs.length > 1) {
-            const id = packs[1]._id;
-            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
-        }
-    }
-
-
-
-    const handleSubmitPack3 = (event) => {
-        event.preventDefault();
-
-        if (packs.length > 2) {
-            const id = packs[2]._id;
-            setidPack3(id);
-
-            dispatch(SubscriblePackCandidat(id, idCandidat, toast));
-        }
-
-    }
-
-    const handleGetPricing = (item) => {
-        if (getAndCheckLocalStorage(localvalue.recruteurID) !== null && packs.length > 0) {
-            alert("Pack recupéer");
-            navigate(`/${routing.checkout}`, { state: { item } });
-        } else {
-            toast.info("Veillez vous connecter d'abord vous connectez ");
-        }
-    }
-
-
-
-
-
-
-
+    const handleNavigateToCheckout = (pack) => {
+        navigate(`/${routing.checkout}`, { state: { pack } });
+    };
 
     return (
-        <div class="bg-blue-200 rounded-lg ">
-
-            <div class="flex justify-center py-2 mt-10">
-                <h1 class="text-4xl font-bold">Recruteur </h1>
+        <div className="bg-white dark:bg-gray-800 min-h-screen p-6">
+            <div className="flex justify-center py-2 mt-10">
+                <h1 className="text-4xl font-bold">Pack Entreprise</h1>
             </div>
-            <div class="container px-6 py-8 mx-auto">
 
-                <div class="flex flex-col items-center justify-center space-y-8 lg:-mx-4 lg:flex-row lg:items-stretch lg:space-y-0">
-                    <div class="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex-shrink-0">
-                            <h2 class="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700">
-                                Agent
-                            </h2>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span
-                                class="pt-2 text-4xl font-bold text-gray-800 uppercase dark:text-gray-100"
-                            >
-                                1000f
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400">
-                                
-                            </span>
-                        </div>
-                        <ul class="flex-1 space-y-4">
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">20 SMS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">20 EMAILS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">OFFRES ILLIMITES</span
-                                >
-                            </li>
+            <div className="container mx-auto px-4 py-8">
+                <div className="grid md:grid-cols-3 gap-5">
+                    {packs && packs.length > 0 && packs.map((pack, index) => (
+                        <div key={pack._id} className="w-full max-w-sm p-4">
+                            <div className="bg-white border border-gray-200 rounded-lg shadow-lg flex flex-col min-h-[500px] p-6">
+                                <h2 className="text-center text-blue-500 font-semibold uppercase">{pack.pack}</h2>
+                                <span className="block text-center text-4xl font-bold text-gray-800">{pack.solde} F</span>
+                                <ul className="mt-4 space-y-2 flex-1">
+                                    {packsItemsList && packsItemsList.length > 0 && packsItemsList[index].avantages.map((feature, idx) => (
+                                        <li key={idx} className="flex items-center">
+                                            <div className="rounded-full p-2 text-green-700">
+                                                {IconPack}
+                                            </div>
+                                            <span className="ml-2 text-gray-700">{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
 
-                        </ul>
-
-                        {candidatDetail && candidatDetail.account ?
-                            packs[0].pack == candidatDetail.account.pack ?
-                                <button
-                                    class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                >
-                                    Activé
-                                </button>
-                                :
-                                loading ?
-                                    <p><LoadinButton text={"En cours"} /></p> :
-                                    <>
-                                        <form  >
-                                            <button type="button"
-                                                onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[0] } })
-                                                }}
-                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
+                                <div className="mt-auto"> {/* Ensures the button stays at the bottom */}
+                                    {candidatDetail && candidatDetail.account ? (
+                                        candidatDetail.account.pack === pack.pack ? (
+                                            <button className="w-full py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none">
+                                                Activé
+                                            </button>
+                                        ) : loading ? (
+                                            <LoadinButton text={"En cours..."} />
+                                        ) : (
+                                            <button
+                                                onClick={() => handleNavigateToCheckout(pack)}
+                                                className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                                             >
                                                 Acheter
                                             </button>
-                                        </form>
-                                    </> :
-                            <button
-                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                            > ...
-                            </button>
-                        }
-
-                    </div>
-
-                    <div class="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex-shrink-0">
-                            <h2
-                                class="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700"
-                            >
-                                Profesional
-                            </h2>
+                                        )
+                                    ) : (
+                                        <button
+                                            onClick={() => handleNavigateToCheckout(pack)}
+                                            className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+                                        >
+                                            Acheter
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-shrink-0">
-                            <span
-                                class="pt-2 text-4xl font-bold text-gray-800 uppercase dark:text-gray-100"
-                            >
-                                2000f
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400">
-                                
-                            </span>
-                        </div>
-                        <ul class="flex-1 space-y-4">
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">60 SMS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">60 EMAILS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">REDACTIONS ARTICLES</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">OFFRES EN PRIORITAIRES</span
-                                >
-                            </li>
-
-                        </ul>
-
-                        {candidatDetail && candidatDetail.account ?
-                            packs[1].pack == candidatDetail.account.pack ?
-                                <button
-                                    class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                >
-                                    Activé
-                                </button>
-                                :
-                                loading ?
-                                    <p><LoadinButton text={"En cours"} /></p> :
-                                    <>
-                                        <form >
-                                            <button type="button"
-                                                onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[1] } })
-                                                }}
-
-                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                            >
-                                                Acheter
-                                            </button>
-                                        </form>
-                                    </> :
-                            <button
-                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                            > ...
-                            </button>
-                        }
-                    </div>
-
-                    <div class="flex flex-col w-full max-w-sm p-8 space-y-8 text-center bg-white border-2 border-gray-200 rounded-lg lg:mx-4 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex-shrink-0">
-                            <h2
-                                class="inline-flex items-center justify-center px-2 font-semibold tracking-tight text-blue-400 uppercase rounded-lg bg-gray-50 dark:bg-gray-700"
-                            >
-                                Gold
-                            </h2>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span
-                                class="pt-2 text-4xl font-bold text-gray-800 uppercase dark:text-gray-100"
-                            >
-                                5000f
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400">
-                                
-                            </span>
-                        </div>
-                        <ul class="flex-1 space-y-4">
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">100 SMS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">100 EMAILS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">REDACTIONS ARTICLES</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">OFFRES EN PRIORITAIRES</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">MEILLEURS PROFILES CANDIDATS</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-2 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">BOURSES D{"'"}ETUDES</span
-                                >
-                            </li>
-                            <li class="flex items-center">
-                                <div class=" rounded-full p-1 fill-current text-green-700">
-                                    {IconPack}
-                                </div>
-                                <span class="text-gray-700 text-sm ml-1">Coaching & formations</span
-                                >
-                            </li>
-
-                        </ul>
-
-                        {candidatDetail && candidatDetail.account ?
-                            packs[2].pack == candidatDetail.account.pack ?
-                                <button
-                                    class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-green-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                >
-                                    Activé
-                                </button>
-                                :
-                                loading ?
-                                    <p><LoadinButton text={"En cours ..."} /></p> :
-                                    <>
-                                        <form >
-                                            <button type="button"
-                                                onClick={() => {
-                                                    navigate(`/${routing.checkout}`, { state: { pack: packs[2] } })
-                                                }}
-                                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                                            >
-                                                Acheter
-                                            </button>
-                                        </form>
-                                    </> :
-                            <button
-                                class="inline-flex items-center justify-center px-4 py-2 font-semibold text-white uppercase transition-colors bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none"
-                            > ...
-                            </button>
-                        }
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
+    );
+};
 
-
-    )
-}
-
-export default RecruteurPacks;
+export default CandidatPacks;

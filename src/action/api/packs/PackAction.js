@@ -142,8 +142,10 @@ export const PackAllCandidat = async (setState, setState2) => {
         }
     })
         .then((response) => {
+            console.log(response.data.data);
             setState(response.data.data);
             setState2(response.data.data);
+            
         })
         .catch((error) => {
             console.log(error);

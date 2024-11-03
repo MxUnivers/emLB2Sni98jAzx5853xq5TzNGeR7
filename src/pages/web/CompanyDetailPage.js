@@ -23,8 +23,8 @@ const CompanyDetailPage = () => {
         CandidaturesALLOfEntreprises(idCompany, setCandidatures);
     }, [idCompany]);
 
-    const currentItems = offres.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-    const totalPages = Math.ceil(offres.length / itemsPerPage);
+    const currentItems = offres && offres.length > 0 ? offres.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage): [];
+    const totalPages = offres && offres.length > 0 ? Math.ceil(offres.length / itemsPerPage): Math.ceil([].length / itemsPerPage)
 
     return (
         <div className="main-content w-full">
@@ -86,7 +86,7 @@ const CompanyDetailPage = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {currentItems.map((item, index) => (
+                                            { currentItems.map((item, index) => (
                                                 <tr key={index} className="border-b">
                                                     <td className="py-2 px-4">{item.title}</td>
                                                     <td className="py-2 px-4">{item.company}</td>
