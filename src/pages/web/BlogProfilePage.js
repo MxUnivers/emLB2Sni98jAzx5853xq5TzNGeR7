@@ -14,6 +14,7 @@ import { RiEditBoxLine } from "react-icons/ri";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrSearch } from "react-icons/gr";
 import { statusPACKS } from '../../utlis/config'
+import BlogCard from '../../components/blog/BlogCard'
 
 
 
@@ -178,61 +179,8 @@ const BlogProfilePage = () => {
                                             <p>Une erreur est surveneue </p> :
                                             (<div className="uLPch_bqyJDXwe5tynMV M1YFStHQ2scEHZzvz7XX NM7Z1HBVjN_86WhEcXan _wYiJGbRZyFZeCc8y7Sf _8jcPkGLarEkE2SxNmlU Td37IMFwOi4Zt3Vhv3cT qDsn8ha5_HppqMcLKJwF wBVMFkIGfrKshbvi2gS1 _lTTGxW9MVI40FyDCtmr ywL5uTZPlgVihxkmcsCL">
                                                 {blogs.map((item) => {
-                                                    if (idCandidat == item.idcustomerId) {
-                                                        return (
-                                                            <div className="_wYiJGbRZyFZeCc8y7Sf UYOSZJ1_pv3B5nt1ujCP _Ybd3WwuTVljUT4vEaM3 mveJTCIb2WII7J4sY22F mngKhi_Rv06PF57lblDI _1jTZ8KXRZul60S6czNi li3V2nWsIccF5bigdJK_ mLcQlleCsw78f8JnJ0rz wlDQu3XsiQM08HEeTqes">
-                                                                <div className="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 d4louhNic5PFgJGRKqn6">
-                                                                    <div className="VQS2tmQ_zFyBOC2tkmto">
-                                                                        <img className="hlT3pgfpx11BUFMWNdhc Mln3CkDzLcoVQAC3Uqsd RpVwy4sO7Asb86CncKJ_" src={item.customerPhoto} alt="Neil Sims" />
-                                                                    </div>
-                                                                    <div className="_74lpPUMEtHf6F0_fjLe G4dLHP1O7x3gaD0_p7Kc">
-                                                                        <p className="c8dCx6gnV43hTOLV6ks5 yM_AorRf2jSON3pDsdrz __9sbu0yrzdhGIkLWNXl vfNYjqjYMlN1XskEucCt OyABRrnTV_kvHV7dJ0uE">{item.customerName}</p>
-                                                                        <p className="c8dCx6gnV43hTOLV6ks5 _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 vfNYjqjYMlN1XskEucCt XIIs8ZOri3wm8Wnj9N_y">
-                                                                            {moment(item.createdAt).format("DD/MM/YYYY")} {moment(item.createdAt).format("HH:MM")}
-                                                                        </p>
-                                                                    </div>
-                                                                    <div
-                                                                        onClick={() => {
-                                                                            setWithExpiration(localvalue.BlogID, item._id, dureeDeVie);
-                                                                            navigate(`/${routing.blog_edit}`, { state: { item } })
-                                                                        }}
-                                                                        className="cursor-pointer _k0lTW0vvzboctTxDi2R Nm7xMnguzOx6J5Ao7yCU sQaK4IH7BIQSgBTGX8Pe PeR2JZ9BZHYIH8Ea3F36 Y3FxyuXtj2gecrGXvLEI SA5DoMHfwOFtY4h_qzuM OPrb_iG5WDy_7F05BDOX dMTOiA3mf3FTjlHu6DqW XIIs8ZOri3wm8Wnj9N_y ZnBoTVi7VOJdCLSSU62n _7KA5gD55t2lxf9Jkj20">
-                                                                        <RiEditBoxLine />
-                                                                    </div>
-                                                                </div>
-                                                                <div className="UYOSZJ1_pv3B5nt1ujCP">
-                                                                    <h2 className="font-semibold d3C8uAdJKNl1jzfE9ynq _43MO1gcdi2Y0RJW1uHL PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
-                                                                        {item.title}
-                                                                    </h2>
-
-                                                                    {
-                                                                        item && item.coverPicture ?
-                                                                            <div className="YRrCJSr_j5nopfm4duUc hP1M5IgfjJiY8_B1VUN1">
-                                                                                <img className="fScvmu_bLBCkoXb3Xml3 oADHwEO31S0aPXWCcSfQ hD0sTTDgbxakubcHVW2X y7LTF_4HCOoAzmZm_v8k mveJTCIb2WII7J4sY22F"
-                                                                                    src={item.coverPicture} alt="task screenshot" />
-                                                                            </div> :
-                                                                            null
-                                                                    }
-
-                                                                </div>
-                                                                <div className="YRrCJSr_j5nopfm4duUc i8v96MUlFwGv9qJUkAx7 e2hrZSYddULUFUtJ9wBR pVSXSlnJdgskzP7BxPBe EpUSgjHdM6oyMXUiK_8_ qUWbS_LTZujDB4XCd11V _fGhMnSfYmaGrv7DvZ00">
-                                                                    <a href="#" className="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe PeR2JZ9BZHYIH8Ea3F36 oJZU4OQzzfXeLbF7UKZ_ ZnBoTVi7VOJdCLSSU62n XIIs8ZOri3wm8Wnj9N_y dMTOiA3mf3FTjlHu6DqW">
-                                                                        <svg className="E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus _x10ClrjYfqGxZTMmpBl" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                                                                        7 Comments
-                                                                    </a>
-                                                                    <a href="#" className="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe PeR2JZ9BZHYIH8Ea3F36 oJZU4OQzzfXeLbF7UKZ_ ZnBoTVi7VOJdCLSSU62n XIIs8ZOri3wm8Wnj9N_y dMTOiA3mf3FTjlHu6DqW">
-                                                                        <svg className="E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus _x10ClrjYfqGxZTMmpBl" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
-                                                                        457 Likes
-                                                                    </a>
-                                                                </div>
-                                                                <div>
-                                                                    <form action="#">
-                                                                        <label for="write-message" className="_DVAfiyo21kM68EUVzEQ">Comment</label>
-                                                                        <input type="text" id="write-message" placeholder="Write comment" className="jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl c8dCx6gnV43hTOLV6ks5 mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5" />
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        )
+                                                    if(getAndCheckLocalStorage(localvalue.candidatID) == item.idcustomerId){
+                                                        return <BlogCard item={item} />
                                                     }
                                                 })}
                                             </div>

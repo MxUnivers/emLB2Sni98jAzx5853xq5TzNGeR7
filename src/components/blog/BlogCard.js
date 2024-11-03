@@ -5,6 +5,7 @@ import { routing } from '../../utlis/routing';
 import { dureeDeVie, localvalue } from '../../utlis/storage/localvalue';
 import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
 import { toast } from 'react-toastify';
+import { MdEdit } from 'react-icons/md';
 
 const BlogCard = ({ item }) => {
     const navigate = useNavigate();
@@ -41,6 +42,12 @@ const BlogCard = ({ item }) => {
                         <p>{moment(item.createdAt).format('DD/MM/YYYY HH:mm')}</p>
                     </div>
                 </div>
+                {
+                    getAndCheckLocalStorage(localvalue.candidatID) == item.idcustomerId && (
+                        <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline">
+                            <MdEdit /> <span> Modifier</span>
+                        </div>)
+                }
                 <div className="mt-4 text-gray-500 font-semibold text-sm hover:underline">
                     Découvrir &raquo;
                 </div>

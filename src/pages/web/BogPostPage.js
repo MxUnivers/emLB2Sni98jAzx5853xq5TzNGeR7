@@ -12,6 +12,7 @@ import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
+import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 
 
 
@@ -99,14 +100,15 @@ const BogPostPage = () => {
             });
     }
     const HandleFileInputChangePhoto = async (event) => {
+        setLoadingPhoto(true);
         const files = event.target.files;
         console.log(files.length);
         if (files.length === 1) {
-            const base64 = await convertBase64(files[0]);
-            uploadSinglePhoto(base64); return;
+            const photoUplaod = handleImageUploadCloudOnly(files, toast);
+            setcoverPicture(photoUplaod);
+            setLoadingPhoto(false);
         }
-        const base64s = [];
-        for (var i = 0; i < files.length; i++) { var base = await convertBase64(files[i]); base64s.push(base); }
+        setLoadingPhoto(false);
     }
 
     return (
@@ -140,7 +142,7 @@ const BogPostPage = () => {
                             <div className="czlxp crp1m">
                                 <div className="cyzlo cy9uk">
                                     <img defaultValue={"https://img.freepik.com/vecteurs-premium/appareil-photo-instantane-images-dans-style-plat-fond-abstrait_668430-117.jpg?w=740"}
-                                     className="cuiwd c59v3 csm78 ciwnj c7htb cf986"
+                                        className="cuiwd c59v3 csm78 ciwnj c7htb cf986"
                                         src={`${coverPicture}`}
                                         alt="Upload" />
                                 </div>

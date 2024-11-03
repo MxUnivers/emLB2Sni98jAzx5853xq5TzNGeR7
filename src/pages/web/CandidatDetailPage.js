@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { BsLinkedin, BsTwitter, BsWhatsapp } from 'react-icons/bs';
 import { CiFacebook } from 'react-icons/ci';
-import { MdEmail, MdLocationCity, MdPhone, MdWeb } from 'react-icons/md';
+import { MdEmail, MdLocationCity, MdPhone, MdPrivateConnectivity, MdWeb } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
@@ -101,7 +101,11 @@ return (
                                     {candidat && candidat._id === idCandidat && (
                                     <div>
                                         <button onClick={()=> navigate(`/${routing.candidat_edit}`)} className="btn inline-flex items-center px-4 bg-indigo-500 text-xs text-white py-2 rounded-lg">
-                                            <BiEdit className="mr-2" /> <span>Mettre à jour</span>
+                                            <BiEdit className="mr-2" /> <span>Mise à profile</span>
+                                        </button>
+
+                                        <button onClick={()=> navigate(`/${routing.candidat_details_blog}`)} className="btn inline-flex items-center px-4 bg-indigo-500 text-xs text-white py-2 rounded-lg">
+                                            <MdPrivateConnectivity className="mr-2" /> <span>Publier un activité</span>
                                         </button>
 
                                     </div>
