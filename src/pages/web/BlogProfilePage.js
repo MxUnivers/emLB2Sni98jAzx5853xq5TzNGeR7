@@ -54,7 +54,7 @@ const BlogProfilePage = () => {
                     <div className="bg-white shadow-lg rounded-lg p-6">
                         <div className="flex flex-col items-center">
                             <img className="w-full h-48 object-cover rounded-lg" src={userInfo.coverPicture} alt="Profile Cover" />
-                            <h2 className="text-2xl font-bold mt-4">{userInfo.firstname} {userInfo.lastname}</h2>
+                            <h2 className="text-2xl font-bold mt-4">{userInfo.firstname || ""} {userInfo.lastname||""}</h2>
                             <ul className="list-none mt-2">
                                 <li className="flex items-center">
                                     <svg className="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
