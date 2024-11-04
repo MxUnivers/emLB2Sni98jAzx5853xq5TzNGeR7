@@ -2,11 +2,12 @@
 
 import axios from "axios";
 import { baseurl } from "../../../utlis/url/baseurl";
-import { dureeDeVie, localvalue, typePersonConnected } from "../../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, localvalueStorage, typePersonConnected } from "../../../utlis/storage/localvalue";
 import { routing } from "../../../utlis/routing";
 import { handleClearLocalStorage, setWithExpiration } from "../../../utlis/storage/localvalueFunction";
 import { useState } from "react";
 import { useEffect } from "react";
+import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
 
 
 
@@ -492,6 +493,9 @@ export const EntrepriseEditGenerale = (
 
 
 export const EntrepriseGetAll = async (setState, setState2) => {
+    const getData = getDataFromFile(localvalueStorage.RECRUTEURS) || []
+    setState(getData)
+    setState2(getData)
     await axios
         .get(`${baseurl.url}/api/v1/auth/entreprise/login/`, {
             headers:
@@ -501,9 +505,9 @@ export const EntrepriseGetAll = async (setState, setState2) => {
             }
         })
         .then((response) => {
-
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile( response.data.data,localvalueStorage.RECRUTEURS)
         })
         .catch((error) => {
             // console.log(error.body);

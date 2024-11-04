@@ -124,20 +124,27 @@ const JobDetailPage = () => {
         }
 
 
-
-        if (
+        if (candidatId !== null || candidatId !== ""
+            && candidat && candidat.account && candidat.account.pack &&
+            (candidat.account.pack == statusPACKS[0] || candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2])
+        ) {
+            dispatch(CandidaturePost(
+                candidatId, jobDetail.idEntreprise, jobDetail._id,
+                firstname, lastname, email, telephone, cv, description, navigate, toast
+            ));
+        }
+        else if (
             candidat && candidat.account && candidat.account.pack &&
-        (candidat.account.pack !== statusPACKS[0] &&
-            candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])
+            (candidat.account.pack !== statusPACKS[0] && candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])
         ) {
             toast.error("Veillez souscrire à un pack pour postuler cette offre");
             navigate(`/${routing.pricing}`)
         }
-        else{
-                toast.error("Veillez vous connecté");
-                setTimeout(() => {
-                    navigate(`/${routing.connexion}`)
-                }, 2500);
+        else {
+            toast.error("Veillez vous connecté");
+            setTimeout(() => {
+                navigate(`/${routing.connexion}`)
+            }, 2500);
         }
     }
 
@@ -433,7 +440,7 @@ const JobDetailPage = () => {
                     (
                         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-t to-transparent from-gray-900 "
                             id="modal">
-                            <div className="bg-white w-full m-10 my-10 rounded-lg shadow-lg p-6">
+                            <div className="bg-white w-full m-10 mt-20 my-10 rounded-lg shadow-lg p-6">
                                 <h2 className="text-lg font-bold mb-4">Postuler à l'offre d'emploi </h2>
                                 <form onSubmit={hanldeSubmitCandidat} className="">
                                     <div className="mb-1">

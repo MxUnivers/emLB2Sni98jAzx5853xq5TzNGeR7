@@ -458,7 +458,9 @@ export const CandidatDeconnexion = async (id) => {
 // recupérer  tous les candidats
 
 export const CandidatGetAll = async (setState, setState2) => {
-
+    const getData = getDataFromFile(localvalueStorage.CANDIDATS)
+    setState(getData)
+    setState2(getData)
     await axios.get(`${baseurl.url}/api/v1/candidat/get_candidats`, {
         headers: {
             'Content-Type': 'application/json',
@@ -468,6 +470,7 @@ export const CandidatGetAll = async (setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
+            saveDataToFile( response.data.data,localvalueStorage.CANDIDATS)
         })
         .catch((error) => {
             // console.log(error);
@@ -654,10 +657,10 @@ export default function useFetchCandidat(idCandidat) {
                 setCandidat(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.CANDIDAT)
                 setError(null);
-                console.log(response.data.data)
+                // console.log(response.data.data)
             })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setError(error);
                 });
 
