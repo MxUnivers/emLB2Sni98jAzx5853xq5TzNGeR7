@@ -14,9 +14,6 @@ const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
 
 export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setState2) => {
 
-    const  candidattureList  =  getDataFromFile(localvalueStorage.CANIDATURESLIST)||[];
-    setState(candidattureList)
-    setState2(candidattureList)
     await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/entreprise/${idEntreprise}`, {
         headers: {
             'Content-Type': 'application/json',

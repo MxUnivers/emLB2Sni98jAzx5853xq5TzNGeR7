@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OffreCreate } from '../../action/api/offres/OffresAction';
 import LoadinButton from '../../components/loading/LoadinButton';
 import { useEffect } from 'react';
-import { useFetchEntreprise } from '../../action/api/employeur/EmployeurAction';
+import { EntrepriseGetById, useFetchEntreprise } from '../../action/api/employeur/EmployeurAction';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import { statusPACKS } from '../../utlis/config';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
+import { Navigate } from 'react-router-dom';
+import { routing } from '../../utlis/routing';
 
 const JobPostPage = () => {
 
@@ -35,6 +37,13 @@ const JobPostPage = () => {
     const [addresse, setAddresse] = useState();
 
     const [candidats, setCandidats] = useState([]);
+
+    const [entrepriseDetail, setentrepriseDetail] = useState()
+
+    useEffect(() => {
+      EntrepriseGetById(getAndCheckLocalStorage(localvalue.recruteurID),setentrepriseDetail)
+    }, [])
+    
 
 
 
@@ -120,40 +129,21 @@ const JobPostPage = () => {
     }
 
 
+    if((entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[0]) ||
+    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[1]) ||
+    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[2])){
+        return(<Navigate to={`/${routing.pricing}`} />)
+    }else{
 
     return (
 
         <div className="main-content">
-
             <div className="page-content">
-
-
                 <main className="crp1m mt-20">
-
-
                     <div className="cjiiw cdg1p coz82">
-
                         <div className="cyzui">
-
                             <div className="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
-
-
-                                {
-                                    /*<header className="c62g5 cmdkn crp1m">
-                                    <div className="c7kkg czlxp cf6y5 crp1m c7htb">
-    
-                                        <a className="cfkm3 chkpc" href="index.html" aria-label="Cruip">
-                                            <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                                <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                                <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </header> */
-                                }
-
                                 <div className="cmdkn cggc7">
-
                                     <div className="cjplb">
                                         <h1 className="cukoz c4q7l ca00q c7csb">Nouvelle offre </h1>
                                         <div className="clvg0">Renseigner les informations pour pour avoir les meilleurs profiles </div>
@@ -377,6 +367,7 @@ const JobPostPage = () => {
             </div>
         </div>
     )
+                                            }
 }
 
 export default JobPostPage;

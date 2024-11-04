@@ -6,6 +6,9 @@ import { dureeDeVie, localvalue, typePersonConnected } from '../../utlis/storage
 import { OffreGetAllById } from '../../action/api/offres/OffresAction';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 import { CandidaturesALLOfEntreprises } from '../../action/api/candidatures/CandidatureAction';
+import { MdEdit } from 'react-icons/md';
+import { statusPACKS } from '../../utlis/config';
+import { toast } from 'react-toastify';
 
 const CompanyDetailPage = () => {
     const navigate = useNavigate();
@@ -17,15 +20,15 @@ const CompanyDetailPage = () => {
     const itemsPerPage = 10;
 
     const idCompany = getAndCheckLocalStorage(localvalue.recruteurID);
-    
+
     useEffect(() => {
-        OffreGetAllById(idCompany, setOffres,setOffres2);
+        OffreGetAllById(idCompany, setOffres, setOffres2);
         EntrepriseGetById(idCompany, setCompany);
         CandidaturesALLOfEntreprises(idCompany, setCandidatures);
     }, [idCompany]);
 
     const currentItems = offres.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-    const totalPages = offres && offres.length > 0 ? Math.ceil(offres.length / itemsPerPage): Math.ceil([].length / itemsPerPage)
+    const totalPages = offres && offres.length > 0 ? Math.ceil(offres.length / itemsPerPage) : Math.ceil([].length / itemsPerPage)
 
     return (
         <div className="main-content w-full">
@@ -67,15 +70,31 @@ const CompanyDetailPage = () => {
                             <div className="bg-white  rounded-lg p-6">
                                 <div className="flex justify-between items-center">
                                     <h3 className="text-xl font-semibold">Offres d{"'"}emploi</h3>
-                                    {getAndCheckLocalStorage(localvalue.TYPEACCESS) === typePersonConnected[0] && (
-                                        <Link to={`/${routing.job_post}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                                            Poster un emploi
-                                        </Link>
-                                    )}
+                                    {
+                                        (getAndCheckLocalStorage(localvalue.TYPEACCESS) === typePersonConnected[0])
+                                            ?
+                                            <Link to={`/${routing.job_post}`} 
+                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+                                            onClick={()=>{
+                                                if(
+                                                    (company && company && company.account && company.account.pack && company.account.pack == statusPACKS[0]) ||
+                                                    (company && company && company.account && company.account.pack && company.account.pack == statusPACKS[1]) ||
+                                                    (company && company && company.account && company.account.pack && company.account.pack == statusPACKS[2])
+                                                ){
+                                                    navigate(`/${routing.job_post}`);
+                                                }else{
+                                                    toast.error("Veillez soucire au pack s'il vous plais pour poster un offre")
+                                                }
+                                            }}
+                                            >
+                                                Poster un emploi
+                                            </Link>
+                                            : ""
+                                    }
                                 </div>
-                                
+
                                 <div className="mt-4 overflow-x-auto">
-                                    <table className="w-full bg-white rounded-lg">
+                                    <table className="w-full bg-white rounded-lg table-resize">
                                         <thead className="bg-gray-100">
                                             <tr>
                                                 <th className="py-2 px-4 text-left">Titre</th>
@@ -87,17 +106,32 @@ const CompanyDetailPage = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            { currentItems.map((item, index) => (
+                                            {currentItems.map((item, index) => (
                                                 <tr key={index} className="border-b">
                                                     <td className="py-2 px-4">{item.title}</td>
                                                     <td className="py-2 px-4">{item.company}</td>
                                                     <td className="py-2 px-4">{item.addresse}</td>
                                                     <td className="py-2 px-4">{item.salaire} / mois</td>
                                                     <td className="py-2 px-4">{item.typeContrat}</td>
-                                                    <td className="py-2 px-4 text-right">
+                                                    <td className="py-2 px-4 text-right space-x-2">
+                                                        {
+                                                            getAndCheckLocalStorage(localvalue.recruteurID) == item.idEntreprise &&
+                                                            (
+                                                                <button
+                                                                    onClick={() => navigate(`/${routing.job_edit}`, { state: { job: item } })}
+                                                                    className="text-gray-600 font-bold "
+                                                                >
+                                                                    <span> Modifier </span>
+                                                                </button>
+                                                            )
+                                                        }
+
                                                         <button
-                                                            onClick={() => navigate(`/${routing.job_details}`, { state: { job: item } })}
-                                                            className="text-blue-600"
+                                                            onClick={() => {
+                                                                setWithExpiration(localvalue.JobID, item._id, dureeDeVie);
+                                                                navigate(`/${routing.job_details}`, { state: { item } })
+                                                            }}
+                                                            className="text-indigo-600 font-bold"
                                                         >
                                                             Détails
                                                         </button>
@@ -114,9 +148,8 @@ const CompanyDetailPage = () => {
                                         <button
                                             key={index}
                                             onClick={() => setCurrentPage(index + 1)}
-                                            className={`px-3 py-1 mx-1 rounded ${
-                                                currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                                            }`}
+                                            className={`px-3 py-1 mx-1 rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                                                }`}
                                         >
                                             {index + 1}
                                         </button>
@@ -126,8 +159,8 @@ const CompanyDetailPage = () => {
                         </div>
                     </div>
                 </section>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
