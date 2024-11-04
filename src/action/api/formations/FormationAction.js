@@ -380,6 +380,7 @@ export function FormationGetById(idFormation) {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
+            
             await axios.get(`${baseurl.url}/api/v1/formation/get_formation/${idFormation}`, {
                 headers: {
                     'Content-Type': 'application/json',

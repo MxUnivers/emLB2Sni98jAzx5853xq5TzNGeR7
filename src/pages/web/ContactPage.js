@@ -1,8 +1,37 @@
 import React from 'react';
+import { submitContactForm } from '../../action/api/contact/ContactAction'; // Adjust the path as needed
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const ContactPage = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+            submitContactForm(formData,toast);
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                company: '',
+                message: ''
+            });
+       
+    };
+
     return (
-        <div className="main-content bg-gray-50 dark:bg-gray-900 py-16">
+        <div className="main-content bg-gray-50  py-16 mt-20">
             <div className="page-content">
                 <section className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-12">
@@ -19,36 +48,70 @@ const ContactPage = () => {
                             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
                                 Que devons-nous savoir ?
                             </h2>
-                            <form action="#" className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">
                                         Nom <span className="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="name" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                    <input 
+                                        type="text" 
+                                        name="name" 
+                                        value={formData.name} 
+                                        onChange={handleChange} 
+                                        className="w-full px-4 py-2 mt-1 rounded-lg border border-gray-300   focus:ring-2 focus:ring-blue-500" 
+                                        required 
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">
                                         Email professionnel <span className="text-red-500">*</span>
                                     </label>
-                                    <input type="email" name="email" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        value={formData.email} 
+                                        onChange={handleChange} 
+                                        className="w-full px-4 py-2 mt-1 rounded-lg border   border-gray-300   focus:ring-2 focus:ring-blue-500" 
+                                        required 
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">
                                         Téléphone <span className="text-red-500">*</span>
                                     </label>
-                                    <input type="tel" name="phone" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                    <input 
+                                        type="tel" 
+                                        name="phone" 
+                                        value={formData.phone} 
+                                        onChange={handleChange} 
+                                        className="w-full px-4 py-2 mt-1 rounded-lg border   border-gray-300   focus:ring-2 focus:ring-blue-500" 
+                                        required 
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">
                                         Entreprise <span className="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="company" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" required />
+                                    <input 
+                                        type="text" 
+                                        name="company" 
+                                        value={formData.company} 
+                                        onChange={handleChange} 
+                                        className="w-full px-4 py-2 mt-1 rounded-lg border   border-gray-300   focus:ring-2 focus:ring-blue-500" 
+                                        required 
+                                    />
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 dark:text-gray-300">
                                         Message
                                     </label>
-                                    <textarea name="message" className="w-full px-4 py-2 mt-1 rounded-lg border dark:bg-gray-700 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500" rows="4"></textarea>
+                                    <textarea 
+                                        name="message" 
+                                        value={formData.message} 
+                                        onChange={handleChange} 
+                                        className="w-full px-4 py-2 mt-1 rounded-lg border   border-gray-300   focus:ring-2 focus:ring-blue-500" 
+                                        rows="4"
+                                    ></textarea>
                                 </div>
                                 <button type="submit" className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700">
                                     Envoyer
@@ -62,13 +125,7 @@ const ContactPage = () => {
                             <p className="text-gray-600 dark:text-gray-300 text-center mb-8">
                                 Rejoignez des milliers d{"'"}entreprises qui nous font confiance pour optimiser leurs processus et collaborer efficacement.
                             </p>
-                            <div className="flex items-center mb-8">
-                                <img className="h-12 w-12 rounded-full mr-4" src="img/avatar-user.jpg" alt="User Avatar" />
-                                <div>
-                                    <h3 className="text-lg font-medium text-gray-800 dark:text-white">Randy Doe</h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Développeur Backend</p>
-                                </div>
-                            </div>
+                            
                             <h3 className="text-center text-sm font-semibold text-gray-800 dark:text-white mb-4">PARTENAIRES DE CONFIANCE</h3>
                             <div className="flex justify-center gap-6">
                                 <img src="img/uvci.png" alt="UVCI" className="h-10" />
