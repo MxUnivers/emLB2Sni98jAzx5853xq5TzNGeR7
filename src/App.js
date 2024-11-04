@@ -40,6 +40,7 @@ import CandidatDetailViewPage from "./pages/web/CandidatDetailViewPage";
 import AboutusPage from "./pages/web/AboutusPage";
 import ContactPage from "./pages/web/ContactPage";
 import ScholarshipApplicationFormPage from "./pages/web/ScholarshipApplicationFormPage";
+import ChatPage from "./pages/web/ChatPage";
 
 
 
@@ -73,6 +74,7 @@ function App() {
             <Route path={`${routing.job_edit}`} element={<JobEditPage />} />
 
             <Route path={`${routing.bourse_add_request}`} element={<ScholarshipApplicationFormPage />} />
+            <Route path={`${routing.chat_on_line}`} element={<ChatPage />} />
 
             <Route path={`${routing.candidat_list}`} element={<CandidatPage />} />
             <Route path={`${routing.candidat_edit}`} element={<CandidatEditProfilePage />} />

@@ -3,12 +3,33 @@ import './HomeBourses.css';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
+import { toast } from 'react-toastify';
+import { statusPACKS } from '../../utlis/config';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
+import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
+import { localvalue } from '../../utlis/storage/localvalue';
 
 const HomeBourses = () => {
 
     const navigate=  useNavigate();
 
     const bgImg = "img/scholarship-background.jpg"; // Use your own background image path
+
+
+    const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    const {candidat}=  useFetchCandidat(idCandidat)
+
+    const  handleRedirect =  ()=>{
+        if(
+            candidat && candidat.account && candidat.account.pack &&
+            (candidat.account.pack !== statusPACKS[2])
+        ){
+            navigate(`/${routing.bourse_add_request}`);
+        }else{
+            navigate(`/${routing.pricing}`);
+        }
+    }
+
 
     return (
         <section className="slogan-section" style={{ backgroundImage: `url(${bgImg})` }}>
@@ -23,7 +44,7 @@ const HomeBourses = () => {
                             <li>Support et accompagnement tout au long du processus</li>
                         </ul>
 
-                        <Button size="md" variant='primary' onClick={()=>{navigate(`/${routing.bourse_add_request}`)}}>Soumettre</Button>
+                        <Button size="md" variant='primary' onClick={handleRedirect}>Soumettre</Button>
                     </div>
 
                     <div className="stats-section">

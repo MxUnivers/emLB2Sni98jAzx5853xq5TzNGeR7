@@ -11,6 +11,7 @@ export const routing = {
     privacy_policy:"condition_utilisation",
 
     bourse_add_request:"demande-de-bourse",
+    chat_on_line:"chat-discussion",
 
 
     blog_list:"post-blog-list",

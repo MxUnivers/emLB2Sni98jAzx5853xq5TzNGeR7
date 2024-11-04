@@ -125,18 +125,15 @@ const JobDetailPage = () => {
 
 
 
-        if (candidat && candidat.account && candidat.account.pack &&
-            (candidat.account.pack !== statusPACKS[0] && candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])) {
+        if (
+            candidat && candidat.account && candidat.account.pack &&
+        (candidat.account.pack !== statusPACKS[0] &&
+            candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])
+        ) {
             toast.error("Veillez souscrire à un pack pour postuler cette offre");
             navigate(`/${routing.pricing}`)
         }
-        
-        else if (!candidatId && candidatId!==null && getAndCheckLocalStorage(localvalue.TYPEACCESS)!== typePersonConnected[1] )  {
-            toast.error("Veillez vous connecté");
-            setTimeout(() => {
-                navigate(`/${routing.connexion}`)
-            }, 2500);
-        }else{
+        else{
                 toast.error("Veillez vous connecté");
                 setTimeout(() => {
                     navigate(`/${routing.connexion}`)
