@@ -109,11 +109,8 @@ const ChatPage = () => {
     }, [messages]); // Dépendance sur messages
 
 
-
-
-
     return (
-        <div className="flex max-h-screen bg-gray-50">
+        <div className="flex max-h-screen bg-gray-50 sticky top-24">
             {/* Sidebar */}
             <div className="w-1/4 bg-white border-r border-gray-200 shadow-md pt-20">
                 <div className="p-4">

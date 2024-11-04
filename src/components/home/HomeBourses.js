@@ -20,14 +20,15 @@ const HomeBourses = () => {
     const {candidat}=  useFetchCandidat(idCandidat)
 
     const  handleRedirect =  ()=>{
-        if(
-            candidat && candidat.account && candidat.account.pack &&
-            (candidat.account.pack !== statusPACKS[2])
-        ){
-            navigate(`/${routing.bourse_add_request}`);
-        }else{
-            navigate(`/${routing.pricing}`);
-        }
+        // if(
+        //     candidat && candidat.account && candidat.account.pack &&
+        //     (candidat.account.pack !== statusPACKS[2])
+        // ){
+        //     navigate(`/${routing.bourse_add_request}`);
+        // }else{
+        //     navigate(`/${routing.pricing}`);
+        // }
+        toast.info("Les bourse d'etudes seront bientot disponibles")
     }
 
 
