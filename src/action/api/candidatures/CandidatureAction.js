@@ -38,9 +38,9 @@ export const CandidaturesALLOfEntreprises = async (idEntreprise, setState, setSt
 
 export const CandidatureAllOfCandidat = async (idCandidat, setState, setState2) => {
 
-    const  candidattureList  =  getDataFromFile(localvalueStorage.CANIDATURESLIST)||[];
-    setState(candidattureList)
-    setState2(candidattureList)
+    // const  candidattureList  =  getDataFromFile(localvalueStorage.CANIDATURESLIST)||[];
+    // setState(candidattureList)
+    // setState2(candidattureList)
     await axios.get(`${baseurl.url}/api/v1/candidature/get_candidatures/candidat/${idCandidat}`, {
         headers: {
             'Content-Type': 'application/json',

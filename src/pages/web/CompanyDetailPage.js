@@ -11,6 +11,7 @@ const CompanyDetailPage = () => {
     const navigate = useNavigate();
     const [company, setCompany] = useState(null);
     const [offres, setOffres] = useState([]);
+    const [offres2, setOffres2] = useState([]);
     const [candidatures, setCandidatures] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
@@ -18,12 +19,12 @@ const CompanyDetailPage = () => {
     const idCompany = getAndCheckLocalStorage(localvalue.recruteurID);
     
     useEffect(() => {
-        OffreGetAllById(idCompany, setOffres);
+        OffreGetAllById(idCompany, setOffres,setOffres2);
         EntrepriseGetById(idCompany, setCompany);
         CandidaturesALLOfEntreprises(idCompany, setCandidatures);
     }, [idCompany]);
 
-    const currentItems = offres && offres.length > 0 ? offres.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage): [];
+    const currentItems = offres.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     const totalPages = offres && offres.length > 0 ? Math.ceil(offres.length / itemsPerPage): Math.ceil([].length / itemsPerPage)
 
     return (

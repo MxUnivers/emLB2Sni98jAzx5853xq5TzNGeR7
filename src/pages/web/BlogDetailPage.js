@@ -24,16 +24,19 @@ const BlogDetailPage = () => {
     const { isLoadingC, errorC, candidat } = useFetchCandidat(idCandidat);
     const location = useLocation();
     const { item } = location.state;
-    useEffect(()=>{
-        EntrepriseGetById(idEntreprise,setentrepriseDetail)
-    },[])
+    useEffect(() => {
+        EntrepriseGetById(idEntreprise, setentrepriseDetail)
+    }, [])
 
     return (
-            <div className="page-content mt-[80px]">
-                {(candidat && candidat.account.pack === statusPACKS[1]) ||
-                    (candidat && candidat.account.pack === statusPACKS[2] ) ||
-                    (entrepriseDetail && entrepriseDetail._id )
-                    ? (
+        <div className="page-content mt-[80px]">
+            {(candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
+                (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
+                (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[0]) ||
+                (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[1]) ||
+                (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[2])
+
+                ? (
                     <div className="w-full">
                         <main className="mt-10">
                             {item && item.customerName && item.customerPhoto && item.areaPost ? (
@@ -60,7 +63,7 @@ const BlogDetailPage = () => {
                                                 alt={item.customerName}
                                             />
                                             <div>
-                                                <p className="font-semibold text-gray-200 text-sm">{item && item.firstname && item.lastname ?`${item.fistname} ${item.lastname}`:`${item.customerName}`}</p>
+                                                <p className="font-semibold text-gray-200 text-sm">{item && item.firstname && item.lastname ? `${item.fistname} ${item.lastname}` : `${item.customerName}`}</p>
                                                 <p className="text-gray-400 text-xs">
                                                     {moment(item.createdAt).format('DD/MM/YYYY')} at{' '}
                                                     {moment(item.createdAt).format('HH:mm')}
@@ -80,11 +83,11 @@ const BlogDetailPage = () => {
                             </div>
 
                             <div className="mt-1 mb-[100px] max-w-screen mx-auto">
-                            <hr/>
+                                <hr />
                                 <FormComment data={item} />
                             </div>
 
-                            
+
                         </main>
                     </div>
                 ) : (
@@ -94,7 +97,7 @@ const BlogDetailPage = () => {
                         route={`${routing.pricing}`}
                     />
                 )}
-            </div>
+        </div>
     );
 };
 
