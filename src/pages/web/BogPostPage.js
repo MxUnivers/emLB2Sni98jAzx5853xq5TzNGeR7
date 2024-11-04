@@ -13,6 +13,10 @@ import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
+import { statusPACKS } from '../../utlis/config';
+import { Navigate } from 'react-router-dom';
+import { routing } from '../../utlis/routing';
 
 
 
@@ -90,6 +94,15 @@ const BogPostPage = () => {
         setLoadingPhoto(false);
     }
 
+    const {candidat}=  useFetchCandidat(idCandidat)
+
+    if(
+        (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack !== statusPACKS[2]) ||
+        (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack !== statusPACKS[1])
+    ){
+        return <Navigate to={`/${routing.pricing}`} />
+
+    }else{
     return (
         <div className="main-content">
             <div className="page-content mt-28">
@@ -160,7 +173,8 @@ const BogPostPage = () => {
 
             </div>
         </div>
-    )
+    );
+                    }
 }
 
 export default BogPostPage;
