@@ -8,12 +8,15 @@ import { OffreCreate, OffreEditById } from '../../action/api/offres/OffresAction
 import { secteursActivite } from '../../utlis/options/employeurOption';
 import { typeContrats } from '../../utlis/options/optionDivers';
 import { salaires_School } from '../../utlis/options/candidatOption';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
 import LoadinButton from '../../components/loading/LoadinButton';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
+import { routing } from '../../utlis/routing';
+import { statusPACKS } from '../../utlis/config';
 
 const JobEditPage = () => {
 
@@ -27,7 +30,7 @@ const JobEditPage = () => {
     const [email, setEmail] = useState();
     const [telephone, setTelephone] = useState();
     const [salaire, setSalaire] = useState();
-    const [coverPicture, setCoverPicture] = useState('https://lespagesvertesci.net/userfiles/image/f38072ef.jpg');
+    const [coverPicture, setCoverPicture] = useState('');
     const [title_post, setTitlePost] = useState();
     const [areaOffre, setAreaOffre] = useState();
     const [expireDispobility, setExpireDispobility] = useState();
@@ -39,8 +42,12 @@ const JobEditPage = () => {
 
     const location =  useLocation();
     const {job} = location.state;
+    const  idRecurteur =  getAndCheckLocalStorage(localvalue.recruteurID)
+
+    const [entrepriseDetail, setentrepriseDetail] = useState()
     // recupération de valeur
     useEffect(() => {
+        EntrepriseGetById(idRecurteur,setentrepriseDetail)
         if(job){
             setidOffre(job._id)
             setCompany(job.company);
@@ -126,8 +133,11 @@ const JobEditPage = () => {
         )
     }
 
-
-
+    if (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
+        (entrepriseDetail.account.pack !== statusPACKS[1] && entrepriseDetail.account.pack !== statusPACKS[2])
+        ) {
+        return <Navigate to={`/${routing.pricing}`} />;
+    }
     return (
 
         <div className="main-content">
@@ -145,19 +155,7 @@ const JobEditPage = () => {
                             <div className="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
 
 
-                                {
-                                    /*<header className="c62g5 cmdkn crp1m">
-                                    <div className="c7kkg czlxp cf6y5 crp1m c7htb">
-    
-                                        <a className="cfkm3 chkpc" href="index.html" aria-label="Cruip">
-                                            <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                                                <path className="c05gp" d="M13.853 18.14 1 10.643 31 1l-.019.058z"></path>
-                                                <path className="crxnc" d="M13.853 18.14 30.981 1.058 21.357 31l-7.5-12.857z"></path>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </header> */
-                                }
+                              
 
                                 <div className="cmdkn cggc7">
 

@@ -44,22 +44,25 @@ const BlogProfilePage = () => {
     }, [candidat]);
 
     const handleNavigateToPost = () => {
-        if (
-            (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
-            (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2])
-        ) {
-            navigate(`/${routing.blog_post}`);
+        if (candidat && candidat.account && candidat.account.pack) {
+            const packStatus = candidat.account.pack;
+            if (packStatus === statusPACKS[1] || packStatus === statusPACKS[2]) {
+                navigate(`/${routing.blog_post}`);
+            } else {
+                navigate(`/${routing.pricing}`);
+            }
         } else {
             navigate(`/${routing.pricing}`);
         }
     };
+    console.log("Candidat ", candidat.account.pack)
 
     return (
         <div className="min-h-screen mt-[30px] bg-white p-5">
             <div className="container mx-auto mt-10">
                 {
-                    (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
-                        (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1])
+                    (candidat && candidat.account && candidat.account.pack &&
+                        (candidat.account.pack === statusPACKS[1] || candidat.account.pack === statusPACKS[2]))
                         ? (
                             <div className="bg-white shadow-lg rounded-lg p-6">
                                 <div className="flex flex-col items-center">

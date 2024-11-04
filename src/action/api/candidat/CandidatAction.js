@@ -627,7 +627,7 @@ export default function useFetchCandidat(idCandidat) {
         ],
         account: {
             solde: 0,
-            pack: "DIAMOND" || "",
+            pack: "",
             count_sms: 0
         }
     });
@@ -635,48 +635,13 @@ export default function useFetchCandidat(idCandidat) {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const formatCandidat =  getDataFromFile(localvalueStorage.CANDIDAT)||{coverPicture: "",
-    username: "",
-    email: "",
-    telephone: "",
-    firstname: "",
-    lastname: "",
-    addresse: "",
-    competences: [],
-    langues: [],
-    pays: "",
-    adresse: "",
-    salaire: "",
-    title_post: "",
-    description: "",
-    dateNaissance: "",
-    level_school: "",
-    site_web: "",
-    years_experience: "",
-    facebook_url: "",
-    linkedin_url: "",
-    twitter_url: "",
-    instagram_url: "",
-    bookmarks: [],
-    transactions:[],
-    offres: [
-        {
-            _id: ""
-        }
-    ],
-    account: {
-        solde: 0,
-        pack: "DIAMOND" || "",
-        count_sms: 0
-    }};
-
+    
    
 
 
     
 
     useEffect(() => {
-        setCandidat(formatCandidat)
         async function fetchData() {
             setIsLoading(true);
             // console.log(idCandidat);
@@ -689,10 +654,10 @@ export default function useFetchCandidat(idCandidat) {
                 setCandidat(response.data.data);
                 saveDataToFile(response.data.data,localvalueStorage.CANDIDAT)
                 setError(null);
-                // console.log(response.data.data)
+                console.log(response.data.data)
             })
                 .catch((error) => {
-                    // console.log(error);
+                    console.log(error);
                     setError(error);
                 });
 

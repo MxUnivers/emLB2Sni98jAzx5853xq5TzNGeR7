@@ -14,8 +14,8 @@ export const routing = {
 
 
     blog_list:"post-blog-list",
-    blog_details:"post-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
-    blog_post:"post-blog-"+getAndCheckLocalStorage(localvalue.candidatID),
+    blog_details:"post-blog-ref",
+    blog_post:"post-blog-",
     blog_edit:"edit-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
 
 

@@ -12,8 +12,11 @@ import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import { baseurl } from '../../utlis/url/baseurl';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
+import { statusPACKS } from '../../utlis/config';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
+import { routing } from '../../utlis/routing';
 
 
 
@@ -30,6 +33,8 @@ const BogPostEditPage = () => {
     const [coverPicture, setcoverPicture] = useState();
 
     const { quill, quillRef } = useQuill();
+
+    const  {candidat} =  useFetchCandidat(idCandidat)
 
     useEffect(() => {
         if (item) {
@@ -106,6 +111,11 @@ const BogPostEditPage = () => {
         const photoUpload = await handleImageUploadCloudOnly(files, toast);
         setcoverPicture(photoUpload);
         setLoadingPhoto(false)
+    }
+
+    if (candidat && candidat.account && candidat.account.pack &&
+        (candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])) {
+        return <Navigate to={`/${routing.pricing}`} />;
     }
 
     return (

@@ -15,14 +15,15 @@ import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction'
 import { localvalue } from '../../utlis/storage/localvalue';
 import { statusPACKS } from '../../utlis/config';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { routing } from '../../utlis/routing';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
 
 const JobPostPage = () => {
 
+    const  navigate =  useNavigate();
 
-    var idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
-    const { isLoading, errorEntreprise, entreprise } = useFetchEntreprise(idEntreprise)
+    var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     const [company, setCompany] = useState('');
     const [title, setTitle] = useState('');
     const [email, setEmail] = useState();
@@ -40,12 +41,9 @@ const JobPostPage = () => {
 
     const [entrepriseDetail, setentrepriseDetail] = useState()
 
-    useEffect(() => {
-      EntrepriseGetById(getAndCheckLocalStorage(localvalue.recruteurID),setentrepriseDetail)
-    }, [])
+    const  {candidat} =  useFetchCandidat(idCandidat)
+
     
-
-
 
 
 
@@ -112,31 +110,29 @@ const JobPostPage = () => {
         }
 
 
-        if (entreprise &&
-            (entreprise.account.pack == statusPACKS[0] ||
-                entreprise.account.pack == statusPACKS[1] ||
-                entreprise.account.pack == statusPACKS[2]
-            )) {
+        if (
+            candidat && candidat.account && candidat.account.pack &&
+        (candidat.account.pack == statusPACKS[1] && candidat.account.pack == statusPACKS[2])
+        ) {
             dispatch(OffreCreate(company, title, email, telephone,
                 salaire, coverPicture, title_post, areaOffre, expireDispobility,
                 typeContrat, description, addresse, toast
             ))
         } else {
             toast.error("Votre pack ne nous authorise pas ")
+            navigate(`/${routing.pricing}`)
         }
 
 
     }
 
 
-    if((entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[0]) ||
-    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[1]) ||
-    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack !== statusPACKS[2])){
-        return(<Navigate to={`/${routing.pricing}`} />)
-    }else{
-
+    if (candidat && candidat.account && candidat.account.pack &&
+        (candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])
+        ) {
+        return <Navigate to={`/${routing.pricing}`} />;
+    }
     return (
-
         <div className="main-content">
             <div className="page-content">
                 <main className="crp1m mt-20">
@@ -367,7 +363,6 @@ const JobPostPage = () => {
             </div>
         </div>
     )
-                                            }
 }
 
 export default JobPostPage;

@@ -96,13 +96,11 @@ const BogPostPage = () => {
 
     const {candidat}=  useFetchCandidat(idCandidat)
 
-    if(
-        (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack !== statusPACKS[2]) ||
-        (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack !== statusPACKS[1])
-    ){
-        return <Navigate to={`/${routing.pricing}`} />
+    if (candidat && candidat.account && candidat.account.pack &&
+        (candidat.account.pack !== statusPACKS[1] && candidat.account.pack !== statusPACKS[2])) {
+        return <Navigate to={`/${routing.pricing}`} />;
+    }
 
-    }else{
     return (
         <div className="main-content">
             <div className="page-content mt-28">
@@ -174,7 +172,6 @@ const BogPostPage = () => {
             </div>
         </div>
     );
-                    }
 }
 
 export default BogPostPage;

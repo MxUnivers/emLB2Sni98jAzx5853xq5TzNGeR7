@@ -124,13 +124,7 @@ const JobDetailPage = () => {
         }
 
 
-        if (candidatId !== null || candidatId !== "") {
-            dispatch(CandidaturePost(
-                candidatId, jobDetail.idEntreprise, jobDetail._id,
-                firstname, lastname, email, telephone, cv, description, navigate, toast
-            ));
-        }
-        else if (
+        if (
             (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[0]) ||
             (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
             (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2])
