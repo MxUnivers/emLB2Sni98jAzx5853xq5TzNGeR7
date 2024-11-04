@@ -112,9 +112,9 @@ const CandidatureListPage = () => {
                                                     <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")}</p>
                                                 </div>
                                                 <div className={`
-                                            ${item.status == "PENDING" ? "bg-orange-200" : ""}
-                                            ${item.status == "VALIDATE" ? "bg-green-500" : ""}
-                                            ${item.status == "CANCEL" ? "bg-red-500" : ""} 
+                                            ${item.status == "PENDING" ? "bg-orange-200 text-white" : ""}
+                                            ${item.status == "VALIDATE" ? "bg-green-500 text-white" : ""}
+                                            ${item.status == "CANCEL" ? "bg-red-500 text-white" : ""} 
                                             py-1 px-4 ml-3 text-xs text-gray-700 rounded-full `}>
                                                     {
                                                         item.status == "PENDING" ? "ENvoyé".toUpperCase() : ""
@@ -211,10 +211,10 @@ const CandidatureListPage = () => {
 
                                         {
                                             candidatureDetail && candidatureDetail.status ?
-                                                <p className={`text-sm text-gray-500 mb-4 
-                                                ${candidatureDetail.status == "PENDING" ? "text-yellow-600" : ""}
-                                                ${candidatureDetail.status == "VALIDATE" ? "text-green-600" : ""}
-                                                ${candidatureDetail.status == "CANCEL" ? "text-red-600" : ""}
+                                                <p className={`text-sm text-white mb-4 
+                                                ${candidatureDetail.status == "PENDING" ? "text-yellow-600 text-white" : ""}
+                                                ${candidatureDetail.status == "VALIDATE" ? "text-green-600 text-white" : ""}
+                                                ${candidatureDetail.status == "CANCEL" ? "text-red-600 text-white" : ""}
                                                 `}>
                                                     Statut:
                                                     {

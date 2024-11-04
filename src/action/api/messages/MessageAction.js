@@ -73,7 +73,7 @@ export const MessageAllCandidatById = async (id, setState, setState2) => {
 
 export const MessageAllEntrepriseById = async (id, setState, setState2) => {
     try {
-        const messagsget = getDataFromFile(localvalueStorage.MESSAGE);
+        const messagsget = getDataFromFile(localvalueStorage.MESSAGE) || [];
         setState(messagsget);
         setState2(messagsget);
 

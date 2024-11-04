@@ -191,7 +191,7 @@ const CandidatureRecruteurListPage = () => {
                                                     <div className="flex items-start justify-between w-full">
                                                         <div className="pl-3 w-full">
                                                             <p className="text-sm font-medium leading-5 text-gray-800">{item.title}</p>
-                                                            <p className="text-sm font-bold leading-5  text-gray-800"> <MdPerson/>{item.firstname} {item.lastname}</p>
+                                                            <p className="text-sm font-bold leading-5   text-gray-800 flex-auto"> <MdPerson/> <span>{item.firstname} {item.lastname} </span></p>
                                                             <p className="text-sm leading-normal pt-2 text-gray-500">{moment(item.createdAt).format("DD/MM/YYYY")} à {moment(item.createdAt).format("HH:MM")}</p>
                                                         </div>
                                                         <div className={`
@@ -276,12 +276,12 @@ const CandidatureRecruteurListPage = () => {
                         </div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                         <div
-                            className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
+                            className="inline-block align-bottom mt-20 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full  sm:max-w-lg sm:w-full"
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="modal-title"
                         >
-                            <div className="bg-white px-4 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
+                            <div className="bg-white px-4 mt-20 w-full  pt-1 pb-4 sm:p-1 sm:pb-1">
                                 <div className="sm:flex flex flex-col w-full sm:items-start">
                                     <div className="mt-3 w-full  text-center sm:mt-0 sm:text-left">
                                         {
@@ -392,12 +392,12 @@ const CandidatureRecruteurListPage = () => {
                         </div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
                         <div
-                            className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                            className="inline-block align- mt-20 bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="modal-title"
                         >
-                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full ">
+                            <div className="bg-white px-4 pt-5 mt-20 pb-4 sm:p-6 sm:pb-4 w-full ">
                                 <div className="sm:flex sm:items-start">
                                     <div className="w-full mt-3 text-center sm:mt-0 sm:text-left">
                                         {
