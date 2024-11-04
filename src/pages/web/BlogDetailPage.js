@@ -26,7 +26,7 @@ const BlogDetailPage = () => {
     const { item } = location.state;
     useEffect(() => {
         EntrepriseGetById(idEntreprise, setentrepriseDetail)
-    }, [])
+    }, []);
 
     return (
         <div className="page-content mt-[80px]">
