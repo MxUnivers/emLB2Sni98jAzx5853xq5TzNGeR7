@@ -497,7 +497,7 @@ export const EntrepriseGetAll = async (setState, setState2) => {
     setState(getData)
     setState2(getData)
     await axios
-        .get(`${baseurl.url}/api/v1/auth/entreprise/login/`, {
+        .get(`${baseurl.url}/api/v1/entreprise/get_entreprises`, {
             headers:
             {
                 'Content-Type': 'application/json',

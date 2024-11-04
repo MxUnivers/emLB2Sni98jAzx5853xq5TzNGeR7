@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
-import { localvalue, localvalueStorage } from '../../utlis/storage/localvalue';
+import { getAndCheckLocalStorage, setWithExpiration } from '../../utlis/storage/localvalueFunction';
+import { dureeDeVie, localvalue, localvalueStorage } from '../../utlis/storage/localvalue';
 import { sendMessage } from '../../action/api/chat/ChatAction';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -51,6 +51,7 @@ const ChatPage = () => {
     // Envoi d'un nouveau message
     const handleSendMessage = () => {
         if (newMessage.trim() || image) {
+            setWithExpiration(localvalue.conversationID,currentConversationId,dureeDeVie)
             sendMessage(currentConversationId, idCandidat || idEntreprise, newMessage, image, toast)
                 .then(messageData => {
                     setMessages([...messages, messageData]); // Ajouter le nouveau message à la liste
@@ -89,6 +90,8 @@ const ChatPage = () => {
         const getDataConversations = getDataFromFile(localvalueStorage.CONVERSATIONS) || [];
         setConversations(getDataConversations);
 
+        fetchConversations();
+        fetchMessages(getAndCheckLocalStorage(localvalue.conversationID))
         CandidatGetAll(setCandidats, setCandidats2);
         EntrepriseGetAll(setEntreprise, setEntreprise2);
 
@@ -106,27 +109,40 @@ const ChatPage = () => {
     }, [messages]); // Dépendance sur messages
 
 
+
+
+
     return (
         <div className="flex max-h-screen bg-gray-50">
             {/* Sidebar */}
-            <div className="w-1/4 bg-white border-r border-gray-200 shadow-md">
-                <div className="p-4 pt-20">
+            <div className="w-1/4 bg-white border-r border-gray-200 shadow-md pt-20">
+                <div className="p-4">
                     <h2 className="text-lg font-semibold">Discussions</h2>
                     <div className="mt-4 h-[calc(100vh-200px)] overflow-y-auto">
                         {conversations.map(conversation => (
                             <div
                                 key={conversation._id}
                                 onClick={() => fetchMessages(conversation._id)}
-                                className={`flex items-center p-2 hover:bg-gray-100 cursor-pointer ${currentConversationId === conversation._id ? "bg-gray-300" : ""}`}
+                                className={`flex items-center p-2 hover:bg-gray-100 cursor-pointer ${currentConversationId === conversation._id ? "bg-indigo-500" : ""}`}
                             >
-                                <span className="bg-blue-500 h-2 w-2 rounded-full mr-2">
-                                </span>
-                                <span className="font-medium">
-                                    {conversation.participants.map(p => {
+                                <span className="h-[50px] w-[50px] rounded-[50%] overflow-hidden">
+                                <img  src={conversation.participants
+                                    .filter(p => p.user.toString() !== idCandidat) // Filtrer pour garder uniquement le participant qui n'est pas idCandidat
+                                    .map(p => {
                                         const participant = userConversation.find(user => user._id === p.user.toString());
-                                        return participant ? `${participant.firstname} ${participant.lastname}` : '';
-                                    })}
+                                        return participant ? `${participant.logo || participant.coverPicture ||""}` : '';
+                                    })
+                                    } className="bg-contain h-[50px] w-[50px]"  />
                                 </span>
+                                <span className="font-medium mx-2">
+                                {conversation.participants
+                                    .filter(p => p.user.toString() !== idCandidat) // Filtrer pour garder uniquement le participant qui n'est pas idCandidat
+                                    .map(p => {
+                                        const participant = userConversation.find(user => user._id === p.user.toString());
+                                        return participant ? `${participant.firstname ||""} ${participant.lastname||""} ${participant.full_name||""}` : '';
+                                    })} {/* Joindre les noms avec une virgule si plusieurs participants */}
+                            </span>
+                            
                             </div>
                         ))}
                     </div>
@@ -134,14 +150,14 @@ const ChatPage = () => {
             </div>
 
             {/* Chat Section */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col pt-20">
                 <div className="flex-1 p-4 overflow-auto max-h-[100vh]">
                     {messages.map((message, index) => (
                         <div key={index} className={`my-2 ${message.sender.toString() === idCandidat ? 'text-right' : 'text-left'}`}>
-                            <div className={`inline-block rounded-lg p-2 ${message.sender.toString() === idCandidat ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}>
-                                <p>{message.content}</p>
+                            <div className={`inline-block rounded-lg p-2 ${message.sender.toString() === idCandidat ? 'bg-indigo-500 text-white' : 'bg-gray-100 text-gray-900'}`}>
+                                <p className={`${message.sender.toString() === idCandidat ? ' text-white' : ' text-gray-900'}`} >{message.content}</p>
                                 {message.imageUrl && <img src={message.imageUrl} alt="Message" className="mt-2 max-w-xs rounded-lg" />} {/* Affichage de l'image */}
-                                <span className="text-xs text-gray-500">{new Date(message.timestamp).toLocaleString()}</span>
+                                <span className={`text-xs ${message.sender.toString() === idCandidat ? ' text-white' : ' text-gray-900'}`}>{new Date(message.timestamp).toLocaleString()}</span>
                             </div>
                         </div>
                     ))}
@@ -154,7 +170,7 @@ const ChatPage = () => {
                         type="text"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
-                        className="flex-1 border border-gray-300 p-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="flex-1 border border-gray-300 p-3 rounded-l-lg focus:outline-none focus:ring-2 indigo:ring-blue-500"
                         placeholder="Type your message..."
                     />
 
@@ -170,7 +186,7 @@ const ChatPage = () => {
 
                     <button
                         onClick={handleSendMessage}
-                        className="ml-2 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition duration-200"
+                        className="ml-2 bg-indigo-500 text-white p-3 rounded-lg hover:bg-indigo-600 transition duration-200"
                     >
                         Envoyer
                     </button>

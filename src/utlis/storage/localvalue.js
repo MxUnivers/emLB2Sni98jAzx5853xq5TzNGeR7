@@ -2,6 +2,7 @@ export const localvalue = {
 
     TYPEACCESS:"TYPEPERSON",
     
+    conversationID :"conversationID",
 
     candidatID :"candidatID",
     candidatTYPE:"candidatTYPE",
