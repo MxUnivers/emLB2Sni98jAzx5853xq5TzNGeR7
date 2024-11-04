@@ -20,6 +20,8 @@ import { toast } from 'react-toastify';
 import { getDataFromFile } from '../../action/storage/DataLocal';
 import RelativeTime from '../../components/dateTime/RelativeTime';
 import JobCard2 from '../../components/job/JobCard2';
+import useFetchCandidat from '../../action/api/candidat/CandidatAction';
+import { statusPACKS } from '../../utlis/config';
 
 const JobDetailPage = () => {
 
@@ -45,6 +47,7 @@ const JobDetailPage = () => {
 
     const [isLoading, setisLoading] = useState();
     const [entreprise, setentreprise] = useState();
+    const { candidat } = useFetchCandidat(candidatId)
 
     useEffect(() => {
         const offresget = getDataFromFile(localvalueStorage.EMPLOISLIST) || []
@@ -68,12 +71,12 @@ const JobDetailPage = () => {
     const [cv, setcv] = useState();
 
     const handleShow = () => {
-        if(getAndCheckLocalStorage(localvalue.TYPEACCESS) !==typePersonConnected[1]){
-            toast.error("Veillez vous connecté s'il vous plais",{position:"bottom-right"})
-        }else{
+        if (getAndCheckLocalStorage(localvalue.TYPEACCESS) !== typePersonConnected[1]) {
+            toast.error("Veillez vous connecté s'il vous plais", { position: "bottom-right" })
+        } else {
             setmodalApply(true);
         }
-       
+
     }
     const handleClose = () => {
         setmodalApply(false);
@@ -120,15 +123,25 @@ const JobDetailPage = () => {
             }
         }
 
+
         if (candidatId !== null || candidatId !== "") {
             dispatch(CandidaturePost(
                 candidatId, jobDetail.idEntreprise, jobDetail._id,
                 firstname, lastname, email, telephone, cv, description, navigate, toast
             ));
-        } else {
+        }
+        else if (
+            (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[0]) ||
+            (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
+            (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2])
+        ) {
+            toast.error("Veillez souscrire à un pack pour postuler cette offre");
+            navigate(`/${routing.pricing}`)
+        }
+        else {
             toast.error("Veillez vous connecté");
             setTimeout(() => {
-                window.location.href = `/${routing.connexion}`
+                navigate(`/${routing.connexion}`)
             }, 2500);
         }
     }
@@ -259,7 +272,7 @@ const JobDetailPage = () => {
                                                                         <img src={`${entreprise.logo}`} alt=""
                                                                             className="img-fluid  rounded-3xl h-12 w-12" />
                                                                         <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
-                                                                        <hr/>
+                                                                        <hr />
                                                                     </div>
                                                                 </Link> :
                                                                 <div className="flex felx-col space-y-3">
@@ -275,7 +288,7 @@ const JobDetailPage = () => {
                                                                             className="img-fluid  rounded-3xl h-12 w-12" />
                                                                         <h2 className="text-xl font-bold">{entreprise.full_name}</h2>
                                                                     </div>
-                                                                    <hr/>
+                                                                    <hr />
                                                                 </Link> :
                                                                 <div className="flex felx-col space-y-3">
                                                                     <div className="bg-gray-100 animate-pulse rounded-xl h-16 w-16" />
@@ -450,7 +463,7 @@ const JobDetailPage = () => {
                                     </div>
                                     <div className="mb-1">
                                         <label for="phone" className=" font-bold mb-1 flex space-x-2">Cv en pdf * {cv && <p
-                                            className="text-green-600 "> ''Téléchager''</p>}</label>
+                                            className="text-green-600 "> <a href={`${cv}`} target='_blank'>''Téléchager'' </a></p>}</label>
                                         <input required={true} onChange={HandleFileInputChange} type="file" accept='.PDF'
                                             className="w-full border border-gray-300 rounded px-3 py-1" />
                                     </div>

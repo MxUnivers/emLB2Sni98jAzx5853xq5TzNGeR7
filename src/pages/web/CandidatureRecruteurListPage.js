@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import toastNotification from '../../utlis/fonctions/toastNotification';
 import { MdPerson } from 'react-icons/md';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
+import { statusPACKS } from '../../utlis/config';
 
 const CandidatureRecruteurListPage = () => {
 
@@ -129,14 +130,24 @@ const CandidatureRecruteurListPage = () => {
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
-    
-        dispatch(
-            CandidatureAuthorizedAndMessage(
-                candidatureDetail._id,
-                candidatureDetail.idEntreprise,
-                candidatureDetail.idCandidat,candidatureDetail.coverPicture, titleCandidature, contentCandidature, toast
+
+        if(
+            (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[0]) ||
+            (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[1]) ||
+            (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[2])
+        ){
+            dispatch(
+                CandidatureAuthorizedAndMessage(
+                    candidatureDetail._id,
+                    candidatureDetail.idEntreprise,
+                    candidatureDetail.idCandidat,candidatureDetail.coverPicture, titleCandidature, contentCandidature, toast
+                )
             )
-        )
+        }else{
+            toast.error("Veillez soucire à un pack pour effectuer cette action")
+        }
+    
+        
     }
     
     return (
