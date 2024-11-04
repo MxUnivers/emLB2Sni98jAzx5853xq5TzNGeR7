@@ -29,7 +29,9 @@ const FormationdetailPage = () => {
             {
                      (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
                      (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
-                     (entrepriseDetail && entrepriseDetail._id)
+                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[0]) ||
+                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[1]) ||
+                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[2])
                      ? 
                         <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
                             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
