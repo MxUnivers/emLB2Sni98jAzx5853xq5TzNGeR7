@@ -91,16 +91,15 @@ const FormationdetailPage = () => {
                                                 return (
                                                     <div className="my-5">
                                                         <div className="space-y-6">
-                                                            <h2 className="text-xxl font-bold text-blue-800 dark:text-white md:text-2xl">
+                                                            <h2 className="text-2xl font-bold text-gray-800  md:text-2xl">
                                                                 {item.moduleLabel ? `module ${index + 1}  : `.toLocaleUpperCase() : ""}
                                                                 {item.moduleLabel} </h2>
                                                         </div>
-
                                                         {
                                                             item.lecons.map((item, index) => {
                                                                 return (
                                                                     <div className="space-y-10">
-                                                                        <h2 className="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> Lecon {index + 1} :  {item.leconTitle}</h2>
+                                                                        <h2 className="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> L {index + 1} :  {item.leconTitle}</h2>
 
                                                                         {
                                                                             item && item.coverPicture ?
