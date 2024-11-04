@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import toastNotification from '../../utlis/fonctions/toastNotification';
 import { MdPerson } from 'react-icons/md';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 
 const CandidatureRecruteurListPage = () => {
 
@@ -53,8 +54,10 @@ const CandidatureRecruteurListPage = () => {
     
     const [candidature, setcandidature] = useState();
     const [message, setmessage] = useState();
+    const [entrepriseDetail, setentrepriseDetail] = useState();
     
     useEffect(() => {
+        EntrepriseGetById(getAndCheckLocalStorage(localvalue.recruteurID),setentrepriseDetail);
         CandidaturesALLOfEntreprises(idRecruteur, setcandidatures, setcandidatures2);
         MessageAllEntrepriseById(idRecruteur, setmessageList, setmessageLis2);
     }, []);
