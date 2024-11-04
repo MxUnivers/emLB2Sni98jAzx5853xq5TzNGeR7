@@ -134,7 +134,9 @@ const JobEditPage = () => {
     }
 
     if (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
-        (entrepriseDetail.account.pack !== statusPACKS[1] && entrepriseDetail.account.pack !== statusPACKS[2])
+        (
+            entrepriseDetail.account.pack !== statusPACKS[0] &&
+            entrepriseDetail.account.pack !== statusPACKS[1] && entrepriseDetail.account.pack !== statusPACKS[2])
         ) {
         return <Navigate to={`/${routing.pricing}`} />;
     }
@@ -207,7 +209,7 @@ const JobEditPage = () => {
 
 
                                             <div className="cz2ao">
-                                                <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">2.</span> The role du poste</div>
+                                                <div className="cax0a cqnva ckpvk cbs6c"><span className="c0ndj">2.</span> Details sur le poste</div>
                                                 <div className="chva6">
                                                     <div>
                                                         <label className="ckncn c9csv cfkm3 ckcgr" for="position">Titre du poste <span className="ctgjb">*</span></label>
@@ -255,7 +257,7 @@ const JobEditPage = () => {
                                                                 })
                                                             }
                                                         </select>
-                                                        <div className="clvg0 cwe8x cqaaz c8nfh">Example: “100,000 - $170,000 USD”</div>
+                                                        <div className="clvg0 cwe8x cqaaz c8nfh">Example: “100,000 - 170,000 ”</div>
                                                     </div>
                                                 </div>
                                             </div>
