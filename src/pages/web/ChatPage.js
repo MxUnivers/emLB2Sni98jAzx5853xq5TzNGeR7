@@ -107,10 +107,10 @@ const ChatPage = () => {
 
 
     return (
-        <div className="flex max-h-screen mt-20 bg-gray-50">
+        <div className="flex max-h-screen bg-gray-50">
             {/* Sidebar */}
             <div className="w-1/4 bg-white border-r border-gray-200 shadow-md">
-                <div className="p-4">
+                <div className="p-4 pt-20">
                     <h2 className="text-lg font-semibold">Discussions</h2>
                     <div className="mt-4 h-[calc(100vh-200px)] overflow-y-auto">
                         {conversations.map(conversation => (
@@ -119,12 +119,13 @@ const ChatPage = () => {
                                 onClick={() => fetchMessages(conversation._id)}
                                 className={`flex items-center p-2 hover:bg-gray-100 cursor-pointer ${currentConversationId === conversation._id ? "bg-gray-300" : ""}`}
                             >
-                                <span className="bg-blue-500 h-2 w-2 rounded-full mr-2"></span>
+                                <span className="bg-blue-500 h-2 w-2 rounded-full mr-2">
+                                </span>
                                 <span className="font-medium">
                                     {conversation.participants.map(p => {
                                         const participant = userConversation.find(user => user._id === p.user.toString());
                                         return participant ? `${participant.firstname} ${participant.lastname}` : '';
-                                    }).join(', ')}
+                                    })}
                                 </span>
                             </div>
                         ))}
