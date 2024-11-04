@@ -100,7 +100,6 @@ const BlogProfilePage = () => {
                             </form>
                         </div>
                         <div className="w-full mt-6">
-
                             {
                                 blogs && blogs.length > 0 ?
                                     <div className="container w-full grid md:grid-cols-3 gap-4">

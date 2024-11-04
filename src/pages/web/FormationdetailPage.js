@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormationGetById } from '../../action/api/formations/FormationAction';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
@@ -8,22 +8,29 @@ import useFetchCandidat from '../../action/api/candidat/CandidatAction';
 import { statusPACKS } from '../../utlis/config';
 import ErrorPrincing from '../../components/empty/ErrorPrincing';
 import { routing } from '../../utlis/routing';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 
 const FormationdetailPage = () => {
 
     var idFormation = localStorage.getItem(localvalue.formationId);
     const idCcandidat = getAndCheckLocalStorage(localvalue.candidatDetailID);
+    const idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
     const { isLoading, error, formation } = FormationGetById(idFormation);
     const { isLoadingC, errorC, candidat } = useFetchCandidat(idCcandidat);
 
-
+    const [entrepriseDetail, setentrepriseDetail] = useState();
+    useEffect(()=>{
+        EntrepriseGetById(idEntreprise,setentrepriseDetail);
+    },[]);
 
     return (
         <div className="main-content">
             <div className="page-content mt-28">
-
             {
-                     candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2] ? 
+                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
+                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
+                     (entrepriseDetail && entrepriseDetail._id)
+                     ? 
                         <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
                             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                                 <div className="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
@@ -36,11 +43,6 @@ const FormationdetailPage = () => {
                                                         className="link-indicator link-indicator absolute top-0 -left-[3.5px] z-[1] h-6 w-1.5 rounded-full border-2 border-white bg-primary transition-[top] dark:border-gray-900 dark:bg-secondaryLight"
                                                         style={{ top: "0px" }}></div>
                                                     {
-                                                        isLoading ?
-                                                            (<LoadinButton text={"Module de formation"} />) :
-                                                            error ? (
-                                                                <LoadingCompo1 text={"veillez recger la pages"} />
-                                                            ) :
                                                                 formation && formation.modules && formation.modules.length > 0 ?
                                                                     formation.modules.map((item) => {
                                                                         return (
@@ -53,13 +55,8 @@ const FormationdetailPage = () => {
                                                                             </li>
                                                                         )
 
-                                                                    })
-                                                                    :
-                                                                    <div>
-                                                                        <LoadinButton text={"Modules de formation ..."} />
-                                                                    </div>
+                                                                    }):""
                                                     }
-
                                                 </ul>
                                             </div>
                                         </div>
@@ -127,68 +124,8 @@ const FormationdetailPage = () => {
                                                 )
                                             })
                                         }
-                                        {
-                                            /*<div className="space-y-6">
-                                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Sales inscreased by
-                                                360%</h2>
-                                            <div className="space-y-4">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus corporis dolores
-                                                    dolorem voluptas expedita, nulla explicabo qui aliquid facilis quam, facere voluptatem
-                                                    accusantium minus recusandae, exercitationem ipsam alias impedit.</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident accusantium placeat
-                                                    distinctio ratione reprehenderit quam quasi quia, dolores facilis quod cumque tempore?
-                                                    Dolorem nisi, aperiam harum nam repellendus deleniti odio.</p>
-                                            </div>
-                                        </div> */
-                                        }
                                     </div>
                                 </div>
-                                {
-                                    /*<div className="mx-auto py-20 lg:w-3/5">
-                                    <h3 className="text-center text-2xl font-semibold text-gray-800 dark:text-white">Next case study</h3>
-                                    <div className="mt-8 grid">
-                                        <a className='rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl shadow-gray-600/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none'
-                                            href='story.html'>
-                                            <div className="relative gap-6 sm:flex">
-                                                <div
-                                                    className="-mx-6 -mt-6 flex rounded-2xl border border-dashed bg-gray-100 p-10 dark:border-gray-700 dark:bg-gray-900/60 sm:mr-0 sm:-mb-6 sm:-ml-6 sm:-mt-6 sm:w-1/3 md:w-2/5 lg:w-1/3">
-                                                    <img className="m-auto w-auto sm:h-16 lg:h-12" src="../images/clients/nuxt.svg"
-                                                        loading="lazy" alt="nuxtjs logo" width="" height="" />
-                                                </div>
-                                                <div className="mt-6 space-y-6 sm:mt-0 sm:w-2/3 md:w-3/5 lg:w-2/3">
-                                                    <div className="">
-                                                        <h4 className="text-xl font-semibold text-gray-800 dark:text-white">Increased sales by
-                                                            360%</h4>
-                                                        <p className="mt-2 text-gray-600 dark:text-gray-400">Sint libero voluptas veniam at
-                                                            reprehenderit, veritatis harum et rerum.</p>
-        
-                                                        <div
-                                                            className="relative my-4 before:absolute before:inset-y-0 before:-left-0.5 before:z-[1] before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-gray-400 after:absolute after:inset-y-0 after:-right-0.5 after:z-[1] after:my-auto after:h-1 after:w-1 after:rounded-full after:bg-gray-400">
-                                                            <div aria-hidden="true"
-                                                                className="absolute inset-0 m-auto h-px w-full border-t border-dashed dark:border-gray-600">
-                                                            </div>
-                                                            <div className="relative flex items-center justify-between pl-12 pr-6">
-                                                                <div
-                                                                    className="relative flex items-center before:absolute before:inset-y-0 before:-right-0.5 before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-red-400 dark:bg-gray-800">
-                                                                    <span
-                                                                        className="rounded-full border border-red-100 bg-red-50 px-2.5 py-1 text-sm tracking-wider text-red-900 dark:border-red-300/40 dark:bg-red-500/10 dark:text-red-300">132k</span>
-                                                                </div>
-                                                                <div
-                                                                    className="relative flex items-center before:absolute before:inset-y-0 before:-left-0.5 before:my-auto before:h-1 before:w-1 before:rounded-full before:bg-green-400 dark:bg-gray-800">
-                                                                    <span
-                                                                        className="rounded-full border border-green-100 bg-green-50 px-2.5 py-1 text-sm tracking-wider text-green-900 dark:border-green-300/40 dark:bg-green-500/10 dark:text-green-300">396k</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <p className="text-gray-600 dark:text-gray-400">Sint libero voluptas veniam at
-                                                            reprehenderit, veritatis harum et rerum.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div> */
-                                }
                             </div>
                         </section>
                         :

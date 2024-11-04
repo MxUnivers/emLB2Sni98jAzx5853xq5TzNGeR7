@@ -97,7 +97,7 @@ const PackNoConnected = () => {
                         </li>
                     </ul>
                     {getAndCheckLocalStorage(localvalue.TYPEACCESS) == null && (
-                        <a
+                        <a 
                             onClick={() => {
                                 if (getAndCheckLocalStorage(localvalue.TYPEACCESS) == null) {
                                     handleConnected();

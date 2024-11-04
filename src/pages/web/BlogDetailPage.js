@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BlogAll from '../../action/api/blog/BlogAction';
 import moment from 'moment';
 import BlogCard from '../../components/blog/BlogCard';
@@ -14,17 +14,26 @@ import { routing } from '../../utlis/routing';
 import useFetchCandidat from '../../action/api/candidat/CandidatAction';
 import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction';
 import { localvalue } from '../../utlis/storage/localvalue';
+import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 
 const BlogDetailPage = () => {
     const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+    const idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
+    const [entrepriseDetail, setentrepriseDetail] = useState();
     const { isLoading, error, blogs, blogs2 } = BlogAll();
     const { isLoadingC, errorC, candidat } = useFetchCandidat(idCandidat);
     const location = useLocation();
     const { item } = location.state;
+    useEffect(()=>{
+        EntrepriseGetById(idEntreprise,setentrepriseDetail)
+    },[])
 
     return (
             <div className="page-content mt-[80px]">
-                {candidat && candidat.account.pack === statusPACKS[2] ? (
+                {(candidat && candidat.account.pack === statusPACKS[1]) ||
+                    (candidat && candidat.account.pack === statusPACKS[2] ) ||
+                    (entrepriseDetail && entrepriseDetail._id )
+                    ? (
                     <div className="w-full">
                         <main className="mt-10">
                             {item && item.customerName && item.customerPhoto && item.areaPost ? (
