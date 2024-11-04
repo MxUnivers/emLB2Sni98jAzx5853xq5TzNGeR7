@@ -13,10 +13,10 @@ import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 const FormationdetailPage = () => {
 
     var idFormation = localStorage.getItem(localvalue.formationId);
-    const idCcandidat = getAndCheckLocalStorage(localvalue.candidatDetailID);
+    const idCcandidat = getAndCheckLocalStorage(localvalue.candidatID);
     const idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
     const { isLoading, error, formation } = FormationGetById(idFormation);
-    const { isLoadingC, errorC, candidat } = useFetchCandidat(idCcandidat);
+    const { candidat } = useFetchCandidat(idCcandidat);
 
     const [entrepriseDetail, setentrepriseDetail] = useState();
     useEffect(()=>{
@@ -27,11 +27,11 @@ const FormationdetailPage = () => {
         <div className="main-content">
             <div className="page-content mt-28">
             {
-                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
-                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
-                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[0]) ||
-                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[1]) ||
-                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[2])
+                (candidat && candidat.account && candidat.account.pack &&
+                    (candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2]))
+                    ||
+                    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
+                        (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))
                      ? 
                         <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
                             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
@@ -77,17 +77,16 @@ const FormationdetailPage = () => {
                                                 formation && formation.logo ?
                                                     <img className="rounded-2xl h-[300px] w-full " src={formation.logo} loading="lazy"
                                                         alt="abstract background " />
-                                                    : null
+                                                    : ""
                                             }
                                             {
                                                 formation && formation.description ?
                                                     <div className="space-y-4">
                                                         <p>{formation.description}</p>
                                                     </div>
-                                                    : null
+                                                    : ""
                                             }
                                         </div>
-
                                         {
                                             formation.modules.map((item, index) => {
                                                 return (
@@ -102,7 +101,6 @@ const FormationdetailPage = () => {
                                                                 return (
                                                                     <div className="space-y-10">
                                                                         <h2 className="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> L {index + 1} :  {item.leconTitle}</h2>
-
                                                                         {
                                                                             item && item.coverPicture ?
                                                                                 <div className="grid grid-cols-1 lg:ml-1 xl:mx-5">
@@ -110,17 +108,13 @@ const FormationdetailPage = () => {
                                                                                         alt="abstract background" width="1556" height="778" />
                                                                                 </div> : null
                                                                         }
-
                                                                         <div className="space-y-4">
                                                                             <div className="mt-10 mb-10" dangerouslySetInnerHTML={{ __html: item.leconContent }} />
                                                                         </div>
-
-
                                                                     </div>
                                                                 )
                                                             })
                                                         }
-
                                                     </div>
                                                 )
                                             })
@@ -132,15 +126,6 @@ const FormationdetailPage = () => {
                         :
                         <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} ` } message={"Cette Fonctionnalité est reservé au premuim"} route={`${routing.pricing}`} />
                 } 
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     )
