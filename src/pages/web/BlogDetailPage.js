@@ -19,11 +19,13 @@ import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 const BlogDetailPage = () => {
     const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
     const idEntreprise = getAndCheckLocalStorage(localvalue.recruteurID);
-    const [entrepriseDetail, setentrepriseDetail] = useState();
+    
     const { isLoading, error, blogs, blogs2 } = BlogAll();
-    const { isLoadingC, errorC, candidat } = useFetchCandidat(idCandidat);
+    
     const location = useLocation();
     const { item } = location.state;
+    const [entrepriseDetail, setentrepriseDetail] = useState();
+    const { isLoadingC, errorC, candidat } = useFetchCandidat(idCandidat);
     useEffect(() => {
         EntrepriseGetById(idEntreprise, setentrepriseDetail)
     }, []);
@@ -92,8 +94,8 @@ const BlogDetailPage = () => {
                     </div>
                 ) : (
                     <ErrorPrincing
-                        title="Access Premium Content"
-                        message="This feature is reserved for premium users."
+                    title="Vous n'êtes pas autorisé à lire cet article "
+                    message="Veillez souscrire à un abonnement pour y avoir accès"
                         route={`${routing.pricing}`}
                     />
                 )}

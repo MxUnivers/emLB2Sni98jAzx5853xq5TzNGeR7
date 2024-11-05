@@ -144,16 +144,28 @@ const NavbarWeb = () => {
                                 : ""
                         }
                     </li>
-
                     <li>
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
-                                <Link to={`/${routing.candidature_list_recruteur}`} class={`${location.pathname === `/${routing.candidature_list_recruteur}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
+                                <Link to={`/${routing.chat_on_line}`} class={`${location.pathname === `/${routing.chat_on_line}` ? "nav-links-active" : ""}`}>Disccussions</Link>
                                 : ""
                         }
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidature_list}` ? "nav-links-active" : ""}`}>Candidatures et messages</Link>
+                                <Link to={`/${routing.chat_on_line}`} class={`${location.pathname === `/${routing.chat_on_line}` ? "nav-links-active" : ""}`}>Disccussions</Link>
+                                : ""
+                        }
+                    </li>
+
+                    <li>
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[0] ?
+                                <Link to={`/${routing.candidature_list_recruteur}`} class={`${location.pathname === `/${routing.candidature_list_recruteur}` ? "nav-links-active" : ""}`}>Candidatures & messages</Link>
+                                : ""
+                        }
+                        {
+                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
+                                <Link to={`/${routing.candidature_list}`} class={`${location.pathname === `/${routing.candidature_list}` ? "nav-links-active" : ""}`}>Candidatures & messages</Link>
                                 : ""
                         }
                     </li>
@@ -161,7 +173,7 @@ const NavbarWeb = () => {
                     <li>
                         {
                             getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
-                                <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Activités / publications</Link>
+                                <Link to={`/${routing.candidat_details_blog}`} class={`${location.pathname === `/${routing.candidat_details_blog}` ? "nav-links-active" : ""}`}>Publications</Link>
                                 : ""
                         }
                     </li>
@@ -180,7 +192,7 @@ const NavbarWeb = () => {
             {loginModal && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Connexion</h2>
+                        <h2 class="text-indigo-800">Connexion</h2>
                         <p> Profile de connexion </p>
                         <button className="px-3 rounded-xl bg-indigo-700 text-white py-3 login-option"
                             onClick={() => { navigate(`/${routing.connexion_recuteur}`) }}
