@@ -121,7 +121,7 @@ const ChatPage = () => {
 
 
     return (
-        <div>
+        <div class="sticky top-24">
             {
                 (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
@@ -129,7 +129,7 @@ const ChatPage = () => {
                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[1]) ||
                     (entrepriseDetail && entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack && entrepriseDetail.account.pack == statusPACKS[2])
                     ?
-                    <div className="flex max-h-screen bg-gray-50 sticky top-24">
+                    <div className="flex max-h-screen bg-gray-50 ">
                         {/* Sidebar */}
                         <div className="w-1/4 bg-white border-r border-gray-200 shadow-md pt-20">
                             <div className="p-4">
@@ -213,7 +213,7 @@ const ChatPage = () => {
 
                     :
                     <ErrorPrincing
-                        title="Vous n'êtes pas autorisé a avoir des discussion "
+                        title="Vous n'êtes pas autorisé a des discussions "
                         message="Veillez souscrire à un abonnement pour y avoir accès"
                         route={`${routing.pricing}`}
                     />
