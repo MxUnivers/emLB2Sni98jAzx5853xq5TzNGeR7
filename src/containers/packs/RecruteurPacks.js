@@ -8,7 +8,7 @@ import { getAndCheckLocalStorage } from '../../utlis/storage/localvalueFunction'
 import { localvalue } from '../../utlis/storage/localvalue';
 import LoadinButton from '../../components/loading/LoadinButton';
 import { routing } from '../../utlis/routing';
-import { IconPack, packsItemsList } from '../../utlis/config';
+import { IconPack, packsItemsList, packsItemsList2 } from '../../utlis/config';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
 
 const CandidatPacks = () => {
@@ -44,7 +44,7 @@ const CandidatPacks = () => {
                                 <h2 className="text-center text-blue-500 font-semibold uppercase">{pack.pack}</h2>
                                 <span className="block text-center text-4xl font-bold text-gray-800">{pack.solde} F</span>
                                 <ul className="mt-4 space-y-2 flex-1">
-                                    {packsItemsList && packsItemsList.length > 0 && packsItemsList[index].avantages.map((feature, idx) => (
+                                    {packsItemsList2 && packsItemsList2.length > 0 && packsItemsList2[index].avantages.map((feature, idx) => (
                                         <li key={idx} className="flex items-center">
                                             <div className="rounded-full p-2 text-green-700">
                                                 {IconPack}

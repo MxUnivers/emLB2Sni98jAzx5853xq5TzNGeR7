@@ -55,8 +55,7 @@ const TrainingSection = () => {
                 {formations.map((training, index) => (
                     <TrainingCard
                         key={index}
-                        title={training.formationTitle}
-                        image={training.logo}
+                        item={training}
                         icon={'🎓'}
                     />
                 ))}

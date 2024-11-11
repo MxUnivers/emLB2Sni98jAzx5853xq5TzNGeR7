@@ -1,54 +1,43 @@
 import React, { useState } from 'react';
-import './HomeSolgan.css'; // Ensure the CSS file is imported
+import './HomeSolgan.css';
 
-const HomeSolgan = () => {
+const HomeSlogan = () => {
     const bgImg = "img/fille-africaine-sac-dos-notes.jpg";
-
-    var typeAccess = localStorage.getItem("TYPEACCESS");
-
-    const [isLoading, setIsLoading] = useState(true); // isLoading is initially true
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleImageLoad = () => {
-        setIsLoading(false); // Set isLoading to false when the image is loaded
+        setIsLoading(false);
     };
 
     return (
         <section className="intervention-section">
             <div className="content">
-                <h2 className="main-title">NOS AXES D{"'"}INTERVENTIONS</h2>
-
-                <p className="subtitle">
-                    Conseil, Formation, Audit, Coaching, Outplacement et Bilan de compétences
-                </p>
+                <h2 className="main-title">NOS AXES D{"'"}INTERVENTION</h2>
+                <p className="subtitle">Une plateforme unique pour l'emploi, les compétences, et les opportunités d'avenir en Afrique</p>
 
                 <div className="vision-objectives">
                     <div className="vision">
                         <h3 className="section-title">Notre vision</h3>
                         <p>
-                            Notre filiale Artus RH a vu le jour en 2014 avec pour objectif d’offrir aux entreprises une véritable <strong>boîte à outils RH</strong>.
+                            Nous visons à transformer le marché de l’emploi en Afrique, en offrant aux recruteurs et aux candidats un lieu de rencontre qui optimise la recherche de talents et facilite le processus de recrutement. Notre plateforme connecte les entreprises avec des candidats qualifiés et motivés, tout en leur fournissant des outils pour améliorer leurs compétences et élargir leurs perspectives.
                         </p>
                         <p>
-                            Allant de la <strong>formation au coaching</strong>, en passant par les <strong>bilans de compétences</strong>, nos équipes pluridisciplinaires vous accompagnent aussi bien pour l’<strong>outplacement</strong> de vos salariés, les diagnostics à 360 degrés, les audits santé sécurité au travail mais aussi juridique, que sur les PSE quand cela est nécessaire.
+                            En plus des offres d'emploi, nous proposons un ensemble d'avantages exclusifs : <strong>bourses d{"'"}études</strong> pour renforcer les compétences, des programmes de <strong>formation continue</strong>, et un réseau de mise en relation pour des opportunités de carrière. Grâce à nos services, les candidats peuvent trouver des opportunités de <strong>développement personnel</strong> et les recruteurs peuvent accéder à un vivier de talents diversifiés et qualifiés.
                         </p>
                         <p>
-                            Nous ne cessons d’enrichir notre offre et notre palette de services afin de répondre à vos besoins. Et c’est grâce à vous et vos demandes, parce que chaque jour vous nous challengez, chaque jour nous nous employons à relever vos défis !
+                            Les relations entre candidats et recruteurs n'ont jamais été aussi simples et efficaces, facilitant les collaborations et la croissance professionnelle dans un environnement de plus en plus compétitif. Chaque jour, nous travaillons à offrir des solutions sur mesure pour que chaque talent puisse s'épanouir et que chaque entreprise puisse atteindre ses objectifs.
                         </p>
-                        <p>
-                            Notre <strong>culture de l’inclusion</strong> et notre implication dans des actions concrètes telles que: Duo Day, foulées roses et mécène d’un sportif professionnel, le pongiste Esteban HERRAULT, qui souhaite se qualifier pour les jeux 2024 et qui est également notre ambassadeur pour démocratiser le <strong>handicap dans les entreprises</strong>, font parties de nos valeurs de tous les jours. Nous avons à cœur de porter ces projets et les vôtres car cet état d’esprit fait partie de notre ADN.
-                        </p>
-                        <p>
-                            Je suis aujourd’hui très fier de mes équipes, de nos partenaires et fier d’apporter à nos clients et nos candidats un service de qualité et personnalisé.
-                        </p>
-                        <p className="signature">Dominique Valadon, Directeur d{"'"}Artus RH</p>
+                       
                     </div>
 
                     <div className="objectives">
-                        <h3 className="section-title">Nos objectifs</h3>
+                        <h3 className="section-title">Pourquoi nous rejoindre</h3>
                         <ul>
-                            <li>Développer et sécuriser vos Ressources Humaines</li>
-                            <li>Accompagner vos managers</li>
-                            <li>Mobiliser et motiver vos équipes</li>
-                            <li>Renforcer l’efficacité commerciale et la satisfaction de vos équipes</li>
+                            <li>Accès direct à des <strong>candidats qualifiés</strong> et adaptés à vos besoins</li>
+                            <li>Opportunités de <strong>développement de compétences</strong> pour les candidats</li>
+                            <li>Facilitation de la <strong>recherche de talents</strong> en Afrique</li>
+                            <li>Renforcement de la compétitivité et de la productivité de vos équipes</li>
+                            <li>Possibilité de contribuer à l’<strong>émergence économique africaine</strong> en soutenant les talents locaux</li>
                         </ul>
                     </div>
                 </div>
@@ -57,4 +46,4 @@ const HomeSolgan = () => {
     );
 }
 
-export default HomeSolgan;
+export default HomeSlogan;
