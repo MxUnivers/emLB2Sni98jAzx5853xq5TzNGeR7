@@ -17,32 +17,33 @@ const SignInRecuteurPage = () => {
 
     const navigate = useNavigate();
 
-    const [candidats, setcandidats] = useState([
+    const [candidats, setCandidats] = useState([
         {
             _id: "1",
-            name: "Bly Bi Gohi Aymar ",
+            name: "Bly Bi Gohi Aymar",
             active: true,
             coverPicture: "https://img.freepik.com/photos-premium/homme-etudiant-afro-americain-fond-jaune-isole-lunettes-heureux_1368-222691.jpg?w=900",
-            profession: "Developpeur full stack , Animateur , Modélisateur 3d ",
-            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
+            profession: "Développeur full stack, Animateur, Modélisateur 3D",
+            description: "Je suis vraiment content de cette plateforme. J'ai eu une meilleure influence grâce à cela dans ma filière."
         },
         {
-            _id: "1",
-            name: "Alicia Touré ",
+            _id: "2",
+            name: "Alicia Touré",
+            active: true,
             coverPicture: "https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-            active: true,
-            profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
+            profession: "Étudiante en Informatique et Marketing",
+            description: "Je suis vraiment contente de cette plateforme. J'ai eu une meilleure influence grâce à cela dans ma filière."
         },
         {
-            _id: "1",
-            name: "Cédric ",
-            coverPicture: "https://img.freepik.com/photos-gratuite/etudiant-positif-peau-foncee-porte-dossiers-livre-pointe-expression-joyeuse-cote-sourire-pleines-dents_273609-23704.jpg?w=900&t=st=1693235710~exp=1693236310~hmac=2afd47b244941ca069e099779258dc77df9a96f3aedddf1511fdfd8d8e8c5479",
+            _id: "3",
+            name: "Cédric",
             active: true,
-            profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
+            coverPicture: "https://img.freepik.com/photos-gratuite/etudiant-positif-peau-foncee-porte-dossiers-livre-pointe-expression-joyeuse-cote-sourire-pleines-dents_273609-23704.jpg?w=900&t=st=1693235710~exp=1693236310~hmac=2afd47b244941ca069e099779258dc77df9a96f3aedddf1511fdfd8d8e8c5479",
+            profession: "Étudiant en Informatique et Marketing",
+            description: "Je suis vraiment content de cette plateforme. J'ai eu une meilleure influence grâce à cela dans ma filière."
         }
     ]);
+    
 
 
 
