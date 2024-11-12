@@ -49,9 +49,13 @@ const FormationdetailPage = () => {
                 `;
             }).join('\n')}
         `;
-        
-        setTextToRead(pageContent); // Mettre à jour le texte à lire
+    
+        // Nettoyer le HTML en enlevant les balises
+        const cleanedContent = new DOMParser().parseFromString(pageContent, 'text/html').body.textContent || "";
+    
+        setTextToRead(cleanedContent); // Mettre à jour le texte à lire
     }, [formation]);
+    
 
     return (
         <div className="main-content">
