@@ -139,7 +139,7 @@ const ChatPage = () => {
                                         <div
                                             key={conversation._id}
                                             onClick={() => fetchMessages(conversation._id)}
-                                            className={`flex items-center p-2 hover:bg-gray-100 cursor-pointer ${currentConversationId === conversation._id ? "bg-indigo-500" : ""}`}
+                                            className={`flex items-center p-2 hover:bg-gray-100 hover:text-gray-800 cursor-pointer ${currentConversationId === conversation._id ? "bg-indigo-500 text-white hover:text-gray-800 " : "text-gray-800 hover:text-gray-800"}`}
                                         >
                                             <span className="h-[50px] w-[50px] rounded-[50%] overflow-hidden">
                                                 <img src={conversation.participants
@@ -150,7 +150,7 @@ const ChatPage = () => {
                                                     })
                                                 } className="bg-contain h-[50px] w-[50px]" />
                                             </span>
-                                            <span className={`font-medium mx-2 line-clamp-2 ${currentConversationId === conversation._id ? "text-white" : ""} `}>
+                                            <span className={`font-medium mx-2 line-clamp-2 ${currentConversationId === conversation._id ? "text-white hover:text-gray-800" : "text-gray-800"} `}>
                                                 {conversation.participants
                                                     .filter(p => p.user.toString() !== idCandidat) // Filtrer pour garder uniquement le participant qui n'est pas idCandidat
                                                     .map(p => {
