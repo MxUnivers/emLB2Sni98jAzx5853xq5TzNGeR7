@@ -39,6 +39,7 @@ const VocalReader = ({ text }) => {
                     if (isPlaying) synth.current.speak(utterance.current); // Continuer la lecture
                 } else {
                     setIsPlaying(false);
+                    setIsPaused(false);  // Assurer que l'état "paused" est réinitialisé
                     setProgress(100); // Marquer la fin de la lecture
                 }
             };
@@ -72,7 +73,8 @@ const VocalReader = ({ text }) => {
         if (synth.current.speaking) {
             synth.current.cancel();
             setIsPlaying(false);
-            setProgress(0);
+            setIsPaused(false);  // Réinitialiser l'état de pause
+            setProgress(0);  // Réinitialiser la barre de progression
             setCurrentIndex(0); // Réinitialiser à la première section
         }
     };
@@ -85,61 +87,69 @@ const VocalReader = ({ text }) => {
     return (
         <div className="min-w-md mx-2 p-6 bg-white shadow-lg rounded-lg">
             <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Langue :</label>
-                <select
-                    onChange={handleLanguageChange}
-                    value={language}
-                    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                >
+                <label className="block text-sm font-medium">Sélectionner la langue</label>
+                <select value={language} onChange={handleLanguageChange} className="form-select">
                     <option value="fr-FR">Français</option>
                     <option value="en-US">Anglais</option>
+                    {/* Ajouter d'autres langues si nécessaire */}
                 </select>
             </div>
-
-            <div className="mb-4 flex justify-between items-center space-x-2">
-                <button
-                    onClick={startReading}
-                    disabled={isPlaying}
-                    title="Démarrer"
-                    className={`p-2 rounded ${isPlaying ? 'bg-gray-300' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
-                >
-                    <FaPlay />
-                </button>
-                <button
-                    onClick={pauseReading}
-                    disabled={!isPlaying || isPaused}
-                    title="Pause"
-                    className={`p-2 rounded ${isPaused ? 'bg-gray-300' : 'bg-yellow-500 text-white hover:bg-yellow-600'}`}
-                >
-                    <FaPause />
-                </button>
-                <button
-                    onClick={resumeReading}
-                    disabled={!isPaused}
-                    title="Reprendre"
-                    className={`p-2 rounded ${!isPaused ? 'bg-gray-300' : 'bg-green-500 text-white hover:bg-green-600'}`}
-                >
-                    <FaRedo />
-                </button>
-                <button
-                    onClick={stopReading}
-                    disabled={!isPlaying}
-                    title="Arrêter"
-                    className="p-2 rounded bg-red-500 text-white hover:bg-red-600"
-                >
-                    <FaStop />
-                </button>
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex space-x-2">
+                    <button
+                        onClick={startReading}
+                        disabled={isPlaying}
+                        className="p-2 bg-green-500 text-white rounded"
+                    >
+                        <FaPlay />
+                    </button>
+                    <button
+                        onClick={pauseReading}
+                        disabled={!isPlaying || isPaused}
+                        className="p-2 bg-yellow-500 text-white rounded"
+                    >
+                        <FaPause />
+                    </button>
+                    <button
+                        onClick={resumeReading}
+                        disabled={!isPaused}
+                        className="p-2 bg-blue-500 text-white rounded"
+                    >
+                        <FaRedo />
+                    </button>
+                    <button
+                        onClick={stopReading}
+                        className="p-2 bg-red-500 text-white rounded"
+                    >
+                        <FaStop />
+                    </button>
+                </div>
             </div>
-
-            {/* Barre de progression */}
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Progression :</label>
-                <progress
-                    value={progress}
-                    max={100}
-                    className="w-full h-2 bg-gray-200 rounded-full"
-                />
-                {/*<span className="text-sm text-gray-600">{Math.round(progress)}%</span> */}
+            <div className="relative pt-1">
+                <div className="flex mb-2 items-center justify-between">
+                    <span className="text-xs font-semibold inline-block py-1 uppercase">
+                        Progression
+                    </span>
+                    <span className="text-xs font-semibold inline-block py-1 uppercase">
+                        {progress.toFixed(0)}%
+                    </span>
+                </div>
+                <div className="flex mb-2">
+                    <div
+                        className="relative flex w-full flex-wrap items-stretch mb-3"
+                        style={{ height: "8px", borderRadius: "4px", backgroundColor: "#E5E7EB" }}
+                    >
+                        <div
+                            className="flex mb-2"
+                            style={{
+                                width: `${progress}%`,
+                                backgroundColor: "#4CAF50",
+                                borderRadius: "4px",
+                                height: "100%",
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

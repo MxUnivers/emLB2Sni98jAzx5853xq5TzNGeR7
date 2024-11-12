@@ -1,117 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta content="Tailwind Multipurpose Admin & Dashboard Template" name="description" />
-  <meta content="" name="Themesbrand" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <!-- Required meta tags -->
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+ <meta name="description" content="Jouman : Trouvez des formations, emplois, bourses et activités pour booster votre carrière et développement personnel. Rejoignez notre plateforme pour accéder à des opportunités professionnelles et académiques." />
+ <meta name="author" content="Jouman Platform" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+ <title>Jouman - Votre plateforme d'opportunités professionnelles et académiques</title>
 
-  <title> </title>
+ <link rel="shortcut icon" href="assets/images/logo-dark.png" />
 
-  <link rel="shortcut icon" href="assets/images/logo-dark.png" />
+ <!-- Stylesheets -->
+ <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+ <link rel="stylesheet" href="assets/libs/swiper/swiper-bundle.min.css">
+ <link rel="stylesheet" href="assets/libs/glightbox/css/glightbox.min.css">
+ <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" />
+ <link href="assets/css/icons.min.css" rel="stylesheet" />
+ <link rel="stylesheet" href="assets/css/icons.css" />
+ <link rel="stylesheet" href="assets/css/tailwind.css" />
+ <link rel="stylesheet" href="assets/css/style.css" />
 
-  <link rel="stylesheet" href="assets/libs/choices.js/public/assets/styles/choices.min.css">
+ <!-- Template Tailwind CSS -->
+ <link rel="preconnect" href="https://fonts.googleapis.com/">
+ <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
-  <!-- Swiper Css -->
-  <link rel="stylesheet" href="assets/libs/swiper/swiper-bundle.min.css">
-  <link rel="stylesheet" href="assets/libs/glightbox/css/glightbox.min.css">
+ <link rel="stylesheet" href="./app.css">
+ <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo-dark.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo-dark.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo-dark.png">
+ <link rel="icon" type="image/png" href="assets/images/logo-dark.png">
+ <link rel="manifest" href="./site.webmanifest">
+ <link rel="mask-icon" href="assets/images/logo-dark.png" color="#5bbad5">
+ <meta name="msapplication-TileColor" content="#ffffff">
+ <meta name="theme-color" content="#ffffff">
 
-  <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" />
+ <!-- Twitter -->
+ <meta name="twitter:card" content="summary">
+ <meta name="twitter:site" content="@JoumanOfficial">
+ <meta name="twitter:creator" content="@JoumanOfficial">
+ <meta name="twitter:title" content="Jouman - Trouvez des opportunités professionnelles">
+ <meta name="twitter:description" content="Explorez les formations, emplois, bourses et activités sur Jouman, la plateforme pour les étudiants et professionnels en quête de nouvelles opportunités.">
+ <meta name="twitter:image" content="assets/images/logo-dark.png">
 
-  <link href="assets/css/icons.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/icons.css" />
-  <link rel="stylesheet" href="assets/css/tailwind.css" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-
-
-
-
-
-  <!-- template tailwind css  -->
-
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="./app.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo-dark.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo-dark.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo-dark.png">
-  <link rel="icon" type="image/png" href="assets/images/logo-dark.png">
-  <link rel="manifest" href="./site.webmanifest">
-  <link rel="mask-icon" href="assets/images/logo-dark.png" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@">
-  <meta name="twitter:creator" content="@">
-  <meta name="twitter:title" content="Tailwind CSS User Settings Page - Flowbite">
-  <meta name="twitter:description"
-    content="Get started with a premium admin dashboard layout built with Tailwind CSS and Flowbite featuring 21 example pages including charts, kanban board, mailing system, and more.">
-  <meta name="twitter:image" content="./images/og-image.jpg">
-
-  <!-- Facebook -->
-  <meta property="og:url" content="index.html">
-  <meta property="og:title" content="Tailwind CSS User Settings Page - Flowbite">
-  <meta property="og:description"
-    content="Get started with a premium admin dashboard layout built with Tailwind CSS and Flowbite featuring 21 example pages including charts, kanban board, mailing system, and more.">
-  <meta property="og:type" content="article">
-  <meta property="og:image" content="./images/og-image.jpg">
-  <meta property="og:image:type" content="image/png">
-
-  <!-- Cinepay -->
-  <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
-  <script>
-    function checkout() {
-      CinetPay.setConfig({
-        apikey: ,//   YOUR APIKEY
-        site_id: '',//YOUR_SITE_ID
-        notify_url: 'http://mondomaine.com/notify/',
-        mode: 'PRODUCTION'
-      });
-      CinetPay.getCheckout({
-        transaction_id: Math.floor(Math.random() * 100000000).toString(), // YOUR TRANSACTION ID
-        amount: 100,
-        currency: 'XOF',
-        channels: 'ALL',
-        description: 'Test de paiement',
-        //Fournir ces variables pour le paiements par carte bancaire
-        customer_name: "Joe",//Le nom du client
-        customer_surname: "Down",//Le prenom du client
-        customer_email: "down@test.com",//l'email du client
-        customer_phone_number: "088767611",//l'email du client
-        customer_address: "BP 0024",//addresse du client
-        customer_city: "Antananarivo",// La ville du client
-        customer_country: "CM",// le code ISO du pays
-        customer_state: "CM",// le code ISO l'état
-        customer_zip_code: "06510", // code postal
-
-      });
-      CinetPay.waitResponse(function (data) {
-        if (data.status == "REFUSED") {
-          if (alert("Votre paiement a échoué")) {
-            window.location.reload();
-          }
-        } else if (data.status == "ACCEPTED") {
-          if (alert("Votre paiement a été effectué avec succès")) {
-            window.location.reload();
-          }
-        }
-      });
-      CinetPay.onError(function (data) {
-        console.log(data);
-      });
-    }
-  </script>
-
-
+ <!-- Facebook -->
+ <meta property="og:url" content="index.html">
+ <meta property="og:title" content="Jouman - Trouvez des opportunités professionnelles">
+ <meta property="og:description" content="Explorez les formations, emplois, bourses et activités sur Jouman, la plateforme pour les étudiants et professionnels en quête de nouvelles opportunités.">
+ <meta property="og:image" content="assets/images/logo-dark.png">
+ <meta property="og:image:alt" content="Logo de Jouman">
+ <meta property="og:type" content="website">
 
   <style>
+
+
+
+
     body {
       font-family: "Raleway", sans-serif;
     }
@@ -273,19 +219,55 @@
 <body class="bg-white dark:bg-neutral-800">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
-    <div id="preloader">
-      <div id="status">
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+
+    <!-- Écran de chargement avec styles en ligne -->
+  <div id="loading-screen" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+">
+  <img src="%PUBLIC_URL%/assets/images/logo-dark.png" alt="Logo Jouman" style="
+    width: 100px;
+    height: auto;
+    border-radius:50%;
+    margin-bottom: 20px;
+  " />
+  <div style="
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  "></div>
+</div>
+
+
+
   </div>
+
+
+  
+
+
+   <!-- JavaScript principal de l'application -->
+   <script src="%PUBLIC_URL%/index.js"></script>
+
+   <style>
+     /* Animation de rotation */
+     @keyframes spin {
+       0% { transform: rotate(0deg); }
+       100% { transform: rotate(360deg); }
+     }
+   </style>
 
 
 
