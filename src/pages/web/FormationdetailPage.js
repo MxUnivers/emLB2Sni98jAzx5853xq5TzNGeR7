@@ -33,13 +33,24 @@ const FormationdetailPage = () => {
     const [textToRead, setTextToRead] = useState(''); // Contenu à lire
 
     useEffect(() => {
-        // Extraire le contenu textuel pour le lire
+        // Construire le texte à lire
         const pageContent = `
-            Formation: ${formation?.title || ''}
-            Modules: ${formation?.modules?.map(module => module.name).join(', ') || ''}
+            Formation: ${formation?.formationTitle || ''}
             Description: ${formation?.description || ''}
+            ${formation?.modules?.map((module, index) => {
+                return `
+                    Module ${index + 1}: ${module.moduleLabel || 'Nom du module'}
+                    ${module?.lecons?.map((lesson, lessonIndex) => {
+                        return `
+                            Leçon ${lessonIndex + 1}: ${lesson?.leconTitle || 'Titre de la leçon'}
+                            Contenu de la leçon: ${lesson?.leconContent || 'Contenu de la leçon non disponible'}
+                        `;
+                    }).join(' ')}
+                `;
+            }).join('\n')}
         `;
-        setTextToRead(pageContent);
+        
+        setTextToRead(pageContent); // Mettre à jour le texte à lire
     }, [formation]);
 
     return (

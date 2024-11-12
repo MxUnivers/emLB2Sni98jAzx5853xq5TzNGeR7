@@ -388,6 +388,8 @@ export function FormationGetById(idFormation) {
                 }
             }).then((response) => {
                 setformation(response.data.data);
+                    console.log(response.data.data);
+
                 setError(null);
             })
                 .catch((error) => {
