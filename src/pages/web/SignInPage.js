@@ -47,6 +47,7 @@ const SignInPage = () => {
 
     const [email, setemail] = useState();
     const [password, setpassword] = useState();
+    const [isPassword, setisPassword] = useState(false);
 
 
 
@@ -115,7 +116,14 @@ const SignInPage = () => {
                                     <div className="chva6">
                                         <div>
                                             <label className="ckncn c9csv cfkm3 ckcgr" for="email">Mot de passe <span className="cvmpf">*</span></label>
-                                            <input className="cvac0 coz82" value={password} onChange={(e) => { setpassword(e.target.value) }} type="password" required={true} />
+                                            <input className="cvac0 coz82" value={password} onChange={(e) => { setpassword(e.target.value) }} type={isPassword? "text":"password"} required={true} />
+                                        </div>
+                                    </div>
+
+                                    <div className="chva6 mt-5">
+                                        <div class="flex justify-start space-x-3 align-center">
+                                            <input className="cvac0 coz82" checked={isPassword} onChange={(e) => { setisPassword(e.target.checked) }} type="checkbox" />
+                                            <label className="ckncn c9csv cfkm3 ckcgr" for="email">Afficher mot de passe <span className="cvmpf">*</span></label>
                                         </div>
                                     </div>
 
