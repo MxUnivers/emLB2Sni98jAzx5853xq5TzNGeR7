@@ -123,7 +123,7 @@ const SignInPage = () => {
                                     <div className="chva6 mt-5">
                                         <div class="flex justify-start space-x-3 align-center">
                                             <input className="cvac0 coz82" checked={isPassword} onChange={(e) => { setisPassword(e.target.checked) }} type="checkbox" />
-                                            <label className="ckncn c9csv cfkm3 ckcgr" for="email">Afficher mot de passe <span className="cvmpf">*</span></label>
+                                            <label className="ckncn c9csv cfkm3 ckcgr" for="email">Afficher mot de passe </label>
                                         </div>
                                     </div>
 
