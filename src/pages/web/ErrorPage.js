@@ -1,29 +1,21 @@
-import React from 'react'
-import { BiArrowBack } from "react-icons/bi";
-
-
+import React from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
-  return (
-    <div className="w-full h-screen flex flex-col lg:flex-row items-center justify-center space-y-16 lg:space-y-0 space-x-8 2xl:space-x-0">
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center lg:px-2 xl:px-0 text-center">
-        <p className="text-7xl md:text-8xl lg:text-9xl font-bold tracking-wider text-gray-300">404</p>
-        <p className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-gray-300 mt-2">Page non trouvé</p>
-        <p className="text-lg md:text-xl lg:text-2xl text-gray-500 my-12">Cette pas n{"'"}est pas disponible</p>
-        <a href="#"
-          onClick={() => {
-            window.history.back();
-          }}
-          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded transition duration-150" title="Return Home">
-          <BiArrowBack />
-          <span>Retour</span>
-        </a>
-      </div>
-      <div className="w-1/2 lg:h-full flex lg:items-end justify-center p-4">
-        <img src='img/undraw_Not_found_re_bh2e.png' />
-      </div>
-    </div>
-  )
-}
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+            <FaExclamationTriangle className="text-red-500 text-6xl mb-4" />
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Erreur 404</h1>
+            <p className="text-lg text-gray-600 mb-6">Oups! La page que vous recherchez n{"'"}existe pas.</p>
+            <Link
+                to="/"
+                className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+                Retour à l{"'"}accueil
+            </Link>
+        </div>
+    );
+};
 
 export default ErrorPage;
