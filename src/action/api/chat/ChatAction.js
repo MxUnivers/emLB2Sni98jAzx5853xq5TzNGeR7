@@ -17,11 +17,11 @@ export const sendMessage = async (currentConversationId, idCandidat, newMessage,
                 }
             }
         );
-        toast.success("Message envoyé avec succès");
+        // toast.success("Message envoyé avec succès");
         return response.data.data; // Renvoie le message envoyé
     } catch (error) {
         console.error("Erreur lors de l'envoi du message :", error);
-        toast.error("Erreur lors de l'envoi du message");
+        // toast.error("Erreur lors de l'envoi du message");
         throw error; // Rejeter l'erreur pour gestion ultérieure
     }
 };

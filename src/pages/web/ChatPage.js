@@ -47,7 +47,7 @@ const ChatPage = () => {
             })
             .catch(error => {
                 console.error("Erreur lors de la récupération des messages :", error);
-                toast.error("Impossible de récupérer les messages.");
+                // toast.error("Impossible de récupérer les messages.");
             });
     };
 
@@ -121,7 +121,7 @@ const ChatPage = () => {
 
 
     return (
-        <div class="sticky top-24">
+        <div class="sticky top-20 z-50 bg-white">
             {
                 (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
@@ -150,7 +150,7 @@ const ChatPage = () => {
                                                     })
                                                 } className="bg-contain h-[50px] w-[50px]" />
                                             </span>
-                                            <span className="font-medium mx-2">
+                                            <span className={`font-medium mx-2 line-clamp-2 ${currentConversationId === conversation._id ? "text-white" : ""} `}>
                                                 {conversation.participants
                                                     .filter(p => p.user.toString() !== idCandidat) // Filtrer pour garder uniquement le participant qui n'est pas idCandidat
                                                     .map(p => {
@@ -181,7 +181,7 @@ const ChatPage = () => {
                             </div>
 
                             {/* Message Input */}
-                            <div className="flex p-4 border-t border-gray-200 bg-white shadow-md rounded-lg">
+                            <div className="flex sticky bottom-1 p-4 border-t border-gray-200 bg-white shadow-md rounded-lg">
                                 <input
                                     type="text"
                                     value={newMessage}
