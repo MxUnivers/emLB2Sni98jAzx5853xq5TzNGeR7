@@ -1,6 +1,7 @@
 // src/components/coachingAndFormation/formation/VocalReader.js
 
 import React, { useEffect, useState, useRef } from 'react';
+import { FaPlay, FaPause, FaStop, FaRedo } from 'react-icons/fa';
 
 const VocalReader = ({ text }) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -73,40 +74,44 @@ const VocalReader = ({ text }) => {
                 </select>
             </div>
 
-            <div className="mb-4 flex justify-between">
+            <div className="mb-4 flex justify-between items-center space-x-2">
                 <button 
                     onClick={startReading} 
-                    disabled={isPlaying} 
-                    className={`px-4 py-2 rounded ${isPlaying ? 'bg-gray-300' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={isPlaying}
+                    title="Démarrer"
+                    className={`p-2 rounded ${isPlaying ? 'bg-gray-300' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                 >
-                    Démarrer
+                    <FaPlay />
                 </button>
                 <button 
                     onClick={pauseReading} 
-                    disabled={!isPlaying || isPaused} 
-                    className={`px-4 py-2 rounded ${!isPlaying || isPaused ? 'bg-gray-300' : 'bg-yellow-500 text-white hover:bg-yellow-600'}`}
+                    disabled={!isPlaying || isPaused}
+                    title="Pause"
+                    className={`p-2 rounded ${(!isPlaying || isPaused) ? 'bg-gray-300' : 'bg-yellow-500 text-white hover:bg-yellow-600'}`}
                 >
-                    Pause
+                    <FaPause />
                 </button>
                 <button 
                     onClick={resumeReading} 
-                    disabled={!isPaused} 
-                    className={`px-4 py-2 rounded ${!isPaused ? 'bg-gray-300' : 'bg-green-500 text-white hover:bg-green-600'}`}
+                    disabled={!isPaused}
+                    title="Reprendre"
+                    className={`p-2 rounded ${!isPaused ? 'bg-gray-300' : 'bg-green-500 text-white hover:bg-green-600'}`}
                 >
-                    Reprendre
+                    <FaRedo />
                 </button>
                 <button 
-                    onClick={stopReading} 
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={stopReading}
+                    title="Arrêter"
+                    className="p-2 bg-red-500 text-white hover:bg-red-600 rounded"
                 >
-                    Arrêter
+                    <FaStop />
                 </button>
             </div>
 
-            <div className="relative w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div className="relative h-2 w-full bg-gray-200 rounded-full">
                 <div 
                     style={{ width: `${progress}%` }} 
-                    className="absolute top-0 left-0 h-full bg-blue-500"
+                    className="absolute h-2 bg-blue-500 rounded-full"
                 ></div>
             </div>
         </div>
