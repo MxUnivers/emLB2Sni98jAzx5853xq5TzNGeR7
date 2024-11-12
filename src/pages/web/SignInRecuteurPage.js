@@ -15,7 +15,7 @@ import LoadinButton from '../../components/loading/LoadinButton';
 const SignInRecuteurPage = () => {
 
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
     const [candidats, setcandidats] = useState([
         {
@@ -23,8 +23,8 @@ const SignInRecuteurPage = () => {
             name: "Bly Bi Gohi Aymar ",
             active: true,
             coverPicture: "https://img.freepik.com/photos-premium/homme-etudiant-afro-americain-fond-jaune-isole-lunettes-heureux_1368-222691.jpg?w=900",
-            profession: "Developpeur full stack , Animateur , Modlisateur 3d ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
+            profession: "Developpeur full stack , Animateur , Modélisateur 3d ",
+            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
         },
         {
             _id: "1",
@@ -32,7 +32,7 @@ const SignInRecuteurPage = () => {
             coverPicture: "https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             active: true,
             profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
+            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
         },
         {
             _id: "1",
@@ -40,7 +40,7 @@ const SignInRecuteurPage = () => {
             coverPicture: "https://img.freepik.com/photos-gratuite/etudiant-positif-peau-foncee-porte-dossiers-livre-pointe-expression-joyeuse-cote-sourire-pleines-dents_273609-23704.jpg?w=900&t=st=1693235710~exp=1693236310~hmac=2afd47b244941ca069e099779258dc77df9a96f3aedddf1511fdfd8d8e8c5479",
             active: true,
             profession: "Etudiant en Informatique et marketing ",
-            description: "Je suis vraiment content de cette , Plateformfe j'ai eu un meilleur influence grace à cela dans ma filière"
+            description: "Je suis vraiment content de cette plateforme, j'ai eu une meilleure influence grâce à cela dans ma filière"
         }
     ]);
 
@@ -81,7 +81,7 @@ const SignInRecuteurPage = () => {
 
         const requiredFields = [
             // boc 1
-           "email","password"
+            "email", "password"
         ];
 
         // Vérifiez chaque champ requis.
@@ -94,8 +94,8 @@ const SignInRecuteurPage = () => {
                 return; // Arrêtez le traitement si un champ est vide.
             }
         }
-        
-        dispatch(EntrepriseConnexion(email, password,navigate, toast));
+
+        dispatch(EntrepriseConnexion(email, password, navigate, toast));
 
     }
 
@@ -111,11 +111,10 @@ const SignInRecuteurPage = () => {
                     <div className="ckjzp c9dke c6to5 cj2th cscbh cyzui coz82 crp1m cx27s">
 
 
-                        <header className="c62g5 cmdkn crp1m">
+                        <header className="c62g5 cmdkn crp1m justify-center">
                             <div className="c7kkg czlxp cf6y5 crp1m c7htb">
-
                                 <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
-                                <img  src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full"/>
+                                    <img src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full" />
                                 </a>
                             </div>
                         </header>
@@ -129,7 +128,6 @@ const SignInRecuteurPage = () => {
                             <form onSubmit={hanldeSubmitCandidat}>
 
                                 <div className="cz2ao">
-
                                     <div className="chva6">
                                         <div>
                                             <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email de votre entreprise <span className="cvmpf">*</span></label>
@@ -142,22 +140,19 @@ const SignInRecuteurPage = () => {
                                             <input className="cvac0 coz82" value={password} onChange={(e) => { setpassword(e.target.value) }} type="password" required={true} />
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div className="cq38v">
                                     {
                                         loading ?
-                                        <LoadinButton text={"Inscription en cours ..."} />
+                                            <LoadinButton text={"Connexion en cours ..."} />
                                             :
                                             <button type="submit" className="bg-blue-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
-                                                Se Connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                                Se Connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh"></span>
                                             </button>
                                     }
                                 </div>
-
                             </form>
-
 
                             <div className="czlxp cp545 crp1m">
                                 <div className="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
@@ -165,13 +160,9 @@ const SignInRecuteurPage = () => {
                                 <div className="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
                             </div>
 
-
                             <a href={`/${routing.inscription_recruteur}`}>
-                                <button className="c6hhw c9dke cf8q3 cday3 cpsdf c9csv co11h coz82 chkpc crp1m">
-                                    <span className="cp8dt cupxg ca92d">
-                                        S{"'"}inscire
-                                        <span className="cls93 cv1su cwp6w c52y5 c04ox ctziu c94my cg4yh">-&gt;</span>
-                                    </span>
+                                <button type="submit" className="bg-red-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                    S{"'"}inscrire <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh"></span>
                                 </button>
                             </a>
 

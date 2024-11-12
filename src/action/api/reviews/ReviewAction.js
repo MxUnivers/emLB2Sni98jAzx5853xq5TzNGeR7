@@ -13,11 +13,9 @@ import { toast } from "react-toastify";
 
 export const ReviewCreateCandidat = (
     idPack, idCandidat) => {
-
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        await axios
-            .post(`${baseurl.url}/api/v1/packs/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}/${idCandidat}/subscribe/${idPack}`
+        await axios.post(`${baseurl.url}/api/v1/packs/${getAndCheckLocalStorage(localvalue.TYPEACCESS)}/${idCandidat}/subscribe/${idPack}`
             )
             .then((response) => {
                 dispatch({ type: REQUEST_SUCCESS, payload: response.data });
@@ -27,8 +25,6 @@ export const ReviewCreateCandidat = (
                 setTimeout(() => {
                     window.location.href = `/`;
                 }, 2500);
-
-
             })
             .catch((error) => {
                 dispatch({ type: REQUEST_FAILURE, payload: error.message });
@@ -54,6 +50,7 @@ export const ReviewsAllCandidat = async (setReviews) => {
         .catch((error) => {
             console.log(error);
         });
-
 }
+
+
 
