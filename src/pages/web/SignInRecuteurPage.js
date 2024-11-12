@@ -161,7 +161,7 @@ const SignInRecuteurPage = () => {
                             </div>
 
                             <a href={`/${routing.inscription_recruteur}`}>
-                                <button type="submit" className="bg-red-600 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                <button type="submit" className="bg-gray-100 text-gray-900 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
                                     S{"'"}inscrire <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh"></span>
                                 </button>
                             </a>

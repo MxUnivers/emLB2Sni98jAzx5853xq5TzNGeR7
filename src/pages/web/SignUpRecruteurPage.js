@@ -215,7 +215,7 @@ const SignUpRecruteurPage = () => {
                             <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
                                 <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
-                                <img  src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full"/>
+                                    <img src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full" />
                                 </a>
                             </div>
                         </header>
@@ -253,10 +253,10 @@ const SignUpRecruteurPage = () => {
                                             <div className="mt-5">
                                                 <label className="cax0a ckncn c9csv cfkm3 ckcgr" for="role">Temps d{"'"}existence de votre entreprise (année) <span className="cvmpf"></span></label>
                                                 <select onChange={(e) => { setdateNaissance_entreprise(e.target.value) }} id="role" className="c033a c9csv coz82 cxa4q" required="">
-                                                <option>-- Choisir --</option>    
-                                                {existence_entreprise.map((item) => {
+                                                    <option>-- Choisir --</option>
+                                                    {existence_entreprise.map((item) => {
                                                         return (
-                                                            <option selected={dateNaissance_entreprise==item? true :false} value={item}>{item}</option>
+                                                            <option selected={dateNaissance_entreprise == item ? true : false} value={item}>{item}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -305,7 +305,7 @@ const SignUpRecruteurPage = () => {
                                             <select onChange={(e) => { setemployers_count(e.target.value) }} id="role" className="c033a c9csv coz82 cxa4q" required="">
                                                 {employers.map((item) => {
                                                     return (
-                                                        <option selected={employers_count==item? true :false} value={item}>{item}</option>
+                                                        <option selected={employers_count == item ? true : false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -316,7 +316,7 @@ const SignUpRecruteurPage = () => {
                                             <select required={false} onChange={(e) => { setsalaire_capital(e.target.value) }} className="c033a c9csv coz82 cxa4q">
                                                 {salaires_School.map((item) => {
                                                     return (
-                                                        <option selected={salaire_capital==item? true :false} value={item}>{item}</option>
+                                                        <option selected={salaire_capital == item ? true : false} value={item}>{item}</option>
                                                     )
                                                 })}
                                             </select>
@@ -351,7 +351,7 @@ const SignUpRecruteurPage = () => {
                                                 <select required={true} onChange={(e => { setpays_entreprise(e.target.value) })} className="c033a c9csv coz82 cxa4q" >
                                                     {optionPays.map((item) => {
                                                         return (
-                                                            <option selected={pays_entreprise==item? true :false} value={item.value}>{item.label}</option>
+                                                            <option selected={pays_entreprise == item ? true : false} value={item.value}>{item.label}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -493,7 +493,7 @@ const SignUpRecruteurPage = () => {
 
                                         loading ?
                                             <div className="cq38v flex items-center">
-                                            <LoadinButton text={"Inscription en cours ..."} />
+                                                <LoadinButton text={"Inscription en cours ..."} />
                                             </div>
                                             :
                                             <div className="cq38v">
@@ -514,15 +514,15 @@ const SignUpRecruteurPage = () => {
 
                             <div className="czlxp cp545 crp1m">
                                 <div className="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
-                                <div className="clvg0 c9csv cqaaz">Or</div>
+                                <div className="clvg0 c9csv cqaaz">Ou</div>
                                 <div className="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
                             </div>
 
 
                             <a href={`/${routing.connexion}`}>
                                 <div className="cq38v">
-                                    <button className="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
-                                        Se connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                    <button type="submit" className="bg-gray-100 text-gray-900 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                        Se connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh"></span>
                                     </button>
                                 </div>
                             </a>

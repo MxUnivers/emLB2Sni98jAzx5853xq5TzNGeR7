@@ -156,12 +156,12 @@ const SignUpPage = () => {
                             <div className="c7kkg czlxp cf6y5 crp1m c7htb">
 
                                 <a className="cfkm3 chkpc" href="/" aria-label="Cruip">
-                                <img  src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full"/>
+                                    <img src="assets/images/logo-dark.png" class="h-[50px] w-[50px] rounded-full" />
                                 </a>
                             </div>
                         </header>
 
-                        
+
                         <div className="cmdkn cggc7">
 
                             <div className="cjplb">
@@ -431,15 +431,15 @@ const SignUpPage = () => {
 
                             <div className="czlxp cp545 crp1m">
                                 <div className="cuiwd ch0ai conht cyy4k" aria-hidden="true"></div>
-                                <div className="clvg0 c9csv cqaaz">Or</div>
+                                <div className="clvg0 c9csv cqaaz">Ou</div>
                                 <div className="cuiwd ch0ai ca1o4 cyy4k" aria-hidden="true"></div>
                             </div>
 
 
                             <a href={`/${routing.connexion}`}>
                                 <div className="cq38v">
-                                    <button className="cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf bg-gray-300 hover:bg-gray-400">
-                                        Se connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh">-&gt;</span>
+                                    <button type="submit" className="bg-gray-100 text-gray-900 cd99b croe6 cday3 c8dh7 coz82 chkpc ct2sf">
+                                        Se connecter <span className="cls93 cv1su cwp6w c8h2n c04ox c94my cg4yh"></span>
                                     </button>
                                 </div>
                             </a>
@@ -503,7 +503,6 @@ const SignUpPage = () => {
                 </div>
 
             </div>
-
 
 
         </main>
