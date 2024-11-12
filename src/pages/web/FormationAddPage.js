@@ -14,6 +14,17 @@ import { FormationCreate } from '../../action/api/formations/FormationAction';
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 
 const FormationAddPage = () => {
+
+
+   
+
+
+
+
+
+
+
+
     const initialValues = {
         idEntreprise: '',
         urlVideo: '',

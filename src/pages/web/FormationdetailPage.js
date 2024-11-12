@@ -9,8 +9,14 @@ import { statusPACKS } from '../../utlis/config';
 import ErrorPrincing from '../../components/empty/ErrorPrincing';
 import { routing } from '../../utlis/routing';
 import { EntrepriseGetById } from '../../action/api/employeur/EmployeurAction';
+import VocalReader from '../../components/coachingAndFormation/formation/VocalReader';
 
 const FormationdetailPage = () => {
+
+
+
+
+
 
     var idFormation = localStorage.getItem(localvalue.formationId);
     const idCcandidat = getAndCheckLocalStorage(localvalue.candidatID);
@@ -19,20 +25,33 @@ const FormationdetailPage = () => {
     const { candidat } = useFetchCandidat(idCcandidat);
 
     const [entrepriseDetail, setentrepriseDetail] = useState();
-    useEffect(()=>{
-        EntrepriseGetById(idEntreprise,setentrepriseDetail);
-    },[]);
+    useEffect(() => {
+        EntrepriseGetById(idEntreprise, setentrepriseDetail);
+    }, []);
+
+
+    const [textToRead, setTextToRead] = useState(''); // Contenu à lire
+
+    useEffect(() => {
+        // Extraire le contenu textuel pour le lire
+        const pageContent = `
+            Formation: ${formation?.title || ''}
+            Modules: ${formation?.modules?.map(module => module.name).join(', ') || ''}
+            Description: ${formation?.description || ''}
+        `;
+        setTextToRead(pageContent);
+    }, [formation]);
 
     return (
         <div className="main-content">
             <div className="page-content mt-28">
-            {
-                (candidat && candidat.account && candidat.account.pack &&
-                    (candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2]))
-                    ||
-                    (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
-                        (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))
-                     ? 
+                {
+                    (candidat && candidat.account && candidat.account.pack &&
+                        (candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2]))
+                        ||
+                        (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
+                            (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))
+                        ?
                         <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
                             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                                 <div className="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6">
@@ -45,25 +64,28 @@ const FormationdetailPage = () => {
                                                         className="link-indicator link-indicator absolute top-0 -left-[3.5px] z-[1] h-6 w-1.5 rounded-full border-2 border-white bg-primary transition-[top] dark:border-gray-900 dark:bg-secondaryLight"
                                                         style={{ top: "0px" }}></div>
                                                     {
-                                                                formation && formation.modules && formation.modules.length > 0 ?
-                                                                    formation.modules.map((item) => {
-                                                                        return (
-                                                                            <li data-target="company"
-                                                                                className="section-link active-link relative before:absolute before:top-0 before:bottom-0 before:-left-6 before:my-auto before:h-[1px] before:w-3 before:bg-gray-200 dark:before:bg-gray-800">
-                                                                                <a href="#company"
-                                                                                    className="py-2 duration-300 hover:text-primary dark:hover:text-secondaryLight">
-                                                                                    {item.moduleLabel}
-                                                                                </a>
-                                                                            </li>
-                                                                        )
+                                                        formation && formation.modules && formation.modules.length > 0 ?
+                                                            formation.modules.map((item) => {
+                                                                return (
+                                                                    <li data-target="company"
+                                                                        className="section-link active-link relative before:absolute before:top-0 before:bottom-0 before:-left-6 before:my-auto before:h-[1px] before:w-3 before:bg-gray-200 dark:before:bg-gray-800">
+                                                                        <a href="#company"
+                                                                            className="py-2 duration-300 hover:text-primary dark:hover:text-secondaryLight">
+                                                                            {item.moduleLabel}
+                                                                        </a>
+                                                                    </li>
+                                                                )
 
-                                                                    }):""
+                                                            }) : ""
                                                     }
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="space-y-12 text-gray-600 dark:text-gray-400 lg:col-span-4 xl:col-span-4 xl:col-start-2">
+
+                                    <VocalReader text={textToRead} />
+
                                         <div className="space-y-6">
                                             {
                                                 formation && formation.formationTitle ?
@@ -124,8 +146,8 @@ const FormationdetailPage = () => {
                             </div>
                         </section>
                         :
-                        <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} ` } message={"Cette Fonctionnalité est reservé au premuim"} route={`${routing.pricing}`} />
-                } 
+                        <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} `} message={"Cette Fonctionnalité est reservé au premuim"} route={`${routing.pricing}`} />
+                }
             </div>
         </div>
     )
