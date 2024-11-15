@@ -12,7 +12,6 @@ const VocalReader = ({ text }) => {
     const synth = useRef(window.speechSynthesis);
     const utterance = useRef(new SpeechSynthesisUtterance());
 
-    // Diviser le texte en morceaux plus petits
     useEffect(() => {
         if (text) {
             const chunkSize = 1000;
@@ -24,33 +23,32 @@ const VocalReader = ({ text }) => {
         }
     }, [text]);
 
-    // Mettre à jour l'énoncé de la synthèse pour chaque morceau
     useEffect(() => {
         if (chunks.length > 0 && currentIndex < chunks.length) {
             utterance.current.text = chunks[currentIndex];
             utterance.current.lang = language;
             utterance.current.onboundary = (event) => {
                 const charIndex = event.charIndex;
-                setProgress((charIndex / text.length) * 100); // Mise à jour du progrès
+                setProgress(((currentIndex * 1000 + charIndex) / text.length) * 100);
             };
             utterance.current.onend = () => {
                 if (currentIndex < chunks.length - 1) {
-                    setCurrentIndex(currentIndex + 1); // Passer au prochain morceau
-                    if (isPlaying) synth.current.speak(utterance.current); // Continuer la lecture
+                    setCurrentIndex((prevIndex) => prevIndex + 1);
+                    synth.current.speak(utterance.current);
                 } else {
                     setIsPlaying(false);
-                    setIsPaused(false);  // Assurer que l'état "paused" est réinitialisé
-                    setProgress(100); // Marquer la fin de la lecture
+                    setIsPaused(false);
+                    setProgress(100);
                 }
             };
         }
     }, [currentIndex, chunks, language, text]);
 
     const startReading = () => {
-        if (!synth.current.speaking) {
+        if (!synth.current.speaking && chunks.length > 0) {
             setIsPlaying(true);
             setIsPaused(false);
-            setCurrentIndex(0); // Commencer la lecture à partir du premier morceau
+            setCurrentIndex(0);
             synth.current.speak(utterance.current);
         }
     };
@@ -73,83 +71,73 @@ const VocalReader = ({ text }) => {
         if (synth.current.speaking) {
             synth.current.cancel();
             setIsPlaying(false);
-            setIsPaused(false);  // Réinitialiser l'état de pause
-            setProgress(0);  // Réinitialiser la barre de progression
-            setCurrentIndex(0); // Réinitialiser à la première section
+            setIsPaused(false);
+            setProgress(0);
+            setCurrentIndex(0);
         }
     };
 
     const handleLanguageChange = (event) => {
         setLanguage(event.target.value);
-        stopReading(); // Arrêter la lecture si une nouvelle langue est sélectionnée
+        stopReading();
     };
 
     return (
-        <div className="min-w-md mx-2 p-6 bg-white shadow-lg rounded-lg">
-            <div className="mb-4">
-                <label className="block text-sm font-medium">Sélectionner la langue</label>
-                <select value={language} onChange={handleLanguageChange} className="form-select">
+        <div className="vocal-reader p-6 rounded-lg shadow-lg bg-white min-w-md mx-auto">
+            <h2 className="text-2xl font-semibold text-center mb-4">Synthèse vocale</h2>
+            
+            <div className="flex items-center justify-center mb-4 space-x-4">
+                <button
+                    onClick={startReading}
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaPlay />
+                </button>
+                <button
+                    onClick={pauseReading}
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaPause />
+                </button>
+                <button
+                    onClick={resumeReading}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaRedo />
+                </button>
+                <button
+                    onClick={stopReading}
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    <FaStop />
+                </button>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full text-right rounded-full h-2.5 mb-4">
+            {Number(progress).toFixed(0)}%
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                <div
+                    className="bg-blue-500 h-2.5 rounded-full"
+                    style={{ width: `${progress}%` }}
+                ></div>
+            </div>
+
+            {/* Visualizer 
+        <VoiceVisualizer isPlaying={isPlaying} />
+        */}
+            
+
+            <div className="mt-4 text-center">
+                <select
+                    value={language}
+                    onChange={handleLanguageChange}
+                    className="border border-gray-300 rounded px-4 py-2"
+                >
                     <option value="fr-FR">Français</option>
-                    <option value="en-US">Anglais</option>
-                    {/* Ajouter d'autres langues si nécessaire */}
+                    <option value="en-US">English</option>
                 </select>
-            </div>
-            <div className="flex justify-between items-center mb-4">
-                <div className="flex space-x-2">
-                    <button
-                        onClick={startReading}
-                        disabled={isPlaying}
-                        className="p-2 bg-green-500 text-white rounded"
-                    >
-                        <FaPlay />
-                    </button>
-                    <button
-                        onClick={pauseReading}
-                        disabled={!isPlaying || isPaused}
-                        className="p-2 bg-yellow-500 text-white rounded"
-                    >
-                        <FaPause />
-                    </button>
-                    <button
-                        onClick={resumeReading}
-                        disabled={!isPaused}
-                        className="p-2 bg-blue-500 text-white rounded"
-                    >
-                        <FaRedo />
-                    </button>
-                    <button
-                        onClick={stopReading}
-                        className="p-2 bg-red-500 text-white rounded"
-                    >
-                        <FaStop />
-                    </button>
-                </div>
-            </div>
-            <div className="relative pt-1">
-                <div className="flex mb-2 items-center justify-between">
-                    <span className="text-xs font-semibold inline-block py-1 uppercase">
-                        Progression
-                    </span>
-                    <span className="text-xs font-semibold inline-block py-1 uppercase">
-                        {progress.toFixed(0)}%
-                    </span>
-                </div>
-                <div className="flex mb-2">
-                    <div
-                        className="relative flex w-full flex-wrap items-stretch mb-3"
-                        style={{ height: "8px", borderRadius: "4px", backgroundColor: "#E5E7EB" }}
-                    >
-                        <div
-                            className="flex mb-2"
-                            style={{
-                                width: `${progress}%`,
-                                backgroundColor: "#4CAF50",
-                                borderRadius: "4px",
-                                height: "100%",
-                            }}
-                        />
-                    </div>
-                </div>
             </div>
         </div>
     );

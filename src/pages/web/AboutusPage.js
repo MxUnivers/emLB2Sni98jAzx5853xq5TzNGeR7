@@ -42,7 +42,7 @@ return (
             <h2 className="text-3xl font-semibold mb-6">Présentation</h2>
             <p className="mb-6">Découvrez les fonctionnalités de Jouman en vidéo.</p>
             <div className="relative pt-[56.25%] overflow-hidden">
-                <iframe className="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                <iframe className="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/njNeCunocDc?si=itEFTYL6-eRQrjQ8"
                     title="Présentation Jouman"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen></iframe>
