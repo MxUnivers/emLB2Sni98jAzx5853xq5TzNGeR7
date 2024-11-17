@@ -40,6 +40,7 @@ import AboutusPage from "./pages/web/AboutusPage";
 import ContactPage from "./pages/web/ContactPage";
 import ScholarshipApplicationFormPage from "./pages/web/ScholarshipApplicationFormPage";
 import ChatPage from "./pages/web/ChatPage";
+import TermsAndConditionsPage from "./pages/web/TermsAndConditionsPage";
 
 
 
@@ -118,6 +119,9 @@ function App() {
             {/*Others */}
             <Route path={`${routing.aboutus}`} element={<AboutusPage />} />
             <Route path={`${routing.contact}`} element={<ContactPage />} />
+
+            <Route path={`${routing.privacy_policy}`} element={<TermsAndConditionsPage />} />
+
 
 
 

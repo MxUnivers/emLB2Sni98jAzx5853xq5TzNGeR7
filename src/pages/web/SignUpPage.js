@@ -52,6 +52,8 @@ const SignUpPage = () => {
     const [twitter_url, settwitter_url] = useState();
     const [instagram_url, setinstagram_url] = useState();
 
+    const [isPrivacyPolicy, setisPrivacyPolicy] = useState(false);
+
 
 
 
@@ -127,6 +129,10 @@ const SignUpPage = () => {
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
+        }
+        if (!isPrivacyPolicy) {
+            toast.error("Veillez accepter les termes d'utilisation")
+            return false
         }
 
         dispatch(CandidatSignUp(
@@ -374,6 +380,12 @@ const SignUpPage = () => {
                                             <div>
                                                 <label className="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span className="cvmpf">*</span></label>
                                                 <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} className="cvac0 coz82" type="date" required={false} />
+                                            </div>
+                                        </div>
+                                        <div className="chva6 mt-5">
+                                            <div class="flex justify-start space-x-3 align-center">
+                                                <input className="cvac0 coz82 h-[20px] w-[20px]" checked={isPrivacyPolicy} onChange={(e) => { setisPrivacyPolicy(e.target.checked) }} type="checkbox" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">J{"'"}accepte les condtions d{"'"}utilisation <a href={`/${routing.privacy_policy}`} class="">ici</a> </label>
                                             </div>
                                         </div>
                                         {

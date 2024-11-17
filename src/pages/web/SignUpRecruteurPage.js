@@ -72,6 +72,8 @@ const SignUpRecruteurPage = () => {
     const [dateNaissance, setdateNaissance] = useState();
     const [telephone, settelephone] = useState();
     const [password, setpassword] = useState();
+    const [isPrivacyPolicy, setisPrivacyPolicy] = useState(false);
+
 
 
 
@@ -169,7 +171,7 @@ const SignUpRecruteurPage = () => {
             // bloc 2
             "full_name", "secteur_activites",
             "description_entreprise", "employers_count",
-            "salaire_capital", "logo",
+            "salaire_capital",
             // bloc 3
             "pays_entreprise", "addresse_entreprise", "maps_entreprise",
             // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
@@ -185,6 +187,10 @@ const SignUpRecruteurPage = () => {
                 );
                 return; // Arrêtez le traitement si un champ est vide.
             }
+        }
+        if (!isPrivacyPolicy) {
+            toast.error("Veillez accepter les termes d'utilisation")
+            return false
         }
 
         dispatch(EntrepriseSignUp(
@@ -323,7 +329,7 @@ const SignUpRecruteurPage = () => {
                                         </div>
 
                                         <div className="mt-5">
-                                            <label className="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise (5 mb max) <span className="cvmpf">*</span></label>
+                                            <label className="ckncn c9csv cfkm3 ckcgr" for="file">Logo entreprise (5 mb max) <span className="cvmpf"></span></label>
                                             <div className="czlxp crp1m">
                                                 <div className="cyzlo cy9uk">
                                                     <img className="cuiwd c59v3 csm78 ciwnj c7htb cf986"
@@ -457,6 +463,13 @@ const SignUpRecruteurPage = () => {
                                             <div>
                                                 <label className="ckncn c9csv cfkm3 ckcgr" for="email">Date de Naissance valide <span className="cvmpf">*</span></label>
                                                 <input value={dateNaissance} onChange={(e) => { setdateNaissance(e.target.value) }} className="cvac0 coz82" type="date" required={false} />
+                                            </div>
+                                        </div>
+
+                                        <div className="chva6 mt-5">
+                                            <div class="flex justify-start space-x-3 align-center">
+                                                <input className="cvac0 coz82 h-[20px] w-[20px]" checked={isPrivacyPolicy} onChange={(e) => { setisPrivacyPolicy(e.target.checked) }} type="checkbox" />
+                                                <label className="ckncn c9csv cfkm3 ckcgr" for="email">J{"'"}accepte les condtions d{"'"}utilisation <a href={`/${routing.privacy_policy}`} class="">ici</a> </label>
                                             </div>
                                         </div>
                                         {

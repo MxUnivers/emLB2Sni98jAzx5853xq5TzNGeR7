@@ -8,16 +8,16 @@ export const routing = {
     pricing:"pricing",
     faq:"faq_&_plateforme",
     contact:"contact_us",
-    privacy_policy:"condition_utilisation",
 
     bourse_add_request:"demande-de-bourse",
     chat_on_line:"chat-discussion",
+    privacy_policy:"terms-and-conditions-of-the-jouman-platform-political-vigor-jouman-terms-and-conditions-usage-guidelines-for-users-and-recruiters-and-candidates-on-jouman-platform-and-legal-obligations-and-rights",
 
 
     blog_list:"post-blog-list",
     blog_details:"post-blog-ref",
     blog_post:"post-blog-",
-    blog_edit:"edit-blog-ref-"+getAndCheckLocalStorage(localvalue.BlogID),
+    blog_edit:"edit-blog-ref",
 
 
     bourse_list:"listes_des_bourses_de_la_plateforme",
@@ -38,8 +38,8 @@ export const routing = {
 
     checkout:"bAPYpHsqnhv8cLv2CG62bUFn6r5VPQ6auf67EkMkp365Xid-payment-p3aWxFt7CtCpc25khVxJ2KRH892-card-377D9vS686HB74FL7645fb",
     
-    candidat_details:"profile-candidat-"+getAndCheckLocalStorage(localvalue.candidatID),
-    candidat_details_blog:"profile-blog-post-"+getAndCheckLocalStorage(localvalue.candidatID),
+    candidat_details:"profile-candidat",
+    candidat_details_blog:"profile-blog-post",
     candidat_details_view:"candidat_details_profile",
     candidat_edit:"candidat-update-profile",
     candidat_applied:"candidat_candidat_applied",
