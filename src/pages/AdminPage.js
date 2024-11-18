@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PaymentListPage from "./manager/PaymentListPage";
 import CandidateAdminListPage from "./manager/CandidateAdminListPage";
 import EntrepriseAdminListPage from "./manager/EntrepriseAdminListPage";
-import FormationAdminListPage from "./manager/FormationAdminPage;js";
+import FormationAdminListPage from "./manager/FormationAdminPage.js";
+import JobAdminListPage from "./manager/JobAdminListPage";
 
 const AdminTabs = () => {
     const [activeTab, setActiveTab] = useState("paiements");
@@ -18,61 +19,55 @@ const AdminTabs = () => {
                 {/* Tabs Navigation */}
                 <div className="flex flex-wrap md:flex-nowrap border-b border-gray-300">
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "paiements"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "paiements"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("paiements")}
                     >
                         Paiements
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "candidats"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "candidats"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("candidats")}
                     >
                         Candidats
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "entreprises"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "entreprises"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("entreprises")}
                     >
                         Entreprises
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "formations"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "formations"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("formations")}
                     >
                         Formations
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "emplois"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "emplois"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("emplois")}
                     >
                         Emplois
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${
-                            activeTab === "bourses"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "bourses"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("bourses")}
                     >
                         Bourses d{"'"}étude
@@ -83,30 +78,27 @@ const AdminTabs = () => {
                 <div className="p-6">
                     {activeTab === "paiements" && (
                         <div>
-                        <PaymentListPage/>
+                            <PaymentListPage />
                         </div>
                     )}
                     {activeTab === "candidats" && (
                         <div>
-                        <CandidateAdminListPage/>
+                            <CandidateAdminListPage />
                         </div>
                     )}
                     {activeTab === "entreprises" && (
                         <div>
-                        <EntrepriseAdminListPage/>
+                            <EntrepriseAdminListPage />
                         </div>
                     )}
                     {activeTab === "formations" && (
                         <div>
-                        <FormationAdminListPage/>
+                            <FormationAdminListPage />
                         </div>
                     )}
                     {activeTab === "emplois" && (
                         <div>
-                            <h2 className="text-xl font-bold text-gray-800">Emplois</h2>
-                            <p className="text-gray-600 mt-2">
-                                Gérer les offres d{"'"}emploi : validation, suppression ou mise en avant.
-                            </p>
+                            <JobAdminListPage/>
                         </div>
                     )}
                     {activeTab === "bourses" && (

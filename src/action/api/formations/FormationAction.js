@@ -346,6 +346,34 @@ export default function FormationGetAll() {
     return { isLoading, error, formations, formations2 };
 }
 
+
+export async function fetchFormationAll(setformations, setformations2) {
+        const formationList  =  getDataFromFile(localvalueStorage.FORMATIONLIST)||[];
+        setformations(formationList)
+        setformations2(formationList)
+            await axios.get(`${baseurl.url}/api/v1/formation/get_formations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }).then((response) => {
+                setformations(response.data.data);
+                setformations2(response.data.data);
+                saveDataToFile(response.data.data,localvalueStorage.FORMATIONLIST)
+                // setError(null);
+                // console.log(response.data.data)
+            })
+                .catch((error) => {
+                    // console.log(error);
+                    // setError(error);
+                });
+}
+
+
+
+
+
+
 export function FormationGetById(idFormation) {
     const [formation, setformation] = useState(
         {

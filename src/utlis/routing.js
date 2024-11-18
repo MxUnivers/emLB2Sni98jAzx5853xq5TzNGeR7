@@ -50,9 +50,11 @@ export const routing = {
 
 
     company_list:"conpany_list",
-    company_details:`profile-recurteur-${getAndCheckLocalStorage(localvalue.recruteurID)}`,
+    company_details:`profile-recurteur`,
     company_details_view:"company_detail_view",
     company_edit:"company-update-profile",
+    startupspage:`startups-promos`,
+
 
 
     connexion:"authentification-connexion-candidat-&=email,mot-de-passe=&",
