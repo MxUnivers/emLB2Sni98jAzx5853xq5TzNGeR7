@@ -5,7 +5,7 @@ import FormationListItem from '../../components/coachingAndFormation/formation/F
 const FormationPage = () => {
     return (
         <div className="main-content">
-            <div className="page-content mt-28">
+            <div className="page-content pt-28  bg-gradient-to-l from-indigo-700 via-indigo-800 to-black">
 
 
 

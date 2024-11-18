@@ -25,11 +25,11 @@ const FormationListItem = () => {
     };
 
     return (
-        <section className="mt-16 border-b border-gray-100 dark:border-gray-800 sm:mt-20 lg:mt-32">
+        <section className=" border-b border-gray-100 dark:border-gray-800 mt-10">
             <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
                 <div className="border-b border-gray-100 pb-20 dark:border-gray-800 lg:grid lg:grid-cols-5 xl:grid-cols-6"></div>
                 <div className="w-full mx-5 py-20 lg:w-3/5">
-                    <h3 className="text-center text-2xl font-semibold text-gray-800 dark:text-white">Nos formations</h3>
+                    <h3 className="text-center text-2xl font-semibold text-white ">Nos formations</h3>
                     {
 
                         <div className="w-full px-5 mt-8 grid gap-5">

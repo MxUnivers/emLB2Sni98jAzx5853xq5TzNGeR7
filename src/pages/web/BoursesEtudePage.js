@@ -7,7 +7,7 @@ import BourseScholarshipBenefitsPage from '../../components/bourses/BourseSchola
 
 const BoursesEtudePage = () => {
     return (
-        <div className="main-content">
+        <div className="main-content bg-gradient-to-l from-indigo-700 via-indigo-800 to-black">
             <div className="page-content mt-16">
 
                 <main className="space-y-40 mb-5">

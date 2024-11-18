@@ -64,14 +64,14 @@ const BlogPage = () => {
     };
 
     return (
-        <div className="main-content">
-            <div className="page-content mt-[100px] px-10 mb-[100px]">
+        <div className="main-content bg-gradient-to-l from-indigo-700 via-indigo-800 to-black">
+            <div className="page-content pt-[100px] px-10 mb-[100px]">
                 <div className="max-w-screen-xl mx-auto">
                     <main className="mt-16 flex flex-col lg:flex-row gap-10">
                         {/* Main Content - Blog Posts */}
                         <section className="lg:w-2/3">
                             <div className="w-full flex justify-between items-center mb-6">
-                                <h2 className="text-3xl font-semibold">Derniers Activités</h2>
+                                <h2 className="text-3xl font-semibold text-white">Derniers Activités</h2>
                                 {/* Page size selector */}
                                 <select
                                     className="border px-2 py-1 rounded"
