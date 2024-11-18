@@ -7,6 +7,7 @@ import { REQUEST_FAILURE, REQUEST_SUCCESS, SEND_REQUEST } from "../../../app/act
 import { useState } from "react";
 import { useEffect } from "react";
 import { getDataFromFile, saveDataToFile } from "../../storage/DataLocal";
+import { toast } from "react-toastify";
 
 
 var idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
@@ -470,7 +471,7 @@ export const CandidatGetAll = async (setState, setState2) => {
         .then((response) => {
             setState(response.data.data);
             setState2(response.data.data);
-            saveDataToFile( response.data.data,localvalueStorage.CANDIDATS)
+            saveDataToFile(response.data.data, localvalueStorage.CANDIDATS)
         })
         .catch((error) => {
             // console.log(error);
@@ -513,9 +514,9 @@ export const CandidatGetCandidatpostulesByOffre = async (id, setState) => {
         }
     })
         .then((response) => { setState(response.data.data.candidatPostulees); })
-        .catch((error) => { 
+        .catch((error) => {
             // console.log(error);
-         });
+        });
 }
 
 
@@ -622,7 +623,7 @@ export default function useFetchCandidat(idCandidat) {
         twitter_url: "",
         instagram_url: "",
         bookmarks: [],
-        transactions:[],
+        transactions: [],
         offres: [
             {
                 _id: ""
@@ -638,11 +639,11 @@ export default function useFetchCandidat(idCandidat) {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    
-   
 
 
-    
+
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -655,7 +656,7 @@ export default function useFetchCandidat(idCandidat) {
                 }
             }).then((response) => {
                 setCandidat(response.data.data);
-                saveDataToFile(response.data.data,localvalueStorage.CANDIDAT)
+                saveDataToFile(response.data.data, localvalueStorage.CANDIDAT)
                 setError(null);
                 // console.log(response.data.data)
             })
@@ -684,8 +685,8 @@ export function useFetchCandidatAll() {
     const [candidatAll, setCandidatAll] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const candidatGetAll =  getDataFromFile(localvalueStorage.CANDIDATS)||[]
-    
+    const candidatGetAll = getDataFromFile(localvalueStorage.CANDIDATS) || []
+
 
     useEffect(() => {
         setCandidatAll(candidatGetAll)
@@ -699,7 +700,7 @@ export function useFetchCandidatAll() {
                 }
             }).then((response) => {
                 setCandidatAll(response.data.data);
-                saveDataToFile(response.data.data,localvalueStorage.CANDIDATS)
+                saveDataToFile(response.data.data, localvalueStorage.CANDIDATS)
                 setError(null);
                 // console.log(response.data.data)
             })
@@ -717,4 +718,134 @@ export function useFetchCandidatAll() {
     }, [idCandidat]);
 
     return { isLoading, error, candidatAll };
+}
+
+
+
+
+
+
+// Reset password
+export const UserSendCodeverfiy = async (
+    email,
+    phone,
+    setSept,
+    ) => {
+    await axios
+        .post(`${baseurl.url}/api/v1/users/send-code-verify`,
+            {
+                email,
+                phone
+            },
+            {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }
+        )
+        .then((response) => {
+            toast.success(response?.data?.message || "Un code vous été envoyer sur votre email .", { position: "bottom-right" });
+            setSept(2)
+
+        })
+        .catch((error) => {
+            toast.error(error?.response?.data?.message || "Le code n'a pas été entrez email valide . ", { position: "bottom-right" })
+        });
+}
+
+
+
+
+// Reset password
+export const UserverfiyCode = async (
+    email, phone,
+    passwordverifield,
+    setStep,
+) => {
+    await axios
+        .post(`${baseurl.url}/api/v1/users/verfiy-code-reset`,
+            {
+                _id: email || phone,
+                email,
+                phone,
+                passwordverifield,
+            },
+            {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }
+        )
+        .then((response) => {
+            toast.success(response?.data?.message || "Le Code est accepter avec succès .", { position: "bottom-right" });
+            setStep(3)
+        })
+        .catch((error) => {
+            toast.error(error?.response?.data?.message || "Le code n'a pas été accepter entrer un code valide ", { position: "bottom-right" })
+        });
+}
+
+
+
+
+
+// Update statut user
+export const UserUpdateStatut = async (
+    idUser) => {
+    await axios
+        .patch(`${baseurl.url}/api/v1/users/statut_user/${idUser}`,
+            {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }
+        )
+        .then((response) => {
+            // dispatch({ type: FETCH_USER_SUCCESS, payload: response.data.data });
+            toast.success(response.data.message, { position: "bottom-right" });
+        })
+        .catch((error) => {
+            toast.error(`${error.response.data.message}`, { position: "bottom-right" })
+            // dispatch({ type: FETCH_USER_FAILURE, payload: error.message });
+        });
+}
+
+
+
+
+// Reset password
+export const UserResetPasswordForget = async (
+    email,
+    password,
+    setStep,
+    showModal) => {
+    await axios
+        .post(`${baseurl.url}/api/v1/users/reset-password`,
+            {
+                email,
+                password
+            },
+            {
+                headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${baseurl.TypeToken} ${baseurl.token}`
+                }
+            }
+        )
+        .then((response) => {
+            toast.success(response?.data?.message || "Mot de passe mise  à jour avec succès", { position: "bottom-right" });
+            setStep(1);
+            showModal(true);
+            window.location.href = `/`;
+        })
+        .catch((error) => {
+            toast.error(error?.response?.data?.message || "Mot de passe non mis à jour", { position: "bottom-right" })
+        });
 }

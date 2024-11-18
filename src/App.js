@@ -41,6 +41,8 @@ import ContactPage from "./pages/web/ContactPage";
 import ScholarshipApplicationFormPage from "./pages/web/ScholarshipApplicationFormPage";
 import ChatPage from "./pages/web/ChatPage";
 import TermsAndConditionsPage from "./pages/web/TermsAndConditionsPage";
+import ForgotPasswordPage from "./pages/web/ForgotPasswordPage";
+import AdminPage from "./pages/AdminPage";
 
 
 
@@ -121,6 +123,11 @@ function App() {
             <Route path={`${routing.contact}`} element={<ContactPage />} />
 
             <Route path={`${routing.privacy_policy}`} element={<TermsAndConditionsPage />} />
+            <Route path={`${routing.forgetpasswordhash}`} element={<ForgotPasswordPage />} />
+            <Route path={`${routing.admin_dashboard}`} element={<AdminPage />} />
+
+
+            
 
 
 

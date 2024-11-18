@@ -2,8 +2,8 @@ import React from 'react';
 
 const TermsAndConditionsPage = () => {
     return (
-        <div className="bg-gray-100 min-h-screen py-12 px-6 lg:px-20">
-            <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
+        <div className="bg-gray-50 min-h-screen py-12 mt-20 px-6 lg:px-20">
+            <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-8">
                 <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center">
                     Conditions Générales d{"'"}Utilisation (CGU)
                 </h1>

@@ -12,6 +12,7 @@ export const routing = {
     bourse_add_request:"demande-de-bourse",
     chat_on_line:"chat-discussion",
     privacy_policy:"terms-and-conditions-of-the-jouman-platform-political-vigor-jouman-terms-and-conditions-usage-guidelines-for-users-and-recruiters-and-candidates-on-jouman-platform-and-legal-obligations-and-rights",
+    
 
 
     blog_list:"post-blog-list",
@@ -60,5 +61,7 @@ export const routing = {
     inscription_recruteur:"inscription-recruteur",
     deconnexion:"logout",
     reset_password:"reset_password",
+    forgetpasswordhash :"forgot-password-reset-link-for-jouman-platform-user-access-to-recover-lost-password-and-change-your-login-details-and-security-to-regain-access-to-your-account",
+    admin_dashboard :"admin-dashbord"
 
 }
