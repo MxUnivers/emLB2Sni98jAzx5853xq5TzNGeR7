@@ -64,6 +64,6 @@ export const routing = {
     deconnexion:"logout",
     reset_password:"reset_password",
     forgetpasswordhash :"forgot-password-reset-link-for-jouman-platform-user-access-to-recover-lost-password-and-change-your-login-details-and-security-to-regain-access-to-your-account",
-    admin_dashboard :"admin-dashbord"
+    admin_dashboard :"admimVimVi5p2MH6G9j4e5pmVi5p2MH6G9j4e2MHmVi5p2MH6G9j4e6G9j4enmVi5p2MH6G9j4emVi5p2MH6G9j4e"
 
 }
