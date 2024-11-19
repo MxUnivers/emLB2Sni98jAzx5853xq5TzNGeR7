@@ -258,7 +258,6 @@ const CheckOutPage = () => {
                                             </div>
                                         </div>
                                         {
-                                            getAndCheckLocalStorage(localvalue.TYPEACCESS) == typePersonConnected[1] ?
                                                 pack && pack.pack ?
                                                     packsItemsList.filter(packsItem => packsItem.pack == pack.pack).map((item) => {
                                                         return (
@@ -281,9 +280,7 @@ const CheckOutPage = () => {
                                                                 }
                                                             </div>
                                                         )
-                                                    }) : null
-                                                :
-                                                null
+                                                    }) : ""
                                         }
 
 
