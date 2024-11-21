@@ -118,7 +118,7 @@ const HackathonPage = () => {
           {/* Bouton de participation générale */}
           <div className="mt-12 text-center">
             <a
-              href="/all-upcoming-hackathons"
+              href={`/${routing.hackatonupsall_upcoming_hackathons}`}
               className="px-6 py-3 bg-indigo-600 text-white rounded-lg text-lg font-bold shadow-md hover:bg-indigo-700 transition">
               Voir toutes les compétitions
             </a>

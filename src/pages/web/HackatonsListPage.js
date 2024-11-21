@@ -1,68 +1,51 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import moment from "moment";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import { fetchAllHackathons } from "../../action/api/hackathons/HackathonAction";
-import moment from "moment";
+import { localvalueStorage } from "../../utlis/storage/localvalue";
 
-const HackathonPage = () => {
+const HackatonsListPage = () => {
     const navigate = useNavigate();
-    const [hackatonsCompetitions, sethackatonsCompetitions] = useState([
-    ]);
+    const [hackatonsCompetitions, setHackatonsCompetitions] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     useEffect(() => {
-        // Fetch all hackathons
         const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
-        sethackatonsCompetitions(hackatonsCompetitionsList);
+        setHackatonsCompetitions(hackatonsCompetitionsList);
 
-        fetchAllHackathons(sethackatonsCompetitions)
-
+        fetchAllHackathons(setHackatonsCompetitions);
     }, []);
 
+    // Pagination: Calcul des éléments visibles
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentHackathons = hackatonsCompetitions.slice(indexOfFirstItem, indexOfLastItem);
 
+    // Gestion du changement de page
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
-
+    // Calcul du nombre total de pages
+    const totalPages = Math.ceil(hackatonsCompetitions.length / itemsPerPage);
 
     return (
         <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
-
-            {/* Conteneur Principal */}
-            <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
-                {/* En-tête */}
-                <div className="text-center mb-16">
-                    <h1 className="text-5xl font-extrabold text-white mb-6">
-                        Rejoignez Nos Hackathons 🚀
-                    </h1>
-                    <p className="text-lg text-gray-200 leading-relaxed">
-                        Nos Hackathons sont bien plus que des compétitions : ce sont des occasions uniques de
-                        collaboration, d'innovation et d'apprentissage. Que vous soyez étudiant, développeur,
-                        designer ou entrepreneur, vous pouvez partager vos idées, créer des solutions
-                        concrètes et impressionner les investisseurs.
-                    </p>
-                    <p className="text-lg text-gray-200 mt-4 leading-relaxed">
-                        Chaque Hackathon est conçu pour maximiser votre potentiel grâce à des outils,
-                        mentors et ressources de pointe. En participant, vous aurez l{"'"}opportunité
-                        de construire un réseau professionnel solide et d’accélérer vos projets.
-                    </p>
-                </div>
-
-
-                {/* Compétitions à venir */}
-                <section className="py-16 bg-slate-950">
+            <div className="max-w-full mx-0 px-6 sm:px-12 lg:px-0 mt-20">
+                <section className="py-16 bg-transparent">
                     <div className="container mx-0 px-6">
                         <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
                             Nos Prochains Hackathons 🚀
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
-                            {/* Génération dynamique des Hackathons */}
-                            {hackatonsCompetitions.map((hackathon, index) => (
+                        <div className="flex flex-wrap justify-center gap-6">
+                            {currentHackathons.map((hackathon, index) => (
                                 <div
                                     key={index}
-                                    className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
+                                    className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33%-1.5rem)] max-w-sm`}
                                 >
                                     <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
-                                    {/* Image du Hackathon */}
                                     <img
                                         src={hackathon.image}
                                         alt={hackathon.name}
@@ -70,10 +53,20 @@ const HackathonPage = () => {
                                     />
                                     <p className="text-gray-200 mb-4">{hackathon.description}</p>
                                     <ul className="list-disc list-inside text-gray-300 space-y-1">
-                                        <li><span className="font-bold">Début :</span> {moment(hackathon.starDate).format("DD-MM-YYYY à HH:MM")}</li>
-                                        <li><span className="font-bold">Fin :</span> {moment(hackathon.endDate).format("DD-MM-YYYY à HH:MM")}</li>
-                                        <li><span className="font-bold">Lieu :</span> {hackathon.address}</li>
-                                        <li class="text-2xl"><span className="font-bold">Récompense : </span> {hackathon.prize} F</li>
+                                        <li>
+                                            <span className="font-bold">Début :</span>{" "}
+                                            {moment(hackathon.starDate).format("DD-MM-YYYY à HH:mm")}
+                                        </li>
+                                        <li>
+                                            <span className="font-bold">Fin :</span>{" "}
+                                            {moment(hackathon.endDate).format("DD-MM-YYYY à HH:mm")}
+                                        </li>
+                                        <li>
+                                            <span className="font-bold">Lieu :</span> {hackathon.address}
+                                        </li>
+                                        <li className="text-2xl">
+                                            <span className="font-bold">Récompense :</span> {hackathon.prize} F
+                                        </li>
                                     </ul>
                                     <div className="mt-4 text-center">
                                         <a
@@ -86,25 +79,27 @@ const HackathonPage = () => {
                                 </div>
                             ))}
                         </div>
+                        {/* Pagination */}
+                        <div className="flex justify-center mt-8">
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`mx-1 px-4 py-2 rounded ${
+                                        currentPage === index + 1
+                                            ? "bg-blue-600 text-white"
+                                            : "bg-gray-800 text-gray-400 hover:bg-blue-700 hover:text-white"
+                                    }`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-
-
                 </section>
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     );
 };
 
-export default HackathonPage;
+export default HackatonsListPage;

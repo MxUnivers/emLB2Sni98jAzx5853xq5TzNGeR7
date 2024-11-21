@@ -45,6 +45,7 @@ import ForgotPasswordPage from "./pages/web/ForgotPasswordPage";
 import AdminPage from "./pages/AdminPage";
 import StartupSuccessPage from "./pages/web/StartupSuccessPage";
 import HackathonPage from "./pages/web/HackathonPage";
+import HackatonsListPage from "./pages/web/HackatonsListPage";
 
 
 
@@ -129,6 +130,7 @@ function App() {
             {/*Startups */}
             <Route path={`${routing.startupspage}`} element={<StartupSuccessPage />} />
             <Route path={`${routing.hackatonupspage}`} element={<HackathonPage />} />
+            <Route path={`${routing.hackatonupsall_upcoming_hackathons}`} element={<HackatonsListPage />} />
 
 
             <Route path={`${routing.admin_dashboard}`} element={<AdminPage />} />
