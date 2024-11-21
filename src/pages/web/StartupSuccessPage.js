@@ -22,7 +22,7 @@ const StartupSuccessPage = () => {
   return (
     <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
       {/* Conteneur Principal */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 mt-20">
+      <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
         {/* En-tête */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-white mb-4">

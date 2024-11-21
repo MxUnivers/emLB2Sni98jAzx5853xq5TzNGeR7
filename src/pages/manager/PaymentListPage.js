@@ -247,7 +247,7 @@ const chartOptions = {
                                                 </span>
                                                 </td>
                                             <td className="py-3 px-6">
-                                                {moment(payment.date).format("DD-MM-YYYY")}
+                                                {moment(payment.createdAt).format("DD-MM-YYYY HH:MM")}
                                             </td>
                                         </tr>
                                     ))}

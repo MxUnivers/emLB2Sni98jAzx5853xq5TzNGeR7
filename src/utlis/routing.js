@@ -54,6 +54,7 @@ export const routing = {
     company_details_view:"company_detail_view",
     company_edit:"company-update-profile",
     startupspage:`startups-promos`,
+    hackatonupspage:`hacktons`,
 
 
 

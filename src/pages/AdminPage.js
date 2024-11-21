@@ -4,6 +4,7 @@ import CandidateAdminListPage from "./manager/CandidateAdminListPage";
 import EntrepriseAdminListPage from "./manager/EntrepriseAdminListPage";
 import FormationAdminListPage from "./manager/FormationAdminPage.js";
 import JobAdminListPage from "./manager/JobAdminListPage";
+import { HackatonAdminListPage } from "./manager/HackatonAdminListPage";
 
 const AdminTabs = () => {
     const [activeTab, setActiveTab] = useState("paiements");
@@ -64,6 +65,15 @@ const AdminTabs = () => {
                         Emplois
                     </button>
                     <button
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "emplois"
+                                ? "border-b-4 border-blue-600 text-blue-600"
+                                : "text-gray-500"
+                            }`}
+                        onClick={() => setActiveTab("hackathons")}
+                    >
+                        Hackathons
+                    </button>
+                    <button
                         className={`flex-1 py-2 text-center font-semibold ${activeTab === "bourses"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
@@ -101,6 +111,12 @@ const AdminTabs = () => {
                             <JobAdminListPage/>
                         </div>
                     )}
+                    {activeTab === "hackathons" && (
+                        <div>
+                            <HackatonAdminListPage/>
+                        </div>
+                    )}
+                    
                     {activeTab === "bourses" && (
                         <div>
                             <h2 className="text-xl font-bold text-gray-800">Bourses d{"'"}étude</h2>
