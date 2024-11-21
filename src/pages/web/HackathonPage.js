@@ -68,9 +68,6 @@ const HackathonPage = () => {
   return (
     <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
 
-
-
-
       {/* Conteneur Principal */}
       <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
         {/* En-tête */}
