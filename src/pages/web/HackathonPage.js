@@ -16,46 +16,32 @@ import {
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
-import { localvalue } from "../../utlis/storage/localvalue";
+import { localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import { useNavigate } from "react-router-dom";
 import { routing } from "../../utlis/routing";
+import { useEffect } from "react";
+import { getDataFromFile } from "../../action/storage/DataLocal";
+import { fetchAllHackathons } from "../../action/api/hackathons/HackathonAction";
+import moment from "moment";
 
 const HackathonPage = () => {
   const navigate = useNavigate();
 
+
   const [hackatonsCompetitions, sethackatonsCompetitions] = useState([
-    {
-      name: "Hackathon AI Revolution",
-      date: "15 - 17 décembre 2024",
-      location: "Paris, France",
-      prize: "20 000 €",
-      description: "Développez des solutions basées sur l'IA pour transformer le secteur des entreprises.",
-      link: "/hackathon-ai-revolution",
-      gradient: "from-indigo-600 to-purple-700",
-      image: "https://via.placeholder.com/600x300?text=AI+Revolution"
-    },
-    {
-      name: "Hackathon Climate Innovators",
-      date: "22 - 24 janvier 2025",
-      location: "En ligne",
-      prize: "30 000 €",
-      description: "Relevez les défis environnementaux avec des idées technologiques innovantes.",
-      link: "/hackathon-climate-innovators",
-      gradient: "from-blue-600 to-green-700",
-      image: "https://via.placeholder.com/600x300?text=Climate+Innovators"
-    },
-    {
-      name: "Hackathon HealthTech",
-      date: "12 - 14 février 2025",
-      location: "Lyon, France",
-      prize: "15 000 €",
-      description: "Imaginez les solutions digitales pour améliorer le secteur de la santé.",
-      link: "/hackathon-healthtech",
-      gradient: "from-red-600 to-yellow-700",
-      image: "https://via.placeholder.com/600x300?text=HealthTech"
-    }
+
   ]);
-  
+
+
+  useEffect(() => {
+    // Fetch all hackathons
+    const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
+    sethackatonsCompetitions(hackatonsCompetitionsList);
+
+    fetchAllHackathons(sethackatonsCompetitions)
+
+  }, []);
+
 
 
 
@@ -90,43 +76,44 @@ const HackathonPage = () => {
 
 
         {/* Compétitions à venir */}
-        <section className="py-16 bg-gray-900">
-          <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
-              Nos Prochains Hackathons 🚀
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Génération dynamique des Hackathons */}
-              {hackatonsCompetitions.map((hackathon, index) => (
-                <div
-                  key={index}
-                  className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
+        <section className="py-16 bg-slate-950">
+        <div className="container mx-0 px-6">
+        <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
+          Nos Prochains Hackathons 🚀
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
+          {/* Génération dynamique des Hackathons */}
+          {hackatonsCompetitions.map((hackathon, index) => (
+            <div
+              key={index}
+              className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
+            >
+              <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
+              {/* Image du Hackathon */}
+              <img
+                src={hackathon.image}
+                alt={hackathon.name}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <p className="text-gray-200 mb-4">{hackathon.description}</p>
+              <ul className="list-disc list-inside text-gray-300 space-y-1">
+                <li><span className="font-bold">Début :</span> {moment(hackathon.starDate).format("DD-MM-YYYY à HH:MM")}</li>
+                <li><span className="font-bold">Fin :</span> {moment(hackathon.endDate).format("DD-MM-YYYY à HH:MM")}</li>
+                <li><span className="font-bold">Lieu :</span> {hackathon.address}</li>
+                <li class="text-2xl"><span className="font-bold">Récompense : </span> {hackathon.prize} F</li>
+              </ul>
+              <div className="mt-4 text-center">
+                <a
+                  href={hackathon.link}
+                  className="px-4 py-2 bg-gray-800 text-white rounded shadow hover:bg-gray-900 transition"
                 >
-                  <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
-                  {/* Image du Hackathon */}
-                  <img
-                    src={hackathon.image}
-                    alt={hackathon.name}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                  <p className="text-gray-200 mb-4">{hackathon.description}</p>
-                  <ul className="list-disc list-inside text-gray-300 space-y-1">
-                    <li><span className="font-bold">Date :</span> {hackathon.date}</li>
-                    <li><span className="font-bold">Lieu :</span> {hackathon.location}</li>
-                    <li><span className="font-bold">Prix total :</span> {hackathon.prize}</li>
-                  </ul>
-                  <div className="mt-4 text-center">
-                    <a
-                      href={hackathon.link}
-                      className="px-4 py-2 bg-gray-800 text-white rounded shadow hover:bg-gray-900 transition"
-                    >
-                      Plus d{"'"}infos
-                    </a>
-                  </div>
-                </div>
-              ))}
+                  Plus d{"'"}infos
+                </a>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
 
           {/* Bouton de participation générale */}
           <div className="mt-12 text-center">
