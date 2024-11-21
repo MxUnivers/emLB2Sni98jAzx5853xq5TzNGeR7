@@ -65,7 +65,7 @@ const AdminTabs = () => {
                         Emplois
                     </button>
                     <button
-                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "emplois"
+                        className={`flex-1 py-2 text-center font-semibold ${activeTab === "hackathons"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
                             }`}

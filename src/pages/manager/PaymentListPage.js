@@ -36,7 +36,7 @@ const PaymentListPage = () => {
         setEntreprise(getDataEntreprises);
         setEntreprise2(getDataEntreprises);
 
-        
+
         CandidatGetAll(setCandidats, setCandidats2);
         EntrepriseGetAll(setEntreprise, setEntreprise2);
 
@@ -52,80 +52,80 @@ const PaymentListPage = () => {
     };
 
     // Préparer les données pour le graphique
-   // Préparer les données pour les graphiques
-   const graphData = payments.reduce(
-    (acc, payment) => {
-        const date = moment(payment.date).format("YYYY-MM-DD");
+    // Préparer les données pour les graphiques
+    const graphData = payments.reduce(
+        (acc, payment) => {
+            const date = moment(payment.date).format("YYYY-MM-DD");
 
-        if (!acc.labels.includes(date)) {
-            acc.labels.push(date);
-            acc.successData.push(payment.status === "success" ? payment.amount : 0);
-            acc.failedData.push(payment.status === "failed" ? payment.amount : 0);
-        } else {
-            const index = acc.labels.indexOf(date);
-            if (payment.status === "success") {
-                acc.successData[index] += payment.amount;
-            } else if (payment.status === "failed") {
-                acc.failedData[index] += payment.amount;
+            if (!acc.labels.includes(date)) {
+                acc.labels.push(date);
+                acc.successData.push(payment.status === "success" ? payment.amount : 0);
+                acc.failedData.push(payment.status === "failed" ? payment.amount : 0);
+            } else {
+                const index = acc.labels.indexOf(date);
+                if (payment.status === "success") {
+                    acc.successData[index] += payment.amount;
+                } else if (payment.status === "failed") {
+                    acc.failedData[index] += payment.amount;
+                }
             }
-        }
-        return acc;
-    },
-    { labels: [], successData: [], failedData: [] }
-);
+            return acc;
+        },
+        { labels: [], successData: [], failedData: [] }
+    );
 
-const chartData = {
-    labels: graphData.labels,
-    datasets: [
-        {
-            label: "Paiements Réussis",
-            data: graphData.successData,
-            borderColor: "#22c55e", // Vert pour réussis
-            backgroundColor: "rgba(34, 197, 94, 0.2)",
-            pointBackgroundColor: "#22c55e",
-            tension: 0.3,
-        },
-        {
-            label: "Paiements Échoués",
-            data: graphData.failedData,
-            borderColor: "#ef4444", // Rouge pour échoués
-            backgroundColor: "rgba(239, 68, 68, 0.2)",
-            pointBackgroundColor: "#ef4444",
-            tension: 0.3,
-        },
-    ],
-};
+    const chartData = {
+        labels: graphData.labels,
+        datasets: [
+            {
+                label: "Paiements Réussis",
+                data: graphData.successData,
+                borderColor: "#22c55e", // Vert pour réussis
+                backgroundColor: "rgba(34, 197, 94, 0.2)",
+                pointBackgroundColor: "#22c55e",
+                tension: 0.3,
+            },
+            {
+                label: "Paiements Échoués",
+                data: graphData.failedData,
+                borderColor: "#ef4444", // Rouge pour échoués
+                backgroundColor: "rgba(239, 68, 68, 0.2)",
+                pointBackgroundColor: "#ef4444",
+                tension: 0.3,
+            },
+        ],
+    };
 
-const chartOptions = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: "top",
-        },
-        tooltip: {
-            mode: "index",
-            intersect: false,
-        },
-    },
-    scales: {
-        x: {
-            display: true,
-            title: {
-                display: true,
-                text: "Dates",
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+            },
+            tooltip: {
+                mode: "index",
+                intersect: false,
             },
         },
-        y: {
-            display: true,
-            title: {
+        scales: {
+            x: {
                 display: true,
-                text: "Montant",
+                title: {
+                    display: true,
+                    text: "Dates",
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Montant",
+                },
             },
         },
-    },
-};
+    };
 
-    const  renderStatuts = (status)=>{
+    const renderStatuts = (status) => {
         switch (status) {
             case "success":
                 return "réussi"
@@ -141,70 +141,68 @@ const chartOptions = {
 
     const getInformationUser = (userId) => {
         const user = userConversation.find(user => user._id === userId.toString());
-        
+
         if (!user) return "";
-        
+
         const { firstname = "", lastname = "", entreprise = "" } = user;
         return `${firstname} ${lastname} ${entreprise}`.trim();
     };
-    
+
 
     return (
         <div className="min-h-screen bg-gray-50 p-6">
-            <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <div className="max-w-full mx-0 bg-white shadow-lg rounded-lg p-6">
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Paiements</h1>
-<form className="flex flex-wrap md:flex-row items-center gap-4 mb-6">
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">
-                                    Date de début
-                                </label>
-                                <input
-                                    type="date"
-                                    value={startDate}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                    className="w-full md:w-auto border border-gray-300 rounded-lg p-2"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">
-                                    Date de fin
-                                </label>
-                                <input
-                                    type="date"
-                                    value={endDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                    className="w-full md:w-auto border border-gray-300 rounded-lg p-2"
-                                />
-                            </div>
-                            <button
-                                type="button"
-                                onClick={handleFilter}
-                                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
-                            >
-                                Valider
-                            </button>
-                        </form>
+                <form className="flex flex-wrap md:flex-row items-center gap-4 mb-6">
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">
+                            Date de début
+                        </label>
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="w-full md:w-auto border border-gray-300 rounded-lg p-2"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">
+                            Date de fin
+                        </label>
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="w-full md:w-auto border border-gray-300 rounded-lg p-2"
+                        />
+                    </div>
+                    <button
+                        type="button"
+                        onClick={handleFilter}
+                        className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
+                    >
+                        Valider
+                    </button>
+                </form>
 
 
-                        <PaymentStatusCard  payments={payments}/>
+                <PaymentStatusCard payments={payments} />
                 {/* Onglets */}
                 <div className="flex border-b mb-6">
                     <button
-                        className={`py-2 px-4 font-semibold ${
-                            activeTab === "list"
+                        className={`py-2 px-4 font-semibold ${activeTab === "list"
                                 ? "border-b-2 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("list")}
                     >
                         Liste des paiements
                     </button>
                     <button
-                        className={`py-2 px-4 font-semibold ${
-                            activeTab === "graph"
+                        className={`py-2 px-4 font-semibold ${activeTab === "graph"
                                 ? "border-b-2 border-blue-600 text-blue-600"
                                 : "text-gray-500"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab("graph")}
                     >
                         Graphique
@@ -215,7 +213,7 @@ const chartOptions = {
                 {activeTab === "list" && (
                     <>
                         {/* Formulaire de sélection des dates */}
-                        
+
 
                         {/* Tableau des paiements */}
                         <div className="overflow-x-auto">
@@ -232,20 +230,19 @@ const chartOptions = {
                                     {payments.map((payment, index) => (
                                         <tr
                                             key={index}
-                                            className={`border-b ${
-                                                index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                                            }`}
+                                            className={`border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                                                }`}
                                         >
                                             <td className="py-3 px-6">
-                                            {getInformationUser(payment.customer_id)}
+                                                {getInformationUser(payment.customer_id)}
                                             </td>
-                                            
+
                                             <td className="py-3 px-6">{payment.amount}</td>
                                             <td className="py-3 px-6">
-                                                <span class={`px-2 py-1 text-xs ${payment.status =="success"?"bg-green-600 text-white":"bg-orange-600 text-white"}`}>
-                                                {renderStatuts(payment.status)}
+                                                <span class={`px-2 py-1 text-xs ${payment.status == "success" ? "bg-green-600 text-white" : "bg-orange-600 text-white"}`}>
+                                                    {renderStatuts(payment.status)}
                                                 </span>
-                                                </td>
+                                            </td>
                                             <td className="py-3 px-6">
                                                 {moment(payment.createdAt).format("DD-MM-YYYY HH:MM")}
                                             </td>

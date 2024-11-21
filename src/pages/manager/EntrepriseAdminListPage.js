@@ -38,7 +38,7 @@ const EntrepriseAdminListPage = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 p-1">
-            <div className="max-w-full mx-auto bg-white shadow rounded-lg p-6">
+            <div className="max-w-full mx-0 bg-white shadow rounded-lg p-6">
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Comptes Entreprises</h1>
 
                 <div className="bg-white border border-gray-200 p-1 rounded-lg shadow">

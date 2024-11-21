@@ -237,7 +237,7 @@ export const HackatonAdminListPage = () => {
 
 
     return (
-        <div className="w-full mx-10 p-4">
+        <div className="w-full mx-0 p-4">
             <div className="w-full justify-between">
                 <h5 className="filtre">
                     Hackatons
