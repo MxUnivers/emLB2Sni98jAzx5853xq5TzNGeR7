@@ -4,6 +4,8 @@ import moment from "moment";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import { fetchAllHackathons } from "../../action/api/hackathons/HackathonAction";
 import { localvalueStorage } from "../../utlis/storage/localvalue";
+import { routing } from "../../utlis/routing";
+
 
 const HackatonsListPage = () => {
     const navigate = useNavigate();
@@ -42,7 +44,7 @@ const HackatonsListPage = () => {
                         <div className="flex flex-wrap justify-center gap-6">
                             {currentHackathons.map((hackathon, index) => (
                                 <div
-                                    key={index}
+                                onClick={()=>{navigate(`/${routing.hackatonup_detail}/${hackathon._id}`)}}
                                     className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33%-1.5rem)] max-w-sm`}
                                 >
                                     <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>

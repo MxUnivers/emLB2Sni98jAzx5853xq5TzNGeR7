@@ -85,8 +85,8 @@ const HackathonPage = () => {
           {/* Génération dynamique des Hackathons */}
           {hackatonsCompetitions.map((hackathon, index) => (
             <div
-              key={index}
-              className={`bg-gradient-to-br ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
+              onClick={()=>{navigate(`/${routing.hackatonup_detail}/${hackathon._id}`)}}
+              className={`bg-gradient-to-br cursor-pointer ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
             >
               <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
               {/* Image du Hackathon */}
@@ -171,16 +171,18 @@ const HackathonPage = () => {
         {/* Vidéo de Présentation */}
         <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
           {/* Vidéo */}
-          <div className="relative w-full lg:w-2/3">
+          <div className=" w-full lg:w-2/3">
             <ReactPlayer
-              url="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              url={"Les_hackathons.mp4"}
               width="100%"
               height="400px"
               controls
               className="rounded-lg shadow-lg"
             />
+{/*
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 rounded-lg"></div>
-          </div>
+
+*/}          </div>
 
           {/* Texte Explicatif */}
           <div className="text-white text-center lg:text-left w-full lg:w-1/3">
@@ -260,11 +262,11 @@ const HackathonPage = () => {
           >
             {/* Témoignage 1 */}
             <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-8 rounded-xl shadow-lg text-white">
-              <img
+              {/*<img
                 src="https://via.placeholder.com/150"
                 alt="Portrait de Sarah"
                 className="w-16 h-16 rounded-full mb-4 mx-auto"
-              />
+              /> */}
               <p className="italic text-lg">
                 “Participer à ce hackathon a changé ma carrière. Mon projet, *EcoStart*, a été financé par un investisseur rencontré ici !”
               </p>
@@ -273,11 +275,11 @@ const HackathonPage = () => {
 
             {/* Témoignage 2 */}
             <div className="bg-gradient-to-r from-indigo-500 to-blue-600 p-8 rounded-xl shadow-lg text-white">
-              <img
+              {/*<img
                 src="https://via.placeholder.com/150"
                 alt="Portrait de Daniel"
                 className="w-16 h-16 rounded-full mb-4 mx-auto"
-              />
+              /> */}
               <p className="italic text-lg">
                 “Un événement incroyable ! Grâce à Jouman, j'ai transformé une idée en une startup viable et j'ai formé une équipe solide.”
               </p>
@@ -286,11 +288,11 @@ const HackathonPage = () => {
 
             {/* Témoignage 3 */}
             <div className="bg-gradient-to-r from-indigo-500 to-green-600 p-8 rounded-xl shadow-lg text-white">
-              <img
+              {/*<img
                 src="https://via.placeholder.com/150"
                 alt="Portrait de Claire"
                 className="w-16 h-16 rounded-full mb-4 mx-auto"
-              />
+              /> */}
               <p className="italic text-lg">
                 “Les ressources et les mentors étaient exceptionnels ! J{"'"}ai conçu une solution UX primée et appris des techniques inestimables.”
               </p>
@@ -299,11 +301,13 @@ const HackathonPage = () => {
 
             {/* Témoignage 4 */}
             <div className="bg-gradient-to-r from-indigo-500 to-teal-600 p-8 rounded-xl shadow-lg text-white">
-              <img
+              {
+                /*<img
                 src="https://via.placeholder.com/150"
                 alt="Portrait d'Ahmed"
                 className="w-16 h-16 rounded-full mb-4 mx-auto"
-              />
+              /> */
+              }
               <p className="italic text-lg">
                 “Grâce au hackathon, mon équipe et moi avons remporté le prix *Best Tech Solution* et attiré des sponsors pour notre projet.”
               </p>

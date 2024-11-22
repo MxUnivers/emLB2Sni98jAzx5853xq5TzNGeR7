@@ -55,6 +55,7 @@ export const routing = {
     company_edit:"company-update-profile",
     startupspage:`startups-promos`,
     hackatonupspage:`hacktons`,
+    hackatonup_detail:"hackathon-detail",
     hackatonupsall_upcoming_hackathons:`all-upcoming-hackathons`,
 
 
