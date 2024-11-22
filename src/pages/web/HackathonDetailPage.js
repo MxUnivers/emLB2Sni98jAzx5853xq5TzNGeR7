@@ -35,8 +35,8 @@ const HackathonDetailPage = () => {
 
     const handleSubmit = () => {
         // Vérification des champs requis
-        const { name, email, phone, codePostal, projectName, coverPicture } = participantData;
-        if (!name || !email || !phone || !codePostal || !projectName || !coverPicture) {
+        const { name, email, telephone, codePostal, projectName, coverPicture } = participantData;
+        if (!name || !email || !telephone || !codePostal || !projectName || !coverPicture) {
             toast.error("Veuillez remplir tous les champs obligatoires !",{position:"bottom-right"});
             return; // Arrête l'exécution si des champs sont vides
         }
@@ -79,31 +79,36 @@ const HackathonDetailPage = () => {
         <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black min-h-screen py-16 px-6 pt-20">
             <div className="max-w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
                 <img
-                    src={hackathon.image}
-                    alt={hackathon.name}
+                    src={hackathon?.image}
+                    alt={hackathon?.name}
                     className="w-full h-[450px] object-cover"
                 />
                 <div className="p-6">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">{hackathon.name}</h1>
-                    <p className="text-gray-600 text-lg mb-4">{hackathon.description}</p>
+                    <h1 className="text-3xl font-bold text-gray-800 mb-4">{hackathon?.name}</h1>
+                    <p className="text-gray-600 text-lg mb-4">{hackathon?.description}</p>
                     <div className="grid grid-cols-2 gap-4 text-gray-700 mb-6">
                         <div>
                             <h3 className="font-bold">Début :</h3>
-                            <p>{moment(hackathon.starDate).format("DD-MM-YYYY à HH:mm")}</p>
+                            <p>{moment(hackathon?.starDate).format("DD-MM-YYYY à HH:mm")}</p>
                         </div>
                         <div>
                             <h3 className="font-bold">Fin :</h3>
-                            <p>{moment(hackathon.endDate).format("DD-MM-YYYY à HH:mm")}</p>
+                            <p>{moment(hackathon?.endDate).format("DD-MM-YYYY à HH:mm")}</p>
                         </div>
                         <div>
                             <h3 className="font-bold">Lieu :</h3>
-                            <p>{hackathon.address}</p>
+                            <p>{hackathon?.address}</p>
                         </div>
                         <div>
                             <h3 className="font-bold">Récompense :</h3>
-                            <p>{hackathon.prize}</p>
+                            <p>{hackathon?.prize}</p>
                         </div>
                     </div>
+                    {/* Affichage du nombre de participants */}
+                <div className="mb-4">
+                <span className="font-bold">Nombre de participants :</span>{" "}
+                {hackathon?.participants ? hackathon?.participants.length : 0}
+            </div>
                     <div className="text-center mb-6">
                         <button
                             onClick={() => setShowModal(true)}
