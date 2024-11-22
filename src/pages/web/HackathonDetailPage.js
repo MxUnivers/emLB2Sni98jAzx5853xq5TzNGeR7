@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { getDataFromFile } from "../../action/storage/DataLocal";
-import { localvalueStorage } from "../../utlis/storage/localvalue";
+import { localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import { addParticipantToHackathon, fetchAllHackathons, fetchHackathonById } from "../../action/api/hackathons/HackathonAction";
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 import { toast } from 'react-toastify';
 import { africanPostalCodes } from "../../utlis/options/optionDivers";
+import { statusPACKS } from "../../utlis/config";
+import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
+import useFetchCandidat from "../../action/api/candidat/CandidatAction";
+import { EntrepriseGetById } from "../../action/api/employeur/EmployeurAction";
 
 
 const HackathonDetailPage = () => {
@@ -14,6 +18,9 @@ const HackathonDetailPage = () => {
     const [hackathon, setHackathon] = useState(null);
     const [hackathons, setHackathons] = useState([]);
     const [showModal, setShowModal] = useState(false);
+
+
+
     
     const [participantData, setParticipantData] = useState({
         name: "",
@@ -25,6 +32,14 @@ const HackathonDetailPage = () => {
         coverPicture: "",
     });
 
+
+
+    const idPersonnConnected = getAndCheckLocalStorage(localvalue.candidatID) || getAndCheckLocalStorage(localvalue.recruteurID);
+    const { candidat } = useFetchCandidat(idPersonnConnected);
+
+    const [entrepriseDetail, setentrepriseDetail] = useState();
+   
+
     useEffect(() => {
         const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
         const selectedHackathon = hackatonsCompetitionsList.find((h) => h._id === id);
@@ -34,6 +49,7 @@ const HackathonDetailPage = () => {
         setParticipantData({
             projectName: hackathon?.name,
         });
+        EntrepriseGetById(idPersonnConnected, setentrepriseDetail);
 
     }, [id]);
 
@@ -88,6 +104,28 @@ const HackathonDetailPage = () => {
             }
         }
     };
+
+
+    const  handleVerifielconnection =  ()=>{
+        if((candidat && candidat.account && candidat.account.pack &&
+            (candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2]))
+            ||
+            (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
+                (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))){
+                    setShowModal(true)
+                }else if (!getAndCheckLocalStorage(localvalue.TYPEACCESS)){
+                    toast.error("Veillez vous connecter s'il vous plais",{position:"bottom-right"});
+                }else{
+                    toast.error("Votre pack ne vous y autorise pas")
+                }
+    }
+
+
+
+
+
+
+
     return (
         <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black min-h-screen py-16 px-6 pt-20">
             <div className="max-w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
