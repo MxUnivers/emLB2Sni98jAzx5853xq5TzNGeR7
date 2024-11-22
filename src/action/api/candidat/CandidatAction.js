@@ -37,7 +37,7 @@ export const CandidatSignUp = (
     selectedOptionsLangues,
     facebook_url,
     linkedin_url,
-    twitter_url, instagram_url
+    twitter_url, instagram_url,codePostal
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -53,6 +53,7 @@ export const CandidatSignUp = (
                     "title_post": title_post,
                     "salaire": salaire,
                     "telephone": telephone,
+                    "codePostal":codePostal,
                     "adresse": addresse,
                     "pays": pays,
                     "level_school": level_school,

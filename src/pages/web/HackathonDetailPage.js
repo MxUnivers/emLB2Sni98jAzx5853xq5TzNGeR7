@@ -14,12 +14,13 @@ const HackathonDetailPage = () => {
     const [hackathon, setHackathon] = useState(null);
     const [hackathons, setHackathons] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    
     const [participantData, setParticipantData] = useState({
         name: "",
         email: "",
         codePostal: "",
         telephone: "",
-        projectName: "",
+        projectName: hackathon?.name || "",
         description: "",
         coverPicture: "",
     });
@@ -28,8 +29,16 @@ const HackathonDetailPage = () => {
         const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
         const selectedHackathon = hackatonsCompetitionsList.find((h) => h._id === id);
         setHackathon(selectedHackathon);
-        fetchHackathonById(id, setHackathon)
+        fetchHackathonById(id, setHackathon);
+
+        setParticipantData({
+            projectName: hackathon?.name,
+        });
+
     }, [id]);
+
+
+   
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -183,7 +192,7 @@ const HackathonDetailPage = () => {
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-2 border rounded-lg"
                                     >
-                                        <option value="">Sélectionner un code postal</option>
+                                        <option value="">--Choisir--</option>
                                         {africanPostalCodes.map((country, index) => (
                                             <option key={index} value={country.code}>
                                                 {country.country} - {country.code}

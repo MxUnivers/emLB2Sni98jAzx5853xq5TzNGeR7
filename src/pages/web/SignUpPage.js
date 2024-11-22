@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { candidatsChoices, competences, languages_school, level_School, salaires_School, years_experience_school } from '../../utlis/options/candidatOption';
 import Select from 'react-select';
-import { optionPays } from '../../utlis/options/optionDivers';
+import { africanPostalCodes, optionPays } from '../../utlis/options/optionDivers';
 import { routing } from '../../utlis/routing';
 import Stepper from 'react-stepper-horizontal';
 import { Button, } from 'react-bootstrap';
@@ -40,6 +40,7 @@ const SignUpPage = () => {
     const [description, setdescription] = useState();
     const [years_experience, setyears_experience] = useState();
     const [salaire, setsalaire] = useState();
+    const [codePostal, setcodePostal] = useState();
 
     // state pour le bloc etpape 4
     const [pays, setpays] = useState();
@@ -117,7 +118,7 @@ const SignUpPage = () => {
             "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
             "description", "years_experience", "salaire", "dateNaissance",
             "pays", "addresse", "username", "firstname", "lastname", "email",
-            "telephone",
+            "telephone","codePostal"
         ];
 
         // Vérifiez chaque champ requis.
@@ -139,7 +140,7 @@ const SignUpPage = () => {
             username, firstname, lastname, description, dateNaissance, email, title_post,
             salaire, telephone, addresse, pays, level_school, site_web, years_experience,
             selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
-            instagram_url, toast
+            instagram_url,codePostal, toast
         ))
 
 
@@ -369,6 +370,21 @@ const SignUpPage = () => {
                                                 <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span className="cvmpf">*</span></label>
                                                 <input value={email} onChange={(e) => { setemail(e.target.value) }} className="cvac0 coz82" type="email" required={false} />
                                             </div>
+                                        </div>
+                                        <div className="chva6">
+                                            <label className="ckncn c9csv cfkm3 ckcgr">Indicatif <span className="cvmpf">*</span></label>
+                                            <select
+                                                name="codePostal"
+                                                onChange={(e)=>{setcodePostal(e.target.value)}}
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            >
+                                                <option value="">-- Chosir --</option>
+                                                {africanPostalCodes.map((country, index) => (
+                                                    <option key={index} value={country.code}>
+                                                    {country.code}- {country.country} 
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className="chva6">
                                             <div>

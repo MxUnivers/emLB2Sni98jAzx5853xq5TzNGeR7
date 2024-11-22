@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { candidatsChoices, competences, languages_school, level_School, salaires_School, years_experience_school } from '../../utlis/options/candidatOption';
 import Select from 'react-select';
-import { optionPays } from '../../utlis/options/optionDivers';
+import { africanPostalCodes, optionPays } from '../../utlis/options/optionDivers';
 import { routing } from '../../utlis/routing';
 import Stepper from 'react-stepper-horizontal';
 import { Button, } from 'react-bootstrap';
@@ -71,6 +71,7 @@ const SignUpRecruteurPage = () => {
     const [email, setemail] = useState();
     const [dateNaissance, setdateNaissance] = useState();
     const [telephone, settelephone] = useState();
+    const [codePostal, setcodePostal] = useState();
     const [password, setpassword] = useState();
     const [isPrivacyPolicy, setisPrivacyPolicy] = useState(false);
 
@@ -175,7 +176,7 @@ const SignUpRecruteurPage = () => {
             // bloc 3
             "pays_entreprise", "addresse_entreprise", "maps_entreprise",
             // bloc 4 n'est pas utile a cause de la mentalité des employeurs,
-            "username", "firstname", "lastname", "email", "telephone", "dateNaissance"
+            "username", "firstname", "lastname", "email", "telephone", "dateNaissance","codePostal"
         ];
 
         // Vérifiez chaque champ requis.
@@ -195,8 +196,8 @@ const SignUpRecruteurPage = () => {
 
         dispatch(EntrepriseSignUp(
             username, full_name, firstname, lastname, employers_count, description_entreprise, dateNaissance, dateNaissance_entreprise, email, title_post, logo, salaire_capital, telephone, telephone_entreprise, addresse_entreprise, pays_entreprise, maps_entreprise,
-            secteur_activites, site_web, langues, facebook_url, linkedin_url, twitter_url, instagram_url, toast
-        ))
+            secteur_activites, site_web, langues, facebook_url, linkedin_url, twitter_url, instagram_url,codePostal, toast
+        ));
         /*var userData = {
             
         } */
@@ -452,6 +453,21 @@ const SignUpRecruteurPage = () => {
                                                 <label className="ckncn c9csv cfkm3 ckcgr" for="email">Email valide <span className="cvmpf">*</span></label>
                                                 <input value={email} onChange={(e) => { setemail(e.target.value) }} className="cvac0 coz82" type="email" required={false} />
                                             </div>
+                                        </div>
+                                        <div className="chva6">
+                                            <label className="ckncn c9csv cfkm3 ckcgr">Indicatif <span className="cvmpf">*</span></label>
+                                            <select
+                                                name="codePostal"
+                                                onChange={(e) => { setcodePostal(e.target.value) }}
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            >
+                                                <option value="">-- Chosir --</option>
+                                                {africanPostalCodes.map((country, index) => (
+                                                    <option key={index} value={country.code}>
+                                                        {country.country} - {country.code}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className="chva6">
                                             <div>

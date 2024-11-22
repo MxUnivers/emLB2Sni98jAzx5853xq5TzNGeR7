@@ -44,7 +44,7 @@ export const EntrepriseSignUp = (
     langues,
     facebook_url,
     linkedin_url,
-    twitter_url, instagram_url
+    twitter_url, instagram_url,codePostal
     , toast) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
@@ -63,6 +63,7 @@ export const EntrepriseSignUp = (
                     "email": email,
                     "telephone": telephone,
                     "telephone_entreprise": telephone_entreprise,
+                    "codePostal":codePostal,
                     "logo": logo,
                     "employers_count": employers_count,
 
