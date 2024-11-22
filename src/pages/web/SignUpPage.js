@@ -40,7 +40,7 @@ const SignUpPage = () => {
     const [description, setdescription] = useState();
     const [years_experience, setyears_experience] = useState();
     const [salaire, setsalaire] = useState();
-    const [codePostal, setcodePostal] = useState();
+    const [codePostal, setcodePostal] = useState("225");
 
     // state pour le bloc etpape 4
     const [pays, setpays] = useState();
@@ -118,7 +118,7 @@ const SignUpPage = () => {
             "level_school", "title_post", "selectedOptions", "selectedOptionsLangues",
             "description", "years_experience", "salaire", "dateNaissance",
             "pays", "addresse", "username", "firstname", "lastname", "email",
-            "telephone","codePostal"
+            "telephone", "codePostal"
         ];
 
         // Vérifiez chaque champ requis.
@@ -140,7 +140,7 @@ const SignUpPage = () => {
             username, firstname, lastname, description, dateNaissance, email, title_post,
             salaire, telephone, addresse, pays, level_school, site_web, years_experience,
             selectedOptions, selectedOptionsLangues, facebook_url, linkedin_url, twitter_url,
-            instagram_url,codePostal, toast
+            instagram_url, codePostal, toast
         ))
 
 
@@ -375,13 +375,13 @@ const SignUpPage = () => {
                                             <label className="ckncn c9csv cfkm3 ckcgr">Indicatif <span className="cvmpf">*</span></label>
                                             <select
                                                 name="codePostal"
-                                                onChange={(e)=>{setcodePostal(e.target.value)}}
+                                                onChange={(e) => { setcodePostal(e.target.value) }}
                                                 className="w-full px-4 py-2 border rounded-lg"
                                             >
                                                 <option value="">-- Chosir --</option>
                                                 {africanPostalCodes.map((country, index) => (
                                                     <option key={index} value={country.code}>
-                                                    {country.code}- {country.country} 
+                                                        {country.code}- {country.country}
                                                     </option>
                                                 ))}
                                             </select>

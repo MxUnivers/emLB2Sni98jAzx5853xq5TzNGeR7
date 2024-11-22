@@ -71,7 +71,7 @@ const SignUpRecruteurPage = () => {
     const [email, setemail] = useState();
     const [dateNaissance, setdateNaissance] = useState();
     const [telephone, settelephone] = useState();
-    const [codePostal, setcodePostal] = useState();
+    const [codePostal, setcodePostal] = useState("225");
     const [password, setpassword] = useState();
     const [isPrivacyPolicy, setisPrivacyPolicy] = useState(false);
 

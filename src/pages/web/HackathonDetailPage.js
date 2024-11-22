@@ -144,7 +144,7 @@ const HackathonDetailPage = () => {
 
                                 <div className="mb-4">
                                     <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
-                                        Téléchargez votre photo
+                                        Téléchargez votre photo 
                                     </label>
                                     <input
                                         type="file"
@@ -161,7 +161,7 @@ const HackathonDetailPage = () => {
                                 </div>
                                 {/* Nom */}
                                 <div>
-                                    <label className="block text-gray-700 font-bold mb-2">Nom</label>
+                                    <label className="block text-gray-700 font-bold mb-2">Nom complet</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -185,7 +185,7 @@ const HackathonDetailPage = () => {
 
                                 {/* Code Postal */}
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 font-bold mb-2">Indicatif téléphone</label>
+                                    <label className="block text-gray-700 font-bold mb-2">Indicatif </label>
                                     <select
                                         name="codePostal"
                                         value={participantData.codePostal}
@@ -195,7 +195,7 @@ const HackathonDetailPage = () => {
                                         <option value="">--Choisir--</option>
                                         {africanPostalCodes.map((country, index) => (
                                             <option key={index} value={country.code}>
-                                                {country.country} - {country.code}
+                                            {country.code} - {country.country}  
                                             </option>
                                         ))}
                                     </select>
@@ -215,8 +215,8 @@ const HackathonDetailPage = () => {
 
                                 {/* Nom du Projet */}
                                 <div>
-                                    <label className="block text-gray-700 font-bold mb-2">Nom du Projet</label>
-                                    <input
+                                    <label className="block text-gray-700 font-bold mb-2">Projet</label>
+                                    <input 
                                         type="text"
                                         name="projectName"
                                         value={participantData.projectName}
