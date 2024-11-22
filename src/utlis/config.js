@@ -4,6 +4,8 @@ export const app_bg = {
   bg_blue: "bg-blue-900"
 }
 
+export const  emptyImage =  "images/emptyImage.jpg"
+
 export const  profilePictureDefault=""
 
 export const ApiKey = {

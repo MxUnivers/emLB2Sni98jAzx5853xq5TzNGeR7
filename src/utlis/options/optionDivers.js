@@ -167,3 +167,37 @@ export const areaPostList = [
     { value: 'Pilates', label: 'Pilates' },
   ];
   
+
+
+  export const africanPostalCodes = [
+    { country: "Algérie", code: "16000" },
+    { country: "Angola", code: "0000" },
+    { country: "Bénin", code: "1000" },
+    { country: "Botswana", code: "0000" },
+    { country: "Burkina Faso", code: "0000" },
+    { country: "Burundi", code: "1000" },
+    { country: "Cameroun", code: "23700" },
+    { country: "Cap-Vert", code: "1100" },
+    { country: "République Centrafricaine", code: "0000" },
+    { country: "Tchad", code: "0000" },
+    { country: "Comores", code: "1000" },
+    { country: "Congo", code: "1000" },
+    { country: "Congo (République Démocratique)", code: "1000" },
+    { country: "Djibouti", code: "1000" },
+    { country: "Égypte", code: "11511" },
+    { country: "Équatorial Guinée", code: "0000" },
+    { country: "Érythrée", code: "0000" },
+    { country: "Eswatini", code: "1000" },
+    { country: "Éthiopie", code: "1000" },
+    { country: "Gabon", code: "0000" },
+    { country: "Gambie", code: "1000" },
+    { country: "Ghana", code: "00233" },
+    { country: "Guinée", code: "1000" },
+    { country: "Guinée-Bissau", code: "1000" },
+    { country: "Ivory Coast (Côte d'Ivoire)", code: "1000" },
+    { country: "Kenya", code: "00100" },
+    { country: "Lesotho", code: "1000" },
+    { country: "Liberia", code: "1000" },
+    { country: "Libye", code: "0000" },
+    { country: "Madagascar", code: "101" }
+];

@@ -55,7 +55,7 @@ const StartupSuccessPage = () => {
           {/* Vidéo */}
           <div className="w-full lg:w-1/2">
             <ReactPlayer
-              url={"https://www.youtube.com/watch?v=ZIJiGOW-KZg&pp=ygUMbGVzIHN0YXJ0dXBz"}
+              url={"start-up_intro.mp4"}
               width="100%"
               height="500px"
               controls

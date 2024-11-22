@@ -3,14 +3,16 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import { localvalueStorage } from "../../utlis/storage/localvalue";
-import { addParticipantToHackathon } from "../../action/api/hackathons/HackathonAction";
+import { addParticipantToHackathon, fetchAllHackathons, fetchHackathonById } from "../../action/api/hackathons/HackathonAction";
 import { handleImageUploadCloudOnly } from '../../action/upload/UploadFileCloud';
 import { toast } from 'react-toastify';
+import { africanPostalCodes } from "../../utlis/options/optionDivers";
 
 
 const HackathonDetailPage = () => {
     const { id } = useParams(); // Récupère l'id depuis l'URL
     const [hackathon, setHackathon] = useState(null);
+    const [hackathons, setHackathons] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [participantData, setParticipantData] = useState({
         name: "",
@@ -26,6 +28,7 @@ const HackathonDetailPage = () => {
         const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
         const selectedHackathon = hackatonsCompetitionsList.find((h) => h._id === id);
         setHackathon(selectedHackathon);
+        fetchHackathonById(id, setHackathon)
     }, [id]);
 
     const handleInputChange = (e) => {
@@ -37,19 +40,20 @@ const HackathonDetailPage = () => {
         // Vérification des champs requis
         const { name, email, telephone, codePostal, projectName, coverPicture } = participantData;
         if (!name || !email || !telephone || !codePostal || !projectName || !coverPicture) {
-            toast.error("Veuillez remplir tous les champs obligatoires !",{position:"bottom-right"});
+            toast.error("Veuillez remplir tous les champs obligatoires !", { position: "bottom-right" });
             return; // Arrête l'exécution si des champs sont vides
         }
-    
+
         // Appel à la fonction pour ajouter un participant
         addParticipantToHackathon(id, participantData, (updatedHackathons) => {
             setHackathon(updatedHackathons.find((h) => h._id === id)); // Met à jour le hackathon local
         });
-    
+        fetchHackathonById(id, setHackathon)
+        fetchAllHackathons(setHackathons);
         // Ferme le modal après soumission
         setShowModal(false);
     };
-    
+
 
     if (!hackathon) {
         return (
@@ -105,10 +109,10 @@ const HackathonDetailPage = () => {
                         </div>
                     </div>
                     {/* Affichage du nombre de participants */}
-                <div className="mb-4">
-                <span className="font-bold">Nombre de participants :</span>{" "}
-                {hackathon?.participants ? hackathon?.participants.length : 0}
-            </div>
+                    <div className="mb-4">
+                        <span className="font-bold">Nombre de participants :</span>{" "}
+                        {hackathon?.participants ? hackathon?.participants.length : 0}
+                    </div>
                     <div className="text-center mb-6">
                         <button
                             onClick={() => setShowModal(true)}
@@ -125,27 +129,27 @@ const HackathonDetailPage = () => {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full">
                         <h2 className="text-2xl font-bold mb-6 text-center">Inscription à l{"'"}hackathon</h2>
-                        
+
                         <form>
                             <div className="grid grid-cols-2 gap-6">
 
-                            <div className="mb-4">
-                                <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
-                                    Téléchargez votre photo
-                                </label>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageUpload}
-                                    className="mt-1 p-2 border rounded w-full"
-                                />
-                                {participantData.coverPicture && (
-                                    <div className="mt-2">
-                                        <img src={participantData.coverPicture} alt="Prévisualisation" className="w-40 h-40 object-cover rounded" />
-                                        <p className="text-sm text-gray-500 mt-1">Photo téléchargée avec succès.</p>
-                                    </div>
-                                )}
-                            </div>
+                                <div className="mb-4">
+                                    <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
+                                        Téléchargez votre photo
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        className="mt-1 p-2 border rounded w-full"
+                                    />
+                                    {participantData.coverPicture && (
+                                        <div className="mt-2">
+                                            <img src={participantData.coverPicture} alt="Prévisualisation" className="w-40 h-40 object-cover rounded" />
+                                            <p className="text-sm text-gray-500 mt-1">Photo téléchargée avec succès.</p>
+                                        </div>
+                                    )}
+                                </div>
                                 {/* Nom */}
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Nom</label>
@@ -157,7 +161,7 @@ const HackathonDetailPage = () => {
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                 </div>
-                                
+
                                 {/* Email */}
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Email</label>
@@ -169,19 +173,25 @@ const HackathonDetailPage = () => {
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                 </div>
-            
+
                                 {/* Code Postal */}
-                                <div>
-                                    <label className="block text-gray-700 font-bold mb-2">Code Postal</label>
-                                    <input
-                                        type="text"
+                                <div className="mb-4">
+                                    <label className="block text-gray-700 font-bold mb-2">Indicatif téléphone</label>
+                                    <select
                                         name="codePostal"
                                         value={participantData.codePostal}
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-2 border rounded-lg"
-                                    />
+                                    >
+                                        <option value="">Sélectionner un code postal</option>
+                                        {africanPostalCodes.map((country, index) => (
+                                            <option key={index} value={country.code}>
+                                                {country.country} - {country.code}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
-            
+
                                 {/* Téléphone */}
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Téléphone</label>
@@ -193,7 +203,7 @@ const HackathonDetailPage = () => {
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                 </div>
-            
+
                                 {/* Nom du Projet */}
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Nom du Projet</label>
@@ -205,20 +215,20 @@ const HackathonDetailPage = () => {
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                 </div>
-            
+
                                 {/* Description du Projet */}
 
                             </div>
                             <div>
-                            <label className="block text-gray-700 font-bold mb-2">Description du Projet</label>
-                            <textarea
-                                name="description"
-                                value={participantData.description}
-                                onChange={handleInputChange}
-                                className="w-full px-4 py-2 border rounded-lg h-24"
-                            ></textarea>
-                        </div>
-                            
+                                <label className="block text-gray-700 font-bold mb-2">Description du Projet</label>
+                                <textarea
+                                    name="description"
+                                    value={participantData.description}
+                                    onChange={handleInputChange}
+                                    className="w-full px-4 py-2 border rounded-lg h-24"
+                                ></textarea>
+                            </div>
+
                             {/* Boutons */}
                             <div className="flex justify-end mt-6">
                                 <button
@@ -240,8 +250,8 @@ const HackathonDetailPage = () => {
                     </div>
                 </div>
             )}
-            
-            
+
+
         </div>
     );
 };
