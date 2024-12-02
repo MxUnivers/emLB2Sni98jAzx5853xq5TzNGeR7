@@ -47,6 +47,7 @@ import StartupSuccessPage from "./pages/web/StartupSuccessPage";
 import HackathonPage from "./pages/web/HackathonPage";
 import HackatonsListPage from "./pages/web/HackatonsListPage";
 import HackathonDetailPage from "./pages/web/HackathonDetailPage";
+import Human4AiPage from "./pages/web/Human4AiPage";
 
 
 
@@ -133,6 +134,10 @@ function App() {
             <Route path={`${routing.hackatonupspage}`} element={<HackathonPage />} />
             <Route path={`${routing.hackatonupsall_upcoming_hackathons}`} element={<HackatonsListPage />} />
             <Route path={`${routing.hackatonup_detail}/:id`} element={<HackathonDetailPage />} />
+
+            {/* humana 4AI */}
+            <Route path={`${routing.human4aiall}`} element={<Human4AiPage />} />
+            
 
 
             <Route path={`${routing.admin_dashboard}`} element={<AdminPage />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import { localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
@@ -11,9 +11,12 @@ import { statusPACKS } from "../../utlis/config";
 import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
 import useFetchCandidat from "../../action/api/candidat/CandidatAction";
 import { EntrepriseGetById } from "../../action/api/employeur/EmployeurAction";
+import { routing } from "../../utlis/routing";
 
 
 const HackathonDetailPage = () => {
+    const navigate = useNavigate();
+
     const { id } = useParams(); // Récupère l'id depuis l'URL
     const [hackathon, setHackathon] = useState(null);
     const [hackathons, setHackathons] = useState([]);
@@ -21,7 +24,7 @@ const HackathonDetailPage = () => {
 
 
 
-    
+
     const [participantData, setParticipantData] = useState({
         name: "",
         email: "",
@@ -38,7 +41,7 @@ const HackathonDetailPage = () => {
     const { candidat } = useFetchCandidat(idPersonnConnected);
 
     const [entrepriseDetail, setentrepriseDetail] = useState();
-   
+
 
     useEffect(() => {
         const hackatonsCompetitionsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
@@ -54,7 +57,7 @@ const HackathonDetailPage = () => {
     }, [id]);
 
 
-   
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -106,18 +109,21 @@ const HackathonDetailPage = () => {
     };
 
 
-    const  handleVerifielconnection =  ()=>{
-        if((candidat && candidat.account && candidat.account.pack &&
-            (candidat.account.pack == statusPACKS[1] || candidat.account.pack == statusPACKS[2]))
+    const handleVerifielconnection = () => {
+        if ((candidat && candidat.account && candidat.account.pack &&
+            (candidat.account.pack == statusPACKS[2]))
             ||
             (entrepriseDetail && entrepriseDetail.account && entrepriseDetail.account.pack &&
-                (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))){
-                    setShowModal(true)
-                }else if (!getAndCheckLocalStorage(localvalue.TYPEACCESS)){
-                    toast.error("Veillez vous connecter s'il vous plais",{position:"bottom-right"});
-                }else{
-                    toast.error("Votre pack ne vous y autorise pas")
-                }
+                (entrepriseDetail.account.pack == statusPACKS[0] || entrepriseDetail.account.pack == statusPACKS[1] || entrepriseDetail.account.pack == statusPACKS[2]))) {
+            setShowModal(true)
+        } else if (!getAndCheckLocalStorage(localvalue.TYPEACCESS)) {
+            setShowModal(false)
+            toast.error("Veillez vous connecter s'il vous plais", { position: "bottom-right" });
+        } else {
+            setShowModal(false);
+            toast.error("Votre pack ne vous y autorise pas")
+            navigate(`/${routing.connexion || routing.connexion}`)
+        }
     }
 
 
@@ -157,16 +163,20 @@ const HackathonDetailPage = () => {
                     </div>
                     {/* Affichage du nombre de participants */}
                     <div className="mb-4">
-                        <span className="font-bold">Nombre de participants :</span>{" "}
-                        {hackathon?.participants ? hackathon?.participants.length : 0}
+                        <span className="font-bold">Participants inscrits :</span>{" "}
+                        {hackathon?.participants ? hackathon?.participants.length : "Accun"}
                     </div>
                     <div className="text-center mb-6">
-                        <button
-                            onClick={() => setShowModal(true)}
-                            className="px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
-                        >
-                            Participer
-                        </button>
+                        {
+                           
+                            <button
+                                onClick={() => handleVerifielconnection()}
+                                className="px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+                            >
+                                Participer
+                            </button>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -182,7 +192,7 @@ const HackathonDetailPage = () => {
 
                                 <div className="mb-4">
                                     <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
-                                        Téléchargez votre photo 
+                                        Téléchargez votre photo
                                     </label>
                                     <input
                                         type="file"
@@ -233,7 +243,7 @@ const HackathonDetailPage = () => {
                                         <option value="">--Choisir--</option>
                                         {africanPostalCodes.map((country, index) => (
                                             <option key={index} value={country.code}>
-                                            {country.code} - {country.country}  
+                                                {country.code} - {country.country}
                                             </option>
                                         ))}
                                     </select>
@@ -243,7 +253,7 @@ const HackathonDetailPage = () => {
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Téléphone</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="telephone"
                                         value={participantData.telephone}
                                         onChange={handleInputChange}
@@ -254,11 +264,12 @@ const HackathonDetailPage = () => {
                                 {/* Nom du Projet */}
                                 <div>
                                     <label className="block text-gray-700 font-bold mb-2">Projet</label>
-                                    <input 
+                                    <input
                                         type="text"
+                                        readOnly
                                         name="projectName"
                                         value={participantData.projectName}
-                                        onChange={handleInputChange}
+
                                         className="w-full px-4 py-2 border rounded-lg"
                                     />
                                 </div>

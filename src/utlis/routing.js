@@ -58,6 +58,8 @@ export const routing = {
     hackatonup_detail:"hackathon-detail",
     hackatonupsall_upcoming_hackathons:`all-upcoming-hackathons`,
 
+    human4aiall:`humain4ai`,
+
 
 
     connexion:"authentification-connexion-candidat-&=email,mot-de-passe=&",

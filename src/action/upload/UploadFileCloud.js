@@ -40,7 +40,7 @@ export const handleImageUploadCloudOnly = async (file, toast) => {
         return response.data.secure_url; // Retourne l'URL du fichier uploadé
     } catch (error) {
         toast.error('Erreur lors du téléchargement de l\'image', { position: "bottom-right" });
-        console.error('Erreur lors du téléchargement de l\'image :', error);
+        // console.error('Erreur lors du téléchargement de l\'image :', error);
         return null;
     }
 };
