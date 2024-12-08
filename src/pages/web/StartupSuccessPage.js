@@ -4,8 +4,10 @@ import ReactPlayer from "react-player";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import { FaUsers, FaLightbulb, FaHandshake, FaRocket , FaChartLine, FaSeedling, FaRegLightbulb  } from "react-icons/fa";
+import { FaUsers, FaLightbulb, FaHandshake, FaRocket, FaChartLine, FaSeedling, FaRegLightbulb } from "react-icons/fa";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
+import { LineChart, Line as AsLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 import { Line } from "react-chartjs-2";
 import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
 import { localvalue } from "../../utlis/storage/localvalue";
@@ -13,9 +15,20 @@ import { useNavigate } from "react-router-dom";
 import { routing } from "../../utlis/routing";
 
 const StartupSuccessPage = () => {
-  const navigate =  useNavigate();
-  const handleConnected =  ()=>{
-    if(!getAndCheckLocalStorage(localvalue.TYPEACCESS) ){
+  const navigate = useNavigate();
+
+  const data = [
+    { date: 'Jan 2024', amount: 0 },
+    { date: 'Apr 2024', amount: 1000000000 },
+    { date: 'Jul 2024', amount: 2000000000 },
+    { date: 'Oct 2024', amount: 3000000000 },
+    { date: 'Jan 2025', amount: 3500000000 },
+    { date: 'Apr 2025', amount: 4000000000 },
+  ];
+
+
+  const handleConnected = () => {
+    if (!getAndCheckLocalStorage(localvalue.TYPEACCESS)) {
       navigate(`/${routing.connexion_recuteur}`)
     }
   }
@@ -24,6 +37,77 @@ const StartupSuccessPage = () => {
       {/* Conteneur Principal */}
       <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
         {/* En-tête */}
+
+
+
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 w-full mb-11 rounded-2xl">
+          <div className="w-full mx-auto px-4">
+            <div className="flex flex-wrap md:flex-wrap items-center justify-between">
+              <div className="md:w-1/2 mb-8 md:mb-0">
+                <h2 className="text-4xl font-bold mb-4">
+                  Le plus grand incubateur virtuel de l{"'"}Afrique
+                </h2>
+                <p className="text-3xl mb-6 text-white">
+                  Objectif 2024-2025 : mobiliser 4 milliards de FCFA pour financer et accélérer des startups de jeunes africains.
+                </p>
+                <p className="text-lg mb-6 text-white">
+                  Notre mission est de stimuler l'innovation et l'entrepreneuriat à travers le continent africain. Nous offrons un soutien complet, incluant du mentorat, des ressources et des opportunités de financement pour aider les jeunes entrepreneurs à transformer leurs idées en entreprises prospères.
+                </p>
+                {/*<button type="button" onCli className="bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300">
+                  Rejoignez-nous
+                </button> */}
+              </div>
+              <div className="md:w-1/3">
+                <img
+                  src="incubateur.jpg"
+                  alt="Incubateur Virtuel Africain"
+                  className="w-full  rounded-lg shadow-lg "
+                />
+              </div>
+            </div>
+
+
+            <div className="w-full h-96 p-4 bg-white rounded-lg shadow-md">
+              <h2 className="text-2xl font-bold text-center mb-4">Projection de financement 2024-2025</h2>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis
+                    tickFormatter={(value) => `${value / 1000000000} Mrd`}
+                    domain={[0, 4000000000]}
+                  />
+                  <Tooltip
+                    formatter={(value) => `${(value / 1000000000).toFixed(2)} Milliards FCFA`}
+                  />
+                  <Legend />
+                  <AsLine
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="#8884d8"
+                    activeDot={{ r: 8 }}
+                    name="Financement prévu"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+
+
+          </div>
+        </div>
+
+
+
+
         <div className="text-center mb-16">
           <h1 className="text-5xl font-extrabold text-white mb-4">
             Startups et Réussites avec Jouman 🚀
@@ -74,31 +158,31 @@ const StartupSuccessPage = () => {
             {
               !getAndCheckLocalStorage(localvalue.TYPEACCESS) &&
               <button onClick={handleConnected} className="mt-4 px-6 py-3 bg-indigo-600 text-white text-lg font-bold rounded-lg hover:bg-indigo-700 transition">
-              Découvrir les Opportunités
-            </button>
+                Découvrir les Opportunités
+              </button>
             }
-           
+
           </div>
         </div>
         {/* Témoignages */}
         <StartupTestimonialCarousel />
-        <JoumanStartupInsights/>
+        <JoumanStartupInsights />
 
 
         {/* Call-to-Action */}
         <div className="text-center">
-        {
-          
+          {
+
             !getAndCheckLocalStorage(localvalue.TYPEACCESS) &&
             <button onClick={handleConnected} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-lg">
-            Rejoindre la Révolution des Startups
-          </button>
-        }
-          
+              Rejoindre la Révolution des Startups
+            </button>
+          }
+
         </div>
 
 
-        <StartupAdvantages/>
+        <StartupAdvantages />
 
 
       </div>
@@ -320,24 +404,24 @@ const JoumanStartupInsights = () => {
     <div>
       {/* Section avec background image fixe */}
       <div
-  className="relative bg-fixed bg-cover bg-center h-[500px] flex items-center justify-center"
-  style={{
-    backgroundImage: "url('images/startup.jpg')",
-  }}
->
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        className="relative bg-fixed bg-cover bg-center h-[500px] flex items-center justify-center"
+        style={{
+          backgroundImage: "url('images/startup.jpg')",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-  {/* Contenu au-dessus de l'overlay */}
-  <div className="relative text-center">
-    <h1 className="text-5xl font-bold text-white">
-      Propulsez votre startup avec <span className="text-yellow-400">Jouman 🚀</span>
-    </h1>
-    <p className="mt-4 text-lg text-gray-300">
-      Accédez à un réseau d{"'"}investisseurs, transformez vos idées et révolutionnez votre marché.
-    </p>
-  </div>
-</div>
+        {/* Contenu au-dessus de l'overlay */}
+        <div className="relative text-center">
+          <h1 className="text-5xl font-bold text-white">
+            Propulsez votre startup avec <span className="text-yellow-400">Jouman 🚀</span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-300">
+            Accédez à un réseau d{"'"}investisseurs, transformez vos idées et révolutionnez votre marché.
+          </p>
+        </div>
+      </div>
 
       {/* Section Insights */}
       <div className=" py-16">

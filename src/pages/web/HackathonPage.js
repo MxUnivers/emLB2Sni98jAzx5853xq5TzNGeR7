@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { LineChart, Line as AsLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getAndCheckLocalStorage } from "../../utlis/storage/localvalueFunction";
 import { localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import { useNavigate } from "react-router-dom";
@@ -47,17 +48,122 @@ const HackathonPage = () => {
 
   const handleConnected = () => {
     if (!getAndCheckLocalStorage(localvalue.TYPEACCESS)) {
-      navigate(`/${routing.connexion_recuteur}`);
+      navigate(`/${routing.connexion}`);
     }
   };
+
+
+
+
+
+  const data = [
+    { date: 'Jan 2024', amount: 0 },
+    { date: 'Avr 2024', amount: 1000000000 },
+    { date: 'Jul 2024', amount: 2000000000 },
+    { date: 'Oct 2024', amount: 3000000000 },
+    { date: 'Jan 2025', amount: 3500000000 },
+    { date: 'Avr 2025', amount: 6000000000 },
+  ];
+
+
+
+  const hackathonThemes = [
+    "Intelligence Artificielle",
+    "Fintech Innovation",
+    "Santé Digitale",
+    "Agriculture Connectée",
+    "Éducation Numérique"
+  ];
 
   return (
     <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
 
       {/* Conteneur Principal */}
       <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
+
+
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 rounded-2xl mb-11 shadow-2xl mb-20">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap md:flex-row items-center justify-between">
+              <div className="md:w-1/2 mb-8 md:mb-0">
+                <h1 className="text-4xl font-bold mb-4">
+                  Le Plus Grand Écosystème de Hackathons en Afrique
+                </h1>
+                <p className="text-2xl mb-6">
+                  Accélérer l{"'"}adoption du numérique par des challenges pour la jeunesse africaine
+                </p>
+                <p className="text-lg mb-6">
+                  Objectif 2024-2025 : Mobiliser 6 milliards de FCFA pour incuber les lauréats
+                </p>
+                <button
+                  onClick={handleConnected}
+                  className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105"
+                >
+                  Inscrivez-vous au Hackathon
+                </button>
+              </div>
+              <div className="md:w-1/3">
+                <img
+                  src="hakacthonbg.jpg"
+                  alt="Hackathon Africain"
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-xl p-6 shadow-lg">
+            <h2 className="text-2xl font-bold text-center mb-4 text-indigo-800">
+              Thèmes des Hackathons 2024-2025
+            </h2>
+            <ul className="space-y-3">
+              {hackathonThemes.map((theme, index) => (
+                <li
+                  key={index}
+                  className="bg-indigo-50 p-3 rounded-lg text-center text-indigo-800 font-semibold hover:bg-indigo-100 transition"
+                >
+                  {theme}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-lg">
+            <h2 className="text-2xl font-bold text-center mb-4 text-indigo-800">
+              Projection de Financement 2024-2025
+            </h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis
+                  tickFormatter={(value) => `${value / 1000000000} Mrd`}
+                  domain={[0, 6000000000]}
+                />
+                <Tooltip
+                  formatter={(value) => `${(value / 1000000000).toFixed(2)} Milliards FCFA`}
+                />
+                <Legend />
+                <AsLine
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                  name="Financement prévu"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+
+
+
+
         {/* En-tête */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 mt-20">
           <h1 className="text-5xl font-extrabold text-white mb-6">
             Rejoignez Nos Hackathons 🚀
           </h1>
@@ -77,43 +183,43 @@ const HackathonPage = () => {
 
         {/* Compétitions à venir */}
         <section className="py-16 bg-slate-950">
-        <div className="container mx-0 px-6">
-        <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
-          Nos Prochains Hackathons 🚀
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
-          {/* Génération dynamique des Hackathons */}
-          {hackatonsCompetitions.map((hackathon, index) => (
-            <div
-              onClick={()=>{navigate(`/${routing.hackatonup_detail}/${hackathon._id}`)}}
-              className={`bg-gradient-to-br cursor-pointer ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
-            >
-              <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
-              {/* Image du Hackathon */}
-              <img
-                src={hackathon.image}
-                alt={hackathon.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-              <p className="text-gray-200 mb-4">{hackathon.description}</p>
-              <ul className="list-disc list-inside text-gray-300 space-y-1">
-                <li><span className="font-bold">Début :</span> {moment(hackathon.starDate).format("DD-MM-YYYY à HH:MM")}</li>
-                <li><span className="font-bold">Fin :</span> {moment(hackathon.endDate).format("DD-MM-YYYY à HH:MM")}</li>
-                <li><span className="font-bold">Lieu :</span> {hackathon.address}</li>
-                <li class="text-2xl"><span className="font-bold">Récompense : </span> {hackathon.prize} F</li>
-              </ul>
-              <div className="mt-4 text-center">
-                <a
-                  href={hackathon.link}
-                  className="px-4 py-2 bg-gray-800 text-white rounded shadow hover:bg-gray-900 transition"
+          <div className="container mx-0 px-6">
+            <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
+              Nos Prochains Hackathons 🚀
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
+              {/* Génération dynamique des Hackathons */}
+              {hackatonsCompetitions.map((hackathon, index) => (
+                <div
+                  onClick={() => { navigate(`/${routing.hackatonup_detail}/${hackathon._id}`) }}
+                  className={`bg-gradient-to-br cursor-pointer ${hackathon.gradient} p-6 rounded-lg shadow-lg`}
                 >
-                  Plus d{"'"}infos
-                </a>
-              </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{hackathon.name}</h3>
+                  {/* Image du Hackathon */}
+                  <img
+                    src={hackathon.image}
+                    alt={hackathon.name}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                  />
+                  <p className="text-gray-200 mb-4">{hackathon.description}</p>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                    <li><span className="font-bold">Début :</span> {moment(hackathon.starDate).format("DD-MM-YYYY à HH:MM")}</li>
+                    <li><span className="font-bold">Fin :</span> {moment(hackathon.endDate).format("DD-MM-YYYY à HH:MM")}</li>
+                    <li><span className="font-bold">Lieu :</span> {hackathon.address}</li>
+                    <li class="text-2xl"><span className="font-bold">Récompense : </span> {hackathon.prize} F</li>
+                  </ul>
+                  <div className="mt-4 text-center">
+                    <a
+                      href={hackathon.link}
+                      className="px-4 py-2 bg-gray-800 text-white rounded shadow hover:bg-gray-900 transition"
+                    >
+                      Plus d{"'"}infos
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
           {/* Bouton de participation générale */}
           <div className="mt-12 text-center">
@@ -179,7 +285,7 @@ const HackathonPage = () => {
               controls
               className="rounded-lg shadow-lg"
             />
-{/*
+            {/*
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 rounded-lg"></div>
 
 */}          </div>
