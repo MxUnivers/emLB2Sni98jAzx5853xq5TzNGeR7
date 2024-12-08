@@ -89,10 +89,10 @@ const HackathonPage = () => {
                 <h1 className="text-4xl font-bold mb-4">
                   Le Plus Grand Écosystème de Hackathons en Afrique
                 </h1>
-                <p className="text-2xl mb-6">
+                <p className="text-2xl mb-6 text-white">
                   Accélérer l{"'"}adoption du numérique par des challenges pour la jeunesse africaine
                 </p>
-                <p className="text-lg mb-6">
+                <p className="text-lg mb-6 text-white">
                   Objectif 2024-2025 : Mobiliser 6 milliards de FCFA pour incuber les lauréats
                 </p>
                 <button
@@ -132,7 +132,7 @@ const HackathonPage = () => {
 
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-center mb-4 text-indigo-800">
-              Projection de Financement 2024-2025
+              Projection de Financement 6 milliards 2024-2025
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data}>
