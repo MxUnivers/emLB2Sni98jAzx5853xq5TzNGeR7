@@ -99,7 +99,7 @@ const NavbarWeb = () => {
                     <ul className="nav-links">
                         <li><Link to="/" class={`${location.pathname === `/` ? "nav-links-active text-indigo-600 font-bold " : ""}`} >Accueil</Link></li>
                         <li><Link to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active text-indigo-600 font-bold " : ""}`} >Emplois</Link></li>
-                        <li><Link to={`/${routing.startupspage}`} class={`${location.pathname === `/${routing.startupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Startup-upLand</Link></li>
+                        <li><Link to={`/${routing.startupspage}`} class={`${location.pathname === `/${routing.startupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Start-up Land</Link></li>
                         <li><Link to={`/${routing.hackatonupspage}`} class={`${location.pathname === `/${routing.hackatonupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>HackathonLand</Link></li>
                         <li><Link to={`/${routing.human4aiall}`} class={`${location.pathname === `/${routing.human4aiall}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Human AI Ci Ambassadeur</Link></li>
                         <li><Link to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Formations</Link></li>
@@ -130,7 +130,7 @@ const NavbarWeb = () => {
                 <ul className="sidebar-links">
                     <li><Link onClick={toggleSidebar} to="/" class={`${location.pathname === `/` ? "nav-links-active text-indigo-600 font-bold " : ""}`} >Accueil</Link></li>
                     <li><Link onClick={toggleSidebar} to={`/${routing.job_list}`} class={`${location.pathname === `/${routing.job_list}` ? "nav-links-active text-indigo-600 font-bold " : ""}`} >Emplois</Link></li>
-                    <li><Link onClick={toggleSidebar} to={`/${routing.startupspage}`} class={`${location.pathname === `/${routing.startupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Startups</Link></li>
+                    <li><Link onClick={toggleSidebar} to={`/${routing.startupspage}`} class={`${location.pathname === `/${routing.startupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Start-up Land</Link></li>
                     <li><Link onClick={toggleSidebar} to={`/${routing.hackatonupspage}`} class={`${location.pathname === `/${routing.hackatonupspage}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Hackathons</Link></li>
                     <li><Link to={`/${routing.human4aiall}`} class={`${location.pathname === `/${routing.human4aiall}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Human AI Ci Ambassadeur</Link></li>
                     <li><Link onClick={toggleSidebar} to={`/${routing.formation_list}`} class={`${location.pathname === `/${routing.formation_list}` ? "nav-links-active text-indigo-600 font-bold " : ""}`}>Formations</Link></li>

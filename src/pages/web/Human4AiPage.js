@@ -1,6 +1,8 @@
 import React from 'react'
 import PartenairesSection from '../../components/human4ai/PartenairesSection'
 import ReactPlayer from "react-player"
+import AIEventPage from '../../components/human4ai/AIEventPage'
+import AIAmbassadors from '../../components/human4ai/AIAmbassadors'
 
 const Human4AiPage = () => {
     return (
@@ -20,27 +22,27 @@ const Human4AiPage = () => {
             </header>
 
             <section className="py-16 text-white">
-            <div className="container mx-auto grid md:grid-cols-2 gap-8">
-              <div>
-                <h2 className="text-3xl font-semibold">Découvrir l{"'"}IA en vidéo</h2>
-                <p className="mt-4 text-gray-300">
-                  Explorez l{"'"}intelligence artificielle grâce à des vidéos immersives.
-                  Découvrez comment l{"'"}IA change le monde, de la santé à l{"'"}éducation,
-                  en passant par la technologie et bien plus encore.
-                </p>
-                
-              </div>
-              <div className="relative">
-                <ReactPlayer
-                url={"what_ia.mp4"}
-                widht="100%"
-                height="400px"
-                  className="w-full h-64 rounded-lg shadow-lg"
-                  controls
-                />
-              </div>
-            </div>
-          </section>
+                <div className="container mx-auto grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h2 className="text-3xl font-semibold">Découvrir l{"'"}IA en vidéo</h2>
+                        <p className="mt-4 text-gray-300">
+                            Explorez l{"'"}intelligence artificielle grâce à des vidéos immersives.
+                            Découvrez comment l{"'"}IA change le monde, de la santé à l{"'"}éducation,
+                            en passant par la technologie et bien plus encore.
+                        </p>
+
+                    </div>
+                    <div className="relative">
+                        <ReactPlayer
+                            url={"what_ia.mp4"}
+                            widht="100%"
+                            height="400px"
+                            className="w-full h-64 rounded-lg shadow-lg"
+                            controls
+                        />
+                    </div>
+                </div>
+            </section>
 
 
 
@@ -73,6 +75,9 @@ const Human4AiPage = () => {
                 </div>
             </section>
 
+            <AIEventPage />
+
+            <AIAmbassadors />
 
             <section class="py-16 bg-gradient-to-r from-indigo-700 via-indigo-800 to-black text-white">
                 <div class="container mx-auto text-center">
@@ -107,11 +112,11 @@ const Human4AiPage = () => {
             </section>
 
 
-       
 
 
 
-            <PartenairesSection/>
+
+            <PartenairesSection />
         </div>
     )
 }
