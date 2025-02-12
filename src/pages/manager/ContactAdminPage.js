@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import { localvalueStorage } from "../../utlis/storage/localvalue";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import { fetchFormationAll } from "../../action/api/formations/FormationAction";
-import { useNavigate } from "react-router-dom";
-import { routing } from "../../utlis/routing";
 
-const FormationAdminListPage = () => {
-    const  navigate =  useNavigate();
+const ContactAdminPage = () => {
     const [filteredFormations, setFilteredFormations] = useState([]);
     const [formations, setformations] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +37,7 @@ const FormationAdminListPage = () => {
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-full mx-0 bg-white shadow-lg rounded-lg p-6">
-                <h1 className="text-2xl font-bold text-gray-800 mb-6">Liste des Formations</h1>
+                <h1 className="text-2xl font-bold text-gray-800 mb-6">Message envoyé à la plateforme</h1>
 
                 <div className="bg-white border border-gray-200 p-1 rounded-lg shadow mb-6">
                     <h3 className="text-gray-800 font-semibold text-lg mb-2">Nombre total</h3>
@@ -65,11 +62,11 @@ const FormationAdminListPage = () => {
                     <table className="min-w-full bg-white border border-gray-200 rounded-lg">
                         <thead className="bg-gray-100 text-gray-700">
                             <tr>
-                                <th className="py-3 px-6 text-left">Photo</th>
-                                <th className="py-3 px-6 text-left">Titre</th>
-                                <th className="py-3 px-6 text-left">Lieu</th>
-                                <th className="py-3 px-6 text-left">Date Création</th>
-                                <th className="py-3 px-6 text-left">Mise à jour</th>
+                                <th className="py-3 px-6 text-left">Nom </th>
+                                <th className="py-3 px-6 text-left">Email</th>
+                                <th className="py-3 px-6 text-left">Télephone</th>
+                                <th className="py-3 px-6 text-left">Entreprise / Organisation</th>
+                                <th className="py-3 px-6 text-left">Message</th>
                                 <th className="py-3 px-6 text-left">Actions</th>
                             </tr>
                         </thead>
@@ -80,16 +77,14 @@ const FormationAdminListPage = () => {
                                         key={formation._id}
                                         className={`border-b ${index % 2 === 0 ? "bg-gray-50" : ""}`}
                                     >
-                                    <td className="py-3 px-6"><img src={formation.logo} class="h-[50px]  w-[50px]" /></td>
+                                    
                                     <td className="py-3 px-6">{formation.formationTitle}</td>
                                         <td className="py-3 px-6">{formation.location || "N/A"}</td>
                                         <td className="py-3 px-6">{formation.dateCreation}</td>
                                         <td className="py-3 px-6">{formation.lastUpdated}</td>
                                         <td className="py-3 px-6">
                                             {/* Actions */}
-                                            <button className="text-blue-500" onClick={()=>{navigate(`/${routing.formation_edit}/${formation._id}`)}}>
-                                            Modifier
-                                            </button>
+                                            <button className="text-blue-500">Modifier</button>
                                         </td>
                                     </tr>
                                 ))
@@ -108,4 +103,4 @@ const FormationAdminListPage = () => {
     );
 };
 
-export default FormationAdminListPage;
+export default ContactAdminPage;

@@ -44,7 +44,11 @@ export const localvalue = {
     customer_phone_number:"customer_phone_number",
     customer_pack:"customer_pack",
     customer_pack_id:"customer_pack_id",
-    customer_transaction_id :"customer_transaction_id"
+    customer_transaction_id :"customer_transaction_id",
+
+    ADMIN_CONNECTED :"ADMIN_CONNECTED",
+    ADMIN_CONNECTED_TYPE :"ADMIN_CONNECTED_TYPE",
+
 
 
 }

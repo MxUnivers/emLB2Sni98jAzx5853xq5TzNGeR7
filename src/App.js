@@ -48,6 +48,8 @@ import HackathonPage from "./pages/web/HackathonPage";
 import HackatonsListPage from "./pages/web/HackatonsListPage";
 import HackathonDetailPage from "./pages/web/HackathonDetailPage";
 import Human4AiPage from "./pages/web/Human4AiPage";
+import LoginAdminPage from "./pages/LoginAdminPage";
+import FormationUpdatePage from "./pages/web/FormationUpdatePage";
 
 
 
@@ -140,7 +142,6 @@ function App() {
             
 
 
-            <Route path={`${routing.admin_dashboard}`} element={<AdminPage />} />
             
 
 
@@ -155,6 +156,9 @@ function App() {
 
 
           </Route>
+          <Route path={`${routing.admin_dashboard}`} element={<AdminPage />} />
+          <Route path={`${routing.admin_login}`} element={<LoginAdminPage />} />
+          <Route path={`${routing.formation_edit}/:id`} element={<FormationUpdatePage/>} />
           <Route path={`/*`} element={<ErrorPage />} />
 
 

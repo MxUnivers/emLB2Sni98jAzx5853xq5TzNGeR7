@@ -52,40 +52,15 @@ export const FormationCreate = (
 
 export const FormationEditById = (
     id,
-    company,
-    title,
-    email,
-    telephone,
-    salaire,
-    coverPicture,
-    title_post,
-    areaFormation,
-    expireDispobility,
-    typeContrat,
-    description,
-    addresse,
+    data,
     toast
 ) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
-        if (getAndCheckLocalStorage(localvalue.recruteurID)) {
+        
             await axios
-                .put(`${baseurl.url}/api/v1/offre/edit/${id}`,
-                    {
-                        "idEntreprise": getAndCheckLocalStorage(localvalue.recruteurID),
-                        "company": company,
-                        "title": title,
-                        "email": email,
-                        "telephone": telephone,
-                        "salaire": salaire,
-                        "coverPicture": coverPicture,
-                        "title_post": title_post,
-                        "areaFormation": areaFormation,
-                        "expireDispobility": expireDispobility,
-                        "typeContrat": typeContrat,
-                        "description": description,
-                        "addresse": addresse
-                    }, {
+                .put(`${baseurl.url}/api/v1/formation/edit/${id}`,
+                    data, {
                     headers:
                     {
                         'Content-Type': 'application/json',
@@ -96,19 +71,14 @@ export const FormationEditById = (
                     dispatch({ type: REQUEST_SUCCESS, payload: response.data });
                     toast.success(" Formation modifier avec succès , Merci !")
                     setTimeout(() => {
-                        window.location.href = `/${routing.company_details}`;
+                        window.location.href = `/${routing.admin_dashboard}`;
                     }, 2500);
                 })
                 .catch((error) => {
                     dispatch({ type: REQUEST_FAILURE, payload: error.message });
                     toast.error("Formation non poster !")
                 });
-        } else {
-            toast.success(" Session expirée , Veillez vous connecter !")
-            setTimeout(() => {
-                window.location.href = `/${routing.connexion_recuteur}`;
-            }, 2500);
-        }
+        
     };
 }
 

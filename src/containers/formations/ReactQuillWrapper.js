@@ -14,9 +14,14 @@ const ReactQuillWrapper = ({ value, onChange }) => {
     }
   }, [quill, onChange]);
 
-  return (
-    <div ref={quillRef} style={{ height: '200px' }} />
-  );
+  // Mettre à jour l'éditeur lorsqu'on charge une nouvelle valeur
+  useEffect(() => {
+    if (quill && value !== quill.root.innerHTML) {
+      quill.root.innerHTML = value || ''; // Évite d'afficher "undefined"
+    }
+  }, [value, quill]);
+
+  return <div ref={quillRef} style={{ height: '200px' }} />;
 };
 
 export default ReactQuillWrapper;
