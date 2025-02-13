@@ -68,16 +68,15 @@ const NavbarWeb = () => {
                                     <>
                                         <li><Link to={`/${routing.company_details}`} className="block px-4 py-2 hover:bg-indigo-100">Mon Profil</Link></li>
                                         <li><Link to={`/${routing.job_post}`} className="block px-4 py-2 hover:bg-indigo-100">Poster une offre</Link></li>
-                                        <li><Link to={`/${routing.candidature_list_recruteur}`} className="block px-4 py-2 hover:bg-indigo-100">Candidatures</Link></li>
+                                        <li><a href={`/${routing.candidature_list_recruteur}`} className="block px-4 py-2 hover:bg-indigo-100">Candidatures</a></li>
                                         <li><Link to={`/${routing.company_edit}`} className="block px-4 py-2 hover:bg-indigo-100">Mettre à jour profile</Link></li>
                                         <li><Link to={`/${routing.pricing}`} className="block px-4 py-2 hover:bg-indigo-100">Plan</Link></li>
                                         <li><a href={`/${routing.chat_on_line}`} className="block px-4 py-2 hover:bg-indigo-100">Discussions</a></li>
-
                                     </>
                                     :
                                     <>
                                         <li><Link to={`/${routing.candidat_details}`} className="block px-4 py-2 hover:bg-indigo-100">Mon Profil</Link></li>
-                                        <li><Link to={`/${routing.candidature_list}`} className="block px-4 py-2 hover:bg-indigo-100">Candidatures</Link></li>
+                                        <li><a href={`/${routing.candidature_list}`} className="block px-4 py-2 hover:bg-indigo-100">Candidatures</a></li>
                                         <li><Link to={`/${routing.candidat_details_blog}`} className="block px-4 py-2 hover:bg-indigo-100">Blog</Link></li>
                                         <li><Link to={`/${routing.pricing}`} className="block px-4 py-2 hover:bg-indigo-100">Plan </Link></li>
                                         <li><a href={`/${routing.chat_on_line}`} className="block px-4 py-2 hover:bg-indigo-100">Discussions</a></li>
