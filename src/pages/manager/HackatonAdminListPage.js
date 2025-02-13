@@ -37,6 +37,21 @@ export const HackatonAdminListPage = () => {
     });
 
     useEffect(() => {
+      const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setEditModalOpen(false);
+                setModalOpen(false);
+            }
+        };
+        
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [])
+    
+
+    useEffect(() => {
         // Fetch all hackathons
         const hackathonsList = getDataFromFile(localvalueStorage.HACKATHONLIST) || [];
         setHackathons(hackathonsList);
@@ -45,9 +60,12 @@ export const HackatonAdminListPage = () => {
         fetchAllHackathons(setHackathons)
 
     }, []);
-    useEffect(()=>{
+    useEffect(() => {
         setFilteredHackathons(hackathons)
-    },[hackathons])
+    }, [hackathons])
+
+
+    
 
     // Handle changement des champs de création / modification
     const handleChange = (e) => {
@@ -384,7 +402,7 @@ export const HackatonAdminListPage = () => {
                                 />
                                 {hackathonData.image && (
                                     <div className="mt-2">
-                                        <img src={hackathonData.image} alt="Prévisualisation" className="w-40 h-40 object-cover rounded" />
+                                        <img src={hackathonData.image} alt="Prévisualisation" className="w-16 h-16 object-cover rounded" />
                                         <p className="text-sm text-gray-500 mt-1">Photo téléchargée avec succès.</p>
                                     </div>
                                 )}
@@ -463,7 +481,7 @@ export const HackatonAdminListPage = () => {
                                         name="prize"
                                         value={newReward.prize}
                                         onChange={handleRewardChange}
-                                        placeholder="Récompense (e.g., 1000€)"
+                                        placeholder="Récompense (e.g., 1000XOF)"
                                         className="border rounded px-2 py-1 w-1/3"
                                     />
                                     <button
@@ -482,7 +500,7 @@ export const HackatonAdminListPage = () => {
                                             <span>
                                                 <strong>{reward.rank}</strong>: {reward.prize}
                                             </span>
-                                            <button
+                                            <button type="button"
                                                 onClick={() => removeReward(index)}
                                                 className="text-red-500 hover:text-red-600"
                                             >
@@ -530,7 +548,7 @@ export const HackatonAdminListPage = () => {
                                 />
                                 {hackathonData.image && (
                                     <div className="mt-2">
-                                        <img src={hackathonData.image} alt="Prévisualisation" className="w-40 h-40 object-cover rounded" />
+                                        <img src={hackathonData.image} alt="Prévisualisation" className="w-16 h-16 object-cover rounded" />
                                         <p className="text-sm text-gray-500 mt-1">Photo téléchargée avec succès.</p>
                                     </div>
                                 )}
@@ -599,7 +617,7 @@ export const HackatonAdminListPage = () => {
                                         name="prize"
                                         value={newReward.prize}
                                         onChange={handleRewardChange}
-                                        placeholder="Récompense (e.g., 1000€)"
+                                        placeholder="Récompense (e.g., 1000XOF)"
                                         className="border rounded px-2 py-1 w-1/3"
                                     />
                                     <button

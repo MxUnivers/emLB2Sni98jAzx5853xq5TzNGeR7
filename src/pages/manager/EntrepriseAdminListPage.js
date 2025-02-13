@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { EntrepriseGetAll } from "../../action/api/employeur/EmployeurAction";
-import { localvalueStorage } from "../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import moment from "moment";
+import { routing } from "../../utlis/routing";
+import { setWithExpiration } from "../../utlis/storage/localvalueFunction";
+import { useNavigate } from "react-router-dom";
 
 const EntrepriseAdminListPage = () => {
+    const navigate  =  useNavigate()
     const [entreprises, setEntreprises] = useState([]);
     const [entreprises2, setEntreprises2] = useState([]);
     const [filteredEntreprises, setFilteredEntreprises] = useState([]);
@@ -97,11 +101,15 @@ const EntrepriseAdminListPage = () => {
                                     <td className="py-3 px-6">
                                         {moment(entreprise.createdAt).format("DD/MM/YYYY")}
                                     </td>
-                                    <td className="py-3 px-6">
-                                        <button className="text-blue-600 hover:underline">
-                                            Voir
-                                        </button>
-                                    </td>
+                                    
+                                        <td className="py-3 px-6">
+                                            <button type="button"  className="bg-blue-600 hover:bg-blue-700 active:bg-bue-800 text-white px-3 py-2 rounded-3xl" onClick={() => {
+                                                setWithExpiration(localvalue.recruteurDetailID, entreprise?._id, dureeDeVie)
+                                                navigate(`/${routing.company_details_view}`)
+                                            }} > Details
+                                            </button>
+                                            </td>
+                                    
                                 </tr>
                             ))}
                         </tbody>

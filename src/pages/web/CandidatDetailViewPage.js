@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const CandidatDetailViewPage = () => {
-const idCandidat = getAndCheckLocalStorage(localvalue.candidatID);
+const idCandidat = getAndCheckLocalStorage(localvalue.candidatDetailID);
 const { isLoading, candidat } = useFetchCandidat(idCandidat);
 const { isLoadingEducation, candidatEducation } = useFetchEducation(idCandidat);
 const { isLoadingExperience, candidatExperience } = useFetchExperience(idCandidat);

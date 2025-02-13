@@ -33,9 +33,10 @@ const LoginAdminPage = () => {
 
             if (response.ok) {
                 toast.success("Connexion réussie");
-                console.log("Données administrateur:", data.admin);
-                sessionStorage.setItem(localvalue.ADMIN_CONNECTED_TYPE, data.role);
-                sessionStorage.setItem(localvalue.ADMIN_CONNECTED, data.token);
+                console.log("Données administrateur:", data);
+                sessionStorage.setItem(localvalue.ADMIN_CONNECTED_TYPE, data?.data.role);
+                sessionStorage.setItem(localvalue.ADMIN_CONNECTED, data?.token);
+                sessionStorage.setItem(localvalue.ADMIN_CONNECTED_ID, data?.data._id);
                 navigate(`/${routing.admin_dashboard}`);
             } else {
                 toast.error(data.message || "Erreur lors de la connexion");

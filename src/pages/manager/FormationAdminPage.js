@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { routing } from "../../utlis/routing";
 
 const FormationAdminListPage = () => {
-    const  navigate =  useNavigate();
+    const navigate = useNavigate();
     const [filteredFormations, setFilteredFormations] = useState([]);
     const [formations, setformations] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-   
+
     useEffect(() => {
         // Récupération initiale des données locales
         const getDataFormations = getDataFromFile(localvalueStorage.FORMATIONLIST) || [];
-        fetchFormationAll(setformations,setFilteredFormations)
+        fetchFormationAll(setformations, setFilteredFormations)
         setFilteredFormations(getDataFormations);
     }, []);
 
@@ -50,14 +50,23 @@ const FormationAdminListPage = () => {
                 </div>
 
                 {/* Barre de recherche */}
-                <div className="mb-6">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearch}
-                        placeholder="Rechercher une formation..."
-                        className="w-full md:w-1/2 border border-gray-300 rounded-lg p-2"
-                    />
+                <div className="w-full flex justify-between ">
+                    <div className="mb-6">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            placeholder="Rechercher une formation..."
+                            className="w-full md:w-1/2 border border-gray-300 rounded-lg p-2"
+                        />
+                    </div>
+                    <div>
+                        <button type="button" className="bg-blue-600 px-3 py-2 rounded-2xl hover:bg-blue-700 active:bg-blue-800 text-white" 
+                        onClick={() => { navigate(`/${routing.formation_add}`) }} >
+                            ajouter
+                        </button>
+                    </div>
+
                 </div>
 
                 {/* Tableau des formations */}
@@ -80,15 +89,15 @@ const FormationAdminListPage = () => {
                                         key={formation._id}
                                         className={`border-b ${index % 2 === 0 ? "bg-gray-50" : ""}`}
                                     >
-                                    <td className="py-3 px-6"><img src={formation.logo} class="h-[50px]  w-[50px]" /></td>
-                                    <td className="py-3 px-6">{formation.formationTitle}</td>
+                                        <td className="py-3 px-6"><img src={formation.logo} class="h-[50px]  w-[50px]" /></td>
+                                        <td className="py-3 px-6">{formation.formationTitle}</td>
                                         <td className="py-3 px-6">{formation.location || "N/A"}</td>
                                         <td className="py-3 px-6">{formation.dateCreation}</td>
                                         <td className="py-3 px-6">{formation.lastUpdated}</td>
                                         <td className="py-3 px-6">
                                             {/* Actions */}
-                                            <button className="text-blue-500" onClick={()=>{navigate(`/${routing.formation_edit}/${formation._id}`)}}>
-                                            Modifier
+                                            <button className="text-blue-500" onClick={() => { navigate(`/${routing.formation_edit}/${formation._id}`) }}>
+                                                Modifier
                                             </button>
                                         </td>
                                     </tr>

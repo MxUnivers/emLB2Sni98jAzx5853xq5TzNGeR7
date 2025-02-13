@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { getDataFromFile } from "../../action/storage/DataLocal";
-import { localvalueStorage } from "../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import moment from "moment";
 import { OffreGetAllOffre } from "../../action/api/offres/OffresAction";
+import { useNavigate } from "react-router-dom";
+import { routing } from "../../utlis/routing";
+import { setWithExpiration } from "../../utlis/storage/localvalueFunction";
 
 const JobAdminListPage = () => {
+    const navigate = useNavigate();
     const [filteredJobs, setFilteredJobs] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [jobs, setjobs] = useState([]);
     const [jobs2, setjobs2] = useState([])
-    const [error, seterror] = useState(false); 
+    const [error, seterror] = useState(false);
 
     const [isLoading, setisLoading] = useState(false)
 
     useEffect(() => {
         // Récupération initiale des données locales et initialisation des données filtrées
         const localData = getDataFromFile(localvalueStorage.EMPLOISLIST) || [];
-        OffreGetAllOffre(setjobs, setjobs2).then(() => {
-            setisLoading(false);
-            seterror(false);
-        });
+        setFilteredJobs(localData)
+        OffreGetAllOffre(setjobs, setFilteredJobs)
         setFilteredJobs(jobs || localData);
-    }, [jobs]);
+    }, []);
 
     const handleSearch = (e) => {
         const value = e.target.value.toLowerCase();
@@ -30,7 +32,10 @@ const JobAdminListPage = () => {
         const filtered = jobs.filter(
             (job) =>
                 job.title.toLowerCase().includes(value) ||
-                job.areaPost.toLowerCase().includes(value)
+                job.areaOffre.toLowerCase().includes(value) ||
+                job.addresse.toLowerCase().includes(value) ||
+                job.typeContrat.toLowerCase().includes(value) 
+                // job.areaPost.toLowerCase().includes(value)
         );
         setFilteredJobs(filtered);
     };
@@ -90,15 +95,14 @@ const JobAdminListPage = () => {
                                 filteredJobs.map((job, index) => (
                                     <tr
                                         key={job._id}
-                                        className={`border-b ${
-                                            index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                                        }`}
+                                        className={`border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                                            }`}
                                     >
                                         <td className="py-3 px-6">{job.title}</td>
-                                        <td className="py-3 px-6">{job.areaOffre ||""}</td>
-                                        <td className="py-3 px-6">{job.salaire ||""}</td>
-                                        <td className="py-3 px-6">{job.typeContrat ||""}</td>
-                                        <td className="py-3 px-6">{job.addresse ||""}</td>
+                                        <td className="py-3 px-6">{job.areaOffre || ""}</td>
+                                        <td className="py-3 px-6">{job.salaire || ""}</td>
+                                        <td className="py-3 px-6">{job.typeContrat || ""}</td>
+                                        <td className="py-3 px-6">{job.addresse || ""}</td>
                                         <td className="py-3 px-6">
                                             {moment(job.dateCreation).format("DD/MM/YYYY")}
                                         </td>
@@ -106,11 +110,13 @@ const JobAdminListPage = () => {
                                             {moment(job.dateModification).format("DD/MM/YYYY")}
                                         </td>
                                         <td className="py-3 px-6">
-                                            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                                                Modifier
-                                            </button>
-                                            <button className="bg-red-500 text-white px-4 py-2 ml-2 rounded hover:bg-red-600">
-                                                Supprimer
+                                            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                                onClick={() => {
+                                                    setWithExpiration(localvalue.JobID, job?._id, dureeDeVie)
+                                                    navigate(`/${routing.job_details}`)
+                                                }}
+                                            >
+                                                Details
                                             </button>
                                         </td>
                                     </tr>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from "react-icons/ai";
 import { routing } from '../../utlis/routing';
@@ -120,33 +120,35 @@ const ListEmploisWebPage = () => {
                 </div>
 
                 <main className="flex min-h-[500px] w-full items-start mt-10 justify-center bg-white px-5">
-                    <div className="grid grid-cols-4 gap-10 justify-center flex-wrap items-center py-3">
+                    <div className="flex flex-wrap grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6 justify-center items-center py-3">
                         {
                             isLoading ?
                                 <LoadingCompo1 text={"Des offres d'emplois fait pour vous ...."} />
                                 :
-                                currentItems && currentItems.length > 0 ?
+                                currentItems && currentItems.length > 0 ? (
                                     currentItems.map((item, index) => (
                                         <JobCard key={index} data={item} />
                                     ))
-                                    :
-                                    <div className="h-min-[500px] flex justify-center">
+                                ) : (
+                                    <div className="h-min-[500px] flex justify-center col-span-full">
                                         <p>Aucune offre trouvée</p>
                                     </div>
+                                )
                         }
                     </div>
                 </main>
+
                 <div className="flex justify-center mt-8 space-x-4 pb-36">
-                    <button 
-                        onClick={handlePreviousPage} 
-                        disabled={currentPage === 1} 
+                    <button
+                        onClick={handlePreviousPage}
+                        disabled={currentPage === 1}
                         className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
                     >
                         Précédent
                     </button>
-                    <button 
-                        onClick={handleNextPage} 
-                        disabled={currentPage === totalPages} 
+                    <button
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
                         className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
                     >
                         Suivant

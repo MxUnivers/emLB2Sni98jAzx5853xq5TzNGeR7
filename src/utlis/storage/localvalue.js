@@ -46,6 +46,7 @@ export const localvalue = {
     customer_pack_id:"customer_pack_id",
     customer_transaction_id :"customer_transaction_id",
 
+    ADMIN_CONNECTED_ID :"ADMIN_CONNECTED_ID",
     ADMIN_CONNECTED :"ADMIN_CONNECTED",
     ADMIN_CONNECTED_TYPE :"ADMIN_CONNECTED_TYPE",
 
@@ -75,6 +76,7 @@ export const localvalueStorage = {
     EMPLOISLISTGET:"EMPLOISLISTGET",
     EMPLOISRECRUTEUR:"EMPLOISRECRUTEUR",
     CANIDATURESLIST:"CANIDATURESLIST",
+    CONTACTS:"CONTACTS",
     MESSAGE:"MESSAGE",
 }
 

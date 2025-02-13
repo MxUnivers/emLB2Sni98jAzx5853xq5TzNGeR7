@@ -8,12 +8,20 @@ import { HackatonAdminListPage } from "./manager/HackatonAdminListPage";
 import { localvalue } from "../utlis/storage/localvalue";
 import { Navigate, useNavigate } from "react-router-dom";
 import { routing } from "../utlis/routing";
+import ContactAdminPage from "./manager/ContactAdminPage";
 
 const AdminTabs = () => {
+    const adminId = sessionStorage.getItem(localvalue.ADMIN_CONNECTED_ID);
+    const adminType = sessionStorage.getItem(localvalue.ADMIN_CONNECTED_TYPE);
+    const adminToken = sessionStorage.getItem(localvalue.ADMIN_CONNECTED);
     const navigate = useNavigate()
-    const [activeTab, setActiveTab] = useState("paiements");
+    const [activeTab, setActiveTab] = useState(adminType == "super_admin" ? "paiements":"candidats");
 
-    if (!sessionStorage.getItem(localvalue.ADMIN_CONNECTED)) {
+
+    
+
+
+    if (!adminToken) {
         return <Navigate to={`/${routing.admin_login}`} />
     } else {
         return (
@@ -26,7 +34,9 @@ const AdminTabs = () => {
 
                     {/* Tabs Navigation */}
                     <div className="flex flex-wrap md:flex-nowrap border-b border-gray-300">
-                        <button
+                    {
+                        adminType == "super_admin" && (
+                            <button
                             className={`flex-1 py-2 text-center font-semibold ${activeTab === "paiements"
                                 ? "border-b-4 border-blue-600 text-blue-600"
                                 : "text-gray-500"
@@ -35,6 +45,9 @@ const AdminTabs = () => {
                         >
                             Paiements
                         </button>
+                        )
+                    }
+                        
                         <button
                             className={`flex-1 py-2 text-center font-semibold ${activeTab === "candidats"
                                 ? "border-b-4 border-blue-600 text-blue-600"
@@ -137,10 +150,7 @@ const AdminTabs = () => {
 
                         {activeTab === "contacts" && (
                             <div>
-                                <h2 className="text-xl font-bold text-gray-800">Contact</h2>
-                                <p className="text-gray-600 mt-2">
-                                    Consultez les message envoyés sur la plateforme
-                                </p>
+                                <ContactAdminPage/>
                             </div>)
                         }
 

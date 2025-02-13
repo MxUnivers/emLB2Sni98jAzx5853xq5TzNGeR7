@@ -121,7 +121,7 @@ const ChatPage = () => {
 
 
     return (
-        <div class="sticky top-20 z-50 bg-white">
+        <div class="sticky top-20 z-40 bg-white">
             {
                 (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[2]) ||
                     (candidat && candidat && candidat.account && candidat.account.pack && candidat.account.pack == statusPACKS[1]) ||
@@ -139,7 +139,7 @@ const ChatPage = () => {
                                         <div
                                             key={conversation._id}
                                             onClick={() => fetchMessages(conversation._id)}
-                                            className={`flex items-center p-2 hover:bg-gray-100 hover:text-gray-800 cursor-pointer ${currentConversationId === conversation._id ? "bg-indigo-500 text-white hover:text-gray-800 " : "text-gray-800 hover:text-gray-800"}`}
+                                            className={`flex items-center p-2 hover:bg-gray-100 hover:text-gray-800 cursor-pointer rounded-3xl ${currentConversationId === conversation._id ? "bg-indigo-500 text-white hover:text-gray-800 " : "text-gray-800 hover:text-gray-800"}`}
                                         >
                                             <span className="h-[50px] w-[50px] rounded-[50%] overflow-hidden">
                                                 <img src={conversation.participants

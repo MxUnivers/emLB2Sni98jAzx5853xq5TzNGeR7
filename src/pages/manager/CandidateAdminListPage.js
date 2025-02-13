@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { CandidatGetAll } from "../../action/api/candidat/CandidatAction";
-import { localvalueStorage } from "../../utlis/storage/localvalue";
+import { dureeDeVie, localvalue, localvalueStorage } from "../../utlis/storage/localvalue";
 import { getDataFromFile } from "../../action/storage/DataLocal";
 import moment from "moment";
+import { routing } from "../../utlis/routing";
+import { setWithExpiration } from "../../utlis/storage/localvalueFunction";
+import { useNavigate } from "react-router-dom";
 
 const CandidateAdminListPage = () => {
+    const navigate =  useNavigate()
     const [candidats, setCandidats] = useState([]);
     const [candidats2, setCandidats2] = useState([]);
     const [filteredCandidates, setFilteredCandidates] = useState([]);
@@ -15,11 +19,11 @@ const CandidateAdminListPage = () => {
         const getDataCandidats = getDataFromFile(localvalueStorage.CANDIDATS) || [];
         setCandidats(getDataCandidats);
         setFilteredCandidates(getDataCandidats); // Initialisation de la liste filtrée
-    
+
         // Appel à l'API pour mettre à jour les données des candidats
         CandidatGetAll(setCandidats, setFilteredCandidates);
     }, []); // Utilisation de `[]` pour appeler une seule fois à l'initialisation.
-    
+
 
     // setFilteredCandidates(candidats2);
 
@@ -44,11 +48,11 @@ const CandidateAdminListPage = () => {
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Compte candidat</h1>
 
                 <div className="bg-white border border-gray-200 p-1 rounded-lg shadow">
-                <h3 className="text-gray-800 font-semibold text-lg mb-2">Nombres</h3>
-                <p className="text-gray-600 text-2xl font-bold">
-                    {filteredCandidates.length}
-                </p>
-            </div>
+                    <h3 className="text-gray-800 font-semibold text-lg mb-2">Nombres</h3>
+                    <p className="text-gray-600 text-2xl font-bold">
+                        {filteredCandidates.length}
+                    </p>
+                </div>
 
                 {/* Barre de recherche */}
                 <div className="mb-6">
@@ -72,7 +76,8 @@ const CandidateAdminListPage = () => {
                                 <th className="py-3 px-6 text-left">Email</th>
                                 <th className="py-3 px-6 text-left">Téléphone</th>
                                 <th className="py-3 px-6 text-left">Date inscription</th>
-                                <th className="py-3 px-6 text-left">Date Mise ajour</th>
+                                <th className="py-3 px-6 text-left">Date Mise a jour</th>
+                                <th className="py-3 px-6 text-left">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,24 +85,30 @@ const CandidateAdminListPage = () => {
                                 filteredCandidates.map((candidate, index) => (
                                     <tr
                                         key={index}
-                                        className={`border-b ${
-                                            index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                                        }`}
+                                        className={`border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                                            }`}
                                     >
-                                    <td className="py-3 px-6"><img src={candidate.coverPicture} class="h-[50px] w-[50px] rounded-full "/></td>
+                                        <td className="py-3 px-6"><img src={candidate.coverPicture} class="h-[50px] w-[50px] rounded-full " /></td>
 
                                         <td className="py-3 px-6">{candidate.firstname}</td>
                                         <td className="py-3 px-6">{candidate.lastname}</td>
                                         <td className="py-3 px-6">{candidate.email || "N/A"}</td>
-                                        <td className="py-3 px-6"> {candidate.codePostal|| "N/A"} {candidate.telephone|| "N/A"}</td>
-                                        <td className="py-3 px-6"> {moment(candidate.createdAt).format("DD-MM-YYYY HH:MM")|| "N/A"}</td>
-                                        <td className="py-3 px-6"> {moment(candidate.updatedAt).format("DD-MM-YYYY HH:MM")|| "N/A"}</td>
+                                        <td className="py-3 px-6"> {candidate.codePostal || "N/A"} {candidate.telephone || "N/A"}</td>
+                                        <td className="py-3 px-6"> {moment(candidate.createdAt).format("DD-MM-YYYY HH:MM") || "N/A"}</td>
+                                        <td className="py-3 px-6"> {moment(candidate.updatedAt).format("DD-MM-YYYY HH:MM") || "N/A"}</td>
+                                        <td className="py-3 px-6">
+                                            <button type="button"  className="bg-blue-600 hover:bg-blue-700 active:bg-bue-800 text-white px-3 py-2 rounded-3xl" onClick={() => {
+                                                setWithExpiration(localvalue.candidatDetailID, candidate?._id, dureeDeVie)
+                                                navigate(`/${routing.candidat_details_view}`)
+                                            }} > Details
+                                            </button>
+                                            </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
                                     <td
-                                        colSpan="4"
+                                        colSpan="5"
                                         className="py-3 px-6 text-center text-gray-500"
                                     >
                                         Aucun candidat trouvé.
