@@ -41,9 +41,9 @@ const StartupSuccessPage = () => {
 
 
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 w-full mb-11 rounded-2xl">
-          <div className="w-full mx-auto px-4">
-            <div className="flex flex-wrap md:flex-wrap items-center justify-between">
-              <div className="md:w-1/2 mb-8 md:mb-0">
+          <div className="w-full mx-10 px-4  overflow-x-scroll">
+            <div className=" flex flex-wrap sm:flex-wrap md:flex-wrap lg:flex-wrap items-center justify-between">
+              <div className="md:w-1/2 mb-8 md:mb-0 p-3">
                 <h2 className="text-4xl font-bold mb-4">
                   Le plus grand incubateur virtuel de l{"'"}Afrique
                 </h2>
@@ -57,7 +57,7 @@ const StartupSuccessPage = () => {
                   Rejoignez-nous
                 </button> */}
               </div>
-              <div className="md:w-1/3">
+              <div className="md:w-1/2">
                 <img
                   src="incubateur.jpg"
                   alt="Incubateur Virtuel Africain"
@@ -118,7 +118,7 @@ const StartupSuccessPage = () => {
         </div>
 
         {/* Avantages et Statistiques */}
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-16">
           {/* Carte Statistique */}
           <div className="text-center bg-gradient-to-br from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-4xl font-bold text-white">200+</h3>
@@ -297,7 +297,7 @@ const StartupAdvantages = () => {
         </div>
 
         {/* Avantages */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {/* Avantage 1 */}
           <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
             <FaUsers className="text-indigo-600 text-6xl mx-auto mb-4" />
@@ -425,7 +425,7 @@ const JoumanStartupInsights = () => {
 
       {/* Section Insights */}
       <div className=" py-16">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
+        <div className="max-w-7xl mx-10 px-6 sm:px-12 lg:px-24">
           <h2 className="text-4xl font-bold text-white text-center mb-12">
             Des données qui parlent d{"'"}elles-mêmes 📊
           </h2>
@@ -455,15 +455,15 @@ const JoumanStartupInsights = () => {
 
       {/* Avantages pour les Startups */}
       <div className=" text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
+        <div className="max-w-7xl mx-10 px-6 sm:px-12 lg:px-24">
           <h2 className="text-4xl font-bold text-center mb-12">
             Pourquoi choisir Jouman ? 💡
           </h2>
 
           {/* Avantages */}
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
             <div className="text-center p-6 bg-indigo-700 rounded-lg shadow-lg hover:shadow-xl transition">
-              <FaChartLine className="text-yellow-400 text-6xl mx-auto mb-4" />
+              <FaChartLine className="text-yellow-400 text-6xl mx-10 mb-4" />
               <h3 className="text-xl font-bold mb-2">Données claires</h3>
               <p class="text-white">
                 Suivez vos performances en temps réel et améliorez vos chances
@@ -471,7 +471,7 @@ const JoumanStartupInsights = () => {
               </p>
             </div>
             <div className="text-center p-6 bg-indigo-700 rounded-lg shadow-lg hover:shadow-xl transition">
-              <FaSeedling className="text-green-400 text-6xl mx-auto mb-4" />
+              <FaSeedling className="text-green-400 text-6xl mx-10 mb-4" />
               <h3 className="text-xl font-bold mb-2">Croissance rapide</h3>
               <p class="text-white">
                 Accédez à des ressources et à un réseau pour accélérer votre
@@ -479,7 +479,7 @@ const JoumanStartupInsights = () => {
               </p>
             </div>
             <div className="text-center p-6 bg-indigo-700 rounded-lg shadow-lg hover:shadow-xl transition">
-              <FaRegLightbulb className="text-yellow-400 text-6xl mx-auto mb-4" />
+              <FaRegLightbulb className="text-yellow-400 text-6xl mx-10 mb-4" />
               <h3 className="text-xl font-bold mb-2">Visibilité accrue</h3>
               <p class="text-white">
                 Positionnez votre projet devant des investisseurs du monde

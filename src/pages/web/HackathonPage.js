@@ -187,7 +187,7 @@ const HackathonPage = () => {
             <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
               Nos Prochains Hackathons 🚀
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
+            <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
               {/* Génération dynamique des Hackathons */}
               {hackatonsCompetitions.map((hackathon, index) => (
                 <div
@@ -236,7 +236,7 @@ const HackathonPage = () => {
 
 
         {/* Avantages et Statistiques */}
-        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-8 mb-16 mt-5">
+        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16 mt-5">
           {/* Statistiques Dynamiques */}
           <div className="text-center bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-5xl font-bold text-white">500+</h3>

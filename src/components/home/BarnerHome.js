@@ -9,6 +9,8 @@ import './BarnerHome.css';
 
 const BarnerHome = () => {
 
+    const navigate = useNavigate();
+
     const bgImg1 = "img/gens-plan-moyen-obtenant-leur-diplome.jpg"
     const ImagList = [
         {
@@ -28,7 +30,6 @@ const BarnerHome = () => {
         }
     ]
 
-    const navigate = useNavigate();
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -54,17 +55,17 @@ const BarnerHome = () => {
 
         <section className="hero">
             <video className="background-video" autoPlay loop muted>
-                <source src="assets/presenation.mp4" type="video/mp4" />
+                <source src="jouman_presentation.mp4" type="video/mp4"  />
                 Your browser does not support the video tag.
             </video>
             <div className="overlay"></div> {/* Overlay effect */}
             <div className="hero-content">
                 <h1>Jouman</h1>
                 <h2>Premier site africain de mécénat de compétences.
-                Recherche</h2>
+                    Recherche</h2>
                 <div className="search-bar">
-                    <input type="text" placeholder="Rechercher..." />
-                    <button>🔍</button>
+                    <div><button type="button" onClick={() => { }} className="px-2 px-3 rounded-3xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800">Commencer</button>
+                    </div>
                 </div>
                 <div className="certification">
                     <img src="qualiopi.png" alt="" />
