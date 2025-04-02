@@ -36,6 +36,7 @@ const NavbarWeb = () => {
                 <li><Link to={`/${routing.startupspage}`} className={location.pathname === `/${routing.startupspage}` ? 'text-indigo-600 font-bold' : ''}>Startup-Land</Link></li>
                 <li><Link to={`/${routing.hackatonupspage}`} className={location.pathname === `/${routing.hackatonupspage}` ? 'text-indigo-600 font-bold' : ''}>Hackathon-land</Link></li>
                 <li><Link to={`/${routing.formation_list}`} className={location.pathname === `/${routing.formation_list}` ? 'text-indigo-600 font-bold' : ''}>Formations</Link></li>
+                <li><Link to={`/${routing.jeune_entrepreneurs}`} className={location.pathname === `/${routing.jeune_entrepreneurs}` ? 'text-indigo-600 font-bold' : ''}>Jeunes-entrepreneurs</Link></li>
                 <li><Link to={`/${routing.human4aiall}`} className={location.pathname === `/${routing.human4aiall}` ? 'text-indigo-600 font-bold' : ''}>Human Ai</Link></li>
                 <li><Link to={`/${routing.bourse_list}`} className={location.pathname === `/${routing.bourse_list}` ? 'text-indigo-600 font-bold' : ''}>Bourses</Link></li>
                 <li><Link to={`/${routing.aboutus}`} className={location.pathname === `/${routing.aboutus}` ? 'text-indigo-600 font-bold' : ''}>Qui sommes-nous</Link></li>
@@ -119,6 +120,7 @@ const NavbarWeb = () => {
                 <li><Link to={`/${routing.startupspage}`} className={location.pathname === `/${routing.startupspage}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Startup-Land</Link></li>
                 <li><Link to={`/${routing.hackatonupspage}`} className={location.pathname === `/${routing.hackatonupspage}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Hackathon-land</Link></li>
                 <li><Link to={`/${routing.formation_list}`} className={location.pathname === `/${routing.formation_list}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Formations</Link></li>
+                <li><Link to={`/${routing.jeune_entrepreneurs}`} className={location.pathname === `/${routing.jeune_entrepreneurs}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Jeunes-ntrepreneurs</Link></li>
                 <li><Link to={`/${routing.human4aiall}`} className={location.pathname === `/${routing.human4aiall}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Human Ai</Link></li>
                 <li><Link to={`/${routing.bourse_list}`} className={location.pathname === `/${routing.bourse_list}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Bourses</Link></li>
                 <li><Link to={`/${routing.aboutus}`} className={location.pathname === `/${routing.aboutus}` ? 'text-indigo-600 font-bold' : ''} onClick={toggleSidebar} >Qui sommes-nous</Link></li>

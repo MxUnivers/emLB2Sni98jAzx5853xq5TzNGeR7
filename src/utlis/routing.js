@@ -8,6 +8,8 @@ export const routing = {
     pricing:"pricing",
     faq:"faq_&_plateforme",
     contact:"contact_us",
+    jeune_entrepreneurs:"jeunes-entrepreneurs",
+
 
     bourse_add_request:"demande-de-bourse",
     chat_on_line:"chat-discussion",

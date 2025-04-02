@@ -50,6 +50,7 @@ import HackathonDetailPage from "./pages/web/HackathonDetailPage";
 import Human4AiPage from "./pages/web/Human4AiPage";
 import LoginAdminPage from "./pages/LoginAdminPage";
 import FormationUpdatePage from "./pages/web/FormationUpdatePage";
+import JeuneEntrepreurPage from "./pages/web/JeuneEntrepreurPage";
 
 
 
@@ -124,7 +125,7 @@ function App() {
             {/*Manage Pring */}
             <Route path={`${routing.pricing}`} element={<PrincingPage />} />
             <Route path={`${routing.checkout}`} element={<CheckOutPage />} />
-
+            <Route path={`${routing.jeune_entrepreneurs}`} element={<JeuneEntrepreurPage />} />
             {/*Others */}
             <Route path={`${routing.aboutus}`} element={<AboutusPage />} />
             <Route path={`${routing.contact}`} element={<ContactPage />} />
