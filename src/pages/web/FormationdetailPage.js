@@ -166,7 +166,7 @@ const FormationdetailPage = () => {
                             </div>
                         </section>
                         :
-                        <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} `} message={"Cette Fonctionnalité est reservé au premuim"} route={`${routing.pricing}`} />
+                        <ErrorPrincing title={`Participation à la formation  ${formation && formation.formationTitle ? formation.formationTitle : ''} `} message={"Cette Fonctionnalité pack suppérieur GOLD et SILVER"} route={`${routing.pricing}`} />
                 }
             </div>
         </div>
