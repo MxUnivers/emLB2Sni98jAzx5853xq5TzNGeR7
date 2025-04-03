@@ -1,33 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { recentArticles } from '../../utlis/dataApi';
 
 // Données d'exemple pour les articles
-const articles = [
-  {
-    id: 1,
-    title: 'Comment démarrer une startup à succès',
-    description:
-      "Découvrez les étapes clés pour lancer votre entreprise. Depuis la recherche de financement jusqu'à la mise en place d'une équipe solide, cet article vous guide pas à pas.",
-    image: 'https://images.pexels.com/photos/933964/pexels-photo-933964.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    author: 'John Doe',
-    date: '19 Jan 2024',
-    tags: ['Startup', 'Business'],
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec nisi vel justo bibendum bibendum. Sed euismod, nisl nec tincidunt lacinia, nunc nisl aliquam nunc, vitae aliquam nunc nisl vitae nunc. Sed euismod, nisl nec tincidunt lacinia, nunc nisl aliquam nunc, vitae aliquam nunc nisl vitae nunc.",
-  },
-  {
-    id: 2,
-    title: 'Les outils essentiels pour les jeunes entrepreneurs',
-    description:
-      "Explorez les meilleurs outils pour booster votre activité. De la gestion de projet à l'automatisation, découvrez comment optimiser votre workflow.",
-    image: 'https://images.pexels.com/photos/8770083/pexels-photo-8770083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    author: 'Jane Smith',
-    date: '20 Jan 2024',
-    tags: ['Tools', 'Entrepreneurship'],
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec nisi vel justo bibendum bibendum. Sed euismod, nisl nec tincidunt lacinia, nunc nisl aliquam nunc, vitae aliquam nunc nisl vitae nunc. Sed euismod, nisl nec tincidunt lacinia, nunc nisl aliquam nunc, vitae aliquam nunc nisl vitae nunc.",
-  },
-];
+const articles = recentArticles;
 
 function JeuneEntrepreurDetailPage() {
   // Récupérer l'ID de l'article depuis les paramètres d'URL
@@ -46,7 +22,7 @@ function JeuneEntrepreurDetailPage() {
   }
 
   return (
-    <div className="container-fluid mx-auto py-8 bg-gradient-to-l from-indigo-900 via-indigo-900 to-black ">
+    <div className="container-fluid mx-auto py-8  ">
       {/* Image */}
       <img src={article.image} alt={article.title} className="w-full pt-[50px] h-[400px] object-cover rounded-lg mb-4" />
 
@@ -64,7 +40,7 @@ function JeuneEntrepreurDetailPage() {
 
         {/* Contenu principal */}
         <div className="text-gray-700 mb-6">
-          <p>{article.content}</p>
+          <div dangerouslySetInnerHTML={{ __html: article.content }} />
         </div>
 
         {/* Tags */}

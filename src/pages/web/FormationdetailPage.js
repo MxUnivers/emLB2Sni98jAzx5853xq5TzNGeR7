@@ -119,42 +119,47 @@ const FormationdetailPage = () => {
                                             {
                                                 formation && formation.description ?
                                                     <div className="space-y-4">
-                                                        <p>{formation.description}</p>
+                                                        <p>{formation?.description|| ""}</p>
                                                     </div>
                                                     : ""
                                             }
                                         </div>
                                         {
-                                            formation.modules.map((item, index) => {
-                                                return (
-                                                    <div className="my-5">
-                                                        <div className="space-y-6">
-                                                            <h2 className="text-2xl font-bold text-gray-800  md:text-2xl">
-                                                                {item.moduleLabel ? `module ${index + 1}  : `.toLocaleUpperCase() : ""}
-                                                                {item.moduleLabel} </h2>
+                                            formation.modules.length > 0 ?
+                                                formation.modules.map((item, index) => {
+                                                    return (
+                                                        <div className="my-5">
+                                                            <div className="space-y-6">
+                                                                <h2 className="text-2xl font-bold text-gray-800  md:text-2xl">
+                                                                    {item.moduleLabel ? `module ${index + 1}  : `.toLocaleUpperCase() : ""}
+                                                                    {item.moduleLabel} </h2>
+                                                            </div>
+                                                            {
+                                                                item.lecons.length > 0 ?
+                                                                    item.lecons.map((item, index) => {
+                                                                        return (
+                                                                            <div className="space-y-10">
+                                                                                <h2 className="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> L {index + 1} :  {item.leconTitle}</h2>
+                                                                                {
+                                                                                    item && item.coverPicture ?
+                                                                                        <div className="grid grid-cols-1 lg:ml-1 xl:mx-5">
+                                                                                            <img className="h-96 w-full rounded-2xl object-cover" src={item.coverPicture}
+                                                                                                alt="abstract background" width="1556" height="778" />
+                                                                                        </div> : null
+                                                                                }
+                                                                                <div className="space-y-4">
+                                                                                    <div className="mt-10 mb-10" dangerouslySetInnerHTML={{ __html: item.leconContent }} />
+                                                                                </div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                    :""
+                                                                
+                                                            }
                                                         </div>
-                                                        {
-                                                            item.lecons.map((item, index) => {
-                                                                return (
-                                                                    <div className="space-y-10">
-                                                                        <h2 className="text-lg  text-gray-800 dark:text-white md:text-xl font-bold"> L {index + 1} :  {item.leconTitle}</h2>
-                                                                        {
-                                                                            item && item.coverPicture ?
-                                                                                <div className="grid grid-cols-1 lg:ml-1 xl:mx-5">
-                                                                                    <img className="h-96 w-full rounded-2xl object-cover" src={item.coverPicture}
-                                                                                        alt="abstract background" width="1556" height="778" />
-                                                                                </div> : null
-                                                                        }
-                                                                        <div className="space-y-4">
-                                                                            <div className="mt-10 mb-10" dangerouslySetInnerHTML={{ __html: item.leconContent }} />
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                )
-                                            })
+                                                    )
+                                                })
+                                            :""
                                         }
                                     </div>
                                 </div>

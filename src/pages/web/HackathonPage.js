@@ -79,11 +79,11 @@ const HackathonPage = () => {
     <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
 
       {/* Conteneur Principal */}
-      <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
+      <div className="max-w-full mx-5 px-6 sm:px-12 lg:px-24 mt-20">
 
 
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 rounded-2xl mb-11 shadow-2xl mb-20">
-          <div className="container mx-auto px-4">
+        <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 rounded-2xl mb-11 shadow-2xl mb-20">
+          <div className="container mx-1 px-4">
             <div className="flex flex-wrap md:flex-row items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0">
                 <h1 className="text-4xl font-bold mb-4">
@@ -113,7 +113,7 @@ const HackathonPage = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="w-full grid md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-center mb-4 text-indigo-800">
               Thèmes des Hackathons 2024-2025
@@ -183,11 +183,11 @@ const HackathonPage = () => {
 
         {/* Compétitions à venir */}
         <section className="py-16 bg-slate-950">
-          <div className="container mx-0 px-6">
+          <div className="container-fluid  mx-0 px-6">
             <h2 className="text-4xl font-extrabold text-white mb-12 text-center">
               Nos Prochains Hackathons 🚀
             </h2>
-            <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 flex-wrap justify-center ">
+            <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-center item-center gap-5 w-full ">
               {/* Génération dynamique des Hackathons */}
               {hackatonsCompetitions.map((hackathon, index) => (
                 <div
@@ -236,7 +236,7 @@ const HackathonPage = () => {
 
 
         {/* Avantages et Statistiques */}
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16 mt-5">
+        <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-center item-center gap-8 w-full mb-16 mt-5">
           {/* Statistiques Dynamiques */}
           <div className="text-center bg-gradient-to-br from-indigo-500 to-indigo-700 p-8 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-5xl font-bold text-white">500+</h3>

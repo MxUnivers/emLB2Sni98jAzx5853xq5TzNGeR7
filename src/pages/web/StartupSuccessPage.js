@@ -35,13 +35,13 @@ const StartupSuccessPage = () => {
   return (
     <div className="bg-gradient-to-l from-indigo-700 via-indigo-800 to-black py-16 pt-20">
       {/* Conteneur Principal */}
-      <div className="max-w-full mx-10 px-6 sm:px-12 lg:px-24 mt-20">
+      <div className="max-w-full mx-10 px-2 sm:px-10 lg:px-10 mt-20">
         {/* En-tête */}
 
 
 
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 w-full mb-11 rounded-2xl">
-          <div className="w-full mx-10 px-4  overflow-x-scroll">
+          <div className="w-full mx-1 px-4  overflow-x-scroll">
             <div className=" flex flex-wrap sm:flex-wrap md:flex-wrap lg:flex-wrap items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0 p-3">
                 <h2 className="text-4xl font-bold mb-4">
@@ -118,24 +118,24 @@ const StartupSuccessPage = () => {
         </div>
 
         {/* Avantages et Statistiques */}
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-16">
+        <div className="mb-16 flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-center item-center gap-3 w-full ">
           {/* Carte Statistique */}
-          <div className="text-center bg-gradient-to-br from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
+          <div className="col-md-3 text-center bg-gradient-to-br from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-4xl font-bold text-white">200+</h3>
             <p className="mt-2 text-gray-100">Startups ayant rejoint Jouman</p>
           </div>
-          <div className="text-center bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
+          <div className="col-md-3 text-center bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-4xl font-bold text-white">150+</h3>
             <p className="mt-2 text-gray-100">Projets transformés en succès</p>
           </div>
-          <div className="text-center bg-gradient-to-br from-indigo-400 to-indigo-600 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
+          <div className="col-md-3 text-center bg-gradient-to-br from-indigo-400 to-indigo-600 p-6 rounded-lg shadow-lg hover:scale-105 transform transition duration-300">
             <h3 className="text-4xl font-bold text-white">95%</h3>
             <p className="mt-2 text-gray-100">Taux de satisfaction des startups</p>
           </div>
         </div>
 
         {/* Vidéo de Présentation */}
-        <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
+        <div className="flex flex-col lg:flex-row items-center gap-8 mb-16 w-full">
           {/* Vidéo */}
           <div className="w-full lg:w-1/2">
             <ReactPlayer
@@ -283,8 +283,8 @@ const StartupTestimonialCarousel = () => {
 
 const StartupAdvantages = () => {
   return (
-    <div className=" text-white py-16">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24">
+    <div className="container-fluid flex flex-col justify-center items-center text-white py-16">
+      <div className="max-w-7xl mx-1 px-6 sm:px-10 lg:px-10 justify-center item-center">
         {/* En-tête */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
@@ -297,9 +297,9 @@ const StartupAdvantages = () => {
         </div>
 
         {/* Avantages */}
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-8">
           {/* Avantage 1 */}
-          <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+          <div className="col-md-3 text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
             <FaUsers className="text-indigo-600 text-6xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Accédez à un réseau mondial</h3>
             <p className="text-gray-600">
@@ -309,7 +309,7 @@ const StartupAdvantages = () => {
           </div>
 
           {/* Avantage 2 */}
-          <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+          <div className="col-md-3 text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
             <FaLightbulb className="text-yellow-400 text-6xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Présentez votre projet</h3>
             <p className="text-gray-600">
@@ -319,7 +319,7 @@ const StartupAdvantages = () => {
           </div>
 
           {/* Avantage 3 */}
-          <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+          <div className="col-md-3 text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
             <FaHandshake className="text-green-400 text-6xl mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Trouvez les bons partenaires</h3>
             <p className="text-gray-600">
@@ -329,9 +329,9 @@ const StartupAdvantages = () => {
           </div>
 
           {/* Avantage 4 */}
-          <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
+          <div className="col-md-3 text-center bg-white text-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition">
             <FaRocket className="text-red-500 text-6xl mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2">Faites rêver les investisseurs</h3>
+            <h3 className="text-xl font-bold mb-2">Trouver des investisseurs</h3>
             <p className="text-gray-600">
               Transformez votre vision en réalité et révolutionnez votre
               secteur grâce au soutien de Jouman.
